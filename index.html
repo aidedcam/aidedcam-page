@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CAD/CAM Automation</title>
   <style>
+    :root {
+      --primary: #0a2a66;
+      --secondary: #00b4d8;
+      --bg-light: #f9f9f9;
+      --text-dark: #333;
+    }
     * {
       margin: 0;
       padding: 0;
@@ -12,61 +18,75 @@
     }
     html, body {
       height: 100%;
-      overflow: hidden;
       font-family: Arial, sans-serif;
-    }
-    .section {
-      height: 100vh;
-      width: 100vw;
-      padding: 2rem;
-      background: #f9f9f9;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      scroll-snap-align: start;
+      background-color: var(--bg-light);
+      overflow-x: hidden;
     }
     .container {
       height: 100vh;
       width: 100vw;
       overflow-y: scroll;
       scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+    }
+    .section {
+      scroll-snap-align: start;
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 2rem 1rem;
+      background: white;
     }
     h1, h2 {
-      color: #0a2a66;
+      color: var(--primary);
       margin-bottom: 1rem;
+      font-size: clamp(1.5rem, 5vw, 2.5rem);
+    }
+    p, li {
+      color: var(--text-dark);
+      font-size: clamp(1rem, 4vw, 1.2rem);
     }
     ul {
-      list-style: disc;
-      padding-left: 20px;
-      margin-bottom: 1rem;
+      text-align: left;
+      margin: 1rem auto;
+      max-width: 600px;
     }
     blockquote {
-      background: #eef1f5;
+      margin-top: 1rem;
       padding: 1rem;
-      border-left: 4px solid #0a2a66;
-      margin: 1rem 0;
-      width: 80%;
+      background: #eef1f5;
+      border-left: 4px solid var(--primary);
+      font-style: italic;
+      max-width: 90%;
     }
     .cta {
       display: flex;
+      flex-direction: column;
       gap: 1rem;
       justify-content: center;
+      align-items: center;
       margin-top: 2rem;
     }
     .cta a {
-      text-decoration: none;
-      background: #0a2a66;
+      background: var(--primary);
       color: white;
       padding: 0.75rem 1.5rem;
-      border-radius: 4px;
+      text-decoration: none;
+      border-radius: 30px;
+      font-weight: bold;
+      transition: background 0.3s ease;
     }
     .cta a:hover {
-      background: #0044aa;
+      background: var(--secondary);
     }
     .content {
-      max-width: 800px;
-      text-align: center;
+      max-width: 850px;
+      width: 100%;
+      padding: 0 1rem;
     }
   </style>
 </head>

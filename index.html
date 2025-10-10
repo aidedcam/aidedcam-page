@@ -1,202 +1,879 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="el">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CAD/CAM Automation</title>
+  <title>AidedCAM - Εξατομικευμένο Λογισμικό CAD/CAM</title>
   <style>
     :root {
-      --primary: #36533c;
-      --secondary: #1c1b1b;
+      --primary: #2d5a3d;
+      --primary-light: #4a8a5f;
+      --secondary: #1a1a1a;
       --bg-main: #7db589;
-      --bg-light: #737a65;
-      --accent: #4e644c;
-      --text-light: #1c1b1b;
-      --text-dark: #333;
+      --bg-dark: #2d5a3d;
+      --accent: #5fbd7a;
+      --accent-bright: #7ee094;
+      --text-light: #f8f9fa;
+      --text-dark: #2c3e50;
+      --white: #ffffff;
+      --shadow: rgba(0, 0, 0, 0.15);
     }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+    
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+    
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
+    
     html, body {
       height: 100%;
-      font-family: Arial, sans-serif;
-      background-color: var(--bg-main);
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f8f9fa;
       overflow-x: hidden;
     }
+    
     .container {
-      height: 100vh;
       width: 100vw;
-      overflow-y: scroll;
-      scroll-snap-type: y mandatory;
-      scroll-behavior: smooth;
     }
+    
     .section {
-      scroll-snap-align: start;
-      height: 100vh;
+      min-height: 100vh;
       width: 100vw;
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
+      padding: 4rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    /* Decorative background elements */
+    .section::before {
+      content: '';
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(95, 189, 122, 0.1) 0%, transparent 70%);
+      top: -250px;
+      right: -250px;
+      pointer-events: none;
+    }
+    
+    .section::after {
+      content: '';
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(45, 90, 61, 0.1) 0%, transparent 70%);
+      bottom: -200px;
+      left: -200px;
+      pointer-events: none;
+    }
+    
+    /* Hero Section */
+    .section.hero {
+      background: linear-gradient(135deg, #1a3a2d 0%, #2d5a3d 50%, #4a8a5f 100%);
+      position: relative;
+    }
+    
+    .section.hero::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+      opacity: 0.3;
+      pointer-events: none;
+    }
+    
+    .hero .content {
+      animation: fadeInUp 1s ease-out;
+      z-index: 1;
+    }
+    
+    /* Alternating backgrounds */
+    .section.alt {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    }
+    
+    .section.white {
+      background: white;
+    }
+    
+    .section.dark {
+      background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+      color: var(--text-light);
+    }
+    
+    .section.gradient {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+    }
+    
+    .logo {
+      margin-bottom: 2rem;
+      animation: float 3s ease-in-out infinite;
+    }
+    
+    .logo img {
+      max-width: 160px;
+      height: auto;
+      filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+    }
+    
+    h1 {
+      color: var(--white);
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      font-weight: 700;
+      margin-bottom: 2rem;
+      line-height: 1.2;
       text-align: center;
-      padding: 2rem 1rem;
-      background: var(--bg-main);
-      color: var(--text-light);
+      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+      letter-spacing: -0.5px;
     }
-    h1, h2 {
+    
+    h2 {
       color: var(--secondary);
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-weight: 700;
+      margin-bottom: 2rem;
+      text-align: center;
+      position: relative;
+      display: inline-block;
+      letter-spacing: -0.3px;
+    }
+    
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-bright));
+      border-radius: 2px;
+    }
+    
+    .section.dark h2,
+    .section.gradient h2 {
+      color: var(--white);
+    }
+    
+    h3 {
+      color: var(--primary);
+      font-size: clamp(1.3rem, 3.5vw, 1.8rem);
+      font-weight: 600;
       margin-bottom: 1rem;
-      font-size: clamp(1.5rem, 5vw, 2.5rem);
     }
-    p, li {
+    
+    p {
+      color: var(--text-dark);
+      font-size: clamp(1.05rem, 3vw, 1.2rem);
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+    
+    .section.dark p,
+    .section.gradient p {
       color: var(--text-light);
-      font-size: clamp(1rem, 4vw, 1.2rem);
     }
-    ul {
-      text-align: left;
-      margin: 1rem auto;
-      max-width: 600px;
-    }
-    blockquote {
-      margin-top: 1rem;
-      padding: 1rem;
-      background: var(--bg-light);
-      border-left: 4px solid var(--secondary);
-      font-style: italic;
-      max-width: 90%;
-      color: var(--text-dark);
-    }
-    .cta {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      justify-content: center;
-      align-items: center;
-      margin-top: 2rem;
-    }
-    .cta a {
-      background: var(--accent);
-      color: white;
-      padding: 0.75rem 1.5rem;
-      text-decoration: none;
-      border-radius: 30px;
-      font-weight: bold;
-      transition: background 0.3s ease;
-    }
-    .cta a:hover {
-      background: var(--secondary);
-      color: var(--text-dark);
-    }
+    
     .content {
-      max-width: 850px;
+      max-width: 1100px;
       width: 100%;
       padding: 0 1rem;
+      z-index: 1;
     }
-    .logo {
+    
+    /* Hero Benefits - Modern Card Design */
+    .hero-benefits {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    
+    .benefit-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      padding: 2rem;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .benefit-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(95, 189, 122, 0.2), transparent);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    
+    .benefit-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+    
+    .benefit-card:hover::before {
+      opacity: 1;
+    }
+    
+    .benefit-card p {
+      color: var(--white);
+      font-weight: 500;
+      font-size: 1.15rem;
+      position: relative;
+      z-index: 1;
+    }
+    
+    /* Services Grid - Premium Cards */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2.5rem;
+      margin-top: 3rem;
+    }
+    
+    .service-card {
+      background: white;
+      padding: 2.5rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px var(--shadow);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      border: 2px solid transparent;
+    }
+    
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-bright));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    
+    .service-card:hover {
+      transform: translateY(-12px) scale(1.03);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+      border-color: var(--accent);
+    }
+    
+    .service-card:hover::before {
+      transform: scaleX(1);
+    }
+    
+    .service-number {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--accent), var(--accent-bright));
+      color: white;
+      font-size: 1.4rem;
+      font-weight: 800;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       margin-bottom: 1.5rem;
+      box-shadow: 0 5px 15px rgba(95, 189, 122, 0.4);
     }
-    .logo img {
-      max-width: 120px;
-      height: auto;
+    
+    .service-card h3 {
+      color: var(--primary);
+    }
+    
+    .service-card p {
+      color: var(--text-dark);
+    }
+    
+    /* Tools List - Modern Design */
+    .tools-list {
+      background: white;
+      padding: 3rem;
+      border-radius: 20px;
+      margin-top: 2rem;
+      box-shadow: 0 10px 30px var(--shadow);
+      border-left: 6px solid var(--accent);
+    }
+    
+    .tools-list p {
+      color: var(--text-dark);
+      line-height: 2;
+      font-size: 1.1rem;
+    }
+    
+    .tools-disclaimer {
+      font-size: 0.9rem;
+      font-style: italic;
+      margin-top: 1.5rem;
+      color: #6c757d;
+      padding-top: 1.5rem;
+      border-top: 2px solid #e9ecef;
+    }
+    
+    /* Process Steps - Timeline Style */
+    .process-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      margin-top: 3rem;
+      max-width: 900px;
+      position: relative;
+    }
+    
+    .process-steps::before {
+      content: '';
+      position: absolute;
+      left: 30px;
+      top: 40px;
+      bottom: 40px;
+      width: 4px;
+      background: linear-gradient(180deg, var(--accent), var(--accent-bright));
+      border-radius: 2px;
+    }
+    
+    .step {
+      background: #f8f9fa;
+      padding: 2rem 2rem 2rem 5rem;
+      border-radius: 16px;
+      border-left: 4px solid var(--accent);
+      box-shadow: 0 5px 20px var(--shadow);
+      transition: all 0.3s ease;
+      position: relative;
+      margin-left: 1rem;
+    }
+    
+    .step::before {
+      content: '';
+      position: absolute;
+      left: -2.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-bright));
+      border-radius: 50%;
+      border: 4px solid white;
+      box-shadow: 0 5px 15px rgba(95, 189, 122, 0.4);
+    }
+    
+    .step:hover {
+      transform: translateX(10px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    }
+    
+    .step h3 {
+      margin-bottom: 0.8rem;
+      font-size: 1.5rem;
+      color: var(--primary) !important;
+    }
+    
+    .step p {
+      color: var(--text-dark) !important;
+      font-size: 1.05rem;
+    }
+    
+    /* Why List - Feature Cards */
+    .why-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    
+    .why-item {
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 5px 20px var(--shadow);
+      transition: all 0.3s ease;
+      border-top: 4px solid var(--accent);
+    }
+    
+    .why-item:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    }
+    
+    .why-item h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--primary);
+    }
+    
+    .why-item p {
+      color: var(--text-dark);
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+    
+    /* Stats Grid - Impressive Numbers */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2.5rem;
+      margin-top: 3rem;
+    }
+    
+    .stat-card {
+      background: white;
+      padding: 3rem 2rem;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 10px 30px var(--shadow);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-bright));
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    
+    .stat-card:hover {
+      transform: scale(1.08);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+    }
+    
+    .stat-card:hover::before {
+      opacity: 0.1;
+    }
+    
+    .stat-number {
+      font-size: 4rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .stat-text {
+      color: var(--text-dark);
+      font-size: 1.05rem;
+      font-weight: 500;
+      position: relative;
+      z-index: 1;
+    }
+    
+    /* About Quote - Inspirational */
+    .about-quote {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      padding: 3rem;
+      border-radius: 20px;
+      font-size: 1.5rem;
+      font-style: italic;
+      text-align: center;
+      margin-top: 3rem;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .about-quote::before {
+      content: '"';
+      position: absolute;
+      top: -20px;
+      left: 30px;
+      font-size: 10rem;
+      opacity: 0.1;
+      font-family: Georgia, serif;
+    }
+    
+    .about-quote::after {
+      content: '"';
+      position: absolute;
+      bottom: -80px;
+      right: 30px;
+      font-size: 10rem;
+      opacity: 0.1;
+      font-family: Georgia, serif;
+    }
+    
+    /* CTA Buttons - Modern & Engaging */
+    .cta-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-top: 3rem;
+    }
+    
+    .cta-button {
+      background: linear-gradient(135deg, var(--accent), var(--accent-bright));
+      color: white;
+      padding: 1.2rem 3rem;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1.15rem;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 10px 25px rgba(95, 189, 122, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .cta-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.5s ease;
+    }
+    
+    .cta-button:hover::before {
+      left: 100%;
+    }
+    
+    .cta-button:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 15px 35px rgba(95, 189, 122, 0.5);
+    }
+    
+    .cta-button:active {
+      transform: translateY(-1px) scale(1.02);
+    }
+    
+    .cta-button.secondary {
+      background: white;
+      color: var(--primary);
+      border: 2px solid var(--accent);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+    
+    .cta-button.secondary:hover {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent-bright);
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .services-grid,
+      .hero-benefits {
+        grid-template-columns: 1fr;
+      }
+      
+      .process-steps::before {
+        display: none;
+      }
+      
+      .step {
+        margin-left: 0;
+        padding: 2rem;
+      }
+      
+      .step::before {
+        display: none;
+      }
+      
+      h1 {
+        font-size: 1.8rem;
+      }
+      
+      h2 {
+        font-size: 1.6rem;
+      }
+      
+      .stat-number {
+        font-size: 3rem;
+      }
+      
+      .about-quote {
+        font-size: 1.2rem;
+        padding: 2rem;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <section class="section">
+    
+    <!-- HERO -->
+    <section class="section hero">
       <div class="content">
         <div class="logo">
-          <img src="aided-cam-transparent.png" alt="Aided CAM Logo" />
+          <img src="aided-cam-transparent.png" alt="AidedCAM Logo" />
         </div>
-        <h1>Welcome to Your Personalized CAD/CAM Automation Journey</h1>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="content">
-        <h2>📈 Why & How It Happens</h2>
-        <p>At <strong>Aided CAM</strong>, we specialize in transforming your manual CAD/CAM workflows into intelligent, automated processes tailored to how <em>you</em> work. Here’s how we do it:</p>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="content">
-        <h2>🔍 Step 1: Extract Your Existing Process</h2>
-        <p><strong>We learn how you work.</strong></p>
-        <ul>
-          <li>We write down your current steps</li>
-          <li>We discuss your process in detail</li>
-          <li>We ask questions to understand your logic</li>
-        </ul>
-        <p>Example: "I use drilling when the component has a chamfer and a flat bottom."</p>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="content">
-        <h2>⚙️ Step 2: Process the Information</h2>
-        <p><strong>We define your rules.</strong></p>
-        <ul>
-          <li>Map out rules and decisions</li>
-          <li>Outline repeatable steps</li>
-          <li>Clarify your terminology</li>
-        </ul>
-        <p>Example: "Every time a pocket depth is >20mm, I choose a roughing tool first."</p>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="content">
-        <h2>🧠 Step 3: Build the Algorithm</h2>
-        <p><strong>We convert your expertise into logic.</strong></p>
-        <ul>
-          <li>Create software rules</li>
-          <li>Build intelligent toolpath generation</li>
-          <li>Ensure behavior matches your expectations</li>
-        </ul>
-        <p>Example: Logic checks whether part type == flange; if so, generate specific toolpath sequence.</p>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="content">
-        <h2>🚀 The Outcome: Your Process as Software</h2>
-        <p>We deliver a personalized software solution that replicates your machining know-how — faster, more consistently, and error-free.</p>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="content">
-        <h2>🚬 What We Need From You</h2>
-        <ul>
-          <li>A walkthrough of your process</li>
-          <li>Feedback and discussion</li>
-          <li>Real examples of your parts</li>
-          <li>Clarification on your decision-making</li>
-        </ul>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="content">
-        <h2>💬 Let’s Talk</h2>
-        <p>"Before we start coding anything, we sit down with you and document exactly how you work. We’re not changing your process — we’re just translating it into software so it can work automatically. To do that, we’ll extract your steps, define the logic, and build a system that thinks like you do."</p>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="content">
-        <h2>🔗 Ready to Automate Your Know-How?</h2>
-        <p>Let’s schedule a discovery session and see how we can empower your team with intelligent automation.</p>
-        <div class="cta">
-          <a href="#">Book a Call</a>
-          <a href="#">Learn More</a>
-          <a href="#">Contact Us</a>
+        <h1>Εξατομικευμένο λογισμικό βελτιστοποίησης για επιχειρήσεις που χρησιμοποιούν CAD/CAM/CNCs</h1>
+        <div class="hero-benefits">
+          <div class="benefit-card">
+            <p>📈 Εξοικονόμησε χρόνο παραγωγής και παράδοσης έως και 70%</p>
+          </div>
+          <div class="benefit-card">
+            <p>✓ Μηδένισε τα λάθη</p>
+          </div>
+          <div class="benefit-card">
+            <p>🚀 Γρήγορη ενσωμάτωση στην ομάδα μαθαίνοντας τη ροή, όχι τα λάθη—με λογισμικό που καθοδηγεί</p>
+          </div>
         </div>
       </div>
     </section>
+
+    <!-- ΤΙ ΚΑΝΟΥΜΕ -->
+    <section class="section alt">
+      <div class="content">
+        <h2>Τι Κάνουμε</h2>
+        <p style="text-align: center; font-size: 1.25rem; max-width: 850px; margin: 2rem auto; font-weight: 500; color: var(--text-dark);">
+          Σχεδιάζουμε και υλοποιούμε εφαρμογές που ενσωματώνονται στα CAD/CAM/CNC συστήματά σας, οι οποίες βελτιστοποιούν διαδικασίες όπως επαναλαμβανόμενα tasks έως και σύνθετες ροές παραγωγής.
+        </p>
+      </div>
+    </section>
+
+    <!-- ΕΡΓΑΛΕΙΑ -->
+    <section class="section white">
+      <div class="content">
+        <h2>Για Ποια Εργαλεία Αναπτύσσουμε</h2>
+        <div class="tools-list">
+          <p><strong>Mastercam</strong>, <strong>PowerMill</strong>, <strong>PowerShape</strong>, <strong>AutoCAD</strong>, <strong>SolidWorks</strong>, <strong>SolidCAM</strong>, <strong>Fusion 360</strong>, <strong>Inventor</strong>, <strong>CATIA</strong>, <strong>TopSolid</strong>, <strong>Siemens NX</strong>, <strong>Edgecam</strong>, <strong>Esprit</strong>, <strong>hyperMILL</strong>, <strong>Rhino/Grasshopper</strong></p>
+          <p class="tools-disclaimer">Τα εμπορικά σήματα που αναφέρονται ανήκουν στους αντίστοιχους κατόχους τους. Η AidedCAM δεν συνδέεται ούτε υποστηρίζεται επίσημα από αυτούς.</p>
+        </div>
+        <p style="text-align: center; margin-top: 2.5rem; font-weight: 600; font-size: 1.15rem; color: var(--text-dark);">
+          Υλοποιούμε επίσης λύσεις για ανάγκες πέραν των CAD/CAM λογισμικών.
+        </p>
+      </div>
+    </section>
+
+    <!-- ΥΠΗΡΕΣΙΕΣ -->
+    <section class="section alt">
+      <div class="content">
+        <h2>Υπηρεσίες</h2>
+        <div class="services-grid">
+          <div class="service-card">
+            <div class="service-number">01</div>
+            <h3>Personalized Software Development</h3>
+            <p>Δημιουργούμε εξατομικευμένες εφαρμογές που αυτοματοποιούν τις δικές σας διαδικασίες, μ' εργαλεία φτιαγμένα πάνω στον τρόπο που ήδη δουλεύετε.</p>
+          </div>
+          <div class="service-card">
+            <div class="service-number">02</div>
+            <h3>Custom Plug-ins/Add-ins</h3>
+            <p>Επιπλέον εργαλεία μέσα στο περιβάλλον του λογισμικού σας: από auto-dimensioning μέχρι batch operations & data exchange.</p>
+          </div>
+          <div class="service-card">
+            <div class="service-number">03</div>
+            <h3>Βελτιστοποίηση Tasks</h3>
+            <p>Βελτιστοποίηση επαναλαμβανόμενων tasks (naming, layers, parameters, CAM templates, post-processing).</p>
+          </div>
+          <div class="service-card">
+            <div class="service-number">04</div>
+            <h3>Διασυνδέσεις & Ενσωματώσεις</h3>
+            <p>Σύνδεση CAD/CAM/CNC με ERP/MES/PLM, PDM, databases, APIs.</p>
+          </div>
+          <div class="service-card">
+            <div class="service-number">05</div>
+            <h3>Αυτοματοποίηση CAD/CAM/CNC</h3>
+            <p>Template-based toolpaths, κανόνες κατεργασιών, auto-post για CNC με ελέγχους ασφαλείας.</p>
+          </div>
+          <div class="service-card">
+            <div class="service-number">06</div>
+            <h3>Support & Συντήρηση</h3>
+            <p>Συνεχής υποστήριξη, version updates, τεκμηρίωση.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Η ΜΕΘΟΔΟΣ ΜΑΣ -->
+    <section class="section white">
+      <div class="content">
+        <h2>Η Μέθοδός Μας</h2>
+        <div class="process-steps">
+          <div class="step">
+            <h3>1. Κατανόηση</h3>
+            <p>60' discovery call + ανάλυση υφιστάμενων ροών.</p>
+          </div>
+          <div class="step">
+            <h3>2. Prototype/PoC</h3>
+            <p>Μικρό demo πάνω στα δικά σας δεδομένα.</p>
+          </div>
+          <div class="step">
+            <h3>3. Υλοποίηση</h3>
+            <p>Agile σπριντ με ορατότητα προόδου.</p>
+          </div>
+          <div class="step">
+            <h3>4. Παράδοση</h3>
+            <p>Εγκατάσταση, τεκμηρίωση, εκπαίδευση.</p>
+          </div>
+          <div class="step">
+            <h3>5. Υποστήριξη</h3>
+            <p>SLA, monitoring, βελτιώσεις βάσει χρήσης.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ΓΙΑΤΙ AIDEDCAM -->
+    <section class="section alt">
+      <div class="content">
+        <h2>Γιατί AidedCAM</h2>
+        <p style="text-align: center; font-size: 1.25rem; max-width: 850px; margin: 0 auto 3rem auto; font-weight: 500; color: var(--text-dark);">
+          Γιατί δεν προσφέρουμε απλώς λογισμικό. Προσφέρουμε τρόπους να δουλεύετε πιο έξυπνα, πιο γρήγορα και με μεγαλύτερη ακρίβεια.
+        </p>
+        <div class="why-list">
+          <div class="why-item">
+            <h3>🏭 Βιομηχανική Σκέψη</h3>
+            <p>Ερχόμαστε από τον κλάδο της βιομηχανικής παραγωγής, με πραγματική εμπειρία σε CAD/CAM/CNC συστήματα.</p>
+          </div>
+          <div class="why-item">
+            <h3>🇬🇷 Πρωτοπόροι στην Ελλάδα</h3>
+            <p>Από τους πρώτους που συστήνουν και υλοποιούν custom αυτοματισμούς CAD/CAM για βιομηχανίες στην ελληνική αγορά.</p>
+          </div>
+          <div class="why-item">
+            <h3>✓ Σταθερά Αποτελέσματα</h3>
+            <p>Standardization & rules, ώστε να βγαίνει «ίδια» δουλειά από όλους.</p>
+          </div>
+          <div class="why-item">
+            <h3>📚 Τεκμηρίωση</h3>
+            <p>Για να μπορείτε να το συντηρήσετε και εσείς.</p>
+          </div>
+          <div class="why-item">
+            <h3>🔧 Ενσωμάτωση</h3>
+            <p>Χρησιμοποιούμε τα υπάρχοντα εργαλεία της εταιρείας, φτιάχνοντας λογισμικό που προσαρμόζεται στο περιβάλλον σας και όχι το αντίστροφο.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ΑΠΟΤΕΛΕΣΜΑΤΑ -->
+    <section class="section white">
+      <div class="content">
+        <h2>Τυπικά Αποτελέσματα</h2>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-number">40-70%</div>
+            <div class="stat-text">Λιγότερος χρόνος σε επαναληπτικά βήματα</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">0</div>
+            <div class="stat-text">Μείωση λαθών και επικυρωποίηση δεδομένων</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">100%</div>
+            <div class="stat-text">Ενιαία πρότυπα και χρηστικότητα για κάθε επιπέδου χρήστη</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ΣΧΕΤΙΚΑ ΜΕ ΕΜΑΣ -->
+    <section class="section gradient">
+      <div class="content">
+        <h2>Σχετικά Με Εμάς</h2>
+        <p style="text-align: center; font-size: 1.2rem; max-width: 850px; margin: 0 auto; color: white; font-weight: 400;">
+          Η AidedCAM είναι ομάδα μηχανικών και προγραμματιστών που μιλούν τη γλώσσα της παραγωγής. Ερχόμαστε από το workshop και το γραφείο μελέτης, γι' αυτό και παραδίδουμε εργαλεία που «κουμπώνουν» αβίαστα στην καθημερινότητά σας.
+        </p>
+        <div class="about-quote">
+          «Η ταχύτητα εντυπωσιάζει. Αλλά η αξιοπιστία μεταμορφώνει.»
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA ΤΕΛΙΚΟ -->
+    <section class="section alt">
+      <div class="content">
+        <h2>Ας Συνεργαστούμε</h2>
+        <p style="text-align: center; font-size: 1.3rem; max-width: 750px; margin: 0 auto; font-weight: 500; color: var(--text-dark);">
+          Έτοιμοι να αυτοματοποιήσετε τις διαδικασίες σας και να βελτιώσετε την παραγωγικότητα;
+        </p>
+        <div class="cta-section">
+          <a href="#" class="cta-button">Κλείστε Συνάντηση</a>
+          <a href="#" class="cta-button secondary">Μάθετε Περισσότερα</a>
+          <a href="#" class="cta-button secondary">Επικοινωνία</a>
+        </div>
+      </div>
+    </section>
+
   </div>
 </body>
 </html>

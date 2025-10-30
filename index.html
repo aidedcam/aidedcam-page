@@ -30,42 +30,6 @@
       }
     }
     
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    
-    @keyframes slideInLeft {
-      from {
-        opacity: 0;
-        transform: translateX(-50px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-    
-    @keyframes slideInRight {
-      from {
-        opacity: 0;
-        transform: translateX(50px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-    
-    @keyframes pulse {
-      0%, 100% {
-        transform: scale(1);
-      }
-      50% {
-        transform: scale(1.05);
-      }
-    }
-    
     @keyframes float {
       0%, 100% {
         transform: translateY(0px);
@@ -104,7 +68,6 @@
       overflow: hidden;
     }
     
-    /* Decorative background elements */
     .section::before {
       content: '';
       position: absolute;
@@ -129,7 +92,6 @@
       pointer-events: none;
     }
     
-    /* Hero Section */
     .section.hero {
       background: linear-gradient(135deg, #1a3a2d 0%, #2d5a3d 50%, #4a8a5f 100%);
       position: relative;
@@ -150,18 +112,12 @@
       z-index: 1;
     }
     
-    /* Alternating backgrounds */
     .section.alt {
       background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     }
     
     .section.white {
       background: white;
-    }
-    
-    .section.dark {
-      background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-      color: var(--text-light);
     }
     
     .section.gradient {
@@ -183,11 +139,21 @@
       color: var(--white);
       font-size: clamp(2rem, 6vw, 3.5rem);
       font-weight: 700;
-      margin-bottom: 2rem;
+      margin-bottom: 1rem;
       line-height: 1.2;
       text-align: center;
       text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
       letter-spacing: -0.5px;
+    }
+    
+    .hero-subtitle {
+      color: rgba(255, 255, 255, 0.95);
+      font-size: clamp(1.1rem, 3vw, 1.4rem);
+      text-align: center;
+      margin-bottom: 2rem;
+      font-weight: 400;
+      line-height: 1.6;
+      text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
     }
     
     h2 {
@@ -213,7 +179,6 @@
       border-radius: 2px;
     }
     
-    .section.dark h2,
     .section.gradient h2 {
       color: var(--white);
     }
@@ -232,7 +197,6 @@
       margin-bottom: 1rem;
     }
     
-    .section.dark p,
     .section.gradient p {
       color: var(--text-light);
     }
@@ -244,8 +208,7 @@
       z-index: 1;
     }
     
-    /* Hero Benefits - Modern Card Design */
-    .hero-benefits {
+    .benefit-list {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 2rem;
@@ -253,14 +216,14 @@
     }
     
     .benefit-card {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(20px);
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-bright) 100%);
       padding: 2rem;
       border-radius: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      border: 2px solid transparent;
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
       overflow: hidden;
+      box-shadow: 0 10px 30px rgba(95, 189, 122, 0.3);
     }
     
     .benefit-card::before {
@@ -270,15 +233,15 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(135deg, rgba(95, 189, 122, 0.2), transparent);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent);
       opacity: 0;
       transition: opacity 0.4s ease;
     }
     
     .benefit-card:hover {
       transform: translateY(-10px) scale(1.02);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-      border-color: rgba(255, 255, 255, 0.4);
+      box-shadow: 0 20px 50px rgba(95, 189, 122, 0.5);
+      border-color: var(--primary);
     }
     
     .benefit-card:hover::before {
@@ -287,13 +250,12 @@
     
     .benefit-card p {
       color: var(--white);
-      font-weight: 500;
+      font-weight: 600;
       font-size: 1.15rem;
       position: relative;
       z-index: 1;
     }
     
-    /* Services Grid - Premium Cards */
     .services-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -359,32 +321,75 @@
       color: var(--text-dark);
     }
     
-    /* Tools List - Modern Design */
-    .tools-list {
+    .tools-section {
       background: white;
       padding: 3rem;
       border-radius: 20px;
       margin-top: 2rem;
       box-shadow: 0 10px 30px var(--shadow);
-      border-left: 6px solid var(--accent);
     }
     
-    .tools-list p {
+    .tools-category {
+      margin-bottom: 2rem;
+    }
+    
+    .tools-category:last-child {
+      margin-bottom: 0;
+    }
+    
+    .tools-category h4 {
+      color: var(--primary);
+      font-size: 1.3rem;
+      margin-bottom: 0.8rem;
+      font-weight: 600;
+    }
+    
+    .tools-category p {
       color: var(--text-dark);
-      line-height: 2;
-      font-size: 1.1rem;
+      line-height: 1.9;
+      font-size: 1.05rem;
     }
     
     .tools-disclaimer {
       font-size: 0.9rem;
       font-style: italic;
-      margin-top: 1.5rem;
+      margin-top: 2rem;
       color: #6c757d;
-      padding-top: 1.5rem;
+      padding-top: 2rem;
       border-top: 2px solid #e9ecef;
     }
     
-    /* Process Steps - Timeline Style */
+    .devdept-note {
+      background: #f8f9fa;
+      padding: 2rem;
+      border-radius: 12px;
+      margin-top: 2rem;
+      border-left: 4px solid var(--accent);
+    }
+    
+    .devdept-note h4 {
+      color: var(--primary);
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    
+    .devdept-note p {
+      color: var(--text-dark);
+      margin-bottom: 0.8rem;
+    }
+    
+    .devdept-note a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    
+    .devdept-note a:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+    
     .process-steps {
       display: flex;
       flex-direction: column;
@@ -446,7 +451,6 @@
       font-size: 1.05rem;
     }
     
-    /* Why List - Feature Cards */
     .why-list {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -483,67 +487,6 @@
       line-height: 1.7;
     }
     
-    /* Stats Grid - Impressive Numbers */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 2.5rem;
-      margin-top: 3rem;
-    }
-    
-    .stat-card {
-      background: white;
-      padding: 3rem 2rem;
-      border-radius: 20px;
-      text-align: center;
-      box-shadow: 0 10px 30px var(--shadow);
-      transition: all 0.4s ease;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .stat-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, var(--accent), var(--accent-bright));
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }
-    
-    .stat-card:hover {
-      transform: scale(1.08);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
-    }
-    
-    .stat-card:hover::before {
-      opacity: 0.1;
-    }
-    
-    .stat-number {
-      font-size: 4rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, var(--accent), var(--primary));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 1rem;
-      position: relative;
-      z-index: 1;
-    }
-    
-    .stat-text {
-      color: var(--text-dark);
-      font-size: 1.05rem;
-      font-weight: 500;
-      position: relative;
-      z-index: 1;
-    }
-    
-    /* About Quote - Inspirational */
     .about-quote {
       background: linear-gradient(135deg, var(--primary), var(--accent));
       color: white;
@@ -578,7 +521,92 @@
       font-family: Georgia, serif;
     }
     
-    /* CTA Buttons - Modern & Engaging */
+    .contact-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 3rem;
+      margin-top: 3rem;
+    }
+    
+    .contact-card {
+      background: white;
+      padding: 3rem 2.5rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px var(--shadow);
+      transition: all 0.3s ease;
+      border-top: 6px solid var(--accent);
+    }
+    
+    .contact-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+    }
+    
+    .contact-card h3 {
+      color: var(--primary);
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .contact-icon {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-bright));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 5px 15px rgba(95, 189, 122, 0.4);
+    }
+    
+    .contact-icon svg {
+      width: 24px;
+      height: 24px;
+      fill: white;
+    }
+    
+    .contact-details {
+      flex: 1;
+    }
+    
+    .contact-label {
+      font-size: 0.9rem;
+      color: #6c757d;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+    
+    .contact-value {
+      font-size: 1.1rem;
+      color: var(--text-dark);
+      font-weight: 500;
+    }
+    
+    .contact-value a {
+      color: var(--primary);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    .contact-value a:hover {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+    
     .cta-section {
       display: flex;
       flex-wrap: wrap;
@@ -638,10 +666,10 @@
       border-color: var(--accent-bright);
     }
     
-    /* Responsive Design */
     @media (max-width: 768px) {
       .services-grid,
-      .hero-benefits {
+      .benefit-list,
+      .contact-section {
         grid-template-columns: 1fr;
       }
       
@@ -666,10 +694,6 @@
         font-size: 1.6rem;
       }
       
-      .stat-number {
-        font-size: 3rem;
-      }
-      
       .about-quote {
         font-size: 1.2rem;
         padding: 2rem;
@@ -686,18 +710,8 @@
         <div class="logo">
           <img src="aided-cam-transparent.png" alt="AidedCAM Logo" />
         </div>
-        <h1>Εξατομικευμένο λογισμικό βελτιστοποίησης για επιχειρήσεις που χρησιμοποιούν CAD/CAM/CNCs</h1>
-        <div class="hero-benefits">
-          <div class="benefit-card">
-            <p>📈 Εξοικονόμησε χρόνο παραγωγής και παράδοσης έως και 70%</p>
-          </div>
-          <div class="benefit-card">
-            <p>✓ Μηδένισε τα λάθη</p>
-          </div>
-          <div class="benefit-card">
-            <p>🚀 Γρήγορη ενσωμάτωση στην ομάδα μαθαίνοντας τη ροή, όχι τα λάθη—με λογισμικό που καθοδηγεί</p>
-          </div>
-        </div>
+        <h1>Εξατομικευμένο λογισμικό βελτιστοποίησης για επιχειρήσεις που χρησιμοποιούν CAD/CAM/CNC</h1>
+        <p class="hero-subtitle">Λιγότερα κλικ, λιγότερα λάθη, ταχύτερα αποτελέσματα — προσαρμοσμένα στην εταιρία σας.</p>
       </div>
     </section>
 
@@ -705,28 +719,75 @@
     <section class="section alt">
       <div class="content">
         <h2>Τι Κάνουμε</h2>
-        <p style="text-align: center; font-size: 1.25rem; max-width: 850px; margin: 2rem auto; font-weight: 500; color: var(--text-dark);">
-          Σχεδιάζουμε και υλοποιούμε εφαρμογές που ενσωματώνονται στα CAD/CAM/CNC συστήματά σας, οι οποίες βελτιστοποιούν διαδικασίες όπως επαναλαμβανόμενα tasks έως και σύνθετες ροές παραγωγής.
+        <p style="text-align: center; font-size: 1.25rem; max-width: 900px; margin: 2rem auto; font-weight: 500; color: var(--text-dark); line-height: 1.8;">
+          Σχεδιάζουμε και υλοποιούμε εφαρμογές που ενσωματώνουν την υπάρχουσα ροή διαδικασιών σας, επικοινωνώντας με CAD/CAM/CNC λογισμικά, με στόχο την αυτοματοποίηση και την βελτιστοποίησή τους. Αυτοματοποίησε και βελτιστοποίησε από επαναλαμβανόμενα tasks έως και σύνθετες ροές σχεδίασης και παραγωγής.
         </p>
+      </div>
+    </section>
+
+    <!-- ΤΙ ΚΕΡΔΙΖΕΙΣ -->
+    <section class="section white">
+      <div class="content">
+        <h2>Τι Κερδίζεις</h2>
+        <div class="benefit-list">
+          <div class="benefit-card">
+            <p>📈 Εξοικονόμησε χρόνο παραγωγής έως και 70%</p>
+          </div>
+          <div class="benefit-card">
+            <p>✓ Μηδένισε τα ανθρώπινα λάθη</p>
+          </div>
+          <div class="benefit-card">
+            <p>📊 Απέκτησε δεδομένα που θα εξελίξουν την δυναμική της εταιρίας</p>
+          </div>
+          <div class="benefit-card">
+            <p>🚀 Γρήγορη ενσωμάτωση ανθρώπινου δυναμικού μαθαίνοντας τη ροή με λογισμικό που καθοδηγεί</p>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- ΕΡΓΑΛΕΙΑ -->
-    <section class="section white">
+    <section class="section alt">
       <div class="content">
-        <h2>Για Ποια Εργαλεία Αναπτύσσουμε</h2>
-        <div class="tools-list">
-          <p><strong>Mastercam</strong>, <strong>PowerMill</strong>, <strong>PowerShape</strong>, <strong>AutoCAD</strong>, <strong>SolidWorks</strong>, <strong>SolidCAM</strong>, <strong>Fusion 360</strong>, <strong>Inventor</strong>, <strong>CATIA</strong>, <strong>TopSolid</strong>, <strong>Siemens NX</strong>, <strong>Edgecam</strong>, <strong>Esprit</strong>, <strong>hyperMILL</strong>, <strong>Rhino/Grasshopper</strong></p>
+        <h2>Αξιοποιούμε τα Προγράμματά Σου</h2>
+        <p style="text-align: center; font-size: 1.15rem; max-width: 850px; margin: 0 auto 2rem auto; color: var(--text-dark);">
+          Καθώς τα προγράμματά σου παρέχουν ήδη εργαλεία προγραμματισμού
+        </p>
+        
+        <div class="tools-section">
+          <div class="tools-category">
+            <h4>CAM Systems</h4>
+            <p>Mastercam, Autodesk PowerMill, OPEN MIND hyperMILL, Hexagon EDGECAM, SolidCAM, CAMWorks, HSMWorks, ESPRIT, GibbsCAM, Cimatron, SprutCAM X, Tebis</p>
+          </div>
+          
+          <div class="tools-category">
+            <h4>Mechanical CAD (MCAD)</h4>
+            <p>AutoCAD, SOLIDWORKS, CATIA V5 / 3DEXPERIENCE, Siemens NX, Autodesk Inventor, Autodesk Fusion 360, Rhino</p>
+          </div>
+          
+          <div class="tools-category">
+            <h4>AEC/BIM CAD</h4>
+            <p>Autodesk Revit, Autodesk Civil 3D, Graphisoft Archicad, SketchUp, Vectorworks, Autodesk Navisworks</p>
+          </div>
+          
+          <div class="devdept-note">
+            <h4>Λύσεις χωρίς τρίτο λογισμικό</h4>
+            <p>Υλοποιούμε επίσης λύσεις για ανάγκες χωρίς την ανάγκη χρήσης τρίτου CAD, CAM, CNC λογισμικού.</p>
+            <p>Αυτό το πετυχαίνουμε με τη χρήση των εργαλείων που προσφέρει η DevDept:</p>
+            <p>
+              <a href="https://devdept.com/Industries/ProductDesign" target="_blank">Product Design</a> • 
+              <a href="https://devdept.com/Industries/IndustrialEquipment" target="_blank">Industrial Equipment</a> • 
+              <a href="https://devdept.com/Industries/Metrology" target="_blank">Metrology</a>
+            </p>
+          </div>
+          
           <p class="tools-disclaimer">Τα εμπορικά σήματα που αναφέρονται ανήκουν στους αντίστοιχους κατόχους τους. Η AidedCAM δεν συνδέεται ούτε υποστηρίζεται επίσημα από αυτούς.</p>
         </div>
-        <p style="text-align: center; margin-top: 2.5rem; font-weight: 600; font-size: 1.15rem; color: var(--text-dark);">
-          Υλοποιούμε επίσης λύσεις για ανάγκες πέραν των CAD/CAM λογισμικών.
-        </p>
       </div>
     </section>
 
     <!-- ΥΠΗΡΕΣΙΕΣ -->
-    <section class="section alt">
+    <section class="section white">
       <div class="content">
         <h2>Υπηρεσίες</h2>
         <div class="services-grid">
@@ -738,27 +799,12 @@
           <div class="service-card">
             <div class="service-number">02</div>
             <h3>Custom Plug-ins/Add-ins</h3>
-            <p>Επιπλέον εργαλεία μέσα στο περιβάλλον του λογισμικού σας: από auto-dimensioning μέχρι batch operations & data exchange.</p>
+            <p>Επιπλέον εργαλεία μέσα στο περιβάλλον του λογισμικού σας. Βελτιστοποίηση επαναλαμβανόμενων διαδικασιών.</p>
           </div>
           <div class="service-card">
             <div class="service-number">03</div>
-            <h3>Βελτιστοποίηση Tasks</h3>
-            <p>Βελτιστοποίηση επαναλαμβανόμενων tasks (naming, layers, parameters, CAM templates, post-processing).</p>
-          </div>
-          <div class="service-card">
-            <div class="service-number">04</div>
-            <h3>Διασυνδέσεις & Ενσωματώσεις</h3>
-            <p>Σύνδεση CAD/CAM/CNC με ERP/MES/PLM, PDM, databases, APIs.</p>
-          </div>
-          <div class="service-card">
-            <div class="service-number">05</div>
-            <h3>Αυτοματοποίηση CAD/CAM/CNC</h3>
-            <p>Template-based toolpaths, κανόνες κατεργασιών, auto-post για CNC με ελέγχους ασφαλείας.</p>
-          </div>
-          <div class="service-card">
-            <div class="service-number">06</div>
             <h3>Support & Συντήρηση</h3>
-            <p>Συνεχής υποστήριξη, version updates, τεκμηρίωση.</p>
+            <p>Συνεχής υποστήριξη, αναβαθμίσεις, τεκμηρίωση.</p>
           </div>
         </div>
       </div>
@@ -779,7 +825,7 @@
           </div>
           <div class="step">
             <h3>3. Υλοποίηση</h3>
-            <p>Agile σπριντ με ορατότητα προόδου.</p>
+            <p>Δημιουργία λογισμικού με ορατότητα προόδου.</p>
           </div>
           <div class="step">
             <h3>4. Παράδοση</h3>
@@ -787,7 +833,7 @@
           </div>
           <div class="step">
             <h3>5. Υποστήριξη</h3>
-            <p>SLA, monitoring, βελτιώσεις βάσει χρήσης.</p>
+            <p>Monitoring, βελτιώσεις βάσει χρήσης.</p>
           </div>
         </div>
       </div>
@@ -814,33 +860,8 @@
             <p>Standardization & rules, ώστε να βγαίνει «ίδια» δουλειά από όλους.</p>
           </div>
           <div class="why-item">
-            <h3>📚 Τεκμηρίωση</h3>
-            <p>Για να μπορείτε να το συντηρήσετε και εσείς.</p>
-          </div>
-          <div class="why-item">
             <h3>🔧 Ενσωμάτωση</h3>
-            <p>Χρησιμοποιούμε τα υπάρχοντα εργαλεία της εταιρείας, φτιάχνοντας λογισμικό που προσαρμόζεται στο περιβάλλον σας και όχι το αντίστροφο.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ΑΠΟΤΕΛΕΣΜΑΤΑ -->
-    <section class="section white">
-      <div class="content">
-        <h2>Τυπικά Αποτελέσματα</h2>
-        <div class="stats-grid">
-          <div class="stat-card">
-            <div class="stat-number">40-70%</div>
-            <div class="stat-text">Λιγότερος χρόνος σε επαναληπτικά βήματα</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-number">0</div>
-            <div class="stat-text">Μείωση λαθών και επικυρωποίηση δεδομένων</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-number">100%</div>
-            <div class="stat-text">Ενιαία πρότυπα και χρηστικότητα για κάθε επιπέδου χρήστη</div>
+            <p>Χρησιμοποιούμε τα υπάρχοντα εργαλεία της εταιρείας, φτιάχνοντας λογισμικό που «κουμπώνει» στο περιβάλλον σας και όχι το αντίστροφο.</p>
           </div>
         </div>
       </div>
@@ -859,17 +880,73 @@
       </div>
     </section>
 
-    <!-- CTA ΤΕΛΙΚΟ -->
+    <!-- ΕΠΙΚΟΙΝΩΝΙΑ -->
     <section class="section alt">
       <div class="content">
-        <h2>Ας Συνεργαστούμε</h2>
-        <p style="text-align: center; font-size: 1.3rem; max-width: 750px; margin: 0 auto; font-weight: 500; color: var(--text-dark);">
-          Έτοιμοι να αυτοματοποιήσετε τις διαδικασίες σας και να βελτιώσετε την παραγωγικότητα;
-        </p>
+        <h2>Επικοινωνία</h2>
+        <div class="contact-section">
+          <!-- Αθήνα -->
+          <div class="contact-card">
+            <h3>Αθήνα</h3>
+            <div class="contact-info">
+              <div class="contact-item">
+                <div class="contact-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                  </svg>
+                </div>
+                <div class="contact-details">
+                  <div class="contact-label">Email</div>
+                  <div class="contact-value"><a href="mailto:akoulousis@aidedcam.com">akoulousis@aidedcam.com</a></div>
+                </div>
+              </div>
+              <div class="contact-item">
+                <div class="contact-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                  </svg>
+                </div>
+                <div class="contact-details">
+                  <div class="contact-label">Τηλέφωνο</div>
+                  <div class="contact-value"><a href="tel:+306984680874">+30 6984680874</a></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Θεσσαλονίκη -->
+          <div class="contact-card">
+            <h3>Θεσσαλονίκη</h3>
+            <div class="contact-info">
+              <div class="contact-item">
+                <div class="contact-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                  </svg>
+                </div>
+                <div class="contact-details">
+                  <div class="contact-label">Email</div>
+                  <div class="contact-value"><a href="mailto:tfountoglou@aidedcam.com">tfountoglou@aidedcam.com</a></div>
+                </div>
+              </div>
+              <div class="contact-item">
+                <div class="contact-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                  </svg>
+                </div>
+                <div class="contact-details">
+                  <div class="contact-label">Τηλέφωνο</div>
+                  <div class="contact-value"><a href="tel:+306980818754">+30 6980818754</a></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
         <div class="cta-section">
-          <a href="#" class="cta-button">Κλείστε Συνάντηση</a>
-          <a href="#" class="cta-button secondary">Μάθετε Περισσότερα</a>
-          <a href="#" class="cta-button secondary">Επικοινωνία</a>
+          <a href="mailto:akoulousis@aidedcam.com" class="cta-button">Στείλε Email</a>
+          <a href="#" class="cta-button secondary">Μάθε Περισσότερα</a>
         </div>
       </div>
     </section>

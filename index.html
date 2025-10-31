@@ -7,36 +7,12 @@
   <style>
     :root {
       --primary: #2d5a3d;
-      --primary-light: #4a8a5f;
-      --secondary: #1a1a1a;
-      --bg-main: #7db589;
-      --bg-dark: #2d5a3d;
       --accent: #5fbd7a;
-      --accent-bright: #7ee094;
-      --text-light: #f8f9fa;
-      --text-dark: #2c3e50;
+      --accent-light: #7ee094;
+      --text-dark: #1a1a1a;
+      --text-gray: #666666;
+      --bg-light: #f9f9f9;
       --white: #ffffff;
-      --shadow: rgba(0, 0, 0, 0.15);
-    }
-    
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(40px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    @keyframes float {
-      0%, 100% {
-        transform: translateY(0px);
-      }
-      50% {
-        transform: translateY(-20px);
-      }
     }
     
     * {
@@ -45,508 +21,492 @@
       box-sizing: border-box;
     }
     
-    html, body {
-      height: 100%;
-      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #f8f9fa;
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+      background: var(--white);
+      color: var(--text-dark);
+      line-height: 1.6;
       overflow-x: hidden;
     }
     
-    .container {
-      width: 100vw;
+    /* Navigation */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #e0e0e0;
+      z-index: 1000;
+      padding: 1rem 0;
+      transition: all 0.3s ease;
     }
     
-    .section {
-      min-height: 100vh;
-      width: 100vw;
+    .navbar.scrolled {
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+    
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
-      flex-direction: column;
-      padding: 4rem 2rem;
-      position: relative;
-      overflow: hidden;
     }
     
-    .section::before {
-      content: '';
-      position: absolute;
-      width: 500px;
-      height: 500px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(95, 189, 122, 0.1) 0%, transparent 70%);
-      top: -250px;
-      right: -250px;
-      pointer-events: none;
+    .nav-logo {
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: var(--primary);
+      text-decoration: none;
+      letter-spacing: -1px;
     }
     
-    .section::after {
-      content: '';
-      position: absolute;
-      width: 400px;
-      height: 400px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(45, 90, 61, 0.1) 0%, transparent 70%);
-      bottom: -200px;
-      left: -200px;
-      pointer-events: none;
+    .nav-menu {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      align-items: center;
     }
     
-    .section.hero {
-      background: linear-gradient(135deg, #1a3a2d 0%, #2d5a3d 50%, #4a8a5f 100%);
+    .nav-link {
+      color: var(--text-dark);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.3s ease;
       position: relative;
     }
     
-    .section.hero::before {
+    .nav-link:hover {
+      color: var(--accent);
+    }
+    
+    .nav-link::after {
       content: '';
       position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover::after {
       width: 100%;
-      height: 100%;
-      background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
-      opacity: 0.3;
+    }
+    
+    .nav-cta {
+      background: var(--accent);
+      color: white;
+      padding: 0.6rem 1.5rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      border: 2px solid var(--accent);
+    }
+    
+    .nav-cta:hover {
+      background: transparent;
+      color: var(--accent);
+    }
+    
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 5px;
+    }
+    
+    .nav-toggle span {
+      width: 25px;
+      height: 3px;
+      background: var(--text-dark);
+      transition: all 0.3s ease;
+      border-radius: 3px;
+    }
+    
+    @media (max-width: 768px) {
+      .nav-menu {
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        flex-direction: column;
+        background: white;
+        width: 100%;
+        padding: 2rem;
+        gap: 1.5rem;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        transition: left 0.3s ease;
+        align-items: flex-start;
+      }
+      
+      .nav-menu.active {
+        left: 0;
+      }
+      
+      .nav-toggle {
+        display: flex;
+      }
+      
+      .nav-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(8px, 8px);
+      }
+      
+      .nav-toggle.active span:nth-child(2) {
+        opacity: 0;
+      }
+      
+      .nav-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(8px, -8px);
+      }
+    }
+    
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    
+    section {
+      padding: 6rem 0;
+    }
+    
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #1a3a2d 0%, #2d5a3d 100%);
+      position: relative;
+      text-align: center;
+      padding-top: 80px;
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg width="60" height="60" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="60" fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="1"/></svg>');
       pointer-events: none;
-    }
-    
-    .hero .content {
-      animation: fadeInUp 1s ease-out;
-      z-index: 1;
-    }
-    
-    .section.alt {
-      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    }
-    
-    .section.white {
-      background: white;
-    }
-    
-    .section.gradient {
-      background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
     }
     
     .logo {
-      margin-bottom: 2rem;
-      animation: float 3s ease-in-out infinite;
+      margin-bottom: 3rem;
     }
     
     .logo img {
-      max-width: 160px;
+      max-width: 140px;
       height: auto;
-      filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+      filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.2));
     }
     
-    h1 {
-      color: var(--white);
-      font-size: clamp(2rem, 6vw, 3.5rem);
-      font-weight: 700;
-      margin-bottom: 1rem;
-      line-height: 1.2;
-      text-align: center;
-      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-      letter-spacing: -0.5px;
+    .hero h1 {
+      font-size: clamp(2.5rem, 7vw, 4.5rem);
+      font-weight: 800;
+      color: white;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      letter-spacing: -2px;
+      text-transform: uppercase;
     }
     
-    .hero-subtitle {
-      color: rgba(255, 255, 255, 0.95);
-      font-size: clamp(1.1rem, 3vw, 1.4rem);
-      text-align: center;
-      margin-bottom: 2rem;
+    .hero .subtitle {
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      color: rgba(255, 255, 255, 0.9);
       font-weight: 400;
-      line-height: 1.6;
-      text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+      max-width: 700px;
+      margin: 0 auto 3rem;
+      line-height: 1.7;
     }
     
-    h2 {
-      color: var(--secondary);
-      font-size: clamp(1.8rem, 5vw, 2.8rem);
-      font-weight: 700;
-      margin-bottom: 2rem;
-      text-align: center;
-      position: relative;
+    .cta-button {
       display: inline-block;
-      letter-spacing: -0.3px;
+      padding: 1.2rem 3rem;
+      background: var(--accent);
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+      border: 2px solid var(--accent);
     }
     
-    h2::after {
-      content: '';
-      position: absolute;
-      bottom: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
-      height: 4px;
-      background: linear-gradient(90deg, var(--accent), var(--accent-bright));
-      border-radius: 2px;
+    .cta-button:hover {
+      background: transparent;
+      border-color: white;
+      transform: translateY(-2px);
     }
     
-    .section.gradient h2 {
-      color: var(--white);
+    /* Typography */
+    h2 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 1rem;
+      letter-spacing: -1px;
+      text-transform: uppercase;
     }
     
     h3 {
-      color: var(--primary);
-      font-size: clamp(1.3rem, 3.5vw, 1.8rem);
-      font-weight: 600;
+      font-size: clamp(1.3rem, 3vw, 1.8rem);
+      font-weight: 700;
+      color: var(--text-dark);
       margin-bottom: 1rem;
     }
     
+    h4 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
     p {
-      color: var(--text-dark);
-      font-size: clamp(1.05rem, 3vw, 1.2rem);
+      color: var(--text-gray);
+      font-size: 1.1rem;
       line-height: 1.8;
       margin-bottom: 1rem;
     }
     
-    .section.gradient p {
-      color: var(--text-light);
-    }
-    
-    .content {
-      max-width: 1100px;
-      width: 100%;
-      padding: 0 1rem;
-      z-index: 1;
-    }
-    
-    .benefit-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-      margin-top: 3rem;
-    }
-    
-    .benefit-card {
-      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-bright) 100%);
-      padding: 2rem;
-      border-radius: 20px;
-      border: 2px solid transparent;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 10px 30px rgba(95, 189, 122, 0.3);
-    }
-    
-    .benefit-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent);
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }
-    
-    .benefit-card:hover {
-      transform: translateY(-10px) scale(1.02);
-      box-shadow: 0 20px 50px rgba(95, 189, 122, 0.5);
-      border-color: var(--primary);
-    }
-    
-    .benefit-card:hover::before {
-      opacity: 1;
-    }
-    
-    .benefit-card p {
-      color: var(--white);
-      font-weight: 600;
-      font-size: 1.15rem;
-      position: relative;
-      z-index: 1;
-    }
-    
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 2.5rem;
-      margin-top: 3rem;
-    }
-    
-    .service-card {
-      background: white;
-      padding: 2.5rem;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px var(--shadow);
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      overflow: hidden;
-      border: 2px solid transparent;
-    }
-    
-    .service-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 6px;
-      background: linear-gradient(90deg, var(--accent), var(--accent-bright));
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.4s ease;
-    }
-    
-    .service-card:hover {
-      transform: translateY(-12px) scale(1.03);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
-      border-color: var(--accent);
-    }
-    
-    .service-card:hover::before {
-      transform: scaleX(1);
-    }
-    
-    .service-number {
-      display: inline-block;
-      background: linear-gradient(135deg, var(--accent), var(--accent-bright));
-      color: white;
-      font-size: 1.4rem;
-      font-weight: 800;
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 1.5rem;
-      box-shadow: 0 5px 15px rgba(95, 189, 122, 0.4);
-    }
-    
-    .service-card h3 {
-      color: var(--primary);
-    }
-    
-    .service-card p {
-      color: var(--text-dark);
-    }
-    
-    .tools-section {
-      background: white;
-      padding: 3rem;
-      border-radius: 20px;
-      margin-top: 2rem;
-      box-shadow: 0 10px 30px var(--shadow);
-    }
-    
-    .tools-category {
-      margin-bottom: 2rem;
-    }
-    
-    .tools-category:last-child {
-      margin-bottom: 0;
-    }
-    
-    .tools-category h4 {
-      color: var(--primary);
-      font-size: 1.3rem;
-      margin-bottom: 0.8rem;
-      font-weight: 600;
-    }
-    
-    .tools-category p {
-      color: var(--text-dark);
-      line-height: 1.9;
-      font-size: 1.05rem;
-    }
-    
-    .tools-disclaimer {
-      font-size: 0.9rem;
-      font-style: italic;
-      margin-top: 2rem;
-      color: #6c757d;
-      padding-top: 2rem;
-      border-top: 2px solid #e9ecef;
-    }
-    
-    .devdept-note {
-      background: #f8f9fa;
-      padding: 2rem;
-      border-radius: 12px;
-      margin-top: 2rem;
-      border-left: 4px solid var(--accent);
-    }
-    
-    .devdept-note h4 {
-      color: var(--primary);
-      font-size: 1.2rem;
-      margin-bottom: 1rem;
-    }
-    
-    .devdept-note p {
-      color: var(--text-dark);
-      margin-bottom: 0.8rem;
-    }
-    
-    .devdept-note a {
-      color: var(--accent);
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.3s ease;
-    }
-    
-    .devdept-note a:hover {
-      color: var(--primary);
-      text-decoration: underline;
-    }
-    
-    .process-steps {
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-      margin-top: 3rem;
-      max-width: 900px;
-      position: relative;
-    }
-    
-    .process-steps::before {
-      content: '';
-      position: absolute;
-      left: 30px;
-      top: 40px;
-      bottom: 40px;
-      width: 4px;
-      background: linear-gradient(180deg, var(--accent), var(--accent-bright));
-      border-radius: 2px;
-    }
-    
-    .step {
-      background: #f8f9fa;
-      padding: 2rem 2rem 2rem 5rem;
-      border-radius: 16px;
-      border-left: 4px solid var(--accent);
-      box-shadow: 0 5px 20px var(--shadow);
-      transition: all 0.3s ease;
-      position: relative;
-      margin-left: 1rem;
-    }
-    
-    .step::before {
-      content: '';
-      position: absolute;
-      left: -2.5rem;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 50px;
-      height: 50px;
-      background: linear-gradient(135deg, var(--accent), var(--accent-bright));
-      border-radius: 50%;
-      border: 4px solid white;
-      box-shadow: 0 5px 15px rgba(95, 189, 122, 0.4);
-    }
-    
-    .step:hover {
-      transform: translateX(10px);
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-    }
-    
-    .step h3 {
-      margin-bottom: 0.8rem;
-      font-size: 1.5rem;
-      color: var(--primary) !important;
-    }
-    
-    .step p {
-      color: var(--text-dark) !important;
-      font-size: 1.05rem;
-    }
-    
-    .why-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-      margin-top: 3rem;
-    }
-    
-    .why-item {
-      background: white;
-      padding: 2rem;
-      border-radius: 16px;
-      box-shadow: 0 5px 20px var(--shadow);
-      transition: all 0.3s ease;
-      border-top: 4px solid var(--accent);
-    }
-    
-    .why-item:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-    }
-    
-    .why-item h3 {
-      font-size: 1.3rem;
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      color: var(--primary);
-    }
-    
-    .why-item p {
-      color: var(--text-dark);
-      font-size: 1.05rem;
-      line-height: 1.7;
-    }
-    
-    .about-quote {
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      color: white;
-      padding: 3rem;
-      border-radius: 20px;
-      font-size: 1.5rem;
-      font-style: italic;
+    /* Section Styles */
+    .section-intro {
       text-align: center;
+      max-width: 800px;
+      margin: 0 auto 4rem;
+    }
+    
+    .section-light {
+      background: var(--white);
+    }
+    
+    .section-dark {
+      background: var(--bg-light);
+    }
+    
+    /* Benefits Grid */
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
       margin-top: 3rem;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-      position: relative;
-      overflow: hidden;
     }
     
-    .about-quote::before {
-      content: '"';
-      position: absolute;
-      top: -20px;
-      left: 30px;
-      font-size: 10rem;
-      opacity: 0.1;
-      font-family: Georgia, serif;
+    .benefit-item {
+      padding: 2rem;
+      background: white;
+      border-left: 4px solid var(--accent);
+      transition: transform 0.3s ease;
     }
     
-    .about-quote::after {
-      content: '"';
-      position: absolute;
-      bottom: -80px;
-      right: 30px;
-      font-size: 10rem;
-      opacity: 0.1;
-      font-family: Georgia, serif;
+    .section-dark .benefit-item {
+      background: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
     }
     
-    .contact-section {
+    .benefit-item:hover {
+      transform: translateX(10px);
+    }
+    
+    .benefit-item p {
+      color: var(--text-dark);
+      font-weight: 500;
+    }
+    
+    /* Services */
+    .services-list {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 3rem;
       margin-top: 3rem;
     }
     
-    .contact-card {
-      background: white;
-      padding: 3rem 2.5rem;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px var(--shadow);
-      transition: all 0.3s ease;
-      border-top: 6px solid var(--accent);
+    .service-item {
+      text-align: left;
     }
     
-    .contact-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+    .service-number {
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      line-height: 1;
     }
     
-    .contact-card h3 {
+    .service-item h3 {
+      margin-bottom: 1rem;
+    }
+    
+    .service-item p {
+      color: var(--text-gray);
+    }
+    
+    /* Tools Section */
+    .tools-container {
+      max-width: 900px;
+      margin: 3rem auto 0;
+    }
+    
+    .tool-category {
+      margin-bottom: 2.5rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    
+    .tool-category:last-child {
+      border-bottom: none;
+    }
+    
+    .tool-category h4 {
+      margin-bottom: 1rem;
+    }
+    
+    .tool-category p {
+      color: var(--text-gray);
+      line-height: 1.7;
+    }
+    
+    .devdept-box {
+      background: var(--bg-light);
+      padding: 2rem;
+      margin-top: 2rem;
+      border-left: 4px solid var(--primary);
+    }
+    
+    .devdept-box h4 {
       color: var(--primary);
+      margin-bottom: 1rem;
+    }
+    
+    .devdept-box p {
+      margin-bottom: 0.8rem;
+    }
+    
+    .devdept-box a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    
+    .devdept-box a:hover {
+      color: var(--primary);
+    }
+    
+    .disclaimer {
+      font-size: 0.9rem;
+      color: #999;
+      font-style: italic;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid #e0e0e0;
+    }
+    
+    /* Process Timeline */
+    .process-list {
+      max-width: 700px;
+      margin: 3rem auto 0;
+    }
+    
+    .process-item {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 3rem;
+      align-items: flex-start;
+    }
+    
+    .process-number {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--accent);
+      min-width: 60px;
+      line-height: 1;
+    }
+    
+    .process-content h3 {
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .process-content p {
+      color: var(--text-gray);
+    }
+    
+    /* Why Section */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 3rem;
+      margin-top: 3rem;
+    }
+    
+    .why-item {
+      text-align: left;
+    }
+    
+    .why-item h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.8rem;
+      color: var(--primary);
+    }
+    
+    .why-item p {
+      color: var(--text-gray);
+    }
+    
+    /* About Section */
+    .about-content {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    
+    .quote {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-top: 3rem;
+      font-style: italic;
+      line-height: 1.4;
+    }
+    
+    /* Contact Section */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 4rem;
+      margin-top: 3rem;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .contact-location {
+      text-align: center;
+    }
+    
+    .contact-location h3 {
       font-size: 2rem;
       margin-bottom: 2rem;
-      text-align: center;
+      color: var(--primary);
     }
     
     .contact-info {
@@ -556,401 +516,353 @@
     }
     
     .contact-item {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-    
-    .contact-icon {
-      width: 50px;
-      height: 50px;
-      background: linear-gradient(135deg, var(--accent), var(--accent-bright));
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      box-shadow: 0 5px 15px rgba(95, 189, 122, 0.4);
-    }
-    
-    .contact-icon svg {
-      width: 24px;
-      height: 24px;
-      fill: white;
-    }
-    
-    .contact-details {
-      flex: 1;
+      text-align: left;
     }
     
     .contact-label {
-      font-size: 0.9rem;
-      color: #6c757d;
-      font-weight: 600;
+      font-size: 0.85rem;
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 1px;
       margin-bottom: 0.3rem;
+      font-weight: 600;
     }
     
     .contact-value {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       color: var(--text-dark);
       font-weight: 500;
     }
     
     .contact-value a {
-      color: var(--primary);
+      color: var(--text-dark);
       text-decoration: none;
       transition: color 0.3s ease;
     }
     
     .contact-value a:hover {
       color: var(--accent);
-      text-decoration: underline;
     }
     
-    .cta-section {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      justify-content: center;
-      margin-top: 3rem;
+    /* Footer CTA */
+    .footer-cta {
+      text-align: center;
+      margin-top: 4rem;
     }
     
-    .cta-button {
-      background: linear-gradient(135deg, var(--accent), var(--accent-bright));
-      color: white;
-      padding: 1.2rem 3rem;
-      text-decoration: none;
-      border-radius: 50px;
-      font-weight: 600;
-      font-size: 1.15rem;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 10px 25px rgba(95, 189, 122, 0.4);
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .cta-button::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-      transition: left 0.5s ease;
-    }
-    
-    .cta-button:hover::before {
-      left: 100%;
-    }
-    
-    .cta-button:hover {
-      transform: translateY(-3px) scale(1.05);
-      box-shadow: 0 15px 35px rgba(95, 189, 122, 0.5);
-    }
-    
-    .cta-button:active {
-      transform: translateY(-1px) scale(1.02);
-    }
-    
-    .cta-button.secondary {
-      background: white;
-      color: var(--primary);
-      border: 2px solid var(--accent);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    }
-    
-    .cta-button.secondary:hover {
-      background: var(--accent);
-      color: white;
-      border-color: var(--accent-bright);
-    }
-    
+    /* Responsive */
     @media (max-width: 768px) {
-      .services-grid,
-      .benefit-list,
-      .contact-section {
+      section {
+        padding: 4rem 0;
+      }
+      
+      .container {
+        padding: 0 1.5rem;
+      }
+      
+      .benefits-grid,
+      .services-list,
+      .why-grid {
         grid-template-columns: 1fr;
       }
       
-      .process-steps::before {
-        display: none;
+      .process-item {
+        flex-direction: column;
+        gap: 1rem;
       }
       
-      .step {
-        margin-left: 0;
-        padding: 2rem;
-      }
-      
-      .step::before {
-        display: none;
-      }
-      
-      h1 {
-        font-size: 1.8rem;
-      }
-      
-      h2 {
-        font-size: 1.6rem;
-      }
-      
-      .about-quote {
-        font-size: 1.2rem;
-        padding: 2rem;
+      .quote {
+        font-size: 1.4rem;
       }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    
-    <!-- HERO -->
-    <section class="section hero">
-      <div class="content">
-        <div class="logo">
-          <img src="aided-cam-transparent.png" alt="AidedCAM Logo" />
-        </div>
-        <h1>Εξατομικευμένο λογισμικό βελτιστοποίησης για επιχειρήσεις που χρησιμοποιούν CAD/CAM/CNC</h1>
-        <p class="hero-subtitle">Λιγότερα κλικ, λιγότερα λάθη, ταχύτερα αποτελέσματα — προσαρμοσμένα στην εταιρία σας.</p>
-      </div>
-    </section>
 
-    <!-- ΤΙ ΚΑΝΟΥΜΕ -->
-    <section class="section alt">
-      <div class="content">
+  <!-- NAVIGATION -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-logo">AIDEDCAM</a>
+      <ul class="nav-menu">
+        <li><a href="#ti-kanoume" class="nav-link">Τι Κάνουμε</a></li>
+        <li><a href="#kerdizeis" class="nav-link">Τι Κερδίζεις</a></li>
+        <li><a href="#ergaleia" class="nav-link">Εργαλεία</a></li>
+        <li><a href="#ypiresias" class="nav-link">Υπηρεσίες</a></li>
+        <li><a href="#methodos" class="nav-link">Η Μέθοδος</a></li>
+        <li><a href="#giati" class="nav-link">Γιατί Εμείς</a></li>
+        <li><a href="#sxetika" class="nav-link">Σχετικά</a></li>
+        <li><a href="#contact" class="nav-cta">Επικοινωνία</a></li>
+      </ul>
+      <div class="nav-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="logo">
+        <img src="aided-cam-transparent.png" alt="AidedCAM Logo" />
+      </div>
+      <h1>Εξατομικευμένο<br>Λογισμικό CAD/CAM/CNC</h1>
+      <p class="subtitle">Λιγότερα κλικ, λιγότερα λάθη, ταχύτερα αποτελέσματα — προσαρμοσμένα στην εταιρία σας.</p>
+      <a href="#contact" class="cta-button">Επικοινωνήστε Μαζί Μας</a>
+    </div>
+  </section>
+
+  <!-- ΤΙ ΚΑΝΟΥΜΕ -->
+  <section id="ti-kanoume" class="section-light">
+    <div class="container">
+      <div class="section-intro">
         <h2>Τι Κάνουμε</h2>
-        <p style="text-align: center; font-size: 1.25rem; max-width: 900px; margin: 2rem auto; font-weight: 500; color: var(--text-dark); line-height: 1.8;">
-          Σχεδιάζουμε και υλοποιούμε εφαρμογές που ενσωματώνουν την υπάρχουσα ροή διαδικασιών σας, επικοινωνώντας με CAD/CAM/CNC λογισμικά, με στόχο την αυτοματοποίηση και την βελτιστοποίησή τους. Αυτοματοποίησε και βελτιστοποίησε από επαναλαμβανόμενα tasks έως και σύνθετες ροές σχεδίασης και παραγωγής.
-        </p>
+        <p>Σχεδιάζουμε και υλοποιούμε εφαρμογές που ενσωματώνουν την υπάρχουσα ροή διαδικασιών σας, επικοινωνώντας με CAD/CAM/CNC λογισμικά, με στόχο την αυτοματοποίηση και την βελτιστοποίησή τους. Αυτοματοποίησε και βελτιστοποίησε από επαναλαμβανόμενα tasks έως και σύνθετες ροές σχεδίασης και παραγωγής.</p>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ΤΙ ΚΕΡΔΙΖΕΙΣ -->
-    <section class="section white">
-      <div class="content">
-        <h2>Τι Κερδίζεις</h2>
-        <div class="benefit-list">
-          <div class="benefit-card">
-            <p>📈 Εξοικονόμησε χρόνο παραγωγής έως και 70%</p>
-          </div>
-          <div class="benefit-card">
-            <p>✓ Μηδένισε τα ανθρώπινα λάθη</p>
-          </div>
-          <div class="benefit-card">
-            <p>📊 Απέκτησε δεδομένα που θα εξελίξουν την δυναμική της εταιρίας</p>
-          </div>
-          <div class="benefit-card">
-            <p>🚀 Γρήγορη ενσωμάτωση ανθρώπινου δυναμικού μαθαίνοντας τη ροή με λογισμικό που καθοδηγεί</p>
-          </div>
+  <!-- ΤΙ ΚΕΡΔΙΖΕΙΣ -->
+  <section id="kerdizeis" class="section-dark">
+    <div class="container">
+      <h2>Τι Κερδίζεις</h2>
+      <div class="benefits-grid">
+        <div class="benefit-item">
+          <p>📈 Εξοικονόμησε χρόνο παραγωγής έως και 70%</p>
+        </div>
+        <div class="benefit-item">
+          <p>✓ Μηδένισε τα ανθρώπινα λάθη</p>
+        </div>
+        <div class="benefit-item">
+          <p>📊 Απέκτησε δεδομένα που θα εξελίξουν την δυναμική της εταιρίας</p>
+        </div>
+        <div class="benefit-item">
+          <p>🚀 Γρήγορη ενσωμάτωση ανθρώπινου δυναμικού μαθαίνοντας τη ροή με λογισμικό που καθοδηγεί</p>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ΕΡΓΑΛΕΙΑ -->
-    <section class="section alt">
-      <div class="content">
+  <!-- ΕΡΓΑΛΕΙΑ -->
+  <section id="ergaleia" class="section-light">
+    <div class="container">
+      <div class="section-intro">
         <h2>Αξιοποιούμε τα Προγράμματά Σου</h2>
-        <p style="text-align: center; font-size: 1.15rem; max-width: 850px; margin: 0 auto 2rem auto; color: var(--text-dark);">
-          Καθώς τα προγράμματά σου παρέχουν ήδη εργαλεία προγραμματισμού
-        </p>
+        <p>Καθώς τα προγράμματά σου παρέχουν ήδη εργαλεία προγραμματισμού</p>
+      </div>
+      
+      <div class="tools-container">
+        <div class="tool-category">
+          <h4>CAM Systems</h4>
+          <p>Mastercam, Autodesk PowerMill, OPEN MIND hyperMILL, Hexagon EDGECAM, SolidCAM, CAMWorks, HSMWorks, ESPRIT, GibbsCAM, Cimatron, SprutCAM X, Tebis</p>
+        </div>
         
-        <div class="tools-section">
-          <div class="tools-category">
-            <h4>CAM Systems</h4>
-            <p>Mastercam, Autodesk PowerMill, OPEN MIND hyperMILL, Hexagon EDGECAM, SolidCAM, CAMWorks, HSMWorks, ESPRIT, GibbsCAM, Cimatron, SprutCAM X, Tebis</p>
-          </div>
-          
-          <div class="tools-category">
-            <h4>Mechanical CAD (MCAD)</h4>
-            <p>AutoCAD, SOLIDWORKS, CATIA V5 / 3DEXPERIENCE, Siemens NX, Autodesk Inventor, Autodesk Fusion 360, Rhino</p>
-          </div>
-          
-          <div class="tools-category">
-            <h4>AEC/BIM CAD</h4>
-            <p>Autodesk Revit, Autodesk Civil 3D, Graphisoft Archicad, SketchUp, Vectorworks, Autodesk Navisworks</p>
-          </div>
-          
-          <div class="devdept-note">
-            <h4>Λύσεις χωρίς τρίτο λογισμικό</h4>
-            <p>Υλοποιούμε επίσης λύσεις για ανάγκες χωρίς την ανάγκη χρήσης τρίτου CAD, CAM, CNC λογισμικού.</p>
-            <p>Αυτό το πετυχαίνουμε με τη χρήση των εργαλείων που προσφέρει η DevDept:</p>
-            <p>
-              <a href="https://devdept.com/Industries/ProductDesign" target="_blank">Product Design</a> • 
-              <a href="https://devdept.com/Industries/IndustrialEquipment" target="_blank">Industrial Equipment</a> • 
-              <a href="https://devdept.com/Industries/Metrology" target="_blank">Metrology</a>
-            </p>
-          </div>
-          
-          <p class="tools-disclaimer">Τα εμπορικά σήματα που αναφέρονται ανήκουν στους αντίστοιχους κατόχους τους. Η AidedCAM δεν συνδέεται ούτε υποστηρίζεται επίσημα από αυτούς.</p>
+        <div class="tool-category">
+          <h4>Mechanical CAD (MCAD)</h4>
+          <p>AutoCAD, SOLIDWORKS, CATIA V5 / 3DEXPERIENCE, Siemens NX, Autodesk Inventor, Autodesk Fusion 360, Rhino</p>
+        </div>
+        
+        <div class="tool-category">
+          <h4>AEC/BIM CAD</h4>
+          <p>Autodesk Revit, Autodesk Civil 3D, Graphisoft Archicad, SketchUp, Vectorworks, Autodesk Navisworks</p>
+        </div>
+        
+        <div class="devdept-box">
+          <h4>Λύσεις χωρίς τρίτο λογισμικό</h4>
+          <p>Υλοποιούμε επίσης λύσεις για ανάγκες χωρίς την ανάγκη χρήσης τρίτου CAD, CAM, CNC λογισμικού.</p>
+          <p>Αυτό το πετυχαίνουμε με τη χρήση των εργαλείων που προσφέρει η DevDept: 
+            <a href="https://devdept.com/Industries/ProductDesign" target="_blank">Product Design</a>, 
+            <a href="https://devdept.com/Industries/IndustrialEquipment" target="_blank">Industrial Equipment</a>, 
+            <a href="https://devdept.com/Industries/Metrology" target="_blank">Metrology</a>
+          </p>
+        </div>
+        
+        <p class="disclaimer">Τα εμπορικά σήματα που αναφέρονται ανήκουν στους αντίστοιχους κατόχους τους. Η AidedCAM δεν συνδέεται ούτε υποστηρίζεται επίσημα από αυτούς.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ΥΠΗΡΕΣΙΕΣ -->
+  <section id="ypiresias" class="section-dark">
+    <div class="container">
+      <h2>Υπηρεσίες</h2>
+      <div class="services-list">
+        <div class="service-item">
+          <div class="service-number">01</div>
+          <h3>Personalized Software Development</h3>
+          <p>Δημιουργούμε εξατομικευμένες εφαρμογές που αυτοματοποιούν τις δικές σας διαδικασίες, μ' εργαλεία φτιαγμένα πάνω στον τρόπο που ήδη δουλεύετε.</p>
+        </div>
+        <div class="service-item">
+          <div class="service-number">02</div>
+          <h3>Custom Plug-ins/Add-ins</h3>
+          <p>Επιπλέον εργαλεία μέσα στο περιβάλλον του λογισμικού σας. Βελτιστοποίηση επαναλαμβανόμενων διαδικασιών.</p>
+        </div>
+        <div class="service-item">
+          <div class="service-number">03</div>
+          <h3>Support & Συντήρηση</h3>
+          <p>Συνεχής υποστήριξη, αναβαθμίσεις, τεκμηρίωση.</p>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ΥΠΗΡΕΣΙΕΣ -->
-    <section class="section white">
-      <div class="content">
-        <h2>Υπηρεσίες</h2>
-        <div class="services-grid">
-          <div class="service-card">
-            <div class="service-number">01</div>
-            <h3>Personalized Software Development</h3>
-            <p>Δημιουργούμε εξατομικευμένες εφαρμογές που αυτοματοποιούν τις δικές σας διαδικασίες, μ' εργαλεία φτιαγμένα πάνω στον τρόπο που ήδη δουλεύετε.</p>
-          </div>
-          <div class="service-card">
-            <div class="service-number">02</div>
-            <h3>Custom Plug-ins/Add-ins</h3>
-            <p>Επιπλέον εργαλεία μέσα στο περιβάλλον του λογισμικού σας. Βελτιστοποίηση επαναλαμβανόμενων διαδικασιών.</p>
-          </div>
-          <div class="service-card">
-            <div class="service-number">03</div>
-            <h3>Support & Συντήρηση</h3>
-            <p>Συνεχής υποστήριξη, αναβαθμίσεις, τεκμηρίωση.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Η ΜΕΘΟΔΟΣ ΜΑΣ -->
-    <section class="section white">
-      <div class="content">
+  <!-- Η ΜΕΘΟΔΟΣ ΜΑΣ -->
+  <section id="methodos" class="section-light">
+    <div class="container">
+      <div class="section-intro">
         <h2>Η Μέθοδός Μας</h2>
-        <div class="process-steps">
-          <div class="step">
-            <h3>1. Κατανόηση</h3>
+      </div>
+      <div class="process-list">
+        <div class="process-item">
+          <div class="process-number">01</div>
+          <div class="process-content">
+            <h3>Κατανόηση</h3>
             <p>60' discovery call + ανάλυση υφιστάμενων ροών.</p>
           </div>
-          <div class="step">
-            <h3>2. Prototype/PoC</h3>
+        </div>
+        <div class="process-item">
+          <div class="process-number">02</div>
+          <div class="process-content">
+            <h3>Prototype/PoC</h3>
             <p>Μικρό demo πάνω στα δικά σας δεδομένα.</p>
           </div>
-          <div class="step">
-            <h3>3. Υλοποίηση</h3>
+        </div>
+        <div class="process-item">
+          <div class="process-number">03</div>
+          <div class="process-content">
+            <h3>Υλοποίηση</h3>
             <p>Δημιουργία λογισμικού με ορατότητα προόδου.</p>
           </div>
-          <div class="step">
-            <h3>4. Παράδοση</h3>
+        </div>
+        <div class="process-item">
+          <div class="process-number">04</div>
+          <div class="process-content">
+            <h3>Παράδοση</h3>
             <p>Εγκατάσταση, τεκμηρίωση, εκπαίδευση.</p>
           </div>
-          <div class="step">
-            <h3>5. Υποστήριξη</h3>
+        </div>
+        <div class="process-item">
+          <div class="process-number">05</div>
+          <div class="process-content">
+            <h3>Υποστήριξη</h3>
             <p>Monitoring, βελτιώσεις βάσει χρήσης.</p>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ΓΙΑΤΙ AIDEDCAM -->
-    <section class="section alt">
-      <div class="content">
+  <!-- ΓΙΑΤΙ AIDEDCAM -->
+  <section id="giati" class="section-dark">
+    <div class="container">
+      <div class="section-intro">
         <h2>Γιατί AidedCAM</h2>
-        <p style="text-align: center; font-size: 1.25rem; max-width: 850px; margin: 0 auto 3rem auto; font-weight: 500; color: var(--text-dark);">
-          Γιατί δεν προσφέρουμε απλώς λογισμικό. Προσφέρουμε τρόπους να δουλεύετε πιο έξυπνα, πιο γρήγορα και με μεγαλύτερη ακρίβεια.
-        </p>
-        <div class="why-list">
-          <div class="why-item">
-            <h3>🏭 Βιομηχανική Σκέψη</h3>
-            <p>Ερχόμαστε από τον κλάδο της βιομηχανικής παραγωγής, με πραγματική εμπειρία σε CAD/CAM/CNC συστήματα.</p>
-          </div>
-          <div class="why-item">
-            <h3>🇬🇷 Πρωτοπόροι στην Ελλάδα</h3>
-            <p>Από τους πρώτους που συστήνουν και υλοποιούν custom αυτοματισμούς CAD/CAM για βιομηχανίες στην ελληνική αγορά.</p>
-          </div>
-          <div class="why-item">
-            <h3>✓ Σταθερά Αποτελέσματα</h3>
-            <p>Standardization & rules, ώστε να βγαίνει «ίδια» δουλειά από όλους.</p>
-          </div>
-          <div class="why-item">
-            <h3>🔧 Ενσωμάτωση</h3>
-            <p>Χρησιμοποιούμε τα υπάρχοντα εργαλεία της εταιρείας, φτιάχνοντας λογισμικό που «κουμπώνει» στο περιβάλλον σας και όχι το αντίστροφο.</p>
-          </div>
+        <p>Γιατί δεν προσφέρουμε απλώς λογισμικό. Προσφέρουμε τρόπους να δουλεύετε πιο έξυπνα, πιο γρήγορα και με μεγαλύτερη ακρίβεια.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-item">
+          <h3>Βιομηχανική Σκέψη</h3>
+          <p>Ερχόμαστε από τον κλάδο της βιομηχανικής παραγωγής, με πραγματική εμπειρία σε CAD/CAM/CNC συστήματα.</p>
+        </div>
+        <div class="why-item">
+          <h3>Πρωτοπόροι στην Ελλάδα</h3>
+          <p>Από τους πρώτους που συστήνουν και υλοποιούν custom αυτοματισμούς CAD/CAM για βιομηχανίες στην ελληνική αγορά.</p>
+        </div>
+        <div class="why-item">
+          <h3>Σταθερά Αποτελέσματα</h3>
+          <p>Standardization & rules, ώστε να βγαίνει «ίδια» δουλειά από όλους.</p>
+        </div>
+        <div class="why-item">
+          <h3>Ενσωμάτωση</h3>
+          <p>Χρησιμοποιούμε τα υπάρχοντα εργαλεία της εταιρείας, φτιάχνοντας λογισμικό που «κουμπώνει» στο περιβάλλον σας και όχι το αντίστροφο.</p>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ΣΧΕΤΙΚΑ ΜΕ ΕΜΑΣ -->
-    <section class="section gradient">
-      <div class="content">
+  <!-- ΣΧΕΤΙΚΑ ΜΕ ΕΜΑΣ -->
+  <section id="sxetika" class="section-light">
+    <div class="container">
+      <div class="about-content">
         <h2>Σχετικά Με Εμάς</h2>
-        <p style="text-align: center; font-size: 1.2rem; max-width: 850px; margin: 0 auto; color: white; font-weight: 400;">
-          Η AidedCAM είναι ομάδα μηχανικών και προγραμματιστών που μιλούν τη γλώσσα της παραγωγής. Ερχόμαστε από το workshop και το γραφείο μελέτης, γι' αυτό και παραδίδουμε εργαλεία που «κουμπώνουν» αβίαστα στην καθημερινότητά σας.
-        </p>
-        <div class="about-quote">
-          «Η ταχύτητα εντυπωσιάζει. Αλλά η αξιοπιστία μεταμορφώνει.»
-        </div>
+        <p>Η AidedCAM είναι ομάδα μηχανικών και προγραμματιστών που μιλούν τη γλώσσα της παραγωγής. Ερχόμαστε από το workshop και το γραφείο μελέτης, γι' αυτό και παραδίδουμε εργαλεία που «κουμπώνουν» αβίαστα στην καθημερινότητά σας.</p>
+        <p class="quote">«Η ταχύτητα εντυπωσιάζει. Αλλά η αξιοπιστία μεταμορφώνει.»</p>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ΕΠΙΚΟΙΝΩΝΙΑ -->
-    <section class="section alt">
-      <div class="content">
+  <!-- ΕΠΙΚΟΙΝΩΝΙΑ -->
+  <section id="contact" class="section-dark">
+    <div class="container">
+      <div class="section-intro">
         <h2>Επικοινωνία</h2>
-        <div class="contact-section">
-          <!-- Αθήνα -->
-          <div class="contact-card">
-            <h3>Αθήνα</h3>
-            <div class="contact-info">
-              <div class="contact-item">
-                <div class="contact-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                  </svg>
-                </div>
-                <div class="contact-details">
-                  <div class="contact-label">Email</div>
-                  <div class="contact-value"><a href="mailto:akoulousis@aidedcam.com">akoulousis@aidedcam.com</a></div>
-                </div>
-              </div>
-              <div class="contact-item">
-                <div class="contact-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
-                  </svg>
-                </div>
-                <div class="contact-details">
-                  <div class="contact-label">Τηλέφωνο</div>
-                  <div class="contact-value"><a href="tel:+306984680874">+30 6984680874</a></div>
-                </div>
-              </div>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-location">
+          <h3>Αθήνα</h3>
+          <div class="contact-info">
+            <div class="contact-item">
+              <div class="contact-label">Email</div>
+              <div class="contact-value"><a href="mailto:akoulousis@aidedcam.com">akoulousis@aidedcam.com</a></div>
             </div>
-          </div>
-          
-          <!-- Θεσσαλονίκη -->
-          <div class="contact-card">
-            <h3>Θεσσαλονίκη</h3>
-            <div class="contact-info">
-              <div class="contact-item">
-                <div class="contact-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                  </svg>
-                </div>
-                <div class="contact-details">
-                  <div class="contact-label">Email</div>
-                  <div class="contact-value"><a href="mailto:tfountoglou@aidedcam.com">tfountoglou@aidedcam.com</a></div>
-                </div>
-              </div>
-              <div class="contact-item">
-                <div class="contact-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
-                  </svg>
-                </div>
-                <div class="contact-details">
-                  <div class="contact-label">Τηλέφωνο</div>
-                  <div class="contact-value"><a href="tel:+306980818754">+30 6980818754</a></div>
-                </div>
-              </div>
+            <div class="contact-item">
+              <div class="contact-label">Τηλέφωνο</div>
+              <div class="contact-value"><a href="tel:+306984680874">+30 6984680874</a></div>
             </div>
           </div>
         </div>
         
-        <div class="cta-section">
-          <a href="mailto:akoulousis@aidedcam.com" class="cta-button">Στείλε Email</a>
-          <a href="#" class="cta-button secondary">Μάθε Περισσότερα</a>
+        <div class="contact-location">
+          <h3>Θεσσαλονίκη</h3>
+          <div class="contact-info">
+            <div class="contact-item">
+              <div class="contact-label">Email</div>
+              <div class="contact-value"><a href="mailto:tfountoglou@aidedcam.com">tfountoglou@aidedcam.com</a></div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-label">Τηλέφωνο</div>
+              <div class="contact-value"><a href="tel:+306980818754">+30 6980818754</a></div>
+            </div>
+          </div>
         </div>
       </div>
-    </section>
+      
+      <div class="footer-cta">
+        <a href="mailto:akoulousis@aidedcam.com" class="cta-button">Στείλε Email</a>
+      </div>
+    </div>
+  </section>
 
-  </div>
+  <script>
+    // Mobile menu toggle
+    const navToggle = document.querySelector('.nav-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+    
+    navToggle.addEventListener('click', () => {
+      navToggle.classList.toggle('active');
+      navMenu.classList.toggle('active');
+    });
+    
+    // Close mobile menu when clicking on a link
+    const navLinks = document.querySelectorAll('.nav-link, .nav-cta');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        navToggle.classList.remove('active');
+        navMenu.classList.remove('active');
+      });
+    });
+    
+    // Navbar scroll effect
+    const navbar = document.querySelector('.navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+  </script>
+
 </body>
 </html>

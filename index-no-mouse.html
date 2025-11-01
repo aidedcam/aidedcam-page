@@ -31,47 +31,6 @@
       color: var(--text-dark);
       line-height: 1.6;
       overflow-x: hidden;
-      cursor: none;
-    }
-    
-    * {
-      cursor: none;
-    }
-    
-    a, button, .nav-link, .cta-button, .nav-cta {
-      cursor: none;
-    }
-    
-    /* Custom Cursor */
-    .custom-cursor {
-      position: fixed;
-      width: 20px;
-      height: 20px;
-      border: 2px solid var(--accent);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 10000;
-      transition: transform 0.15s ease, background 0.2s ease, width 0.2s ease, height 0.2s ease;
-      transform: translate(-50%, -50%);
-    }
-    
-    .custom-cursor-dot {
-      position: fixed;
-      width: 6px;
-      height: 6px;
-      background: var(--accent);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 10001;
-      transition: transform 0.05s ease;
-      transform: translate(-50%, -50%);
-    }
-    
-    .custom-cursor.hover {
-      width: 40px;
-      height: 40px;
-      background: rgba(95, 189, 122, 0.1);
-      border-color: var(--primary);
     }
     
     /* Navigation */
@@ -620,10 +579,6 @@
 </head>
 <body>
 
-  <!-- Custom Cursor -->
-  <div class="custom-cursor"></div>
-  <div class="custom-cursor-dot"></div>
-
   <!-- NAVIGATION -->
   <nav class="navbar">
     <div class="nav-container">
@@ -674,16 +629,16 @@
       <h2>Τι Κερδίζεις</h2>
       <div class="benefits-grid">
         <div class="benefit-item">
-          <p>📈 Εξοικονόμησε χρόνο παραγωγής έως και 70%</p>
+          <p>📈 Εξοικονόμησε χρόνο παραγωγής έως και 70% μετατρέποντας ώρες χειροκίνητης δουλειάς σε λεπτά αυτοματισμού. Από drawing μέχρι G-code</p>
         </div>
         <div class="benefit-item">
-          <p>✓ Μηδένισε τα ανθρώπινα λάθη</p>
+          <p>✓ Εξάλειψε λάθη που κοστίζουν — υλικά, χρόνο μηχανής, αστοχίες — με προσαρμοσμένους ελέγχους ποιότητας ενσωματωμένους στο workflow</p>
         </div>
         <div class="benefit-item">
-          <p>📊 Απέκτησε δεδομένα που θα εξελίξουν την δυναμική της εταιρίας</p>
+          <p>📊 Απόκτησε δεδομένα για κάθε διαδικασία — γνώρισε πραγματικούς χρόνους και κόστη, και ενίσχυσε την ανταγωνιστική σου θέση</p>
         </div>
         <div class="benefit-item">
-          <p>🚀 Γρήγορη ενσωμάτωση ανθρώπινου δυναμικού μαθαίνοντας τη ροή με λογισμικό που καθοδηγεί</p>
+          <p>🚀 Γρήγορη ενσωμάτωση ανθρώπινου δυναμικού, παραγωγικοί από την πρώτη μέρα με λογισμικό που τους καθοδηγεί βήμα προς βήμα</p>
         </div>
       </div>
     </div>
@@ -694,7 +649,7 @@
     <div class="container">
       <div class="section-intro">
         <h2>Αξιοποιούμε τα Προγράμματά Σου</h2>
-        <p>Καθώς τα προγράμματά σου παρέχουν ήδη εργαλεία προγραμματισμού</p>
+        <p>Τα προγράμματα που ήδη χρησιμοποιείτε έχουν ενσωματωμένες δυνατότητες προγραμματισμού και αυτοματισμών, οι οποίες σήμερα δεν αξιοποιούνται.</p>
       </div>
       
       <div class="tools-container">
@@ -704,12 +659,12 @@
         </div>
         
         <div class="tool-category">
-          <h4>Mechanical CAD (MCAD)</h4>
+          <h4>CAD Mechanical</h4>
           <p>AutoCAD, SOLIDWORKS, CATIA V5 / 3DEXPERIENCE, Siemens NX, Autodesk Inventor, Autodesk Fusion 360, Rhino</p>
         </div>
         
         <div class="tool-category">
-          <h4>AEC/BIM CAD</h4>
+          <h4>CAD AEC/BIM</h4>
           <p>Autodesk Revit, Autodesk Civil 3D, Graphisoft Archicad, SketchUp, Vectorworks, Autodesk Navisworks</p>
         </div>
         
@@ -812,7 +767,7 @@
         </div>
         <div class="why-item">
           <h3>Πρωτοπόροι στην Ελλάδα</h3>
-          <p>Από τους πρώτους που συστήνουν και υλοποιούν custom αυτοματισμούς CAD/CAM για βιομηχανίες στην ελληνική αγορά.</p>
+          <p>Από τους πρώτους που συστήνουν και υλοποιούν custom αυτοματισμούς CAD/CAM/CNC για βιομηχανίες και όχι μόνο, στην ελληνική αγορά.</p>
         </div>
         <div class="why-item">
           <h3>Σταθερά Αποτελέσματα</h3>
@@ -880,55 +835,6 @@
   </section>
 
   <script>
-    // Custom Cursor
-    const cursor = document.querySelector('.custom-cursor');
-    const cursorDot = document.querySelector('.custom-cursor-dot');
-    let mouseX = 0;
-    let mouseY = 0;
-    let cursorX = 0;
-    let cursorY = 0;
-    let dotX = 0;
-    let dotY = 0;
-    
-    // Track mouse position
-    document.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    });
-    
-    // Smooth cursor follow
-    function animateCursor() {
-      // Smooth delay for outer circle
-      cursorX += (mouseX - cursorX) * 0.15;
-      cursorY += (mouseY - cursorY) * 0.15;
-      
-      // Faster follow for dot
-      dotX += (mouseX - dotX) * 0.3;
-      dotY += (mouseY - dotY) * 0.3;
-      
-      cursor.style.left = cursorX + 'px';
-      cursor.style.top = cursorY + 'px';
-      cursorDot.style.left = dotX + 'px';
-      cursorDot.style.top = dotY + 'px';
-      
-      requestAnimationFrame(animateCursor);
-    }
-    
-    animateCursor();
-    
-    // Add hover effect on interactive elements
-    const interactiveElements = document.querySelectorAll('a, button, .nav-link, .cta-button, .nav-toggle');
-    
-    interactiveElements.forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        cursor.classList.add('hover');
-      });
-      
-      el.addEventListener('mouseleave', () => {
-        cursor.classList.remove('hover');
-      });
-    });
-    
     // Mobile menu toggle
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('.nav-menu');

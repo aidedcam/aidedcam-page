@@ -1640,10 +1640,12 @@
       localStorage.setItem('aidedcam-lang', lang);
     }
 
-    // Initialize language from localStorage or default to Greek
-    const savedLang = localStorage.getItem('aidedcam-lang') || 'el';
-    if (savedLang !== 'el') {
-      setLanguage(savedLang);
+    // Initialize language: localStorage > browser language > Greek default
+    const savedLang = localStorage.getItem('aidedcam-lang');
+    const browserLang = navigator.language && navigator.language.startsWith('el') ? 'el' : 'en';
+    const initialLang = savedLang || browserLang;
+    if (initialLang !== 'el') {
+      setLanguage(initialLang);
     }
 
     // Language button click handlers

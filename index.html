@@ -4,13 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AidedCAM - Εξατομικευμένο Λογισμικό CAD/CAM</title>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-81935T6DNE"></script>
+  <!-- Google Analytics - loaded only after cookie consent -->
   <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-81935T6DNE');
+    function loadGA() {
+      if (document.getElementById('ga-script')) return;
+      var s = document.createElement('script');
+      s.id = 'ga-script';
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-81935T6DNE';
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', 'G-81935T6DNE');
+    }
+    if (localStorage.getItem('cookie-consent') === 'accepted') { loadGA(); }
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -148,6 +157,92 @@
       background: var(--text-dark);
       transition: all 0.3s ease;
       border-radius: 2px;
+    }
+
+    /* ===== COOKIE BANNER ===== */
+    .cookie-banner {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--primary-dark);
+      color: white;
+      padding: 1.2rem 2rem;
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .cookie-banner.visible {
+      display: flex;
+    }
+
+    .cookie-banner p {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.85);
+      line-height: 1.5;
+      margin: 0;
+      flex: 1;
+    }
+
+    .cookie-banner a {
+      color: var(--accent-light);
+      text-decoration: underline;
+    }
+
+    .cookie-buttons {
+      display: flex;
+      gap: 0.6rem;
+      flex-shrink: 0;
+    }
+
+    .cookie-btn {
+      padding: 0.5rem 1.2rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+      transition: all 0.2s ease;
+    }
+
+    .cookie-btn-accept {
+      background: var(--accent);
+      color: white;
+    }
+
+    .cookie-btn-accept:hover {
+      background: var(--accent-light);
+    }
+
+    .cookie-btn-decline {
+      background: transparent;
+      color: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .cookie-btn-decline:hover {
+      border-color: rgba(255, 255, 255, 0.4);
+      color: white;
+    }
+
+    @media (max-width: 768px) {
+      .cookie-banner {
+        flex-direction: column;
+        padding: 1.2rem 1.5rem;
+        gap: 1rem;
+      }
+      .cookie-buttons {
+        width: 100%;
+      }
+      .cookie-btn {
+        flex: 1;
+        text-align: center;
+      }
     }
 
     /* ===== HERO ===== */
@@ -1510,6 +1605,10 @@
         'footer.whatwedo': 'Τι Κάνουμε',
         'footer.services': 'Υπηρεσίες',
         'footer.contact': 'Επικοινωνία',
+        // Cookie banner
+        'cookie_text': 'Χρησιμοποιούμε cookies για την ανάλυση επισκεψιμότητας (Google Analytics). Κανένα προσωπικό δεδομένο δεν κοινοποιείται σε τρίτους.',
+        'cookie_accept': 'Αποδοχή',
+        'cookie_decline': 'Απόρριψη',
         // Page title
         '_title': 'AidedCAM - Εξατομικευμένο Λογισμικό CAD/CAM'
       },
@@ -1609,6 +1708,10 @@
         'footer.whatwedo': 'What We Do',
         'footer.services': 'Services',
         'footer.contact': 'Contact',
+        // Cookie banner
+        'cookie_text': 'We use cookies for traffic analysis (Google Analytics). No personal data is shared with third parties.',
+        'cookie_accept': 'Accept',
+        'cookie_decline': 'Decline',
         // Page title
         '_title': 'AidedCAM - Custom CAD/CAM Software'
       }
@@ -1701,6 +1804,33 @@
     window.addEventListener('scroll', () => {
       navbar.classList.toggle('scrolled', window.scrollY > 50);
     });
+  </script>
+
+  <!-- COOKIE CONSENT BANNER -->
+  <div class="cookie-banner" id="cookieBanner">
+    <p data-i18n-html="cookie_text">Χρησιμοποιούμε cookies για την ανάλυση επισκεψιμότητας (Google Analytics). Κανένα προσωπικό δεδομένο δεν κοινοποιείται σε τρίτους.</p>
+    <div class="cookie-buttons">
+      <button class="cookie-btn cookie-btn-accept" id="cookieAccept" data-i18n="cookie_accept">Αποδοχή</button>
+      <button class="cookie-btn cookie-btn-decline" id="cookieDecline" data-i18n="cookie_decline">Απόρριψη</button>
+    </div>
+  </div>
+  <script>
+    (function() {
+      var consent = localStorage.getItem('cookie-consent');
+      var banner = document.getElementById('cookieBanner');
+      if (!consent) {
+        banner.classList.add('visible');
+      }
+      document.getElementById('cookieAccept').addEventListener('click', function() {
+        localStorage.setItem('cookie-consent', 'accepted');
+        banner.classList.remove('visible');
+        loadGA();
+      });
+      document.getElementById('cookieDecline').addEventListener('click', function() {
+        localStorage.setItem('cookie-consent', 'declined');
+        banner.classList.remove('visible');
+      });
+    })();
   </script>
 
 </body>

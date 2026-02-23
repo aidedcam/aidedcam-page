@@ -1,0 +1,36 @@
+# AidedCAM
+
+> Custom CAD/CAM/CNC automation software for manufacturing companies.
+> Autodesk Authorized Developer. Based in Greece (Athens, Thessaloniki).
+> Serves companies in Greece, Belgium, Switzerland, Austria, Germany.
+
+## Services
+- Single Project: Automation of one specific CAD/CAM task or workflow
+- Whole Workflow: End-to-end production workflow automation (from design to manufacturing)
+- Workflow + Continuous Support: Full automation with ongoing monitoring, improvements, and bug fixes
+
+## Supported Software
+- Autodesk PowerMill (CAM)
+- Autodesk PowerShape (CAD)
+- Autodesk FeatureCAM (CAM)
+- Autodesk Inventor (CAD)
+- TopSolid (coming soon)
+- Standalone solutions via DevDept (no third-party CAD/CAM required)
+
+## Process
+1. Workflow analysis - map every production step
+2. Solution design - decide what to automate and how
+3. Tool development - build custom software
+4. Integration and testing - install and fine-tune
+5. Training and support - onboard the team
+
+## Key Facts
+- Up to 70% reduction in production preparation time
+- Active in 5+ countries
+- 100% custom-built solutions
+- Zero dependency on individual operators
+
+## Contact
+- Athens: akoulousis@aidedcam.com | +30 6984680874
+- Thessaloniki: tfountoglou@aidedcam.com | +30 6980818754
+- Website: https://www.aidedcam.com

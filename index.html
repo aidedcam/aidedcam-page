@@ -4,6 +4,59 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AidedCAM - Εξατομικευμένο Λογισμικό CAD/CAM</title>
+  <meta name="description" content="Εξατομικευμένες λύσεις αυτοματοποίησης CAD/CAM/CNC. Μειώστε τον χρόνο παραγωγής έως 70%. Autodesk Authorized Developer. Αθήνα & Θεσσαλονίκη." />
+  <meta name="keywords" content="CAD, CAM, CNC, αυτοματοποίηση, PowerMill, PowerShape, FeatureCAM, Inventor, custom software, AidedCAM" />
+  <meta property="og:title" content="AidedCAM - Εξατομικευμένο Λογισμικό CAD/CAM" />
+  <meta property="og:description" content="Εξατομικευμένες λύσεις αυτοματοποίησης CAD/CAM/CNC — κομμένες και ραμμένες στον τρόπο που δουλεύετε." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.aidedcam.com" />
+  <link rel="canonical" href="https://www.aidedcam.com" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "AidedCAM",
+    "url": "https://www.aidedcam.com",
+    "logo": "https://www.aidedcam.com/aided-cam-transparent.png",
+    "description": "Custom CAD/CAM/CNC automation solutions for manufacturing industries.",
+    "contactPoint": [
+      {
+        "@type": "ContactPoint",
+        "telephone": "+30-6984680874",
+        "email": "akoulousis@aidedcam.com",
+        "contactType": "sales",
+        "areaServed": "GR",
+        "availableLanguage": ["Greek", "English"]
+      },
+      {
+        "@type": "ContactPoint",
+        "telephone": "+30-6980818754",
+        "email": "tfountoglou@aidedcam.com",
+        "contactType": "sales",
+        "areaServed": "GR",
+        "availableLanguage": ["Greek", "English"]
+      }
+    ],
+    "address": [
+      {
+        "@type": "PostalAddress",
+        "addressLocality": "Athens",
+        "addressCountry": "GR"
+      },
+      {
+        "@type": "PostalAddress",
+        "addressLocality": "Thessaloniki",
+        "addressCountry": "GR"
+      }
+    ],
+    "sameAs": [],
+    "knowsAbout": ["CAD automation", "CAM automation", "CNC programming", "PowerMill", "PowerShape", "FeatureCAM", "Autodesk Inventor"],
+    "hasCredential": {
+      "@type": "EducationalOccupationalCredential",
+      "credentialCategory": "Autodesk Authorized Developer"
+    }
+  }
+  </script>
   <!-- Google Analytics - loaded only after cookie consent -->
   <script>
     function loadGA() {
@@ -383,6 +436,31 @@
       overflow: hidden;
     }
 
+    .hero-particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .hero-typing-cursor {
+      display: inline-block;
+      width: 3px;
+      height: 1em;
+      background: var(--accent-light);
+      margin-left: 4px;
+      vertical-align: text-bottom;
+      animation: blink 0.7s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
     .hero::before {
       content: '';
       position: absolute;
@@ -584,6 +662,77 @@
 
     .section-header.center .section-subtitle {
       margin: 0 auto;
+    }
+
+    /* ===== STATS BAR ===== */
+    .stats-bar {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 3rem 0;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      text-align: center;
+    }
+
+    .stat-item {
+      position: relative;
+    }
+
+    .stat-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 15%;
+      height: 70%;
+      width: 1px;
+      background: var(--border);
+    }
+
+    .stat-number {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: -1px;
+      line-height: 1.2;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--text-gray);
+      margin-top: 0.3rem;
+      font-weight: 500;
+    }
+
+    @media (max-width: 768px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem 1rem;
+      }
+      .stat-item:not(:last-child)::after {
+        display: none;
+      }
+    }
+
+    /* ===== CONTACT TRUST ===== */
+    .contact-trust {
+      margin-top: 2rem;
+      text-align: center;
+      opacity: 0.7;
+      transition: opacity 0.2s ease;
+    }
+
+    .contact-trust:hover {
+      opacity: 1;
+    }
+
+    .contact-trust img {
+      height: 40px;
+      width: auto;
+      filter: brightness(0) invert(1);
     }
 
     /* ===== WHAT WE DO - Split layout ===== */
@@ -1326,6 +1475,7 @@
 
   <!-- HERO -->
   <section class="hero">
+    <canvas class="hero-particles" id="heroParticles"></canvas>
     <div class="hero-content">
       <div class="hero-badge">Made by engineers, for engineers</div>
       <h1 data-i18n-html="hero.title"><span class="highlight">70%</span> της τεχνικής δουλειάς<br>μπορεί να γίνει αυτόματα</h1>
@@ -1349,6 +1499,30 @@
       </div>
     </div>
   </section>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item fade-in">
+          <div class="stat-number" data-count="70" data-suffix="%">0%</div>
+          <div class="stat-label" data-i18n="stats.time">Εξοικονόμηση χρόνου</div>
+        </div>
+        <div class="stat-item fade-in fade-in-delay-1">
+          <div class="stat-number" data-count="5" data-suffix="+">0+</div>
+          <div class="stat-label" data-i18n="stats.countries">Χώρες δραστηριοποίησης</div>
+        </div>
+        <div class="stat-item fade-in fade-in-delay-2">
+          <div class="stat-number" data-count="4">0</div>
+          <div class="stat-label" data-i18n="stats.integrations">Υποστηριζόμενα CAD/CAM</div>
+        </div>
+        <div class="stat-item fade-in fade-in-delay-3">
+          <div class="stat-number" data-count="100" data-suffix="%">0%</div>
+          <div class="stat-label" data-i18n="stats.custom">Εξατομικευμένες λύσεις</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- ΤΙ ΚΑΝΟΥΜΕ -->
   <section id="ti-kanoume">
@@ -1609,6 +1783,9 @@
       </div>
       <div class="contact-cta fade-in">
         <a href="mailto:akoulousis@aidedcam.com" class="btn-primary" data-i18n="contact.send_email">Στείλε Email</a>
+        <div class="contact-trust">
+          <img src="autodesk-authorized-developer-white.png" alt="Autodesk Authorized Developer" />
+        </div>
       </div>
     </div>
   </section>
@@ -1649,6 +1826,11 @@
         'hero.cta': 'Επικοινωνήστε Μαζί Μας',
         'hero.learn_more': 'Μάθετε Περισσότερα ↓',
         'hero.supported': 'Υποστηριζόμενα συστήματα',
+        // Stats bar
+        'stats.time': 'Εξοικονόμηση χρόνου',
+        'stats.countries': 'Χώρες δραστηριοποίησης',
+        'stats.integrations': 'Υποστηριζόμενα CAD/CAM',
+        'stats.custom': 'Εξατομικευμένες λύσεις',
         // What We Do
         'whatwedo.label': 'Τι Κάνουμε',
         'whatwedo.title': 'Αυτοματοποιούμε όλη τη ροή παραγωγής',
@@ -1763,6 +1945,11 @@
         'hero.cta': 'Get in Touch',
         'hero.learn_more': 'Learn More ↓',
         'hero.supported': 'Supported systems',
+        // Stats bar
+        'stats.time': 'Time savings',
+        'stats.countries': 'Countries served',
+        'stats.integrations': 'Supported CAD/CAM',
+        'stats.custom': 'Custom-built solutions',
         // What We Do
         'whatwedo.label': 'What We Do',
         'whatwedo.title': 'We automate the entire production workflow',
@@ -1946,11 +2133,191 @@
       });
     });
 
-    // ===== NAVBAR SCROLL =====
+    // ===== NAVBAR SCROLL + PARALLAX =====
     const navbar = document.querySelector('.navbar');
+    const heroContent = document.querySelector('.hero-content');
     window.addEventListener('scroll', () => {
       navbar.classList.toggle('scrolled', window.scrollY > 50);
+      // Parallax: hero content moves up faster, creating depth
+      if (window.scrollY < window.innerHeight) {
+        heroContent.style.transform = 'translateY(' + (window.scrollY * 0.35) + 'px)';
+        heroContent.style.opacity = 1 - (window.scrollY / window.innerHeight);
+      }
     });
+
+    // ===== FLOATING PARTICLES =====
+    (function() {
+      var canvas = document.getElementById('heroParticles');
+      var ctx = canvas.getContext('2d');
+      var particles = [];
+      var count = 60;
+
+      function resize() {
+        var hero = canvas.parentElement;
+        canvas.width = hero.offsetWidth;
+        canvas.height = hero.offsetHeight;
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      for (var i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          r: Math.random() * 2 + 0.5,
+          dx: (Math.random() - 0.5) * 0.4,
+          dy: (Math.random() - 0.5) * 0.3,
+          opacity: Math.random() * 0.4 + 0.1
+        });
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(function(p) {
+          p.x += p.dx;
+          p.y += p.dy;
+          if (p.x < 0) p.x = canvas.width;
+          if (p.x > canvas.width) p.x = 0;
+          if (p.y < 0) p.y = canvas.height;
+          if (p.y > canvas.height) p.y = 0;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(126, 224, 148, ' + p.opacity + ')';
+          ctx.fill();
+        });
+        // Draw lines between nearby particles
+        for (var i = 0; i < particles.length; i++) {
+          for (var j = i + 1; j < particles.length; j++) {
+            var dx = particles[i].x - particles[j].x;
+            var dy = particles[i].y - particles[j].y;
+            var dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 120) {
+              ctx.beginPath();
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+              ctx.strokeStyle = 'rgba(126, 224, 148, ' + (0.06 * (1 - dist / 120)) + ')';
+              ctx.lineWidth = 0.5;
+              ctx.stroke();
+            }
+          }
+        }
+        requestAnimationFrame(draw);
+      }
+      draw();
+    })();
+
+    // ===== ANIMATED COUNTERS =====
+    (function() {
+      var counters = document.querySelectorAll('.stat-number[data-count]');
+      var counted = new Set();
+      var counterObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting && !counted.has(entry.target)) {
+            counted.add(entry.target);
+            var el = entry.target;
+            var target = parseInt(el.getAttribute('data-count'));
+            var suffix = el.getAttribute('data-suffix') || '';
+            var duration = 1500;
+            var start = 0;
+            var startTime = null;
+            function animate(ts) {
+              if (!startTime) startTime = ts;
+              var progress = Math.min((ts - startTime) / duration, 1);
+              var eased = 1 - Math.pow(1 - progress, 3);
+              var current = Math.round(eased * target);
+              el.textContent = current + suffix;
+              if (progress < 1) requestAnimationFrame(animate);
+            }
+            requestAnimationFrame(animate);
+          }
+        });
+      }, { threshold: 0.5 });
+      counters.forEach(function(c) { counterObserver.observe(c); });
+    })();
+
+    // ===== TYPING EFFECT =====
+    (function() {
+      var h1 = document.querySelector('.hero h1');
+      var cursor = document.createElement('span');
+      cursor.className = 'hero-typing-cursor';
+
+      function typeHTML(el, html, callback) {
+        // Parse HTML and type text nodes, insert tags instantly
+        var temp = document.createElement('div');
+        temp.innerHTML = html;
+        el.innerHTML = '';
+        el.appendChild(cursor);
+
+        var queue = [];
+        function flatten(node) {
+          node.childNodes.forEach(function(child) {
+            if (child.nodeType === 3) { // text
+              for (var i = 0; i < child.textContent.length; i++) {
+                queue.push({ type: 'char', char: child.textContent[i], parent: child.parentNode === node ? null : child.parentNode });
+              }
+            } else if (child.nodeType === 1) { // element
+              queue.push({ type: 'open', tag: child.tagName, className: child.className, attrs: child.attributes });
+              flatten(child);
+              queue.push({ type: 'close' });
+            }
+          });
+        }
+        flatten(temp);
+
+        var container = el;
+        var stack = [el];
+        var i = 0;
+
+        function step() {
+          if (i >= queue.length) {
+            cursor.remove();
+            if (callback) callback();
+            return;
+          }
+          var item = queue[i];
+          var current = stack[stack.length - 1];
+          if (item.type === 'open') {
+            var tag = document.createElement(item.tag);
+            if (item.className) tag.className = item.className;
+            current.insertBefore(tag, cursor);
+            if (cursor.parentNode !== current) current.appendChild(cursor);
+            stack.push(tag);
+            tag.appendChild(cursor);
+            i++;
+            step();
+          } else if (item.type === 'close') {
+            stack.pop();
+            var parent = stack[stack.length - 1];
+            parent.appendChild(cursor);
+            i++;
+            step();
+          } else {
+            var current = stack[stack.length - 1];
+            current.insertBefore(document.createTextNode(item.char), cursor);
+            i++;
+            setTimeout(step, 70);
+          }
+        }
+        step();
+      }
+
+      // Run on page load
+      var initialHTML = h1.getAttribute('data-i18n-html');
+      var lang = localStorage.getItem('aidedcam-lang') || (navigator.language && navigator.language.startsWith('el') ? 'el' : 'en');
+      var titleHTML = translations[lang]['hero.title'];
+      h1.innerHTML = '';
+      setTimeout(function() {
+        typeHTML(h1, titleHTML);
+      }, 500);
+
+      // Re-run on language switch
+      var origSetLanguage = setLanguage;
+      setLanguage = function(newLang) {
+        origSetLanguage(newLang);
+        var newTitle = translations[newLang]['hero.title'];
+        typeHTML(h1, newTitle);
+      };
+    })();
 
     // ===== GOOGLE ANALYTICS CUSTOM EVENTS =====
     function gaEvent(eventName, params) {

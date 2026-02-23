@@ -1951,6 +1951,92 @@
     window.addEventListener('scroll', () => {
       navbar.classList.toggle('scrolled', window.scrollY > 50);
     });
+
+    // ===== GOOGLE ANALYTICS CUSTOM EVENTS =====
+    function gaEvent(eventName, params) {
+      if (window.gtag) gtag('event', eventName, params);
+    }
+
+    // -- Email clicks --
+    document.querySelectorAll('a[href^="mailto:"]').forEach(link => {
+      link.addEventListener('click', () => {
+        gaEvent('contact_email', {
+          email: link.href.replace('mailto:', ''),
+          location: link.closest('section')?.id || 'unknown'
+        });
+      });
+    });
+
+    // -- Phone clicks --
+    document.querySelectorAll('a[href^="tel:"]').forEach(link => {
+      link.addEventListener('click', () => {
+        gaEvent('contact_phone', {
+          phone: link.href.replace('tel:', ''),
+          location: link.closest('section')?.id || 'unknown'
+        });
+      });
+    });
+
+    // -- CTA button clicks --
+    document.querySelectorAll('.btn-primary, .btn-secondary, .nav-cta').forEach(btn => {
+      btn.addEventListener('click', () => {
+        gaEvent('cta_click', {
+          text: btn.textContent.trim(),
+          href: btn.href || '',
+          location: btn.closest('section')?.id || 'nav'
+        });
+      });
+    });
+
+    // -- Outbound link clicks --
+    document.querySelectorAll('a[href^="http"]').forEach(link => {
+      if (!link.href.includes(window.location.hostname)) {
+        link.addEventListener('click', () => {
+          gaEvent('outbound_click', {
+            url: link.href,
+            text: link.textContent.trim()
+          });
+        });
+      }
+    });
+
+    // -- Language switch --
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        gaEvent('language_switch', {
+          language: btn.getAttribute('data-lang')
+        });
+      });
+    });
+
+    // -- Scroll depth tracking --
+    (function() {
+      var depths = [25, 50, 75, 100];
+      var fired = {};
+      window.addEventListener('scroll', function() {
+        var scrollPct = Math.round((window.scrollY + window.innerHeight) / document.documentElement.scrollHeight * 100);
+        depths.forEach(function(d) {
+          if (scrollPct >= d && !fired[d]) {
+            fired[d] = true;
+            gaEvent('scroll_depth', { percent: d });
+          }
+        });
+      });
+    })();
+
+    // -- Section visibility tracking --
+    var sectionObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          gaEvent('section_view', { section: entry.target.id });
+          sectionObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll('section[id]').forEach(function(sec) {
+      sectionObserver.observe(sec);
+    });
   </script>
 
   <!-- PRIVACY CONSENT OVERLAY -->

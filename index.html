@@ -2866,7 +2866,7 @@
         inner.style.boxShadow = '0 0 ' + Math.max(0, glow) + 'px rgba(95, 189, 122, 0.25)';
 
         // Time: 5h (300min) at 0% → 10min at 100%
-        var mins = Math.round(300 - (progress / 100) * 290);
+        var mins = Math.round(300 - (progress / 100) * 285);
         vizTimeVal.textContent = formatTime(mins);
         vizTimeVal.classList.toggle('green', progress >= 50);
 

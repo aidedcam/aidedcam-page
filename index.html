@@ -1677,6 +1677,35 @@
       pointer-events: none;
     }
 
+    .viz-slider-arrow {
+      position: absolute;
+      left: 0%;
+      top: -32px;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+
+    .viz-slider-arrow.visible {
+      opacity: 1;
+    }
+
+    .viz-slider-arrow-icon {
+      color: var(--accent);
+      font-size: 20px;
+      line-height: 1;
+      animation: vizArrowBounce 0.8s ease-in-out infinite;
+    }
+
+    @keyframes vizArrowBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(4px); }
+    }
+
     .viz-slider-labels {
       display: flex;
       justify-content: space-between;
@@ -1983,6 +2012,9 @@
               <div class="viz-slider-fill" id="vizSliderFill"></div>
             </div>
             <div class="viz-slider-thumb" id="vizSliderThumb"></div>
+            <div class="viz-slider-arrow" id="vizSliderArrow">
+              <div class="viz-slider-arrow-icon">&#9660;</div>
+            </div>
           </div>
           <div class="viz-slider-labels">
             <span id="vizLabelManual" data-i18n="viz.manual">Χειροκίνητα</span>
@@ -2760,19 +2792,42 @@
         vizSliderThumb.style.left = progress + '%';
       }
 
+      // Arrow element
+      var vizArrow = document.getElementById('vizSliderArrow');
+
+      function updateArrowPosition(progress) {
+        vizArrow.style.left = progress + '%';
+      }
+
       // Slider interaction
       var dragging = false;
+      var autoPlaying = false;
+      var autoPlayDone = false;
+      var autoPlayRaf = null;
+
+      function stopAutoPlay() {
+        autoPlaying = false;
+        if (autoPlayRaf) {
+          cancelAnimationFrame(autoPlayRaf);
+          autoPlayRaf = null;
+        }
+        vizArrow.classList.remove('visible');
+      }
+
       function updateFromPointer(clientX) {
         var rect = vizSliderTrack.getBoundingClientRect();
         var pct = Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100));
         updateViz(pct);
+        updateArrowPosition(pct);
       }
 
       vizSliderTrack.addEventListener('mousedown', function(e) {
+        if (autoPlaying) stopAutoPlay();
         dragging = true;
         updateFromPointer(e.clientX);
       });
       vizSliderTrack.addEventListener('touchstart', function(e) {
+        if (autoPlaying) stopAutoPlay();
         dragging = true;
         updateFromPointer(e.touches[0].clientX);
       }, { passive: true });
@@ -2785,6 +2840,68 @@
       }, { passive: true });
       window.addEventListener('mouseup', function() { dragging = false; });
       window.addEventListener('touchend', function() { dragging = false; });
+
+      // Autoplay animation
+      function startAutoPlay() {
+        if (autoPlayDone || autoPlaying) return;
+        autoPlaying = true;
+        vizArrow.classList.add('visible');
+
+        var duration = 4000; // 4s forward
+        var pauseAt100 = 1200; // pause 1.2s at end
+        var rewindDuration = 800; // 0.8s rewind
+        var startTime = null;
+
+        function animate(timestamp) {
+          if (!autoPlaying) return;
+          if (!startTime) startTime = timestamp;
+          var elapsed = timestamp - startTime;
+
+          if (elapsed < duration) {
+            // Forward: ease-in-out from 0 to 100
+            var t = elapsed / duration;
+            var eased = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+            var pct = eased * 100;
+            updateViz(pct);
+            updateArrowPosition(pct);
+          } else if (elapsed < duration + pauseAt100) {
+            // Hold at 100
+            updateViz(100);
+            updateArrowPosition(100);
+          } else if (elapsed < duration + pauseAt100 + rewindDuration) {
+            // Rewind: ease-out from 100 to 0
+            var rt = (elapsed - duration - pauseAt100) / rewindDuration;
+            var reased = 1 - (1 - rt) * (1 - rt);
+            var pct = 100 * (1 - reased);
+            updateViz(pct);
+            updateArrowPosition(pct);
+          } else {
+            // Done — reset to 0, hide arrow
+            updateViz(0);
+            updateArrowPosition(0);
+            autoPlaying = false;
+            autoPlayDone = true;
+            vizArrow.classList.remove('visible');
+            return;
+          }
+
+          autoPlayRaf = requestAnimationFrame(animate);
+        }
+
+        autoPlayRaf = requestAnimationFrame(animate);
+      }
+
+      // Trigger autoplay when section scrolls into view
+      var vizSection = document.querySelector('.workflow-viz-section');
+      var vizObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting && !autoPlayDone && !autoPlaying) {
+            // Small delay so the fade-in animation finishes first
+            setTimeout(startAutoPlay, 600);
+          }
+        });
+      }, { threshold: 0.3 });
+      vizObserver.observe(vizSection);
 
       // Initialize
       renderVizCards();

@@ -1522,7 +1522,7 @@
     .viz-time-value.green { color: var(--accent); }
 
     .viz-time-label {
-      font-size: 0.7rem;
+      font-size: 0.95rem;
       color: #888888;
       text-transform: uppercase;
       letter-spacing: 0.08em;
@@ -1847,10 +1847,10 @@
     .viz-slider-labels {
       display: flex;
       justify-content: space-between;
-      font-size: 10px;
+      font-size: 0.9rem;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      margin-top: 2px;
+      margin-top: 4px;
     }
 
     .viz-slider-labels span {
@@ -2982,9 +2982,12 @@
         vizPlayBtn.classList.remove('playing');
       }
 
+      var vizCurrentPct = 0;
+
       function updateFromPointer(clientX) {
         var rect = vizSliderTrack.getBoundingClientRect();
         var pct = Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100));
+        vizCurrentPct = pct;
         updateViz(pct);
         updateArrowPosition(pct);
       }
@@ -3006,25 +3009,28 @@
       window.addEventListener('touchmove', function(e) {
         if (dragging) updateFromPointer(e.touches[0].clientX);
       }, { passive: true });
-      window.addEventListener('mouseup', function() { dragging = false; });
-      window.addEventListener('touchend', function() { dragging = false; });
+      window.addEventListener('mouseup', function() {
+        if (dragging) { dragging = false; vizForward = vizCurrentPct < 50; }
+      });
+      window.addEventListener('touchend', function() {
+        if (dragging) { dragging = false; vizForward = vizCurrentPct < 50; }
+      });
 
       // Autoplay animation
-      function startAutoPlay(fromButton) {
+      var vizForward = true; // true = next click plays forward, false = next click rewinds
+
+      function startAutoPlay(forward) {
         if (autoPlaying) return;
-        if (!fromButton && autoPlayDone) return;
         autoPlaying = true;
         vizArrow.classList.add('visible');
         vizPlayBtn.classList.add('playing');
         vizClickHint.style.visibility = 'hidden';
 
-        // If triggered by button, reset to 0 first
-        if (fromButton) {
-          updateViz(0);
-          updateArrowPosition(0);
-        }
-
-        var duration = 4000; // 4s forward
+        var startPct = vizCurrentPct;
+        var endPct = forward ? 100 : 0;
+        var range = Math.abs(endPct - startPct);
+        var duration = (range / 100) * (forward ? 4000 : 2000); // scale duration to remaining distance
+        if (duration < 200) duration = 200;
         var startTime = null;
 
         function animate(timestamp) {
@@ -3033,18 +3039,19 @@
           var elapsed = timestamp - startTime;
 
           if (elapsed < duration) {
-            // Forward: ease-in-out from 0 to 100
             var t = elapsed / duration;
             var eased = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-            var pct = eased * 100;
+            var pct = startPct + (endPct - startPct) * eased;
+            vizCurrentPct = pct;
             updateViz(pct);
             updateArrowPosition(pct);
           } else {
-            // Done — stay at 100
-            updateViz(100);
-            updateArrowPosition(100);
+            vizCurrentPct = endPct;
+            updateViz(endPct);
+            updateArrowPosition(endPct);
             autoPlaying = false;
-            autoPlayDone = true;
+            autoPlayDone = forward;
+            vizForward = !forward;
             vizArrow.classList.remove('visible');
             vizPlayBtn.classList.remove('playing');
             vizClickHint.style.visibility = '';
@@ -3061,11 +3068,9 @@
       vizPlayBtn.addEventListener('click', function() {
         if (autoPlaying) {
           stopAutoPlay();
-          updateViz(0);
-          updateArrowPosition(0);
-        } else {
-          startAutoPlay(true);
+          return;
         }
+        startAutoPlay(vizForward);
       });
 
       // Initialize

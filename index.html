@@ -1601,7 +1601,7 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 55%;
+      width: 75%;
       z-index: 10;
       opacity: 0;
       pointer-events: none;
@@ -1611,8 +1611,8 @@
     .viz-automated-inner {
       background: linear-gradient(135deg, rgba(95, 189, 122, 0.12), rgba(95, 189, 122, 0.04));
       border: 2px solid var(--accent);
-      border-radius: 14px;
-      padding: 24px 20px;
+      border-radius: 16px;
+      padding: 40px 32px;
       text-align: center;
       position: relative;
       overflow: hidden;
@@ -1624,8 +1624,8 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 160px;
-      height: 160px;
+      width: 220px;
+      height: 220px;
       border-radius: 50%;
       background: radial-gradient(circle, rgba(95, 189, 122, 0.08), transparent 70%);
       pointer-events: none;
@@ -1636,46 +1636,46 @@
     }
 
     .viz-automated-icon {
-      width: 48px;
-      height: 48px;
-      margin: 0 auto 10px;
-      border-radius: 12px;
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 16px;
+      border-radius: 14px;
       background: linear-gradient(135deg, var(--accent), var(--accent-light));
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 22px;
+      font-size: 30px;
       box-shadow: 0 4px 16px rgba(95, 189, 122, 0.3);
     }
 
     .viz-automated-title {
-      font-size: 18px;
+      font-size: 1.6rem;
       font-weight: 700;
       color: #ffffff;
       letter-spacing: -0.02em;
-      margin-bottom: 4px;
+      margin-bottom: 8px;
     }
 
     .viz-automated-subtitle {
-      font-size: 11px;
+      font-size: 0.95rem;
       color: var(--accent-light);
-      margin-bottom: 14px;
+      margin-bottom: 24px;
     }
 
     .viz-automated-stats {
       display: flex;
       justify-content: center;
-      gap: 20px;
+      gap: 36px;
     }
 
     .viz-auto-stat-val {
-      font-size: 18px;
+      font-size: 1.5rem;
       font-weight: 700;
       color: var(--accent);
     }
 
     .viz-auto-stat-label {
-      font-size: 8px;
+      font-size: 0.7rem;
       color: #888888;
       text-transform: uppercase;
       letter-spacing: 0.08em;
@@ -1874,23 +1874,31 @@
       }
 
       .viz-automated-card {
-        width: 75%;
+        width: 85%;
       }
 
       .viz-automated-inner {
-        padding: 16px 14px;
+        padding: 28px 18px;
       }
 
       .viz-automated-title {
-        font-size: 15px;
+        font-size: 1.3rem;
+      }
+
+      .viz-automated-subtitle {
+        font-size: 0.85rem;
       }
 
       .viz-automated-stats {
-        gap: 14px;
+        gap: 20px;
       }
 
       .viz-auto-stat-val {
-        font-size: 15px;
+        font-size: 1.2rem;
+      }
+
+      .viz-auto-stat-label {
+        font-size: 0.65rem;
       }
     }
 

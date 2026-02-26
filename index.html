@@ -1438,12 +1438,17 @@
     .viz-header h2 .viz-muted { color: #888888; }
     .viz-header h2 .viz-green { color: var(--accent); }
 
-    .viz-time {
-      text-align: center;
+    .viz-time-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
       margin-bottom: 1.5rem;
+    }
+
+    .viz-time {
       display: flex;
       align-items: baseline;
-      justify-content: center;
       gap: 8px;
     }
 
@@ -1631,7 +1636,7 @@
     }
 
     .viz-slider-container {
-      max-width: 720px;
+      max-width: 960px;
       margin: 0.8rem auto 0;
     }
 
@@ -1706,6 +1711,80 @@
       50% { transform: translateY(4px); }
     }
 
+    .viz-click-hint {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      animation: vizHintFade 2s ease-in-out infinite;
+    }
+
+    .viz-click-hint span {
+      font-size: 0.8rem;
+      color: var(--accent);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .viz-click-hint-arrow {
+      color: var(--accent);
+      font-size: 1rem;
+      animation: vizHintBounce 1s ease-in-out infinite;
+    }
+
+    @keyframes vizHintBounce {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(5px); }
+    }
+
+    @keyframes vizHintFade {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+
+    .viz-play-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: inherit;
+    }
+
+    .viz-play-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .viz-play-btn:active {
+      transform: scale(0.95);
+    }
+
+    .viz-play-btn.playing {
+      pointer-events: none;
+    }
+
+    .viz-play-btn img {
+      width: 52px;
+      height: 52px;
+      transition: transform 0.3s ease;
+    }
+
+    .viz-play-btn:hover img {
+      transform: scale(1.08);
+    }
+
+    .viz-play-btn.playing img {
+      animation: vizLogoPulse 1s ease-in-out infinite;
+    }
+
+    @keyframes vizLogoPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.12); }
+    }
+
     .viz-slider-labels {
       display: flex;
       justify-content: space-between;
@@ -1723,6 +1802,11 @@
     @media (max-width: 768px) {
       .workflow-viz-section {
         padding: 3.5rem 0;
+      }
+
+      .viz-play-btn img {
+        width: 40px;
+        height: 40px;
       }
 
       .viz-steps-grid {
@@ -1974,9 +2058,18 @@
         <h2 data-i18n-html="viz.title"><span class="viz-muted">10 βήματα</span> γίνονται <span class="viz-green">μία ενέργεια</span></h2>
       </div>
       <div class="viz-container fade-in">
-        <div class="viz-time">
-          <span class="viz-time-value" id="vizTimeValue">5h 0min</span>
-          <span class="viz-time-label" data-i18n="viz.perpart">ανά τεμάχιο</span>
+        <div class="viz-time-row">
+          <div class="viz-click-hint" id="vizClickHint">
+            <span data-i18n="viz.clickhint">πάτα</span>
+            <div class="viz-click-hint-arrow">&#9654;</div>
+          </div>
+          <button class="viz-play-btn" id="vizPlayBtn" type="button">
+            <img src="aided-cam-transparent.png" alt="Play" />
+          </button>
+          <div class="viz-time">
+            <span class="viz-time-value" id="vizTimeValue">5h 0min</span>
+            <span class="viz-time-label" data-i18n="viz.perpart">ανά τεμάχιο</span>
+          </div>
         </div>
         <div class="viz-main">
           <div class="viz-steps-grid" id="vizStepsGrid"></div>
@@ -2006,6 +2099,7 @@
           </div>
         </div>
         <div class="viz-counter" id="vizCounter"></div>
+
         <div class="viz-slider-container">
           <div class="viz-slider-track" id="vizSliderTrack">
             <div class="viz-slider-bg">
@@ -2344,6 +2438,8 @@
         'viz.click': 'Κλικ',
         'viz.remaining': '{x} από 10 χειροκίνητα βήματα απομένουν',
         'viz.complete': '&#10003; Πλήρης αυτοματοποίηση με AidedCAM',
+        'viz.play': 'Αναπαραγωγή',
+        'viz.clickhint': 'πάτα',
         'viz.step1_title': 'Λήψη Προδιαγραφών',
         'viz.step1_desc': 'Φύλλο παραγγελίας & διαστάσεις',
         'viz.step2_title': 'Άνοιγμα CAD',
@@ -2495,6 +2591,8 @@
         'viz.click': 'Click',
         'viz.remaining': '{x} of 10 manual steps remaining',
         'viz.complete': '&#10003; Fully automated with AidedCAM',
+        'viz.play': 'Play',
+        'viz.clickhint': 'click',
         'viz.step1_title': 'Receive Specs',
         'viz.step1_desc': 'Order sheet & dimensions',
         'viz.step2_title': 'Open CAD',
@@ -2794,6 +2892,8 @@
 
       // Arrow element
       var vizArrow = document.getElementById('vizSliderArrow');
+      var vizPlayBtn = document.getElementById('vizPlayBtn');
+      var vizClickHint = document.getElementById('vizClickHint');
 
       function updateArrowPosition(progress) {
         vizArrow.style.left = progress + '%';
@@ -2812,6 +2912,7 @@
           autoPlayRaf = null;
         }
         vizArrow.classList.remove('visible');
+        vizPlayBtn.classList.remove('playing');
       }
 
       function updateFromPointer(clientX) {
@@ -2842,10 +2943,19 @@
       window.addEventListener('touchend', function() { dragging = false; });
 
       // Autoplay animation
-      function startAutoPlay() {
-        if (autoPlayDone || autoPlaying) return;
+      function startAutoPlay(fromButton) {
+        if (autoPlaying) return;
+        if (!fromButton && autoPlayDone) return;
         autoPlaying = true;
         vizArrow.classList.add('visible');
+        vizPlayBtn.classList.add('playing');
+        vizClickHint.style.visibility = 'hidden';
+
+        // If triggered by button, reset to 0 first
+        if (fromButton) {
+          updateViz(0);
+          updateArrowPosition(0);
+        }
 
         var duration = 4000; // 4s forward
         var pauseAt100 = 1200; // pause 1.2s at end
@@ -2882,6 +2992,8 @@
             autoPlaying = false;
             autoPlayDone = true;
             vizArrow.classList.remove('visible');
+            vizPlayBtn.classList.remove('playing');
+            vizClickHint.style.visibility = '';
             return;
           }
 
@@ -2891,17 +3003,16 @@
         autoPlayRaf = requestAnimationFrame(animate);
       }
 
-      // Trigger autoplay when section scrolls into view
-      var vizSection = document.querySelector('.workflow-viz-section');
-      var vizObserver = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          if (entry.isIntersecting && !autoPlayDone && !autoPlaying) {
-            // Small delay so the fade-in animation finishes first
-            setTimeout(startAutoPlay, 600);
-          }
-        });
-      }, { threshold: 0.3 });
-      vizObserver.observe(vizSection);
+      // Play button click
+      vizPlayBtn.addEventListener('click', function() {
+        if (autoPlaying) {
+          stopAutoPlay();
+          updateViz(0);
+          updateArrowPosition(0);
+        } else {
+          startAutoPlay(true);
+        }
+      });
 
       // Initialize
       renderVizCards();

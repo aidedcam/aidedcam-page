@@ -2958,8 +2958,6 @@
         }
 
         var duration = 4000; // 4s forward
-        var pauseAt100 = 1200; // pause 1.2s at end
-        var rewindDuration = 800; // 0.8s rewind
         var startTime = null;
 
         function animate(timestamp) {
@@ -2974,21 +2972,10 @@
             var pct = eased * 100;
             updateViz(pct);
             updateArrowPosition(pct);
-          } else if (elapsed < duration + pauseAt100) {
-            // Hold at 100
+          } else {
+            // Done — stay at 100
             updateViz(100);
             updateArrowPosition(100);
-          } else if (elapsed < duration + pauseAt100 + rewindDuration) {
-            // Rewind: ease-out from 100 to 0
-            var rt = (elapsed - duration - pauseAt100) / rewindDuration;
-            var reased = 1 - (1 - rt) * (1 - rt);
-            var pct = 100 * (1 - reased);
-            updateViz(pct);
-            updateArrowPosition(pct);
-          } else {
-            // Done — reset to 0, hide arrow
-            updateViz(0);
-            updateArrowPosition(0);
             autoPlaying = false;
             autoPlayDone = true;
             vizArrow.classList.remove('visible');

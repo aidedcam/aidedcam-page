@@ -1416,6 +1416,312 @@
     .fade-in-delay-3 { transition-delay: 0.3s; }
     .fade-in-delay-4 { transition-delay: 0.4s; }
 
+    /* ===== WORKFLOW VISUALIZATION ===== */
+    .workflow-viz-section {
+      background: #0a0a0a;
+      padding: 5rem 0;
+      overflow: hidden;
+    }
+
+    .viz-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .viz-header h2 {
+      color: #ffffff;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+
+    .viz-header h2 .viz-muted { color: #888888; }
+    .viz-header h2 .viz-green { color: var(--accent); }
+
+    .viz-time {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .viz-time-value {
+      font-size: clamp(1.6rem, 3vw, 2rem);
+      font-weight: 800;
+      color: #ffffff;
+      font-variant-numeric: tabular-nums;
+      transition: color 0.3s;
+    }
+
+    .viz-time-value.green { color: var(--accent); }
+
+    .viz-time-label {
+      font-size: 0.7rem;
+      color: #888888;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .viz-main {
+      position: relative;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .viz-steps-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      transition: opacity 0.3s;
+    }
+
+    .viz-step-card {
+      background: #141414;
+      border: 1px solid #222222;
+      border-radius: 12px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: opacity 0.15s, transform 0.15s;
+      transform-origin: center center;
+      overflow: hidden;
+    }
+
+    .viz-step-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: rgba(95, 189, 122, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .viz-step-info {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .viz-step-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #ffffff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .viz-step-num {
+      color: #555555;
+      margin-right: 6px;
+      font-weight: 400;
+      font-size: 0.75rem;
+    }
+
+    .viz-step-desc {
+      font-size: 0.8rem;
+      color: #888888;
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .viz-automated-card {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 55%;
+      z-index: 10;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+
+    .viz-automated-inner {
+      background: linear-gradient(135deg, rgba(95, 189, 122, 0.12), rgba(95, 189, 122, 0.04));
+      border: 2px solid var(--accent);
+      border-radius: 14px;
+      padding: 24px 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transform-origin: center center;
+    }
+
+    .viz-automated-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(95, 189, 122, 0.08), transparent 70%);
+      pointer-events: none;
+    }
+
+    .viz-automated-content {
+      position: relative;
+    }
+
+    .viz-automated-icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 10px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      box-shadow: 0 4px 16px rgba(95, 189, 122, 0.3);
+    }
+
+    .viz-automated-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+    }
+
+    .viz-automated-subtitle {
+      font-size: 11px;
+      color: var(--accent-light);
+      margin-bottom: 14px;
+    }
+
+    .viz-automated-stats {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .viz-auto-stat-val {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .viz-auto-stat-label {
+      font-size: 8px;
+      color: #888888;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .viz-counter {
+      text-align: center;
+      margin-top: 1.2rem;
+      font-size: 11px;
+      color: #888888;
+      min-height: 18px;
+    }
+
+    .viz-counter .green {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .viz-slider-container {
+      max-width: 720px;
+      margin: 0.8rem auto 0;
+    }
+
+    .viz-slider-track {
+      position: relative;
+      height: 40px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      touch-action: none;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .viz-slider-bg {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 5px;
+      border-radius: 3px;
+      background: #222222;
+      overflow: hidden;
+    }
+
+    .viz-slider-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-light));
+      border-radius: 3px;
+      box-shadow: 0 0 10px rgba(95, 189, 122, 0.4);
+    }
+
+    .viz-slider-thumb {
+      position: absolute;
+      left: 0%;
+      transform: translateX(-50%);
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #ffffff;
+      box-shadow: 0 0 14px rgba(95, 189, 122, 0.5), 0 2px 6px rgba(0, 0, 0, 0.4);
+      border: 3px solid var(--accent);
+      pointer-events: none;
+    }
+
+    .viz-slider-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 2px;
+    }
+
+    .viz-slider-labels span {
+      color: #555555;
+      transition: color 0.3s;
+    }
+
+    @media (max-width: 768px) {
+      .workflow-viz-section {
+        padding: 3.5rem 0;
+      }
+
+      .viz-steps-grid {
+        grid-template-columns: 1fr;
+        gap: 5px;
+      }
+
+      .viz-automated-card {
+        width: 75%;
+      }
+
+      .viz-automated-inner {
+        padding: 16px 14px;
+      }
+
+      .viz-automated-title {
+        font-size: 15px;
+      }
+
+      .viz-automated-stats {
+        gap: 14px;
+      }
+
+      .viz-auto-stat-val {
+        font-size: 15px;
+      }
+    }
+
     /* ===== RESPONSIVE ===== */
     @media (max-width: 1024px) {
       .process-steps {
@@ -1631,6 +1937,61 @@
       </div>
     </div>
   </div>
+
+  <!-- WORKFLOW VISUALIZATION -->
+  <section class="workflow-viz-section">
+    <div class="container">
+      <div class="viz-header fade-in">
+        <h2 data-i18n-html="viz.title"><span class="viz-muted">10 βήματα</span> γίνονται <span class="viz-green">μία ενέργεια</span></h2>
+      </div>
+      <div class="viz-container fade-in">
+        <div class="viz-time">
+          <span class="viz-time-value" id="vizTimeValue">5h 0min</span>
+          <span class="viz-time-label" data-i18n="viz.perpart">ανά τεμάχιο</span>
+        </div>
+        <div class="viz-main">
+          <div class="viz-steps-grid" id="vizStepsGrid"></div>
+          <div class="viz-automated-card" id="vizAutomatedCard">
+            <div class="viz-automated-inner">
+              <div class="viz-automated-glow"></div>
+              <div class="viz-automated-content">
+                <div class="viz-automated-icon">&#9889;</div>
+                <div class="viz-automated-title" data-i18n="viz.oneaction">Μία Ενέργεια</div>
+                <div class="viz-automated-subtitle" data-i18n="viz.auto_subtitle">Η AidedCAM αναλαμβάνει όλη τη διαδικασία</div>
+                <div class="viz-automated-stats">
+                  <div style="text-align:center">
+                    <div class="viz-auto-stat-val">70%</div>
+                    <div class="viz-auto-stat-label" data-i18n="viz.timesaved">Εξοικονόμηση</div>
+                  </div>
+                  <div style="text-align:center">
+                    <div class="viz-auto-stat-val">0</div>
+                    <div class="viz-auto-stat-label" data-i18n="viz.errors">Σφάλματα</div>
+                  </div>
+                  <div style="text-align:center">
+                    <div class="viz-auto-stat-val">1</div>
+                    <div class="viz-auto-stat-label" data-i18n="viz.click">Κλικ</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="viz-counter" id="vizCounter"></div>
+        <div class="viz-slider-container">
+          <div class="viz-slider-track" id="vizSliderTrack">
+            <div class="viz-slider-bg">
+              <div class="viz-slider-fill" id="vizSliderFill"></div>
+            </div>
+            <div class="viz-slider-thumb" id="vizSliderThumb"></div>
+          </div>
+          <div class="viz-slider-labels">
+            <span id="vizLabelManual" data-i18n="viz.manual">Χειροκίνητα</span>
+            <span id="vizLabelAutomated" data-i18n="viz.automated">Αυτοματοποιημένα</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- ΤΙ ΚΑΝΟΥΜΕ -->
   <section id="ti-kanoume">
@@ -1939,6 +2300,38 @@
         'stats.countries': 'Χώρες δραστηριοποίησης',
         'stats.integrations': 'Υποστηριζόμενα CAD/CAM',
         'stats.custom': 'Εξατομικευμένες λύσεις',
+        // Workflow Visualization
+        'viz.title': '<span class="viz-muted">10 βήματα</span> γίνονται <span class="viz-green">μία ενέργεια</span>',
+        'viz.perpart': 'ανά τεμάχιο',
+        'viz.manual': 'Χειροκίνητα',
+        'viz.automated': 'Αυτοματοποιημένα',
+        'viz.oneaction': 'Μία Ενέργεια',
+        'viz.auto_subtitle': 'Η AidedCAM αναλαμβάνει όλη τη διαδικασία',
+        'viz.timesaved': 'Εξοικονόμηση',
+        'viz.errors': 'Σφάλματα',
+        'viz.click': 'Κλικ',
+        'viz.remaining': '{x} από 10 χειροκίνητα βήματα απομένουν',
+        'viz.complete': '&#10003; Πλήρης αυτοματοποίηση με AidedCAM',
+        'viz.step1_title': 'Λήψη Προδιαγραφών',
+        'viz.step1_desc': 'Φύλλο παραγγελίας & διαστάσεις',
+        'viz.step2_title': 'Άνοιγμα CAD',
+        'viz.step2_desc': 'Εκκίνηση & ρύθμιση project',
+        'viz.step3_title': 'Σχεδίαση Γεωμετρίας',
+        'viz.step3_desc': 'Δημιουργία 2D/3D μοντέλου',
+        'viz.step4_title': 'Ορισμός Features',
+        'viz.step4_desc': 'Οπές, τσέπες, αυλάκια',
+        'viz.step5_title': 'Επιλογή Εργαλείων',
+        'viz.step5_desc': 'Κοπτικά & τρυπάνια',
+        'viz.step6_title': 'Ρύθμιση Παραμέτρων',
+        'viz.step6_desc': 'Ταχύτητες, προώσεις, βάθη',
+        'viz.step7_title': 'Δημιουργία Toolpaths',
+        'viz.step7_desc': 'Λειτουργίες CNC μία-μία',
+        'viz.step8_title': 'Προσομοίωση',
+        'viz.step8_desc': 'Έλεγχος συγκρούσεων & σφαλμάτων',
+        'viz.step9_title': 'Post-Process',
+        'viz.step9_desc': 'Δημιουργία G-code',
+        'viz.step10_title': 'Μεταφορά στο CNC',
+        'viz.step10_desc': 'Φόρτωση στον controller',
         // What We Do
         'whatwedo.label': 'Τι Κάνουμε',
         'whatwedo.title': 'Αυτοματοποιούμε όλη τη ροή παραγωγής',
@@ -2058,6 +2451,38 @@
         'stats.countries': 'Countries served',
         'stats.integrations': 'Supported CAD/CAM',
         'stats.custom': 'Custom-built solutions',
+        // Workflow Visualization
+        'viz.title': '<span class="viz-muted">10 steps</span> become <span class="viz-green">one action</span>',
+        'viz.perpart': 'per part',
+        'viz.manual': 'Manual',
+        'viz.automated': 'Automated',
+        'viz.oneaction': 'One Action',
+        'viz.auto_subtitle': 'AidedCAM handles the entire workflow',
+        'viz.timesaved': 'Time saved',
+        'viz.errors': 'Errors',
+        'viz.click': 'Click',
+        'viz.remaining': '{x} of 10 manual steps remaining',
+        'viz.complete': '&#10003; Fully automated with AidedCAM',
+        'viz.step1_title': 'Receive Specs',
+        'viz.step1_desc': 'Order sheet & dimensions',
+        'viz.step2_title': 'Open CAD',
+        'viz.step2_desc': 'Launch & set up project',
+        'viz.step3_title': 'Draw Geometry',
+        'viz.step3_desc': 'Create/adjust 2D/3D model',
+        'viz.step4_title': 'Define Features',
+        'viz.step4_desc': 'Place holes, pockets, slots',
+        'viz.step5_title': 'Select Tools',
+        'viz.step5_desc': 'Look up cutters & drills',
+        'viz.step6_title': 'Set Parameters',
+        'viz.step6_desc': 'Feeds, speeds, depths',
+        'viz.step7_title': 'Gen. Toolpaths',
+        'viz.step7_desc': 'CNC ops one by one',
+        'viz.step8_title': 'Simulate',
+        'viz.step8_desc': 'Check collisions & errors',
+        'viz.step9_title': 'Post-Process',
+        'viz.step9_desc': 'Generate G-code',
+        'viz.step10_title': 'Transfer CNC',
+        'viz.step10_desc': 'Load to controller',
         // What We Do
         'whatwedo.label': 'What We Do',
         'whatwedo.title': 'We automate the entire production workflow',
@@ -2207,6 +2632,172 @@
         setLanguage(btn.getAttribute('data-lang'));
       });
     });
+
+    // ===== WORKFLOW VISUALIZATION =====
+    (function() {
+      var vizSteps = [
+        { icon: '\u{1F4CB}', titleKey: 'viz.step1_title', descKey: 'viz.step1_desc' },
+        { icon: '\u{1F4BB}', titleKey: 'viz.step2_title', descKey: 'viz.step2_desc' },
+        { icon: '\u270F\uFE0F', titleKey: 'viz.step3_title', descKey: 'viz.step3_desc' },
+        { icon: '\u{1F4D0}', titleKey: 'viz.step4_title', descKey: 'viz.step4_desc' },
+        { icon: '\u{1F527}', titleKey: 'viz.step5_title', descKey: 'viz.step5_desc' },
+        { icon: '\u2699\uFE0F', titleKey: 'viz.step6_title', descKey: 'viz.step6_desc' },
+        { icon: '\u{1F6E4}\uFE0F', titleKey: 'viz.step7_title', descKey: 'viz.step7_desc' },
+        { icon: '\u{1F50D}', titleKey: 'viz.step8_title', descKey: 'viz.step8_desc' },
+        { icon: '\u{1F4E4}', titleKey: 'viz.step9_title', descKey: 'viz.step9_desc' },
+        { icon: '\u{1F3ED}', titleKey: 'viz.step10_title', descKey: 'viz.step10_desc' },
+      ];
+
+      var vizProgress = 0;
+      var vizGrid = document.getElementById('vizStepsGrid');
+      var vizAutoCard = document.getElementById('vizAutomatedCard');
+      var vizCounter = document.getElementById('vizCounter');
+      var vizTimeVal = document.getElementById('vizTimeValue');
+      var vizSliderTrack = document.getElementById('vizSliderTrack');
+      var vizSliderFill = document.getElementById('vizSliderFill');
+      var vizSliderThumb = document.getElementById('vizSliderThumb');
+      var vizLabelManual = document.getElementById('vizLabelManual');
+      var vizLabelAutomated = document.getElementById('vizLabelAutomated');
+
+      function getLang() {
+        return localStorage.getItem('aidedcam-lang') || 'el';
+      }
+
+      function t(key) {
+        var lang = getLang();
+        return (translations[lang] && translations[lang][key]) || key;
+      }
+
+      function renderVizCards() {
+        vizGrid.innerHTML = '';
+        vizSteps.forEach(function(step, i) {
+          var card = document.createElement('div');
+          card.className = 'viz-step-card';
+          card.setAttribute('data-viz-index', i);
+          card.innerHTML =
+            '<div class="viz-step-icon">' + step.icon + '</div>' +
+            '<div class="viz-step-info">' +
+              '<div class="viz-step-title"><span class="viz-step-num">' +
+                String(i + 1).padStart(2, '0') +
+              '</span><span data-i18n="' + step.titleKey + '">' + t(step.titleKey) + '</span></div>' +
+              '<div class="viz-step-desc" data-i18n="' + step.descKey + '">' + t(step.descKey) + '</div>' +
+            '</div>';
+          vizGrid.appendChild(card);
+        });
+      }
+
+      function formatTime(totalMins) {
+        if (totalMins >= 60) {
+          var h = Math.floor(totalMins / 60);
+          var m = totalMins % 60;
+          return m > 0 ? h + 'h ' + m + 'min' : h + 'h';
+        }
+        return totalMins + ' min';
+      }
+
+      function updateViz(progress) {
+        vizProgress = progress;
+        var total = vizSteps.length;
+        var cards = vizGrid.querySelectorAll('.viz-step-card');
+
+        cards.forEach(function(card, i) {
+          var threshold = (i / total) * 100;
+          var collapseStart = Math.max(0, threshold - 5);
+          var collapseEnd = threshold + 15;
+          var opacity, scale;
+          if (progress <= collapseStart) { opacity = 1; scale = 1; }
+          else if (progress >= collapseEnd) { opacity = 0; scale = 0.5; }
+          else {
+            var t = (progress - collapseStart) / (collapseEnd - collapseStart);
+            var ease = t * t * (3 - 2 * t);
+            opacity = 1 - ease;
+            scale = 1 - ease * 0.5;
+          }
+          card.style.opacity = opacity;
+          card.style.transform = 'scale(' + scale + ')';
+        });
+
+        // Grid overall opacity near end
+        if (progress >= 85) {
+          vizGrid.style.opacity = Math.max(0, 1 - (progress - 85) / 15);
+        } else {
+          vizGrid.style.opacity = 1;
+        }
+
+        // Automated card
+        var autoVisible = progress > 30;
+        var autoOpacity = autoVisible ? Math.min(1, (progress - 30) / 40) : 0;
+        var autoScale = autoVisible ? 0.85 + Math.min(0.15, (progress - 30) / 100) : 0.85;
+        var glow = Math.min(20, (progress - 30) * 0.4);
+        vizAutoCard.style.opacity = autoOpacity;
+        vizAutoCard.style.pointerEvents = autoVisible ? 'auto' : 'none';
+        var inner = vizAutoCard.querySelector('.viz-automated-inner');
+        inner.style.transform = 'scale(' + autoScale + ')';
+        inner.style.boxShadow = '0 0 ' + Math.max(0, glow) + 'px rgba(95, 189, 122, 0.25)';
+
+        // Time: 5h (300min) at 0% → 10min at 100%
+        var mins = Math.round(300 - (progress / 100) * 290);
+        vizTimeVal.textContent = formatTime(mins);
+        vizTimeVal.classList.toggle('green', progress >= 50);
+
+        // Counter text
+        var visible = vizSteps.filter(function(_, i) {
+          return progress < (i / total) * 100 + 15;
+        }).length;
+        if (progress < 85) {
+          var remainingText = t('viz.remaining').replace('{x}', visible);
+          vizCounter.innerHTML = remainingText;
+        } else {
+          vizCounter.innerHTML = '<span class="green">' + t('viz.complete') + '</span>';
+        }
+
+        // Slider labels
+        vizLabelManual.style.color = progress < 50 ? '#ffffff' : '#555555';
+        vizLabelAutomated.style.color = progress >= 50 ? 'var(--accent)' : '#555555';
+
+        // Slider position
+        vizSliderFill.style.width = progress + '%';
+        vizSliderThumb.style.left = progress + '%';
+      }
+
+      // Slider interaction
+      var dragging = false;
+      function updateFromPointer(clientX) {
+        var rect = vizSliderTrack.getBoundingClientRect();
+        var pct = Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100));
+        updateViz(pct);
+      }
+
+      vizSliderTrack.addEventListener('mousedown', function(e) {
+        dragging = true;
+        updateFromPointer(e.clientX);
+      });
+      vizSliderTrack.addEventListener('touchstart', function(e) {
+        dragging = true;
+        updateFromPointer(e.touches[0].clientX);
+      }, { passive: true });
+
+      window.addEventListener('mousemove', function(e) {
+        if (dragging) updateFromPointer(e.clientX);
+      });
+      window.addEventListener('touchmove', function(e) {
+        if (dragging) updateFromPointer(e.touches[0].clientX);
+      }, { passive: true });
+      window.addEventListener('mouseup', function() { dragging = false; });
+      window.addEventListener('touchend', function() { dragging = false; });
+
+      // Initialize
+      renderVizCards();
+      updateViz(0);
+
+      // Re-render on language change - override setLanguage
+      var origSetLanguage = setLanguage;
+      setLanguage = function(lang) {
+        origSetLanguage(lang);
+        renderVizCards();
+        updateViz(vizProgress);
+      };
+    })();
 
     // ===== SCROLL ANIMATIONS =====
     const observer = new IntersectionObserver((entries) => {

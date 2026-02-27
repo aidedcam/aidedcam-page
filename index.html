@@ -241,6 +241,9 @@
       window.gtag = gtag;
       gtag('js', new Date());
       gtag('config', 'G-81935T6DNE');
+      // Set user language as a user property for segmentation
+      var userLang = localStorage.getItem('aidedcam-lang') || document.documentElement.lang || 'el';
+      gtag('set', 'user_properties', { preferred_language: userLang });
     }
     if (localStorage.getItem('privacy-pref') === 'accepted') { loadGA(); }
   </script>
@@ -3179,11 +3182,13 @@
       }
 
       vizSliderTrack.addEventListener('mousedown', function(e) {
+        gaEvent('viz_slider_interact', { method: 'mouse' });
         if (autoPlaying) stopAutoPlay();
         dragging = true;
         updateFromPointer(e.clientX);
       });
       vizSliderTrack.addEventListener('touchstart', function(e) {
+        gaEvent('viz_slider_interact', { method: 'touch' });
         if (autoPlaying) stopAutoPlay();
         dragging = true;
         updateFromPointer(e.touches[0].clientX);
@@ -3253,9 +3258,11 @@
       // Play button click
       vizPlayBtn.addEventListener('click', function() {
         if (autoPlaying) {
+          gaEvent('viz_play_btn', { action: 'pause' });
           stopAutoPlay();
           return;
         }
+        gaEvent('viz_play_btn', { action: 'play' });
         startAutoPlay(vizForward);
       });
 
@@ -3522,7 +3529,7 @@
       });
     });
 
-    // -- Outbound link clicks --
+    // -- Outbound link clicks (captures link text — richer than GA4 Enhanced Measurement) --
     document.querySelectorAll('a[href^="http"]').forEach(link => {
       if (!link.href.includes(window.location.hostname)) {
         link.addEventListener('click', () => {
@@ -3537,13 +3544,24 @@
     // -- Language switch --
     document.querySelectorAll('.lang-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        gaEvent('language_switch', {
-          language: btn.getAttribute('data-lang')
-        });
+        var lang = btn.getAttribute('data-lang');
+        gaEvent('language_switch', { language: lang });
+        // Update user property so all future events are segmented by language
+        if (window.gtag) gtag('set', 'user_properties', { preferred_language: lang });
       });
     });
 
-    // -- Scroll depth tracking --
+    // -- Mobile nav toggle --
+    var mobileNavBtn = document.querySelector('.nav-toggle');
+    if (mobileNavBtn) {
+      mobileNavBtn.addEventListener('click', () => {
+        gaEvent('mobile_nav_toggle', {
+          action: mobileNavBtn.classList.contains('active') ? 'close' : 'open'
+        });
+      });
+    }
+
+    // -- Scroll depth tracking (25/50/75/100% — complements GA4 Enhanced Measurement which only fires at 90%) --
     (function() {
       const depths = [25, 50, 75, 100];
       const fired = {};
@@ -3570,6 +3588,94 @@
 
     document.querySelectorAll('section[id]').forEach(function(sec) {
       sectionObserver.observe(sec);
+    });
+
+    // -- Web Vitals tracking (LCP, CLS, INP) --
+    // Uses PerformanceObserver API (no external library needed)
+    (function() {
+      // Largest Contentful Paint
+      try {
+        new PerformanceObserver(function(list) {
+          var entries = list.getEntries();
+          var last = entries[entries.length - 1];
+          gaEvent('web_vital_lcp', { value: Math.round(last.startTime), metric: 'LCP' });
+        }).observe({ type: 'largest-contentful-paint', buffered: true });
+      } catch(e) {}
+
+      // Cumulative Layout Shift
+      try {
+        var clsValue = 0;
+        new PerformanceObserver(function(list) {
+          list.getEntries().forEach(function(entry) {
+            if (!entry.hadRecentInput) clsValue += entry.value;
+          });
+        }).observe({ type: 'layout-shift', buffered: true });
+        // Report CLS when page is hidden (user navigates away)
+        document.addEventListener('visibilitychange', function() {
+          if (document.visibilityState === 'hidden') {
+            gaEvent('web_vital_cls', { value: Math.round(clsValue * 1000), metric: 'CLS' });
+          }
+        });
+      } catch(e) {}
+
+      // Interaction to Next Paint (INP) - replaces FID
+      try {
+        var inpValue = 0;
+        new PerformanceObserver(function(list) {
+          list.getEntries().forEach(function(entry) {
+            if (entry.duration > inpValue) inpValue = entry.duration;
+          });
+        }).observe({ type: 'event', buffered: true });
+        document.addEventListener('visibilitychange', function() {
+          if (document.visibilityState === 'hidden' && inpValue > 0) {
+            gaEvent('web_vital_inp', { value: Math.round(inpValue), metric: 'INP' });
+          }
+        });
+      } catch(e) {}
+
+      // Time to First Byte (from Navigation Timing)
+      try {
+        var nav = performance.getEntriesByType('navigation')[0];
+        if (nav) {
+          gaEvent('web_vital_ttfb', { value: Math.round(nav.responseStart), metric: 'TTFB' });
+        }
+      } catch(e) {}
+    })();
+
+    // -- Time to first interaction --
+    (function() {
+      var firstInteractionFired = false;
+      var pageLoadTime = Date.now();
+      var events = ['click', 'scroll', 'keydown', 'touchstart'];
+      function onFirstInteraction(e) {
+        if (firstInteractionFired) return;
+        firstInteractionFired = true;
+        gaEvent('first_interaction', {
+          type: e.type,
+          time_ms: Date.now() - pageLoadTime
+        });
+        events.forEach(function(evt) {
+          document.removeEventListener(evt, onFirstInteraction);
+        });
+      }
+      events.forEach(function(evt) {
+        document.addEventListener(evt, onFirstInteraction, { once: false, passive: true });
+      });
+    })();
+
+    // -- JavaScript error tracking --
+    window.addEventListener('error', function(e) {
+      gaEvent('js_error', {
+        message: (e.message || '').substring(0, 100),
+        source: (e.filename || '').substring(0, 100),
+        line: e.lineno || 0
+      });
+    });
+
+    window.addEventListener('unhandledrejection', function(e) {
+      gaEvent('js_promise_error', {
+        message: String(e.reason || '').substring(0, 100)
+      });
     });
 
     // ===== DYNAMIC FOOTER YEAR =====
@@ -3653,6 +3759,7 @@
         localStorage.setItem('privacy-pref', 'accepted');
         overlay.classList.remove('visible');
         loadGA();
+        gaEvent('consent_outcome', { action: 'accept_all' });
       });
       // Show preferences panel
       document.getElementById('privacyManage').addEventListener('click', function() {
@@ -3669,7 +3776,11 @@
         const analytics = document.getElementById('prefAnalytics').checked;
         localStorage.setItem('privacy-pref', analytics ? 'accepted' : 'declined');
         overlay.classList.remove('visible');
-        if (analytics) loadGA();
+        if (analytics) {
+          loadGA();
+          gaEvent('consent_outcome', { action: 'custom_accept' });
+        }
+        // Note: decline cannot be tracked since GA is not loaded
       });
     })();
   </script>

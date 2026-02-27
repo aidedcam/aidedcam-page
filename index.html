@@ -3182,13 +3182,13 @@
       }
 
       vizSliderTrack.addEventListener('mousedown', function(e) {
-        gaEvent('viz_slider_interact', { method: 'mouse' });
+        gaEvent('drag_before_after_slider', { method: 'mouse' });
         if (autoPlaying) stopAutoPlay();
         dragging = true;
         updateFromPointer(e.clientX);
       });
       vizSliderTrack.addEventListener('touchstart', function(e) {
-        gaEvent('viz_slider_interact', { method: 'touch' });
+        gaEvent('drag_before_after_slider', { method: 'touch' });
         if (autoPlaying) stopAutoPlay();
         dragging = true;
         updateFromPointer(e.touches[0].clientX);
@@ -3258,11 +3258,11 @@
       // Play button click
       vizPlayBtn.addEventListener('click', function() {
         if (autoPlaying) {
-          gaEvent('viz_play_btn', { action: 'pause' });
+          gaEvent('play_pause_automation_demo', { action: 'pause' });
           stopAutoPlay();
           return;
         }
-        gaEvent('viz_play_btn', { action: 'play' });
+        gaEvent('play_pause_automation_demo', { action: 'play' });
         startAutoPlay(vizForward);
       });
 
@@ -3501,7 +3501,7 @@
     // -- Email clicks --
     document.querySelectorAll('a[href^="mailto:"]').forEach(link => {
       link.addEventListener('click', () => {
-        gaEvent('contact_email', {
+        gaEvent('click_email_address', {
           email: link.href.replace('mailto:', ''),
           location: link.closest('section')?.id || 'unknown'
         });
@@ -3511,7 +3511,7 @@
     // -- Phone clicks --
     document.querySelectorAll('a[href^="tel:"]').forEach(link => {
       link.addEventListener('click', () => {
-        gaEvent('contact_phone', {
+        gaEvent('click_phone_number', {
           phone: link.href.replace('tel:', ''),
           location: link.closest('section')?.id || 'unknown'
         });
@@ -3521,7 +3521,7 @@
     // -- CTA button clicks --
     document.querySelectorAll('.btn-primary, .btn-secondary, .nav-cta').forEach(btn => {
       btn.addEventListener('click', () => {
-        gaEvent('cta_click', {
+        gaEvent('click_call_to_action', {
           text: btn.textContent.trim(),
           href: btn.href || '',
           location: btn.closest('section')?.id || 'nav'
@@ -3533,7 +3533,7 @@
     document.querySelectorAll('a[href^="http"]').forEach(link => {
       if (!link.href.includes(window.location.hostname)) {
         link.addEventListener('click', () => {
-          gaEvent('outbound_click', {
+          gaEvent('click_external_website', {
             url: link.href,
             text: link.textContent.trim()
           });
@@ -3545,7 +3545,7 @@
     document.querySelectorAll('.lang-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         var lang = btn.getAttribute('data-lang');
-        gaEvent('language_switch', { language: lang });
+        gaEvent('switch_site_language', { language: lang });
         // Update user property so all future events are segmented by language
         if (window.gtag) gtag('set', 'user_properties', { preferred_language: lang });
       });
@@ -3555,7 +3555,7 @@
     var mobileNavBtn = document.querySelector('.nav-toggle');
     if (mobileNavBtn) {
       mobileNavBtn.addEventListener('click', () => {
-        gaEvent('mobile_nav_toggle', {
+        gaEvent('open_close_mobile_menu', {
           action: mobileNavBtn.classList.contains('active') ? 'close' : 'open'
         });
       });
@@ -3570,7 +3570,7 @@
         depths.forEach(function(d) {
           if (scrollPct >= d && !fired[d]) {
             fired[d] = true;
-            gaEvent('scroll_depth', { percent: d });
+            gaEvent('page_scroll_percentage', { percent: d });
           }
         });
       });
@@ -3580,7 +3580,7 @@
     const sectionObserver = new IntersectionObserver(function(entries) {
       entries.forEach(function(entry) {
         if (entry.isIntersecting) {
-          gaEvent('section_view', { section: entry.target.id });
+          gaEvent('section_became_visible', { section: entry.target.id });
           sectionObserver.unobserve(entry.target);
         }
       });
@@ -3598,7 +3598,7 @@
         new PerformanceObserver(function(list) {
           var entries = list.getEntries();
           var last = entries[entries.length - 1];
-          gaEvent('web_vital_lcp', { value: Math.round(last.startTime), metric: 'LCP' });
+          gaEvent('performance_largest_contentful_paint', { value: Math.round(last.startTime), metric: 'LCP' });
         }).observe({ type: 'largest-contentful-paint', buffered: true });
       } catch(e) {}
 
@@ -3613,7 +3613,7 @@
         // Report CLS when page is hidden (user navigates away)
         document.addEventListener('visibilitychange', function() {
           if (document.visibilityState === 'hidden') {
-            gaEvent('web_vital_cls', { value: Math.round(clsValue * 1000), metric: 'CLS' });
+            gaEvent('performance_cumulative_layout_shift', { value: Math.round(clsValue * 1000), metric: 'CLS' });
           }
         });
       } catch(e) {}
@@ -3628,7 +3628,7 @@
         }).observe({ type: 'event', buffered: true });
         document.addEventListener('visibilitychange', function() {
           if (document.visibilityState === 'hidden' && inpValue > 0) {
-            gaEvent('web_vital_inp', { value: Math.round(inpValue), metric: 'INP' });
+            gaEvent('performance_interaction_to_next_paint', { value: Math.round(inpValue), metric: 'INP' });
           }
         });
       } catch(e) {}
@@ -3637,7 +3637,7 @@
       try {
         var nav = performance.getEntriesByType('navigation')[0];
         if (nav) {
-          gaEvent('web_vital_ttfb', { value: Math.round(nav.responseStart), metric: 'TTFB' });
+          gaEvent('performance_time_to_first_byte', { value: Math.round(nav.responseStart), metric: 'TTFB' });
         }
       } catch(e) {}
     })();
@@ -3650,7 +3650,7 @@
       function onFirstInteraction(e) {
         if (firstInteractionFired) return;
         firstInteractionFired = true;
-        gaEvent('first_interaction', {
+        gaEvent('visitor_first_engagement', {
           type: e.type,
           time_ms: Date.now() - pageLoadTime
         });
@@ -3665,7 +3665,7 @@
 
     // -- JavaScript error tracking --
     window.addEventListener('error', function(e) {
-      gaEvent('js_error', {
+      gaEvent('javascript_runtime_error', {
         message: (e.message || '').substring(0, 100),
         source: (e.filename || '').substring(0, 100),
         line: e.lineno || 0
@@ -3673,7 +3673,7 @@
     });
 
     window.addEventListener('unhandledrejection', function(e) {
-      gaEvent('js_promise_error', {
+      gaEvent('javascript_unhandled_promise_error', {
         message: String(e.reason || '').substring(0, 100)
       });
     });
@@ -3759,7 +3759,7 @@
         localStorage.setItem('privacy-pref', 'accepted');
         overlay.classList.remove('visible');
         loadGA();
-        gaEvent('consent_outcome', { action: 'accept_all' });
+        gaEvent('accepted_cookie_consent', { action: 'accept_all' });
       });
       // Show preferences panel
       document.getElementById('privacyManage').addEventListener('click', function() {
@@ -3778,7 +3778,7 @@
         overlay.classList.remove('visible');
         if (analytics) {
           loadGA();
-          gaEvent('consent_outcome', { action: 'custom_accept' });
+          gaEvent('accepted_cookie_consent', { action: 'custom_accept' });
         }
         // Note: decline cannot be tracked since GA is not loaded
       });

@@ -6,6 +6,7 @@
   <title>AidedCAM - Εξατομικευμένο Λογισμικό Αυτοματοποίησης CAD/CAM/CNC</title>
   <meta name="description" content="Εξατομικευμένο λογισμικό αυτοματοποίησης CAD/CAM/CNC. Από 10 χειροκίνητα βήματα σε 1 κλικ. Εξοικονόμηση χρόνου παραγωγής έως 70%. PowerMill, PowerShape, FeatureCAM, Inventor. Autodesk Authorized Developer. Αθήνα &amp; Θεσσαλονίκη." />
   <meta name="keywords" content="CAD αυτοματοποίηση, CAM αυτοματοποίηση, CNC προγραμματισμός, αυτοματοποίηση παραγωγής, λογισμικό CNC, PowerMill automation, PowerShape automation, FeatureCAM, Autodesk Inventor, G-code automation, CAD/CAM λογισμικό, εξοικονόμηση χρόνου παραγωγής, toolpath automation, αυτοματοποίηση ροής εργασίας, custom CAM software, AidedCAM, CNC programming software, βιομηχανική αυτοματοποίηση, manufacturing automation Greece" />
+  <meta name="robots" content="index, follow" />
   <!-- Open Graph -->
   <meta property="og:title" content="AidedCAM - Εξατομικευμένο Λογισμικό Αυτοματοποίησης CAD/CAM/CNC" />
   <meta property="og:description" content="Από 10 χειροκίνητα βήματα σε 1 κλικ. Εξατομικευμένες λύσεις αυτοματοποίησης CAD/CAM/CNC — εξοικονόμηση χρόνου παραγωγής έως 70%." />
@@ -22,10 +23,10 @@
   <meta name="twitter:title" content="AidedCAM - Custom CAD/CAM/CNC Automation Software" />
   <meta name="twitter:description" content="From 10 manual steps to 1 click. Custom CAD/CAM/CNC automation solutions. Reduce production time by up to 70%. Autodesk Authorized Developer." />
   <meta name="twitter:image" content="https://www.aidedcam.com/aided-cam-transparent.png" />
-  <!-- Hreflang -->
-  <link rel="alternate" hreflang="el" href="https://www.aidedcam.com/" />
-  <link rel="alternate" hreflang="en" href="https://www.aidedcam.com/" />
-  <link rel="alternate" hreflang="it" href="https://www.aidedcam.com/" />
+  <!-- Hreflang — same URL since language is client-side; x-default covers all -->
+  <link rel="alternate" hreflang="el" href="https://www.aidedcam.com/?lang=el" />
+  <link rel="alternate" hreflang="en" href="https://www.aidedcam.com/?lang=en" />
+  <link rel="alternate" hreflang="it" href="https://www.aidedcam.com/?lang=it" />
   <link rel="alternate" hreflang="x-default" href="https://www.aidedcam.com/" />
   <link rel="canonical" href="https://www.aidedcam.com/" />
   <link rel="icon" type="image/png" href="/aided-cam-transparent.png" />
@@ -230,7 +231,7 @@
   <script>
     function loadGA() {
       if (document.getElementById('ga-script')) return;
-      var s = document.createElement('script');
+      const s = document.createElement('script');
       s.id = 'ga-script';
       s.async = true;
       s.src = 'https://www.googletagmanager.com/gtag/js?id=G-81935T6DNE';
@@ -258,6 +259,23 @@
       --bg-light: #f7f8fa;
       --white: #ffffff;
       --border: #e8e8e8;
+    }
+
+    .skip-to-content {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+      z-index: 10000;
+      padding: 0.8rem 1.5rem;
+      background: var(--primary);
+      color: white;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 0 0 8px 0;
+    }
+
+    .skip-to-content:focus {
+      left: 0;
     }
 
     * {
@@ -2039,6 +2057,9 @@
 </head>
 <body>
 
+  <!-- SKIP TO CONTENT -->
+  <a href="#ti-kanoume" class="skip-to-content">Skip to main content</a>
+
   <!-- NAVIGATION -->
   <nav class="navbar">
     <div class="nav-container">
@@ -2062,7 +2083,7 @@
           </div>
         </li>
       </ul>
-      <div class="nav-toggle">
+      <div class="nav-toggle" role="button" aria-label="Toggle navigation menu" aria-expanded="false">
         <span></span>
         <span></span>
         <span></span>
@@ -2083,7 +2104,7 @@
       </div>
       <div class="integrations-bar">
         <div class="autodesk-badge">
-          <img src="autodesk-authorized-developer-white.png" alt="Autodesk Authorized Developer - AidedCAM official Autodesk partner" />
+          <img src="autodesk-authorized-developer-white.png" alt="Autodesk Authorized Developer badge" />
         </div>
         <p data-i18n="hero.supported">Υποστηριζόμενα συστήματα</p>
         <div class="integration-logos">
@@ -2171,7 +2192,7 @@
         <div class="viz-counter" id="vizCounter"></div>
 
         <div class="viz-slider-container">
-          <div class="viz-slider-track" id="vizSliderTrack">
+          <div class="viz-slider-track" id="vizSliderTrack" role="slider" aria-label="Automation progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
             <div class="viz-slider-bg">
               <div class="viz-slider-fill" id="vizSliderFill"></div>
             </div>
@@ -2277,7 +2298,7 @@
         </div>
       </div>
       <div class="trust-badge fade-in">
-        <img src="autodesk-authorized-developer-black.png" alt="Autodesk Authorized Developer - AidedCAM official Autodesk partner" />
+        <img src="autodesk-authorized-developer-black.png" alt="Autodesk Authorized Developer certification" />
       </div>
       <p class="disclaimer fade-in" data-i18n="tools.disclaimer">Τα εμπορικά σήματα που αναφέρονται ανήκουν στους αντίστοιχους κατόχους τους.</p>
     </div>
@@ -2449,7 +2470,7 @@
       <div class="contact-cta fade-in">
         <a href="mailto:akoulousis@aidedcam.com" class="btn-primary" data-i18n="contact.send_email">Στείλε Email</a>
         <div class="contact-trust">
-          <img src="autodesk-authorized-developer-white.png" alt="Autodesk Authorized Developer - AidedCAM official Autodesk partner" />
+          <img src="autodesk-authorized-developer-white.png" alt="Autodesk Authorized Developer partner" />
         </div>
       </div>
     </div>
@@ -2468,7 +2489,7 @@
           <a href="#ypiresias" data-i18n="footer.services">Υπηρεσίες</a>
           <a href="#contact" data-i18n="footer.contact">Επικοινωνία</a>
         </div>
-        <div class="footer-copy">&copy; 2026 AidedCAM. All rights reserved.</div>
+        <div class="footer-copy">&copy; <span id="footerYear">2026</span> AidedCAM. All rights reserved.</div>
       </div>
     </div>
   </footer>
@@ -2969,13 +2990,18 @@
 
       // Save preference
       localStorage.setItem('aidedcam-lang', lang);
+
+      // Dispatch event so other modules can react
+      document.dispatchEvent(new CustomEvent('languageChanged', { detail: { lang } }));
     }
 
-    // Initialize language: localStorage > browser language > Greek default
+    // Initialize language: URL param > localStorage > browser language > Greek default
+    const urlLangParam = new URLSearchParams(window.location.search).get('lang');
+    const urlLang = (urlLangParam && translations[urlLangParam]) ? urlLangParam : null;
     const savedLang = localStorage.getItem('aidedcam-lang');
     const browserLangCode = navigator.language ? navigator.language.substring(0, 2) : 'el';
     const browserLang = browserLangCode === 'el' ? 'el' : browserLangCode === 'it' ? 'it' : 'en';
-    const initialLang = savedLang || browserLang;
+    const initialLang = urlLang || savedLang || browserLang;
     if (initialLang !== 'el') {
       setLanguage(initialLang);
     }
@@ -2989,7 +3015,7 @@
 
     // ===== WORKFLOW VISUALIZATION =====
     (function() {
-      var vizSteps = [
+      const vizSteps = [
         { icon: '\u{1F4CB}', titleKey: 'viz.step1_title', descKey: 'viz.step1_desc' },
         { icon: '\u{1F4BB}', titleKey: 'viz.step2_title', descKey: 'viz.step2_desc' },
         { icon: '\u270F\uFE0F', titleKey: 'viz.step3_title', descKey: 'viz.step3_desc' },
@@ -3002,30 +3028,30 @@
         { icon: '\u{1F3ED}', titleKey: 'viz.step10_title', descKey: 'viz.step10_desc' },
       ];
 
-      var vizProgress = 0;
-      var vizGrid = document.getElementById('vizStepsGrid');
-      var vizAutoCard = document.getElementById('vizAutomatedCard');
-      var vizCounter = document.getElementById('vizCounter');
-      var vizTimeVal = document.getElementById('vizTimeValue');
-      var vizSliderTrack = document.getElementById('vizSliderTrack');
-      var vizSliderFill = document.getElementById('vizSliderFill');
-      var vizSliderThumb = document.getElementById('vizSliderThumb');
-      var vizLabelManual = document.getElementById('vizLabelManual');
-      var vizLabelAutomated = document.getElementById('vizLabelAutomated');
+      let vizProgress = 0;
+      const vizGrid = document.getElementById('vizStepsGrid');
+      const vizAutoCard = document.getElementById('vizAutomatedCard');
+      const vizCounter = document.getElementById('vizCounter');
+      const vizTimeVal = document.getElementById('vizTimeValue');
+      const vizSliderTrack = document.getElementById('vizSliderTrack');
+      const vizSliderFill = document.getElementById('vizSliderFill');
+      const vizSliderThumb = document.getElementById('vizSliderThumb');
+      const vizLabelManual = document.getElementById('vizLabelManual');
+      const vizLabelAutomated = document.getElementById('vizLabelAutomated');
 
       function getLang() {
         return localStorage.getItem('aidedcam-lang') || 'el';
       }
 
       function t(key) {
-        var lang = getLang();
+        const lang = getLang();
         return (translations[lang] && translations[lang][key]) || key;
       }
 
       function renderVizCards() {
         vizGrid.innerHTML = '';
         vizSteps.forEach(function(step, i) {
-          var card = document.createElement('div');
+          const card = document.createElement('div');
           card.className = 'viz-step-card';
           card.setAttribute('data-viz-index', i);
           card.innerHTML =
@@ -3042,8 +3068,8 @@
 
       function formatTime(totalMins) {
         if (totalMins >= 60) {
-          var h = Math.floor(totalMins / 60);
-          var m = totalMins % 60;
+          const h = Math.floor(totalMins / 60);
+          const m = totalMins % 60;
           return m > 0 ? h + 'h ' + m + 'min' : h + 'h';
         }
         return totalMins + ' min';
@@ -3051,19 +3077,19 @@
 
       function updateViz(progress) {
         vizProgress = progress;
-        var total = vizSteps.length;
-        var cards = vizGrid.querySelectorAll('.viz-step-card');
+        const total = vizSteps.length;
+        const cards = vizGrid.querySelectorAll('.viz-step-card');
 
         cards.forEach(function(card, i) {
-          var threshold = (i / total) * 100;
-          var collapseStart = Math.max(0, threshold - 5);
-          var collapseEnd = threshold + 15;
-          var opacity, scale;
+          const threshold = (i / total) * 100;
+          const collapseStart = Math.max(0, threshold - 5);
+          const collapseEnd = threshold + 15;
+          let opacity, scale;
           if (progress <= collapseStart) { opacity = 1; scale = 1; }
           else if (progress >= collapseEnd) { opacity = 0; scale = 0.5; }
           else {
-            var t = (progress - collapseStart) / (collapseEnd - collapseStart);
-            var ease = t * t * (3 - 2 * t);
+            const t = (progress - collapseStart) / (collapseEnd - collapseStart);
+            const ease = t * t * (3 - 2 * t);
             opacity = 1 - ease;
             scale = 1 - ease * 0.5;
           }
@@ -3079,27 +3105,30 @@
         }
 
         // Automated card
-        var autoVisible = progress > 30;
-        var autoOpacity = autoVisible ? Math.min(1, (progress - 30) / 40) : 0;
-        var autoScale = autoVisible ? 0.85 + Math.min(0.15, (progress - 30) / 100) : 0.85;
-        var glow = Math.min(20, (progress - 30) * 0.4);
+        const autoVisible = progress > 30;
+        const autoOpacity = autoVisible ? Math.min(1, (progress - 30) / 40) : 0;
+        const autoScale = autoVisible ? 0.85 + Math.min(0.15, (progress - 30) / 100) : 0.85;
+        const glow = Math.min(20, (progress - 30) * 0.4);
         vizAutoCard.style.opacity = autoOpacity;
         vizAutoCard.style.pointerEvents = autoVisible ? 'auto' : 'none';
-        var inner = vizAutoCard.querySelector('.viz-automated-inner');
+        const inner = vizAutoCard.querySelector('.viz-automated-inner');
         inner.style.transform = 'scale(' + autoScale + ')';
         inner.style.boxShadow = '0 0 ' + Math.max(0, glow) + 'px rgba(95, 189, 122, 0.25)';
 
         // Time: 5h (300min) at 0% → 10min at 100%
-        var mins = Math.round(300 - (progress / 100) * 285);
+        const mins = Math.round(300 - (progress / 100) * 285);
         vizTimeVal.textContent = formatTime(mins);
         vizTimeVal.classList.toggle('green', progress >= 50);
 
+        // Update slider aria-valuenow
+        vizSliderTrack.setAttribute('aria-valuenow', Math.round(progress));
+
         // Counter text
-        var visible = vizSteps.filter(function(_, i) {
+        const visible = vizSteps.filter(function(_, i) {
           return progress < (i / total) * 100 + 15;
         }).length;
         if (progress < 85) {
-          var remainingText = t('viz.remaining').replace('{x}', visible);
+          const remainingText = t('viz.remaining').replace('{x}', visible);
           vizCounter.innerHTML = remainingText;
         } else {
           vizCounter.innerHTML = '<span class="green">' + t('viz.complete') + '</span>';
@@ -3115,19 +3144,19 @@
       }
 
       // Arrow element
-      var vizArrow = document.getElementById('vizSliderArrow');
-      var vizPlayBtn = document.getElementById('vizPlayBtn');
-      var vizClickHint = document.getElementById('vizClickHint');
+      const vizArrow = document.getElementById('vizSliderArrow');
+      const vizPlayBtn = document.getElementById('vizPlayBtn');
+      const vizClickHint = document.getElementById('vizClickHint');
 
       function updateArrowPosition(progress) {
         vizArrow.style.left = progress + '%';
       }
 
       // Slider interaction
-      var dragging = false;
-      var autoPlaying = false;
-      var autoPlayDone = false;
-      var autoPlayRaf = null;
+      let dragging = false;
+      let autoPlaying = false;
+      let autoPlayDone = false;
+      let autoPlayRaf = null;
 
       function stopAutoPlay() {
         autoPlaying = false;
@@ -3139,11 +3168,11 @@
         vizPlayBtn.classList.remove('playing');
       }
 
-      var vizCurrentPct = 0;
+      let vizCurrentPct = 0;
 
       function updateFromPointer(clientX) {
-        var rect = vizSliderTrack.getBoundingClientRect();
-        var pct = Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100));
+        const rect = vizSliderTrack.getBoundingClientRect();
+        const pct = Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100));
         vizCurrentPct = pct;
         updateViz(pct);
         updateArrowPosition(pct);
@@ -3174,7 +3203,7 @@
       });
 
       // Autoplay animation
-      var vizForward = true; // true = next click plays forward, false = next click rewinds
+      let vizForward = true; // true = next click plays forward, false = next click rewinds
 
       function startAutoPlay(forward) {
         if (autoPlaying) return;
@@ -3183,22 +3212,22 @@
         vizPlayBtn.classList.add('playing');
         vizClickHint.style.visibility = 'hidden';
 
-        var startPct = vizCurrentPct;
-        var endPct = forward ? 100 : 0;
-        var range = Math.abs(endPct - startPct);
-        var duration = (range / 100) * (forward ? 4000 : 2000); // scale duration to remaining distance
+        const startPct = vizCurrentPct;
+        const endPct = forward ? 100 : 0;
+        const range = Math.abs(endPct - startPct);
+        let duration = (range / 100) * (forward ? 4000 : 2000); // scale duration to remaining distance
         if (duration < 200) duration = 200;
-        var startTime = null;
+        let startTime = null;
 
         function animate(timestamp) {
           if (!autoPlaying) return;
           if (!startTime) startTime = timestamp;
-          var elapsed = timestamp - startTime;
+          const elapsed = timestamp - startTime;
 
           if (elapsed < duration) {
-            var t = elapsed / duration;
-            var eased = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-            var pct = startPct + (endPct - startPct) * eased;
+            const t = elapsed / duration;
+            const eased = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+            const pct = startPct + (endPct - startPct) * eased;
             vizCurrentPct = pct;
             updateViz(pct);
             updateArrowPosition(pct);
@@ -3234,13 +3263,11 @@
       renderVizCards();
       updateViz(0);
 
-      // Re-render on language change - override setLanguage
-      var origSetLanguage = setLanguage;
-      setLanguage = function(lang) {
-        origSetLanguage(lang);
+      // Re-render on language change via event
+      document.addEventListener('languageChanged', function() {
         renderVizCards();
         updateViz(vizProgress);
-      };
+      });
     })();
 
     // ===== SCROLL ANIMATIONS =====
@@ -3264,8 +3291,9 @@
     const navMenu = document.querySelector('.nav-menu');
 
     navToggle.addEventListener('click', () => {
-      navToggle.classList.toggle('active');
+      const isActive = navToggle.classList.toggle('active');
       navMenu.classList.toggle('active');
+      navToggle.setAttribute('aria-expanded', isActive);
     });
 
     // Close mobile menu on link click
@@ -3273,6 +3301,7 @@
       link.addEventListener('click', () => {
         navToggle.classList.remove('active');
         navMenu.classList.remove('active');
+        navToggle.setAttribute('aria-expanded', 'false');
       });
     });
 
@@ -3290,20 +3319,20 @@
 
     // ===== FLOATING PARTICLES =====
     (function() {
-      var canvas = document.getElementById('heroParticles');
-      var ctx = canvas.getContext('2d');
-      var particles = [];
-      var count = 60;
+      const canvas = document.getElementById('heroParticles');
+      const ctx = canvas.getContext('2d');
+      const particles = [];
+      const count = 60;
 
       function resize() {
-        var hero = canvas.parentElement;
+        const hero = canvas.parentElement;
         canvas.width = hero.offsetWidth;
         canvas.height = hero.offsetHeight;
       }
       resize();
       window.addEventListener('resize', resize);
 
-      for (var i = 0; i < count; i++) {
+      for (let i = 0; i < count; i++) {
         particles.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
@@ -3329,11 +3358,11 @@
           ctx.fill();
         });
         // Draw lines between nearby particles
-        for (var i = 0; i < particles.length; i++) {
-          for (var j = i + 1; j < particles.length; j++) {
-            var dx = particles[i].x - particles[j].x;
-            var dy = particles[i].y - particles[j].y;
-            var dist = Math.sqrt(dx * dx + dy * dy);
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
             if (dist < 120) {
               ctx.beginPath();
               ctx.moveTo(particles[i].x, particles[i].y);
@@ -3351,23 +3380,22 @@
 
     // ===== ANIMATED COUNTERS =====
     (function() {
-      var counters = document.querySelectorAll('.stat-number[data-count]');
-      var counted = new Set();
-      var counterObserver = new IntersectionObserver(function(entries) {
+      const counters = document.querySelectorAll('.stat-number[data-count]');
+      const counted = new Set();
+      const counterObserver = new IntersectionObserver(function(entries) {
         entries.forEach(function(entry) {
           if (entry.isIntersecting && !counted.has(entry.target)) {
             counted.add(entry.target);
-            var el = entry.target;
-            var target = parseInt(el.getAttribute('data-count'));
-            var suffix = el.getAttribute('data-suffix') || '';
-            var duration = 1500;
-            var start = 0;
-            var startTime = null;
+            const el = entry.target;
+            const target = parseInt(el.getAttribute('data-count'));
+            const suffix = el.getAttribute('data-suffix') || '';
+            const duration = 1500;
+            let startTime = null;
             function animate(ts) {
               if (!startTime) startTime = ts;
-              var progress = Math.min((ts - startTime) / duration, 1);
-              var eased = 1 - Math.pow(1 - progress, 3);
-              var current = Math.round(eased * target);
+              const progress = Math.min((ts - startTime) / duration, 1);
+              const eased = 1 - Math.pow(1 - progress, 3);
+              const current = Math.round(eased * target);
               el.textContent = current + suffix;
               if (progress < 1) requestAnimationFrame(animate);
             }
@@ -3380,22 +3408,22 @@
 
     // ===== TYPING EFFECT =====
     (function() {
-      var h1 = document.querySelector('.hero h1');
-      var cursor = document.createElement('span');
+      const h1 = document.querySelector('.hero h1');
+      const cursor = document.createElement('span');
       cursor.className = 'hero-typing-cursor';
 
       function typeHTML(el, html, callback) {
         // Parse HTML and type text nodes, insert tags instantly
-        var temp = document.createElement('div');
+        const temp = document.createElement('div');
         temp.innerHTML = html;
         el.innerHTML = '';
         el.appendChild(cursor);
 
-        var queue = [];
+        const queue = [];
         function flatten(node) {
           node.childNodes.forEach(function(child) {
             if (child.nodeType === 3) { // text
-              for (var i = 0; i < child.textContent.length; i++) {
+              for (let i = 0; i < child.textContent.length; i++) {
                 queue.push({ type: 'char', char: child.textContent[i], parent: child.parentNode === node ? null : child.parentNode });
               }
             } else if (child.nodeType === 1) { // element
@@ -3407,9 +3435,8 @@
         }
         flatten(temp);
 
-        var container = el;
-        var stack = [el];
-        var i = 0;
+        const stack = [el];
+        let i = 0;
 
         function step() {
           if (i >= queue.length) {
@@ -3417,10 +3444,10 @@
             if (callback) callback();
             return;
           }
-          var item = queue[i];
-          var current = stack[stack.length - 1];
+          const item = queue[i];
+          const current = stack[stack.length - 1];
           if (item.type === 'open') {
-            var tag = document.createElement(item.tag);
+            const tag = document.createElement(item.tag);
             if (item.className) tag.className = item.className;
             current.insertBefore(tag, cursor);
             if (cursor.parentNode !== current) current.appendChild(cursor);
@@ -3430,12 +3457,12 @@
             step();
           } else if (item.type === 'close') {
             stack.pop();
-            var parent = stack[stack.length - 1];
+            const parent = stack[stack.length - 1];
             parent.appendChild(cursor);
             i++;
             step();
           } else {
-            var current = stack[stack.length - 1];
+            const current = stack[stack.length - 1];
             current.insertBefore(document.createTextNode(item.char), cursor);
             i++;
             setTimeout(step, 70);
@@ -3445,21 +3472,18 @@
       }
 
       // Run on page load
-      var initialHTML = h1.getAttribute('data-i18n-html');
-      var lang = localStorage.getItem('aidedcam-lang') || (navigator.language && navigator.language.startsWith('el') ? 'el' : 'en');
-      var titleHTML = translations[lang]['hero.title'];
+      const lang = localStorage.getItem('aidedcam-lang') || (navigator.language && navigator.language.startsWith('el') ? 'el' : 'en');
+      const titleHTML = translations[lang]['hero.title'];
       h1.innerHTML = '';
       setTimeout(function() {
         typeHTML(h1, titleHTML);
       }, 500);
 
-      // Re-run on language switch
-      var origSetLanguage = setLanguage;
-      setLanguage = function(newLang) {
-        origSetLanguage(newLang);
-        var newTitle = translations[newLang]['hero.title'];
+      // Re-run on language switch via event
+      document.addEventListener('languageChanged', function(e) {
+        const newTitle = translations[e.detail.lang]['hero.title'];
         typeHTML(h1, newTitle);
-      };
+      });
     })();
 
     // ===== GOOGLE ANALYTICS CUSTOM EVENTS =====
@@ -3521,10 +3545,10 @@
 
     // -- Scroll depth tracking --
     (function() {
-      var depths = [25, 50, 75, 100];
-      var fired = {};
+      const depths = [25, 50, 75, 100];
+      const fired = {};
       window.addEventListener('scroll', function() {
-        var scrollPct = Math.round((window.scrollY + window.innerHeight) / document.documentElement.scrollHeight * 100);
+        const scrollPct = Math.round((window.scrollY + window.innerHeight) / document.documentElement.scrollHeight * 100);
         depths.forEach(function(d) {
           if (scrollPct >= d && !fired[d]) {
             fired[d] = true;
@@ -3535,7 +3559,7 @@
     })();
 
     // -- Section visibility tracking --
-    var sectionObserver = new IntersectionObserver(function(entries) {
+    const sectionObserver = new IntersectionObserver(function(entries) {
       entries.forEach(function(entry) {
         if (entry.isIntersecting) {
           gaEvent('section_view', { section: entry.target.id });
@@ -3547,6 +3571,9 @@
     document.querySelectorAll('section[id]').forEach(function(sec) {
       sectionObserver.observe(sec);
     });
+
+    // ===== DYNAMIC FOOTER YEAR =====
+    document.getElementById('footerYear').textContent = new Date().getFullYear();
   </script>
 
   <!-- PRIVACY CONSENT OVERLAY -->
@@ -3554,7 +3581,7 @@
     <div class="consent-dialog">
       <!-- Step 1: Main prompt -->
       <div class="consent-step" id="consentStep1">
-        <p data-i18n-html="cookie_text">Αυτός ο ιστότοπος χρησιμοποιεί cookies για τη βελτιστοποίηση της λειτουργίας του και την ανάλυση της επισκεψιμότητας.</p>
+        <p data-i18n="cookie_text">Αυτός ο ιστότοπος χρησιμοποιεί cookies για τη βελτιστοποίηση της λειτουργίας του και την ανάλυση της επισκεψιμότητας.</p>
         <div class="consent-actions">
           <button class="consent-btn consent-btn-accept" id="privacyAccept" data-i18n="cookie_accept">Αποδοχή</button>
           <button class="consent-btn consent-btn-prefs" id="privacyManage" data-i18n="cookie_manage">Διαχείριση προτιμήσεων</button>
@@ -3614,10 +3641,10 @@
   </div>
   <script>
     (function() {
-      var consent = localStorage.getItem('privacy-pref');
-      var overlay = document.getElementById('privacyOverlay');
-      var step1 = document.getElementById('consentStep1');
-      var step2 = document.getElementById('consentStep2');
+      const consent = localStorage.getItem('privacy-pref');
+      const overlay = document.getElementById('privacyOverlay');
+      const step1 = document.getElementById('consentStep1');
+      const step2 = document.getElementById('consentStep2');
       if (!consent) {
         overlay.classList.add('visible');
       }
@@ -3639,7 +3666,7 @@
       });
       // Save preferences
       document.getElementById('privacySave').addEventListener('click', function() {
-        var analytics = document.getElementById('prefAnalytics').checked;
+        const analytics = document.getElementById('prefAnalytics').checked;
         localStorage.setItem('privacy-pref', analytics ? 'accepted' : 'declined');
         overlay.classList.remove('visible');
         if (analytics) loadGA();

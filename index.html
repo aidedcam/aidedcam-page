@@ -1088,7 +1088,7 @@
       background: var(--white);
       border: 1px solid var(--border);
       border-radius: 12px;
-      transition: all 0.3s ease;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
       position: relative;
       transform-style: preserve-3d;
     }
@@ -1138,7 +1138,7 @@
       background: var(--white);
       border-radius: 12px;
       border: 1px solid var(--border);
-      transition: all 0.3s ease;
+      transition: box-shadow 0.3s ease;
       transform-style: preserve-3d;
     }
 
@@ -1315,7 +1315,6 @@
       display: flex;
       gap: 1.2rem;
       align-items: flex-start;
-      transition: transform 0.3s ease;
       transform-style: preserve-3d;
     }
 
@@ -2379,15 +2378,15 @@
       <div class="tools-grid">
         <div class="tool-card fade-in fade-in-delay-1">
           <h4 data-i18n="tools.cad">CAD — Μοντελοποίηση</h4>
-          <p>Autodesk PowerShape, Autodesk Inventor</p>
+          <p>Autodesk PowerShape, Autodesk Inventor, Autodesk Fusion360, SiemensNX</p>
         </div>
         <div class="tool-card fade-in fade-in-delay-2">
           <h4 data-i18n="tools.cam">CAM — Κατεργασία</h4>
-          <p>Autodesk PowerMill, Autodesk FeatureCAM</p>
+          <p>Autodesk PowerMill, Autodesk Fusion360, Autodesk FeatureCAM, SiemensNX</p>
         </div>
         <div class="tool-card fade-in fade-in-delay-3">
-          <h4>Coming Soon</h4>
-          <p data-i18n="tools.coming_soon_desc">TopSolid — σύντομα διαθέσιμο</p>
+          <h4 data-i18n="tools.bim">BIM / AEC</h4>
+          <p>Autodesk Revit, Autodesk AutoCAD</p>
         </div>
         <div class="tool-card tool-card-wide fade-in">
           <h4 data-i18n="tools.standalone_title">Standalone λύσεις χωρίς τρίτο λογισμικό</h4>
@@ -2669,7 +2668,7 @@
         'tools.subtitle': 'Τα προγράμματα CAD και CAM που ήδη έχετε, κρύβουν δυνατότητες που δεν χρησιμοποιείτε. Εμείς τις ξεκλειδώνουμε.',
         'tools.cad': 'CAD — Μοντελοποίηση',
         'tools.cam': 'CAM — Κατεργασία',
-        'tools.coming_soon_desc': 'TopSolid — σύντομα διαθέσιμο',
+        'tools.bim': 'BIM / AEC',
         'tools.standalone_title': 'Standalone λύσεις χωρίς τρίτο λογισμικό',
         'tools.standalone_desc': 'Υλοποιούμε επίσης λύσεις χωρίς την ανάγκη χρήσης τρίτου CAD/CAM λογισμικού, με τη χρήση των εργαλείων DevDept: <a href="https://devdept.com/Industries/ProductDesign" target="_blank">Product Design</a>, <a href="https://devdept.com/Industries/IndustrialEquipment" target="_blank">Industrial Equipment</a>, <a href="https://devdept.com/Industries/Metrology" target="_blank">Metrology</a>',
         'tools.disclaimer': 'Τα εμπορικά σήματα που αναφέρονται ανήκουν στους αντίστοιχους κατόχους τους.',
@@ -2822,7 +2821,7 @@
         'tools.subtitle': 'The CAD and CAM programs you already have hide capabilities you\'re not using. We unlock them.',
         'tools.cad': 'CAD — Modeling',
         'tools.cam': 'CAM — Machining',
-        'tools.coming_soon_desc': 'TopSolid — coming soon',
+        'tools.bim': 'BIM / AEC',
         'tools.standalone_title': 'Standalone solutions without third-party software',
         'tools.standalone_desc': 'We also develop solutions without the need for third-party CAD/CAM software, using DevDept tools: <a href="https://devdept.com/Industries/ProductDesign" target="_blank">Product Design</a>, <a href="https://devdept.com/Industries/IndustrialEquipment" target="_blank">Industrial Equipment</a>, <a href="https://devdept.com/Industries/Metrology" target="_blank">Metrology</a>',
         'tools.disclaimer': 'All trademarks mentioned belong to their respective owners.',
@@ -2975,7 +2974,7 @@
         'tools.subtitle': 'I programmi CAD e CAM che già possedete nascondono funzionalità che non state utilizzando. Noi le sblocchiamo.',
         'tools.cad': 'CAD — Modellazione',
         'tools.cam': 'CAM — Lavorazione',
-        'tools.coming_soon_desc': 'TopSolid — in arrivo',
+        'tools.bim': 'BIM / AEC',
         'tools.standalone_title': 'Soluzioni standalone senza software di terze parti',
         'tools.standalone_desc': 'Sviluppiamo anche soluzioni senza la necessità di software CAD/CAM di terze parti, utilizzando gli strumenti DevDept: <a href="https://devdept.com/Industries/ProductDesign" target="_blank">Product Design</a>, <a href="https://devdept.com/Industries/IndustrialEquipment" target="_blank">Industrial Equipment</a>, <a href="https://devdept.com/Industries/Metrology" target="_blank">Metrology</a>',
         'tools.disclaimer': 'Tutti i marchi menzionati appartengono ai rispettivi proprietari.',
@@ -3858,7 +3857,7 @@
           var y = (e.clientY - rect.top) / rect.height;
           var rotateX = (0.5 - y) * maxTilt;
           var rotateY = (x - 0.5) * maxTilt;
-          card.style.transform = 'perspective(600px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translateY(-4px)';
+          card.style.transform = 'perspective(600px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg)';
         });
 
         card.addEventListener('mouseleave', function() {

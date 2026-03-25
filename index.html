@@ -2206,14 +2206,14 @@
       </div>
       <p data-i18n="hero.supported">Υποστηριζόμενα συστήματα</p>
       <div class="integration-logos">
-        <span><img src="icons/PowerShape.png" alt="PowerShape" class="integration-icon">PowerShape</span>
-        <span><img src="icons/PowerMill.png" alt="PowerMill" class="integration-icon">PowerMill</span>
-        <span><img src="icons/Fusion360.png" alt="Fusion360" class="integration-icon">Fusion360</span>
-        <span><img src="icons/FeatureCAM.png" alt="FeatureCAM" class="integration-icon">FeatureCAM</span>
-        <span><img src="icons/Inventor.png" alt="Inventor" class="integration-icon">Inventor</span>
-        <span><img src="icons/Revit.png" alt="Revit" class="integration-icon">Revit</span>
-        <span><img src="icons/AutoCAD.png" alt="AutoCAD" class="integration-icon">AutoCAD</span>
-        <span><img src="icons/SiemensNX.ico" alt="SiemensNX" class="integration-icon">SiemensNX</span>
+        <span data-system="PowerShape"><img src="icons/PowerShape.png" alt="PowerShape" class="integration-icon">PowerShape</span>
+        <span data-system="PowerMill"><img src="icons/PowerMill.png" alt="PowerMill" class="integration-icon">PowerMill</span>
+        <span data-system="Fusion360"><img src="icons/Fusion360.png" alt="Fusion360" class="integration-icon">Fusion360</span>
+        <span data-system="FeatureCAM"><img src="icons/FeatureCAM.png" alt="FeatureCAM" class="integration-icon">FeatureCAM</span>
+        <span data-system="Inventor"><img src="icons/Inventor.png" alt="Inventor" class="integration-icon">Inventor</span>
+        <span data-system="Revit"><img src="icons/Revit.png" alt="Revit" class="integration-icon">Revit</span>
+        <span data-system="AutoCAD"><img src="icons/AutoCAD.png" alt="AutoCAD" class="integration-icon">AutoCAD</span>
+        <span data-system="SiemensNX"><img src="icons/SiemensNX.ico" alt="SiemensNX" class="integration-icon">SiemensNX</span>
       </div>
     </div>
   </section>
@@ -3631,6 +3631,13 @@
           phone: link.href.replace('tel:', ''),
           location: link.closest('section')?.id || 'unknown'
         });
+      });
+    });
+
+    // -- Integration system clicks (measure interest) --
+    document.querySelectorAll('.integration-logos [data-system]').forEach(function(el) {
+      el.addEventListener('click', function() {
+        gaEvent('click_integration_system', { system: el.getAttribute('data-system') });
       });
     });
 

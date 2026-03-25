@@ -617,6 +617,7 @@
     .hero {
       min-height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       background: linear-gradient(160deg, #0f1f16 0%, #1a3a2d 40%, #2d5a3d 100%);
@@ -670,6 +671,8 @@
       max-width: 900px;
       margin: 0 auto;
       padding: 0 2rem;
+      transform-origin: center top;
+      will-change: transform, opacity;
     }
 
     .hero-badge {
@@ -759,14 +762,19 @@
 
     /* Integration logos bar */
     .integrations-bar {
-      margin-top: 4rem;
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+      margin: 4rem auto 0;
+      padding: 0 2rem;
       padding-top: 3rem;
       border-top: 1px solid rgba(255, 255, 255, 0.08);
+      transition: opacity 0.1s ease-out;
     }
 
     .integrations-bar p {
       font-size: 0.8rem;
-      color: rgba(255, 255, 255, 0.35);
+      color: white;
       text-transform: uppercase;
       letter-spacing: 2px;
       font-weight: 500;
@@ -779,15 +787,23 @@
       align-items: center;
       gap: 2.5rem;
       flex-wrap: wrap;
-      opacity: 0.5;
     }
 
     .integration-logos span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
       font-size: 0.85rem;
       font-weight: 600;
-      color: rgba(255, 255, 255, 0.6);
+      color: white;
       letter-spacing: 0.5px;
       white-space: nowrap;
+    }
+
+    .integration-icon {
+      height: 20px;
+      width: 20px;
+      object-fit: contain;
     }
 
     .autodesk-badge {
@@ -797,7 +813,7 @@
     .autodesk-badge img {
       height: 48px;
       width: auto;
-      opacity: 0.7;
+      opacity: 1;
       transition: opacity 0.2s ease;
     }
 
@@ -2105,18 +2121,21 @@
         <a href="#contact" class="btn-primary" data-i18n="hero.cta">Επικοινωνήστε Μαζί Μας</a>
         <a href="#ti-kanoume" class="btn-secondary" data-i18n="hero.learn_more">Μάθετε Περισσότερα ↓</a>
       </div>
-      <div class="integrations-bar">
-        <div class="autodesk-badge">
-          <img src="autodesk-authorized-developer-white.png" alt="Autodesk Authorized Developer badge" />
-        </div>
-        <p data-i18n="hero.supported">Υποστηριζόμενα συστήματα</p>
-        <div class="integration-logos">
-          <span>PowerShape</span>
-          <span>PowerMill</span>
-          <span>FeatureCAM</span>
-          <span>Inventor</span>
-          <span>TopSolid <small style="opacity:0.6; font-weight:400;">(coming soon)</small></span>
-        </div>
+    </div>
+    <div class="integrations-bar">
+      <div class="autodesk-badge">
+        <img src="autodesk-authorized-developer-white.png" alt="Autodesk Authorized Developer badge" />
+      </div>
+      <p data-i18n="hero.supported">Υποστηριζόμενα συστήματα</p>
+      <div class="integration-logos">
+        <span><img src="icons/PowerShape.png" alt="PowerShape" class="integration-icon">PowerShape</span>
+        <span><img src="icons/PowerMill.png" alt="PowerMill" class="integration-icon">PowerMill</span>
+        <span><img src="icons/Fusion360.png" alt="Fusion360" class="integration-icon">Fusion360</span>
+        <span><img src="icons/FeatureCAM.png" alt="FeatureCAM" class="integration-icon">FeatureCAM</span>
+        <span><img src="icons/Inventor.png" alt="Inventor" class="integration-icon">Inventor</span>
+        <span><img src="icons/Revit.png" alt="Revit" class="integration-icon">Revit</span>
+        <span><img src="icons/AutoCAD.png" alt="AutoCAD" class="integration-icon">AutoCAD</span>
+        <span><img src="icons/SiemensNX.ico" alt="SiemensNX" class="integration-icon">SiemensNX</span>
       </div>
     </div>
   </section>
@@ -2134,7 +2153,7 @@
           <div class="stat-label" data-i18n="stats.countries">Χώρες δραστηριοποίησης</div>
         </div>
         <div class="stat-item fade-in fade-in-delay-2">
-          <div class="stat-number" data-count="4">0</div>
+          <div class="stat-number" data-count="8">0</div>
           <div class="stat-label" data-i18n="stats.integrations">Υποστηριζόμενα CAD/CAM</div>
         </div>
         <div class="stat-item fade-in fade-in-delay-3">
@@ -3307,12 +3326,17 @@
     // ===== NAVBAR SCROLL + PARALLAX =====
     const navbar = document.querySelector('.navbar');
     const heroContent = document.querySelector('.hero-content');
+    const integrationsBar = document.querySelector('.integrations-bar');
     window.addEventListener('scroll', () => {
       navbar.classList.toggle('scrolled', window.scrollY > 50);
-      // Parallax: hero content moves up faster, creating depth
       if (window.scrollY < window.innerHeight) {
-        heroContent.style.transform = 'translateY(' + (window.scrollY * 0.35) + 'px)';
-        heroContent.style.opacity = 1 - (window.scrollY / window.innerHeight);
+        var progress = window.scrollY / (window.innerHeight * 0.6);
+        progress = Math.min(progress, 1);
+        // Hero content: shrink, move up, and fade out
+        var scale = 1 - (progress * 0.35);
+        heroContent.style.transform = 'scale(' + scale + ') translateY(' + (-window.scrollY * 0.2) + 'px)';
+        heroContent.style.opacity = 1 - progress;
+        // Integrations bar stays fully visible
       }
     });
 

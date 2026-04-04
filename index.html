@@ -806,6 +806,47 @@
       margin: 0 auto;
     }
 
+    /* ===== ROI TEASER ===== */
+    .roi-teaser {
+      background: linear-gradient(74deg, #0a1a10 0%, #0d5a30 100%);
+      padding: 5rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .roi-teaser::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background:
+        radial-gradient(ellipse at 30% 50%, rgba(61,179,101,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse at 70% 20%, rgba(61,179,101,0.05) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .roi-teaser-content {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .roi-teaser-heading {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 800;
+      color: white;
+      line-height: 1.6;
+      margin-bottom: 2.5rem;
+      letter-spacing: -0.3px;
+    }
+    .roi-hl {
+      color: var(--accent-bright);
+    }
+    .roi-teaser-cta {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .roi-teaser-cta:hover {
+      background: var(--accent-light);
+      border-color: var(--accent-light);
+    }
+
     /* ===== STATS BAR ===== */
     .stats-bar {
       background: linear-gradient(74deg, #0a1a10 0%, #0d5a30 100%);
@@ -1991,73 +2032,20 @@
     </div>
   </div>
 
-  <!-- WORKFLOW VISUALIZATION -->
-  <section class="workflow-viz-section">
+  <!-- ROI TEASER -->
+  <div class="roi-teaser">
     <div class="container">
-      <div class="viz-header fade-in">
-        <h2 data-i18n-html="viz.title"><span class="viz-muted">10 βήματα</span> γίνονται <span class="viz-green">μία ενέργεια</span></h2>
-      </div>
-      <div class="viz-container fade-in">
-        <div class="viz-time-row">
-          <div class="viz-click-hint" id="vizClickHint">
-            <span data-i18n="viz.clickhint">πάτα</span>
-            <div class="viz-click-hint-arrow">&#9654;</div>
-          </div>
-          <button class="viz-play-btn" id="vizPlayBtn" type="button">
-            <img src="aided-cam-transparent.png" alt="Play" />
-          </button>
-          <div class="viz-time">
-            <span class="viz-time-value" id="vizTimeValue">5h 0min</span>
-            <span class="viz-time-label" data-i18n="viz.perpart">ανά τεμάχιο</span>
-          </div>
-        </div>
-        <div class="viz-main">
-          <div class="viz-steps-grid" id="vizStepsGrid"></div>
-          <div class="viz-automated-card" id="vizAutomatedCard">
-            <div class="viz-automated-inner">
-              <div class="viz-automated-glow"></div>
-              <div class="viz-automated-content">
-                <div class="viz-automated-icon">&#9889;</div>
-                <div class="viz-automated-title" data-i18n="viz.oneaction">Μία Ενέργεια</div>
-                <div class="viz-automated-subtitle" data-i18n="viz.auto_subtitle">Η AidedCAM αναλαμβάνει όλη τη διαδικασία</div>
-                <div class="viz-automated-stats">
-                  <div style="text-align:center">
-                    <div class="viz-auto-stat-val">70%</div>
-                    <div class="viz-auto-stat-label" data-i18n="viz.timesaved">Εξοικονόμηση</div>
-                  </div>
-                  <div style="text-align:center">
-                    <div class="viz-auto-stat-val">0</div>
-                    <div class="viz-auto-stat-label" data-i18n="viz.errors">Σφάλματα</div>
-                  </div>
-                  <div style="text-align:center">
-                    <div class="viz-auto-stat-val">1</div>
-                    <div class="viz-auto-stat-label" data-i18n="viz.click">Κλικ</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="viz-counter" id="vizCounter"></div>
-
-        <div class="viz-slider-container">
-          <div class="viz-slider-track" id="vizSliderTrack" role="slider" aria-label="Automation progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-            <div class="viz-slider-bg">
-              <div class="viz-slider-fill" id="vizSliderFill"></div>
-            </div>
-            <div class="viz-slider-thumb" id="vizSliderThumb"></div>
-            <div class="viz-slider-arrow" id="vizSliderArrow">
-              <div class="viz-slider-arrow-icon">&#9660;</div>
-            </div>
-          </div>
-          <div class="viz-slider-labels">
-            <span id="vizLabelManual" data-i18n="viz.manual">Χειροκίνητα</span>
-            <span id="vizLabelAutomated" data-i18n="viz.automated">Αυτοματοποιημένα</span>
-          </div>
-        </div>
+      <div class="roi-teaser-content fade-in">
+        <h2 class="roi-teaser-heading" data-i18n-html="roi_teaser.heading">
+          <span class="roi-hl">Χρόνος</span> που επιστρέφεται αμέσως.<br>
+          <span class="roi-hl">Ποιότητα</span> που εξασφαλίζεται πάντα.<br>
+          <span class="roi-hl">Λογισμικό</span> φτιαγμένο αποκλειστικά για εσάς.<br>
+          <span class="roi-hl">Μία συνδρομή</span>, απεριόριστοι χρήστες.
+        </h2>
+        <a href="roi.html" class="btn-primary roi-teaser-cta" data-i18n="roi_teaser.cta">Δείτε αναλυτικά τι κερδίζετε &rarr;</a>
       </div>
     </div>
-  </section>
+  </div>
 
   <!-- ΤΙ ΚΑΝΟΥΜΕ -->
   <section id="ti-kanoume">
@@ -2383,6 +2371,8 @@
         'hero.subtitle': 'Εξατομικευμένες λύσεις αυτοματοποίησης CAD/CAM/CNC — κομμένες και ραμμένες στον τρόπο που δουλεύετε.',
         'hero.cta': 'Επικοινωνήστε Μαζί Μας',
         'hero.learn_more': 'Μάθετε Περισσότερα ↓',
+        'roi_teaser.heading': '<span class="roi-hl">Χρόνος</span> που επιστρέφεται αμέσως.<br><span class="roi-hl">Ποιότητα</span> που εξασφαλίζεται πάντα.<br><span class="roi-hl">Λογισμικό</span> φτιαγμένο αποκλειστικά για εσάς.<br><span class="roi-hl">Μία συνδρομή</span>, απεριόριστοι χρήστες.',
+        'roi_teaser.cta': 'Δείτε αναλυτικά τι κερδίζετε \u2192',
         'hero.supported': 'Υποστηριζόμενα συστήματα',
         // Stats bar
         'stats.time': 'Εξοικονόμηση χρόνου',
@@ -2536,6 +2526,8 @@
         'hero.subtitle': 'Custom CAD/CAM/CNC automation solutions — tailored to the way you work.',
         'hero.cta': 'Get in Touch',
         'hero.learn_more': 'Learn More ↓',
+        'roi_teaser.heading': '<span class="roi-hl">Time</span> returned immediately.<br><span class="roi-hl">Quality</span> guaranteed always.<br><span class="roi-hl">Software</span> built exclusively for you.<br><span class="roi-hl">One subscription</span>, unlimited users.',
+        'roi_teaser.cta': 'See what you gain \u2192',
         'hero.supported': 'Supported systems',
         // Stats bar
         'stats.time': 'Time savings',
@@ -2689,6 +2681,8 @@
         'hero.subtitle': 'Soluzioni personalizzate di automazione CAD/CAM/CNC — su misura per il vostro modo di lavorare.',
         'hero.cta': 'Contattaci',
         'hero.learn_more': 'Scopri di Più ↓',
+        'roi_teaser.heading': '<span class="roi-hl">Tempo</span> restituito immediatamente.<br><span class="roi-hl">Qualit\u00e0</span> garantita sempre.<br><span class="roi-hl">Software</span> costruito esclusivamente per voi.<br><span class="roi-hl">Un abbonamento</span>, utenti illimitati.',
+        'roi_teaser.cta': 'Scoprite cosa guadagnate \u2192',
         'hero.supported': 'Sistemi supportati',
         // Stats bar
         'stats.time': 'Risparmio di tempo',
@@ -2885,8 +2879,8 @@
       });
     });
 
-    // ===== WORKFLOW VISUALIZATION =====
-    (function() {
+    // ===== WORKFLOW VISUALIZATION (removed - section replaced by ROI teaser) =====
+    /* (function() {
       const vizSteps = [
         { icon: '\u{1F4CB}', titleKey: 'viz.step1_title', descKey: 'viz.step1_desc' },
         { icon: '\u{1F4BB}', titleKey: 'viz.step2_title', descKey: 'viz.step2_desc' },
@@ -3144,7 +3138,7 @@
         renderVizCards();
         updateViz(vizProgress);
       });
-    })();
+    })(); */
 
     // ===== SCROLL ANIMATIONS =====
     const observer = new IntersectionObserver((entries) => {

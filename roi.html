@@ -1,0 +1,1429 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AidedCAM - Τι Κερδίζετε</title>
+  <meta name="description" content="Δείτε τι κερδίζετε με μία συνεργασία AidedCAM. Εξοικονόμηση 1.700+ ωρών/χειριστή, εξασφαλισμένη ποιότητα, λογισμικό φτιαγμένο για εσάς." />
+  <meta name="robots" content="index, follow" />
+  <link rel="icon" type="image/png" href="/aided-cam-transparent.png" />
+  <link rel="canonical" href="https://www.aidedcam.com/roi.html" />
+  <link rel="preload" as="image" href="aided-cam-transparent.png" />
+  <!-- Google Analytics - loaded only after cookie consent -->
+  <script>
+    function loadGA() {
+      if (document.getElementById('ga-script')) return;
+      var s = document.createElement('script');
+      s.id = 'ga-script'; s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-81935T6DNE';
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', 'G-81935T6DNE');
+      var userLang = localStorage.getItem('aidedcam-lang') || document.documentElement.lang || 'el';
+      gtag('set', 'user_properties', { preferred_language: userLang });
+    }
+    if (localStorage.getItem('privacy-pref') === 'accepted') { loadGA(); }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700;800&family=Exo+2:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1a4a2e;
+      --primary-dark: #0a1a10;
+      --primary-light: #2d5a3d;
+      --accent: #0d7a3e;
+      --accent-light: #3db365;
+      --accent-bright: #5fbd7a;
+      --text-dark: #161616;
+      --text-body: #1a4a2e;
+      --text-gray: #555;
+      --text-light: #888;
+      --bg-light: #f0f5f2;
+      --white: #fff;
+      --border: #ebebeb;
+      --shadow: rgba(13, 122, 62, 0.13);
+      --shadow-strong: rgba(13, 122, 62, 0.25);
+      --font-display: 'Exo 2', 'Barlow', sans-serif;
+      --font-body: 'Barlow', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --red: #c0392b;
+      --red-bg: rgba(192, 57, 43, 0.06);
+      --red-border: rgba(192, 57, 43, 0.12);
+      --green-pale: #e8f5ed;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--white);
+      color: var(--text-body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+      font-weight: 500;
+    }
+
+    ::selection { background: var(--accent); color: white; }
+
+    /* ===== NAVBAR ===== */
+    .navbar {
+      position: sticky; top: 0; left: 0; right: 0;
+      background: var(--white); z-index: 1000;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+    .navbar.scrolled { box-shadow: 0 3px 15px rgba(0,0,0,0.12); }
+
+    .nav-container {
+      max-width: 1400px; margin: 0 auto; padding: 0 3rem;
+      display: flex; justify-content: space-between; align-items: center;
+      height: 70px; position: relative; z-index: 1;
+    }
+
+    .nav-logo {
+      display: flex; align-items: center; gap: 0.7rem;
+      text-decoration: none; position: relative; z-index: 1;
+    }
+    .nav-logo img { height: 36px; width: auto; }
+    .nav-logo span {
+      font-family: var(--font-display); font-weight: 800;
+      font-size: 1.2rem; color: var(--primary); letter-spacing: 2px;
+    }
+
+    .nav-right {
+      display: flex; align-items: center; gap: 1.5rem;
+    }
+
+    .nav-back {
+      color: var(--primary); text-decoration: none;
+      font-family: var(--font-display); font-weight: 600;
+      font-size: 0.8rem; letter-spacing: 1px;
+      transition: color 0.3s ease;
+    }
+    .nav-back:hover { color: var(--accent); }
+
+    .lang-switcher { display: flex; gap: 0.3rem; }
+    .lang-btn {
+      background: none; border: 1px solid var(--border); padding: 0.3rem 0.6rem;
+      border-radius: 4px; font-size: 0.7rem; font-weight: 700;
+      color: var(--text-gray); cursor: pointer; transition: all 0.2s;
+      font-family: var(--font-display); letter-spacing: 1px;
+    }
+    .lang-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .lang-btn.active {
+      background: var(--primary); color: white; border-color: var(--primary);
+    }
+
+    /* ===== GATE SECTION ===== */
+    .gate-section {
+      min-height: calc(100vh - 70px);
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(74deg, #0a1a10 0%, #0d5a30 100%);
+      padding: 80px 2rem;
+      position: relative; overflow: hidden;
+    }
+
+    .gate-section::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(61,179,101,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(61,179,101,0.05) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .gate-card {
+      position: relative; z-index: 1;
+      max-width: 520px; width: 100%;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px; padding: 3rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .gate-badge {
+      font-family: var(--font-display); font-size: 0.75rem;
+      color: var(--accent-bright); text-transform: uppercase;
+      letter-spacing: 4px; font-weight: 800; margin-bottom: 1.5rem;
+    }
+
+    .gate-title {
+      font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2rem);
+      font-weight: 800; color: white; line-height: 1.3;
+      margin-bottom: 0.8rem; letter-spacing: -0.3px;
+    }
+
+    .gate-subtitle {
+      font-size: 0.95rem; color: rgba(255,255,255,0.6);
+      line-height: 1.7; margin-bottom: 2rem; font-weight: 400;
+    }
+
+    .form-group { margin-bottom: 1.2rem; }
+
+    .form-label {
+      display: block; font-size: 0.75rem; font-weight: 700;
+      color: rgba(255,255,255,0.7); text-transform: uppercase;
+      letter-spacing: 1.5px; margin-bottom: 0.5rem;
+      font-family: var(--font-display);
+    }
+    .form-label .required { color: var(--accent-bright); }
+
+    .form-input, .form-select {
+      width: 100%; padding: 0.75rem 1rem;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px; color: white;
+      font-family: var(--font-body); font-size: 0.9rem;
+      transition: border-color 0.3s;
+    }
+    .form-input::placeholder { color: rgba(255,255,255,0.3); }
+    .form-input:focus, .form-select:focus {
+      outline: none; border-color: var(--accent-bright);
+    }
+    .form-select { cursor: pointer; appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' fill='none' stroke='rgba(255,255,255,0.5)' stroke-width='1.5'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 1rem center;
+    }
+    .form-select option { background: #1a4a2e; color: white; }
+
+    .form-checkbox-group {
+      display: flex; gap: 0.8rem; margin-top: 0.3rem;
+    }
+    .form-toggle {
+      display: flex; align-items: center; gap: 0.5rem;
+      cursor: pointer;
+    }
+    .form-toggle input { display: none; }
+    .form-toggle .toggle-pill {
+      padding: 0.5rem 1.2rem; border-radius: 50px;
+      border: 1px solid rgba(255,255,255,0.2);
+      font-size: 0.8rem; font-weight: 600; color: rgba(255,255,255,0.5);
+      transition: all 0.3s;
+      font-family: var(--font-display);
+    }
+    .form-toggle input:checked + .toggle-pill {
+      background: var(--accent); border-color: var(--accent); color: white;
+    }
+
+    .form-submit {
+      width: 100%; padding: 0.85rem; margin-top: 0.5rem;
+      background: var(--accent); color: white; border: none;
+      border-radius: 50px; font-family: var(--font-display);
+      font-weight: 700; font-size: 0.8rem; text-transform: uppercase;
+      letter-spacing: 2px; cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .form-submit:hover {
+      background: var(--accent-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px var(--shadow-strong);
+    }
+    .form-submit:disabled {
+      opacity: 0.5; cursor: not-allowed; transform: none;
+    }
+
+    .form-note {
+      text-align: center; margin-top: 1rem;
+      font-size: 0.75rem; color: rgba(255,255,255,0.35);
+    }
+
+    /* Multi-select pills for CAD/CAM */
+    .system-pills {
+      display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.3rem;
+    }
+    .system-pill {
+      padding: 0.4rem 0.9rem; border-radius: 50px;
+      border: 1px solid rgba(255,255,255,0.15);
+      font-size: 0.75rem; font-weight: 600; color: rgba(255,255,255,0.5);
+      cursor: pointer; transition: all 0.2s;
+      font-family: var(--font-body); background: none;
+    }
+    .system-pill:hover { border-color: rgba(255,255,255,0.3); color: rgba(255,255,255,0.7); }
+    .system-pill.selected {
+      background: rgba(13,122,62,0.3); border-color: var(--accent-bright);
+      color: var(--accent-bright);
+    }
+    .system-other-input {
+      margin-top: 0.5rem; display: none;
+    }
+    .system-other-input.visible { display: block; }
+
+    /* ===== ROI CONTENT (hidden initially) ===== */
+    .roi-content {
+      display: none; opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+    .roi-content.visible {
+      display: block;
+    }
+    .roi-content.fade-in {
+      opacity: 1;
+    }
+
+    /* ===== ROI HERO ===== */
+    .roi-hero {
+      text-align: center;
+      padding: 80px 2rem 60px;
+      background: linear-gradient(74deg, #0a1a10 0%, #0d5a30 100%);
+      position: relative;
+    }
+    .roi-hero::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(ellipse at 50% 50%, rgba(61,179,101,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .roi-hero-inner { position: relative; z-index: 1; max-width: 960px; margin: 0 auto; }
+
+    .roi-hero .badge {
+      font-family: var(--font-display); font-size: 0.75rem;
+      color: var(--accent-bright); letter-spacing: 4px;
+      text-transform: uppercase; font-weight: 800; margin-bottom: 2rem;
+    }
+
+    .roi-hero h1 {
+      font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800; color: white; line-height: 1.4;
+      margin-bottom: 1.2rem; letter-spacing: -0.3px;
+    }
+    .roi-hero h1 .hl { color: var(--accent-bright); }
+
+    .roi-hero .tagline {
+      font-size: 1.1rem; color: rgba(255,255,255,0.6);
+      font-weight: 600;
+    }
+
+    /* Personalized greeting */
+    .roi-greeting {
+      margin-bottom: 2rem; padding: 1rem 1.5rem;
+      background: rgba(255,255,255,0.05); border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.1);
+      display: inline-block;
+    }
+    .roi-greeting span {
+      font-size: 1.15rem; color: rgba(255,255,255,0.7);
+    }
+    .roi-greeting strong {
+      color: var(--accent-bright); font-size: 1.3rem;
+    }
+
+    /* ===== CONTAINER ===== */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 3rem; }
+
+    /* ===== PILLAR ===== */
+    .pillar {
+      padding: 120px 0;
+      background-color: var(--bg-light);
+      background-image:
+        linear-gradient(rgba(13,122,62,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(13,122,62,0.06) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .pillar:nth-child(even) { background-color: var(--white); }
+
+    .pillar-header {
+      display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1.5rem;
+    }
+
+    .pillar-num {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: var(--green-pale); border: 1px solid rgba(13,122,62,0.15);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-mono); font-size: 0.85rem;
+      font-weight: 800; color: var(--accent);
+    }
+
+    .pillar-title {
+      font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800; color: var(--text-dark); letter-spacing: -0.5px;
+    }
+
+    .pillar-intro {
+      font-size: 1.1rem; color: var(--text-gray); line-height: 1.8;
+      margin-bottom: 2.5rem; border-left: 3px solid var(--accent);
+      padding-left: 1.2rem;
+    }
+    .pillar-intro strong { color: var(--primary); }
+
+    /* ===== DIVIDER ===== */
+    .roi-divider {
+      height: 1px; max-width: 200px; margin: 0 auto;
+      background: linear-gradient(to right, transparent, var(--accent-bright), transparent);
+      opacity: 0.3;
+    }
+
+    /* ===== BEFORE/AFTER BARS ===== */
+    .bar-group { margin-bottom: 1.5rem; }
+
+    .bar-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    .bar-label { font-size: 1.05rem; font-weight: 700; color: var(--text-dark); }
+    .bar-pct {
+      font-size: 0.75rem; font-weight: 800; color: var(--accent);
+      background: var(--green-pale); border-radius: 12px;
+      padding: 0.15rem 0.7rem;
+    }
+
+    .bar-row {
+      display: flex; gap: 0.8rem; align-items: center;
+    }
+    .bar-col { flex: 1; }
+    .bar-col-label {
+      font-size: 0.65rem; color: var(--text-light);
+      text-transform: uppercase; letter-spacing: 0.08em;
+      font-weight: 700; margin-bottom: 0.2rem;
+    }
+    .bar-track {
+      height: 40px; border-radius: 10px; overflow: hidden; position: relative;
+    }
+    .bar-track-before { background: var(--red-bg); }
+    .bar-track-after { background: var(--green-pale); }
+
+    .bar-fill {
+      height: 100%; border-radius: 8px; display: flex;
+      align-items: center; justify-content: flex-end;
+      padding-right: 0.7rem; transition: width 1s cubic-bezier(0.16,1,0.3,1);
+      width: 0%;
+    }
+    .bar-fill-before { background: rgba(192,57,43,0.14); }
+    .bar-fill-after { background: rgba(13,122,62,0.18); min-width: 80px; }
+
+    .bar-value {
+      font-size: 0.95rem; font-weight: 800; white-space: nowrap;
+    }
+    .bar-value-before { color: var(--red); }
+    .bar-value-after { color: var(--accent); }
+
+    .bar-arrow {
+      color: var(--accent-bright); font-size: 1.1rem; flex-shrink: 0;
+      opacity: 0.5;
+    }
+
+    /* ===== SCALING CARD ===== */
+    .scaling-card {
+      background: var(--white); border: 1px solid rgba(13,122,62,0.12);
+      border-radius: 16px; padding: 1.5rem; margin-top: 1.5rem;
+      display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;
+    }
+
+    .scaling-text { flex: 1 1 200px; }
+    .scaling-text .label {
+      font-size: 0.75rem; color: var(--accent); font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;
+    }
+    .scaling-text .timeline {
+      font-size: 0.85rem; color: var(--text-gray); line-height: 1.8;
+    }
+    .scaling-text strong { color: var(--primary); }
+
+    .scaling-counter {
+      flex: 0 0 auto; text-align: center;
+      background: var(--green-pale); border-radius: 14px;
+      padding: 1.2rem 1.8rem;
+    }
+    .scaling-counter .small { font-size: 0.7rem; color: var(--text-light); margin-bottom: 0.2rem; }
+    .scaling-counter .big {
+      font-family: var(--font-mono); font-size: 2.5rem;
+      font-weight: 800; color: var(--accent); line-height: 1;
+    }
+    .scaling-counter .unit { font-size: 0.75rem; color: var(--accent); font-weight: 700; }
+
+    /* ===== QUALITY CARDS ===== */
+    .quality-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 1rem; margin-bottom: 1.5rem;
+    }
+
+    .quality-card {
+      background: var(--white); border: 1px solid rgba(13,122,62,0.1);
+      border-radius: 14px; padding: 1.3rem;
+    }
+    .quality-card h4 {
+      font-size: 1.1rem; font-weight: 800; color: var(--primary);
+      margin-bottom: 0.4rem; font-family: var(--font-display);
+    }
+    .quality-card p {
+      font-size: 0.95rem; color: var(--text-gray); line-height: 1.7;
+    }
+
+    /* ===== COMPARISON SPLIT ===== */
+    .comparison {
+      display: flex; gap: 0.8rem; flex-wrap: wrap;
+    }
+    .comparison-side {
+      flex: 1; min-width: 200px; border-radius: 16px;
+      padding: 1.2rem 1.5rem; text-align: center;
+    }
+    .comparison-without {
+      background: var(--red-bg); border: 1px solid var(--red-border);
+    }
+    .comparison-with {
+      background: var(--green-pale); border: 1px solid rgba(13,122,62,0.15);
+    }
+    .comparison-side .comp-label {
+      font-size: 0.65rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.08em; margin-bottom: 0.4rem;
+    }
+    .comparison-without .comp-label { color: var(--red); }
+    .comparison-with .comp-label { color: var(--accent); }
+    .comparison-side .comp-text {
+      font-size: 1rem; color: var(--text-gray); line-height: 1.6;
+    }
+    .comparison-side .comp-text strong { color: inherit; }
+    .comparison-without .comp-text strong { color: var(--red); }
+    .comparison-with .comp-text strong { color: var(--primary); }
+
+    /* ===== CUSTOM-FIT COLUMNS ===== */
+    .custom-cols {
+      display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem;
+    }
+    .custom-col {
+      flex: 1; min-width: 220px; background: var(--white);
+      border: 1px solid rgba(13,122,62,0.1);
+      border-radius: 16px; padding: 1.5rem;
+    }
+    .custom-col h4 {
+      font-size: 0.85rem; font-weight: 800; color: var(--primary);
+      margin-bottom: 1rem; font-family: var(--font-display);
+    }
+    .custom-item {
+      display: flex; gap: 0.5rem; margin-bottom: 0.8rem;
+      font-size: 1rem; color: var(--text-gray); line-height: 1.7;
+    }
+    .custom-item .bullet { color: var(--accent); font-weight: 700; flex-shrink: 0; }
+
+    /* ===== SERVICES GRID ===== */
+    .services-included {
+      background: var(--white); border: 1px solid rgba(13,122,62,0.1);
+      border-radius: 16px; padding: 1.5rem; margin-bottom: 1.5rem;
+    }
+    .services-included .si-label {
+      font-size: 0.75rem; color: var(--accent); font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1rem;
+    }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 0.7rem;
+    }
+    .service-item {
+      display: flex; align-items: center; gap: 0.6rem;
+      background: var(--green-pale); border-radius: 10px;
+      padding: 0.6rem 0.8rem;
+    }
+    .service-item .si-icon { font-size: 0.85rem; color: var(--accent); font-weight: 700; }
+    .service-item .si-text {
+      font-size: 0.9rem; font-weight: 700; color: var(--primary);
+    }
+
+    /* ===== CLOSING ===== */
+    .roi-closing {
+      text-align: center; padding: 80px 2rem;
+      background-color: var(--bg-light);
+      background-image:
+        linear-gradient(rgba(13,122,62,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(13,122,62,0.06) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .roi-closing h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+      font-weight: 800; color: var(--text-dark);
+      font-style: italic; line-height: 1.5;
+      max-width: 600px; margin: 0 auto 2rem;
+    }
+    .roi-closing .cta-btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.85rem 2.2rem; background: var(--accent); color: white;
+      text-decoration: none; font-family: var(--font-display);
+      font-weight: 700; font-size: 0.75rem; border-radius: 50px;
+      transition: all 0.3s ease; border: 2px solid var(--accent);
+      text-transform: uppercase; letter-spacing: 2px;
+    }
+    .roi-closing .cta-btn:hover {
+      background: var(--accent-light); border-color: var(--accent-light);
+      transform: translateY(-2px); box-shadow: 0 8px 25px var(--shadow-strong);
+    }
+
+    /* ===== FOOTER ===== */
+    .roi-footer {
+      padding: 2rem; border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+      max-width: 800px; margin: 0 auto;
+    }
+    .roi-footer .tag {
+      font-size: 0.85rem; font-weight: 700; color: var(--accent);
+    }
+    .roi-footer .brand {
+      font-family: var(--font-display); font-size: 1rem;
+      font-weight: 800; color: var(--primary); letter-spacing: 2px;
+    }
+
+    /* ===== FADE-IN ANIMATION ===== */
+    .fade-in {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1);
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    .fade-in-d1 { transition-delay: 0.1s; }
+    .fade-in-d2 { transition-delay: 0.2s; }
+    .fade-in-d3 { transition-delay: 0.3s; }
+    .fade-in-d4 { transition-delay: 0.4s; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .nav-container { padding: 0 1.5rem; height: 60px; }
+      .nav-logo img { height: 28px; }
+      .nav-logo span { font-size: 1rem; }
+      .nav-back { display: none; }
+      .gate-card { padding: 2rem 1.5rem; }
+      .quality-grid { grid-template-columns: 1fr; }
+      .scaling-card { flex-direction: column; text-align: center; }
+      .comparison { flex-direction: column; }
+      .custom-cols { flex-direction: column; }
+      .roi-footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+      .pillar { padding: 60px 0; }
+      .bar-row { flex-direction: column; gap: 0.3rem; }
+      .bar-arrow { transform: rotate(90deg); }
+    }
+
+    @media (max-width: 480px) {
+      .gate-section { padding: 40px 1rem; }
+      .system-pills { gap: 0.3rem; }
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ===== CONSENT (same as main) ===== */
+    .consent-overlay {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
+      z-index: 9999; display: none; align-items: center; justify-content: center;
+    }
+    .consent-overlay.visible { display: flex; }
+    .consent-dialog {
+      background: var(--primary-dark); color: white;
+      padding: 2.5rem 3rem; border-radius: 16px;
+      max-width: 520px; width: 90%; text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .consent-dialog p { font-size: 0.95rem; color: rgba(255,255,255,0.85); line-height: 1.6; margin: 0 0 1.8rem; }
+    .consent-actions { display: flex; gap: 0.8rem; justify-content: center; }
+    .consent-btn {
+      padding: 0.7rem 1.8rem; border-radius: 50px; font-size: 0.85rem;
+      font-weight: 600; cursor: pointer; border: none; font-family: var(--font-display);
+      transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1px;
+    }
+    .consent-btn-accept { background: var(--accent); color: white; }
+    .consent-btn-accept:hover { background: var(--accent-light); }
+    .consent-btn-decline {
+      background: transparent; color: rgba(255,255,255,0.5);
+      font-size: 0.8rem; font-weight: 400; text-decoration: underline;
+      padding: 0.5rem 1rem; text-transform: none; letter-spacing: 0;
+    }
+    .consent-btn-decline:hover { color: rgba(255,255,255,0.7); }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="/" class="nav-logo">
+        <img src="aided-cam-transparent.png" alt="AidedCAM" />
+        <span>AIDEDCAM</span>
+      </a>
+      <div class="nav-right">
+        <a href="/" class="nav-back" data-i18n="roi.back">&larr; Αρχική</a>
+        <div class="lang-switcher">
+          <button class="lang-btn active" data-lang="el">EL</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+          <button class="lang-btn" data-lang="it">IT</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- GATE: Lead capture form -->
+  <section class="gate-section" id="gateSection">
+    <div class="gate-card">
+      <div class="gate-badge">AIDEDCAM</div>
+      <h1 class="gate-title" data-i18n-html="roi.gate_title">Δείτε τι <span class="hl" style="color:var(--accent-bright)">πραγματικά κερδίζετε</span></h1>
+      <p class="gate-subtitle" data-i18n="roi.gate_subtitle">Συμπληρώστε τα παρακάτω και δείτε αναλυτικά τι κερδίζετε με μια συνεργασία AidedCAM.</p>
+
+      <form id="roiForm" action="https://formspree.io/f/xaqllyao" method="POST">
+        <div class="form-group">
+          <label class="form-label" data-i18n-html="roi.label_company">Επωνυμία εταιρείας <span class="required">*</span></label>
+          <input type="text" name="company" class="form-input" required data-i18n-placeholder="roi.ph_company" placeholder="π.χ. Μεταλλοτεχνική ΑΕ" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" data-i18n-html="roi.label_email">Email <span class="required">*</span></label>
+          <input type="email" name="email" class="form-input" required placeholder="info@company.com" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" data-i18n="roi.label_system">CAD/CAM System</label>
+          <div class="system-pills" id="systemPills">
+            <button type="button" class="system-pill" data-value="PowerShape">PowerShape</button>
+            <button type="button" class="system-pill" data-value="PowerMill">PowerMill</button>
+            <button type="button" class="system-pill" data-value="Fusion360">Fusion360</button>
+            <button type="button" class="system-pill" data-value="FeatureCAM">FeatureCAM</button>
+            <button type="button" class="system-pill" data-value="Inventor">Inventor</button>
+            <button type="button" class="system-pill" data-value="SiemensNX">SiemensNX</button>
+            <button type="button" class="system-pill" data-value="Revit">Revit</button>
+            <button type="button" class="system-pill" data-value="AutoCAD">AutoCAD</button>
+            <button type="button" class="system-pill" data-value="other" data-i18n="roi.other">Άλλο</button>
+          </div>
+          <input type="text" name="system_other" class="form-input system-other-input" id="systemOtherInput" data-i18n-placeholder="roi.ph_other" placeholder="Γράψτε το σύστημά σας..." />
+          <input type="hidden" name="systems" id="systemsHidden" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" data-i18n="roi.label_project">Έχετε κάποιο project στο μυαλό σας;</label>
+          <div class="form-checkbox-group">
+            <label class="form-toggle">
+              <input type="radio" name="has_project" value="yes" />
+              <span class="toggle-pill" data-i18n="roi.yes">Ναι</span>
+            </label>
+            <label class="form-toggle">
+              <input type="radio" name="has_project" value="no" checked />
+              <span class="toggle-pill" data-i18n="roi.no">Όχι</span>
+            </label>
+          </div>
+        </div>
+
+        <button type="submit" class="form-submit" data-i18n="roi.submit">Δείτε τι κερδίζετε &rarr;</button>
+        <p class="form-note" data-i18n="roi.form_note">Δεν απαιτείται δέσμευση. Τα στοιχεία σας είναι ασφαλή.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ROI CONTENT (revealed after form) -->
+  <div class="roi-content" id="roiContent">
+
+    <!-- ROI HERO -->
+    <section class="roi-hero">
+      <div class="roi-hero-inner">
+        <div class="roi-greeting" id="roiGreeting" style="display:none;">
+          <span data-i18n="roi.greeting_prefix">Για την</span>
+          <strong id="roiCompanyName"></strong>
+        </div>
+        <div class="badge">AIDEDCAM</div>
+        <h1 data-i18n-html="roi.hero_title">
+          <span class="hl">Χρόνος</span> που επιστρέφεται αμέσως.<br>
+          <span class="hl">Ποιότητα</span> που εξασφαλίζεται πάντα.<br>
+          <span class="hl">Λογισμικό</span> φτιαγμένο αποκλειστικά για εσάς.<br>
+          <span class="hl">Μία συνδρομή</span>, απεριόριστοι χρήστες.
+        </h1>
+        <p class="tagline" data-i18n="roi.tagline">Αυτό είναι αυτό που πραγματικά κερδίζετε.</p>
+      </div>
+    </section>
+
+    <!-- PILLAR 1: TIME -->
+    <section class="pillar" id="pillar1">
+      <div class="container">
+        <div class="pillar-header fade-in">
+          <div class="pillar-num">01</div>
+          <h2 class="pillar-title" data-i18n="roi.p1_title">Χρόνος που επιστρέφεται αμέσως</h2>
+        </div>
+        <p class="pillar-intro fade-in" data-i18n-html="roi.p1_intro">Ορατός από την πρώτη μέρα. Κάθε νέα αυτοματοποίηση <strong>πολλαπλασιάζει το κέρδος</strong>.</p>
+
+        <div class="bar-group fade-in" data-before="480" data-after="9" data-unit="min" data-pct="98">
+          <div class="bar-header">
+            <span class="bar-label" data-i18n="roi.process1">Διαδικασία 1</span>
+            <span class="bar-pct">-98%</span>
+          </div>
+          <div class="bar-row">
+            <div class="bar-col">
+              <div class="bar-col-label" data-i18n="roi.before">Πριν</div>
+              <div class="bar-track bar-track-before"><div class="bar-fill bar-fill-before" data-width="100"><span class="bar-value bar-value-before">480 min</span></div></div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-col-label" data-i18n="roi.after">Μετά</div>
+              <div class="bar-track bar-track-after"><div class="bar-fill bar-fill-after" data-width="8"><span class="bar-value bar-value-after">9 min</span></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bar-group fade-in fade-in-d1" data-before="240" data-after="3" data-unit="min" data-pct="99">
+          <div class="bar-header">
+            <span class="bar-label" data-i18n="roi.process2">Διαδικασία 2</span>
+            <span class="bar-pct">-99%</span>
+          </div>
+          <div class="bar-row">
+            <div class="bar-col">
+              <div class="bar-col-label" data-i18n="roi.before">Πριν</div>
+              <div class="bar-track bar-track-before"><div class="bar-fill bar-fill-before" data-width="100"><span class="bar-value bar-value-before">240 min</span></div></div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-col-label" data-i18n="roi.after">Μετά</div>
+              <div class="bar-track bar-track-after"><div class="bar-fill bar-fill-after" data-width="6"><span class="bar-value bar-value-after">3 min</span></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bar-group fade-in fade-in-d2" data-before="45" data-after="3" data-unit="min" data-pct="93">
+          <div class="bar-header">
+            <span class="bar-label" data-i18n="roi.process3">Διαδικασία 3</span>
+            <span class="bar-pct">-93%</span>
+          </div>
+          <div class="bar-row">
+            <div class="bar-col">
+              <div class="bar-col-label" data-i18n="roi.before">Πριν</div>
+              <div class="bar-track bar-track-before"><div class="bar-fill bar-fill-before" data-width="100"><span class="bar-value bar-value-before">45 min</span></div></div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-col-label" data-i18n="roi.after">Μετά</div>
+              <div class="bar-track bar-track-after"><div class="bar-fill bar-fill-after" data-width="10"><span class="bar-value bar-value-after">3 min</span></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bar-group fade-in fade-in-d3" data-before="120" data-after="3" data-unit-after="sec" data-pct="99">
+          <div class="bar-header">
+            <span class="bar-label" data-i18n="roi.process4">Διαδικασία 4</span>
+            <span class="bar-pct">-99%</span>
+          </div>
+          <div class="bar-row">
+            <div class="bar-col">
+              <div class="bar-col-label" data-i18n="roi.before">Πριν</div>
+              <div class="bar-track bar-track-before"><div class="bar-fill bar-fill-before" data-width="100"><span class="bar-value bar-value-before">120 min</span></div></div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-col-label" data-i18n="roi.after">Μετά</div>
+              <div class="bar-track bar-track-after"><div class="bar-fill bar-fill-after" data-width="5"><span class="bar-value bar-value-after">3 sec</span></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="scaling-card fade-in fade-in-d4">
+          <div class="scaling-text">
+            <div class="label" data-i18n="roi.scaling_label">Και αυξάνεται εκθετικά</div>
+            <div class="timeline" data-i18n-html="roi.scaling_timeline">
+              Μήνας 1 &rarr; <strong>2 διαδικασίες</strong><br>
+              Μήνας 6 &rarr; <strong>8 διαδικασίες</strong><br>
+              Μήνας 12 &rarr; <strong>15+ διαδικασίες</strong>
+            </div>
+          </div>
+          <div class="scaling-counter">
+            <div class="small" data-i18n="roi.annual_savings">Ετήσια εξοικονόμηση</div>
+            <div class="big" id="animCounter">0+</div>
+            <div class="unit" data-i18n="roi.hours_per_op">ώρες / χειριστή</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PILLAR 2: QUALITY -->
+    <section class="pillar" id="pillar2">
+      <div class="container">
+        <div class="pillar-header fade-in">
+          <div class="pillar-num">02</div>
+          <h2 class="pillar-title" data-i18n="roi.p2_title">Ποιότητα που εξασφαλίζεται πάντα</h2>
+        </div>
+        <p class="pillar-intro fade-in" data-i18n-html="roi.p2_intro">Το λάθος εξαρτάται από κούραση, πίεση, συγκυρίες. <strong>Η εφαρμογή δεν εξαρτάται από τίποτα.</strong></p>
+
+        <div class="quality-grid">
+          <div class="quality-card fade-in">
+            <h4 data-i18n="roi.q_check">Ελέγχει</h4>
+            <p data-i18n="roi.q_check_desc">Γεωμετρίες, παραμέτρους κατεργασίας, συμβατότητα μηχανής — όλα ελέγχονται αυτόματα πριν προχωρήσει οτιδήποτε.</p>
+          </div>
+          <div class="quality-card fade-in fade-in-d1">
+            <h4 data-i18n="roi.q_prompt">Προτρέπει</h4>
+            <p data-i18n="roi.q_prompt_desc">Αν λείπει ένα βήμα ή μια ρύθμιση δεν ταιριάζει, ο χειριστής ενημερώνεται πριν προχωρήσει — όχι μετά.</p>
+          </div>
+          <div class="quality-card fade-in fade-in-d2">
+            <h4 data-i18n="roi.q_inform">Ενημερώνει</h4>
+            <p data-i18n="roi.q_inform_desc">Κάθε αλλαγή, κάθε απόφαση, καταγράφεται. Ξέρετε ποιος έκανε τι, πότε, και γιατί.</p>
+          </div>
+          <div class="quality-card fade-in fade-in-d3">
+            <h4 data-i18n="roi.q_fix">Διορθώνει</h4>
+            <p data-i18n="roi.q_fix_desc">Εντοπίζει αποκλίσεις — από λάθος σχεδιαστικό στοιχείο μέχρι παραλειμμένη κατεργασία — και τις διορθώνει αυτόματα.</p>
+          </div>
+        </div>
+
+        <div class="comparison fade-in fade-in-d4">
+          <div class="comparison-side comparison-without">
+            <div class="comp-label" data-i18n="roi.without">Χωρίς AidedCAM</div>
+            <div class="comp-text" data-i18n-html="roi.without_quality">Η ποιότητα εξαρτάται από<br><strong>τον χειριστή και τη στιγμή</strong></div>
+          </div>
+          <div class="comparison-side comparison-with">
+            <div class="comp-label" data-i18n="roi.with">Με AidedCAM</div>
+            <div class="comp-text" data-i18n-html="roi.with_quality">Το software εκτελεί <strong>πάντα σωστά</strong><br><strong>μία διαδικασία</strong></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PILLAR 3: CUSTOM-FIT -->
+    <section class="pillar" id="pillar3">
+      <div class="container">
+        <div class="pillar-header fade-in">
+          <div class="pillar-num">03</div>
+          <h2 class="pillar-title" data-i18n="roi.p3_title">Λογισμικό φτιαγμένο αποκλειστικά για εσάς</h2>
+        </div>
+        <p class="pillar-intro fade-in" data-i18n-html="roi.p3_intro">Δεν αγοράζετε generic software. <strong>Χτίζουμε ακριβώς αυτό που χρειάζεστε</strong> — γιατί γνωρίζουμε ήδη τη δουλειά σας.</p>
+
+        <div class="custom-cols">
+          <div class="custom-col fade-in">
+            <h4 data-i18n="roi.why_unique">Γιατί δεν υπάρχει αλλού</h4>
+            <div class="custom-item"><span class="bullet">&#10022;</span><span data-i18n="roi.unique1">Κανένα off-the-shelf δεν καλύπτει τις δικές σας ροές</span></div>
+            <div class="custom-item"><span class="bullet">&#10022;</span><span data-i18n="roi.unique2">Σχεδιάζεται γύρω από τον τρόπο που ήδη δουλεύετε</span></div>
+            <div class="custom-item"><span class="bullet">&#10022;</span><span data-i18n="roi.unique3">Ενσωματώνεται στα υπάρχοντα CAD/CAM/CNC εργαλεία σας</span></div>
+          </div>
+          <div class="custom-col fade-in fade-in-d1">
+            <h4 data-i18n="roi.why_fast">Γιατί γρήγορα</h4>
+            <div class="custom-item"><span class="bullet">&#9889;</span><span data-i18n="roi.fast1">Δουλέψαμε χρόνια σε τμήμα παραγωγής — ξέρουμε ήδη</span></div>
+            <div class="custom-item"><span class="bullet">&#9889;</span><span data-i18n="roi.fast2">Μιλάμε τη γλώσσα σας: σχεδιασμός, κατεργασίες, μηχανές</span></div>
+            <div class="custom-item"><span class="bullet">&#9889;</span><span data-i18n="roi.fast3">Χωρίς μήνες onboarding — η ανάπτυξη ξεκινά αμέσως</span></div>
+          </div>
+        </div>
+
+        <div class="comparison fade-in fade-in-d2">
+          <div class="comparison-side comparison-without">
+            <div class="comp-label" data-i18n="roi.typical_house">Τυπικό software house</div>
+            <div class="comp-text" data-i18n-html="roi.typical_house_text">3-6 μήνες μόνο για να<br><strong>καταλάβουν τι κάνετε</strong></div>
+          </div>
+          <div class="comparison-side comparison-with">
+            <div class="comp-label">AidedCAM</div>
+            <div class="comp-text" data-i18n-html="roi.aidedcam_fast_text">Ήδη ξέρουμε — ξεκινάμε<br><strong>από τη δεύτερη μέρα</strong></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PILLAR 4: ALL-INCLUSIVE -->
+    <section class="pillar" id="pillar4">
+      <div class="container">
+        <div class="pillar-header fade-in">
+          <div class="pillar-num">04</div>
+          <h2 class="pillar-title" data-i18n="roi.p4_title">Μία συνδρομή, απεριόριστοι χρήστες</h2>
+        </div>
+
+        <div class="services-included fade-in">
+          <div class="si-label" data-i18n="roi.includes">Τι περιλαμβάνει</div>
+          <div class="services-grid">
+            <div class="service-item"><span class="si-icon">&#10003;</span><span class="si-text" data-i18n="roi.svc1">Ανάλυση απαιτήσεων</span></div>
+            <div class="service-item"><span class="si-icon">&#10003;</span><span class="si-text" data-i18n="roi.svc2">Ανάπτυξη λογισμικού</span></div>
+            <div class="service-item"><span class="si-icon">&#10003;</span><span class="si-text" data-i18n="roi.svc3">Δοκιμές & Έλεγχος</span></div>
+            <div class="service-item"><span class="si-icon">&#10003;</span><span class="si-text" data-i18n="roi.svc4">Εγκατάσταση & παράδοση</span></div>
+            <div class="service-item"><span class="si-icon">&#10003;</span><span class="si-text" data-i18n="roi.svc5">Εκπαίδευση χρηστών</span></div>
+            <div class="service-item"><span class="si-icon">&#10003;</span><span class="si-text" data-i18n="roi.svc6">Διόρθωση σφαλμάτων</span></div>
+            <div class="service-item"><span class="si-icon">&#10003;</span><span class="si-text" data-i18n="roi.svc7">Νέες λειτουργίες</span></div>
+            <div class="service-item"><span class="si-icon">&#10003;</span><span class="si-text" data-i18n="roi.svc8">Τεχνική υποστήριξη</span></div>
+          </div>
+        </div>
+
+        <div class="comparison fade-in fade-in-d1">
+          <div class="comparison-side comparison-without">
+            <div class="comp-label" data-i18n="roi.typical_software">Τυπικό λογισμικό</div>
+            <div class="comp-text" data-i18n-html="roi.typical_software_text">Άδεια ανά χρήστη + χρέωση υποστήριξης<br><strong>+ ξεχωριστές χρεώσεις για κάθε υπηρεσία</strong></div>
+          </div>
+          <div class="comparison-side comparison-with">
+            <div class="comp-label">AidedCAM</div>
+            <div class="comp-text" data-i18n-html="roi.aidedcam_pricing_text">Απεριόριστοι χρήστες · μία τιμή<br><strong>0 επιπλέον κόστη</strong></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLOSING -->
+    <section class="roi-closing">
+      <h2 data-i18n="roi.closing">Πόσες ώρες χάθηκαν αυτή την εβδομάδα σε δουλειά που θα μπορούσε να γίνει αυτόματα;</h2>
+      <a href="mailto:info@aidedcam.com" class="cta-btn" data-i18n="roi.closing_cta">Ας μιλήσουμε &rarr;</a>
+    </section>
+
+    <!-- FOOTER -->
+    <div class="roi-footer">
+      <div class="tag">Made by engineers, for engineers</div>
+      <div class="brand">AIDEDCAM</div>
+    </div>
+  </div>
+
+  <!-- COOKIE CONSENT -->
+  <div class="consent-overlay" id="privacyOverlay">
+    <div class="consent-dialog">
+      <p data-i18n="cookie_text">Αυτός ο ιστότοπος χρησιμοποιεί cookies για τη βελτιστοποίηση της λειτουργίας του και την ανάλυση επισκεψιμότητας.</p>
+      <div class="consent-actions">
+        <button class="consent-btn consent-btn-accept" id="privacyAccept" data-i18n="cookie_accept">Αποδοχή</button>
+        <button class="consent-btn consent-btn-decline" id="privacyDecline" data-i18n="cookie_decline">Απόρριψη</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ===== TRANSLATIONS =====
+    var translations = {
+      el: {
+        'roi.back': '\u2190 Αρχική',
+        'roi.gate_title': 'Δείτε τι <span class="hl" style="color:var(--accent-bright)">πραγματικά κερδίζετε</span>',
+        'roi.gate_subtitle': 'Συμπληρώστε τα παρακάτω και δείτε αναλυτικά τι κερδίζετε με μια συνεργασία AidedCAM.',
+        'roi.label_company': 'Επωνυμία εταιρείας <span class="required">*</span>',
+        'roi.ph_company': 'π.χ. Μεταλλοτεχνική ΑΕ',
+        'roi.label_email': 'Email <span class="required">*</span>',
+        'roi.label_system': 'CAD/CAM System',
+        'roi.other': 'Άλλο',
+        'roi.ph_other': 'Γράψτε το σύστημά σας...',
+        'roi.label_project': 'Έχετε κάποιο project στο μυαλό σας;',
+        'roi.yes': 'Ναι',
+        'roi.no': 'Όχι',
+        'roi.submit': 'Δείτε τι κερδίζετε \u2192',
+        'roi.form_note': 'Δεν απαιτείται δέσμευση. Τα στοιχεία σας είναι ασφαλή.',
+        'roi.greeting_prefix': 'Για την',
+        'roi.hero_title': '<span class="hl">Χρόνος</span> που επιστρέφεται αμέσως.<br><span class="hl">Ποιότητα</span> που εξασφαλίζεται πάντα.<br><span class="hl">Λογισμικό</span> φτιαγμένο αποκλειστικά για εσάς.<br><span class="hl">Μία συνδρομή</span>, απεριόριστοι χρήστες.',
+        'roi.tagline': 'Αυτό είναι αυτό που πραγματικά κερδίζετε.',
+        'roi.p1_title': 'Χρόνος που επιστρέφεται αμέσως',
+        'roi.p1_intro': 'Ορατός από την πρώτη μέρα. Κάθε νέα αυτοματοποίηση <strong>πολλαπλασιάζει το κέρδος</strong>.',
+        'roi.process1': 'Διαδικασία 1',
+        'roi.process2': 'Διαδικασία 2',
+        'roi.process3': 'Διαδικασία 3',
+        'roi.process4': 'Διαδικασία 4',
+        'roi.before': 'Πριν',
+        'roi.after': 'Μετά',
+        'roi.scaling_label': 'Και αυξάνεται εκθετικά',
+        'roi.scaling_timeline': 'Μήνας 1 \u2192 <strong>2 διαδικασίες</strong><br>Μήνας 6 \u2192 <strong>8 διαδικασίες</strong><br>Μήνας 12 \u2192 <strong>15+ διαδικασίες</strong>',
+        'roi.annual_savings': 'Ετήσια εξοικονόμηση',
+        'roi.hours_per_op': 'ώρες / χειριστή',
+        'roi.p2_title': 'Ποιότητα που εξασφαλίζεται πάντα',
+        'roi.p2_intro': 'Το λάθος εξαρτάται από κούραση, πίεση, συγκυρίες. <strong>Η εφαρμογή δεν εξαρτάται από τίποτα.</strong>',
+        'roi.q_check': 'Ελέγχει',
+        'roi.q_check_desc': 'Γεωμετρίες, παραμέτρους κατεργασίας, συμβατότητα μηχανής — όλα ελέγχονται αυτόματα πριν προχωρήσει οτιδήποτε.',
+        'roi.q_prompt': 'Προτρέπει',
+        'roi.q_prompt_desc': 'Αν λείπει ένα βήμα ή μια ρύθμιση δεν ταιριάζει, ο χειριστής ενημερώνεται πριν προχωρήσει — όχι μετά.',
+        'roi.q_inform': 'Ενημερώνει',
+        'roi.q_inform_desc': 'Κάθε αλλαγή, κάθε απόφαση, καταγράφεται. Ξέρετε ποιος έκανε τι, πότε, και γιατί.',
+        'roi.q_fix': 'Διορθώνει',
+        'roi.q_fix_desc': 'Εντοπίζει αποκλίσεις — από λάθος σχεδιαστικό στοιχείο μέχρι παραλειμμένη κατεργασία — και τις διορθώνει αυτόματα.',
+        'roi.without': 'Χωρίς AidedCAM',
+        'roi.with': 'Με AidedCAM',
+        'roi.without_quality': 'Η ποιότητα εξαρτάται από<br><strong>τον χειριστή και τη στιγμή</strong>',
+        'roi.with_quality': 'Το software εκτελεί <strong>πάντα σωστά</strong><br><strong>μία διαδικασία</strong>',
+        'roi.p3_title': 'Λογισμικό φτιαγμένο αποκλειστικά για εσάς',
+        'roi.p3_intro': 'Δεν αγοράζετε generic software. <strong>Χτίζουμε ακριβώς αυτό που χρειάζεστε</strong> — γιατί γνωρίζουμε ήδη τη δουλειά σας.',
+        'roi.why_unique': 'Γιατί δεν υπάρχει αλλού',
+        'roi.unique1': 'Κανένα off-the-shelf δεν καλύπτει τις δικές σας ροές',
+        'roi.unique2': 'Σχεδιάζεται γύρω από τον τρόπο που ήδη δουλεύετε',
+        'roi.unique3': 'Ενσωματώνεται στα υπάρχοντα CAD/CAM/CNC εργαλεία σας',
+        'roi.why_fast': 'Γιατί γρήγορα',
+        'roi.fast1': 'Δουλέψαμε χρόνια σε τμήμα παραγωγής — ξέρουμε ήδη',
+        'roi.fast2': 'Μιλάμε τη γλώσσα σας: σχεδιασμός, κατεργασίες, μηχανές',
+        'roi.fast3': 'Χωρίς μήνες onboarding — η ανάπτυξη ξεκινά αμέσως',
+        'roi.typical_house': 'Τυπικό software house',
+        'roi.typical_house_text': '3-6 μήνες μόνο για να<br><strong>καταλάβουν τι κάνετε</strong>',
+        'roi.aidedcam_fast_text': 'Ήδη ξέρουμε — ξεκινάμε<br><strong>από τη δεύτερη μέρα</strong>',
+        'roi.p4_title': 'Μία συνδρομή, απεριόριστοι χρήστες',
+        'roi.includes': 'Τι περιλαμβάνει',
+        'roi.svc1': 'Ανάλυση απαιτήσεων',
+        'roi.svc2': 'Ανάπτυξη λογισμικού',
+        'roi.svc3': 'Δοκιμές & Έλεγχος',
+        'roi.svc4': 'Εγκατάσταση & παράδοση',
+        'roi.svc5': 'Εκπαίδευση χρηστών',
+        'roi.svc6': 'Διόρθωση σφαλμάτων',
+        'roi.svc7': 'Νέες λειτουργίες',
+        'roi.svc8': 'Τεχνική υποστήριξη',
+        'roi.typical_software': 'Τυπικό λογισμικό',
+        'roi.typical_software_text': 'Άδεια ανά χρήστη + χρέωση υποστήριξης<br><strong>+ ξεχωριστές χρεώσεις για κάθε υπηρεσία</strong>',
+        'roi.aidedcam_pricing_text': 'Απεριόριστοι χρήστες · μία τιμή<br><strong>0 επιπλέον κόστη</strong>',
+        'roi.closing': 'Πόσες ώρες χάθηκαν αυτή την εβδομάδα σε δουλειά που θα μπορούσε να γίνει αυτόματα;',
+        'roi.closing_cta': 'Ας μιλήσουμε \u2192',
+        'cookie_text': 'Αυτός ο ιστότοπος χρησιμοποιεί cookies για τη βελτιστοποίηση της λειτουργίας του και την ανάλυση επισκεψιμότητας.',
+        'cookie_accept': 'Αποδοχή',
+        'cookie_decline': 'Απόρριψη',
+        '_title': 'AidedCAM - Γιατί να Συνεργαστούμε'
+      },
+      en: {
+        'roi.back': '\u2190 Home',
+        'roi.gate_title': 'See what you <span class="hl" style="color:var(--accent-bright)">actually gain</span>',
+        'roi.gate_subtitle': 'Fill in the details below and see exactly what you gain by partnering with AidedCAM.',
+        'roi.label_company': 'Company name <span class="required">*</span>',
+        'roi.ph_company': 'e.g. Precision Machining Ltd',
+        'roi.label_email': 'Email <span class="required">*</span>',
+        'roi.label_system': 'CAD/CAM System',
+        'roi.other': 'Other',
+        'roi.ph_other': 'Type your system...',
+        'roi.label_project': 'Do you have a project in mind?',
+        'roi.yes': 'Yes',
+        'roi.no': 'No',
+        'roi.submit': 'See what you gain \u2192',
+        'roi.form_note': 'No commitment required. Your data is safe.',
+        'roi.greeting_prefix': 'For',
+        'roi.hero_title': '<span class="hl">Time</span> returned immediately.<br><span class="hl">Quality</span> guaranteed always.<br><span class="hl">Software</span> built exclusively for you.<br><span class="hl">One subscription</span>, unlimited users.',
+        'roi.tagline': 'This is what you actually gain.',
+        'roi.p1_title': 'Time returned immediately',
+        'roi.p1_intro': 'Visible from day one. Every new automation <strong>multiplies the gain</strong>.',
+        'roi.process1': 'Process 1',
+        'roi.process2': 'Process 2',
+        'roi.process3': 'Process 3',
+        'roi.process4': 'Process 4',
+        'roi.before': 'Before',
+        'roi.after': 'After',
+        'roi.scaling_label': 'And it grows exponentially',
+        'roi.scaling_timeline': 'Month 1 \u2192 <strong>2 processes</strong><br>Month 6 \u2192 <strong>8 processes</strong><br>Month 12 \u2192 <strong>15+ processes</strong>',
+        'roi.annual_savings': 'Annual savings',
+        'roi.hours_per_op': 'hours / operator',
+        'roi.p2_title': 'Quality guaranteed always',
+        'roi.p2_intro': 'Errors depend on fatigue, pressure, circumstances. <strong>The software depends on nothing.</strong>',
+        'roi.q_check': 'Checks',
+        'roi.q_check_desc': 'Geometries, machining parameters, machine compatibility — everything is verified automatically before anything proceeds.',
+        'roi.q_prompt': 'Prompts',
+        'roi.q_prompt_desc': 'If a step is missing or a setting doesn\'t match, the operator is notified before proceeding — not after.',
+        'roi.q_inform': 'Informs',
+        'roi.q_inform_desc': 'Every change, every decision, is logged. You know who did what, when, and why.',
+        'roi.q_fix': 'Corrects',
+        'roi.q_fix_desc': 'Detects deviations — from wrong design elements to missed operations — and corrects them automatically.',
+        'roi.without': 'Without AidedCAM',
+        'roi.with': 'With AidedCAM',
+        'roi.without_quality': 'Quality depends on<br><strong>the operator and the moment</strong>',
+        'roi.with_quality': 'The software executes <strong>correctly every time</strong><br><strong>every process</strong>',
+        'roi.p3_title': 'Software built exclusively for you',
+        'roi.p3_intro': 'You\'re not buying generic software. <strong>We build exactly what you need</strong> — because we already know your work.',
+        'roi.why_unique': 'Why it doesn\'t exist elsewhere',
+        'roi.unique1': 'No off-the-shelf product covers your specific workflows',
+        'roi.unique2': 'Designed around how you already work',
+        'roi.unique3': 'Integrates into your existing CAD/CAM/CNC tools',
+        'roi.why_fast': 'Why it\'s fast',
+        'roi.fast1': 'We worked for years on the production floor — we already know',
+        'roi.fast2': 'We speak your language: design, machining, machines',
+        'roi.fast3': 'No months of onboarding — development starts immediately',
+        'roi.typical_house': 'Typical software house',
+        'roi.typical_house_text': '3-6 months just to<br><strong>understand what you do</strong>',
+        'roi.aidedcam_fast_text': 'We already know — we start<br><strong>from day two</strong>',
+        'roi.p4_title': 'One subscription, unlimited users',
+        'roi.includes': 'What\'s included',
+        'roi.svc1': 'Requirements analysis',
+        'roi.svc2': 'Software development',
+        'roi.svc3': 'Testing & QA',
+        'roi.svc4': 'Installation & delivery',
+        'roi.svc5': 'User training',
+        'roi.svc6': 'Bug fixes',
+        'roi.svc7': 'New features',
+        'roi.svc8': 'Technical support',
+        'roi.typical_software': 'Typical software',
+        'roi.typical_software_text': 'Per-user license + support fees<br><strong>+ separate charges for each service</strong>',
+        'roi.aidedcam_pricing_text': 'Unlimited users \u00b7 one price<br><strong>0 extra costs</strong>',
+        'roi.closing': 'How many hours were lost this week on work that could have been automated?',
+        'roi.closing_cta': 'Let\'s talk \u2192',
+        'cookie_text': 'This website uses cookies to optimize functionality and analyze traffic.',
+        'cookie_accept': 'Accept',
+        'cookie_decline': 'Decline',
+        '_title': 'AidedCAM - Why Partner With Us'
+      },
+      it: {
+        'roi.back': '\u2190 Home',
+        'roi.gate_title': 'Scoprite cosa <span class="hl" style="color:var(--accent-bright)">guadagnate davvero</span>',
+        'roi.gate_subtitle': 'Compilate i dati qui sotto e scoprite esattamente cosa guadagnate con una collaborazione AidedCAM.',
+        'roi.label_company': 'Nome azienda <span class="required">*</span>',
+        'roi.ph_company': 'es. Precision Machining Srl',
+        'roi.label_email': 'Email <span class="required">*</span>',
+        'roi.label_system': 'Sistema CAD/CAM',
+        'roi.other': 'Altro',
+        'roi.ph_other': 'Inserite il vostro sistema...',
+        'roi.label_project': 'Avete un progetto in mente?',
+        'roi.yes': 'S\u00ec',
+        'roi.no': 'No',
+        'roi.submit': 'Scoprite cosa guadagnate \u2192',
+        'roi.form_note': 'Nessun impegno richiesto. I vostri dati sono al sicuro.',
+        'roi.greeting_prefix': 'Per',
+        'roi.hero_title': '<span class="hl">Tempo</span> restituito immediatamente.<br><span class="hl">Qualit\u00e0</span> garantita sempre.<br><span class="hl">Software</span> costruito esclusivamente per voi.<br><span class="hl">Un abbonamento</span>, utenti illimitati.',
+        'roi.tagline': 'Questo \u00e8 ci\u00f2 che guadagnate davvero.',
+        'roi.p1_title': 'Tempo restituito immediatamente',
+        'roi.p1_intro': 'Visibile dal primo giorno. Ogni nuova automazione <strong>moltiplica il guadagno</strong>.',
+        'roi.process1': 'Processo 1',
+        'roi.process2': 'Processo 2',
+        'roi.process3': 'Processo 3',
+        'roi.process4': 'Processo 4',
+        'roi.before': 'Prima',
+        'roi.after': 'Dopo',
+        'roi.scaling_label': 'E cresce esponenzialmente',
+        'roi.scaling_timeline': 'Mese 1 \u2192 <strong>2 processi</strong><br>Mese 6 \u2192 <strong>8 processi</strong><br>Mese 12 \u2192 <strong>15+ processi</strong>',
+        'roi.annual_savings': 'Risparmio annuale',
+        'roi.hours_per_op': 'ore / operatore',
+        'roi.p2_title': 'Qualit\u00e0 garantita sempre',
+        'roi.p2_intro': 'L\'errore dipende da stanchezza, pressione, circostanze. <strong>Il software non dipende da nulla.</strong>',
+        'roi.q_check': 'Controlla',
+        'roi.q_check_desc': 'Geometrie, parametri di lavorazione, compatibilit\u00e0 macchina \u2014 tutto viene verificato automaticamente prima di procedere.',
+        'roi.q_prompt': 'Avvisa',
+        'roi.q_prompt_desc': 'Se manca un passaggio o un\'impostazione non corrisponde, l\'operatore viene avvisato prima di procedere \u2014 non dopo.',
+        'roi.q_inform': 'Informa',
+        'roi.q_inform_desc': 'Ogni modifica, ogni decisione, viene registrata. Sapete chi ha fatto cosa, quando e perch\u00e9.',
+        'roi.q_fix': 'Corregge',
+        'roi.q_fix_desc': 'Rileva deviazioni \u2014 da elementi di progettazione errati a operazioni mancate \u2014 e le corregge automaticamente.',
+        'roi.without': 'Senza AidedCAM',
+        'roi.with': 'Con AidedCAM',
+        'roi.without_quality': 'La qualit\u00e0 dipende<br><strong>dall\'operatore e dal momento</strong>',
+        'roi.with_quality': 'Il software esegue <strong>sempre correttamente</strong><br><strong>ogni processo</strong>',
+        'roi.p3_title': 'Software costruito esclusivamente per voi',
+        'roi.p3_intro': 'Non acquistate software generico. <strong>Costruiamo esattamente ci\u00f2 di cui avete bisogno</strong> \u2014 perch\u00e9 conosciamo gi\u00e0 il vostro lavoro.',
+        'roi.why_unique': 'Perch\u00e9 non esiste altrove',
+        'roi.unique1': 'Nessun prodotto standard copre i vostri flussi specifici',
+        'roi.unique2': 'Progettato attorno al modo in cui gi\u00e0 lavorate',
+        'roi.unique3': 'Si integra nei vostri strumenti CAD/CAM/CNC esistenti',
+        'roi.why_fast': 'Perch\u00e9 \u00e8 veloce',
+        'roi.fast1': 'Abbiamo lavorato anni in produzione \u2014 sappiamo gi\u00e0',
+        'roi.fast2': 'Parliamo la vostra lingua: progettazione, lavorazioni, macchine',
+        'roi.fast3': 'Nessun mese di onboarding \u2014 lo sviluppo inizia subito',
+        'roi.typical_house': 'Tipica software house',
+        'roi.typical_house_text': '3-6 mesi solo per<br><strong>capire cosa fate</strong>',
+        'roi.aidedcam_fast_text': 'Sappiamo gi\u00e0 \u2014 iniziamo<br><strong>dal secondo giorno</strong>',
+        'roi.p4_title': 'Un abbonamento, utenti illimitati',
+        'roi.includes': 'Cosa include',
+        'roi.svc1': 'Analisi dei requisiti',
+        'roi.svc2': 'Sviluppo software',
+        'roi.svc3': 'Test & Controllo Qualit\u00e0',
+        'roi.svc4': 'Installazione & consegna',
+        'roi.svc5': 'Formazione utenti',
+        'roi.svc6': 'Correzione bug',
+        'roi.svc7': 'Nuove funzionalit\u00e0',
+        'roi.svc8': 'Supporto tecnico',
+        'roi.typical_software': 'Software tipico',
+        'roi.typical_software_text': 'Licenza per utente + costi di supporto<br><strong>+ addebiti separati per ogni servizio</strong>',
+        'roi.aidedcam_pricing_text': 'Utenti illimitati \u00b7 un prezzo<br><strong>0 costi aggiuntivi</strong>',
+        'roi.closing': 'Quante ore sono state perse questa settimana in lavoro che poteva essere automatizzato?',
+        'roi.closing_cta': 'Parliamone \u2192',
+        'cookie_text': 'Questo sito web utilizza i cookie per ottimizzare le sue funzionalit\u00e0 e analizzare il traffico.',
+        'cookie_accept': 'Accetta',
+        'cookie_decline': 'Rifiuta',
+        '_title': 'AidedCAM - Perch\u00e9 Collaborare Con Noi'
+      }
+    };
+
+    // ===== I18N ENGINE =====
+    function setLanguage(lang) {
+      var t = translations[lang];
+      if (!t) return;
+
+      document.querySelectorAll('[data-i18n]').forEach(function(el) {
+        var key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined) el.textContent = t[key];
+      });
+      document.querySelectorAll('[data-i18n-html]').forEach(function(el) {
+        var key = el.getAttribute('data-i18n-html');
+        if (t[key] !== undefined) el.innerHTML = t[key];
+      });
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
+        var key = el.getAttribute('data-i18n-placeholder');
+        if (t[key] !== undefined) el.placeholder = t[key];
+      });
+
+      document.title = t['_title'] || document.title;
+      document.documentElement.lang = lang;
+
+      document.querySelectorAll('.lang-btn').forEach(function(btn) {
+        btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+      });
+
+      localStorage.setItem('aidedcam-lang', lang);
+    }
+
+    // Init language
+    var urlLangParam = new URLSearchParams(window.location.search).get('lang');
+    var urlLang = (urlLangParam && translations[urlLangParam]) ? urlLangParam : null;
+    var savedLang = localStorage.getItem('aidedcam-lang');
+    var browserLangCode = navigator.language ? navigator.language.substring(0, 2) : 'el';
+    var browserLang = browserLangCode === 'el' ? 'el' : browserLangCode === 'it' ? 'it' : 'en';
+    var currentLang = urlLang || savedLang || browserLang;
+    if (currentLang !== 'el') setLanguage(currentLang);
+
+    document.querySelectorAll('.lang-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        setLanguage(btn.getAttribute('data-lang'));
+      });
+    });
+
+    // ===== NAVBAR SCROLL =====
+    window.addEventListener('scroll', function() {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // ===== SYSTEM PILLS (multi-select) =====
+    var selectedSystems = [];
+    document.querySelectorAll('.system-pill').forEach(function(pill) {
+      pill.addEventListener('click', function() {
+        var val = pill.getAttribute('data-value');
+        if (val === 'other') {
+          pill.classList.toggle('selected');
+          document.getElementById('systemOtherInput').classList.toggle('visible', pill.classList.contains('selected'));
+        } else {
+          pill.classList.toggle('selected');
+        }
+        // Update hidden input
+        var selected = [];
+        document.querySelectorAll('.system-pill.selected').forEach(function(p) {
+          var v = p.getAttribute('data-value');
+          if (v !== 'other') selected.push(v);
+        });
+        var otherVal = document.getElementById('systemOtherInput').value;
+        if (document.querySelector('.system-pill[data-value="other"]').classList.contains('selected') && otherVal) {
+          selected.push(otherVal);
+        }
+        document.getElementById('systemsHidden').value = selected.join(', ');
+      });
+    });
+
+    document.getElementById('systemOtherInput').addEventListener('input', function() {
+      var selected = [];
+      document.querySelectorAll('.system-pill.selected').forEach(function(p) {
+        var v = p.getAttribute('data-value');
+        if (v !== 'other') selected.push(v);
+      });
+      if (this.value) selected.push(this.value);
+      document.getElementById('systemsHidden').value = selected.join(', ');
+    });
+
+    // ===== FORM SUBMISSION =====
+    var roiForm = document.getElementById('roiForm');
+
+    roiForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var btn = roiForm.querySelector('.form-submit');
+      btn.disabled = true;
+      btn.textContent = '...';
+
+      var formData = new FormData(roiForm);
+
+      // Send to Formspree
+      fetch(roiForm.action, {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      }).then(function(response) {
+        // Show ROI content regardless of response (don't block on Formspree misconfiguration)
+        revealROI(formData.get('company'));
+      }).catch(function() {
+        // Show ROI content even if network fails
+        revealROI(formData.get('company'));
+      });
+
+      // GA event
+      if (window.gtag) {
+        gtag('event', 'roi_form_submit', {
+          company: formData.get('company'),
+          systems: formData.get('systems'),
+          has_project: formData.get('has_project')
+        });
+      }
+    });
+
+    function revealROI(companyName) {
+      var gate = document.getElementById('gateSection');
+      var content = document.getElementById('roiContent');
+
+      // Personalize greeting
+      if (companyName) {
+        document.getElementById('roiCompanyName').textContent = companyName;
+        document.getElementById('roiGreeting').style.display = 'inline-block';
+      }
+
+      // Fade out gate
+      gate.style.transition = 'opacity 0.4s ease';
+      gate.style.opacity = '0';
+      setTimeout(function() {
+        gate.style.display = 'none';
+        content.style.display = 'block';
+        // Trigger reflow then fade in
+        content.offsetHeight;
+        content.classList.add('fade-in');
+        window.scrollTo(0, 0);
+
+        // Start animations after a tick
+        setTimeout(function() {
+          startBarAnimations();
+          initScrollAnimations();
+        }, 100);
+      }, 400);
+    }
+
+    // ===== SCROLL-TRIGGERED FADE-IN =====
+    function initScrollAnimations() {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+
+      document.querySelectorAll('.roi-content .fade-in').forEach(function(el) {
+        observer.observe(el);
+      });
+    }
+
+    // ===== BAR ANIMATIONS =====
+    function startBarAnimations() {
+      var barObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            var fills = entry.target.querySelectorAll('.bar-fill');
+            fills.forEach(function(fill) {
+              var w = fill.getAttribute('data-width');
+              fill.style.width = w + '%';
+            });
+            barObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+
+      document.querySelectorAll('.bar-group').forEach(function(group) {
+        barObserver.observe(group);
+      });
+
+      // Animated counter for 1700+
+      var counterObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            animateCounter(document.getElementById('animCounter'), 1700, '+');
+            counterObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.7 });
+
+      var counterEl = document.getElementById('animCounter');
+      if (counterEl) counterObserver.observe(counterEl);
+    }
+
+    function animateCounter(el, target, suffix) {
+      var start = Date.now();
+      var duration = 2000;
+      function tick() {
+        var p = Math.min((Date.now() - start) / duration, 1);
+        var eased = 1 - Math.pow(1 - p, 3);
+        var current = Math.round(eased * target);
+        el.textContent = current.toLocaleString('el-GR') + (suffix || '');
+        if (p < 1) requestAnimationFrame(tick);
+      }
+      tick();
+    }
+
+    // ===== COOKIE CONSENT =====
+    (function() {
+      var pref = localStorage.getItem('privacy-pref');
+      if (!pref) {
+        document.getElementById('privacyOverlay').classList.add('visible');
+      }
+      document.getElementById('privacyAccept').addEventListener('click', function() {
+        localStorage.setItem('privacy-pref', 'accepted');
+        document.getElementById('privacyOverlay').classList.remove('visible');
+        loadGA();
+      });
+      document.getElementById('privacyDecline').addEventListener('click', function() {
+        localStorage.setItem('privacy-pref', 'declined');
+        document.getElementById('privacyOverlay').classList.remove('visible');
+      });
+    })();
+
+    // ===== GA HELPER =====
+    function gaEvent(name, params) {
+      if (window.gtag) gtag('event', name, params);
+    }
+  </script>
+
+</body>
+</html>

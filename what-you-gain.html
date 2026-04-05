@@ -584,39 +584,99 @@
       .nav-logo span { font-size: 1rem; }
       .nav-back { display: none; }
       .gate-card { padding: 2rem 1.5rem; }
-      .quality-grid { grid-template-columns: 1fr; }
-      .scaling-card { flex-direction: column; text-align: center; }
+      .container { padding: 0 1.5rem; }
+
+      /* Hero */
+      .roi-hero { padding: 50px 1.5rem 40px; }
+      .roi-hero h1 { font-size: 1.1rem; line-height: 1.6; }
+      .roi-hero h1 br { display: none; }
+      .roi-hero .tagline { font-size: 0.9rem; }
+      .roi-greeting { padding: 0.7rem 1rem; margin-bottom: 1.2rem; }
+      .roi-greeting span { font-size: 0.9rem; }
+      .roi-greeting strong { font-size: 1rem; }
+
+      /* Pillars */
+      .pillar { padding: 50px 0; }
+      .pillar-title { font-size: 1.3rem; }
+      .pillar-intro { font-size: 0.95rem; margin-bottom: 1.5rem; }
+      .pillar-num { width: 36px; height: 36px; }
+
+      /* Bars */
+      .bar-group { margin-bottom: 1.2rem; }
+      .bar-row { flex-direction: row; gap: 0.5rem; }
+      .bar-track { height: 36px; }
+      .bar-value { font-size: 0.8rem; }
+      .bar-fill { padding-right: 0.4rem; }
+
+      /* Scaling card */
+      .scaling-card { flex-direction: column; text-align: center; gap: 1.2rem; padding: 1.2rem; }
+      .scaling-text .label { font-size: 0.8rem; }
+      .scaling-text .timeline { font-size: 0.95rem; }
+      .scaling-counter { padding: 1rem 1.5rem; }
+      .scaling-counter .big { font-size: 2.4rem; }
+
+      /* Quality */
+      .quality-grid { grid-template-columns: 1fr; gap: 0.8rem; }
+      .quality-card { padding: 1rem; }
+      .quality-card h4 { font-size: 1rem; }
+      .quality-card p { font-size: 0.88rem; }
+
+      /* Comparisons */
       .comparison { flex-direction: column; }
+      .comparison-side { padding: 1rem; }
+      .comparison-side .comp-label { font-size: 0.75rem; }
+      .comparison-side .comp-text { font-size: 0.95rem; }
+
+      /* Custom cols */
       .custom-cols { flex-direction: column; }
-      .roi-footer { flex-direction: column; gap: 0.5rem; text-align: center; }
-      .pillar { padding: 60px 0; }
-      .bar-row { flex-direction: column; gap: 0.3rem; }
-      .bar-arrow { transform: rotate(90deg); }
+      .custom-col { padding: 1.2rem; }
+      .custom-col h4 { font-size: 0.9rem; }
+      .custom-item { font-size: 0.9rem; }
+
+      /* Services */
+      .services-included { padding: 1.2rem; }
+      .services-grid { grid-template-columns: 1fr; gap: 0.5rem; }
+      .service-item { padding: 0.5rem 0.6rem; }
+      .service-item .si-text { font-size: 0.78rem; }
+
+      /* Closing */
+      .roi-closing { padding: 40px 1.5rem; }
+      .roi-closing h2 { font-size: 1.2rem; margin-bottom: 1.2rem; }
+
+      /* Footer */
+      .roi-footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
     }
 
-    @media (max-width: 480px) {
-      .gate-section { padding: 40px 1rem; }
+    @media (max-width: 380px) {
+      .roi-hero h1 { font-size: 1.15rem; }
+      .services-grid { grid-template-columns: 1fr; }
+      .gate-section { padding: 30px 0.8rem; }
+      .gate-card { padding: 1.5rem 1.2rem; }
       .system-pills { gap: 0.3rem; }
-      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .system-pill { padding: 0.3rem 0.7rem; font-size: 0.7rem; }
     }
 
-    /* ===== CONSENT (same as main) ===== */
-    .consent-overlay {
-      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
-      z-index: 9999; display: none; align-items: center; justify-content: center;
+    /* ===== CONSENT BANNER ===== */
+    .consent-banner {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: var(--primary-dark);
+      z-index: 9999; display: none;
+      box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.3);
     }
-    .consent-overlay.visible { display: flex; }
-    .consent-dialog {
-      background: var(--primary-dark); color: white;
-      padding: 2.5rem 3rem; border-radius: 16px;
-      max-width: 520px; width: 90%; text-align: center;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    .consent-banner.visible { display: block; }
+    .consent-inner {
+      max-width: 1400px; margin: 0 auto;
+      padding: 1.5rem 3rem;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 2rem; flex-wrap: wrap;
     }
-    .consent-dialog p { font-size: 0.95rem; color: rgba(255,255,255,0.85); line-height: 1.6; margin: 0 0 1.8rem; }
-    .consent-actions { display: flex; gap: 0.8rem; justify-content: center; }
+    .consent-inner p {
+      font-size: 0.9rem; color: rgba(255,255,255,0.8);
+      line-height: 1.6; margin: 0; flex: 1; min-width: 250px;
+    }
+    .consent-actions { display: flex; gap: 0.8rem; flex-shrink: 0; }
     .consent-btn {
-      padding: 0.7rem 1.8rem; border-radius: 50px; font-size: 0.85rem;
+      padding: 0.6rem 1.5rem; border-radius: 50px; font-size: 0.8rem;
       font-weight: 600; cursor: pointer; border: none; font-family: var(--font-display);
       transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1px;
     }
@@ -625,9 +685,14 @@
     .consent-btn-decline {
       background: transparent; color: rgba(255,255,255,0.5);
       font-size: 0.8rem; font-weight: 400; text-decoration: underline;
-      padding: 0.5rem 1rem; text-transform: none; letter-spacing: 0;
+      padding: 0.6rem 1rem; text-transform: none; letter-spacing: 0;
     }
     .consent-btn-decline:hover { color: rgba(255,255,255,0.7); }
+    @media (max-width: 768px) {
+      .consent-inner { padding: 1.2rem 1.5rem; flex-direction: column; text-align: center; gap: 1rem; }
+      .consent-inner p { min-width: unset; }
+      .consent-actions { width: 100%; justify-content: center; }
+    }
   </style>
 </head>
 <body>
@@ -655,7 +720,7 @@
     <div class="gate-card">
       <div class="gate-badge">AIDEDCAM</div>
       <h1 class="gate-title" data-i18n-html="roi.gate_title">Δείτε τι <span class="hl" style="color:var(--accent-bright)">πραγματικά κερδίζετε</span></h1>
-      <p class="gate-subtitle" data-i18n="roi.gate_subtitle">Συμπληρώστε τα παρακάτω και δείτε αναλυτικά τι κερδίζετε με μια συνεργασία AidedCAM.</p>
+      <p class="gate-subtitle" data-i18n="roi.gate_subtitle">Συμπληρώστε τα παρακάτω και δείτε τι κερδίζετε με την AidedCAM.</p>
 
       <form id="roiForm" action="https://formspree.io/f/xaqllyao" method="POST">
         <div class="form-group">
@@ -665,7 +730,7 @@
 
         <div class="form-group">
           <label class="form-label" data-i18n-html="roi.label_email">Email <span class="required">*</span></label>
-          <input type="email" name="email" class="form-input" required placeholder="info@company.com" />
+          <input type="email" name="email" class="form-input" required placeholder="info@company.com" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="email@domain.com" />
         </div>
 
         <div class="form-group">
@@ -947,9 +1012,9 @@
     </div>
   </div>
 
-  <!-- COOKIE CONSENT -->
-  <div class="consent-overlay" id="privacyOverlay">
-    <div class="consent-dialog">
+  <!-- COOKIE CONSENT BANNER -->
+  <div class="consent-banner" id="privacyOverlay">
+    <div class="consent-inner">
       <p data-i18n="cookie_text">Αυτός ο ιστότοπος χρησιμοποιεί cookies για τη βελτιστοποίηση της λειτουργίας του και την ανάλυση επισκεψιμότητας.</p>
       <div class="consent-actions">
         <button class="consent-btn consent-btn-accept" id="privacyAccept" data-i18n="cookie_accept">Αποδοχή</button>
@@ -964,7 +1029,7 @@
       el: {
         'roi.back': '\u2190 Αρχική',
         'roi.gate_title': 'Δείτε τι <span class="hl" style="color:var(--accent-bright)">πραγματικά κερδίζετε</span>',
-        'roi.gate_subtitle': 'Συμπληρώστε τα παρακάτω και δείτε αναλυτικά τι κερδίζετε με μια συνεργασία AidedCAM.',
+        'roi.gate_subtitle': 'Συμπληρώστε τα παρακάτω και δείτε τι κερδίζετε με την AidedCAM.',
         'roi.label_company': 'Επωνυμία εταιρείας <span class="required">*</span>',
         'roi.ph_company': 'π.χ. Μεταλλοτεχνική ΑΕ',
         'roi.label_email': 'Email <span class="required">*</span>',

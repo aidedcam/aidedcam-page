@@ -123,7 +123,7 @@
     /* ===== GATE SECTION ===== */
     .gate-section {
       min-height: calc(100vh - 70px);
-      align-items: center; justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       background: linear-gradient(74deg, #0a1a10 0%, #0d5a30 100%);
       padding: 80px 2rem;
       position: relative; overflow: hidden;
@@ -1178,10 +1178,10 @@
 
       localStorage.setItem('aidedcam-lang', lang);
 
-      // Re-render dynamic parts
-      renderResults();
-      updateProcessSummary();
-      updateErrorSummary();
+      // Re-render dynamic parts (guard: these are defined later in the script)
+      if (typeof renderResults === 'function') renderResults();
+      if (typeof updateProcessSummary === 'function') updateProcessSummary();
+      if (typeof updateErrorSummary === 'function') updateErrorSummary();
     }
 
     // Init language

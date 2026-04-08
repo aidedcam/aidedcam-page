@@ -551,6 +551,16 @@
       background: var(--accent-light); border-color: var(--accent-light);
       transform: translateY(-2px); box-shadow: 0 8px 25px var(--shadow-strong);
     }
+    .cta-btn-outline {
+      background: transparent !important;
+      color: var(--accent) !important;
+      border: 2px solid var(--accent) !important;
+      margin-top: 1rem;
+    }
+    .cta-btn-outline:hover {
+      background: var(--accent) !important;
+      color: white !important;
+    }
 
     /* ===== FOOTER ===== */
     .roi-footer {
@@ -1003,6 +1013,7 @@
     <section class="roi-closing">
       <h2 data-i18n="roi.closing">Πόσες ώρες χάθηκαν αυτή την εβδομάδα σε δουλειά που θα μπορούσε να γίνει αυτόματα;</h2>
       <a href="mailto:info@aidedcam.com" class="cta-btn" data-i18n="roi.closing_cta">Ας μιλήσουμε &rarr;</a>
+        <a href="calculator.html" class="cta-btn cta-btn-outline" data-i18n="roi.calc_crosslink">Υπολογίστε με τα δικά σας νούμερα &rarr;</a>
     </section>
 
     <!-- FOOTER -->
@@ -1098,6 +1109,7 @@
         'roi.aidedcam_pricing_text': 'Απεριόριστοι χρήστες · μία τιμή<br><strong>0 επιπλέον κόστη</strong>',
         'roi.closing': 'Πόσες ώρες χάθηκαν αυτή την εβδομάδα σε δουλειά που θα μπορούσε να γίνει αυτόματα;',
         'roi.closing_cta': 'Ας μιλήσουμε \u2192',
+        'roi.calc_crosslink': 'Υπολογίστε με τα δικά σας νούμερα \u2192',
         'cookie_text': 'Αυτός ο ιστότοπος χρησιμοποιεί cookies για τη βελτιστοποίηση της λειτουργίας του και την ανάλυση επισκεψιμότητας.',
         'cookie_accept': 'Αποδοχή',
         'cookie_decline': 'Απόρριψη',
@@ -1175,6 +1187,7 @@
         'roi.aidedcam_pricing_text': 'Unlimited users \u00b7 one price<br><strong>0 extra costs</strong>',
         'roi.closing': 'How many hours were lost this week on work that could have been automated?',
         'roi.closing_cta': 'Let\'s talk \u2192',
+        'roi.calc_crosslink': 'Calculate with your own numbers \u2192',
         'cookie_text': 'This website uses cookies to optimize functionality and analyze traffic.',
         'cookie_accept': 'Accept',
         'cookie_decline': 'Decline',
@@ -1252,6 +1265,7 @@
         'roi.aidedcam_pricing_text': 'Utenti illimitati \u00b7 un prezzo<br><strong>0 costi aggiuntivi</strong>',
         'roi.closing': 'Quante ore sono state perse questa settimana in lavoro che poteva essere automatizzato?',
         'roi.closing_cta': 'Parliamone \u2192',
+        'roi.calc_crosslink': 'Calcolate con i vostri numeri \u2192',
         'cookie_text': 'Questo sito web utilizza i cookie per ottimizzare le sue funzionalit\u00e0 e analizzare il traffico.',
         'cookie_accept': 'Accetta',
         'cookie_decline': 'Rifiuta',
@@ -1295,6 +1309,13 @@
     var browserLang = browserLangCode === 'el' ? 'el' : browserLangCode === 'it' ? 'it' : 'en';
     var currentLang = urlLang || savedLang || browserLang;
     if (currentLang !== 'el') setLanguage(currentLang);
+
+    // Auto-reveal if lead already exists
+    var existingLead = getLeadData();
+    if (existingLead) {
+      // Small delay to ensure DOM is ready
+      setTimeout(function() { revealROI(existingLead.company); }, 50);
+    }
 
     document.querySelectorAll('.lang-btn').forEach(function(btn) {
       btn.addEventListener('click', function() {
@@ -1342,6 +1363,27 @@
       document.getElementById('systemsHidden').value = selected.join(', ');
     });
 
+    // ===== LEAD PERSISTENCE =====
+    function getLeadData() {
+      try {
+        var data = JSON.parse(localStorage.getItem('aidedcam-lead'));
+        if (data && data.email && data.timestamp) return data;
+      } catch(e) {}
+      return null;
+    }
+
+    function storeLeadData(formData, source) {
+      var lead = {
+        company: formData.get('company') || '',
+        email: formData.get('email') || '',
+        systems: formData.get('systems') || '',
+        source: source,
+        timestamp: Date.now()
+      };
+      if (formData.get('has_project')) lead.has_project = formData.get('has_project');
+      localStorage.setItem('aidedcam-lead', JSON.stringify(lead));
+    }
+
     // ===== FORM SUBMISSION =====
     var roiForm = document.getElementById('roiForm');
 
@@ -1352,6 +1394,7 @@
       btn.textContent = '...';
 
       var formData = new FormData(roiForm);
+      storeLeadData(formData, 'roi');
 
       // Send to Formspree
       fetch(roiForm.action, {

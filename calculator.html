@@ -1,0 +1,1861 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AidedCAM - Υπολογιστής ROI</title>
+  <meta name="description" content="Υπολογίστε πόσο σας κοστίζει η μη αυτοματοποίηση. Προσθέστε τις διαδικασίες σας και δείτε το πραγματικό κόστος αδράνειας." />
+  <meta name="robots" content="index, follow" />
+  <link rel="icon" type="image/png" href="/aided-cam-transparent.png" />
+  <link rel="canonical" href="https://www.aidedcam.com/calculator.html" />
+  <link rel="preload" as="image" href="aided-cam-transparent.png" />
+  <!-- Google Analytics - loaded only after cookie consent -->
+  <script>
+    function loadGA() {
+      if (document.getElementById('ga-script')) return;
+      var s = document.createElement('script');
+      s.id = 'ga-script'; s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-81935T6DNE';
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', 'G-81935T6DNE');
+      var userLang = localStorage.getItem('aidedcam-lang') || document.documentElement.lang || 'el';
+      gtag('set', 'user_properties', { preferred_language: userLang });
+    }
+    if (localStorage.getItem('privacy-pref') === 'accepted') { loadGA(); }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700;800&family=Exo+2:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1a4a2e;
+      --primary-dark: #0a1a10;
+      --primary-light: #2d5a3d;
+      --accent: #0d7a3e;
+      --accent-light: #3db365;
+      --accent-bright: #5fbd7a;
+      --text-dark: #161616;
+      --text-body: #1a4a2e;
+      --text-gray: #555;
+      --text-light: #888;
+      --bg-light: #f0f5f2;
+      --white: #fff;
+      --border: #ebebeb;
+      --shadow: rgba(13, 122, 62, 0.13);
+      --shadow-strong: rgba(13, 122, 62, 0.25);
+      --font-display: 'Exo 2', 'Barlow', sans-serif;
+      --font-body: 'Barlow', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --red: #c0392b;
+      --red-bg: rgba(192, 57, 43, 0.06);
+      --red-border: rgba(192, 57, 43, 0.12);
+      --green-pale: #e8f5ed;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--white);
+      color: var(--text-body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+      font-weight: 500;
+    }
+
+    ::selection { background: var(--accent); color: white; }
+
+    /* ===== NAVBAR ===== */
+    .navbar {
+      position: sticky; top: 0; left: 0; right: 0;
+      background: var(--white); z-index: 1000;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+    .navbar.scrolled { box-shadow: 0 3px 15px rgba(0,0,0,0.12); }
+
+    .nav-container {
+      max-width: 1400px; margin: 0 auto; padding: 0 3rem;
+      display: flex; justify-content: space-between; align-items: center;
+      height: 70px; position: relative; z-index: 1;
+    }
+
+    .nav-logo {
+      display: flex; align-items: center; gap: 0.7rem;
+      text-decoration: none; position: relative; z-index: 1;
+    }
+    .nav-logo img { height: 36px; width: auto; }
+    .nav-logo span {
+      font-family: var(--font-display); font-weight: 800;
+      font-size: 1.2rem; color: var(--primary); letter-spacing: 2px;
+    }
+
+    .nav-right {
+      display: flex; align-items: center; gap: 1.5rem;
+    }
+
+    .nav-back {
+      color: var(--primary); text-decoration: none;
+      font-family: var(--font-display); font-weight: 600;
+      font-size: 0.8rem; letter-spacing: 1px;
+      transition: color 0.3s ease;
+    }
+    .nav-back:hover { color: var(--accent); }
+
+    .lang-switcher { display: flex; gap: 0.3rem; }
+    .lang-btn {
+      background: none; border: 1px solid var(--border); padding: 0.3rem 0.6rem;
+      border-radius: 4px; font-size: 0.7rem; font-weight: 700;
+      color: var(--text-gray); cursor: pointer; transition: all 0.2s;
+      font-family: var(--font-display); letter-spacing: 1px;
+    }
+    .lang-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .lang-btn.active {
+      background: var(--primary); color: white; border-color: var(--primary);
+    }
+
+    /* ===== GATE SECTION ===== */
+    .gate-section {
+      min-height: calc(100vh - 70px);
+      align-items: center; justify-content: center;
+      background: linear-gradient(74deg, #0a1a10 0%, #0d5a30 100%);
+      padding: 80px 2rem;
+      position: relative; overflow: hidden;
+    }
+
+    .gate-section::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(61,179,101,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(61,179,101,0.05) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .gate-card {
+      position: relative; z-index: 1;
+      max-width: 520px; width: 100%;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px; padding: 3rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .gate-badge {
+      font-family: var(--font-display); font-size: 0.75rem;
+      color: var(--accent-bright); text-transform: uppercase;
+      letter-spacing: 4px; font-weight: 800; margin-bottom: 1.5rem;
+    }
+
+    .gate-title {
+      font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2rem);
+      font-weight: 800; color: white; line-height: 1.3;
+      margin-bottom: 0.8rem; letter-spacing: -0.3px;
+    }
+    .gate-title .hl { color: var(--accent-bright); }
+
+    .gate-subtitle {
+      font-size: 0.95rem; color: rgba(255,255,255,0.6);
+      line-height: 1.7; margin-bottom: 2rem; font-weight: 400;
+    }
+
+    .form-group { margin-bottom: 1.2rem; }
+
+    .form-label {
+      display: block; font-size: 0.75rem; font-weight: 700;
+      color: rgba(255,255,255,0.7); text-transform: uppercase;
+      letter-spacing: 1.5px; margin-bottom: 0.5rem;
+      font-family: var(--font-display);
+    }
+    .form-label .required { color: var(--accent-bright); }
+
+    .form-input {
+      width: 100%; padding: 0.75rem 1rem;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px; color: white;
+      font-family: var(--font-body); font-size: 0.9rem;
+      transition: border-color 0.3s;
+    }
+    .form-input::placeholder { color: rgba(255,255,255,0.3); }
+    .form-input:focus {
+      outline: none; border-color: var(--accent-bright);
+    }
+
+    .system-pills {
+      display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.3rem;
+    }
+    .system-pill {
+      padding: 0.4rem 0.9rem; border-radius: 50px;
+      border: 1px solid rgba(255,255,255,0.15);
+      font-size: 0.75rem; font-weight: 600; color: rgba(255,255,255,0.5);
+      cursor: pointer; transition: all 0.2s;
+      font-family: var(--font-body); background: none;
+    }
+    .system-pill:hover { border-color: rgba(255,255,255,0.3); color: rgba(255,255,255,0.7); }
+    .system-pill.selected {
+      background: rgba(13,122,62,0.3); border-color: var(--accent-bright);
+      color: var(--accent-bright);
+    }
+    .system-other-input {
+      margin-top: 0.5rem; display: none;
+    }
+    .system-other-input.visible { display: block; }
+
+    .form-submit {
+      width: 100%; padding: 0.85rem; margin-top: 0.5rem;
+      background: var(--accent); color: white; border: none;
+      border-radius: 50px; font-family: var(--font-display);
+      font-weight: 700; font-size: 0.8rem; text-transform: uppercase;
+      letter-spacing: 2px; cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .form-submit:hover {
+      background: var(--accent-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px var(--shadow-strong);
+    }
+    .form-submit:disabled {
+      opacity: 0.5; cursor: not-allowed; transform: none;
+    }
+
+    .form-note {
+      text-align: center; margin-top: 1rem;
+      font-size: 0.75rem; color: rgba(255,255,255,0.35);
+    }
+
+    /* ===== CALCULATOR CONTENT ===== */
+    .calc-content {
+      display: none; opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+    .calc-content.visible { display: block; }
+    .calc-content.fade-in { opacity: 1; }
+
+    /* ===== CALCULATOR HEADER ===== */
+    .calc-header {
+      text-align: center;
+      padding: 60px 2rem 40px;
+      background: var(--bg-light);
+      background-image:
+        linear-gradient(rgba(13,122,62,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(13,122,62,0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .calc-header .badge {
+      font-family: var(--font-display); font-size: 0.75rem;
+      color: var(--accent); letter-spacing: 4px;
+      text-transform: uppercase; font-weight: 800; margin-bottom: 1.5rem;
+    }
+    .calc-header h1 {
+      font-family: var(--font-display); font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+      font-weight: 800; color: var(--text-dark); line-height: 1.4;
+      margin-bottom: 0.8rem; letter-spacing: -0.3px;
+    }
+    .calc-header .subtitle {
+      font-size: 1rem; color: var(--text-gray); font-weight: 500;
+      margin-bottom: 1.2rem;
+    }
+    .examples-notice {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      padding: 0.5rem 1rem; background: rgba(13,122,62,0.08);
+      border-radius: 50px; font-size: 0.8rem; color: var(--accent);
+      font-weight: 600;
+    }
+    .examples-notice.hidden { display: none; }
+    .examples-clear {
+      background: none; border: 1px solid var(--accent);
+      border-radius: 50px; padding: 0.2rem 0.7rem;
+      font-size: 0.7rem; font-weight: 700; color: var(--accent);
+      cursor: pointer; font-family: var(--font-display);
+      transition: all 0.2s;
+    }
+    .examples-clear:hover { background: var(--accent); color: white; }
+
+    /* ===== CALCULATOR LAYOUT ===== */
+    .calc-body {
+      padding: 40px 2rem 60px;
+      background: var(--bg-light);
+      background-image:
+        linear-gradient(rgba(13,122,62,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(13,122,62,0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .calc-layout {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; gap: 2rem; align-items: flex-start;
+    }
+    .calc-left { flex: 1; min-width: 0; }
+    .calc-right {
+      width: 340px; flex-shrink: 0;
+      position: sticky; top: 90px;
+    }
+
+    /* ===== INPUT CARDS ===== */
+    .calc-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .calc-card.green-border { border-color: rgba(13,122,62,0.2); }
+    .calc-card.red-border { border-color: var(--red-border); }
+
+    .calc-card-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 1.2rem;
+    }
+    .calc-card-title {
+      font-family: var(--font-display); font-size: 1rem;
+      font-weight: 800; color: var(--text-dark);
+    }
+    .calc-add-btn {
+      background: none; border: 1px solid var(--accent);
+      border-radius: 50px; padding: 0.3rem 0.9rem;
+      font-size: 0.75rem; font-weight: 700; color: var(--accent);
+      cursor: pointer; font-family: var(--font-display);
+      transition: all 0.2s;
+    }
+    .calc-add-btn:hover { background: var(--accent); color: white; }
+    .calc-add-btn.red { border-color: var(--red); color: var(--red); }
+    .calc-add-btn.red:hover { background: var(--red); color: white; }
+
+    /* General params */
+    .param-row {
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .param-row:last-child { margin-bottom: 0; }
+    .param-label {
+      font-size: 0.85rem; font-weight: 600; color: var(--text-gray);
+      flex: 1;
+    }
+    .param-input-wrap {
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .param-input {
+      width: 72px; padding: 0.5rem 0.6rem;
+      border: 1px solid var(--border); border-radius: 8px;
+      font-family: var(--font-mono); font-size: 0.9rem;
+      font-weight: 700; color: var(--text-dark);
+      text-align: center; background: var(--bg-light);
+      transition: border-color 0.2s;
+    }
+    .param-input:focus { outline: none; border-color: var(--accent); }
+    .param-unit {
+      font-size: 0.75rem; color: var(--text-light); font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* Process / Error rows */
+    .row-list { display: flex; flex-direction: column; gap: 0.6rem; }
+
+    .calc-row {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.6rem 0.8rem;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--white);
+      transition: all 0.3s;
+    }
+    .calc-row.example {
+      border-style: dashed;
+      opacity: 0.6;
+    }
+    .calc-row.example:hover { opacity: 0.8; }
+
+    .row-name {
+      flex: 1; min-width: 0;
+      padding: 0.4rem 0.6rem;
+      border: none; background: transparent;
+      font-family: var(--font-body); font-size: 0.85rem;
+      color: var(--text-dark); font-weight: 500;
+    }
+    .row-name::placeholder { color: var(--text-light); }
+    .row-name:focus { outline: none; }
+
+    .row-num {
+      width: 68px; padding: 0.4rem 0.5rem;
+      border: 1px solid var(--border); border-radius: 6px;
+      font-family: var(--font-mono); font-size: 0.8rem;
+      font-weight: 700; color: var(--text-dark);
+      text-align: center; background: var(--bg-light);
+      transition: border-color 0.2s;
+    }
+    .row-num:focus { outline: none; border-color: var(--accent); }
+    .row-num.wide { width: 80px; }
+
+    .row-label {
+      font-size: 0.65rem; color: var(--text-light);
+      font-weight: 600; white-space: nowrap;
+    }
+
+    .row-remove {
+      background: none; border: none;
+      font-size: 1rem; color: var(--text-light);
+      cursor: pointer; padding: 0.2rem 0.4rem;
+      transition: color 0.2s; line-height: 1;
+    }
+    .row-remove:hover { color: var(--red); }
+
+    /* Summary bar */
+    .calc-summary {
+      display: flex; gap: 1.5rem; margin-top: 1rem;
+      padding: 0.7rem 1rem;
+      background: var(--bg-light); border-radius: 10px;
+      font-size: 0.8rem; color: var(--text-gray); font-weight: 600;
+    }
+    .calc-summary .val {
+      font-family: var(--font-mono); font-weight: 700;
+      color: var(--accent);
+    }
+    .calc-summary.red-summary .val { color: var(--red); }
+
+    /* ===== RESULTS PANEL ===== */
+    .results-placeholder {
+      text-align: center; padding: 3rem 1.5rem;
+      color: var(--text-light);
+    }
+    .results-placeholder .emoji { font-size: 2rem; margin-bottom: 0.8rem; }
+    .results-placeholder .ph-title {
+      font-family: var(--font-display); font-size: 1rem;
+      font-weight: 700; color: var(--text-gray); margin-bottom: 0.4rem;
+    }
+    .results-placeholder .ph-text {
+      font-size: 0.85rem; line-height: 1.6;
+    }
+
+    .results-panel { display: flex; flex-direction: column; gap: 1rem; }
+
+    /* Hero result card */
+    .result-hero {
+      background: linear-gradient(135deg, rgba(192,57,43,0.06) 0%, rgba(192,57,43,0.12) 100%);
+      border: 1px solid var(--red-border);
+      border-radius: 16px; padding: 1.5rem;
+      text-align: center;
+    }
+    .result-hero .rh-label {
+      font-family: var(--font-display); font-size: 0.7rem;
+      font-weight: 800; text-transform: uppercase;
+      letter-spacing: 2px; color: var(--red);
+      margin-bottom: 0.8rem;
+    }
+    .result-hero .rh-amount {
+      font-family: var(--font-mono); font-size: clamp(1.8rem, 4vw, 2.4rem);
+      font-weight: 800; color: var(--red); line-height: 1.2;
+      margin-bottom: 0.4rem;
+    }
+    .result-hero .rh-daily {
+      font-size: 0.8rem; color: var(--text-gray); font-weight: 600;
+    }
+    .result-hero .rh-daily strong {
+      color: var(--red); font-family: var(--font-mono);
+    }
+
+    /* Breakdown card */
+    .result-breakdown {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.2rem;
+    }
+    .breakdown-row {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .breakdown-row:last-child { border-bottom: none; }
+    .breakdown-label {
+      font-size: 0.8rem; font-weight: 700; color: var(--text-dark);
+    }
+    .breakdown-detail {
+      font-size: 0.7rem; color: var(--text-light); font-weight: 500;
+    }
+    .breakdown-value {
+      font-family: var(--font-mono); font-size: 0.9rem;
+      font-weight: 800; color: var(--red); text-align: right;
+    }
+
+    /* Bar charts for per-item costs */
+    .result-bars {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.2rem;
+    }
+    .result-bars-title {
+      font-family: var(--font-display); font-size: 0.75rem;
+      font-weight: 800; text-transform: uppercase;
+      letter-spacing: 1.5px; color: var(--text-gray);
+      margin-bottom: 0.8rem;
+    }
+    .result-bar-item { margin-bottom: 0.7rem; }
+    .result-bar-item:last-child { margin-bottom: 0; }
+    .result-bar-header {
+      display: flex; justify-content: space-between;
+      font-size: 0.75rem; margin-bottom: 0.25rem;
+    }
+    .result-bar-name { font-weight: 600; color: var(--text-dark); }
+    .result-bar-val {
+      font-family: var(--font-mono); font-weight: 700;
+      color: var(--text-dark); font-size: 0.7rem;
+    }
+    .result-bar-track {
+      height: 8px; background: var(--bg-light);
+      border-radius: 4px; overflow: hidden;
+    }
+    .result-bar-fill {
+      height: 100%; border-radius: 4px;
+      transition: width 0.6s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    /* Receipt card */
+    .result-receipt {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.2rem;
+      font-family: var(--font-mono);
+    }
+    .receipt-title {
+      font-family: var(--font-display); font-size: 0.75rem;
+      font-weight: 800; text-transform: uppercase;
+      letter-spacing: 1.5px; color: var(--text-gray);
+      margin-bottom: 0.8rem;
+    }
+    .receipt-line {
+      display: flex; justify-content: space-between;
+      font-size: 0.8rem; color: var(--text-gray);
+      padding: 0.3rem 0;
+    }
+    .receipt-total {
+      display: flex; justify-content: space-between;
+      font-size: 1rem; font-weight: 800; color: var(--red);
+      padding: 0.6rem 0 0;
+      margin-top: 0.5rem;
+      border-top: 2px dashed var(--border);
+    }
+
+    /* Methodology toggle */
+    .methodology-toggle {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px; overflow: hidden;
+    }
+    .methodology-btn {
+      width: 100%; padding: 0.8rem 1.2rem;
+      background: none; border: none;
+      font-family: var(--font-display); font-size: 0.8rem;
+      font-weight: 700; color: var(--text-gray);
+      cursor: pointer; text-align: left;
+      display: flex; justify-content: space-between; align-items: center;
+      transition: color 0.2s;
+    }
+    .methodology-btn:hover { color: var(--accent); }
+    .methodology-btn .arrow { transition: transform 0.3s; }
+    .methodology-btn.open .arrow { transform: rotate(180deg); }
+
+    .methodology-body {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .methodology-body.open { max-height: 400px; }
+    .methodology-inner {
+      padding: 0 1.2rem 1rem;
+      font-size: 0.75rem; color: var(--text-gray); line-height: 1.8;
+    }
+    .methodology-inner strong { color: var(--text-dark); }
+    .methodology-inner code {
+      font-family: var(--font-mono); font-size: 0.7rem;
+      background: var(--bg-light); padding: 0.15rem 0.4rem;
+      border-radius: 4px; color: var(--accent);
+    }
+    .methodology-disclaimer {
+      margin-top: 0.6rem; font-style: italic;
+      color: var(--text-light); font-size: 0.7rem;
+    }
+
+    /* ===== FOOTER ===== */
+    .calc-footer {
+      padding: 2rem; border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+      max-width: 800px; margin: 0 auto;
+    }
+    .calc-footer .tag {
+      font-size: 0.85rem; font-weight: 700; color: var(--accent);
+    }
+    .calc-footer .brand {
+      font-family: var(--font-display); font-size: 1rem;
+      font-weight: 800; color: var(--primary); letter-spacing: 2px;
+    }
+
+    /* ===== SOFT GATE ===== */
+    .soft-gated {
+      position: relative;
+      min-height: 200px;
+    }
+    .soft-gated::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      background: rgba(240,245,242,0.7);
+      border-radius: 14px;
+      z-index: 10;
+      transition: opacity 0.4s ease;
+    }
+    .soft-gated.revealed::before {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .soft-gate-prompt {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 11;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      max-width: 340px;
+      width: 90%;
+      box-shadow: 0 8px 30px var(--shadow);
+    }
+    .soft-gate-prompt .sg-title {
+      font-family: var(--font-display);
+      font-size: 1rem; font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 0.5rem;
+    }
+    .soft-gate-prompt .sg-text {
+      font-size: 0.8rem; color: var(--text-gray);
+      margin-bottom: 1.2rem; line-height: 1.5;
+    }
+    .soft-gate-prompt .sg-input {
+      width: 100%; padding: 0.7rem 1rem;
+      border: 1px solid var(--border); border-radius: 10px;
+      font-family: var(--font-body); font-size: 0.9rem;
+      margin-bottom: 0.5rem; outline: none;
+      transition: border-color 0.3s;
+    }
+    .soft-gate-prompt .sg-input:focus {
+      border-color: var(--accent);
+    }
+    .soft-gate-prompt .sg-company {
+      margin-bottom: 0.5rem;
+    }
+    .soft-gate-prompt .sg-submit {
+      width: 100%; padding: 0.7rem;
+      background: var(--accent); color: white; border: none;
+      border-radius: 50px; font-family: var(--font-display);
+      font-weight: 700; font-size: 0.75rem; text-transform: uppercase;
+      letter-spacing: 2px; cursor: pointer; transition: all 0.3s;
+    }
+    .soft-gate-prompt .sg-submit:hover {
+      background: var(--accent-light);
+      transform: translateY(-2px);
+    }
+    .soft-gate-prompt .sg-note {
+      font-size: 0.7rem; color: var(--text-light);
+      margin-top: 0.6rem;
+    }
+    .soft-gated.revealed .soft-gate-prompt {
+      display: none;
+    }
+
+    /* ===== CLOSING CTA ===== */
+    .calc-closing {
+      text-align: center; padding: 60px 2rem;
+      background-color: var(--white);
+      border-top: 1px solid var(--border);
+    }
+    .calc-closing h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 3vw, 1.8rem);
+      font-weight: 800; color: var(--text-dark);
+      font-style: italic; line-height: 1.5;
+      max-width: 500px; margin: 0 auto 1.5rem;
+    }
+    .closing-cta {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.85rem 2.2rem; background: var(--accent); color: white;
+      text-decoration: none; font-family: var(--font-display);
+      font-weight: 700; font-size: 0.75rem; border-radius: 50px;
+      transition: all 0.3s ease; border: 2px solid var(--accent);
+      text-transform: uppercase; letter-spacing: 2px;
+    }
+    .closing-cta:hover {
+      background: var(--accent-light); border-color: var(--accent-light);
+      transform: translateY(-2px); box-shadow: 0 8px 25px var(--shadow-strong);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .nav-container { padding: 0 1.5rem; height: 60px; }
+      .nav-logo img { height: 28px; }
+      .nav-logo span { font-size: 1rem; }
+      .nav-back { display: none; }
+      .gate-card { padding: 2rem 1.5rem; }
+
+      .calc-header { padding: 40px 1.5rem 30px; }
+      .calc-header h1 { font-size: 1.2rem; }
+
+      .calc-body { padding: 20px 1rem 40px; }
+      .calc-layout { flex-direction: column; }
+      .calc-right {
+        width: 100%; position: static;
+      }
+
+      .calc-card { padding: 1.2rem; }
+      .param-row { flex-wrap: wrap; gap: 0.5rem; }
+
+      .calc-row { flex-wrap: wrap; gap: 0.4rem; padding: 0.5rem 0.6rem; }
+      .row-name { min-width: 100%; }
+      .row-num { width: 60px; }
+      .row-num.wide { width: 70px; }
+
+      .calc-footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
+    }
+
+    @media (max-width: 380px) {
+      .gate-section { padding: 30px 0.8rem; }
+      .gate-card { padding: 1.5rem 1.2rem; }
+      .system-pills { gap: 0.3rem; }
+      .system-pill { padding: 0.3rem 0.7rem; font-size: 0.7rem; }
+    }
+
+    /* ===== CONSENT BANNER ===== */
+    .consent-banner {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: var(--primary-dark);
+      z-index: 9999; display: none;
+      box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.3);
+    }
+    .consent-banner.visible { display: block; }
+    .consent-inner {
+      max-width: 1400px; margin: 0 auto;
+      padding: 1.5rem 3rem;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 2rem; flex-wrap: wrap;
+    }
+    .consent-inner p {
+      font-size: 0.9rem; color: rgba(255,255,255,0.8);
+      line-height: 1.6; margin: 0; flex: 1; min-width: 250px;
+    }
+    .consent-actions { display: flex; gap: 0.8rem; flex-shrink: 0; }
+    .consent-btn {
+      padding: 0.6rem 1.5rem; border-radius: 50px; font-size: 0.8rem;
+      font-weight: 600; cursor: pointer; border: none; font-family: var(--font-display);
+      transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1px;
+    }
+    .consent-btn-accept { background: var(--accent); color: white; }
+    .consent-btn-accept:hover { background: var(--accent-light); }
+    .consent-btn-decline {
+      background: transparent; color: rgba(255,255,255,0.5);
+      font-size: 0.8rem; font-weight: 400; text-decoration: underline;
+      padding: 0.6rem 1rem; text-transform: none; letter-spacing: 0;
+    }
+    .consent-btn-decline:hover { color: rgba(255,255,255,0.7); }
+    @media (max-width: 768px) {
+      .consent-inner { padding: 1.2rem 1.5rem; flex-direction: column; text-align: center; gap: 1rem; }
+      .consent-inner p { min-width: unset; }
+      .consent-actions { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="/" class="nav-logo">
+        <img src="aided-cam-transparent.png" alt="AidedCAM" />
+        <span>AIDEDCAM</span>
+      </a>
+      <div class="nav-right">
+        <a href="/" class="nav-back" data-i18n="calc.back">&larr; Αρχική</a>
+        <div class="lang-switcher">
+          <button class="lang-btn active" data-lang="el">EL</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+          <button class="lang-btn" data-lang="it">IT</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- GATE: Lead capture form -->
+  <section class="gate-section" id="gateSection">
+    <div class="gate-card">
+      <div class="gate-badge">AIDEDCAM</div>
+      <h1 class="gate-title" data-i18n-html="calc.gate_title">Υπολογίστε πόσο <span class="hl">εξοικονομείτε</span></h1>
+      <p class="gate-subtitle" data-i18n="calc.gate_subtitle">Συμπληρώστε τα παρακάτω για να δείτε τα αποτελέσματα.</p>
+
+      <form id="calcForm" action="https://formspree.io/f/xaqllyao" method="POST">
+        <input type="hidden" name="_source" value="roi_calculator" />
+
+        <div class="form-group">
+          <label class="form-label" data-i18n-html="calc.gate_company">Επωνυμία εταιρείας <span class="required">*</span></label>
+          <input type="text" name="company" class="form-input" required data-i18n-placeholder="calc.gate_ph_company" placeholder="π.χ. Μεταλλοτεχνική ΑΕ" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" data-i18n-html="calc.gate_email">Email <span class="required">*</span></label>
+          <input type="email" name="email" class="form-input" required placeholder="info@company.com" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="email@domain.com" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" data-i18n="calc.gate_system">CAD/CAM System</label>
+          <div class="system-pills" id="systemPills">
+            <button type="button" class="system-pill" data-value="PowerShape">PowerShape</button>
+            <button type="button" class="system-pill" data-value="PowerMill">PowerMill</button>
+            <button type="button" class="system-pill" data-value="Fusion360">Fusion360</button>
+            <button type="button" class="system-pill" data-value="FeatureCAM">FeatureCAM</button>
+            <button type="button" class="system-pill" data-value="Inventor">Inventor</button>
+            <button type="button" class="system-pill" data-value="SiemensNX">SiemensNX</button>
+            <button type="button" class="system-pill" data-value="Revit">Revit</button>
+            <button type="button" class="system-pill" data-value="AutoCAD">AutoCAD</button>
+            <button type="button" class="system-pill" data-value="other" data-i18n="calc.gate_other">Άλλο</button>
+          </div>
+          <input type="text" name="system_other" class="form-input system-other-input" id="systemOtherInput" data-i18n-placeholder="calc.gate_ph_other" placeholder="Γράψτε το σύστημά σας..." />
+          <input type="hidden" name="systems" id="systemsHidden" />
+        </div>
+
+        <button type="submit" class="form-submit" data-i18n-html="calc.gate_submit">Υπολογίστε &rarr;</button>
+        <p class="form-note" data-i18n="calc.gate_note">Δεν απαιτείται δέσμευση. Τα στοιχεία σας είναι ασφαλή.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- CALCULATOR CONTENT (revealed after form) -->
+  <div class="calc-content" id="calcContent">
+
+    <!-- HEADER -->
+    <section class="calc-header">
+      <div class="badge">AIDEDCAM</div>
+      <h1 data-i18n="calc.title">Πόσο σας κοστίζει η μη αυτοματοποίηση;</h1>
+      <p class="subtitle" data-i18n="calc.subtitle">Προσθέστε τις διαδικασίες σας και δείτε τι χάνετε — κάθε μέρα.</p>
+      <div class="examples-notice" id="examplesNotice">
+        <span data-i18n="calc.examples_notice">Βλέπετε ενδεικτικά παραδείγματα</span>
+        <button class="examples-clear" id="clearExamples" data-i18n="calc.clear_examples">Καθαρισμός</button>
+      </div>
+    </section>
+
+    <!-- BODY -->
+    <section class="calc-body">
+      <div class="calc-layout">
+
+        <!-- LEFT COLUMN -->
+        <div class="calc-left">
+
+          <!-- General Parameters -->
+          <div class="calc-card green-border">
+            <div class="calc-card-header">
+              <div class="calc-card-title" data-i18n="calc.general_params">Γενικές παράμετροι</div>
+            </div>
+            <div class="param-row">
+              <div class="param-label" data-i18n="calc.operators">Χειριστές</div>
+              <div class="param-input-wrap">
+                <input type="number" class="param-input" id="inputOperators" value="5" min="1" max="50" />
+                <span class="param-unit" data-i18n="calc.operators_unit">άτομα</span>
+              </div>
+            </div>
+            <div class="param-row">
+              <div class="param-label" data-i18n="calc.hourly_rate">Κόστος ανά ώρα εργασίας</div>
+              <div class="param-input-wrap">
+                <input type="number" class="param-input" id="inputHourlyRate" value="22" min="8" max="80" />
+                <span class="param-unit" data-i18n="calc.hourly_unit">€/ώρα</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Processes -->
+          <div class="calc-card">
+            <div class="calc-card-header">
+              <div class="calc-card-title" data-i18n="calc.processes_title">Οι διαδικασίες σας</div>
+              <button class="calc-add-btn" id="addProcess" data-i18n="calc.add">+ Προσθήκη</button>
+            </div>
+            <div class="row-list" id="processList"></div>
+            <div class="calc-summary" id="processSummary">
+              <span><span class="val" id="totalExec">0</span> <span data-i18n="calc.executions_month">εκτελέσεις/μήνα</span></span>
+              <span><span class="val" id="totalHours">0</span> <span data-i18n="calc.hours_month">ώρες/μήνα</span></span>
+            </div>
+          </div>
+
+          <!-- Errors -->
+          <div class="calc-card red-border">
+            <div class="calc-card-header">
+              <div class="calc-card-title" data-i18n="calc.errors_title">Σφάλματα & κόστος</div>
+              <button class="calc-add-btn red" id="addError" data-i18n="calc.add_error">+ Προσθήκη</button>
+            </div>
+            <div class="row-list" id="errorList"></div>
+            <div class="calc-summary red-summary" id="errorSummary">
+              <span><span class="val" id="totalErrors">0</span> <span data-i18n="calc.errors_month">σφάλματα/μήνα</span></span>
+              <span><span class="val" id="totalErrorCost">€0</span></span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="calc-right" id="resultsPanel">
+          <!-- Populated by JS -->
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CLOSING CTA -->
+    <section class="calc-closing">
+      <div class="container">
+        <h2 data-i18n="calc.closing">Θέλετε να δείτε αναλυτικά τι κερδίζετε;</h2>
+        <a href="what-you-gain.html" class="closing-cta" data-i18n="calc.roi_crosslink">Δείτε αναλυτικά τι κερδίζετε &rarr;</a>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <div class="calc-footer">
+      <div class="tag">Made by engineers, for engineers</div>
+      <div class="brand">AIDEDCAM</div>
+    </div>
+  </div>
+
+  <!-- COOKIE CONSENT BANNER -->
+  <div class="consent-banner" id="privacyOverlay">
+    <div class="consent-inner">
+      <p data-i18n="cookie_text">Αυτός ο ιστότοπος χρησιμοποιεί cookies για τη βελτιστοποίηση της λειτουργίας του και την ανάλυση επισκεψιμότητας.</p>
+      <div class="consent-actions">
+        <button class="consent-btn consent-btn-accept" id="privacyAccept" data-i18n="cookie_accept">Αποδοχή</button>
+        <button class="consent-btn consent-btn-decline" id="privacyDecline" data-i18n="cookie_decline">Απόρριψη</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ===== TRANSLATIONS =====
+    var translations = {
+      el: {
+        'calc.back': '\u2190 Αρχική',
+        'calc.gate_title': 'Υπολογίστε πόσο <span class="hl">εξοικονομείτε</span>',
+        'calc.gate_subtitle': 'Συμπληρώστε τα παρακάτω για να δείτε τα αποτελέσματα.',
+        'calc.gate_company': 'Επωνυμία εταιρείας <span class="required">*</span>',
+        'calc.gate_ph_company': 'π.χ. Μεταλλοτεχνική ΑΕ',
+        'calc.gate_email': 'Email <span class="required">*</span>',
+        'calc.gate_system': 'CAD/CAM System',
+        'calc.gate_other': 'Άλλο',
+        'calc.gate_ph_other': 'Γράψτε το σύστημά σας...',
+        'calc.gate_submit': 'Υπολογίστε &rarr;',
+        'calc.gate_note': 'Δεν απαιτείται δέσμευση. Τα στοιχεία σας είναι ασφαλή.',
+        'calc.title': 'Πόσο σας κοστίζει η μη αυτοματοποίηση;',
+        'calc.subtitle': 'Προσθέστε τις διαδικασίες σας και δείτε τι χάνετε \u2014 κάθε μέρα.',
+        'calc.examples_notice': 'Βλέπετε ενδεικτικά παραδείγματα',
+        'calc.clear_examples': 'Καθαρισμός',
+        'calc.general_params': 'Γενικές παράμετροι',
+        'calc.operators': 'Χειριστές',
+        'calc.operators_unit': 'άτομα',
+        'calc.hourly_rate': 'Κόστος ανά ώρα εργασίας',
+        'calc.hourly_unit': '€/ώρα',
+        'calc.processes_title': 'Οι διαδικασίες σας',
+        'calc.process_placeholder': 'π.χ. Προετοιμασία κατεργασίας',
+        'calc.minutes': 'min',
+        'calc.times_month': '\u00d7/μήνα',
+        'calc.add': '+ Προσθήκη',
+        'calc.executions_month': 'εκτελέσεις/μήνα',
+        'calc.hours_month': 'ώρες/μήνα',
+        'calc.errors_title': 'Σφάλματα & κόστος',
+        'calc.error_placeholder': 'π.χ. Λάθος σε διαστάσεις',
+        'calc.error_cost_label': '€/φορά',
+        'calc.add_error': '+ Προσθήκη',
+        'calc.errors_month': 'σφάλματα/μήνα',
+        'calc.annual_cost': 'Ετήσιο κόστος αδράνειας',
+        'calc.daily_suffix': 'χάνονται κάθε εργάσιμη μέρα',
+        'calc.time_loss': 'Χαμένος χρόνος / έτος',
+        'calc.hours_month_operators': 'ώρες/μήνα',
+        'calc.error_loss': 'Κόστος σφαλμάτων / έτος',
+        'calc.errors_month_label': 'σφάλματα/μήνα',
+        'calc.cost_per_process': 'Κόστος ανά διαδικασία / έτος',
+        'calc.cost_per_error': 'Κόστος ανά σφάλμα / έτος',
+        'calc.receipt': 'Ο λογαριασμός',
+        'calc.receipt_time': 'Χαμένος χρόνος',
+        'calc.receipt_errors': 'Κόστος σφαλμάτων',
+        'calc.receipt_total': 'Σύνολο / έτος',
+        'calc.methodology': 'Πώς υπολογίζουμε',
+        'calc.method_time': 'Χρόνος:',
+        'calc.method_time_formula': 'min/φορά \u00d7 φορές/μήνα \u00d7 95% \u00f7 60 \u00d7 €/ώρα \u00d7 χειριστές \u00d7 12',
+        'calc.method_errors': 'Σφάλματα:',
+        'calc.method_errors_formula': 'φορές/μήνα \u00d7 €/φορά \u00d7 12',
+        'calc.method_daily': 'Ημερήσιο:',
+        'calc.method_daily_formula': 'ετήσιο \u00f7 220 μέρες',
+        'calc.method_disclaimer': 'Βάσει των δεδομένων σας. Τα αποτελέσματα ενδέχεται να διαφέρουν.',
+        'calc.placeholder_title': 'Τα αποτελέσματα θα εμφανιστούν εδώ',
+        'calc.placeholder_text': 'Προσθέστε τις διαδικασίες και τα σφάλματά σας για να δείτε το πραγματικό κόστος.',
+        'calc.process_label': 'Διαδικασία',
+        'calc.error_label': 'Σφάλμα',
+        'calc.sg_title': 'Δείτε την πλήρη ανάλυση',
+        'calc.sg_text': 'Συμπληρώστε τα στοιχεία σας για να δείτε ανά διαδικασία κόστος, αναφορά και μεθοδολογία.',
+        'calc.sg_submit': 'Δείτε τα αποτελέσματα \u2192',
+        'calc.sg_note': 'Χωρίς δέσμευση. Τα στοιχεία σας είναι ασφαλή.',
+        'calc.closing': 'Θέλετε να δείτε αναλυτικά τι κερδίζετε;',
+        'calc.roi_crosslink': 'Δείτε αναλυτικά τι κερδίζετε \u2192',
+        'cookie_text': 'Αυτός ο ιστότοπος χρησιμοποιεί cookies για τη βελτιστοποίηση της λειτουργίας του και την ανάλυση επισκεψιμότητας.',
+        'cookie_accept': 'Αποδοχή',
+        'cookie_decline': 'Απόρριψη',
+        '_title': 'AidedCAM - Υπολογιστής ROI'
+      },
+      en: {
+        'calc.back': '\u2190 Home',
+        'calc.gate_title': 'Calculate how much you <span class="hl">save</span>',
+        'calc.gate_subtitle': 'Fill in the details below to see your results.',
+        'calc.gate_company': 'Company name <span class="required">*</span>',
+        'calc.gate_ph_company': 'e.g. MetalTech Ltd',
+        'calc.gate_email': 'Email <span class="required">*</span>',
+        'calc.gate_system': 'CAD/CAM System',
+        'calc.gate_other': 'Other',
+        'calc.gate_ph_other': 'Type your system...',
+        'calc.gate_submit': 'Calculate &rarr;',
+        'calc.gate_note': 'No commitment required. Your data is safe.',
+        'calc.title': 'How much does not automating cost you?',
+        'calc.subtitle': 'Add your processes and see what you lose \u2014 every day.',
+        'calc.examples_notice': 'You are viewing example data',
+        'calc.clear_examples': 'Clear',
+        'calc.general_params': 'General parameters',
+        'calc.operators': 'Operators',
+        'calc.operators_unit': 'people',
+        'calc.hourly_rate': 'Hourly labour cost',
+        'calc.hourly_unit': '\u20ac/hour',
+        'calc.processes_title': 'Your processes',
+        'calc.process_placeholder': 'e.g. Machining preparation',
+        'calc.minutes': 'min',
+        'calc.times_month': '\u00d7/month',
+        'calc.add': '+ Add',
+        'calc.executions_month': 'executions/month',
+        'calc.hours_month': 'hours/month',
+        'calc.errors_title': 'Errors & cost',
+        'calc.error_placeholder': 'e.g. Dimension error',
+        'calc.error_cost_label': '\u20ac/each',
+        'calc.add_error': '+ Add',
+        'calc.errors_month': 'errors/month',
+        'calc.annual_cost': 'Annual cost of inaction',
+        'calc.daily_suffix': 'lost every working day',
+        'calc.time_loss': 'Lost time / year',
+        'calc.hours_month_operators': 'hours/month',
+        'calc.error_loss': 'Error cost / year',
+        'calc.errors_month_label': 'errors/month',
+        'calc.cost_per_process': 'Cost per process / year',
+        'calc.cost_per_error': 'Cost per error / year',
+        'calc.receipt': 'The bill',
+        'calc.receipt_time': 'Lost time',
+        'calc.receipt_errors': 'Error cost',
+        'calc.receipt_total': 'Total / year',
+        'calc.methodology': 'How we calculate',
+        'calc.method_time': 'Time:',
+        'calc.method_time_formula': 'min/time \u00d7 times/month \u00d7 95% \u00f7 60 \u00d7 \u20ac/hour \u00d7 operators \u00d7 12',
+        'calc.method_errors': 'Errors:',
+        'calc.method_errors_formula': 'times/month \u00d7 \u20ac/time \u00d7 12',
+        'calc.method_daily': 'Daily:',
+        'calc.method_daily_formula': 'annual \u00f7 220 days',
+        'calc.method_disclaimer': 'Based on your data. Results may vary.',
+        'calc.placeholder_title': 'Results will appear here',
+        'calc.placeholder_text': 'Add your processes and errors to see the real cost.',
+        'calc.process_label': 'Process',
+        'calc.error_label': 'Error',
+        'calc.sg_title': 'See the full breakdown',
+        'calc.sg_text': 'Enter your details to see per-process costs, receipt, and methodology.',
+        'calc.sg_submit': 'See results \u2192',
+        'calc.sg_note': 'No commitment. Your data is safe.',
+        'calc.closing': 'Want to see what else you gain?',
+        'calc.roi_crosslink': 'See what you gain in detail \u2192',
+        'cookie_text': 'This website uses cookies to optimize functionality and analyze traffic.',
+        'cookie_accept': 'Accept',
+        'cookie_decline': 'Decline',
+        '_title': 'AidedCAM - ROI Calculator'
+      },
+      it: {
+        'calc.back': '\u2190 Home',
+        'calc.gate_title': 'Calcolate quanto <span class="hl">risparmiate</span>',
+        'calc.gate_subtitle': 'Compilate i dati qui sotto per vedere i risultati.',
+        'calc.gate_company': 'Nome azienda <span class="required">*</span>',
+        'calc.gate_ph_company': 'es. MetalTech Srl',
+        'calc.gate_email': 'Email <span class="required">*</span>',
+        'calc.gate_system': 'Sistema CAD/CAM',
+        'calc.gate_other': 'Altro',
+        'calc.gate_ph_other': 'Scrivi il tuo sistema...',
+        'calc.gate_submit': 'Calcola &rarr;',
+        'calc.gate_note': 'Nessun impegno richiesto. I vostri dati sono al sicuro.',
+        'calc.title': 'Quanto vi costa non automatizzare?',
+        'calc.subtitle': 'Aggiungete i vostri processi e vedete cosa perdete \u2014 ogni giorno.',
+        'calc.examples_notice': 'State visualizzando dati di esempio',
+        'calc.clear_examples': 'Cancella',
+        'calc.general_params': 'Parametri generali',
+        'calc.operators': 'Operatori',
+        'calc.operators_unit': 'persone',
+        'calc.hourly_rate': 'Costo orario del lavoro',
+        'calc.hourly_unit': '\u20ac/ora',
+        'calc.processes_title': 'I vostri processi',
+        'calc.process_placeholder': 'es. Preparazione lavorazione',
+        'calc.minutes': 'min',
+        'calc.times_month': '\u00d7/mese',
+        'calc.add': '+ Aggiungi',
+        'calc.executions_month': 'esecuzioni/mese',
+        'calc.hours_month': 'ore/mese',
+        'calc.errors_title': 'Errori e costi',
+        'calc.error_placeholder': 'es. Errore dimensionale',
+        'calc.error_cost_label': '\u20ac/volta',
+        'calc.add_error': '+ Aggiungi',
+        'calc.errors_month': 'errori/mese',
+        'calc.annual_cost': 'Costo annuale dell\'inazione',
+        'calc.daily_suffix': 'persi ogni giorno lavorativo',
+        'calc.time_loss': 'Tempo perso / anno',
+        'calc.hours_month_operators': 'ore/mese',
+        'calc.error_loss': 'Costo errori / anno',
+        'calc.errors_month_label': 'errori/mese',
+        'calc.cost_per_process': 'Costo per processo / anno',
+        'calc.cost_per_error': 'Costo per errore / anno',
+        'calc.receipt': 'Il conto',
+        'calc.receipt_time': 'Tempo perso',
+        'calc.receipt_errors': 'Costo errori',
+        'calc.receipt_total': 'Totale / anno',
+        'calc.methodology': 'Come calcoliamo',
+        'calc.method_time': 'Tempo:',
+        'calc.method_time_formula': 'min/volta \u00d7 volte/mese \u00d7 95% \u00f7 60 \u00d7 \u20ac/ora \u00d7 operatori \u00d7 12',
+        'calc.method_errors': 'Errori:',
+        'calc.method_errors_formula': 'volte/mese \u00d7 \u20ac/volta \u00d7 12',
+        'calc.method_daily': 'Giornaliero:',
+        'calc.method_daily_formula': 'annuale \u00f7 220 giorni',
+        'calc.method_disclaimer': 'Basato sui vostri dati. I risultati possono variare.',
+        'calc.placeholder_title': 'I risultati appariranno qui',
+        'calc.placeholder_text': 'Aggiungete i vostri processi ed errori per vedere il costo reale.',
+        'calc.process_label': 'Processo',
+        'calc.error_label': 'Errore',
+        'calc.sg_title': 'Vedete l\'analisi completa',
+        'calc.sg_text': 'Inserite i vostri dati per vedere i costi per processo, il riepilogo e la metodologia.',
+        'calc.sg_submit': 'Vedi i risultati \u2192',
+        'calc.sg_note': 'Nessun impegno. I vostri dati sono al sicuro.',
+        'calc.closing': 'Volete vedere cos\'altro guadagnate?',
+        'calc.roi_crosslink': 'Scoprite cosa guadagnate in dettaglio \u2192',
+        'cookie_text': 'Questo sito web utilizza i cookie per ottimizzare le sue funzionalit\u00e0 e analizzare il traffico.',
+        'cookie_accept': 'Accetta',
+        'cookie_decline': 'Rifiuta',
+        '_title': 'AidedCAM - Calcolatore ROI'
+      }
+    };
+
+    // ===== I18N ENGINE =====
+    var currentLang = 'el';
+
+    function T(key) {
+      var t = translations[currentLang];
+      return (t && t[key] !== undefined) ? t[key] : key;
+    }
+
+    function setLanguage(lang) {
+      var t = translations[lang];
+      if (!t) return;
+      currentLang = lang;
+
+      document.querySelectorAll('[data-i18n]').forEach(function(el) {
+        var key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined) el.textContent = t[key];
+      });
+      document.querySelectorAll('[data-i18n-html]').forEach(function(el) {
+        var key = el.getAttribute('data-i18n-html');
+        if (t[key] !== undefined) el.innerHTML = t[key];
+      });
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
+        var key = el.getAttribute('data-i18n-placeholder');
+        if (t[key] !== undefined) el.placeholder = t[key];
+      });
+
+      document.title = t['_title'] || document.title;
+      document.documentElement.lang = lang;
+
+      document.querySelectorAll('.lang-btn').forEach(function(btn) {
+        btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+      });
+
+      localStorage.setItem('aidedcam-lang', lang);
+
+      // Re-render dynamic parts
+      renderResults();
+      updateProcessSummary();
+      updateErrorSummary();
+    }
+
+    // Init language
+    var urlLangParam = new URLSearchParams(window.location.search).get('lang');
+    var urlLang = (urlLangParam && translations[urlLangParam]) ? urlLangParam : null;
+    var savedLang = localStorage.getItem('aidedcam-lang');
+    var browserLangCode = navigator.language ? navigator.language.substring(0, 2) : 'el';
+    var browserLang = browserLangCode === 'el' ? 'el' : browserLangCode === 'it' ? 'it' : 'en';
+    currentLang = urlLang || savedLang || browserLang;
+    if (currentLang !== 'el') setLanguage(currentLang);
+
+    document.querySelectorAll('.lang-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        setLanguage(btn.getAttribute('data-lang'));
+      });
+    });
+
+    // ===== NAVBAR SCROLL =====
+    window.addEventListener('scroll', function() {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // ===== SYSTEM PILLS (multi-select) =====
+    var selectedSystems = [];
+    document.querySelectorAll('.system-pill').forEach(function(pill) {
+      pill.addEventListener('click', function() {
+        var val = pill.getAttribute('data-value');
+        if (val === 'other') {
+          pill.classList.toggle('selected');
+          document.getElementById('systemOtherInput').classList.toggle('visible', pill.classList.contains('selected'));
+        } else {
+          pill.classList.toggle('selected');
+        }
+        var selected = [];
+        document.querySelectorAll('.system-pill.selected').forEach(function(p) {
+          var v = p.getAttribute('data-value');
+          if (v !== 'other') selected.push(v);
+        });
+        var otherVal = document.getElementById('systemOtherInput').value;
+        if (document.querySelector('.system-pill[data-value="other"]').classList.contains('selected') && otherVal) {
+          selected.push(otherVal);
+        }
+        document.getElementById('systemsHidden').value = selected.join(', ');
+      });
+    });
+
+    document.getElementById('systemOtherInput').addEventListener('input', function() {
+      var selected = [];
+      document.querySelectorAll('.system-pill.selected').forEach(function(p) {
+        var v = p.getAttribute('data-value');
+        if (v !== 'other') selected.push(v);
+      });
+      if (this.value) selected.push(this.value);
+      document.getElementById('systemsHidden').value = selected.join(', ');
+    });
+
+    // ===== FORM SUBMISSION =====
+    var calcForm = document.getElementById('calcForm');
+
+    calcForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var btn = calcForm.querySelector('.form-submit');
+      btn.disabled = true;
+      btn.textContent = '...';
+
+      var formData = new FormData(calcForm);
+      storeLeadData({ company: formData.get('company') || '', email: formData.get('email') || '', systems: formData.get('systems') || '', source: 'calculator', timestamp: Date.now() });
+
+      fetch(calcForm.action, {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      }).then(function() {
+        revealCalculator();
+      }).catch(function() {
+        revealCalculator();
+      });
+
+      if (window.gtag) {
+        gtag('event', 'roi_calculator_form_submit', {
+          company: formData.get('company'),
+          systems: formData.get('systems')
+        });
+      }
+    });
+
+    function revealCalculator() {
+      var gate = document.getElementById('gateSection');
+      var content = document.getElementById('calcContent');
+
+      gate.style.transition = 'opacity 0.4s ease';
+      gate.style.opacity = '0';
+      setTimeout(function() {
+        gate.style.display = 'none';
+        content.style.display = 'block';
+        content.offsetHeight;
+        content.classList.add('fade-in');
+        window.scrollTo(0, 0);
+
+        initCalculator();
+      }, 400);
+    }
+
+    // ===== CALCULATOR STATE =====
+    var processes = [];
+    var errors = [];
+    var processIdCounter = 0;
+    var errorIdCounter = 0;
+
+    function initCalculator() {
+      // Add example process rows
+      addProcessRow('π.χ. Προετοιμασία κατεργασίας', 120, 25, true);
+      addProcessRow('π.χ. Δημιουργία σχεδίων', 60, 40, true);
+
+      // Add example error rows
+      addErrorRow('π.χ. Λάθος σε διαστάσεις', 4, 400, true);
+      addErrorRow('π.χ. Επανεκτέλεση κατεργασίας', 3, 600, true);
+
+      recalculate();
+    }
+
+    // ===== PROCESS ROWS =====
+    function addProcessRow(name, minutes, timesPerMonth, isExample) {
+      var id = ++processIdCounter;
+      var proc = { id: id, name: name || '', minutes: minutes || 0, timesPerMonth: timesPerMonth || 0, example: !!isExample };
+      processes.push(proc);
+
+      var row = document.createElement('div');
+      row.className = 'calc-row' + (isExample ? ' example' : '');
+      row.setAttribute('data-id', id);
+
+      var nameInput = document.createElement('input');
+      nameInput.type = 'text';
+      nameInput.className = 'row-name';
+      nameInput.value = name || '';
+      nameInput.placeholder = T('calc.process_placeholder');
+
+      var minInput = document.createElement('input');
+      minInput.type = 'number';
+      minInput.className = 'row-num';
+      minInput.value = minutes || '';
+      minInput.min = '1'; minInput.max = '960';
+      minInput.placeholder = 'min';
+
+      var minLabel = document.createElement('span');
+      minLabel.className = 'row-label';
+      minLabel.textContent = T('calc.minutes');
+
+      var timesInput = document.createElement('input');
+      timesInput.type = 'number';
+      timesInput.className = 'row-num';
+      timesInput.value = timesPerMonth || '';
+      timesInput.min = '1'; timesInput.max = '500';
+      timesInput.placeholder = '\u00d7';
+
+      var timesLabel = document.createElement('span');
+      timesLabel.className = 'row-label';
+      timesLabel.textContent = T('calc.times_month');
+
+      var removeBtn = document.createElement('button');
+      removeBtn.className = 'row-remove';
+      removeBtn.innerHTML = '\u2715';
+      removeBtn.type = 'button';
+
+      row.appendChild(nameInput);
+      row.appendChild(minInput);
+      row.appendChild(minLabel);
+      row.appendChild(timesInput);
+      row.appendChild(timesLabel);
+      row.appendChild(removeBtn);
+
+      document.getElementById('processList').appendChild(row);
+
+      function markEdited() {
+        if (proc.example) {
+          proc.example = false;
+          row.classList.remove('example');
+          updateExamplesNotice();
+        }
+      }
+
+      nameInput.addEventListener('input', function() {
+        markEdited();
+        proc.name = this.value;
+      });
+
+      minInput.addEventListener('input', function() {
+        markEdited();
+        proc.minutes = parseFloat(this.value) || 0;
+        recalculate();
+      });
+      minInput.addEventListener('blur', function() {
+        var v = parseFloat(this.value);
+        if (v && v < 1) { this.value = 1; proc.minutes = 1; }
+        if (v && v > 960) { this.value = 960; proc.minutes = 960; }
+        recalculate();
+      });
+
+      timesInput.addEventListener('input', function() {
+        markEdited();
+        proc.timesPerMonth = parseFloat(this.value) || 0;
+        recalculate();
+      });
+      timesInput.addEventListener('blur', function() {
+        var v = parseFloat(this.value);
+        if (v && v < 1) { this.value = 1; proc.timesPerMonth = 1; }
+        if (v && v > 500) { this.value = 500; proc.timesPerMonth = 500; }
+        recalculate();
+      });
+
+      removeBtn.addEventListener('click', function() {
+        processes = processes.filter(function(p) { return p.id !== id; });
+        row.remove();
+        updateExamplesNotice();
+        recalculate();
+      });
+
+      updateExamplesNotice();
+    }
+
+    // ===== ERROR ROWS =====
+    function addErrorRow(name, timesPerMonth, costPerIncident, isExample) {
+      var id = ++errorIdCounter;
+      var err = { id: id, name: name || '', timesPerMonth: timesPerMonth || 0, costPerIncident: costPerIncident || 0, example: !!isExample };
+      errors.push(err);
+
+      var row = document.createElement('div');
+      row.className = 'calc-row' + (isExample ? ' example' : '');
+      row.setAttribute('data-id', id);
+
+      var nameInput = document.createElement('input');
+      nameInput.type = 'text';
+      nameInput.className = 'row-name';
+      nameInput.value = name || '';
+      nameInput.placeholder = T('calc.error_placeholder');
+
+      var timesInput = document.createElement('input');
+      timesInput.type = 'number';
+      timesInput.className = 'row-num';
+      timesInput.value = timesPerMonth || '';
+      timesInput.min = '1'; timesInput.max = '200';
+      timesInput.placeholder = '\u00d7';
+
+      var timesLabel = document.createElement('span');
+      timesLabel.className = 'row-label';
+      timesLabel.textContent = T('calc.times_month');
+
+      var costInput = document.createElement('input');
+      costInput.type = 'number';
+      costInput.className = 'row-num wide';
+      costInput.value = costPerIncident || '';
+      costInput.min = '10'; costInput.max = '50000';
+      costInput.placeholder = '\u20ac';
+
+      var costLabel = document.createElement('span');
+      costLabel.className = 'row-label';
+      costLabel.textContent = T('calc.error_cost_label');
+
+      var removeBtn = document.createElement('button');
+      removeBtn.className = 'row-remove';
+      removeBtn.innerHTML = '\u2715';
+      removeBtn.type = 'button';
+
+      row.appendChild(nameInput);
+      row.appendChild(timesInput);
+      row.appendChild(timesLabel);
+      row.appendChild(costInput);
+      row.appendChild(costLabel);
+      row.appendChild(removeBtn);
+
+      document.getElementById('errorList').appendChild(row);
+
+      function markEdited() {
+        if (err.example) {
+          err.example = false;
+          row.classList.remove('example');
+          updateExamplesNotice();
+        }
+      }
+
+      nameInput.addEventListener('input', function() {
+        markEdited();
+        err.name = this.value;
+      });
+
+      timesInput.addEventListener('input', function() {
+        markEdited();
+        err.timesPerMonth = parseFloat(this.value) || 0;
+        recalculate();
+      });
+      timesInput.addEventListener('blur', function() {
+        var v = parseFloat(this.value);
+        if (v && v < 1) { this.value = 1; err.timesPerMonth = 1; }
+        if (v && v > 200) { this.value = 200; err.timesPerMonth = 200; }
+        recalculate();
+      });
+
+      costInput.addEventListener('input', function() {
+        markEdited();
+        err.costPerIncident = parseFloat(this.value) || 0;
+        recalculate();
+      });
+      costInput.addEventListener('blur', function() {
+        var v = parseFloat(this.value);
+        if (v && v < 10) { this.value = 10; err.costPerIncident = 10; }
+        if (v && v > 50000) { this.value = 50000; err.costPerIncident = 50000; }
+        recalculate();
+      });
+
+      removeBtn.addEventListener('click', function() {
+        errors = errors.filter(function(e) { return e.id !== id; });
+        row.remove();
+        updateExamplesNotice();
+        recalculate();
+      });
+
+      updateExamplesNotice();
+    }
+
+    // ===== ADD BUTTONS =====
+    document.getElementById('addProcess').addEventListener('click', function() {
+      addProcessRow('', 0, 0, false);
+    });
+
+    document.getElementById('addError').addEventListener('click', function() {
+      addErrorRow('', 0, 0, false);
+    });
+
+    // ===== EXAMPLES NOTICE =====
+    function updateExamplesNotice() {
+      var hasExamples = processes.some(function(p) { return p.example; }) || errors.some(function(e) { return e.example; });
+      var notice = document.getElementById('examplesNotice');
+      if (hasExamples) {
+        notice.classList.remove('hidden');
+      } else {
+        notice.classList.add('hidden');
+      }
+    }
+
+    document.getElementById('clearExamples').addEventListener('click', function() {
+      // Remove all example rows
+      var exampleProcessIds = processes.filter(function(p) { return p.example; }).map(function(p) { return p.id; });
+      var exampleErrorIds = errors.filter(function(e) { return e.example; }).map(function(e) { return e.id; });
+
+      exampleProcessIds.forEach(function(id) {
+        var el = document.querySelector('#processList .calc-row[data-id="' + id + '"]');
+        if (el) el.remove();
+      });
+      exampleErrorIds.forEach(function(id) {
+        var el = document.querySelector('#errorList .calc-row[data-id="' + id + '"]');
+        if (el) el.remove();
+      });
+
+      processes = processes.filter(function(p) { return !p.example; });
+      errors = errors.filter(function(e) { return !e.example; });
+
+      updateExamplesNotice();
+      recalculate();
+    });
+
+    // ===== GENERAL PARAM INPUTS =====
+    document.getElementById('inputOperators').addEventListener('input', function() { recalculate(); });
+    document.getElementById('inputOperators').addEventListener('blur', function() {
+      var v = parseInt(this.value);
+      if (!v || v < 1) this.value = 1;
+      if (v > 50) this.value = 50;
+      recalculate();
+    });
+
+    document.getElementById('inputHourlyRate').addEventListener('input', function() { recalculate(); });
+    document.getElementById('inputHourlyRate').addEventListener('blur', function() {
+      var v = parseInt(this.value);
+      if (!v || v < 8) this.value = 8;
+      if (v > 80) this.value = 80;
+      recalculate();
+    });
+
+    // ===== CALCULATION ENGINE =====
+    var lastResults = { totalAnnual: 0, timeCostAnnual: 0, errorCostAnnual: 0 };
+
+    function recalculate() {
+      var operators = parseFloat(document.getElementById('inputOperators').value) || 0;
+      var hourlyRate = parseFloat(document.getElementById('inputHourlyRate').value) || 0;
+
+      // Per-process costs
+      var timeCostAnnual = 0;
+      var processCosts = [];
+      processes.forEach(function(p) {
+        var cost = p.minutes * p.timesPerMonth * 0.95 / 60 * hourlyRate * operators * 12;
+        timeCostAnnual += cost;
+        processCosts.push({ name: p.name || T('calc.process_label'), cost: cost });
+      });
+
+      // Per-error costs
+      var errorCostAnnual = 0;
+      var errorCosts = [];
+      errors.forEach(function(e) {
+        var cost = e.timesPerMonth * e.costPerIncident * 12;
+        errorCostAnnual += cost;
+        errorCosts.push({ name: e.name || T('calc.error_label'), cost: cost });
+      });
+
+      var totalAnnual = timeCostAnnual + errorCostAnnual;
+      var dailyLoss = totalAnnual / 220;
+
+      lastResults = {
+        totalAnnual: totalAnnual,
+        timeCostAnnual: timeCostAnnual,
+        errorCostAnnual: errorCostAnnual,
+        dailyLoss: dailyLoss,
+        processCosts: processCosts,
+        errorCosts: errorCosts,
+        operators: operators,
+        hourlyRate: hourlyRate
+      };
+
+      updateProcessSummary();
+      updateErrorSummary();
+      renderResults();
+    }
+
+    function updateProcessSummary() {
+      var totalExec = 0;
+      var totalMins = 0;
+      processes.forEach(function(p) {
+        totalExec += p.timesPerMonth;
+        totalMins += p.minutes * p.timesPerMonth;
+      });
+      document.getElementById('totalExec').textContent = totalExec;
+      document.getElementById('totalHours').textContent = (totalMins / 60).toFixed(1);
+    }
+
+    function updateErrorSummary() {
+      var totalErr = 0;
+      var totalCost = 0;
+      errors.forEach(function(e) {
+        totalErr += e.timesPerMonth;
+        totalCost += e.timesPerMonth * e.costPerIncident;
+      });
+      document.getElementById('totalErrors').textContent = totalErr;
+      document.getElementById('totalErrorCost').textContent = formatCurrency(totalCost) + '/μήνα';
+    }
+
+    // ===== CURRENCY FORMATTING =====
+    var currencyFormatter = new Intl.NumberFormat('el-GR', {
+      style: 'currency', currency: 'EUR', maximumFractionDigits: 0
+    });
+
+    function formatCurrency(val) {
+      return currencyFormatter.format(val);
+    }
+
+    // ===== ANIMATED NUMBERS =====
+    var animationTargets = {};
+    var animationFrames = {};
+
+    function animateValue(elementId, targetValue) {
+      var el = document.getElementById(elementId);
+      if (!el) return;
+
+      var startValue = animationTargets[elementId] || 0;
+      animationTargets[elementId] = targetValue;
+
+      if (animationFrames[elementId]) {
+        cancelAnimationFrame(animationFrames[elementId]);
+      }
+
+      var startTime = performance.now();
+      var duration = 600;
+
+      function tick(now) {
+        var elapsed = now - startTime;
+        var p = Math.min(elapsed / duration, 1);
+        var eased = 1 - Math.pow(1 - p, 3); // cubic easing
+        var current = startValue + (targetValue - startValue) * eased;
+
+        el.textContent = formatCurrency(Math.round(current));
+
+        if (p < 1) {
+          animationFrames[elementId] = requestAnimationFrame(tick);
+        } else {
+          animationTargets[elementId] = targetValue;
+        }
+      }
+
+      animationFrames[elementId] = requestAnimationFrame(tick);
+    }
+
+    // ===== RENDER RESULTS =====
+    function renderResults() {
+      var panel = document.getElementById('resultsPanel');
+      var r = lastResults;
+
+      if (r.totalAnnual <= 0) {
+        panel.innerHTML =
+          '<div class="results-placeholder">' +
+            '<div class="emoji">&#x1F4CA;</div>' +
+            '<div class="ph-title" data-i18n="calc.placeholder_title">' + T('calc.placeholder_title') + '</div>' +
+            '<div class="ph-text" data-i18n="calc.placeholder_text">' + T('calc.placeholder_text') + '</div>' +
+          '</div>';
+        return;
+      }
+
+      // Sort per-process and per-error by cost descending
+      var sortedProcesses = (r.processCosts || []).filter(function(p) { return p.cost > 0; }).sort(function(a, b) { return b.cost - a.cost; });
+      var sortedErrors = (r.errorCosts || []).filter(function(e) { return e.cost > 0; }).sort(function(a, b) { return b.cost - a.cost; });
+
+      var maxProcessCost = sortedProcesses.length ? sortedProcesses[0].cost : 1;
+      var maxErrorCost = sortedErrors.length ? sortedErrors[0].cost : 1;
+
+      // Calculate summary details
+      var totalProcessExec = 0;
+      var totalProcessHours = 0;
+      processes.forEach(function(p) {
+        totalProcessExec += p.timesPerMonth;
+        totalProcessHours += p.minutes * p.timesPerMonth / 60;
+      });
+      var totalErrorsMonth = 0;
+      errors.forEach(function(e) { totalErrorsMonth += e.timesPerMonth; });
+
+      var html = '<div class="results-panel">';
+
+      // Hero card
+      html += '<div class="result-hero">' +
+        '<div class="rh-label" data-i18n="calc.annual_cost">' + T('calc.annual_cost') + '</div>' +
+        '<div class="rh-amount" id="animAnnual">' + formatCurrency(r.totalAnnual) + '</div>' +
+        '<div class="rh-daily"><strong id="animDaily">' + formatCurrency(r.dailyLoss) + '</strong> <span data-i18n="calc.daily_suffix">' + T('calc.daily_suffix') + '</span></div>' +
+      '</div>';
+
+      // Detailed results (soft-gated)
+      html += '<div id="resultsDetail">';
+
+      // Breakdown card
+      html += '<div class="result-breakdown">' +
+        '<div class="breakdown-row">' +
+          '<div><div class="breakdown-label" data-i18n="calc.time_loss">' + T('calc.time_loss') + '</div>' +
+          '<div class="breakdown-detail">' + totalProcessHours.toFixed(0) + ' ' + T('calc.hours_month_operators') + ' \u00d7 ' + r.operators + '</div></div>' +
+          '<div class="breakdown-value">' + formatCurrency(r.timeCostAnnual) + '</div>' +
+        '</div>' +
+        '<div class="breakdown-row">' +
+          '<div><div class="breakdown-label" data-i18n="calc.error_loss">' + T('calc.error_loss') + '</div>' +
+          '<div class="breakdown-detail">' + totalErrorsMonth + ' ' + T('calc.errors_month_label') + '</div></div>' +
+          '<div class="breakdown-value">' + formatCurrency(r.errorCostAnnual) + '</div>' +
+        '</div>' +
+      '</div>';
+
+      // Per-process bars
+      if (sortedProcesses.length > 0) {
+        html += '<div class="result-bars">' +
+          '<div class="result-bars-title" data-i18n="calc.cost_per_process">' + T('calc.cost_per_process') + '</div>';
+        sortedProcesses.forEach(function(p, i) {
+          var pct = maxProcessCost > 0 ? (p.cost / maxProcessCost * 100) : 0;
+          var hue = 150 - (i * 25);
+          html += '<div class="result-bar-item">' +
+            '<div class="result-bar-header">' +
+              '<span class="result-bar-name">' + escapeHtml(p.name) + '</span>' +
+              '<span class="result-bar-val">' + formatCurrency(p.cost) + '</span>' +
+            '</div>' +
+            '<div class="result-bar-track"><div class="result-bar-fill" style="width:' + pct + '%;background:hsl(' + hue + ',45%,45%)"></div></div>' +
+          '</div>';
+        });
+        html += '</div>';
+      }
+
+      // Per-error bars
+      if (sortedErrors.length > 0) {
+        html += '<div class="result-bars">' +
+          '<div class="result-bars-title" data-i18n="calc.cost_per_error">' + T('calc.cost_per_error') + '</div>';
+        sortedErrors.forEach(function(e, i) {
+          var pct = maxErrorCost > 0 ? (e.cost / maxErrorCost * 100) : 0;
+          var hue = 10 - (i * 5);
+          html += '<div class="result-bar-item">' +
+            '<div class="result-bar-header">' +
+              '<span class="result-bar-name">' + escapeHtml(e.name) + '</span>' +
+              '<span class="result-bar-val">' + formatCurrency(e.cost) + '</span>' +
+            '</div>' +
+            '<div class="result-bar-track"><div class="result-bar-fill" style="width:' + pct + '%;background:hsl(' + hue + ',55%,45%)"></div></div>' +
+          '</div>';
+        });
+        html += '</div>';
+      }
+
+      // Receipt card
+      html += '<div class="result-receipt">' +
+        '<div class="receipt-title" data-i18n="calc.receipt">' + T('calc.receipt') + '</div>' +
+        '<div class="receipt-line"><span data-i18n="calc.receipt_time">' + T('calc.receipt_time') + '</span><span>' + formatCurrency(r.timeCostAnnual) + '</span></div>' +
+        '<div class="receipt-line"><span data-i18n="calc.receipt_errors">' + T('calc.receipt_errors') + '</span><span>' + formatCurrency(r.errorCostAnnual) + '</span></div>' +
+        '<div class="receipt-total"><span data-i18n="calc.receipt_total">' + T('calc.receipt_total') + '</span><span>' + formatCurrency(r.totalAnnual) + '</span></div>' +
+      '</div>';
+
+      // Methodology toggle
+      html += '<div class="methodology-toggle">' +
+        '<button class="methodology-btn" id="methodologyBtn" type="button">' +
+          '<span data-i18n="calc.methodology">' + T('calc.methodology') + '</span>' +
+          '<span class="arrow">&#x25BC;</span>' +
+        '</button>' +
+        '<div class="methodology-body" id="methodologyBody">' +
+          '<div class="methodology-inner">' +
+            '<p><strong data-i18n="calc.method_time">' + T('calc.method_time') + '</strong> <code>' + T('calc.method_time_formula') + '</code></p>' +
+            '<p><strong data-i18n="calc.method_errors">' + T('calc.method_errors') + '</strong> <code>' + T('calc.method_errors_formula') + '</code></p>' +
+            '<p><strong data-i18n="calc.method_daily">' + T('calc.method_daily') + '</strong> <code>' + T('calc.method_daily_formula') + '</code></p>' +
+            '<p class="methodology-disclaimer" data-i18n="calc.method_disclaimer">' + T('calc.method_disclaimer') + '</p>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+
+      html += '</div>'; // close resultsDetail
+      html += '</div>'; // close results-panel
+
+      panel.innerHTML = html;
+
+      // Animate the hero numbers
+      animateValue('animAnnual', r.totalAnnual);
+      animateValue('animDaily', r.dailyLoss);
+
+      // Bind methodology toggle
+      var btn = document.getElementById('methodologyBtn');
+      var body = document.getElementById('methodologyBody');
+      if (btn && body) {
+        btn.addEventListener('click', function() {
+          btn.classList.toggle('open');
+          body.classList.toggle('open');
+        });
+      }
+
+    }
+
+    function escapeHtml(str) {
+      var div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    // ===== COOKIE CONSENT =====
+    (function() {
+      var pref = localStorage.getItem('privacy-pref');
+      if (!pref) {
+        document.getElementById('privacyOverlay').classList.add('visible');
+      }
+      document.getElementById('privacyAccept').addEventListener('click', function() {
+        localStorage.setItem('privacy-pref', 'accepted');
+        document.getElementById('privacyOverlay').classList.remove('visible');
+        loadGA();
+      });
+      document.getElementById('privacyDecline').addEventListener('click', function() {
+        localStorage.setItem('privacy-pref', 'declined');
+        document.getElementById('privacyOverlay').classList.remove('visible');
+      });
+    })();
+
+    // ===== GA HELPER =====
+    function gaEvent(name, params) {
+      if (window.gtag) gtag('event', name, params);
+    }
+
+    // ===== LEAD PERSISTENCE =====
+    function getLeadData() {
+      try {
+        var data = JSON.parse(localStorage.getItem('aidedcam-lead'));
+        if (data && data.email && data.timestamp) return data;
+      } catch(e) {}
+      return null;
+    }
+
+    function storeLeadData(obj) {
+      localStorage.setItem('aidedcam-lead', JSON.stringify(obj));
+    }
+
+    // Auto-reveal if lead already exists
+    var existingLead = getLeadData();
+    if (existingLead) {
+      setTimeout(function() { revealCalculator(); }, 50);
+    }
+  </script>
+
+</body>
+</html>

@@ -822,6 +822,17 @@
       background: var(--accent-light);
       border-color: var(--accent-light);
     }
+    .roi-calc-cta {
+      margin-top: 1rem;
+      background: transparent;
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+    .roi-calc-cta:hover {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
 
     /* ===== STATS BAR ===== */
     .stats-bar {
@@ -2018,7 +2029,8 @@
           <span class="roi-hl">Λογισμικό</span> φτιαγμένο αποκλειστικά για εσάς.<br>
           <span class="roi-hl">Μία συνδρομή</span>, απεριόριστοι χρήστες.
         </h2>
-        <a href="what-you-gain.html" class="btn-primary roi-teaser-cta" data-i18n="roi_teaser.cta">Δείτε αναλυτικά τι κερδίζετε &rarr;</a>
+        <a href="what-you-gain.html" class="btn-primary roi-teaser-cta" data-i18n="roi_teaser.cta">Δείτε τι κερδίζετε &rarr;</a>
+        <a href="calculator.html" class="btn-primary roi-calc-cta" data-i18n="calc.cta">Υπολογίστε με τα δικά σας νούμερα</a>
       </div>
     </div>
   </div>
@@ -2348,7 +2360,7 @@
         'hero.cta': 'Επικοινωνήστε Μαζί Μας',
         'hero.learn_more': 'Μάθετε Περισσότερα ↓',
         'roi_teaser.heading': '<span class="roi-hl">Χρόνος</span> που επιστρέφεται αμέσως.<br><span class="roi-hl">Ποιότητα</span> που εξασφαλίζεται πάντα.<br><span class="roi-hl">Λογισμικό</span> φτιαγμένο αποκλειστικά για εσάς.<br><span class="roi-hl">Μία συνδρομή</span>, απεριόριστοι χρήστες.',
-        'roi_teaser.cta': 'Δείτε αναλυτικά τι κερδίζετε \u2192',
+        'roi_teaser.cta': 'Δείτε τι κερδίζετε \u2192',
         'hero.supported': 'Υποστηριζόμενα συστήματα',
         // Stats bar
         'stats.time': 'Εξοικονόμηση χρόνου',
@@ -2409,6 +2421,8 @@
         'benefits.b3_desc': 'Αυξήστε την παραγωγική ικανότητα χωρίς να επεκτείνετε το κόστος προσωπικού ή τα μηχανήματα. Ελευθερώστε χρόνο από εξειδικευμένο προσωπικό.',
         'benefits.b4_title': 'Γρήγορο onboarding',
         'benefits.b4_desc': 'Νέοι χειριστές παράγουν σωστά από την πρώτη μέρα. Η τεχνογνωσία σας ενσωματώνεται στο λογισμικό και τους καθοδηγεί βήμα προς βήμα.',
+        // Calculator
+        'calc.cta': 'Υπολογίστε με τα δικά σας νούμερα',
         // Tools / Integrations
         'tools.title': 'Αξιοποιούμε τα προγράμματά σας',
         'tools.subtitle': 'Δουλεύουμε με 8 συστήματα CAD, CAM και BIM. Ό,τι κι αν χρησιμοποιείτε, ενσωματωνόμαστε σε αυτό.',
@@ -2564,6 +2578,8 @@
         'benefits.b3_desc': 'Increase production capacity without expanding staff or equipment costs. Free up time from specialized personnel.',
         'benefits.b4_title': 'Fast onboarding',
         'benefits.b4_desc': 'New operators produce correctly from day one. Your expertise is embedded in the software and guides them step by step.',
+        // Calculator
+        'calc.cta': 'Calculate with your own numbers',
         // Tools / Integrations
         'tools.title': 'We leverage your existing software',
         'tools.subtitle': 'We work with 8 CAD, CAM and BIM systems. Whatever you use, we integrate into it.',
@@ -2719,6 +2735,8 @@
         'benefits.b3_desc': 'Aumentate la capacità produttiva senza espandere i costi del personale o delle attrezzature. Liberate tempo dal personale specializzato.',
         'benefits.b4_title': 'Onboarding rapido',
         'benefits.b4_desc': 'I nuovi operatori producono correttamente dal primo giorno. La vostra competenza è integrata nel software e li guida passo dopo passo.',
+        // Calculator
+        'calc.cta': 'Calcolate con i vostri numeri',
         // Tools / Integrations
         'tools.title': 'Sfruttiamo il vostro software esistente',
         'tools.subtitle': 'Lavoriamo con 8 sistemi CAD, CAM e BIM. Qualunque strumento usiate, ci integriamo in esso.',
@@ -3642,6 +3660,14 @@
       });
     })();
   </script>
+
+
+
+
+
+
+
+
 
 </body>
 </html>

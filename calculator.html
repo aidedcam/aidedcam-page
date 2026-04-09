@@ -2031,20 +2031,28 @@
     }
 
     // ===== SEND DATA ON PAGE LEAVE =====
-    window.addEventListener('beforeunload', function() {
+    function sendOnLeave() {
       var hasUserData = processes.some(function(p) { return !p.example; }) || errors.some(function(e) { return !e.example; });
       if (!hasUserData) return;
 
       var fp = calcFingerprint();
       if (fp === lastSentFingerprint) return;
 
-      // Convert FormData to URLSearchParams — sendBeacon + FormData sends multipart which Formspree rejects
+      // Convert FormData to JSON string — sendBeacon with Blob gives us control over Content-Type
       var fd = buildCalcPayload('roi_calculator_auto');
-      var params = new URLSearchParams();
-      fd.forEach(function(value, key) { params.append(key, value); });
-      navigator.sendBeacon('https://formspree.io/f/xaqllyao', params);
+      var obj = {};
+      fd.forEach(function(value, key) { obj[key] = value; });
+      var blob = new Blob([JSON.stringify(obj)], { type: 'application/json' });
+      navigator.sendBeacon('https://formspree.io/f/xaqllyao', blob);
       markFingerprint();
+    }
+
+    // visibilitychange is the most reliable event for tab close / switch / minimize
+    document.addEventListener('visibilitychange', function() {
+      if (document.visibilityState === 'hidden') sendOnLeave();
     });
+    // pagehide fires on navigation away and page close (including mobile)
+    window.addEventListener('pagehide', sendOnLeave);
   </script>
 
 </body>

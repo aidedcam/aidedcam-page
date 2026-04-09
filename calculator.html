@@ -235,7 +235,6 @@
       display: none; opacity: 0;
       transition: opacity 0.6s ease;
     }
-    .calc-content.visible { display: block; }
     .calc-content.fade-in { opacity: 1; }
 
     /* ===== CALCULATOR HEADER ===== */
@@ -593,78 +592,73 @@
       font-weight: 800; color: var(--primary); letter-spacing: 2px;
     }
 
-    /* ===== SOFT GATE ===== */
-    .soft-gated {
-      position: relative;
-      min-height: 200px;
+    /* ===== PRINT STYLES ===== */
+    @media print {
+      body { background: #fff !important; }
+      .navbar, .calc-header, .calc-closing, .calc-footer,
+      .consent-banner, .calc-actions, .examples-notice,
+      .methodology-toggle, .calc-add-btn { display: none !important; }
+      .calc-content { display: block !important; }
+      .calc-body { padding: 0 !important; }
+      .calc-layout { display: block !important; }
+      .calc-left { margin-bottom: 20px; }
+      .calc-left, .calc-right { width: 100% !important; max-width: 100% !important; }
+      .calc-card, .result-hero, .result-breakdown, .result-bars,
+      .result-receipt { break-inside: avoid; }
+      .row-remove { display: none !important; }
+      .calc-row input { border: none !important; background: none !important; }
+      .param-input { border: none !important; background: none !important; }
+
+      /* Print header */
+      .print-header { display: block !important; text-align: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid #2d5a3d; }
+      .print-header .ph-brand { font-weight: 800; font-size: 22px; letter-spacing: 3px; color: #1a4a2e; }
+      .print-header .ph-company { font-size: 13px; color: #555; margin-top: 6px; }
+      .print-header .ph-date { font-size: 11px; color: #888; margin-top: 4px; }
+
+      /* Print footer */
+      .print-footer { display: block !important; text-align: center; font-size: 10px; color: #888; margin-top: 20px; padding-top: 15px; border-top: 1px solid #ebebeb; }
     }
-    .soft-gated::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      background: rgba(240,245,242,0.7);
-      border-radius: 14px;
-      z-index: 10;
-      transition: opacity 0.4s ease;
+
+    .print-header, .print-footer { display: none; }
+
+    /* ===== ACTION BUTTONS ===== */
+    .calc-actions {
+      display: flex; gap: 0.8rem;
+      margin-top: 1.2rem;
     }
-    .soft-gated.revealed::before {
-      opacity: 0;
-      pointer-events: none;
-    }
-    .soft-gate-prompt {
-      position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 11;
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 2rem;
-      text-align: center;
-      max-width: 340px;
-      width: 90%;
-      box-shadow: 0 8px 30px var(--shadow);
-    }
-    .soft-gate-prompt .sg-title {
+    .calc-actions .action-btn {
+      flex: 1; padding: 0.75rem 1rem;
+      border: none; border-radius: 50px;
       font-family: var(--font-display);
-      font-size: 1rem; font-weight: 800;
-      color: var(--text-dark);
-      margin-bottom: 0.5rem;
+      font-weight: 700; font-size: 0.75rem;
+      text-transform: uppercase; letter-spacing: 1.5px;
+      cursor: pointer; transition: all 0.3s;
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
     }
-    .soft-gate-prompt .sg-text {
-      font-size: 0.8rem; color: var(--text-gray);
-      margin-bottom: 1.2rem; line-height: 1.5;
+    .action-btn-save {
+      background: var(--primary); color: white;
     }
-    .soft-gate-prompt .sg-input {
-      width: 100%; padding: 0.7rem 1rem;
-      border: 1px solid var(--border); border-radius: 10px;
-      font-family: var(--font-body); font-size: 0.9rem;
-      margin-bottom: 0.5rem; outline: none;
-      transition: border-color 0.3s;
+    .action-btn-save:hover {
+      background: var(--primary-light);
+      transform: translateY(-2px);
     }
-    .soft-gate-prompt .sg-input:focus {
-      border-color: var(--accent);
+    .action-btn-pdf {
+      background: var(--accent); color: white;
     }
-    .soft-gate-prompt .sg-company {
-      margin-bottom: 0.5rem;
-    }
-    .soft-gate-prompt .sg-submit {
-      width: 100%; padding: 0.7rem;
-      background: var(--accent); color: white; border: none;
-      border-radius: 50px; font-family: var(--font-display);
-      font-weight: 700; font-size: 0.75rem; text-transform: uppercase;
-      letter-spacing: 2px; cursor: pointer; transition: all 0.3s;
-    }
-    .soft-gate-prompt .sg-submit:hover {
+    .action-btn-pdf:hover {
       background: var(--accent-light);
       transform: translateY(-2px);
     }
-    .soft-gate-prompt .sg-note {
-      font-size: 0.7rem; color: var(--text-light);
-      margin-top: 0.6rem;
+    .action-btn .action-icon {
+      font-size: 1rem; line-height: 1;
     }
-    .soft-gated.revealed .soft-gate-prompt {
-      display: none;
+    .action-btn.done {
+      background: #27ae60 !important;
+      pointer-events: none;
+    }
+
+    @media (max-width: 768px) {
+      .calc-actions { flex-direction: column; }
     }
 
     /* ===== CLOSING CTA ===== */
@@ -833,6 +827,13 @@
   <!-- CALCULATOR CONTENT (revealed after form) -->
   <div class="calc-content" id="calcContent">
 
+    <!-- PRINT HEADER (visible only in print) -->
+    <div class="print-header" id="printHeader">
+      <div class="ph-brand">AIDEDCAM</div>
+      <div class="ph-company" id="printCompany"></div>
+      <div class="ph-date" id="printDate"></div>
+    </div>
+
     <!-- HEADER -->
     <section class="calc-header">
       <div class="badge">AIDEDCAM</div>
@@ -910,11 +911,12 @@
 
     <!-- CLOSING CTA -->
     <section class="calc-closing">
-      <div class="container">
-        <h2 data-i18n="calc.closing">Θέλετε να δείτε αναλυτικά τι κερδίζετε;</h2>
-        <a href="what-you-gain.html" class="closing-cta" data-i18n="calc.roi_crosslink">Δείτε αναλυτικά τι κερδίζετε &rarr;</a>
-      </div>
+      <h2 data-i18n="calc.closing">Θέλετε να δείτε αναλυτικά τι κερδίζετε;</h2>
+      <a href="what-you-gain.html" class="closing-cta" data-i18n="calc.roi_crosslink">Δείτε αναλυτικά τι κερδίζετε &rarr;</a>
     </section>
+
+    <!-- PRINT FOOTER (visible only in print) -->
+    <div class="print-footer">www.aidedcam.com &mdash; Made by engineers, for engineers</div>
 
     <!-- FOOTER -->
     <div class="calc-footer">
@@ -953,6 +955,10 @@
         'calc.subtitle': 'Προσθέστε τις διαδικασίες σας και δείτε τι χάνετε \u2014 κάθε μέρα.',
         'calc.examples_notice': 'Βλέπετε ενδεικτικά παραδείγματα',
         'calc.clear_examples': 'Καθαρισμός',
+        'calc.ex_process_1': 'π.χ. Προετοιμασία κατεργασίας',
+        'calc.ex_process_2': 'π.χ. Δημιουργία σχεδίων',
+        'calc.ex_error_1': 'π.χ. Λάθος σε διαστάσεις',
+        'calc.ex_error_2': 'π.χ. Επανεκτέλεση κατεργασίας',
         'calc.general_params': 'Γενικές παράμετροι',
         'calc.operators': 'Χειριστές',
         'calc.operators_unit': 'άτομα',
@@ -970,8 +976,9 @@
         'calc.error_cost_label': '€/φορά',
         'calc.add_error': '+ Προσθήκη',
         'calc.errors_month': 'σφάλματα/μήνα',
+        'calc.error_cost_per_month': 'μήνα',
         'calc.annual_cost': 'Ετήσιο κόστος αδράνειας',
-        'calc.daily_suffix': 'χάνονται κάθε εργάσιμη μέρα',
+        'calc.monthly_suffix': 'χάνονται κάθε μήνα',
         'calc.time_loss': 'Χαμένος χρόνος / έτος',
         'calc.hours_month_operators': 'ώρες/μήνα',
         'calc.error_loss': 'Κόστος σφαλμάτων / έτος',
@@ -987,17 +994,16 @@
         'calc.method_time_formula': 'min/φορά \u00d7 φορές/μήνα \u00d7 95% \u00f7 60 \u00d7 €/ώρα \u00d7 χειριστές \u00d7 12',
         'calc.method_errors': 'Σφάλματα:',
         'calc.method_errors_formula': 'φορές/μήνα \u00d7 €/φορά \u00d7 12',
-        'calc.method_daily': 'Ημερήσιο:',
-        'calc.method_daily_formula': 'ετήσιο \u00f7 220 μέρες',
+        'calc.method_monthly': 'Μηνιαίο:',
+        'calc.method_monthly_formula': 'ετήσιο ÷ 12 μήνες',
         'calc.method_disclaimer': 'Βάσει των δεδομένων σας. Τα αποτελέσματα ενδέχεται να διαφέρουν.',
         'calc.placeholder_title': 'Τα αποτελέσματα θα εμφανιστούν εδώ',
         'calc.placeholder_text': 'Προσθέστε τις διαδικασίες και τα σφάλματά σας για να δείτε το πραγματικό κόστος.',
         'calc.process_label': 'Διαδικασία',
         'calc.error_label': 'Σφάλμα',
-        'calc.sg_title': 'Δείτε την πλήρη ανάλυση',
-        'calc.sg_text': 'Συμπληρώστε τα στοιχεία σας για να δείτε ανά διαδικασία κόστος, αναφορά και μεθοδολογία.',
-        'calc.sg_submit': 'Δείτε τα αποτελέσματα \u2192',
-        'calc.sg_note': 'Χωρίς δέσμευση. Τα στοιχεία σας είναι ασφαλή.',
+        'calc.btn_save': 'Αποθήκευση',
+        'calc.btn_save_done': 'Αποθηκεύτηκε!',
+        'calc.btn_pdf': 'Εκτύπωση',
         'calc.closing': 'Θέλετε να δείτε αναλυτικά τι κερδίζετε;',
         'calc.roi_crosslink': 'Δείτε αναλυτικά τι κερδίζετε \u2192',
         'cookie_text': 'Αυτός ο ιστότοπος χρησιμοποιεί cookies για τη βελτιστοποίηση της λειτουργίας του και την ανάλυση επισκεψιμότητας.',
@@ -1021,6 +1027,10 @@
         'calc.subtitle': 'Add your processes and see what you lose \u2014 every day.',
         'calc.examples_notice': 'You are viewing example data',
         'calc.clear_examples': 'Clear',
+        'calc.ex_process_1': 'e.g. Machining preparation',
+        'calc.ex_process_2': 'e.g. Drawing creation',
+        'calc.ex_error_1': 'e.g. Dimension error',
+        'calc.ex_error_2': 'e.g. Re-run machining',
         'calc.general_params': 'General parameters',
         'calc.operators': 'Operators',
         'calc.operators_unit': 'people',
@@ -1038,8 +1048,9 @@
         'calc.error_cost_label': '\u20ac/each',
         'calc.add_error': '+ Add',
         'calc.errors_month': 'errors/month',
+        'calc.error_cost_per_month': 'month',
         'calc.annual_cost': 'Annual cost of inaction',
-        'calc.daily_suffix': 'lost every working day',
+        'calc.monthly_suffix': 'lost every month',
         'calc.time_loss': 'Lost time / year',
         'calc.hours_month_operators': 'hours/month',
         'calc.error_loss': 'Error cost / year',
@@ -1055,17 +1066,16 @@
         'calc.method_time_formula': 'min/time \u00d7 times/month \u00d7 95% \u00f7 60 \u00d7 \u20ac/hour \u00d7 operators \u00d7 12',
         'calc.method_errors': 'Errors:',
         'calc.method_errors_formula': 'times/month \u00d7 \u20ac/time \u00d7 12',
-        'calc.method_daily': 'Daily:',
-        'calc.method_daily_formula': 'annual \u00f7 220 days',
+        'calc.method_monthly': 'Monthly:',
+        'calc.method_monthly_formula': 'annual ÷ 12 months',
         'calc.method_disclaimer': 'Based on your data. Results may vary.',
         'calc.placeholder_title': 'Results will appear here',
         'calc.placeholder_text': 'Add your processes and errors to see the real cost.',
         'calc.process_label': 'Process',
         'calc.error_label': 'Error',
-        'calc.sg_title': 'See the full breakdown',
-        'calc.sg_text': 'Enter your details to see per-process costs, receipt, and methodology.',
-        'calc.sg_submit': 'See results \u2192',
-        'calc.sg_note': 'No commitment. Your data is safe.',
+        'calc.btn_save': 'Save',
+        'calc.btn_save_done': 'Saved!',
+        'calc.btn_pdf': 'Print',
         'calc.closing': 'Want to see what else you gain?',
         'calc.roi_crosslink': 'See what you gain in detail \u2192',
         'cookie_text': 'This website uses cookies to optimize functionality and analyze traffic.',
@@ -1089,6 +1099,10 @@
         'calc.subtitle': 'Aggiungete i vostri processi e vedete cosa perdete \u2014 ogni giorno.',
         'calc.examples_notice': 'State visualizzando dati di esempio',
         'calc.clear_examples': 'Cancella',
+        'calc.ex_process_1': 'es. Preparazione lavorazione',
+        'calc.ex_process_2': 'es. Creazione disegni',
+        'calc.ex_error_1': 'es. Errore dimensionale',
+        'calc.ex_error_2': 'es. Rilavorazione',
         'calc.general_params': 'Parametri generali',
         'calc.operators': 'Operatori',
         'calc.operators_unit': 'persone',
@@ -1106,8 +1120,9 @@
         'calc.error_cost_label': '\u20ac/volta',
         'calc.add_error': '+ Aggiungi',
         'calc.errors_month': 'errori/mese',
+        'calc.error_cost_per_month': 'mese',
         'calc.annual_cost': 'Costo annuale dell\'inazione',
-        'calc.daily_suffix': 'persi ogni giorno lavorativo',
+        'calc.monthly_suffix': 'persi ogni mese',
         'calc.time_loss': 'Tempo perso / anno',
         'calc.hours_month_operators': 'ore/mese',
         'calc.error_loss': 'Costo errori / anno',
@@ -1123,17 +1138,16 @@
         'calc.method_time_formula': 'min/volta \u00d7 volte/mese \u00d7 95% \u00f7 60 \u00d7 \u20ac/ora \u00d7 operatori \u00d7 12',
         'calc.method_errors': 'Errori:',
         'calc.method_errors_formula': 'volte/mese \u00d7 \u20ac/volta \u00d7 12',
-        'calc.method_daily': 'Giornaliero:',
-        'calc.method_daily_formula': 'annuale \u00f7 220 giorni',
+        'calc.method_monthly': 'Mensile:',
+        'calc.method_monthly_formula': 'annuale ÷ 12 mesi',
         'calc.method_disclaimer': 'Basato sui vostri dati. I risultati possono variare.',
         'calc.placeholder_title': 'I risultati appariranno qui',
         'calc.placeholder_text': 'Aggiungete i vostri processi ed errori per vedere il costo reale.',
         'calc.process_label': 'Processo',
         'calc.error_label': 'Errore',
-        'calc.sg_title': 'Vedete l\'analisi completa',
-        'calc.sg_text': 'Inserite i vostri dati per vedere i costi per processo, il riepilogo e la metodologia.',
-        'calc.sg_submit': 'Vedi i risultati \u2192',
-        'calc.sg_note': 'Nessun impegno. I vostri dati sono al sicuro.',
+        'calc.btn_save': 'Salva',
+        'calc.btn_save_done': 'Salvato!',
+        'calc.btn_pdf': 'Stampa',
         'calc.closing': 'Volete vedere cos\'altro guadagnate?',
         'calc.roi_crosslink': 'Scoprite cosa guadagnate in dettaglio \u2192',
         'cookie_text': 'Questo sito web utilizza i cookie per ottimizzare le sue funzionalit\u00e0 e analizzare il traffico.',
@@ -1155,6 +1169,7 @@
       var t = translations[lang];
       if (!t) return;
       currentLang = lang;
+      updateCurrencyFormatter();
 
       document.querySelectorAll('[data-i18n]').forEach(function(el) {
         var key = el.getAttribute('data-i18n');
@@ -1268,7 +1283,11 @@
       }
     });
 
+    var calculatorRevealed = false;
     function revealCalculator() {
+      if (calculatorRevealed) return;
+      calculatorRevealed = true;
+
       var gate = document.getElementById('gateSection');
       var content = document.getElementById('calcContent');
 
@@ -1291,14 +1310,114 @@
     var processIdCounter = 0;
     var errorIdCounter = 0;
 
-    function initCalculator() {
-      // Add example process rows
-      addProcessRow('π.χ. Προετοιμασία κατεργασίας', 120, 25, true);
-      addProcessRow('π.χ. Δημιουργία σχεδίων', 60, 40, true);
+    // ===== SAVE / LOAD CALC DATA =====
+    function saveCalcData() {
+      var data = {
+        operators: parseFloat(document.getElementById('inputOperators').value) || 0,
+        hourlyRate: parseFloat(document.getElementById('inputHourlyRate').value) || 0,
+        processes: processes.filter(function(p) { return !p.example; }).map(function(p) {
+          return { name: p.name, minutes: p.minutes, timesPerMonth: p.timesPerMonth };
+        }),
+        errors: errors.filter(function(e) { return !e.example; }).map(function(e) {
+          return { name: e.name, timesPerMonth: e.timesPerMonth, costPerIncident: e.costPerIncident };
+        }),
+        timestamp: Date.now()
+      };
+      localStorage.setItem('aidedcam-calc-data', JSON.stringify(data));
+    }
 
-      // Add example error rows
-      addErrorRow('π.χ. Λάθος σε διαστάσεις', 4, 400, true);
-      addErrorRow('π.χ. Επανεκτέλεση κατεργασίας', 3, 600, true);
+    function loadCalcData() {
+      try {
+        var data = JSON.parse(localStorage.getItem('aidedcam-calc-data'));
+        if (data && data.timestamp && (data.processes.length > 0 || data.errors.length > 0)) return data;
+      } catch(e) {}
+      return null;
+    }
+
+    // ===== FORMSPREE DEDUP =====
+    function calcFingerprint() {
+      var procs = processes.filter(function(p) { return !p.example; }).map(function(p) {
+        return p.name + ':' + p.minutes + ':' + p.timesPerMonth;
+      }).join('|');
+      var errs = errors.filter(function(e) { return !e.example; }).map(function(e) {
+        return e.name + ':' + e.timesPerMonth + ':' + e.costPerIncident;
+      }).join('|');
+      var r = lastResults;
+      return (r.operators || 0) + ':' + (r.hourlyRate || 0) + ':' + procs + ':' + errs;
+    }
+
+    var lastSentFingerprint = localStorage.getItem('aidedcam-calc-sent') || '';
+
+    function buildCalcPayload(source) {
+      var lead = getLeadData();
+      var r = lastResults;
+      var formData = new FormData();
+      formData.append('_source', source);
+      formData.append('company', lead ? lead.company : '');
+      formData.append('email', lead ? lead.email : '');
+      formData.append('systems', lead ? lead.systems : '');
+      formData.append('operators', r.operators || 0);
+      formData.append('hourly_rate', r.hourlyRate || 0);
+      formData.append('annual_cost', Math.round(r.totalAnnual || 0));
+      formData.append('time_cost_annual', Math.round(r.timeCostAnnual || 0));
+      formData.append('error_cost_annual', Math.round(r.errorCostAnnual || 0));
+
+      var procSummary = processes.filter(function(p) { return !p.example && p.name; }).map(function(p) {
+        return p.name + ' (' + p.minutes + 'min x' + p.timesPerMonth + '/mo)';
+      }).join(' | ');
+      formData.append('processes', procSummary);
+
+      var errSummary = errors.filter(function(e) { return !e.example && e.name; }).map(function(e) {
+        return e.name + ' (x' + e.timesPerMonth + '/mo, €' + e.costPerIncident + ')';
+      }).join(' | ');
+      formData.append('errors', errSummary);
+
+      return formData;
+    }
+
+    function markFingerprint() {
+      lastSentFingerprint = calcFingerprint();
+      localStorage.setItem('aidedcam-calc-sent', lastSentFingerprint);
+    }
+
+    function sendCalcToFormspree() {
+      var fp = calcFingerprint();
+      if (fp === lastSentFingerprint) return;
+
+      fetch('https://formspree.io/f/xaqllyao', {
+        method: 'POST',
+        body: buildCalcPayload('roi_calculator_data'),
+        headers: { 'Accept': 'application/json' }
+      });
+
+      markFingerprint();
+
+      if (window.gtag) {
+        gtag('event', 'roi_calculator_save', {
+          annual_cost: Math.round(lastResults.totalAnnual || 0)
+        });
+      }
+    }
+
+    function initCalculator() {
+      var saved = loadCalcData();
+      if (saved) {
+        // Restore saved data
+        if (saved.operators) document.getElementById('inputOperators').value = saved.operators;
+        if (saved.hourlyRate) document.getElementById('inputHourlyRate').value = saved.hourlyRate;
+        saved.processes.forEach(function(p) {
+          addProcessRow(p.name, p.minutes, p.timesPerMonth, false);
+        });
+        saved.errors.forEach(function(e) {
+          addErrorRow(e.name, e.timesPerMonth, e.costPerIncident, false);
+        });
+      } else {
+        // Add example rows
+        addProcessRow(T('calc.ex_process_1'), 120, 25, true);
+        addProcessRow(T('calc.ex_process_2'), 60, 40, true);
+        addErrorRow(T('calc.ex_error_1'), 4, 400, true);
+        addErrorRow(T('calc.ex_error_2'), 3, 600, true);
+      }
 
       recalculate();
     }
@@ -1585,13 +1704,13 @@
       });
 
       var totalAnnual = timeCostAnnual + errorCostAnnual;
-      var dailyLoss = totalAnnual / 220;
+      var monthlyLoss = totalAnnual / 12;
 
       lastResults = {
         totalAnnual: totalAnnual,
         timeCostAnnual: timeCostAnnual,
         errorCostAnnual: errorCostAnnual,
-        dailyLoss: dailyLoss,
+        monthlyLoss: monthlyLoss,
         processCosts: processCosts,
         errorCosts: errorCosts,
         operators: operators,
@@ -1601,6 +1720,13 @@
       updateProcessSummary();
       updateErrorSummary();
       renderResults();
+      debouncedSave();
+    }
+
+    var saveTimer = null;
+    function debouncedSave() {
+      if (saveTimer) clearTimeout(saveTimer);
+      saveTimer = setTimeout(saveCalcData, 500);
     }
 
     function updateProcessSummary() {
@@ -1622,15 +1748,22 @@
         totalCost += e.timesPerMonth * e.costPerIncident;
       });
       document.getElementById('totalErrors').textContent = totalErr;
-      document.getElementById('totalErrorCost').textContent = formatCurrency(totalCost) + '/μήνα';
+      document.getElementById('totalErrorCost').textContent = formatCurrency(totalCost) + '/' + T('calc.error_cost_per_month');
     }
 
     // ===== CURRENCY FORMATTING =====
-    var currencyFormatter = new Intl.NumberFormat('el-GR', {
-      style: 'currency', currency: 'EUR', maximumFractionDigits: 0
-    });
+    var localeMap = { el: 'el-GR', en: 'en-IE', it: 'it-IT' };
+    var currencyFormatter = null;
+
+    function updateCurrencyFormatter() {
+      var locale = localeMap[currentLang] || 'el-GR';
+      currencyFormatter = new Intl.NumberFormat(locale, {
+        style: 'currency', currency: 'EUR', maximumFractionDigits: 0
+      });
+    }
 
     function formatCurrency(val) {
+      if (!currencyFormatter) updateCurrencyFormatter();
       return currencyFormatter.format(val);
     }
 
@@ -1708,7 +1841,7 @@
       html += '<div class="result-hero">' +
         '<div class="rh-label" data-i18n="calc.annual_cost">' + T('calc.annual_cost') + '</div>' +
         '<div class="rh-amount" id="animAnnual">' + formatCurrency(r.totalAnnual) + '</div>' +
-        '<div class="rh-daily"><strong id="animDaily">' + formatCurrency(r.dailyLoss) + '</strong> <span data-i18n="calc.daily_suffix">' + T('calc.daily_suffix') + '</span></div>' +
+        '<div class="rh-daily"><strong id="animMonthly">' + formatCurrency(r.monthlyLoss) + '</strong> <span data-i18n="calc.monthly_suffix">' + T('calc.monthly_suffix') + '</span></div>' +
       '</div>';
 
       // Detailed results (soft-gated)
@@ -1782,10 +1915,20 @@
           '<div class="methodology-inner">' +
             '<p><strong data-i18n="calc.method_time">' + T('calc.method_time') + '</strong> <code>' + T('calc.method_time_formula') + '</code></p>' +
             '<p><strong data-i18n="calc.method_errors">' + T('calc.method_errors') + '</strong> <code>' + T('calc.method_errors_formula') + '</code></p>' +
-            '<p><strong data-i18n="calc.method_daily">' + T('calc.method_daily') + '</strong> <code>' + T('calc.method_daily_formula') + '</code></p>' +
+            '<p><strong data-i18n="calc.method_monthly">' + T('calc.method_monthly') + '</strong> <code>' + T('calc.method_monthly_formula') + '</code></p>' +
             '<p class="methodology-disclaimer" data-i18n="calc.method_disclaimer">' + T('calc.method_disclaimer') + '</p>' +
           '</div>' +
         '</div>' +
+      '</div>';
+
+      // Action buttons
+      html += '<div class="calc-actions">' +
+        '<button type="button" class="action-btn action-btn-save" id="btnSave">' +
+          '<span class="action-icon">&#x1F4BE;</span> <span data-i18n="calc.btn_save">' + T('calc.btn_save') + '</span>' +
+        '</button>' +
+        '<button type="button" class="action-btn action-btn-pdf" id="btnPdf">' +
+          '<span class="action-icon">&#x1F4C4;</span> <span data-i18n="calc.btn_pdf">' + T('calc.btn_pdf') + '</span>' +
+        '</button>' +
       '</div>';
 
       html += '</div>'; // close resultsDetail
@@ -1795,7 +1938,7 @@
 
       // Animate the hero numbers
       animateValue('animAnnual', r.totalAnnual);
-      animateValue('animDaily', r.dailyLoss);
+      animateValue('animMonthly', r.monthlyLoss);
 
       // Bind methodology toggle
       var btn = document.getElementById('methodologyBtn');
@@ -1804,6 +1947,37 @@
         btn.addEventListener('click', function() {
           btn.classList.toggle('open');
           body.classList.toggle('open');
+        });
+      }
+
+      // Bind Save button
+      var saveBtn = document.getElementById('btnSave');
+      if (saveBtn) {
+        saveBtn.addEventListener('click', function() {
+          sendCalcToFormspree();
+          saveBtn.classList.add('done');
+          saveBtn.innerHTML = '<span class="action-icon">&#x2713;</span> ' + T('calc.btn_save_done');
+          setTimeout(function() {
+            saveBtn.classList.remove('done');
+            saveBtn.innerHTML = '<span class="action-icon">&#x1F4BE;</span> <span>' + T('calc.btn_save') + '</span>';
+          }, 2000);
+        });
+      }
+
+      // Bind PDF button
+      var pdfBtn = document.getElementById('btnPdf');
+      if (pdfBtn) {
+        pdfBtn.addEventListener('click', function() {
+          sendCalcToFormspree();
+
+          // Populate print header
+          var lead = getLeadData();
+          var companyEl = document.getElementById('printCompany');
+          var dateEl = document.getElementById('printDate');
+          if (companyEl) companyEl.textContent = (lead && lead.company) ? lead.company : '';
+          if (dateEl) dateEl.textContent = new Date().toLocaleDateString();
+
+          window.print();
         });
       }
 
@@ -1855,6 +2029,22 @@
     if (existingLead) {
       setTimeout(function() { revealCalculator(); }, 50);
     }
+
+    // ===== SEND DATA ON PAGE LEAVE =====
+    window.addEventListener('beforeunload', function() {
+      var hasUserData = processes.some(function(p) { return !p.example; }) || errors.some(function(e) { return !e.example; });
+      if (!hasUserData) return;
+
+      var fp = calcFingerprint();
+      if (fp === lastSentFingerprint) return;
+
+      // Convert FormData to URLSearchParams — sendBeacon + FormData sends multipart which Formspree rejects
+      var fd = buildCalcPayload('roi_calculator_auto');
+      var params = new URLSearchParams();
+      fd.forEach(function(value, key) { params.append(key, value); });
+      navigator.sendBeacon('https://formspree.io/f/xaqllyao', params);
+      markFingerprint();
+    });
   </script>
 
 </body>

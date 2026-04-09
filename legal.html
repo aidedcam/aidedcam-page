@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AidedCAM - Legal Notice</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/png" href="/aided-cam-transparent.png" />
+  <link rel="apple-touch-icon" href="/aided-cam-transparent.png" />
+  <link rel="stylesheet" href="fonts.css" />
+  <style>
+    /* ===== ROOT VARIABLES ===== */
+    :root {
+      --primary: #1a4a2e;
+      --primary-dark: #0a1a10;
+      --primary-light: #2d5a3d;
+      --accent: #0d7a3e;
+      --accent-light: #3db365;
+      --accent-bright: #5fbd7a;
+      --text-dark: #161616;
+      --text-body: #1a4a2e;
+      --text-gray: #555;
+      --text-light: #888;
+      --bg-light: #f0f5f2;
+      --white: #fff;
+      --border: #ebebeb;
+      --font-display: 'Exo 2', 'Barlow', sans-serif;
+      --font-body: 'Barlow', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+
+    /* ===== GLOBAL ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--white);
+      color: var(--text-body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+      font-weight: 500;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ===== NAVIGATION ===== */
+    .navbar {
+      position: sticky;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      z-index: 1000;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-container {
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: 0 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 90px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .nav-accent {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 280px;
+      background: var(--primary);
+      clip-path: polygon(18% 0, 100% 0, 100% 100%, 0% 100%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      text-decoration: none;
+      position: relative;
+      z-index: 1;
+    }
+
+    .nav-logo img { height: 42px; width: auto; }
+
+    .nav-logo span {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.35rem;
+      color: var(--primary);
+      letter-spacing: 2px;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .lang-switcher {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      background: var(--bg-light);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      overflow: hidden;
+    }
+
+    .lang-btn {
+      padding: 0.35rem 0.7rem;
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      color: var(--text-light);
+      transition: all 0.2s ease;
+      letter-spacing: 1px;
+    }
+
+    .lang-btn:hover { color: var(--text-dark); }
+
+    .lang-btn.active {
+      background: var(--accent);
+      color: white;
+    }
+
+    /* ===== CONTENT ===== */
+    .legal-content {
+      flex: 1;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+      width: 100%;
+    }
+
+    .legal-content h1 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .legal-content .last-updated {
+      font-size: 0.85rem;
+      color: var(--text-light);
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 2px solid var(--bg-light);
+    }
+
+    .legal-content h2 {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .legal-content p {
+      margin-bottom: 0.8rem;
+      color: var(--text-body);
+      line-height: 1.8;
+      font-size: 0.95rem;
+    }
+
+    .legal-content a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .legal-content a:hover {
+      color: var(--accent-light);
+      text-decoration: underline;
+    }
+
+    .info-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0 1.5rem;
+    }
+
+    .info-table tr {
+      border-bottom: 1px solid var(--bg-light);
+    }
+
+    .info-table td {
+      padding: 0.6rem 0.8rem;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      vertical-align: top;
+    }
+
+    .info-table td:first-child {
+      font-weight: 600;
+      color: var(--primary);
+      white-space: nowrap;
+      width: 40%;
+    }
+
+    .info-table td:last-child {
+      color: var(--text-body);
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background: linear-gradient(74deg, #0a1a10 0%, #0d5a30 100%);
+      padding: 1.5rem 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      margin-top: auto;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-copy {
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 0.8rem;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.4);
+      text-decoration: none;
+      font-size: 0.8rem;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .nav-container {
+        padding: 0 1.5rem;
+        height: 70px;
+      }
+
+      .nav-accent { width: 180px; }
+
+      .nav-logo img { height: 34px; }
+
+      .nav-logo span { font-size: 1.1rem; }
+
+      .legal-content {
+        padding: 2rem 1.5rem 3rem;
+      }
+
+      .legal-content h1 {
+        font-size: 1.6rem;
+      }
+
+      .info-table td:first-child {
+        white-space: normal;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        gap: 0.8rem;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .nav-container {
+        padding: 0 1rem;
+        height: 60px;
+      }
+
+      .nav-accent { width: 140px; }
+
+      .nav-logo img { height: 28px; }
+
+      .nav-logo span { font-size: 0.95rem; letter-spacing: 1px; }
+
+      .lang-btn {
+        padding: 0.3rem 0.5rem;
+        font-size: 0.6rem;
+      }
+
+      .legal-content {
+        padding: 1.5rem 1rem 2.5rem;
+      }
+
+      .info-table td {
+        display: block;
+        padding: 0.3rem 0;
+      }
+
+      .info-table td:first-child {
+        padding-bottom: 0;
+        width: 100%;
+      }
+
+      .info-table td:last-child {
+        padding-top: 0;
+        padding-bottom: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="navbar">
+    <div class="nav-accent" aria-hidden="true"></div>
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="aided-cam-transparent.png" alt="AidedCAM" />
+        <span>AIDEDCAM</span>
+      </a>
+      <div class="nav-right">
+        <div class="lang-switcher">
+          <button class="lang-btn active" data-lang="el">EL</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+          <button class="lang-btn" data-lang="it">IT</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- LEGAL CONTENT -->
+  <main class="legal-content">
+    <h1 data-i18n="legal.title">Νομικές Πληροφορίες</h1>
+    <p class="last-updated" data-i18n="legal.subtitle">Πληροφορίες σύμφωνα με την Οδηγία 2000/31/ΕΚ για το Ηλεκτρονικό Εμπόριο, τον DDG (Digitale-Dienste-Gesetz) και την ελληνική εμπορική νομοθεσία.</p>
+
+    <!-- 1. Company Information -->
+    <h2 data-i18n="legal.company_title">1. Στοιχεία Επιχείρησης</h2>
+    <table class="info-table">
+      <tr>
+        <td data-i18n="legal.legal_name_label">Επωνυμία</td>
+        <td data-i18n="legal.legal_name_value">ΚΟΥΛΟΥΣΗΣ ΑΡΙΣΤΟΤΕΛΗΣ Ε.Ε. / KOULOUSIS ARISTOTELIS L.P.</td>
+      </tr>
+      <tr>
+        <td data-i18n="legal.trade_name_label">Εμπορική Επωνυμία</td>
+        <td>Aided CAM / AidedCAM</td>
+      </tr>
+      <tr>
+        <td data-i18n="legal.legal_form_label">Νομική Μορφή</td>
+        <td data-i18n="legal.legal_form_value">ΕΕ (Ετερόρρυθμη Εταιρεία)</td>
+      </tr>
+      <tr>
+        <td data-i18n="legal.address_label">Εγγεγραμμένη Έδρα</td>
+        <td data-i18n="legal.address_value">Κορινθίας 7, 11526 Αθήνα, Ελλάδα</td>
+      </tr>
+      <tr>
+        <td data-i18n="legal.representative_label">Νόμιμος Εκπρόσωπος</td>
+        <td data-i18n="legal.representative_value">Αριστοτέλης Κουλούσης / Aristotelis Koulousis</td>
+      </tr>
+      <tr>
+        <td>Email</td>
+        <td><a href="mailto:info@aidedcam.com">info@aidedcam.com</a></td>
+      </tr>
+      <tr>
+        <td data-i18n="legal.phone_label">Τηλέφωνο</td>
+        <td><a href="tel:+306984680874">+30 6984680874</a></td>
+      </tr>
+      <tr>
+        <td data-i18n="legal.website_label">Ιστοσελίδα</td>
+        <td><a href="https://www.aidedcam.com">www.aidedcam.com</a></td>
+      </tr>
+      <tr>
+        <td data-i18n="legal.established_label">Ίδρυση</td>
+        <td>22/04/2025</td>
+      </tr>
+    </table>
+
+    <!-- 2. Commercial Register -->
+    <h2 data-i18n="legal.register_title">2. Εμπορικό Μητρώο</h2>
+    <table class="info-table">
+      <tr>
+        <td data-i18n="legal.gemi_label">Αριθμός ΓΕΜΗ</td>
+        <td>183990708000</td>
+      </tr>
+      <tr>
+        <td>EUID</td>
+        <td>ELGEMI.183990708000</td>
+      </tr>
+      <tr>
+        <td data-i18n="legal.authority_label">Αρμόδια Αρχή</td>
+        <td data-i18n="legal.authority_value">Βιοτεχνικό Επιμελητήριο Πειραιώς</td>
+      </tr>
+      <tr>
+        <td data-i18n="legal.vat_label">ΑΦΜ</td>
+        <td>EL802853368</td>
+      </tr>
+      <tr>
+        <td data-i18n="legal.tax_office_label">ΔΟΥ</td>
+        <td data-i18n="legal.tax_office_value">ΚΕΦΟΔΕ ΑΤΤΙΚΗΣ</td>
+      </tr>
+    </table>
+
+    <!-- 3. Responsible for Content -->
+    <h2 data-i18n="legal.responsible_title">3. Υπεύθυνος Περιεχομένου</h2>
+    <p data-i18n="legal.responsible_text">Υπεύθυνος για το περιεχόμενο κατά το άρθρο 18 παρ. 2 MStV (Medienstaatsvertrag):</p>
+    <p><strong>Aristotelis Koulousis</strong></p>
+    <p data-i18n="legal.responsible_address">Κορινθίας 7, 11526 Αθήνα, Ελλάδα</p>
+
+    <!-- 4. EU Dispute Resolution -->
+    <h2 data-i18n="legal.dispute_title">4. Επίλυση Διαφορών ΕΕ</h2>
+    <p data-i18n-html="legal.dispute_odr">Η Ευρωπαϊκή Επιτροπή παρέχει πλατφόρμα για την ηλεκτρονική επίλυση διαφορών (ODR): <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener noreferrer">https://ec.europa.eu/consumers/odr/</a></p>
+    <p data-i18n="legal.dispute_note">Δεν είμαστε υποχρεωμένοι ούτε πρόθυμοι να συμμετάσχουμε σε διαδικασίες επίλυσης διαφορών ενώπιον φορέα εναλλακτικής επίλυσης διαφορών καταναλωτών.</p>
+
+    <!-- 5. Liability Disclaimer -->
+    <h2 data-i18n="legal.liability_title">5. Αποποίηση Ευθύνης</h2>
+    <p data-i18n="legal.liability_content">Το περιεχόμενο αυτής της ιστοσελίδας δημιουργείται με τη μέγιστη δυνατή επιμέλεια. Ωστόσο, δεν μπορούμε να εγγυηθούμε την ακρίβεια, πληρότητα και επικαιρότητα του περιεχομένου. Ως πάροχος υπηρεσιών, είμαστε υπεύθυνοι για το δικό μας περιεχόμενο σε αυτές τις σελίδες σύμφωνα με τη γενική νομοθεσία. Ωστόσο, δεν είμαστε υποχρεωμένοι να παρακολουθούμε τις μεταδιδόμενες ή αποθηκευμένες πληροφορίες τρίτων ή να ερευνούμε περιστάσεις που υποδεικνύουν παράνομη δραστηριότητα.</p>
+    <p data-i18n="legal.liability_links">Η ιστοσελίδα μας περιέχει συνδέσμους προς εξωτερικές ιστοσελίδες τρίτων, στο περιεχόμενο των οποίων δεν έχουμε καμία επιρροή. Ως εκ τούτου, δεν μπορούμε να αναλάβουμε καμία ευθύνη για αυτό το περιεχόμενο τρίτων. Ο εκάστοτε πάροχος ή φορέας εκμετάλλευσης των σελίδων είναι πάντα υπεύθυνος για το περιεχόμενό τους. Οι συνδεδεμένες σελίδες ελέγχθηκαν για πιθανές νομικές παραβάσεις κατά τη στιγμή της σύνδεσης. Παράνομο περιεχόμενο δεν ήταν αναγνωρίσιμο κατά τη στιγμή της σύνδεσης.</p>
+
+    <!-- 6. Copyright -->
+    <h2 data-i18n="legal.copyright_title">6. Πνευματική Ιδιοκτησία</h2>
+    <p data-i18n-html="legal.copyright_text">Το περιεχόμενο και τα έργα σε αυτές τις σελίδες που δημιουργήθηκαν από τους διαχειριστές της ιστοσελίδας υπόκεινται στην ελληνική και ευρωπαϊκή νομοθεσία πνευματικής ιδιοκτησίας. Η αναπαραγωγή, επεξεργασία, διανομή ή οποιαδήποτε μορφή εμπορικής αξιοποίησης πέρα από τα όρια του δικαιώματος πνευματικής ιδιοκτησίας απαιτεί την εγγραφή συγκατάθεση του αντίστοιχου δημιουργού. &copy; <span id="copyrightYear">2026</span> AidedCAM. Με επιφύλαξη παντός δικαιώματος.</p>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-copy">&copy; <span id="footerYear">2026</span> AidedCAM. All rights reserved.</div>
+      <div class="footer-links">
+        <a href="privacy.html" data-i18n="footer.privacy">Πολιτική Απορρήτου</a>
+        <a href="index.html" data-i18n="footer.home">Αρχική</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ===== TRANSLATIONS =====
+    var translations = {
+      el: {
+        '_title': 'AidedCAM - Νομικές Πληροφορίες',
+        'legal.title': 'Νομικές Πληροφορίες',
+        'legal.subtitle': 'Πληροφορίες σύμφωνα με την Οδηγία 2000/31/ΕΚ για το Ηλεκτρονικό Εμπόριο, τον DDG (Digitale-Dienste-Gesetz) και την ελληνική εμπορική νομοθεσία.',
+        'legal.company_title': '1. Στοιχεία Επιχείρησης',
+        'legal.legal_name_label': 'Επωνυμία',
+        'legal.legal_name_value': 'ΚΟΥΛΟΥΣΗΣ ΑΡΙΣΤΟΤΕΛΗΣ Ε.Ε. / KOULOUSIS ARISTOTELIS L.P.',
+        'legal.trade_name_label': 'Εμπορική Επωνυμία',
+        'legal.legal_form_label': 'Νομική Μορφή',
+        'legal.legal_form_value': 'ΕΕ (Ετερόρρυθμη Εταιρεία)',
+        'legal.address_label': 'Εγγεγραμμένη Έδρα',
+        'legal.address_value': 'Κορινθίας 7, 11526 Αθήνα, Ελλάδα',
+        'legal.representative_label': 'Νόμιμος Εκπρόσωπος',
+        'legal.representative_value': 'Αριστοτέλης Κουλούσης / Aristotelis Koulousis',
+        'legal.phone_label': 'Τηλέφωνο',
+        'legal.website_label': 'Ιστοσελίδα',
+        'legal.established_label': 'Ίδρυση',
+        'legal.register_title': '2. Εμπορικό Μητρώο',
+        'legal.gemi_label': 'Αριθμός ΓΕΜΗ',
+        'legal.authority_label': 'Αρμόδια Αρχή',
+        'legal.authority_value': 'Βιοτεχνικό Επιμελητήριο Πειραιώς',
+        'legal.vat_label': 'ΑΦΜ',
+        'legal.tax_office_label': 'ΔΟΥ',
+        'legal.tax_office_value': 'ΚΕΦΟΔΕ ΑΤΤΙΚΗΣ',
+        'legal.responsible_title': '3. Υπεύθυνος Περιεχομένου',
+        'legal.responsible_text': 'Υπεύθυνος για το περιεχόμενο κατά το άρθρο 18 παρ. 2 MStV (Medienstaatsvertrag):',
+        'legal.responsible_address': 'Κορινθίας 7, 11526 Αθήνα, Ελλάδα',
+        'legal.dispute_title': '4. Επίλυση Διαφορών ΕΕ',
+        'legal.dispute_odr': 'Η Ευρωπαϊκή Επιτροπή παρέχει πλατφόρμα για την ηλεκτρονική επίλυση διαφορών (ODR): <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener noreferrer">https://ec.europa.eu/consumers/odr/</a>',
+        'legal.dispute_note': 'Δεν είμαστε υποχρεωμένοι ούτε πρόθυμοι να συμμετάσχουμε σε διαδικασίες επίλυσης διαφορών ενώπιον φορέα εναλλακτικής επίλυσης διαφορών καταναλωτών.',
+        'legal.liability_title': '5. Αποποίηση Ευθύνης',
+        'legal.liability_content': 'Το περιεχόμενο αυτής της ιστοσελίδας δημιουργείται με τη μέγιστη δυνατή επιμέλεια. Ωστόσο, δεν μπορούμε να εγγυηθούμε την ακρίβεια, πληρότητα και επικαιρότητα του περιεχομένου. Ως πάροχος υπηρεσιών, είμαστε υπεύθυνοι για το δικό μας περιεχόμενο σε αυτές τις σελίδες σύμφωνα με τη γενική νομοθεσία. Ωστόσο, δεν είμαστε υποχρεωμένοι να παρακολουθούμε τις μεταδιδόμενες ή αποθηκευμένες πληροφορίες τρίτων ή να ερευνούμε περιστάσεις που υποδεικνύουν παράνομη δραστηριότητα.',
+        'legal.liability_links': 'Η ιστοσελίδα μας περιέχει συνδέσμους προς εξωτερικές ιστοσελίδες τρίτων, στο περιεχόμενο των οποίων δεν έχουμε καμία επιρροή. Ως εκ τούτου, δεν μπορούμε να αναλάβουμε καμία ευθύνη για αυτό το περιεχόμενο τρίτων. Ο εκάστοτε πάροχος ή φορέας εκμετάλλευσης των σελίδων είναι πάντα υπεύθυνος για το περιεχόμενό τους. Οι συνδεδεμένες σελίδες ελέγχθηκαν για πιθανές νομικές παραβάσεις κατά τη στιγμή της σύνδεσης. Παράνομο περιεχόμενο δεν ήταν αναγνωρίσιμο κατά τη στιγμή της σύνδεσης.',
+        'legal.copyright_title': '6. Πνευματική Ιδιοκτησία',
+        'legal.copyright_text': 'Το περιεχόμενο και τα έργα σε αυτές τις σελίδες που δημιουργήθηκαν από τους διαχειριστές της ιστοσελίδας υπόκεινται στην ελληνική και ευρωπαϊκή νομοθεσία πνευματικής ιδιοκτησίας. Η αναπαραγωγή, επεξεργασία, διανομή ή οποιαδήποτε μορφή εμπορικής αξιοποίησης πέρα από τα όρια του δικαιώματος πνευματικής ιδιοκτησίας απαιτεί την εγγραφή συγκατάθεση του αντίστοιχου δημιουργού. &copy; <span id="copyrightYear">2026</span> AidedCAM. Με επιφύλαξη παντός δικαιώματος.',
+        'footer.privacy': 'Πολιτική Απορρήτου',
+        'footer.home': 'Αρχική'
+      },
+      en: {
+        '_title': 'AidedCAM - Legal Notice',
+        'legal.title': 'Legal Notice',
+        'legal.subtitle': 'Information in accordance with the EU E-Commerce Directive (2000/31/EC), the German DDG (Digitale-Dienste-Gesetz), and Greek commercial law.',
+        'legal.company_title': '1. Company Information',
+        'legal.legal_name_label': 'Legal Name',
+        'legal.legal_name_value': 'KOULOUSIS ARISTOTELIS L.P. / ΚΟΥΛΟΥΣΗΣ ΑΡΙΣΤΟΤΕΛΗΣ Ε.Ε.',
+        'legal.trade_name_label': 'Trade Name',
+        'legal.legal_form_label': 'Legal Form',
+        'legal.legal_form_value': 'Limited Partnership (Eterorrythmi Etaireia)',
+        'legal.address_label': 'Registered Address',
+        'legal.address_value': 'Korinthias 7, 11526 Athens, Greece',
+        'legal.representative_label': 'Legal Representative',
+        'legal.representative_value': 'Aristotelis Koulousis',
+        'legal.phone_label': 'Phone',
+        'legal.website_label': 'Website',
+        'legal.established_label': 'Established',
+        'legal.register_title': '2. Commercial Register',
+        'legal.gemi_label': 'GEMI Number',
+        'legal.authority_label': 'Registration Authority',
+        'legal.authority_value': 'Chamber of Small Industries of Piraeus (Viotechniko Epimelitirio Peiraios)',
+        'legal.vat_label': 'VAT ID',
+        'legal.tax_office_label': 'Tax Office',
+        'legal.tax_office_value': 'KEFODE ATTIKIS',
+        'legal.responsible_title': '3. Responsible for Content',
+        'legal.responsible_text': 'Responsible for content pursuant to Section 18(2) MStV (Medienstaatsvertrag / German Interstate Media Treaty):',
+        'legal.responsible_address': 'Korinthias 7, 11526 Athens, Greece',
+        'legal.dispute_title': '4. EU Dispute Resolution',
+        'legal.dispute_odr': 'The European Commission provides a platform for online dispute resolution (ODR): <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener noreferrer">https://ec.europa.eu/consumers/odr/</a>',
+        'legal.dispute_note': 'We are not obligated nor willing to participate in dispute resolution proceedings before a consumer arbitration board.',
+        'legal.liability_title': '5. Liability Disclaimer',
+        'legal.liability_content': 'The contents of this website are created with the utmost care. However, we cannot guarantee the accuracy, completeness, or timeliness of the content. As a service provider, we are responsible for our own content on these pages in accordance with general legislation. However, we are not obligated to monitor transmitted or stored third-party information or to investigate circumstances that indicate illegal activity.',
+        'legal.liability_links': 'Our website contains links to external websites of third parties, over whose content we have no influence. Therefore, we cannot accept any liability for this third-party content. The respective provider or operator of the linked pages is always responsible for their content. The linked pages were checked for possible legal violations at the time of linking. Illegal content was not recognizable at the time of linking.',
+        'legal.copyright_title': '6. Copyright',
+        'legal.copyright_text': 'The content and works on these pages created by the site operators are subject to Greek and European copyright law. Reproduction, editing, distribution, or any form of commercial exploitation beyond the scope of copyright law requires the written consent of the respective creator. &copy; <span id="copyrightYear">2026</span> AidedCAM. All rights reserved.',
+        'footer.privacy': 'Privacy Policy',
+        'footer.home': 'Home'
+      },
+      it: {
+        '_title': 'AidedCAM - Avviso Legale',
+        'legal.title': 'Avviso Legale',
+        'legal.subtitle': 'Informazioni ai sensi della Direttiva UE sul Commercio Elettronico (2000/31/CE), del DDG tedesco (Digitale-Dienste-Gesetz) e del diritto commerciale greco.',
+        'legal.company_title': '1. Informazioni Aziendali',
+        'legal.legal_name_label': 'Ragione Sociale',
+        'legal.legal_name_value': 'KOULOUSIS ARISTOTELIS L.P. / ΚΟΥΛΟΥΣΗΣ ΑΡΙΣΤΟΤΕΛΗΣ Ε.Ε.',
+        'legal.trade_name_label': 'Nome Commerciale',
+        'legal.legal_form_label': 'Forma Giuridica',
+        'legal.legal_form_value': 'Societa in accomandita semplice (Eterorrythmi Etaireia)',
+        'legal.address_label': 'Sede Legale',
+        'legal.address_value': 'Korinthias 7, 11526 Atene, Grecia',
+        'legal.representative_label': 'Rappresentante Legale',
+        'legal.representative_value': 'Aristotelis Koulousis',
+        'legal.phone_label': 'Telefono',
+        'legal.website_label': 'Sito Web',
+        'legal.established_label': 'Data di Fondazione',
+        'legal.register_title': '2. Registro delle Imprese',
+        'legal.gemi_label': 'Numero GEMI',
+        'legal.authority_label': 'Autorita di Registrazione',
+        'legal.authority_value': 'Camera di Commercio delle Piccole Industrie del Pireo (Viotechniko Epimelitirio Peiraios)',
+        'legal.vat_label': 'Partita IVA',
+        'legal.tax_office_label': 'Ufficio Fiscale',
+        'legal.tax_office_value': 'KEFODE ATTIKIS',
+        'legal.responsible_title': '3. Responsabile dei Contenuti',
+        'legal.responsible_text': 'Responsabile dei contenuti ai sensi dell\'art. 18 comma 2 MStV (Medienstaatsvertrag / Trattato interstatale tedesco sui media):',
+        'legal.responsible_address': 'Korinthias 7, 11526 Atene, Grecia',
+        'legal.dispute_title': '4. Risoluzione delle Controversie UE',
+        'legal.dispute_odr': 'La Commissione Europea mette a disposizione una piattaforma per la risoluzione delle controversie online (ODR): <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener noreferrer">https://ec.europa.eu/consumers/odr/</a>',
+        'legal.dispute_note': 'Non siamo obbligati ne disposti a partecipare a procedimenti di risoluzione delle controversie dinanzi a un organismo di risoluzione alternativa delle controversie dei consumatori.',
+        'legal.liability_title': '5. Esclusione di Responsabilita',
+        'legal.liability_content': 'I contenuti di questo sito web sono creati con la massima cura. Tuttavia, non possiamo garantire l\'accuratezza, la completezza o l\'attualita dei contenuti. In qualita di fornitori di servizi, siamo responsabili dei nostri contenuti su queste pagine in conformita alla legislazione generale. Tuttavia, non siamo obbligati a monitorare le informazioni trasmesse o memorizzate da terzi o a indagare su circostanze che indichino attivita illegali.',
+        'legal.liability_links': 'Il nostro sito web contiene collegamenti a siti web esterni di terzi, sui cui contenuti non abbiamo alcuna influenza. Pertanto, non possiamo assumerci alcuna responsabilita per tali contenuti di terzi. Il rispettivo fornitore o gestore delle pagine collegate e sempre responsabile dei propri contenuti. Le pagine collegate sono state verificate per possibili violazioni legali al momento del collegamento. Contenuti illegali non erano riconoscibili al momento del collegamento.',
+        'legal.copyright_title': '6. Diritto d\'Autore',
+        'legal.copyright_text': 'I contenuti e le opere di queste pagine creati dai gestori del sito sono soggetti alla legge greca ed europea sul diritto d\'autore. La riproduzione, l\'elaborazione, la distribuzione o qualsiasi forma di sfruttamento commerciale al di la dell\'ambito del diritto d\'autore richiede il consenso scritto del rispettivo autore. &copy; <span id="copyrightYear">2026</span> AidedCAM. Tutti i diritti riservati.',
+        'footer.privacy': 'Informativa sulla Privacy',
+        'footer.home': 'Home'
+      }
+    };
+
+    // ===== LANGUAGE SWITCHER =====
+    function setLanguage(lang) {
+      var t = translations[lang];
+      if (!t) return;
+
+      // Update text content
+      document.querySelectorAll('[data-i18n]').forEach(function(el) {
+        var key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined) {
+          el.textContent = t[key];
+        }
+      });
+
+      // Update HTML content (elements with rich markup)
+      document.querySelectorAll('[data-i18n-html]').forEach(function(el) {
+        var key = el.getAttribute('data-i18n-html');
+        if (t[key] !== undefined) {
+          el.innerHTML = t[key];
+        }
+      });
+
+      // Update page title and lang attribute
+      document.title = t['_title'];
+      document.documentElement.lang = lang;
+
+      // Update switcher buttons
+      document.querySelectorAll('.lang-btn').forEach(function(btn) {
+        btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+      });
+
+      // Save preference
+      localStorage.setItem('aidedcam-lang', lang);
+    }
+
+    // Initialize language: URL param > localStorage > browser language > Greek default
+    var urlLangParam = new URLSearchParams(window.location.search).get('lang');
+    var urlLang = (urlLangParam && translations[urlLangParam]) ? urlLangParam : null;
+    var savedLang = localStorage.getItem('aidedcam-lang');
+    var browserLangCode = navigator.language ? navigator.language.substring(0, 2) : 'el';
+    var browserLang = browserLangCode === 'el' ? 'el' : browserLangCode === 'it' ? 'it' : 'en';
+    var initialLang = urlLang || savedLang || browserLang;
+    if (initialLang !== 'el') {
+      setLanguage(initialLang);
+    }
+
+    // Language button click handlers
+    document.querySelectorAll('.lang-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        setLanguage(btn.getAttribute('data-lang'));
+      });
+    });
+
+    // Dynamic year
+    var year = new Date().getFullYear();
+    var footerYearEl = document.getElementById('footerYear');
+    if (footerYearEl) footerYearEl.textContent = year;
+    document.querySelectorAll('#copyrightYear').forEach(function(el) {
+      el.textContent = year;
+    });
+  </script>
+</body>
+</html>

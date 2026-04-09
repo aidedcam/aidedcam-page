@@ -247,9 +247,7 @@
     }
     if (localStorage.getItem('privacy-pref') === 'accepted') { loadGA(); }
   </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700;800&family=Exo+2:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="fonts.css" />
   <style>
     /* ===== ROOT VARIABLES ===== */
     :root {
@@ -468,7 +466,6 @@
       box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.3);
     }
     .consent-banner.visible { display: block; }
-
     .consent-inner {
       max-width: 1400px; margin: 0 auto;
       padding: 1.5rem 3rem;
@@ -479,6 +476,10 @@
       font-size: 0.9rem; color: rgba(255,255,255,0.8);
       line-height: 1.6; margin: 0; flex: 1; min-width: 250px;
     }
+    .consent-inner .consent-privacy-link {
+      color: rgba(255,255,255,0.6); text-decoration: underline; font-size: 0.85rem;
+    }
+    .consent-inner .consent-privacy-link:hover { color: rgba(255,255,255,0.9); }
     .consent-actions { display: flex; gap: 0.8rem; flex-shrink: 0; }
     .consent-btn {
       padding: 0.6rem 1.5rem; border-radius: 50px; font-size: 0.8rem;
@@ -487,17 +488,51 @@
     }
     .consent-btn-accept { background: var(--accent); color: white; }
     .consent-btn-accept:hover { background: var(--accent-light); }
+    .consent-btn-manage {
+      background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.7);
+    }
+    .consent-btn-manage:hover { background: rgba(255,255,255,0.2); color: white; }
     .consent-btn-decline {
       background: transparent; color: rgba(255,255,255,0.5);
       font-size: 0.8rem; font-weight: 400; text-decoration: underline;
       padding: 0.6rem 1rem; text-transform: none; letter-spacing: 0;
     }
     .consent-btn-decline:hover { color: rgba(255,255,255,0.7); }
+    /* Preferences panel */
+    .consent-prefs { display: none; }
+    .consent-prefs.visible { display: block; }
+    .consent-prefs-inner {
+      max-width: 1400px; margin: 0 auto; padding: 0 3rem 1.5rem;
+    }
+    .consent-prefs-desc {
+      font-size: 0.85rem; color: rgba(255,255,255,0.6);
+      margin-bottom: 1rem; line-height: 1.5;
+    }
+    .consent-categories { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem; }
+    .consent-cat {
+      display: flex; align-items: center; gap: 0.6rem;
+      background: rgba(255,255,255,0.05); border-radius: 8px;
+      padding: 0.6rem 1rem; flex: 1; min-width: 180px;
+    }
+    .consent-cat label { cursor: pointer; }
+    .consent-cat-name {
+      font-size: 0.85rem; color: white; font-weight: 600;
+      font-family: var(--font-display);
+    }
+    .consent-cat-desc {
+      font-size: 0.75rem; color: rgba(255,255,255,0.45); display: block;
+    }
+    .consent-cat input[type="checkbox"] { accent-color: var(--accent); width: 16px; height: 16px; cursor: pointer; }
+    .consent-cat input[type="checkbox"]:disabled { opacity: 0.5; cursor: default; }
+    .consent-prefs-actions { display: flex; gap: 0.8rem; }
 
     @media (max-width: 768px) {
       .consent-inner { padding: 1.2rem 1.5rem; flex-direction: column; text-align: center; gap: 1rem; }
       .consent-inner p { min-width: unset; }
       .consent-actions { width: 100%; justify-content: center; }
+      .consent-prefs-inner { padding: 0 1.5rem 1.2rem; }
+      .consent-categories { flex-direction: column; }
+      .consent-prefs-actions { justify-content: center; }
     }
 
     /* ===== HERO ===== */
@@ -2324,8 +2359,9 @@
       <div class="footer-bottom">
         <div class="footer-copy">&copy; <span id="footerYear">2026</span> AidedCAM. All rights reserved.</div>
         <div class="footer-bottom-links">
-          <a href="#sxetika" data-i18n="about.label">Σχετικά</a>
-          <a href="#contact" data-i18n="footer.contact">Επικοινωνία</a>
+          <a href="privacy.html" data-i18n="footer.privacy">Απόρρητο</a>
+          <a href="legal.html" data-i18n="footer.legal">Νομικά</a>
+          <a href="javascript:void(0)" onclick="openCookieSettings()" data-i18n="footer.cookie_settings">Ρυθμίσεις Cookies</a>
         </div>
       </div>
     </div>
@@ -2486,8 +2522,13 @@
         'cookie_cat_analytics_desc': 'Google Analytics — ανώνυμα στατιστικά',
         'cookie_cat_marketing': 'Διαφημιστικά',
         'cookie_cat_marketing_desc': 'Δεν χρησιμοποιούνται αυτήν τη στιγμή',
+        'cookie_decline': 'Απόρριψη',
+        'cookie_privacy_link': 'Πολιτική Απορρήτου',
         'cookie_back': 'Πίσω',
         'cookie_save': 'Αποθήκευση προτιμήσεων',
+        'footer.privacy': 'Απόρρητο',
+        'footer.legal': 'Νομικά',
+        'footer.cookie_settings': 'Ρυθμίσεις Cookies',
         // Page title
         '_title': 'AidedCAM - Εξατομικευμένο Λογισμικό Αυτοματοποίησης CAD/CAM/CNC'
       },
@@ -2643,8 +2684,13 @@
         'cookie_cat_analytics_desc': 'Google Analytics — anonymous statistics',
         'cookie_cat_marketing': 'Marketing',
         'cookie_cat_marketing_desc': 'Not currently used',
+        'cookie_decline': 'Decline',
+        'cookie_privacy_link': 'Privacy Policy',
         'cookie_back': 'Back',
         'cookie_save': 'Save preferences',
+        'footer.privacy': 'Privacy',
+        'footer.legal': 'Legal',
+        'footer.cookie_settings': 'Cookie Settings',
         // Page title
         '_title': 'AidedCAM - Custom CAD/CAM/CNC Automation Software'
       },
@@ -2800,8 +2846,13 @@
         'cookie_cat_analytics_desc': 'Google Analytics — statistiche anonime',
         'cookie_cat_marketing': 'Marketing',
         'cookie_cat_marketing_desc': 'Attualmente non utilizzati',
+        'cookie_decline': 'Rifiuta',
+        'cookie_privacy_link': 'Informativa Privacy',
         'cookie_back': 'Indietro',
         'cookie_save': 'Salva preferenze',
+        'footer.privacy': 'Privacy',
+        'footer.legal': 'Note Legali',
+        'footer.cookie_settings': 'Impostazioni Cookie',
         // Page title
         '_title': 'AidedCAM - Software Personalizzato di Automazione CAD/CAM/CNC'
       }
@@ -3624,29 +3675,118 @@
   <!-- PRIVACY CONSENT BANNER -->
   <div class="consent-banner" id="privacyOverlay">
     <div class="consent-inner">
-      <p data-i18n="cookie_text">Αυτός ο ιστότοπος χρησιμοποιεί cookies για τη βελτιστοποίηση της λειτουργίας του και την ανάλυση της επισκεψιμότητας.</p>
+      <p>
+        <span data-i18n="cookie_text">Αυτός ο ιστότοπος χρησιμοποιεί cookies για τη βελτιστοποίηση της λειτουργίας του και την ανάλυση της επισκεψιμότητας.</span>
+        <a href="privacy.html" class="consent-privacy-link" data-i18n="cookie_privacy_link">Πολιτική Απορρήτου</a>
+      </p>
       <div class="consent-actions">
         <button class="consent-btn consent-btn-accept" id="privacyAccept" data-i18n="cookie_accept">Αποδοχή</button>
+        <button class="consent-btn consent-btn-manage" id="privacyManage" data-i18n="cookie_manage">Διαχείριση προτιμήσεων</button>
         <button class="consent-btn consent-btn-decline" id="privacyDecline" data-i18n="cookie_decline">Απόρριψη</button>
+      </div>
+    </div>
+    <div class="consent-prefs" id="consentPrefs">
+      <div class="consent-prefs-inner">
+        <p class="consent-prefs-desc" data-i18n="cookie_prefs_desc">Επιλέξτε ποιες κατηγορίες cookies επιθυμείτε να ενεργοποιήσετε. Τα απαραίτητα cookies είναι πάντα ενεργά για τη σωστή λειτουργία του ιστότοπου.</p>
+        <div class="consent-categories">
+          <div class="consent-cat">
+            <input type="checkbox" checked disabled id="cookieNecessary">
+            <label for="cookieNecessary">
+              <span class="consent-cat-name" data-i18n="cookie_cat_necessary">Απαραίτητα</span>
+              <span class="consent-cat-desc" data-i18n="cookie_cat_necessary_desc">Βασική λειτουργία ιστότοπου</span>
+            </label>
+          </div>
+          <div class="consent-cat">
+            <input type="checkbox" checked disabled id="cookieFunctional">
+            <label for="cookieFunctional">
+              <span class="consent-cat-name" data-i18n="cookie_cat_functional">Λειτουργικά</span>
+              <span class="consent-cat-desc" data-i18n="cookie_cat_functional_desc">Αποθήκευση προτιμήσεων γλώσσας</span>
+            </label>
+          </div>
+          <div class="consent-cat">
+            <input type="checkbox" id="cookieAnalytics">
+            <label for="cookieAnalytics">
+              <span class="consent-cat-name" data-i18n="cookie_cat_analytics">Ανάλυση επισκεψιμότητας</span>
+              <span class="consent-cat-desc" data-i18n="cookie_cat_analytics_desc">Google Analytics — ανώνυμα στατιστικά</span>
+            </label>
+          </div>
+          <div class="consent-cat">
+            <input type="checkbox" disabled id="cookieMarketing">
+            <label for="cookieMarketing">
+              <span class="consent-cat-name" data-i18n="cookie_cat_marketing">Διαφημιστικά</span>
+              <span class="consent-cat-desc" data-i18n="cookie_cat_marketing_desc">Δεν χρησιμοποιούνται αυτήν τη στιγμή</span>
+            </label>
+          </div>
+        </div>
+        <div class="consent-prefs-actions">
+          <button class="consent-btn consent-btn-accept" id="privacySavePrefs" data-i18n="cookie_save">Αποθήκευση προτιμήσεων</button>
+          <button class="consent-btn consent-btn-decline" id="privacyBack" data-i18n="cookie_back">Πίσω</button>
+        </div>
       </div>
     </div>
   </div>
   <script>
     (function() {
       var overlay = document.getElementById('privacyOverlay');
-      if (!localStorage.getItem('privacy-pref')) {
-        overlay.classList.add('visible');
+      var prefsPanel = document.getElementById('consentPrefs');
+      var analyticsCheckbox = document.getElementById('cookieAnalytics');
+
+      function showBanner() { overlay.classList.add('visible'); prefsPanel.classList.remove('visible'); }
+      function hideBanner() { overlay.classList.remove('visible'); prefsPanel.classList.remove('visible'); }
+
+      // Load saved prefs into checkboxes
+      function loadPrefs() {
+        try {
+          var prefs = JSON.parse(localStorage.getItem('cookie-prefs') || '{}');
+          analyticsCheckbox.checked = !!prefs.analytics;
+        } catch(e) { analyticsCheckbox.checked = false; }
       }
+
+      // Show banner if no preference set
+      if (!localStorage.getItem('privacy-pref')) { showBanner(); }
+
+      // Accept all
       document.getElementById('privacyAccept').addEventListener('click', function() {
         localStorage.setItem('privacy-pref', 'accepted');
-        overlay.classList.remove('visible');
+        localStorage.setItem('cookie-prefs', JSON.stringify({ analytics: true }));
+        hideBanner();
         loadGA();
         gaEvent('accepted_cookie_consent', { action: 'accept' });
       });
+
+      // Decline all
       document.getElementById('privacyDecline').addEventListener('click', function() {
         localStorage.setItem('privacy-pref', 'declined');
-        overlay.classList.remove('visible');
+        localStorage.setItem('cookie-prefs', JSON.stringify({ analytics: false }));
+        hideBanner();
       });
+
+      // Manage preferences
+      document.getElementById('privacyManage').addEventListener('click', function() {
+        loadPrefs();
+        prefsPanel.classList.toggle('visible');
+      });
+
+      // Back button
+      document.getElementById('privacyBack').addEventListener('click', function() {
+        prefsPanel.classList.remove('visible');
+      });
+
+      // Save custom preferences
+      document.getElementById('privacySavePrefs').addEventListener('click', function() {
+        var prefs = { analytics: analyticsCheckbox.checked };
+        localStorage.setItem('cookie-prefs', JSON.stringify(prefs));
+        localStorage.setItem('privacy-pref', prefs.analytics ? 'accepted' : 'declined');
+        hideBanner();
+        if (prefs.analytics) { loadGA(); }
+      });
+
+      // Global function to reopen banner (used by footer link)
+      window.openCookieSettings = function() {
+        loadPrefs();
+        showBanner();
+        prefsPanel.classList.add('visible');
+      };
     })();
   </script>
 

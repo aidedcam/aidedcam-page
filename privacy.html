@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AidedCAM - Πολιτική Απορρήτου</title>
+  <meta name="robots" content="noindex, follow" />
+  <link rel="icon" type="image/png" href="/aided-cam-transparent.png" />
+  <link rel="canonical" href="https://www.aidedcam.com/privacy.html" />
+  <link rel="stylesheet" href="fonts.css" />
+  <style>
+    :root {
+      --primary: #1a4a2e;
+      --primary-dark: #0a1a10;
+      --primary-light: #2d5a3d;
+      --accent: #0d7a3e;
+      --accent-light: #3db365;
+      --accent-bright: #5fbd7a;
+      --text-dark: #161616;
+      --text-body: #1a4a2e;
+      --text-gray: #555;
+      --text-light: #888;
+      --bg-light: #f0f5f2;
+      --white: #fff;
+      --border: #ebebeb;
+      --font-display: 'Exo 2', 'Barlow', sans-serif;
+      --font-body: 'Barlow', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: var(--font-body);
+      color: var(--text-body);
+      background: var(--white);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container { max-width: 800px; margin: 0 auto; padding: 0 2rem; }
+
+    /* NAVBAR */
+    .navbar {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      color: white;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+    }
+    .nav-logo img { height: 28px; width: auto; }
+    .lang-switcher {
+      display: flex;
+      gap: 0;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50px;
+      overflow: hidden;
+    }
+    .lang-btn {
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.5);
+      padding: 0.4rem 0.8rem;
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      letter-spacing: 1px;
+    }
+    .lang-btn.active { color: white; background: rgba(255,255,255,0.15); }
+    .lang-btn:hover { color: rgba(255,255,255,0.8); }
+
+    /* CONTENT */
+    .legal-content {
+      padding: 3rem 0 4rem;
+    }
+    .legal-content h1 {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+    .legal-content .last-updated {
+      color: var(--text-light);
+      font-size: 0.85rem;
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .legal-content h2 {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--bg-light);
+    }
+    .legal-content h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--primary-light);
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .legal-content p {
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+      color: var(--text-gray);
+    }
+    .legal-content ul {
+      margin-bottom: 1rem;
+      padding-left: 1.5rem;
+    }
+    .legal-content li {
+      margin-bottom: 0.4rem;
+      font-size: 0.95rem;
+      color: var(--text-gray);
+    }
+    .legal-content a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .legal-content a:hover { text-decoration: underline; }
+    .legal-content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0 1.5rem;
+      font-size: 0.9rem;
+    }
+    .legal-content th, .legal-content td {
+      text-align: left;
+      padding: 0.6rem 0.8rem;
+      border: 1px solid var(--border);
+      color: var(--text-gray);
+    }
+    .legal-content th {
+      background: var(--bg-light);
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    /* FOOTER */
+    .footer {
+      background: linear-gradient(74deg, #0a1a10 0%, #0d5a30 100%);
+      padding: 1.5rem 0;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .footer-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-copy {
+      color: rgba(255,255,255,0.3);
+      font-size: 0.8rem;
+    }
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .footer-links a {
+      color: rgba(255,255,255,0.3);
+      text-decoration: none;
+      font-size: 0.8rem;
+      transition: color 0.3s;
+    }
+    .footer-links a:hover { color: rgba(255,255,255,0.6); }
+
+    @media (max-width: 768px) {
+      .legal-content h1 { font-size: 1.5rem; }
+      .legal-content h2 { font-size: 1.1rem; }
+      .container { padding: 0 1.2rem; }
+      .footer-inner { flex-direction: column; gap: 1rem; text-align: center; }
+      .legal-content table { font-size: 0.8rem; }
+      .legal-content th, .legal-content td { padding: 0.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">
+      <img src="aided-cam-transparent.png" alt="AidedCAM" />
+      <span>AIDEDCAM</span>
+    </a>
+    <div class="lang-switcher">
+      <button class="lang-btn" onclick="setLanguage('el')">EL</button>
+      <button class="lang-btn" onclick="setLanguage('en')">EN</button>
+      <button class="lang-btn" onclick="setLanguage('it')">IT</button>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="legal-content">
+      <h1 data-i18n="privacy.title">Πολιτική Απορρήτου &amp; Cookies</h1>
+      <p class="last-updated" data-i18n="privacy.updated">Τελευταία ενημέρωση: 9 Απριλίου 2026</p>
+
+      <!-- 1. Controller -->
+      <h2 data-i18n="privacy.h_controller">1. Υπεύθυνος Επεξεργασίας</h2>
+      <div data-i18n-html="privacy.controller_body">
+        <p>Υπεύθυνος επεξεργασίας των δεδομένων προσωπικού χαρακτήρα είναι η:</p>
+        <p><strong>ΚΟΥΛΟΥΣΗΣ ΑΡΙΣΤΟΤΕΛΗΣ Ε.Ε.</strong> (δ.τ. AidedCAM)<br>
+        Κορινθίας 7, 11526 Αθήνα, Ελλάδα<br>
+        Email: <a href="mailto:info@aidedcam.com">info@aidedcam.com</a><br>
+        Τηλέφωνο: +30 6984680874<br>
+        ΑΦΜ: EL802853368 | ΓΕΜΗ: 183990708000</p>
+        <p>Νόμιμος εκπρόσωπος: Αριστοτέλης Κουλούσης</p>
+      </div>
+
+      <!-- 2. Data we collect -->
+      <h2 data-i18n="privacy.h_data">2. Ποια δεδομένα συλλέγουμε</h2>
+      <div data-i18n-html="privacy.data_body">
+        <h3>2.1 Δεδομένα πλοήγησης (αυτόματα)</h3>
+        <p>Κατά την επίσκεψή σας, ενδέχεται να συλλέγονται αυτόματα:</p>
+        <ul>
+          <li>Διεύθυνση IP (ανωνυμοποιημένη)</li>
+          <li>Τύπος και έκδοση προγράμματος περιήγησης</li>
+          <li>Λειτουργικό σύστημα</li>
+          <li>Σελίδες που επισκεφθήκατε, χρόνος παραμονής</li>
+          <li>URL παραπομπής</li>
+        </ul>
+        <p>Αυτά τα δεδομένα συλλέγονται μόνο μέσω Google Analytics και <strong>μόνο εφόσον έχετε δώσει τη συγκατάθεσή σας</strong> μέσω του banner cookies.</p>
+
+        <h3>2.2 Δεδομένα που παρέχετε εσείς</h3>
+        <p>Όταν χρησιμοποιείτε τον υπολογιστή ROI ή τη φόρμα "Τι Κερδίζετε", μπορεί να μας παράσχετε:</p>
+        <ul>
+          <li>Επωνυμία εταιρείας</li>
+          <li>Διεύθυνση email</li>
+          <li>Σύστημα CAD/CAM που χρησιμοποιείτε</li>
+        </ul>
+        <p>Αυτά τα δεδομένα αποθηκεύονται τοπικά στο πρόγραμμα περιήγησής σας (localStorage) και αποστέλλονται ως ανώνυμα events στο Google Analytics. Δεν αποθηκεύονται σε δικό μας server.</p>
+
+        <h3>2.3 Επικοινωνία μέσω email</h3>
+        <p>Αν μας στείλετε email στο info@aidedcam.com, επεξεργαζόμαστε το email σας και τυχόν πληροφορίες που μας παρέχετε, αποκλειστικά για να απαντήσουμε στο αίτημά σας.</p>
+      </div>
+
+      <!-- 3. Legal basis -->
+      <h2 data-i18n="privacy.h_basis">3. Νομική βάση επεξεργασίας</h2>
+      <div data-i18n-html="privacy.basis_body">
+        <ul>
+          <li><strong>Συγκατάθεση (Άρθρο 6(1)(α) GDPR):</strong> Για cookies ανάλυσης (Google Analytics). Μπορείτε να ανακαλέσετε τη συγκατάθεσή σας ανά πάσα στιγμή μέσω του συνδέσμου "Ρυθμίσεις Cookies" στο υποσέλιδο.</li>
+          <li><strong>Έννομο συμφέρον (Άρθρο 6(1)(στ) GDPR):</strong> Για τη λειτουργία του ιστότοπου, την ασφάλεια και τη βελτιστοποίησή του.</li>
+          <li><strong>Εκτέλεση σύμβασης / προσυμβατικά μέτρα (Άρθρο 6(1)(β) GDPR):</strong> Όταν επικοινωνείτε μαζί μας για τις υπηρεσίες μας.</li>
+        </ul>
+      </div>
+
+      <!-- 4. Cookies -->
+      <h2 data-i18n="privacy.h_cookies">4. Cookies &amp; Τεχνολογίες Αποθήκευσης</h2>
+      <div data-i18n-html="privacy.cookies_body">
+        <h3>4.1 Τι είναι τα cookies</h3>
+        <p>Τα cookies είναι μικρά αρχεία κειμένου που αποθηκεύονται στο πρόγραμμα περιήγησής σας. Ο ιστότοπός μας χρησιμοποιεί επίσης localStorage, μια τεχνολογία αποθήκευσης στο πρόγραμμα περιήγησης.</p>
+
+        <h3>4.2 Cookies &amp; αποθήκευση που χρησιμοποιούμε</h3>
+        <table>
+          <tr><th>Όνομα</th><th>Τύπος</th><th>Σκοπός</th><th>Διάρκεια</th></tr>
+          <tr><td>privacy-pref</td><td>localStorage</td><td>Αποθηκεύει τη συγκατάθεσή σας για cookies (accepted/declined/custom)</td><td>Μόνιμα (μέχρι διαγραφής)</td></tr>
+          <tr><td>cookie-prefs</td><td>localStorage</td><td>Αποθηκεύει τις αναλυτικές προτιμήσεις cookies σας</td><td>Μόνιμα (μέχρι διαγραφής)</td></tr>
+          <tr><td>aidedcam-lang</td><td>localStorage</td><td>Αποθηκεύει την προτίμηση γλώσσας σας</td><td>Μόνιμα (μέχρι διαγραφής)</td></tr>
+          <tr><td>_ga, _ga_*</td><td>Cookie</td><td>Google Analytics — αναγνώριση μοναδικών επισκεπτών</td><td>2 χρόνια</td></tr>
+          <tr><td>_gid</td><td>Cookie</td><td>Google Analytics — αναγνώριση επισκεπτών (24ω)</td><td>24 ώρες</td></tr>
+          <tr><td>_gat</td><td>Cookie</td><td>Google Analytics — περιορισμός ρυθμού αιτημάτων</td><td>1 λεπτό</td></tr>
+        </table>
+
+        <h3>4.3 Κατηγορίες cookies</h3>
+        <ul>
+          <li><strong>Απαραίτητα:</strong> Βασική λειτουργία ιστότοπου. Δεν μπορούν να απενεργοποιηθούν. (privacy-pref)</li>
+          <li><strong>Λειτουργικά:</strong> Αποθήκευση προτιμήσεων γλώσσας. (aidedcam-lang)</li>
+          <li><strong>Ανάλυσης:</strong> Google Analytics — ανώνυμα στατιστικά. Ενεργοποιούνται μόνο με τη συγκατάθεσή σας. (_ga, _gid, _gat)</li>
+          <li><strong>Διαφημιστικά:</strong> Δεν χρησιμοποιούνται αυτήν τη στιγμή.</li>
+        </ul>
+
+        <h3>4.4 Διαχείριση cookies</h3>
+        <p>Μπορείτε να διαχειριστείτε τις προτιμήσεις σας ανά πάσα στιγμή κάνοντας κλικ στο σύνδεσμο "Ρυθμίσεις Cookies" στο υποσέλιδο κάθε σελίδας. Μπορείτε επίσης να διαγράψετε τα cookies μέσω των ρυθμίσεων του προγράμματος περιήγησής σας.</p>
+      </div>
+
+      <!-- 5. Google Analytics -->
+      <h2 data-i18n="privacy.h_analytics">5. Google Analytics</h2>
+      <div data-i18n-html="privacy.analytics_body">
+        <p>Χρησιμοποιούμε το Google Analytics 4 (GA4), μια υπηρεσία ανάλυσης ιστού της Google Ireland Limited (Gordon House, Barrow Street, Dublin 4, Ιρλανδία).</p>
+        <p>Το Google Analytics χρησιμοποιεί cookies για την ανάλυση της χρήσης του ιστότοπού μας. Τα δεδομένα που παράγονται μεταφέρονται σε servers της Google, που μπορεί να βρίσκονται εκτός ΕΕ/ΕΟΧ (ΗΠΑ). Η Google είναι πιστοποιημένη στο EU-US Data Privacy Framework.</p>
+        <p>Το Google Analytics φορτώνεται <strong>μόνο μετά τη ρητή συγκατάθεσή σας</strong>. Αν αρνηθείτε ή ανακαλέσετε τη συγκατάθεσή σας, δεν μεταδίδονται δεδομένα στη Google.</p>
+        <p>Περισσότερα: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Πολιτική Απορρήτου Google</a></p>
+      </div>
+
+      <!-- 6. Data transfers -->
+      <h2 data-i18n="privacy.h_transfers">6. Διαβίβαση δεδομένων σε τρίτες χώρες</h2>
+      <div data-i18n-html="privacy.transfers_body">
+        <p>Δεδομένα μπορεί να διαβιβαστούν στις ΗΠΑ μέσω Google Analytics (βλ. ενότητα 5). Η διαβίβαση βασίζεται στο EU-US Data Privacy Framework (απόφαση επάρκειας της Ευρωπαϊκής Επιτροπής C(2023) 4745).</p>
+        <p>Δεν πραγματοποιούμε άλλες διαβιβάσεις δεδομένων σε τρίτες χώρες.</p>
+      </div>
+
+      <!-- 7. Retention -->
+      <h2 data-i18n="privacy.h_retention">7. Χρόνος διατήρησης</h2>
+      <div data-i18n-html="privacy.retention_body">
+        <ul>
+          <li><strong>localStorage δεδομένα:</strong> Παραμένουν μέχρι να τα διαγράψετε εσείς ή να καθαρίσετε τα δεδομένα του προγράμματος περιήγησής σας.</li>
+          <li><strong>Google Analytics cookies:</strong> Μέχρι 2 χρόνια (βλ. πίνακα ενότητας 4.2).</li>
+          <li><strong>Google Analytics δεδομένα:</strong> 14 μήνες (ρύθμιση GA4).</li>
+          <li><strong>Email επικοινωνίας:</strong> Διατηρούνται για όσο χρόνο απαιτείται για την εξυπηρέτηση του αιτήματός σας, και κατόπιν σύμφωνα με τις φορολογικές/εμπορικές υποχρεώσεις.</li>
+        </ul>
+      </div>
+
+      <!-- 8. Your rights -->
+      <h2 data-i18n="privacy.h_rights">8. Τα δικαιώματά σας</h2>
+      <div data-i18n-html="privacy.rights_body">
+        <p>Σύμφωνα με τον GDPR, έχετε τα ακόλουθα δικαιώματα:</p>
+        <ul>
+          <li><strong>Πρόσβαση (Άρθρο 15):</strong> Να μάθετε αν και ποια δεδομένα σας επεξεργαζόμαστε.</li>
+          <li><strong>Διόρθωση (Άρθρο 16):</strong> Να ζητήσετε διόρθωση ανακριβών δεδομένων.</li>
+          <li><strong>Διαγραφή (Άρθρο 17):</strong> Να ζητήσετε διαγραφή των δεδομένων σας ("δικαίωμα στη λήθη").</li>
+          <li><strong>Περιορισμός (Άρθρο 18):</strong> Να ζητήσετε περιορισμό της επεξεργασίας.</li>
+          <li><strong>Φορητότητα (Άρθρο 20):</strong> Να λάβετε τα δεδομένα σας σε δομημένη μορφή.</li>
+          <li><strong>Εναντίωση (Άρθρο 21):</strong> Να αντιταχθείτε στην επεξεργασία.</li>
+          <li><strong>Ανάκληση συγκατάθεσης (Άρθρο 7(3)):</strong> Να ανακαλέσετε τη συγκατάθεσή σας ανά πάσα στιγμή, χωρίς αναδρομική ισχύ.</li>
+        </ul>
+        <p>Για να ασκήσετε οποιοδήποτε δικαίωμα, επικοινωνήστε μαζί μας στο <a href="mailto:info@aidedcam.com">info@aidedcam.com</a>.</p>
+      </div>
+
+      <!-- 9. Supervisory authority -->
+      <h2 data-i18n="privacy.h_authority">9. Εποπτική αρχή</h2>
+      <div data-i18n-html="privacy.authority_body">
+        <p>Έχετε το δικαίωμα να υποβάλετε καταγγελία στην αρμόδια εποπτική αρχή:</p>
+        <p><strong>Αρχή Προστασίας Δεδομένων Προσωπικού Χαρακτήρα (ΑΠΔΠΧ)</strong><br>
+        Κηφισίας 1-3, 11523 Αθήνα<br>
+        Τηλέφωνο: +30 210 6475600<br>
+        Website: <a href="https://www.dpa.gr" target="_blank" rel="noopener">www.dpa.gr</a></p>
+      </div>
+
+      <!-- 10. Changes -->
+      <h2 data-i18n="privacy.h_changes">10. Αλλαγές στην πολιτική</h2>
+      <div data-i18n-html="privacy.changes_body">
+        <p>Διατηρούμε το δικαίωμα να ενημερώνουμε αυτήν την πολιτική απορρήτου. Η ημερομηνία τελευταίας ενημέρωσης αναγράφεται στην αρχή της σελίδας. Σας συνιστούμε να ελέγχετε περιοδικά αυτήν τη σελίδα.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-copy">&copy; <span id="footerYear">2026</span> AidedCAM</div>
+      <div class="footer-links">
+        <a href="index.html" data-i18n="privacy.back_home">Αρχική</a>
+        <a href="legal.html" data-i18n="privacy.legal_link">Νομικές Πληροφορίες</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('footerYear').textContent = new Date().getFullYear();
+
+    var translations = {
+      el: {
+        'privacy.title': 'Πολιτική Απορρήτου & Cookies',
+        'privacy.updated': 'Τελευταία ενημέρωση: 9 Απριλίου 2026',
+        'privacy.back_home': 'Αρχική',
+        'privacy.legal_link': 'Νομικές Πληροφορίες',
+        'privacy.h_controller': '1. Υπεύθυνος Επεξεργασίας',
+        'privacy.controller_body': '<p>Υπεύθυνος επεξεργασίας των δεδομένων προσωπικού χαρακτήρα είναι η:</p><p><strong>ΚΟΥΛΟΥΣΗΣ ΑΡΙΣΤΟΤΕΛΗΣ Ε.Ε.</strong> (δ.τ. AidedCAM)<br>Κορινθίας 7, 11526 Αθήνα, Ελλάδα<br>Email: <a href="mailto:info@aidedcam.com">info@aidedcam.com</a><br>Τηλέφωνο: +30 6984680874<br>ΑΦΜ: EL802853368 | ΓΕΜΗ: 183990708000</p><p>Νόμιμος εκπρόσωπος: Αριστοτέλης Κουλούσης</p>',
+        'privacy.h_data': '2. Ποια δεδομένα συλλέγουμε',
+        'privacy.data_body': '<h3>2.1 Δεδομένα πλοήγησης (αυτόματα)</h3><p>Κατά την επίσκεψή σας, ενδέχεται να συλλέγονται αυτόματα:</p><ul><li>Διεύθυνση IP (ανωνυμοποιημένη)</li><li>Τύπος και έκδοση προγράμματος περιήγησης</li><li>Λειτουργικό σύστημα</li><li>Σελίδες που επισκεφθήκατε, χρόνος παραμονής</li><li>URL παραπομπής</li></ul><p>Αυτά τα δεδομένα συλλέγονται μόνο μέσω Google Analytics και <strong>μόνο εφόσον έχετε δώσει τη συγκατάθεσή σας</strong> μέσω του banner cookies.</p><h3>2.2 Δεδομένα που παρέχετε εσείς</h3><p>Όταν χρησιμοποιείτε τον υπολογιστή ROI ή τη φόρμα "Τι Κερδίζετε", μπορεί να μας παράσχετε:</p><ul><li>Επωνυμία εταιρείας</li><li>Διεύθυνση email</li><li>Σύστημα CAD/CAM που χρησιμοποιείτε</li></ul><p>Αυτά τα δεδομένα αποθηκεύονται τοπικά στο πρόγραμμα περιήγησής σας (localStorage) και αποστέλλονται ως ανώνυμα events στο Google Analytics. Δεν αποθηκεύονται σε δικό μας server.</p><h3>2.3 Επικοινωνία μέσω email</h3><p>Αν μας στείλετε email στο info@aidedcam.com, επεξεργαζόμαστε το email σας και τυχόν πληροφορίες που μας παρέχετε, αποκλειστικά για να απαντήσουμε στο αίτημά σας.</p>',
+        'privacy.h_basis': '3. Νομική βάση επεξεργασίας',
+        'privacy.basis_body': '<ul><li><strong>Συγκατάθεση (Άρθρο 6(1)(α) GDPR):</strong> Για cookies ανάλυσης (Google Analytics). Μπορείτε να ανακαλέσετε τη συγκατάθεσή σας ανά πάσα στιγμή μέσω του συνδέσμου "Ρυθμίσεις Cookies" στο υποσέλιδο.</li><li><strong>Έννομο συμφέρον (Άρθρο 6(1)(στ) GDPR):</strong> Για τη λειτουργία του ιστότοπου, την ασφάλεια και τη βελτιστοποίησή του.</li><li><strong>Εκτέλεση σύμβασης / προσυμβατικά μέτρα (Άρθρο 6(1)(β) GDPR):</strong> Όταν επικοινωνείτε μαζί μας για τις υπηρεσίες μας.</li></ul>',
+        'privacy.h_cookies': '4. Cookies & Τεχνολογίες Αποθήκευσης',
+        'privacy.cookies_body': '<h3>4.1 Τι είναι τα cookies</h3><p>Τα cookies είναι μικρά αρχεία κειμένου που αποθηκεύονται στο πρόγραμμα περιήγησής σας. Ο ιστότοπός μας χρησιμοποιεί επίσης localStorage, μια τεχνολογία αποθήκευσης στο πρόγραμμα περιήγησης.</p><h3>4.2 Cookies & αποθήκευση που χρησιμοποιούμε</h3><table><tr><th>Όνομα</th><th>Τύπος</th><th>Σκοπός</th><th>Διάρκεια</th></tr><tr><td>privacy-pref</td><td>localStorage</td><td>Αποθηκεύει τη συγκατάθεσή σας για cookies</td><td>Μόνιμα</td></tr><tr><td>cookie-prefs</td><td>localStorage</td><td>Αποθηκεύει τις αναλυτικές προτιμήσεις cookies σας</td><td>Μόνιμα</td></tr><tr><td>aidedcam-lang</td><td>localStorage</td><td>Αποθηκεύει την προτίμηση γλώσσας σας</td><td>Μόνιμα</td></tr><tr><td>_ga, _ga_*</td><td>Cookie</td><td>Google Analytics — αναγνώριση μοναδικών επισκεπτών</td><td>2 χρόνια</td></tr><tr><td>_gid</td><td>Cookie</td><td>Google Analytics — αναγνώριση επισκεπτών</td><td>24 ώρες</td></tr><tr><td>_gat</td><td>Cookie</td><td>Google Analytics — περιορισμός ρυθμού αιτημάτων</td><td>1 λεπτό</td></tr></table><h3>4.3 Κατηγορίες cookies</h3><ul><li><strong>Απαραίτητα:</strong> Βασική λειτουργία ιστότοπου (privacy-pref)</li><li><strong>Λειτουργικά:</strong> Αποθήκευση προτιμήσεων γλώσσας (aidedcam-lang)</li><li><strong>Ανάλυσης:</strong> Google Analytics — ανώνυμα στατιστικά. Μόνο με τη συγκατάθεσή σας. (_ga, _gid, _gat)</li><li><strong>Διαφημιστικά:</strong> Δεν χρησιμοποιούνται αυτήν τη στιγμή.</li></ul><h3>4.4 Διαχείριση cookies</h3><p>Μπορείτε να διαχειριστείτε τις προτιμήσεις σας ανά πάσα στιγμή κάνοντας κλικ στο σύνδεσμο "Ρυθμίσεις Cookies" στο υποσέλιδο κάθε σελίδας. Μπορείτε επίσης να διαγράψετε τα cookies μέσω των ρυθμίσεων του προγράμματος περιήγησής σας.</p>',
+        'privacy.h_analytics': '5. Google Analytics',
+        'privacy.analytics_body': '<p>Χρησιμοποιούμε το Google Analytics 4 (GA4), μια υπηρεσία ανάλυσης ιστού της Google Ireland Limited (Gordon House, Barrow Street, Dublin 4, Ιρλανδία).</p><p>Το Google Analytics χρησιμοποιεί cookies για την ανάλυση της χρήσης του ιστότοπού μας. Τα δεδομένα που παράγονται μεταφέρονται σε servers της Google, που μπορεί να βρίσκονται εκτός ΕΕ/ΕΟΧ (ΗΠΑ). Η Google είναι πιστοποιημένη στο EU-US Data Privacy Framework.</p><p>Το Google Analytics φορτώνεται <strong>μόνο μετά τη ρητή συγκατάθεσή σας</strong>. Αν αρνηθείτε ή ανακαλέσετε τη συγκατάθεσή σας, δεν μεταδίδονται δεδομένα στη Google.</p><p>Περισσότερα: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Πολιτική Απορρήτου Google</a></p>',
+        'privacy.h_transfers': '6. Διαβίβαση δεδομένων σε τρίτες χώρες',
+        'privacy.transfers_body': '<p>Δεδομένα μπορεί να διαβιβαστούν στις ΗΠΑ μέσω Google Analytics (βλ. ενότητα 5). Η διαβίβαση βασίζεται στο EU-US Data Privacy Framework (απόφαση επάρκειας της Ευρωπαϊκής Επιτροπής C(2023) 4745).</p><p>Δεν πραγματοποιούμε άλλες διαβιβάσεις δεδομένων σε τρίτες χώρες.</p>',
+        'privacy.h_retention': '7. Χρόνος διατήρησης',
+        'privacy.retention_body': '<ul><li><strong>localStorage δεδομένα:</strong> Παραμένουν μέχρι να τα διαγράψετε εσείς.</li><li><strong>Google Analytics cookies:</strong> Μέχρι 2 χρόνια.</li><li><strong>Google Analytics δεδομένα:</strong> 14 μήνες.</li><li><strong>Email επικοινωνίας:</strong> Διατηρούνται για όσο χρόνο απαιτείται για την εξυπηρέτηση του αιτήματός σας.</li></ul>',
+        'privacy.h_rights': '8. Τα δικαιώματά σας',
+        'privacy.rights_body': '<p>Σύμφωνα με τον GDPR, έχετε τα ακόλουθα δικαιώματα:</p><ul><li><strong>Πρόσβαση (Άρθρο 15):</strong> Να μάθετε αν και ποια δεδομένα σας επεξεργαζόμαστε.</li><li><strong>Διόρθωση (Άρθρο 16):</strong> Να ζητήσετε διόρθωση ανακριβών δεδομένων.</li><li><strong>Διαγραφή (Άρθρο 17):</strong> Να ζητήσετε διαγραφή των δεδομένων σας.</li><li><strong>Περιορισμός (Άρθρο 18):</strong> Να ζητήσετε περιορισμό της επεξεργασίας.</li><li><strong>Φορητότητα (Άρθρο 20):</strong> Να λάβετε τα δεδομένα σας σε δομημένη μορφή.</li><li><strong>Εναντίωση (Άρθρο 21):</strong> Να αντιταχθείτε στην επεξεργασία.</li><li><strong>Ανάκληση συγκατάθεσης (Άρθρο 7(3)):</strong> Να ανακαλέσετε τη συγκατάθεσή σας ανά πάσα στιγμή.</li></ul><p>Για να ασκήσετε οποιοδήποτε δικαίωμα, επικοινωνήστε μαζί μας στο <a href="mailto:info@aidedcam.com">info@aidedcam.com</a>.</p>',
+        'privacy.h_authority': '9. Εποπτική αρχή',
+        'privacy.authority_body': '<p>Έχετε το δικαίωμα να υποβάλετε καταγγελία στην αρμόδια εποπτική αρχή:</p><p><strong>Αρχή Προστασίας Δεδομένων Προσωπικού Χαρακτήρα (ΑΠΔΠΧ)</strong><br>Κηφισίας 1-3, 11523 Αθήνα<br>Τηλέφωνο: +30 210 6475600<br>Website: <a href="https://www.dpa.gr" target="_blank" rel="noopener">www.dpa.gr</a></p>',
+        'privacy.h_changes': '10. Αλλαγές στην πολιτική',
+        'privacy.changes_body': '<p>Διατηρούμε το δικαίωμα να ενημερώνουμε αυτήν την πολιτική απορρήτου. Η ημερομηνία τελευταίας ενημέρωσης αναγράφεται στην αρχή της σελίδας. Σας συνιστούμε να ελέγχετε περιοδικά αυτήν τη σελίδα.</p>'
+      },
+      en: {
+        'privacy.title': 'Privacy & Cookie Policy',
+        'privacy.updated': 'Last updated: April 9, 2026',
+        'privacy.back_home': 'Home',
+        'privacy.legal_link': 'Legal Notice',
+        'privacy.h_controller': '1. Data Controller',
+        'privacy.controller_body': '<p>The data controller responsible for processing your personal data is:</p><p><strong>KOULOUSIS ARISTOTELIS L.P.</strong> (t/n AidedCAM)<br>Korinthias 7, 11526 Athens, Greece<br>Email: <a href="mailto:info@aidedcam.com">info@aidedcam.com</a><br>Phone: +30 6984680874<br>VAT ID: EL802853368 | GEMI: 183990708000</p><p>Legal representative: Aristotelis Koulousis</p>',
+        'privacy.h_data': '2. Data We Collect',
+        'privacy.data_body': '<h3>2.1 Browsing data (automatic)</h3><p>When you visit our website, the following data may be collected automatically:</p><ul><li>IP address (anonymized)</li><li>Browser type and version</li><li>Operating system</li><li>Pages visited, time spent</li><li>Referring URL</li></ul><p>This data is collected only via Google Analytics and <strong>only if you have given your consent</strong> through the cookie banner.</p><h3>2.2 Data you provide</h3><p>When using the ROI calculator or the "What You Gain" form, you may provide us with:</p><ul><li>Company name</li><li>Email address</li><li>CAD/CAM system you use</li></ul><p>This data is stored locally in your browser (localStorage) and sent as anonymous events to Google Analytics. It is not stored on our servers.</p><h3>2.3 Email communication</h3><p>If you send us an email at info@aidedcam.com, we process your email and any information you provide solely to respond to your request.</p>',
+        'privacy.h_basis': '3. Legal Basis for Processing',
+        'privacy.basis_body': '<ul><li><strong>Consent (Art. 6(1)(a) GDPR):</strong> For analytics cookies (Google Analytics). You can withdraw your consent at any time via the "Cookie Settings" link in the footer.</li><li><strong>Legitimate interest (Art. 6(1)(f) GDPR):</strong> For website operation, security, and optimization.</li><li><strong>Contract performance / pre-contractual measures (Art. 6(1)(b) GDPR):</strong> When you contact us about our services.</li></ul>',
+        'privacy.h_cookies': '4. Cookies & Storage Technologies',
+        'privacy.cookies_body': '<h3>4.1 What are cookies</h3><p>Cookies are small text files stored in your browser. Our website also uses localStorage, a browser storage technology.</p><h3>4.2 Cookies & storage we use</h3><table><tr><th>Name</th><th>Type</th><th>Purpose</th><th>Duration</th></tr><tr><td>privacy-pref</td><td>localStorage</td><td>Stores your cookie consent choice</td><td>Permanent</td></tr><tr><td>cookie-prefs</td><td>localStorage</td><td>Stores your granular cookie preferences</td><td>Permanent</td></tr><tr><td>aidedcam-lang</td><td>localStorage</td><td>Stores your language preference</td><td>Permanent</td></tr><tr><td>_ga, _ga_*</td><td>Cookie</td><td>Google Analytics — unique visitor identification</td><td>2 years</td></tr><tr><td>_gid</td><td>Cookie</td><td>Google Analytics — visitor identification (24h)</td><td>24 hours</td></tr><tr><td>_gat</td><td>Cookie</td><td>Google Analytics — request rate limiting</td><td>1 minute</td></tr></table><h3>4.3 Cookie categories</h3><ul><li><strong>Essential:</strong> Basic website functionality (privacy-pref)</li><li><strong>Functional:</strong> Language preference storage (aidedcam-lang)</li><li><strong>Analytics:</strong> Google Analytics — anonymous statistics. Only with your consent. (_ga, _gid, _gat)</li><li><strong>Marketing:</strong> Not currently used.</li></ul><h3>4.4 Managing cookies</h3><p>You can manage your preferences at any time by clicking the "Cookie Settings" link in the footer of every page. You can also delete cookies through your browser settings.</p>',
+        'privacy.h_analytics': '5. Google Analytics',
+        'privacy.analytics_body': '<p>We use Google Analytics 4 (GA4), a web analytics service provided by Google Ireland Limited (Gordon House, Barrow Street, Dublin 4, Ireland).</p><p>Google Analytics uses cookies to analyze your use of our website. The data generated is transferred to Google servers, which may be located outside the EU/EEA (USA). Google is certified under the EU-US Data Privacy Framework.</p><p>Google Analytics is loaded <strong>only after your explicit consent</strong>. If you decline or withdraw your consent, no data is transmitted to Google.</p><p>More information: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a></p>',
+        'privacy.h_transfers': '6. Data Transfers to Third Countries',
+        'privacy.transfers_body': '<p>Data may be transferred to the USA through Google Analytics (see section 5). The transfer is based on the EU-US Data Privacy Framework (European Commission adequacy decision C(2023) 4745).</p><p>We do not make any other data transfers to third countries.</p>',
+        'privacy.h_retention': '7. Data Retention',
+        'privacy.retention_body': '<ul><li><strong>localStorage data:</strong> Retained until you delete it.</li><li><strong>Google Analytics cookies:</strong> Up to 2 years.</li><li><strong>Google Analytics data:</strong> 14 months.</li><li><strong>Email communication:</strong> Retained for as long as necessary to handle your request.</li></ul>',
+        'privacy.h_rights': '8. Your Rights',
+        'privacy.rights_body': '<p>Under the GDPR, you have the following rights:</p><ul><li><strong>Access (Art. 15):</strong> Learn whether and what personal data we process about you.</li><li><strong>Rectification (Art. 16):</strong> Request correction of inaccurate data.</li><li><strong>Erasure (Art. 17):</strong> Request deletion of your data ("right to be forgotten").</li><li><strong>Restriction (Art. 18):</strong> Request restriction of processing.</li><li><strong>Portability (Art. 20):</strong> Receive your data in a structured format.</li><li><strong>Objection (Art. 21):</strong> Object to the processing.</li><li><strong>Withdraw consent (Art. 7(3)):</strong> Withdraw your consent at any time, without affecting the lawfulness of processing before withdrawal.</li></ul><p>To exercise any of these rights, contact us at <a href="mailto:info@aidedcam.com">info@aidedcam.com</a>.</p>',
+        'privacy.h_authority': '9. Supervisory Authority',
+        'privacy.authority_body': '<p>You have the right to lodge a complaint with the competent supervisory authority:</p><p><strong>Hellenic Data Protection Authority (HDPA)</strong><br>Kifisias 1-3, 11523 Athens, Greece<br>Phone: +30 210 6475600<br>Website: <a href="https://www.dpa.gr" target="_blank" rel="noopener">www.dpa.gr</a></p>',
+        'privacy.h_changes': '10. Changes to This Policy',
+        'privacy.changes_body': '<p>We reserve the right to update this privacy policy. The date of the last update is shown at the top of this page. We recommend checking this page periodically.</p>'
+      },
+      it: {
+        'privacy.title': 'Informativa sulla Privacy e sui Cookie',
+        'privacy.updated': 'Ultimo aggiornamento: 9 aprile 2026',
+        'privacy.back_home': 'Home',
+        'privacy.legal_link': 'Note Legali',
+        'privacy.h_controller': '1. Titolare del Trattamento',
+        'privacy.controller_body': '<p>Il titolare del trattamento dei dati personali \u00e8:</p><p><strong>KOULOUSIS ARISTOTELIS L.P.</strong> (nome commerciale: AidedCAM)<br>Korinthias 7, 11526 Atene, Grecia<br>Email: <a href="mailto:info@aidedcam.com">info@aidedcam.com</a><br>Telefono: +30 6984680874<br>P.IVA: EL802853368 | GEMI: 183990708000</p><p>Rappresentante legale: Aristotelis Koulousis</p>',
+        'privacy.h_data': '2. Dati che Raccogliamo',
+        'privacy.data_body': '<h3>2.1 Dati di navigazione (automatici)</h3><p>Durante la vostra visita, possono essere raccolti automaticamente:</p><ul><li>Indirizzo IP (anonimizzato)</li><li>Tipo e versione del browser</li><li>Sistema operativo</li><li>Pagine visitate, tempo di permanenza</li><li>URL di provenienza</li></ul><p>Questi dati vengono raccolti solo tramite Google Analytics e <strong>solo se avete dato il vostro consenso</strong> tramite il banner dei cookie.</p><h3>2.2 Dati forniti da voi</h3><p>Utilizzando il calcolatore ROI o il modulo "Cosa Guadagni", potete fornirci:</p><ul><li>Nome dell\'azienda</li><li>Indirizzo email</li><li>Sistema CAD/CAM utilizzato</li></ul><p>Questi dati vengono memorizzati localmente nel vostro browser (localStorage) e inviati come eventi anonimi a Google Analytics. Non vengono memorizzati sui nostri server.</p><h3>2.3 Comunicazione via email</h3><p>Se ci inviate un\'email a info@aidedcam.com, elaboriamo la vostra email e le informazioni fornite esclusivamente per rispondere alla vostra richiesta.</p>',
+        'privacy.h_basis': '3. Base Giuridica del Trattamento',
+        'privacy.basis_body': '<ul><li><strong>Consenso (Art. 6(1)(a) GDPR):</strong> Per i cookie di analisi (Google Analytics). Potete revocare il consenso in qualsiasi momento tramite il link "Impostazioni Cookie" nel footer.</li><li><strong>Interesse legittimo (Art. 6(1)(f) GDPR):</strong> Per il funzionamento, la sicurezza e l\'ottimizzazione del sito web.</li><li><strong>Esecuzione contrattuale / misure precontrattuali (Art. 6(1)(b) GDPR):</strong> Quando ci contattate per i nostri servizi.</li></ul>',
+        'privacy.h_cookies': '4. Cookie e Tecnologie di Archiviazione',
+        'privacy.cookies_body': '<h3>4.1 Cosa sono i cookie</h3><p>I cookie sono piccoli file di testo memorizzati nel vostro browser. Il nostro sito utilizza anche localStorage, una tecnologia di archiviazione del browser.</p><h3>4.2 Cookie e archiviazione che utilizziamo</h3><table><tr><th>Nome</th><th>Tipo</th><th>Scopo</th><th>Durata</th></tr><tr><td>privacy-pref</td><td>localStorage</td><td>Memorizza la vostra scelta sul consenso ai cookie</td><td>Permanente</td></tr><tr><td>cookie-prefs</td><td>localStorage</td><td>Memorizza le preferenze granulari sui cookie</td><td>Permanente</td></tr><tr><td>aidedcam-lang</td><td>localStorage</td><td>Memorizza la preferenza linguistica</td><td>Permanente</td></tr><tr><td>_ga, _ga_*</td><td>Cookie</td><td>Google Analytics \u2014 identificazione visitatori unici</td><td>2 anni</td></tr><tr><td>_gid</td><td>Cookie</td><td>Google Analytics \u2014 identificazione visitatori</td><td>24 ore</td></tr><tr><td>_gat</td><td>Cookie</td><td>Google Analytics \u2014 limitazione richieste</td><td>1 minuto</td></tr></table><h3>4.3 Categorie di cookie</h3><ul><li><strong>Essenziali:</strong> Funzionalit\u00e0 di base del sito (privacy-pref)</li><li><strong>Funzionali:</strong> Memorizzazione preferenza lingua (aidedcam-lang)</li><li><strong>Analitici:</strong> Google Analytics \u2014 statistiche anonime. Solo con il vostro consenso. (_ga, _gid, _gat)</li><li><strong>Marketing:</strong> Attualmente non utilizzati.</li></ul><h3>4.4 Gestione dei cookie</h3><p>Potete gestire le vostre preferenze in qualsiasi momento cliccando sul link "Impostazioni Cookie" nel footer di ogni pagina. Potete anche eliminare i cookie tramite le impostazioni del vostro browser.</p>',
+        'privacy.h_analytics': '5. Google Analytics',
+        'privacy.analytics_body': '<p>Utilizziamo Google Analytics 4 (GA4), un servizio di analisi web fornito da Google Ireland Limited (Gordon House, Barrow Street, Dublino 4, Irlanda).</p><p>Google Analytics utilizza i cookie per analizzare l\'utilizzo del nostro sito web. I dati generati vengono trasferiti ai server di Google, che possono trovarsi al di fuori dell\'UE/SEE (USA). Google \u00e8 certificata nell\'ambito del EU-US Data Privacy Framework.</p><p>Google Analytics viene caricato <strong>solo dopo il vostro esplicito consenso</strong>. Se rifiutate o revocate il consenso, nessun dato viene trasmesso a Google.</p><p>Maggiori informazioni: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Informativa sulla Privacy di Google</a></p>',
+        'privacy.h_transfers': '6. Trasferimento Dati verso Paesi Terzi',
+        'privacy.transfers_body': '<p>I dati possono essere trasferiti negli USA tramite Google Analytics (v. sezione 5). Il trasferimento si basa sul EU-US Data Privacy Framework (decisione di adeguatezza della Commissione Europea C(2023) 4745).</p><p>Non effettuiamo altri trasferimenti di dati verso paesi terzi.</p>',
+        'privacy.h_retention': '7. Periodo di Conservazione',
+        'privacy.retention_body': '<ul><li><strong>Dati localStorage:</strong> Conservati fino alla vostra cancellazione.</li><li><strong>Cookie Google Analytics:</strong> Fino a 2 anni.</li><li><strong>Dati Google Analytics:</strong> 14 mesi.</li><li><strong>Comunicazioni email:</strong> Conservate per il tempo necessario a gestire la vostra richiesta.</li></ul>',
+        'privacy.h_rights': '8. I Vostri Diritti',
+        'privacy.rights_body': '<p>Ai sensi del GDPR, avete i seguenti diritti:</p><ul><li><strong>Accesso (Art. 15):</strong> Sapere se e quali dati personali trattiamo su di voi.</li><li><strong>Rettifica (Art. 16):</strong> Richiedere la correzione di dati inesatti.</li><li><strong>Cancellazione (Art. 17):</strong> Richiedere la cancellazione dei vostri dati ("diritto all\'oblio").</li><li><strong>Limitazione (Art. 18):</strong> Richiedere la limitazione del trattamento.</li><li><strong>Portabilit\u00e0 (Art. 20):</strong> Ricevere i vostri dati in formato strutturato.</li><li><strong>Opposizione (Art. 21):</strong> Opporsi al trattamento.</li><li><strong>Revoca del consenso (Art. 7(3)):</strong> Revocare il consenso in qualsiasi momento, senza pregiudicare la liceit\u00e0 del trattamento precedente.</li></ul><p>Per esercitare qualsiasi diritto, contattateci all\'indirizzo <a href="mailto:info@aidedcam.com">info@aidedcam.com</a>.</p>',
+        'privacy.h_authority': '9. Autorit\u00e0 di Controllo',
+        'privacy.authority_body': '<p>Avete il diritto di presentare un reclamo all\'autorit\u00e0 di controllo competente:</p><p><strong>Autorit\u00e0 Ellenica per la Protezione dei Dati Personali (HDPA)</strong><br>Kifisias 1-3, 11523 Atene, Grecia<br>Telefono: +30 210 6475600<br>Sito web: <a href="https://www.dpa.gr" target="_blank" rel="noopener">www.dpa.gr</a></p>',
+        'privacy.h_changes': '10. Modifiche alla Presente Informativa',
+        'privacy.changes_body': '<p>Ci riserviamo il diritto di aggiornare la presente informativa sulla privacy. La data dell\'ultimo aggiornamento \u00e8 indicata in cima alla pagina. Vi consigliamo di controllare periodicamente questa pagina.</p>'
+      }
+    };
+
+    function setLanguage(lang) {
+      localStorage.setItem('aidedcam-lang', lang);
+      document.documentElement.lang = lang;
+      var titles = { el: 'AidedCAM - Πολιτική Απορρήτου', en: 'AidedCAM - Privacy Policy', it: 'AidedCAM - Informativa Privacy' };
+      document.title = titles[lang] || titles.el;
+      // Apply text translations
+      document.querySelectorAll('[data-i18n]').forEach(function(el) {
+        var key = el.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key]) {
+          el.textContent = translations[lang][key];
+        }
+      });
+      // Apply HTML translations
+      document.querySelectorAll('[data-i18n-html]').forEach(function(el) {
+        var key = el.getAttribute('data-i18n-html');
+        if (translations[lang] && translations[lang][key]) {
+          el.innerHTML = translations[lang][key];
+        }
+      });
+      // Update lang buttons
+      document.querySelectorAll('.lang-btn').forEach(function(btn) {
+        btn.classList.toggle('active', btn.textContent.trim().toLowerCase() === lang);
+      });
+    }
+
+    // Detect language
+    (function() {
+      var lang = localStorage.getItem('aidedcam-lang');
+      if (!lang) {
+        var urlParams = new URLSearchParams(window.location.search);
+        lang = urlParams.get('lang');
+      }
+      if (!lang) {
+        var browserLang = (navigator.language || navigator.userLanguage || '').substring(0, 2).toLowerCase();
+        lang = (browserLang === 'el') ? 'el' : (browserLang === 'it') ? 'it' : 'en';
+      }
+      if (!['el', 'en', 'it'].includes(lang)) lang = 'el';
+      setLanguage(lang);
+    })();
+  </script>
+</body>
+</html>

@@ -2038,13 +2038,12 @@
       var fp = calcFingerprint();
       if (fp === lastSentFingerprint) return;
 
-      // Convert FormData to JSON string — sendBeacon with Blob gives us control over Content-Type
+      // Use URLSearchParams — sendBeacon only works without CORS preflight (no application/json)
       var fd = buildCalcPayload('roi_calculator_auto');
-      var obj = {};
-      fd.forEach(function(value, key) { obj[key] = value; });
-      var blob = new Blob([JSON.stringify(obj)], { type: 'application/json' });
-      navigator.sendBeacon('https://formspree.io/f/xaqllyao', blob);
-      markFingerprint();
+      var params = new URLSearchParams();
+      fd.forEach(function(value, key) { params.append(key, value); });
+      var sent = navigator.sendBeacon('https://formspree.io/f/xaqllyao', params);
+      if (sent) markFingerprint();
     }
 
     // visibilitychange is the most reliable event for tab close / switch / minimize

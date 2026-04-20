@@ -153,9 +153,9 @@
 
   /* ── Panel spacers ── Each drives the camera to the next zoom ── */
   .tm-root .panels{ position: relative; z-index: 2; }
-  .tm-root .panel{ height: 100vh; position: relative; }
-  /* Extra tall for the mosaic zoom panel to slow it down */
-  .tm-root .panel.deep{ height: 120vh; }
+  .tm-root .panel{ height: 55vh; position: relative; }
+  /* Slightly deeper for the mosaic zoom panel so the camera move has room */
+  .tm-root .panel.deep{ height: 70vh; }
 
   /* ── Questions panel: three big cards, not a logo ── */
   .tm-root .questions{
@@ -356,4 +356,14 @@
 /* Push content under the site's 90px navbar so it isn't clipped on desktop. */
 @media (min-width: 769px) {
   .tm-root .stage-wrap { padding-top: 90px; box-sizing: border-box; }
+}
+
+/* Anchor prose to the upper area of the stage instead of vertically centering
+   it. The longer panels (e.g. "System") otherwise overflow into the lower
+   viewport and the final paragraph gets cut off before the next panel swaps. */
+@media (min-width: 901px) {
+  .tm-root .stage-wrap .prose {
+    align-items: flex-start;
+    padding-top: 13vh;
+  }
 }

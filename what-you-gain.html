@@ -45,7 +45,7 @@
       --border: #ebebeb;
       --shadow: rgba(13, 122, 62, 0.13);
       --shadow-strong: rgba(13, 122, 62, 0.25);
-      --font-display: 'Exo 2', 'Barlow', sans-serif;
+      --font-display: 'Barlow', sans-serif;
       --font-body: 'Barlow', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
       --red: #c0392b;
@@ -153,9 +153,11 @@
 
     .gate-title {
       font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2rem);
-      font-weight: 800; color: white; line-height: 1.3;
-      margin-bottom: 0.8rem; letter-spacing: -0.3px;
+      font-weight: 300; color: white; line-height: 1.25;
+      margin-bottom: 0.8rem; letter-spacing: -0.03em;
     }
+    .gate-title .hl,
+    .gate-title strong { color: var(--accent-bright); font-weight: 700; }
 
     .gate-subtitle {
       font-size: 0.95rem; color: rgba(255,255,255,0.6);
@@ -287,10 +289,11 @@
 
     .roi-hero h1 {
       font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 2.6rem);
-      font-weight: 800; color: white; line-height: 1.4;
-      margin-bottom: 1.2rem; letter-spacing: -0.3px;
+      font-weight: 300; color: white; line-height: 1.3;
+      margin-bottom: 1.2rem; letter-spacing: -0.03em;
     }
-    .roi-hero h1 .hl { color: var(--accent-bright); }
+    .roi-hero h1 .hl,
+    .roi-hero h1 strong { color: var(--accent-bright); font-weight: 700; }
 
     .roi-hero .tagline {
       font-size: 1.1rem; color: rgba(255,255,255,0.6);
@@ -533,10 +536,12 @@
     .roi-closing h2 {
       font-family: var(--font-display);
       font-size: clamp(1.8rem, 3.5vw, 2.4rem);
-      font-weight: 800; color: var(--text-dark);
-      font-style: italic; line-height: 1.5;
+      font-weight: 300; color: var(--text-dark);
+      font-style: italic; line-height: 1.4;
+      letter-spacing: -0.025em;
       max-width: 600px; margin: 0 auto 2rem;
     }
+    .roi-closing h2 strong { font-weight: 700; color: var(--primary); font-style: normal; }
     .roi-closing .cta-btn {
       display: inline-flex; align-items: center; gap: 0.5rem;
       padding: 0.85rem 2.2rem; background: var(--accent); color: white;

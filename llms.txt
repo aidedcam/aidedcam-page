@@ -25,7 +25,7 @@
 5. Training and support - onboard the team
 
 ## Key Facts
-- Up to 70% reduction in production preparation time
+- Up to 85% reduction in production preparation time
 - Active in 5+ countries
 - 100% custom-built solutions
 - Zero dependency on individual operators

@@ -154,6 +154,10 @@
   /* ── Panel spacers ── Each drives the camera to the next zoom ── */
   .tm-root .panels{ position: relative; z-index: 2; }
   .tm-root .panel{ height: 55vh; position: relative; }
+  /* First panel is shorter — the stage-wrap already contributes 100vh of
+     flow before .panels starts, so without this the "Thesis → Task" jump
+     feels longer than the other transitions. */
+  .tm-root .panel[data-panel="0"]{ height: 30vh; }
   /* Slightly deeper for the mosaic zoom panel so the camera move has room */
   .tm-root .panel.deep{ height: 70vh; }
 

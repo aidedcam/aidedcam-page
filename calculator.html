@@ -1303,6 +1303,8 @@
     };
 
     // ===== I18N ENGINE =====
+    var localeMap = { el: 'el-GR', en: 'en-IE', it: 'it-IT' };
+    var currencyFormatter = null;
     var currentLang = 'el';
 
     function T(key) {
@@ -1358,6 +1360,13 @@
         setLanguage(btn.getAttribute('data-lang'));
       });
     });
+
+    // Prevent number inputs from hijacking page scroll
+    document.addEventListener('wheel', function(e) {
+      if (document.activeElement && document.activeElement.type === 'number') {
+        document.activeElement.blur();
+      }
+    }, { passive: true });
 
     // ===== NAVBAR SCROLL =====
     window.addEventListener('scroll', function() {
@@ -1899,9 +1908,6 @@
     }
 
     // ===== CURRENCY FORMATTING =====
-    var localeMap = { el: 'el-GR', en: 'en-IE', it: 'it-IT' };
-    var currencyFormatter = null;
-
     function updateCurrencyFormatter() {
       var locale = localeMap[currentLang] || 'el-GR';
       currencyFormatter = new Intl.NumberFormat(locale, {

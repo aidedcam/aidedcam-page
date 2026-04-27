@@ -837,7 +837,7 @@
       <h1 class="gate-title" data-i18n-html="calc.gate_title">Υπολογίστε πόσο <span class="hl">εξοικονομείτε</span></h1>
       <p class="gate-subtitle" data-i18n="calc.gate_subtitle">Συμπληρώστε τα παρακάτω για να δείτε τα αποτελέσματα.</p>
 
-      <form id="calcForm" action="https://formspree.io/f/xaqllyao" method="POST">
+      <form id="calcForm" action="#" method="POST">
         <input type="hidden" name="_source" value="roi_calculator" />
 
         <div class="form-group">
@@ -1399,10 +1399,12 @@
     });
 
     // ===== FORM SUBMISSION =====
+    var FORMSPREE_URL = 'https://formspree.io/f/xaqllyao';
     var calcForm = document.getElementById('calcForm');
 
     calcForm.addEventListener('submit', function(e) {
       e.preventDefault();
+      e.stopPropagation();
       var btn = calcForm.querySelector('.form-submit');
       btn.disabled = true;
       btn.textContent = '...';
@@ -1410,7 +1412,7 @@
       var formData = new FormData(calcForm);
       storeLeadData({ company: formData.get('company') || '', email: formData.get('email') || '', systems: formData.get('systems') || '', source: 'calculator', timestamp: Date.now() });
 
-      fetch(calcForm.action, {
+      fetch(FORMSPREE_URL, {
         method: 'POST',
         body: formData,
         headers: { 'Accept': 'application/json' }

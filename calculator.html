@@ -1346,14 +1346,17 @@
       if (typeof updateErrorSummary === 'function') updateErrorSummary();
     }
 
-    // Init language
-    var urlLangParam = new URLSearchParams(window.location.search).get('lang');
-    var urlLang = (urlLangParam && translations[urlLangParam]) ? urlLangParam : null;
-    var savedLang = localStorage.getItem('aidedcam-lang');
-    var browserLangCode = navigator.language ? navigator.language.substring(0, 2) : 'el';
-    var browserLang = browserLangCode === 'el' ? 'el' : browserLangCode === 'it' ? 'it' : 'en';
-    currentLang = urlLang || savedLang || browserLang;
-    if (currentLang !== 'el') setLanguage(currentLang);
+    // Init language — wrapped so a failure here never kills pill/form handlers below
+    try {
+      var urlLangParam = new URLSearchParams(window.location.search).get('lang');
+      var urlLang = (urlLangParam && translations[urlLangParam]) ? urlLangParam : null;
+      var savedLang = localStorage.getItem('aidedcam-lang');
+      if (savedLang && !translations[savedLang]) savedLang = null;
+      var browserLangCode = navigator.language ? navigator.language.substring(0, 2) : 'el';
+      var browserLang = browserLangCode === 'el' ? 'el' : browserLangCode === 'it' ? 'it' : 'en';
+      currentLang = urlLang || savedLang || browserLang;
+      if (currentLang !== 'el') setLanguage(currentLang);
+    } catch(e) { console.error('i18n init:', e); }
 
     document.querySelectorAll('.lang-btn').forEach(function(btn) {
       btn.addEventListener('click', function() {

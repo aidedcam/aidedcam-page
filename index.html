@@ -462,12 +462,12 @@
     /* ===== CONSENT BANNER ===== */
     .consent-banner {
       position: fixed; bottom: 0; left: 0; right: 0;
-      height: 33.34vh;
+      min-height: 33.34vh;
       background: var(--primary-dark);
       z-index: 9999; display: none;
       box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.3);
     }
-    .consent-banner.visible { display: flex; align-items: center; justify-content: center; }
+    .consent-banner.visible { display: flex; align-items: center; justify-content: center; flex-direction: column; }
     .consent-inner {
       max-width: 1400px; width: 100%;
       padding: 1.5rem 3rem;
@@ -3616,7 +3616,7 @@
             </label>
           </div>
           <div class="consent-cat">
-            <input type="checkbox" id="cookieAnalytics">
+            <input type="checkbox" id="cookieAnalytics" checked>
             <label for="cookieAnalytics">
               <span class="consent-cat-name" data-i18n="cookie_cat_analytics">Ανάλυση επισκεψιμότητας</span>
               <span class="consent-cat-desc" data-i18n="cookie_cat_analytics_desc">Google Analytics — ανώνυμα στατιστικά</span>
@@ -3649,9 +3649,11 @@
       // Load saved prefs into checkboxes
       function loadPrefs() {
         try {
-          var prefs = JSON.parse(localStorage.getItem('cookie-prefs') || '{}');
+          var raw = localStorage.getItem('cookie-prefs');
+          if (!raw) { analyticsCheckbox.checked = true; return; }
+          var prefs = JSON.parse(raw);
           analyticsCheckbox.checked = !!prefs.analytics;
-        } catch(e) { analyticsCheckbox.checked = false; }
+        } catch(e) { analyticsCheckbox.checked = true; }
       }
 
       // Show banner if no preference set

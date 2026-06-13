@@ -48,6 +48,21 @@
       --font-display: 'Barlow', sans-serif;
       --font-body: 'Barlow', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
+      --mint: #7ee8a4;
+      --gradient-hero: linear-gradient(135deg, #06120c 0%, #0b3220 52%, #0f4a2b 100%);
+      --gradient-dark: linear-gradient(74deg, #0a1a10 0%, #0d5a30 100%);
+      --gradient-emerald: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 60%, var(--mint) 100%);
+      --gradient-text: linear-gradient(92deg, var(--accent-light) 0%, var(--mint) 100%);
+      --gradient-sheen: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.18) 50%, transparent 100%);
+      --mesh-dark: radial-gradient(40% 55% at 18% 22%, rgba(61,179,101,.22) 0%, transparent 60%), radial-gradient(45% 50% at 85% 18%, rgba(126,232,164,.14) 0%, transparent 55%), radial-gradient(55% 60% at 70% 95%, rgba(13,122,62,.30) 0%, transparent 60%);
+      --grid-dark: linear-gradient(rgba(126,232,164,.05) 1px, transparent 1px) 0 0 / 46px 46px, linear-gradient(90deg, rgba(126,232,164,.05) 1px, transparent 1px) 0 0 / 46px 46px;
+      --grid-light: linear-gradient(rgba(13,122,62,.045) 1px, transparent 1px) 0 0 / 44px 44px, linear-gradient(90deg, rgba(13,122,62,.045) 1px, transparent 1px) 0 0 / 44px 44px;
+      --glow-soft: 0 0 24px rgba(61,179,101,.28);
+      --elev-1: 0 2px 8px rgba(8,30,18,.06), 0 8px 24px rgba(8,30,18,.06);
+      --elev-2: 0 6px 18px rgba(8,30,18,.10), 0 18px 50px rgba(8,30,18,.10);
+      --elev-3: 0 20px 60px rgba(8,30,18,.18);
+      --ic-arrow-r: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h13M12 5l7 7-7 7'/%3E%3C/svg%3E");
+      --ic-arrow-l: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19 12H6M12 5l-7 7 7 7'/%3E%3C/svg%3E");
       --red: #c0392b;
       --red-bg: rgba(192, 57, 43, 0.06);
       --red-border: rgba(192, 57, 43, 0.12);
@@ -106,6 +121,26 @@
     }
     .nav-back:hover { color: var(--accent); }
 
+    /* ── Icon arrows (replace text-glyph arrows) ── */
+    .nav-back { display: inline-flex; align-items: center; gap: 0.4rem; }
+    .nav-back::before {
+      content: ''; width: 1.05em; height: 1.05em; flex: none;
+      background-color: currentColor;
+      -webkit-mask: var(--ic-arrow-l) center / contain no-repeat;
+              mask: var(--ic-arrow-l) center / contain no-repeat;
+      transition: transform 0.3s ease;
+    }
+    .nav-back:hover::before { transform: translateX(-3px); }
+    .form-submit { display: inline-flex; align-items: center; justify-content: center; gap: 0.55rem; }
+    .form-submit::after, .closing-cta::after {
+      content: ''; width: 1.05em; height: 1.05em; flex: none;
+      background-color: currentColor;
+      -webkit-mask: var(--ic-arrow-r) center / contain no-repeat;
+              mask: var(--ic-arrow-r) center / contain no-repeat;
+      transition: transform 0.3s ease;
+    }
+    .form-submit:hover::after, .closing-cta:hover::after { transform: translateX(3px); }
+
     .lang-switcher { display: flex; gap: 0.3rem; }
     .lang-btn {
       background: none; border: 1px solid var(--border); padding: 0.3rem 0.6rem;
@@ -122,7 +157,7 @@
     .gate-section {
       min-height: calc(100vh - 70px);
       display: flex; align-items: center; justify-content: center;
-      background: linear-gradient(74deg, #0a1a10 0%, #0d5a30 100%);
+      background: var(--grid-dark), var(--mesh-dark), var(--gradient-hero);
       padding: 80px 2rem;
       position: relative; overflow: hidden;
     }
@@ -139,16 +174,24 @@
     .gate-card {
       position: relative; z-index: 1;
       max-width: 520px; width: 100%;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 20px; padding: 3rem;
-      backdrop-filter: blur(10px);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(126,232,164,.16);
+      border-radius: 24px; padding: 3rem;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 30px 70px rgba(2,10,6,.45), inset 0 1px 0 rgba(255,255,255,.06);
     }
 
     .gate-badge {
-      font-family: var(--font-display); font-size: 0.75rem;
-      color: var(--accent-bright); text-transform: uppercase;
-      letter-spacing: 4px; font-weight: 800; margin-bottom: 1.5rem;
+      display: inline-flex; align-items: center; gap: .55rem;
+      padding: .45rem 1rem; border-radius: 50px;
+      background: rgba(126,232,164,.08); border: 1px solid rgba(126,232,164,.22);
+      font-family: var(--font-display); font-size: 0.7rem;
+      color: var(--mint); text-transform: uppercase;
+      letter-spacing: 3px; font-weight: 800; margin-bottom: 1.5rem;
+    }
+    .gate-badge::before {
+      content: ''; width: 7px; height: 7px; border-radius: 50%;
+      background: var(--mint); box-shadow: 0 0 10px var(--mint);
     }
 
     .gate-title {
@@ -157,7 +200,11 @@
       margin-bottom: 0.8rem; letter-spacing: -0.03em;
     }
     .gate-title .hl,
-    .gate-title strong { color: var(--accent-bright); font-weight: 700; }
+    .gate-title strong {
+      font-weight: 700;
+      background: var(--gradient-text); -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; color: var(--accent-bright);
+    }
 
     .gate-subtitle {
       font-size: 0.95rem; color: rgba(255,255,255,0.6);
@@ -208,17 +255,19 @@
     .system-other-input.visible { display: block; }
 
     .form-submit {
-      width: 100%; padding: 0.85rem; margin-top: 0.5rem;
-      background: var(--accent); color: white; border: none;
+      width: 100%; padding: 0.95rem; margin-top: 0.5rem;
+      background: var(--gradient-emerald); background-size: 160% 160%;
+      color: white; border: none;
       border-radius: 50px; font-family: var(--font-display);
       font-weight: 700; font-size: 0.8rem; text-transform: uppercase;
       letter-spacing: 2px; cursor: pointer;
-      transition: all 0.3s ease;
+      box-shadow: 0 8px 22px rgba(13,122,62,.32);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background-position 0.5s ease;
     }
     .form-submit:hover {
-      background: var(--accent-light);
+      background-position: 100% 0;
       transform: translateY(-2px);
-      box-shadow: 0 8px 25px var(--shadow-strong);
+      box-shadow: 0 12px 32px rgba(13,122,62,.45), var(--glow-soft);
     }
     .form-submit:disabled {
       opacity: 0.5; cursor: not-allowed; transform: none;
@@ -240,11 +289,10 @@
     .calc-header {
       text-align: center;
       padding: 60px 2rem 40px;
-      background: var(--bg-light);
-      background-image:
-        linear-gradient(rgba(13,122,62,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(13,122,62,0.04) 1px, transparent 1px);
-      background-size: 40px 40px;
+      background: var(--grid-light),
+        radial-gradient(ellipse at 50% -10%, rgba(61,179,101,0.12) 0%, transparent 60%),
+        var(--bg-light);
+      position: relative;
     }
     .calc-header .badge {
       font-family: var(--font-display); font-size: 0.75rem;
@@ -257,7 +305,11 @@
       margin-bottom: 0.8rem; letter-spacing: -0.03em;
     }
     .calc-header h1 .hl,
-    .calc-header h1 strong { font-weight: 700; color: var(--primary); }
+    .calc-header h1 strong {
+      font-weight: 700;
+      background: var(--gradient-text); -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; color: var(--primary);
+    }
     .calc-header .subtitle {
       font-size: 1rem; color: var(--text-gray); font-weight: 500;
       margin-bottom: 1.2rem;
@@ -281,11 +333,7 @@
     /* ===== CALCULATOR LAYOUT ===== */
     .calc-body {
       padding: 40px 2rem 60px;
-      background: var(--bg-light);
-      background-image:
-        linear-gradient(rgba(13,122,62,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(13,122,62,0.04) 1px, transparent 1px);
-      background-size: 40px 40px;
+      background: var(--grid-light), var(--bg-light);
     }
     .calc-layout {
       max-width: 1100px; margin: 0 auto;
@@ -299,14 +347,28 @@
 
     /* ===== INPUT CARDS ===== */
     .calc-card {
-      background: var(--white);
+      background: linear-gradient(160deg, #ffffff 0%, #f3f9f5 100%);
       border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 1.5rem;
+      border-radius: 18px;
+      padding: 1.6rem;
       margin-bottom: 1.5rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--elev-1);
+      transition: box-shadow 0.3s ease, border-color 0.3s ease;
     }
+    .calc-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: var(--gradient-emerald);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.35s ease;
+    }
+    .calc-card:hover { box-shadow: var(--elev-2); }
+    .calc-card:hover::before { transform: scaleX(1); }
     .calc-card.green-border { border-color: rgba(13,122,62,0.2); }
     .calc-card.red-border { border-color: var(--red-border); }
+    .calc-card.red-border::before { background: linear-gradient(135deg, var(--red), #e07a6e); }
 
     .calc-card-header {
       display: flex; justify-content: space-between; align-items: center;
@@ -436,10 +498,11 @@
 
     /* Hero result card */
     .result-hero {
-      background: linear-gradient(135deg, rgba(192,57,43,0.06) 0%, rgba(192,57,43,0.12) 100%);
-      border: 1px solid var(--red-border);
-      border-radius: 16px; padding: 1.5rem;
+      background: linear-gradient(135deg, rgba(192,57,43,0.08) 0%, rgba(192,57,43,0.16) 100%);
+      border: 1px solid rgba(192,57,43,0.25);
+      border-radius: 18px; padding: 1.7rem 1.5rem;
       text-align: center;
+      box-shadow: 0 10px 30px rgba(192,57,43,0.14), inset 0 1px 0 rgba(255,255,255,0.5);
     }
     .result-hero .rh-label {
       font-family: var(--font-display); font-size: 0.7rem;
@@ -448,9 +511,13 @@
       margin-bottom: 0.8rem;
     }
     .result-hero .rh-amount {
-      font-family: var(--font-mono); font-size: clamp(1.8rem, 4vw, 2.4rem);
-      font-weight: 800; color: var(--red); line-height: 1.2;
+      font-family: var(--font-mono); font-size: clamp(2rem, 4.4vw, 2.7rem);
+      font-weight: 800; line-height: 1.2;
       margin-bottom: 0.4rem;
+      background: linear-gradient(135deg, #e74c3c 0%, var(--red) 100%);
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; color: var(--red);
+      text-shadow: 0 0 30px rgba(192,57,43,0.18);
     }
     .result-hero .rh-daily {
       font-size: 0.8rem; color: var(--text-gray); font-weight: 600;
@@ -461,9 +528,10 @@
 
     /* Breakdown card */
     .result-breakdown {
-      background: var(--white);
+      background: linear-gradient(160deg, #ffffff 0%, #f3f9f5 100%);
       border: 1px solid var(--border);
-      border-radius: 14px; padding: 1.2rem;
+      border-radius: 16px; padding: 1.3rem;
+      box-shadow: var(--elev-1);
     }
     .breakdown-row {
       display: flex; justify-content: space-between; align-items: flex-start;
@@ -484,9 +552,10 @@
 
     /* Bar charts for per-item costs */
     .result-bars {
-      background: var(--white);
+      background: linear-gradient(160deg, #ffffff 0%, #f3f9f5 100%);
       border: 1px solid var(--border);
-      border-radius: 14px; padding: 1.2rem;
+      border-radius: 16px; padding: 1.3rem;
+      box-shadow: var(--elev-1);
     }
     .result-bars-title {
       font-family: var(--font-display); font-size: 0.75rem;
@@ -516,9 +585,10 @@
 
     /* Receipt card */
     .result-receipt {
-      background: var(--white);
+      background: linear-gradient(160deg, #ffffff 0%, #f3f9f5 100%);
       border: 1px solid var(--border);
-      border-radius: 14px; padding: 1.2rem;
+      border-radius: 16px; padding: 1.3rem;
+      box-shadow: var(--elev-1);
       font-family: var(--font-mono);
     }
     .receipt-title {
@@ -688,15 +758,19 @@
     .calc-closing h2 strong { font-weight: 700; color: var(--primary); font-style: normal; }
     .closing-cta {
       display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.85rem 2.2rem; background: var(--accent); color: white;
+      padding: 0.95rem 2.3rem;
+      background: var(--gradient-emerald); background-size: 160% 160%;
+      color: white;
       text-decoration: none; font-family: var(--font-display);
       font-weight: 700; font-size: 0.75rem; border-radius: 50px;
-      transition: all 0.3s ease; border: 2px solid var(--accent);
+      border: none;
+      box-shadow: 0 8px 22px rgba(13,122,62,.32);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background-position 0.5s ease;
       text-transform: uppercase; letter-spacing: 2px;
     }
     .closing-cta:hover {
-      background: var(--accent-light); border-color: var(--accent-light);
-      transform: translateY(-2px); box-shadow: 0 8px 25px var(--shadow-strong);
+      background-position: 100% 0;
+      transform: translateY(-2px); box-shadow: 0 12px 32px rgba(13,122,62,.45), var(--glow-soft);
     }
 
     /* ===== RESPONSIVE ===== */
@@ -820,7 +894,7 @@
         <span>AIDEDCAM</span>
       </a>
       <div class="nav-right">
-        <a href="/" class="nav-back" data-i18n="calc.back">&larr; Αρχική</a>
+        <a href="/" class="nav-back" data-i18n="calc.back">Αρχική</a>
         <div class="lang-switcher">
           <button class="lang-btn active" data-lang="el">EL</button>
           <button class="lang-btn" data-lang="en">EN</button>
@@ -867,7 +941,7 @@
           <input type="hidden" name="systems" id="systemsHidden" />
         </div>
 
-        <button type="submit" class="form-submit" data-i18n-html="calc.gate_submit">Υπολογίστε &rarr;</button>
+        <button type="submit" class="form-submit" data-i18n-html="calc.gate_submit">Υπολογίστε</button>
         <p class="form-note" data-i18n="calc.gate_note">Δεν απαιτείται δέσμευση. Τα στοιχεία σας είναι ασφαλή.</p>
       </form>
     </div>
@@ -961,7 +1035,7 @@
     <!-- CLOSING CTA -->
     <section class="calc-closing">
       <h2 data-i18n="calc.closing">Θέλετε να δείτε αναλυτικά τι κερδίζετε;</h2>
-      <a href="what-you-gain.html" class="closing-cta" data-i18n="calc.roi_crosslink">Δείτε αναλυτικά τι κερδίζετε &rarr;</a>
+      <a href="what-you-gain.html" class="closing-cta" data-i18n="calc.roi_crosslink">Δείτε αναλυτικά τι κερδίζετε</a>
     </section>
 
     <!-- PRINT FOOTER (visible only in print) -->
@@ -1037,7 +1111,7 @@
     // ===== TRANSLATIONS =====
     var translations = {
       el: {
-        'calc.back': '\u2190 Αρχική',
+        'calc.back': 'Αρχική',
         'calc.gate_title': 'Υπολογίστε πόσο <span class="hl">εξοικονομείτε</span>',
         'calc.gate_subtitle': 'Συμπληρώστε τα παρακάτω για να δείτε τα αποτελέσματα.',
         'calc.gate_company': 'Επωνυμία εταιρείας <span class="required">*</span>',
@@ -1046,7 +1120,7 @@
         'calc.gate_system': 'CAD/CAM System',
         'calc.gate_other': 'Άλλο',
         'calc.gate_ph_other': 'Γράψτε το σύστημά σας...',
-        'calc.gate_submit': 'Υπολογίστε &rarr;',
+        'calc.gate_submit': 'Υπολογίστε',
         'calc.gate_note': 'Δεν απαιτείται δέσμευση. Τα στοιχεία σας είναι ασφαλή.',
         'calc.title': 'Πόσο σας κοστίζει η μη αυτοματοποίηση;',
         'calc.subtitle': 'Προσθέστε τις διαδικασίες σας και δείτε τι χάνετε \u2014 κάθε μέρα.',
@@ -1102,7 +1176,7 @@
         'calc.btn_save_done': 'Αποθηκεύτηκε!',
         'calc.btn_pdf': 'Εκτύπωση',
         'calc.closing': 'Θέλετε να δείτε αναλυτικά τι κερδίζετε;',
-        'calc.roi_crosslink': 'Δείτε αναλυτικά τι κερδίζετε \u2192',
+        'calc.roi_crosslink': 'Δείτε αναλυτικά τι κερδίζετε',
         'cookie_text': 'Αυτός ο ιστότοπος χρησιμοποιεί cookies για τη βελτιστοποίηση της λειτουργίας του και την ανάλυση επισκεψιμότητας.',
         'cookie_accept': 'Αποδοχή',
         'cookie_decline': 'Απόρριψη',
@@ -1125,7 +1199,7 @@
         '_title': 'AidedCAM - Υπολογιστής ROI'
       },
       en: {
-        'calc.back': '\u2190 Home',
+        'calc.back': 'Home',
         'calc.gate_title': 'Calculate how much you <span class="hl">save</span>',
         'calc.gate_subtitle': 'Fill in the details below to see your results.',
         'calc.gate_company': 'Company name <span class="required">*</span>',
@@ -1134,7 +1208,7 @@
         'calc.gate_system': 'CAD/CAM System',
         'calc.gate_other': 'Other',
         'calc.gate_ph_other': 'Type your system...',
-        'calc.gate_submit': 'Calculate &rarr;',
+        'calc.gate_submit': 'Calculate',
         'calc.gate_note': 'No commitment required. Your data is safe.',
         'calc.title': 'How much does not automating cost you?',
         'calc.subtitle': 'Add your processes and see what you lose \u2014 every day.',
@@ -1190,7 +1264,7 @@
         'calc.btn_save_done': 'Saved!',
         'calc.btn_pdf': 'Print',
         'calc.closing': 'Want to see what else you gain?',
-        'calc.roi_crosslink': 'See what you gain in detail \u2192',
+        'calc.roi_crosslink': 'See what you gain in detail',
         'cookie_text': 'This website uses cookies to optimize functionality and analyze traffic.',
         'cookie_accept': 'Accept',
         'cookie_decline': 'Decline',
@@ -1213,7 +1287,7 @@
         '_title': 'AidedCAM - ROI Calculator'
       },
       it: {
-        'calc.back': '\u2190 Home',
+        'calc.back': 'Home',
         'calc.gate_title': 'Calcolate quanto <span class="hl">risparmiate</span>',
         'calc.gate_subtitle': 'Compilate i dati qui sotto per vedere i risultati.',
         'calc.gate_company': 'Nome azienda <span class="required">*</span>',
@@ -1222,7 +1296,7 @@
         'calc.gate_system': 'Sistema CAD/CAM',
         'calc.gate_other': 'Altro',
         'calc.gate_ph_other': 'Scrivi il tuo sistema...',
-        'calc.gate_submit': 'Calcola &rarr;',
+        'calc.gate_submit': 'Calcola',
         'calc.gate_note': 'Nessun impegno richiesto. I vostri dati sono al sicuro.',
         'calc.title': 'Quanto vi costa non automatizzare?',
         'calc.subtitle': 'Aggiungete i vostri processi e vedete cosa perdete \u2014 ogni giorno.',
@@ -1278,7 +1352,7 @@
         'calc.btn_save_done': 'Salvato!',
         'calc.btn_pdf': 'Stampa',
         'calc.closing': 'Volete vedere cos\'altro guadagnate?',
-        'calc.roi_crosslink': 'Scoprite cosa guadagnate in dettaglio \u2192',
+        'calc.roi_crosslink': 'Scoprite cosa guadagnate in dettaglio',
         'cookie_text': 'Questo sito web utilizza i cookie per ottimizzare le sue funzionalit\u00e0 e analizzare il traffico.',
         'cookie_accept': 'Accetta',
         'cookie_decline': 'Rifiuta',

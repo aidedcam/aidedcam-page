@@ -1,266 +1,24 @@
-.tm-root{
-    --mint: #f0f7f2;
-    --ink: #0f1412;
-    --muted: #5a6a61;
-    --faint: #c8d7ce;
-    --ghost: #d6e3db;
-    --line: #b8c9bf;
-    --green: #3a9b6b;
-    --green-dark: #256b48;
-    --green-deep: #163f2c;
-    --paper: #f7faf6;
-  }
-  .tm-root *{ box-sizing: border-box; }
-  .tm-root, .tm-root{
-    margin: 0; padding: 0; background: var(--mint); color: var(--ink);
-    font-family: 'Barlow', system-ui, sans-serif;
-    -webkit-font-smoothing: antialiased;
-  }
-  .tm-root .mono{ font-family: 'JetBrains Mono', ui-monospace, monospace; letter-spacing: 0.06em; }
+/* ═══ ΜΕΘΟΔΟΣ — "system ▸ workflow ▸ task" nested-layers diagram ═══
+   Self-contained, in-viewport interactive block (tabs + auto first-pass).
+   No scroll-pinning — the section flows with natural page scroll.
+   Logic + 3-language copy live in js/methodos.js. */
 
-  /* ── Top nav — thin, quiet ── */
-  .tm-root .nav{
-    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
-    padding: 22px 44px;
-    display: flex; justify-content: space-between; align-items: baseline;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
-    pointer-events: none;
-  }
-  .tm-root .nav > *{ pointer-events: auto; }
-  .tm-root .nav .brand{ color: var(--green-deep); font-weight: 700; }
-  .tm-root .nav .brand::before{
-    content: ''; display: inline-block; width: 7px; height: 7px;
-    background: var(--green); border-radius: 50%; margin-right: 10px;
-    vertical-align: 1.5px;
-  }
-  .tm-root .nav .chapter{ color: var(--muted); }
-  .tm-root .nav .lang{
-    display: inline-flex; gap: 0; background: rgba(15,20,18,0.04);
-    border: 1px solid var(--faint); border-radius: 3px; padding: 2px;
-  }
-  .tm-root .nav .lang button{
-    border: 0; background: transparent; cursor: pointer;
-    font-family: 'JetBrains Mono', monospace; font-size: 10px;
-    letter-spacing: 0.14em; color: var(--muted); padding: 5px 10px;
-    border-radius: 2px;
-  }
-  .tm-root .nav .lang button.on{ background: var(--green-deep); color: white; }
-
-  /* ── Layer gutter (left rail) ── */
-  .tm-root .gutter{
-    position: fixed; left: 20px; top: 50%; transform: translateY(-50%);
-    z-index: 40; display: flex; flex-direction: column; gap: 14px;
-    font-family: 'JetBrains Mono', monospace; font-size: 9px;
-    letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted);
-  }
-  .tm-root .gutter .pip{ display: flex; align-items: center; gap: 8px; }
-  .tm-root .gutter .pip span:last-child{ display: none; }
-  .tm-root .gutter .pip.on span:last-child{ display: inline; }
-  @media (max-width: 1280px) { .tm-root .gutter{ display: none; } }
-  .tm-root .gutter .pip{
-    display: flex; align-items: center; gap: 10px;
-    transition: color 260ms;
-  }
-  .tm-root .gutter .pip .dot{
-    width: 7px; height: 7px; border-radius: 50%;
-    background: var(--faint); transition: background 260ms, transform 260ms;
-  }
-  .tm-root .gutter .pip.on{ color: var(--green-deep); }
-  .tm-root .gutter .pip.on .dot{ background: var(--green); transform: scale(1.4); }
-
-  /* ── Sticky stage (the tree canvas) ── */
-  .tm-root .stage-wrap{
-    position: sticky; top: 0; height: 100vh; width: 100%;
-    overflow: hidden; z-index: 1;
-  }
-  .tm-root .stage{
-    position: absolute; inset: 0;
-    display: flex; align-items: center; justify-content: flex-start;
-  }
-  .tm-root .tree-area{
-    position: absolute;
-    left: 0; top: 0;
-    width: 60%; height: 100%;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .tm-root .tree-svg{
-    width: 100%; height: 100%;
-    transition: transform 900ms cubic-bezier(0.65, 0, 0.35, 1);
-    transform-origin: 50% 50%;
-  }
-
-  /* ── Right prose column (also sticky, sibling layered over stage) ── */
-  .tm-root .prose{
-    position: fixed; top: 0; right: 0; height: 100vh;
-    width: 40%; z-index: 10;
-    display: flex; align-items: center; justify-content: flex-start;
-    padding: 0 72px 0 48px;
-    pointer-events: none;
-  }
-  .tm-root .prose-inner{ position: relative; width: 100%; max-width: 500px; }
-
-  /* Each panel's prose is stacked; only active one is opaque */
-  .tm-root .panel-text{
-    position: absolute; inset: 0;
-    opacity: 0; transform: translateY(16px);
-    transition: opacity 500ms cubic-bezier(0.65, 0, 0.35, 1),
-                transform 500ms cubic-bezier(0.65, 0, 0.35, 1);
-    pointer-events: none;
-  }
-  .tm-root .panel-text.active{ opacity: 1; transform: translateY(0); pointer-events: auto; }
-
-  .tm-root .kicker{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
-    color: var(--green); font-weight: 700; margin-bottom: 24px;
-  }
-  .tm-root .kicker .step{ color: var(--muted); font-weight: 500; margin-left: 10px; }
-  .tm-root h1.thesis{
-    font-family: 'Barlow', sans-serif; font-weight: 300;
-    font-size: clamp(34px, 3.6vw, 52px); line-height: 1.1;
-    letter-spacing: -0.03em; color: var(--ink); margin: 0 0 28px 0;
-  }
-  .tm-root h1.thesis strong{ font-weight: 700; color: var(--green-deep); }
-  .tm-root h2.layer-title{
-    font-family: 'Barlow', sans-serif; font-weight: 300;
-    font-size: clamp(40px, 4.2vw, 62px); line-height: 1.0;
-    letter-spacing: -0.035em; color: var(--ink); margin: 0 0 18px 0;
-  }
-  .tm-root h2.layer-title strong{ font-weight: 700; color: var(--green-deep); }
-
-  .tm-root .defn{
-    font-family: 'Barlow', sans-serif; font-weight: 400;
-    font-size: clamp(17px, 1.35vw, 21px); line-height: 1.55;
-    color: var(--ink); margin: 0 0 24px 0; letter-spacing: -0.005em;
-    text-wrap: pretty; max-width: 480px;
-  }
-  .tm-root .reveals{
-    border-top: 1px solid var(--faint); padding-top: 20px; margin-top: 8px;
-    max-width: 480px;
-  }
-  .tm-root .reveals .reveals-label{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
-    color: var(--muted); margin-bottom: 10px;
-  }
-  .tm-root .reveals p{
-    margin: 0; font-size: clamp(15px, 1.15vw, 18px); line-height: 1.55;
-    color: var(--muted); font-weight: 400; letter-spacing: -0.003em;
-    text-wrap: pretty;
-  }
-  .tm-root .reveals p strong{ color: var(--ink); font-weight: 600; }
-
-  /* ── Panel spacers ── Each drives the camera to the next zoom ── */
-  .tm-root .panels{ position: relative; z-index: 2; }
-  .tm-root .panel{ height: 30vh; position: relative; }
-  .tm-root .panel[data-panel="0"]{ height: 20vh; }
-  .tm-root .panel.deep{ height: 40vh; }
-
-  /* ── Questions panel: three big cards, not a logo ── */
-  .tm-root .questions{
-    position: relative; z-index: 5; background: var(--mint);
-    padding: 140px 44px 160px;
-  }
-  .tm-root .questions-inner{ max-width: 1200px; margin: 0 auto; }
-  .tm-root .questions .q-kicker{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
-    color: var(--green); font-weight: 700; margin-bottom: 18px;
-  }
-  .tm-root .questions h2{
-    font-family: 'Barlow', sans-serif; font-weight: 300;
-    font-size: clamp(38px, 3.8vw, 58px); line-height: 1.08;
-    letter-spacing: -0.035em; margin: 0 0 12px 0; color: var(--ink);
-    max-width: 900px; text-wrap: balance;
-  }
-  .tm-root .questions h2 strong{ font-weight: 700; color: var(--green-deep); }
-  .tm-root .questions .sub{
-    font-family: 'Barlow', sans-serif; font-weight: 400;
-    font-size: 19px; color: var(--muted); max-width: 560px;
-    margin: 0 0 64px 0; line-height: 1.5;
-  }
-  .tm-root .q-grid{
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px;
-  }
-  .tm-root .q-card{
-    background: var(--paper);
-    border: 1px solid var(--faint); border-radius: 4px;
-    padding: 34px 32px 30px;
-    position: relative;
-    transition: transform 240ms ease, border-color 240ms ease;
-  }
-  .tm-root .q-card:hover{ border-color: var(--green); transform: translateY(-3px); }
-  .tm-root .q-num{
-    font-family: 'JetBrains Mono', monospace; font-size: 11px;
-    color: var(--muted); letter-spacing: 0.2em; margin-bottom: 6px;
-  }
-  .tm-root .q-tag{
-    display: inline-block; font-family: 'JetBrains Mono', monospace;
-    font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
-    font-weight: 700; color: white; background: var(--green-deep);
-    padding: 4px 10px; border-radius: 2px; margin-bottom: 24px;
-  }
-  .tm-root .q-text{
-    font-family: 'Barlow', sans-serif; font-weight: 400;
-    font-size: 22px; line-height: 1.4; color: var(--ink);
-    letter-spacing: -0.008em; text-wrap: pretty; min-height: 124px;
-  }
-  .tm-root .q-text strong{ color: var(--green-deep); font-weight: 700; }
-  .tm-root .q-divider{
-    height: 1px; background: var(--faint); margin: 26px 0 14px;
-  }
-  .tm-root .q-hint{
-    font-family: 'JetBrains Mono', monospace; font-size: 10px;
-    color: var(--muted); letter-spacing: 0.16em; text-transform: uppercase;
-  }
-
-  /* ── Footer: brief, quiet ── */
-  .tm-root .foot{
-    padding: 40px 44px 36px;
-    display: flex; justify-content: space-between; align-items: baseline;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--muted); border-top: 1px solid var(--faint);
-  }
-  .tm-root .foot .brand{ color: var(--green-deep); font-weight: 700; }
-
-  /* ── Scroll hint ── */
-  .tm-root .scroll-hint{
-    position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%);
-    font-family: 'JetBrains Mono', monospace; font-size: 10px;
-    letter-spacing: 0.24em; color: var(--muted); text-transform: uppercase;
-    z-index: 30;
-    animation: bob 2.4s ease-in-out infinite;
-    transition: opacity 400ms;
-  }
-  .tm-root .scroll-hint.gone{ opacity: 0; }
-  .tm-root .scroll-hint::after{
-    content: '↓'; display: block; margin-top: 8px; font-size: 14px;
-  }
-  @keyframes bob { 0%,100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, 6px); } }
-
-  /* ── Small screens: stack prose under tree ── */
-  @media (max-width: 900px) {
-    .tm-root .gutter{ display: none; }
-    .tm-root .tree-area{ width: 100%; }
-    .tm-root .prose{ position: fixed; inset: auto 0 0 0; top: auto; width: 100%; height: 48vh; padding: 20px 28px 28px; align-items: flex-start; }
-    .tm-root .prose-inner{ max-width: none; }
-    .tm-root .panel-text{ position: absolute; }
-    .tm-root .nav{ padding: 16px 22px; }
-    .tm-root .q-grid{ grid-template-columns: 1fr; gap: 16px; }
-    .tm-root .questions{ padding: 90px 22px 100px; }
-  }
-
-
-/* ═══ ΜΕΘΟΔΟΣ — inline-embed overrides ═══
-   The bundle was designed as a full-page story driven by window scroll.
-   We keep that model — natural page scroll advances the story — and
-   prevent position:fixed leakage into neighbouring sections by moving
-   .prose / .gutter / .scroll-hint inside the sticky .stage-wrap in the
-   markup, then switching them from fixed to absolute. Absolute children
-   of a sticky parent visually follow the stage while it is pinned, and
-   scroll away with the section once pinning ends. */
+.tm-root {
+  /* Local palette used by the questions cards below. */
+  --green: #3a9b6b;
+  --green-dark: #256b48;
+  --green-deep: #163f2c;
+  --muted: #5a6a61;
+  --faint: #c8d7ce;
+  --paper: #fff;
+  --ink: #0f1412;
+  position: relative;
+  width: 100%;
+  font-family: 'Barlow', system-ui, sans-serif;
+  color: var(--ink);
+}
+.tm-root * { box-sizing: border-box; }
+.tm-root .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; letter-spacing: 0.06em; }
 
 #methodos.methodos-section {
   padding: 0;
@@ -268,102 +26,279 @@
   background: var(--bg-light);
 }
 
-/* Re-map the bundle's mint to the site's light surface so the section
-   visually belongs to the page instead of looking like an embedded microsite. */
-.tm-root {
-  --mint: var(--bg-light);
-  --paper: #fff;
-  position: relative;
-  width: 100%;
-  font-family: 'Barlow', system-ui, sans-serif;
-  color: var(--ink);
-  background: var(--bg-light);
-}
-
-/* Bridge text that sits above the scroll-driven story. Uses the site's
-   existing section-header rhythm so the tonal shift is framed, not jarring. */
+/* ── Bridge intro (uses the site's section-header rhythm) ── */
 .methodos-intro {
-  padding: 90px 0 60px;
+  padding: 90px 0 50px;
   text-align: center;
 }
 .methodos-intro .section-label,
 .methodos-intro h2,
 .methodos-intro .section-subtitle { color: inherit; }
-.methodos-intro h2 {
-  max-width: 820px;
-  margin-left: auto;
-  margin-right: auto;
+.methodos-intro .section-label { justify-content: center; }
+.methodos-intro h2 { max-width: 820px; margin-left: auto; margin-right: auto; }
+.methodos-intro .section-subtitle { max-width: 600px; margin-left: auto; margin-right: auto; }
+
+/* ── Method block ── */
+.method {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 3rem 40px;
 }
-.methodos-intro .section-subtitle {
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+
+.method-thesis {
+  font-family: 'Barlow', sans-serif;
+  font-weight: 300;
+  font-size: clamp(26px, 3.2vw, 44px);
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  text-align: center;
+  max-width: 920px;
+  margin: 0 auto 56px;
+  color: var(--text-dark, #161616);
+  text-wrap: balance;
+}
+.method-thesis strong {
+  font-weight: 800;
+  background: var(--gradient-text, linear-gradient(92deg, #3db365, #7ee8a4));
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.method-stage {
+  display: grid;
+  grid-template-columns: 1.12fr 1fr;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+/* ── Diagram: a SYSTEM frame holding WORKFLOW cards holding TASK cells ── */
+.method-diagram {
+  position: relative;
+  border-radius: 24px;
+  padding: 1.7rem 1.6rem 2rem;
+  background: var(--grid-dark), var(--mesh-dark), var(--gradient-hero, #0b3220);
+  border: 1px solid rgba(126, 232, 164, 0.16);
+  box-shadow: var(--elev-3, 0 20px 60px rgba(8, 30, 18, 0.18)), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition: box-shadow 0.5s ease, border-color 0.5s ease;
+}
+
+.md-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.md-sys-tag {
+  display: block;
+  font-size: 10px;
+  color: #7ee8a4;
+  margin-bottom: 1.1rem;
+}
+
+.md-flows {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.85rem;
+}
+.md-flow {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  padding: 0.85rem 0.75rem 0.95rem;
+  transition: opacity 0.45s ease, border-color 0.45s ease, box-shadow 0.45s ease, transform 0.45s ease;
+}
+.md-flow .md-tag {
+  display: block;
+  font-size: 8px;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 0.7rem;
+}
+.md-tasks { display: flex; flex-wrap: wrap; gap: 6px; }
+.md-tasks i {
+  width: 16px; height: 16px;
+  border-radius: 4px;
+  background: rgba(126, 232, 164, 0.28);
+  transition: background 0.45s ease, box-shadow 0.45s ease, transform 0.45s ease;
+}
+
+/* Focus: SYSTEM — the whole frame is the subject */
+.method-diagram[data-focus="system"] {
+  box-shadow: var(--elev-3, 0 20px 60px rgba(8, 30, 18, 0.18)),
+              0 0 0 2px rgba(126, 232, 164, 0.35),
+              0 0 50px rgba(61, 179, 101, 0.30);
+}
+
+/* Focus: WORKFLOW — one flow card lit, the rest recede */
+.method-diagram[data-focus="workflow"] .md-flow { opacity: 0.4; }
+.method-diagram[data-focus="workflow"] .md-flow.is-active {
+  opacity: 1;
+  border-color: rgba(126, 232, 164, 0.6);
+  box-shadow: 0 0 28px rgba(61, 179, 101, 0.45);
+  transform: translateY(-4px);
+}
+
+/* Focus: TASK — the individual cells become the subject */
+.method-diagram[data-focus="task"] .md-flow { opacity: 0.45; }
+.method-diagram[data-focus="task"] .md-flow.is-active { opacity: 1; }
+.method-diagram[data-focus="task"] .md-flow.is-active .md-tasks i {
+  background: var(--gradient-emerald, linear-gradient(135deg, #0d7a3e, #7ee8a4));
+  box-shadow: 0 0 10px rgba(126, 232, 164, 0.6);
+}
+.method-diagram[data-focus="task"] .md-flow.is-active .md-tasks i:nth-child(2n) {
+  animation: mdTaskPulse 1.7s ease-in-out infinite;
+}
+@keyframes mdTaskPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.22); } }
+
+/* ── Info column (tabs + definition that swaps per layer) ── */
+.method-tabs {
+  display: inline-flex;
+  gap: 0.35rem;
+  background: rgba(13, 122, 62, 0.06);
+  border: 1px solid var(--border, #ebebeb);
+  border-radius: 50px;
+  padding: 5px;
+  margin-bottom: 1.7rem;
+}
+.m-tab {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font-family: 'Barlow', sans-serif;
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+  padding: 0.5rem 1.15rem;
+  border-radius: 50px;
+  transition: color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+}
+.m-tab:hover { color: var(--green-deep); }
+.m-tab.on {
+  background: var(--gradient-emerald, linear-gradient(135deg, #0d7a3e, #3db365));
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(13, 122, 62, 0.3);
+}
+
+.m-kicker {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--accent, #0d7a3e); font-weight: 700; margin-bottom: 14px;
+}
+.m-title {
+  font-family: 'Barlow', sans-serif; font-weight: 300;
+  font-size: clamp(32px, 3.6vw, 48px); line-height: 1.05;
+  letter-spacing: -0.03em; color: var(--text-dark, #161616); margin: 0 0 16px;
+}
+.m-title strong { font-weight: 800; color: var(--accent, #0d7a3e); }
+.m-defn {
+  font-size: clamp(16px, 1.2vw, 19px); line-height: 1.55;
+  color: var(--text-gray, #555); margin: 0 0 22px; max-width: 460px; text-wrap: pretty;
+}
+.reveals { border-top: 1px solid var(--border, #ebebeb); padding-top: 18px; max-width: 460px; }
+.reveals-label {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-light, #888); margin-bottom: 8px;
+}
+.m-reveals { margin: 0; font-size: clamp(14px, 1vw, 16px); line-height: 1.55; color: var(--text-gray, #555); text-wrap: pretty; }
+.m-reveals strong { color: var(--text-dark, #161616); font-weight: 700; }
+
+/* ── Questions panel: three big cards, one per layer ── */
+.tm-root .questions {
+  position: relative; z-index: 5; background: var(--bg-light);
+  padding: 80px 44px 130px;
+}
+.tm-root .questions-inner { max-width: 1200px; margin: 0 auto; }
+.tm-root .questions .q-kicker {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--green); font-weight: 700; margin-bottom: 18px;
+}
+.tm-root .questions h2 {
+  font-family: 'Barlow', sans-serif; font-weight: 300;
+  font-size: clamp(34px, 3.6vw, 54px); line-height: 1.08;
+  letter-spacing: -0.035em; margin: 0 0 12px 0; color: var(--ink);
+  max-width: 900px; text-wrap: balance;
+}
+.tm-root .questions h2 strong { font-weight: 700; color: var(--green-deep); }
+.tm-root .questions .sub {
+  font-family: 'Barlow', sans-serif; font-weight: 400;
+  font-size: 19px; color: var(--muted); max-width: 560px;
+  margin: 0 0 56px 0; line-height: 1.5;
+}
+.tm-root .q-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.tm-root .q-card {
+  background: linear-gradient(160deg, #ffffff 0%, #f3f9f5 100%);
+  border: 1px solid var(--faint); border-radius: 18px;
+  padding: 34px 32px 30px;
+  position: relative; overflow: hidden;
+  box-shadow: var(--elev-1, 0 8px 24px rgba(8, 30, 18, 0.06));
+  transition: transform 240ms ease, border-color 240ms ease, box-shadow 240ms ease;
+}
+.tm-root .q-card::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+  background: var(--gradient-emerald, linear-gradient(135deg, #0d7a3e, #7ee8a4));
+  opacity: 0.85; transition: width 0.3s ease;
+}
+.tm-root .q-card:hover { border-color: rgba(61, 179, 101, 0.4); transform: translateY(-4px); box-shadow: var(--elev-2, 0 18px 50px rgba(8, 30, 18, 0.1)); }
+.tm-root .q-card:hover::before { width: 7px; }
+.tm-root .q-num {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  color: var(--muted); letter-spacing: 0.2em; margin-bottom: 6px;
+}
+.tm-root .q-tag {
+  display: inline-block; font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
+  font-weight: 700; color: white; background: var(--green-deep);
+  padding: 4px 10px; border-radius: 4px; margin-bottom: 24px;
+}
+.tm-root .q-text {
+  font-family: 'Barlow', sans-serif; font-weight: 400;
+  font-size: 22px; line-height: 1.4; color: var(--ink);
+  letter-spacing: -0.008em; text-wrap: pretty; min-height: 124px;
+}
+.tm-root .q-text strong { color: var(--green-deep); font-weight: 700; }
+.tm-root .q-divider { height: 1px; background: var(--faint); margin: 26px 0 14px; }
+.tm-root .q-hint {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  color: var(--muted); letter-spacing: 0.16em; text-transform: uppercase;
 }
 
 /* CTA after the three questions — highest-intent moment on the page. */
-.tm-root .q-cta {
-  margin-top: 72px;
-  text-align: center;
-}
+.tm-root .q-cta { margin-top: 56px; text-align: center; }
 .tm-root .q-cta a {
-  display: inline-block;
-  padding: 16px 32px;
-  background: var(--green-deep);
-  color: #fff;
-  text-decoration: none;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  border-radius: 3px;
-  transition: background 220ms ease, transform 220ms ease;
+  display: inline-flex; align-items: center; gap: 0.55rem;
+  padding: 16px 34px;
+  background: var(--gradient-emerald, linear-gradient(135deg, #0d7a3e, #3db365));
+  color: #fff; text-decoration: none;
+  font-family: 'Barlow', sans-serif; font-weight: 700;
+  font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase;
+  border-radius: 50px;
+  box-shadow: 0 8px 22px rgba(13, 122, 62, 0.32);
+  transition: transform 220ms ease, box-shadow 220ms ease;
 }
-.tm-root .q-cta a:hover {
-  background: var(--green);
-  transform: translateY(-1px);
+.tm-root .q-cta a:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(13, 122, 62, 0.45), 0 0 24px rgba(61, 179, 101, 0.28); }
+.tm-root .q-cta a svg { width: 16px; height: 16px; }
+.tm-root .q-cta a::after {
+  content: ''; width: 1.05em; height: 1.05em; flex: none;
+  background-color: currentColor;
+  -webkit-mask: var(--ic-arrow-r) center / contain no-repeat;
+          mask: var(--ic-arrow-r) center / contain no-repeat;
+  transition: transform 0.3s ease;
 }
+.tm-root .q-cta a:hover::after { transform: translateX(3px); }
+
+/* ── Responsive ── */
 @media (max-width: 900px) {
-  /* +24px over the 72px sticky navbar so the section label isn't partly hidden
-     when the section snaps to viewport top. */
-  .methodos-intro { padding: 96px 0 40px; }
-  .tm-root .q-cta { margin-top: 48px; }
-  /* Lift the scroll hint clear of the mobile prose drawer (48vh at bottom). */
-  .tm-root .stage-wrap .scroll-hint { bottom: calc(48vh + 16px); }
+  .methodos-intro { padding: 96px 0 36px; }
+  .method { padding: 0 1.5rem 30px; }
+  .method-thesis { margin-bottom: 38px; }
+  .method-stage { grid-template-columns: 1fr; gap: 2.2rem; }
+  .tm-root .q-grid { grid-template-columns: 1fr; gap: 16px; }
+  .tm-root .questions { padding: 60px 22px 90px; }
+  .tm-root .q-text { min-height: 0; }
 }
-
-/* Hide the bundle's internal nav — the site navbar already serves that role. */
-.tm-root .nav { display: none !important; }
-
-/* Convert the three viewport-pinned elements to absolute. Their parent
-   .stage-wrap is position:sticky, so they follow it visually. */
-.tm-root .stage-wrap .prose,
-.tm-root .stage-wrap .gutter,
-.tm-root .stage-wrap .scroll-hint {
-  position: absolute;
-}
-
-/* Re-anchor the moved elements to their original screen positions
-   (stage-wrap is height:100vh, so these map 1:1 to what the bundle expected). */
-.tm-root .stage-wrap .gutter {
-  left: 20px; top: 50%; right: auto;
-  transform: translateY(-50%);
-}
-.tm-root .stage-wrap .scroll-hint {
-  left: 50%; bottom: 32px; top: auto;
-  transform: translateX(-50%);
-}
-
-/* Push content under the site's 90px navbar so it isn't clipped on desktop. */
-@media (min-width: 769px) {
-  .tm-root .stage-wrap { padding-top: 90px; box-sizing: border-box; }
-}
-
-/* Anchor prose to the upper area of the stage instead of vertically centering
-   it. The longer panels (e.g. "System") otherwise overflow into the lower
-   viewport and the final paragraph gets cut off before the next panel swaps. */
-@media (min-width: 901px) {
-  .tm-root .stage-wrap .prose {
-    align-items: flex-start;
-    padding-top: 13vh;
-  }
+@media (max-width: 420px) {
+  .md-tasks i { width: 13px; height: 13px; }
+  .md-flows { gap: 0.5rem; }
+  .method-diagram { padding: 1.3rem 1.1rem 1.5rem; }
 }

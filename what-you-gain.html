@@ -48,6 +48,21 @@
       --font-display: 'Barlow', sans-serif;
       --font-body: 'Barlow', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
+      --mint: #7ee8a4;
+      --gradient-hero: linear-gradient(135deg, #06120c 0%, #0b3220 52%, #0f4a2b 100%);
+      --gradient-dark: linear-gradient(74deg, #0a1a10 0%, #0d5a30 100%);
+      --gradient-emerald: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 60%, var(--mint) 100%);
+      --gradient-text: linear-gradient(92deg, var(--accent-light) 0%, var(--mint) 100%);
+      --gradient-sheen: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.18) 50%, transparent 100%);
+      --mesh-dark: radial-gradient(40% 55% at 18% 22%, rgba(61,179,101,.22) 0%, transparent 60%), radial-gradient(45% 50% at 85% 18%, rgba(126,232,164,.14) 0%, transparent 55%), radial-gradient(55% 60% at 70% 95%, rgba(13,122,62,.30) 0%, transparent 60%);
+      --grid-dark: linear-gradient(rgba(126,232,164,.05) 1px, transparent 1px) 0 0 / 46px 46px, linear-gradient(90deg, rgba(126,232,164,.05) 1px, transparent 1px) 0 0 / 46px 46px;
+      --grid-light: linear-gradient(rgba(13,122,62,.045) 1px, transparent 1px) 0 0 / 44px 44px, linear-gradient(90deg, rgba(13,122,62,.045) 1px, transparent 1px) 0 0 / 44px 44px;
+      --glow-soft: 0 0 24px rgba(61,179,101,.28);
+      --elev-1: 0 2px 8px rgba(8,30,18,.06), 0 8px 24px rgba(8,30,18,.06);
+      --elev-2: 0 6px 18px rgba(8,30,18,.10), 0 18px 50px rgba(8,30,18,.10);
+      --elev-3: 0 20px 60px rgba(8,30,18,.18);
+      --ic-arrow-r: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h13M12 5l7 7-7 7'/%3E%3C/svg%3E");
+      --ic-arrow-l: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19 12H6M12 5l-7 7 7 7'/%3E%3C/svg%3E");
       --red: #c0392b;
       --red-bg: rgba(192, 57, 43, 0.06);
       --red-border: rgba(192, 57, 43, 0.12);
@@ -106,6 +121,26 @@
     }
     .nav-back:hover { color: var(--accent); }
 
+    /* ── Icon arrows (replace text-glyph arrows) ── */
+    .nav-back { display: inline-flex; align-items: center; gap: 0.4rem; }
+    .nav-back::before {
+      content: ''; width: 1.05em; height: 1.05em; flex: none;
+      background-color: currentColor;
+      -webkit-mask: var(--ic-arrow-l) center / contain no-repeat;
+              mask: var(--ic-arrow-l) center / contain no-repeat;
+      transition: transform 0.3s ease;
+    }
+    .nav-back:hover::before { transform: translateX(-3px); }
+    .form-submit { display: inline-flex; align-items: center; justify-content: center; gap: 0.55rem; }
+    .form-submit::after, .roi-closing .cta-btn::after {
+      content: ''; width: 1.05em; height: 1.05em; flex: none;
+      background-color: currentColor;
+      -webkit-mask: var(--ic-arrow-r) center / contain no-repeat;
+              mask: var(--ic-arrow-r) center / contain no-repeat;
+      transition: transform 0.3s ease;
+    }
+    .form-submit:hover::after, .roi-closing .cta-btn:hover::after { transform: translateX(3px); }
+
     .lang-switcher { display: flex; gap: 0.3rem; }
     .lang-btn {
       background: none; border: 1px solid var(--border); padding: 0.3rem 0.6rem;
@@ -122,7 +157,7 @@
     .gate-section {
       min-height: calc(100vh - 70px);
       display: flex; align-items: center; justify-content: center;
-      background: linear-gradient(74deg, #0a1a10 0%, #0d5a30 100%);
+      background: var(--grid-dark), var(--mesh-dark), var(--gradient-hero);
       padding: 80px 2rem;
       position: relative; overflow: hidden;
     }
@@ -139,16 +174,28 @@
     .gate-card {
       position: relative; z-index: 1;
       max-width: 520px; width: 100%;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 20px; padding: 3rem;
-      backdrop-filter: blur(10px);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(126,232,164,.16);
+      border-radius: 24px; padding: 3rem;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 30px 70px rgba(2,10,6,.45), inset 0 1px 0 rgba(255,255,255,.06);
     }
 
     .gate-badge {
-      font-family: var(--font-display); font-size: 0.75rem;
-      color: var(--accent-bright); text-transform: uppercase;
-      letter-spacing: 4px; font-weight: 800; margin-bottom: 1.5rem;
+      display: inline-flex; align-items: center; gap: .55rem;
+      padding: .45rem 1rem; border-radius: 50px;
+      background: rgba(126,232,164,.08); border: 1px solid rgba(126,232,164,.22);
+      font-family: var(--font-display); font-size: 0.7rem;
+      color: var(--mint); text-transform: uppercase;
+      letter-spacing: 3px; font-weight: 800; margin-bottom: 1.5rem;
+    }
+    .gate-badge::before {
+      content: ''; width: 7px; height: 7px; border-radius: 50%;
+      background: var(--mint); box-shadow: 0 0 10px var(--mint);
+    }
+    .gate-title .hl, .gate-title strong {
+      background: var(--gradient-text); -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; color: var(--accent-bright);
     }
 
     .gate-title {
@@ -212,17 +259,19 @@
     }
 
     .form-submit {
-      width: 100%; padding: 0.85rem; margin-top: 0.5rem;
-      background: var(--accent); color: white; border: none;
+      width: 100%; padding: 0.95rem; margin-top: 0.5rem;
+      background: var(--gradient-emerald); background-size: 160% 160%;
+      color: white; border: none;
       border-radius: 50px; font-family: var(--font-display);
       font-weight: 700; font-size: 0.8rem; text-transform: uppercase;
       letter-spacing: 2px; cursor: pointer;
-      transition: all 0.3s ease;
+      box-shadow: 0 8px 22px rgba(13,122,62,.32);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background-position 0.5s ease;
     }
     .form-submit:hover {
-      background: var(--accent-light);
+      background-position: 100% 0;
       transform: translateY(-2px);
-      box-shadow: 0 8px 25px var(--shadow-strong);
+      box-shadow: 0 12px 32px rgba(13,122,62,.45), var(--glow-soft);
     }
     .form-submit:disabled {
       opacity: 0.5; cursor: not-allowed; transform: none;
@@ -270,21 +319,29 @@
     .roi-hero {
       text-align: center;
       padding: 80px 2rem 60px;
-      background: linear-gradient(74deg, #0a1a10 0%, #0d5a30 100%);
+      background: var(--grid-dark), var(--mesh-dark), var(--gradient-hero);
       position: relative;
+      overflow: hidden;
     }
     .roi-hero::before {
       content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-      background: radial-gradient(ellipse at 50% 50%, rgba(61,179,101,0.08) 0%, transparent 70%);
+      background: radial-gradient(ellipse at 50% 40%, rgba(61,179,101,0.18) 0%, transparent 65%);
       pointer-events: none;
     }
 
     .roi-hero-inner { position: relative; z-index: 1; max-width: 960px; margin: 0 auto; }
 
     .roi-hero .badge {
-      font-family: var(--font-display); font-size: 0.75rem;
-      color: var(--accent-bright); letter-spacing: 4px;
+      display: inline-flex; align-items: center; gap: .55rem;
+      padding: .45rem 1rem; border-radius: 50px;
+      background: rgba(126,232,164,.08); border: 1px solid rgba(126,232,164,.22);
+      font-family: var(--font-display); font-size: 0.7rem;
+      color: var(--mint); letter-spacing: 3px;
       text-transform: uppercase; font-weight: 800; margin-bottom: 2rem;
+    }
+    .roi-hero .badge::before {
+      content: ''; width: 7px; height: 7px; border-radius: 50%;
+      background: var(--mint); box-shadow: 0 0 10px var(--mint);
     }
 
     .roi-hero h1 {
@@ -293,7 +350,11 @@
       margin-bottom: 1.2rem; letter-spacing: -0.03em;
     }
     .roi-hero h1 .hl,
-    .roi-hero h1 strong { color: var(--accent-bright); font-weight: 700; }
+    .roi-hero h1 strong {
+      font-weight: 700;
+      background: var(--gradient-text); -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; color: var(--accent-bright);
+    }
 
     .roi-hero .tagline {
       font-size: 1.1rem; color: rgba(255,255,255,0.6);
@@ -319,25 +380,22 @@
 
     /* ===== PILLAR ===== */
     .pillar {
-      padding: 120px 0;
-      background-color: var(--bg-light);
-      background-image:
-        linear-gradient(rgba(13,122,62,0.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(13,122,62,0.06) 1px, transparent 1px);
-      background-size: 40px 40px;
+      padding: 110px 0;
+      background: var(--grid-light), var(--bg-light);
     }
-    .pillar:nth-child(even) { background-color: var(--white); }
+    .pillar:nth-child(even) { background: var(--white); }
 
     .pillar-header {
       display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1.5rem;
     }
 
     .pillar-num {
-      width: 44px; height: 44px; border-radius: 12px;
-      background: var(--green-pale); border: 1px solid rgba(13,122,62,0.15);
+      width: 48px; height: 48px; border-radius: 14px;
+      background: var(--gradient-emerald);
+      box-shadow: 0 8px 20px rgba(13,122,62,.28);
       display: flex; align-items: center; justify-content: center;
-      font-family: var(--font-mono); font-size: 0.85rem;
-      font-weight: 800; color: var(--accent);
+      font-family: var(--font-mono); font-size: 0.9rem;
+      font-weight: 800; color: #fff;
     }
 
     .pillar-title {
@@ -394,8 +452,8 @@
       padding-right: 0.7rem; transition: width 1s cubic-bezier(0.16,1,0.3,1);
       width: 0%;
     }
-    .bar-fill-before { background: rgba(192,57,43,0.14); }
-    .bar-fill-after { background: rgba(13,122,62,0.18); min-width: 80px; }
+    .bar-fill-before { background: linear-gradient(90deg, rgba(192,57,43,0.10), rgba(192,57,43,0.22)); }
+    .bar-fill-after { background: linear-gradient(90deg, rgba(13,122,62,0.16), rgba(61,179,101,0.32)); min-width: 80px; }
 
     .bar-value {
       font-size: 0.95rem; font-weight: 800; white-space: nowrap;
@@ -410,8 +468,10 @@
 
     /* ===== SCALING CARD ===== */
     .scaling-card {
-      background: var(--white); border: 1px solid rgba(13,122,62,0.12);
-      border-radius: 16px; padding: 1.5rem; margin-top: 1.5rem;
+      background: linear-gradient(160deg, #ffffff 0%, #f3f9f5 100%);
+      border: 1px solid var(--border);
+      border-radius: 18px; padding: 1.6rem; margin-top: 1.5rem;
+      box-shadow: var(--elev-1);
       display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;
     }
 
@@ -444,9 +504,13 @@
     }
 
     .quality-card {
-      background: var(--white); border: 1px solid rgba(13,122,62,0.1);
-      border-radius: 14px; padding: 1.3rem;
+      background: linear-gradient(160deg, #ffffff 0%, #f3f9f5 100%);
+      border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.4rem;
+      box-shadow: var(--elev-1);
+      transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
     }
+    .quality-card:hover { transform: translateY(-4px); box-shadow: var(--elev-2); border-color: rgba(61,179,101,.35); }
     .quality-card h4 {
       font-size: 1.1rem; font-weight: 800; color: var(--primary);
       margin-bottom: 0.4rem; font-family: var(--font-display);
@@ -487,9 +551,11 @@
       display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem;
     }
     .custom-col {
-      flex: 1; min-width: 220px; background: var(--white);
-      border: 1px solid rgba(13,122,62,0.1);
-      border-radius: 16px; padding: 1.5rem;
+      flex: 1; min-width: 220px;
+      background: linear-gradient(160deg, #ffffff 0%, #f3f9f5 100%);
+      border: 1px solid var(--border);
+      border-radius: 18px; padding: 1.6rem;
+      box-shadow: var(--elev-1);
     }
     .custom-col h4 {
       font-size: 0.85rem; font-weight: 800; color: var(--primary);
@@ -503,8 +569,10 @@
 
     /* ===== SERVICES GRID ===== */
     .services-included {
-      background: var(--white); border: 1px solid rgba(13,122,62,0.1);
-      border-radius: 16px; padding: 1.5rem; margin-bottom: 1.5rem;
+      background: linear-gradient(160deg, #ffffff 0%, #f3f9f5 100%);
+      border: 1px solid var(--border);
+      border-radius: 18px; padding: 1.6rem; margin-bottom: 1.5rem;
+      box-shadow: var(--elev-1);
     }
     .services-included .si-label {
       font-size: 0.75rem; color: var(--accent); font-weight: 800;
@@ -527,11 +595,9 @@
     /* ===== CLOSING ===== */
     .roi-closing {
       text-align: center; padding: 80px 2rem;
-      background-color: var(--bg-light);
-      background-image:
-        linear-gradient(rgba(13,122,62,0.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(13,122,62,0.06) 1px, transparent 1px);
-      background-size: 40px 40px;
+      background: var(--grid-light),
+        radial-gradient(ellipse at 50% 100%, rgba(61,179,101,0.10) 0%, transparent 60%),
+        var(--bg-light);
     }
     .roi-closing h2 {
       font-family: var(--font-display);
@@ -544,15 +610,19 @@
     .roi-closing h2 strong { font-weight: 700; color: var(--primary); font-style: normal; }
     .roi-closing .cta-btn {
       display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.85rem 2.2rem; background: var(--accent); color: white;
+      padding: 0.95rem 2.3rem;
+      background: var(--gradient-emerald); background-size: 160% 160%;
+      color: white;
       text-decoration: none; font-family: var(--font-display);
       font-weight: 700; font-size: 0.75rem; border-radius: 50px;
-      transition: all 0.3s ease; border: 2px solid var(--accent);
+      border: none;
+      box-shadow: 0 8px 22px rgba(13,122,62,.32);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background-position 0.5s ease;
       text-transform: uppercase; letter-spacing: 2px;
     }
     .roi-closing .cta-btn:hover {
-      background: var(--accent-light); border-color: var(--accent-light);
-      transform: translateY(-2px); box-shadow: 0 8px 25px var(--shadow-strong);
+      background-position: 100% 0;
+      transform: translateY(-2px); box-shadow: 0 12px 32px rgba(13,122,62,.45), var(--glow-soft);
     }
     .cta-btn-outline {
       background: transparent !important;
@@ -765,7 +835,7 @@
         <span>AIDEDCAM</span>
       </a>
       <div class="nav-right">
-        <a href="/" class="nav-back" data-i18n="roi.back">&larr; Αρχική</a>
+        <a href="/" class="nav-back" data-i18n="roi.back">Αρχική</a>
         <div class="lang-switcher">
           <button class="lang-btn active" data-lang="el">EL</button>
           <button class="lang-btn" data-lang="en">EN</button>
@@ -824,7 +894,7 @@
           </div>
         </div>
 
-        <button type="submit" class="form-submit" data-i18n="roi.submit">Δείτε τι κερδίζετε &rarr;</button>
+        <button type="submit" class="form-submit" data-i18n="roi.submit">Δείτε τι κερδίζετε</button>
         <p class="form-note" data-i18n="roi.form_note">Δεν απαιτείται δέσμευση. Τα στοιχεία σας είναι ασφαλή.</p>
       </form>
     </div>
@@ -1062,8 +1132,8 @@
     <!-- CLOSING -->
     <section class="roi-closing">
       <h2 data-i18n="roi.closing">Πόσες ώρες χάθηκαν αυτή την εβδομάδα σε δουλειά που θα μπορούσε να γίνει αυτόματα;</h2>
-      <a href="mailto:info@aidedcam.com" class="cta-btn" data-i18n="roi.closing_cta">Ας μιλήσουμε &rarr;</a>
-        <a href="calculator.html" class="cta-btn cta-btn-outline" data-i18n="roi.calc_crosslink">Υπολογίστε με τα δικά σας νούμερα &rarr;</a>
+      <a href="mailto:info@aidedcam.com" class="cta-btn" data-i18n="roi.closing_cta">Ας μιλήσουμε</a>
+        <a href="calculator.html" class="cta-btn cta-btn-outline" data-i18n="roi.calc_crosslink">Υπολογίστε με τα δικά σας νούμερα</a>
     </section>
 
     <!-- FOOTER -->
@@ -1136,7 +1206,7 @@
     // ===== TRANSLATIONS =====
     var translations = {
       el: {
-        'roi.back': '\u2190 Αρχική',
+        'roi.back': 'Αρχική',
         'roi.gate_title': 'Δείτε τι <span class="hl" style="color:var(--accent-bright)">πραγματικά κερδίζετε</span>',
         'roi.gate_subtitle': 'Συμπληρώστε τα παρακάτω και δείτε τι κερδίζετε με την AidedCAM.',
         'roi.label_company': 'Επωνυμία εταιρείας <span class="required">*</span>',
@@ -1148,7 +1218,7 @@
         'roi.label_project': 'Έχετε κάποιο project στο μυαλό σας;',
         'roi.yes': 'Ναι',
         'roi.no': 'Όχι',
-        'roi.submit': 'Δείτε τι κερδίζετε \u2192',
+        'roi.submit': 'Δείτε τι κερδίζετε',
         'roi.form_note': 'Δεν απαιτείται δέσμευση. Τα στοιχεία σας είναι ασφαλή.',
         'roi.greeting_prefix': 'Για την',
         'roi.hero_title': '<span class="hl">Χρόνος</span> που επιστρέφεται αμέσως.<br><span class="hl">Ποιότητα</span> που εξασφαλίζεται πάντα.<br><span class="hl">Λογισμικό</span> φτιαγμένο αποκλειστικά για εσάς.<br><span class="hl">Μία συνδρομή</span>, απεριόριστοι χρήστες.',
@@ -1206,8 +1276,8 @@
         'roi.typical_software_text': 'Άδεια ανά χρήστη + χρέωση υποστήριξης<br><strong>+ ξεχωριστές χρεώσεις για κάθε υπηρεσία</strong>',
         'roi.aidedcam_pricing_text': 'Απεριόριστοι χρήστες · μία τιμή<br><strong>0 επιπλέον κόστη</strong>',
         'roi.closing': 'Πόσες ώρες χάθηκαν αυτή την εβδομάδα σε δουλειά που θα μπορούσε να γίνει αυτόματα;',
-        'roi.closing_cta': 'Ας μιλήσουμε \u2192',
-        'roi.calc_crosslink': 'Υπολογίστε με τα δικά σας νούμερα \u2192',
+        'roi.closing_cta': 'Ας μιλήσουμε',
+        'roi.calc_crosslink': 'Υπολογίστε με τα δικά σας νούμερα',
         'cookie_text': 'Αυτός ο ιστότοπος χρησιμοποιεί cookies για τη βελτιστοποίηση της λειτουργίας του και την ανάλυση επισκεψιμότητας.',
         'cookie_accept': 'Αποδοχή',
         'cookie_decline': 'Απόρριψη',
@@ -1230,7 +1300,7 @@
         '_title': 'AidedCAM - Γιατί να Συνεργαστούμε'
       },
       en: {
-        'roi.back': '\u2190 Home',
+        'roi.back': 'Home',
         'roi.gate_title': 'See what you <span class="hl" style="color:var(--accent-bright)">actually gain</span>',
         'roi.gate_subtitle': 'Fill in the details below and see exactly what you gain by partnering with AidedCAM.',
         'roi.label_company': 'Company name <span class="required">*</span>',
@@ -1242,7 +1312,7 @@
         'roi.label_project': 'Do you have a project in mind?',
         'roi.yes': 'Yes',
         'roi.no': 'No',
-        'roi.submit': 'See what you gain \u2192',
+        'roi.submit': 'See what you gain',
         'roi.form_note': 'No commitment required. Your data is safe.',
         'roi.greeting_prefix': 'For',
         'roi.hero_title': '<span class="hl">Time</span> returned immediately.<br><span class="hl">Quality</span> guaranteed always.<br><span class="hl">Software</span> built exclusively for you.<br><span class="hl">One subscription</span>, unlimited users.',
@@ -1300,8 +1370,8 @@
         'roi.typical_software_text': 'Per-user license + support fees<br><strong>+ separate charges for each service</strong>',
         'roi.aidedcam_pricing_text': 'Unlimited users \u00b7 one price<br><strong>0 extra costs</strong>',
         'roi.closing': 'How many hours were lost this week on work that could have been automated?',
-        'roi.closing_cta': 'Let\'s talk \u2192',
-        'roi.calc_crosslink': 'Calculate with your own numbers \u2192',
+        'roi.closing_cta': 'Let\'s talk',
+        'roi.calc_crosslink': 'Calculate with your own numbers',
         'cookie_text': 'This website uses cookies to optimize functionality and analyze traffic.',
         'cookie_accept': 'Accept',
         'cookie_decline': 'Decline',
@@ -1324,7 +1394,7 @@
         '_title': 'AidedCAM - Why Partner With Us'
       },
       it: {
-        'roi.back': '\u2190 Home',
+        'roi.back': 'Home',
         'roi.gate_title': 'Scoprite cosa <span class="hl" style="color:var(--accent-bright)">guadagnate davvero</span>',
         'roi.gate_subtitle': 'Compilate i dati qui sotto e scoprite esattamente cosa guadagnate con una collaborazione AidedCAM.',
         'roi.label_company': 'Nome azienda <span class="required">*</span>',
@@ -1336,7 +1406,7 @@
         'roi.label_project': 'Avete un progetto in mente?',
         'roi.yes': 'S\u00ec',
         'roi.no': 'No',
-        'roi.submit': 'Scoprite cosa guadagnate \u2192',
+        'roi.submit': 'Scoprite cosa guadagnate',
         'roi.form_note': 'Nessun impegno richiesto. I vostri dati sono al sicuro.',
         'roi.greeting_prefix': 'Per',
         'roi.hero_title': '<span class="hl">Tempo</span> restituito immediatamente.<br><span class="hl">Qualit\u00e0</span> garantita sempre.<br><span class="hl">Software</span> costruito esclusivamente per voi.<br><span class="hl">Un abbonamento</span>, utenti illimitati.',
@@ -1394,8 +1464,8 @@
         'roi.typical_software_text': 'Licenza per utente + costi di supporto<br><strong>+ addebiti separati per ogni servizio</strong>',
         'roi.aidedcam_pricing_text': 'Utenti illimitati \u00b7 un prezzo<br><strong>0 costi aggiuntivi</strong>',
         'roi.closing': 'Quante ore sono state perse questa settimana in lavoro che poteva essere automatizzato?',
-        'roi.closing_cta': 'Parliamone \u2192',
-        'roi.calc_crosslink': 'Calcolate con i vostri numeri \u2192',
+        'roi.closing_cta': 'Parliamone',
+        'roi.calc_crosslink': 'Calcolate con i vostri numeri',
         'cookie_text': 'Questo sito web utilizza i cookie per ottimizzare le sue funzionalit\u00e0 e analizzare il traffico.',
         'cookie_accept': 'Accetta',
         'cookie_decline': 'Rifiuta',

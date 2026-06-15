@@ -25,7 +25,7 @@
 #methodos.methodos-section {
   padding: 0;
   position: relative;
-  background: var(--paper-2, #ecebe3);
+  background: var(--paper, #f4f3ee);
 }
 
 /* ── Bridge intro (uses the site's section-header rhythm) ── */
@@ -201,7 +201,7 @@
 
 /* ── Questions panel: three big cards, one per layer ── */
 .tm-root .questions {
-  position: relative; z-index: 5; background: var(--paper-2, #ecebe3);
+  position: relative; z-index: 5; background: var(--paper, #f4f3ee);
   padding: clamp(3.5rem, 7vw, 5rem) clamp(1.25rem, 5vw, 2.75rem) clamp(5rem, 9vw, 8rem);
 }
 .tm-root .questions-inner { max-width: 1320px; margin: 0 auto; }

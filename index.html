@@ -420,7 +420,7 @@
 
     /* ===== ROI TEASER ===== */
     .roi-teaser {
-      background: var(--paper-2);
+      background: var(--paper);
       padding: clamp(4rem, 8vw, 6rem) 0;
       border-top: 1px solid var(--line);
       border-bottom: 1px solid var(--line);
@@ -642,6 +642,13 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 2.5rem;
+    }
+
+    /* Problem section — 3 pain cells (reuses .benefit-card) */
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
     }
 
     .benefit-card {
@@ -901,7 +908,7 @@
 
     /* ===== CONTACT / CTA ===== */
     .contact-section {
-      background: var(--paper);
+      background: var(--paper-2);
       color: var(--ink);
       border-top: 1px solid var(--line);
       position: relative;
@@ -965,6 +972,7 @@
     /* Shared nav / footer / consent responsive lives in css/editorial.css */
     @media (max-width: 1024px) {
       .tools-grid { grid-template-columns: repeat(2, 1fr); }
+      .problem-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
     @media (max-width: 768px) {
@@ -981,7 +989,7 @@
       .ad-flow svg { width: 58px; }
       .ad-click { width: 60px; height: 60px; }
       .ad-click svg { width: 30px; height: 30px; }
-      .benefits-grid, .why-grid, .contact-grid { grid-template-columns: 1fr; }
+      .benefits-grid, .problem-grid, .why-grid, .contact-grid { grid-template-columns: 1fr; }
       .tools-grid { grid-template-columns: 1fr; }
 
       .quote-block { padding: 2rem 1.5rem; }
@@ -1029,10 +1037,10 @@
         <span>AIDEDCAM</span>
       </a>
       <ul class="nav-menu">
-        <li><a href="#kerdizeis" class="nav-link" data-i18n="nav.benefits">Οφέλη</a></li>
         <li><a href="#ti-kanoume" class="nav-link" data-i18n="nav.whatwedo">Τι Κάνουμε</a></li>
-        <li><a href="#ergaleia" class="nav-link" data-i18n="nav.tools">Εργαλεία</a></li>
+        <li><a href="#kerdizeis" class="nav-link" data-i18n="nav.benefits">Οφέλη</a></li>
         <li><a href="#methodos" class="nav-link" data-i18n="nav.method">Μέθοδος</a></li>
+        <li><a href="#ergaleia" class="nav-link" data-i18n="nav.tools">Εργαλεία</a></li>
         <li><a href="#giati" class="nav-link" data-i18n="nav.whyus">Γιατί Εμείς</a></li>
         <li><a href="#contact" class="nav-cta" data-i18n="nav.contact">Επικοινωνία</a></li>
         <li>
@@ -1059,7 +1067,7 @@
       <p class="subtitle" data-i18n="hero.subtitle">Εξατομικευμένες λύσεις αυτοματοποίησης CAD/CAM/CNC — κομμένες και ραμμένες στον τρόπο που δουλεύετε.</p>
       <div class="hero-ctas">
         <a href="#contact" class="btn-primary" data-i18n="hero.cta">Επικοινωνήστε Μαζί Μας</a>
-        <a href="#ti-kanoume" class="btn-secondary" data-i18n="hero.learn_more">Μάθετε Περισσότερα</a>
+        <a href="#provlima" class="btn-secondary" data-i18n="hero.learn_more">Μάθετε Περισσότερα</a>
       </div>
     </div>
     <div class="integrations-bar">
@@ -1087,93 +1095,36 @@
     </div>
   </section>
 
-  <!-- STATS BAR -->
-  <div class="stats-bar">
-    <div class="container">
-      <div class="stats-grid">
-        <div class="stat-item fade-in">
-          <div class="stat-number" data-count="85" data-suffix="%">85%</div>
-          <div class="stat-label" data-i18n="stats.time">Εξοικονόμηση χρόνου</div>
-        </div>
-        <div class="stat-item fade-in fade-in-delay-1">
-          <div class="stat-number" data-count="5" data-suffix="+">5+</div>
-          <div class="stat-label" data-i18n="stats.countries">Χώρες δραστηριοποίησης</div>
-        </div>
-        <div class="stat-item fade-in fade-in-delay-2">
-          <div class="stat-number" data-count="8">8</div>
-          <div class="stat-label" data-i18n="stats.integrations">Υποστηριζόμενα CAD/CAM</div>
-        </div>
-        <div class="stat-item fade-in fade-in-delay-3">
-          <div class="stat-number" data-count="100" data-suffix="%">100%</div>
-          <div class="stat-label" data-i18n="stats.custom">Εξατομικευμένες λύσεις</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ROI TEASER -->
-  <div class="roi-teaser">
-    <div class="container">
-      <div class="roi-teaser-content fade-in">
-        <h2 class="roi-teaser-heading" data-i18n-html="roi_teaser.heading">
-          <span class="roi-hl">Χρόνος</span> που επιστρέφεται αμέσως.<br>
-          <span class="roi-hl">Ποιότητα</span> που εξασφαλίζεται πάντα.<br>
-          <span class="roi-hl">Λογισμικό</span> φτιαγμένο αποκλειστικά για εσάς.<br>
-          <span class="roi-hl">Μία συνδρομή</span>, απεριόριστοι χρήστες.
-        </h2>
-        <a href="what-you-gain.html" class="btn-primary roi-teaser-cta" data-i18n="roi_teaser.cta">Δείτε τι κερδίζετε</a>
-        <a href="calculator.html" class="btn-primary roi-teaser-cta" data-i18n="calc.cta" style="margin-top:1rem;">Υπολογίστε με τα δικά σας νούμερα</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- ΤΙ ΚΕΡΔΙΖΕΙΣ (benefits first — what's in it for the buyer) -->
-  <section id="kerdizeis">
+  <!-- ΤΟ ΠΡΟΒΛΗΜΑ / The Problem -->
+  <section id="provlima" style="background: var(--bg-light);">
     <div class="container">
       <div class="section-header center fade-in">
-        <div class="section-label" data-i18n="benefits.label">Οφέλη</div>
-        <h2 data-i18n-html="benefits.title">Τι <strong>Κερδίζεις</strong></h2>
-        <p class="section-subtitle" data-i18n="benefits.subtitle">Μετρήσιμα αποτελέσματα από την πρώτη μέρα.</p>
+        <div class="section-label" data-i18n="problem.label">Το Πρόβλημα</div>
+        <h2 data-i18n-html="problem.title">Έμπειροι μηχανικοί ξοδεύουν τη μέρα τους σε <strong>επαναλαμβανόμενη χειροκίνητη δουλειά</strong></h2>
+        <p class="section-subtitle" data-i18n="problem.subtitle">Η ίδια γεωμετρία, η ίδια επιλογή εργαλείων, οι ίδιοι έλεγχοι — ξανά και ξανά. Αργό, επιρρεπές σε λάθη, και όλα στηρίζονται σε λίγους έμπειρους ανθρώπους.</p>
       </div>
-      <div class="benefits-grid">
+      <div class="problem-grid">
         <div class="benefit-card fade-in fade-in-delay-1" data-num="01">
-          <div class="benefit-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6M12 5V2"/></svg>
-          </div>
           <div class="benefit-number">01</div>
-          <h3 data-i18n="benefits.b1_title">Εξοικονόμηση χρόνου έως 85%</h3>
-          <p data-i18n="benefits.b1_desc">Ροές εργασίας που γίνονταν σε ώρες, τρέχουν σε λεπτά. Λιγότερα κλικ, λιγότερα χειροκίνητα βήματα, ταχύτερα αποτελέσματα.</p>
+          <h3 data-i18n="problem.p1_title">Χαμένες ώρες σε επαναλήψεις</h3>
+          <p data-i18n="problem.p1_desc">Ρουτίνες που κρατούν ώρες θα μπορούσαν να τελειώνουν σε λεπτά — αλλά σήμερα γίνονται χειροκίνητα, κάθε φορά.</p>
         </div>
         <div class="benefit-card fade-in fade-in-delay-2" data-num="02">
-          <div class="benefit-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V5l8-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>
-          </div>
           <div class="benefit-number">02</div>
-          <h3 data-i18n="benefits.b2_title">Εξάλειψη σφαλμάτων</h3>
-          <p data-i18n="benefits.b2_desc">Σταματήστε να δημιουργείτε λάθη και να εξαρτάστε από μεμονωμένους χειριστές. Σταθερή ποιότητα ανεξάρτητα από τον χειριστή.</p>
+          <h3 data-i18n="problem.p2_title">Λάθη που εξαρτώνται από τον χειριστή</h3>
+          <p data-i18n="problem.p2_desc">Η ποιότητα αλλάζει ανάλογα με τον χειριστή. Μια στιγμή κούρασης ή μια ξεχασμένη ρύθμιση γίνεται σκάρτο κομμάτι.</p>
         </div>
         <div class="benefit-card fade-in fade-in-delay-3" data-num="03">
-          <div class="benefit-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5-5 4 4 8-8"/><path d="M16 4h5v5"/><path d="M3 21h18"/></svg>
-          </div>
           <div class="benefit-number">03</div>
-          <h3 data-i18n="benefits.b3_title">Περισσότερο output, ίδιο κόστος</h3>
-          <p data-i18n="benefits.b3_desc">Αυξήστε την παραγωγική ικανότητα χωρίς να επεκτείνετε το κόστος προσωπικού ή τα μηχανήματα. Ελευθερώστε χρόνο από εξειδικευμένο προσωπικό.</p>
-        </div>
-        <div class="benefit-card fade-in fade-in-delay-4" data-num="04">
-          <div class="benefit-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 15c-1.5 1.5-2 5-2 5s3.5-.5 5-2c.9-.9.9-2.3 0-3.2-.9-.8-2.1-.7-3 .2z"/><path d="M9 13c2-6 5-9 11-9 0 6-3 9-9 11l-2-2z"/><circle cx="14.5" cy="8.5" r="1.4"/></svg>
-          </div>
-          <div class="benefit-number">04</div>
-          <h3 data-i18n="benefits.b4_title">Γρήγορο onboarding</h3>
-          <p data-i18n="benefits.b4_desc">Νέοι χειριστές παράγουν σωστά από την πρώτη μέρα. Η τεχνογνωσία σας ενσωματώνεται στο λογισμικό και τους καθοδηγεί βήμα προς βήμα.</p>
+          <h3 data-i18n="problem.p3_title">Τεχνογνωσία κλειδωμένη σε λίγους</h3>
+          <p data-i18n="problem.p3_desc">Όταν οι πιο έμπειροι λείπουν, η παραγωγή επιβραδύνεται. Η γνώση ζει σε αυτούς, όχι στη διαδικασία.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ΤΙ ΚΑΝΟΥΜΕ (how we deliver those gains) -->
-  <section id="ti-kanoume" style="background: var(--bg-light);">
+  <!-- ΤΙ ΚΑΝΟΥΜΕ (the solution) -->
+  <section id="ti-kanoume">
     <div class="container">
       <div class="split-section">
         <div class="split-content fade-in">
@@ -1219,53 +1170,48 @@
     </div>
   </section>
 
-  <!-- ΕΡΓΑΛΕΙΑ -->
-  <section id="ergaleia" class="integrations-section">
+  <!-- ΟΦΕΛΗ / Benefits -->
+  <section id="kerdizeis" style="background: var(--bg-light);">
     <div class="container">
       <div class="section-header center fade-in">
-        <div class="section-label" data-i18n="tools.label">Ενσωματώσεις</div>
-        <h2 data-i18n-html="tools.title">Δουλεύει με <strong>τα εργαλεία που ήδη έχετε</strong></h2>
-        <p class="section-subtitle" data-i18n="tools.subtitle">Τα προγράμματα CAD και CAM που ήδη έχετε, κρύβουν δυνατότητες που δεν χρησιμοποιείτε. Δουλεύουμε με 8 συστήματα CAD, CAM και BIM. Ό,τι κι αν χρησιμοποιείτε, ενσωματωνόμαστε σε αυτό.</p>
+        <div class="section-label" data-i18n="benefits.label">Οφέλη</div>
+        <h2 data-i18n-html="benefits.title">Τι <strong>Κερδίζεις</strong></h2>
+        <p class="section-subtitle" data-i18n="benefits.subtitle">Μετρήσιμα αποτελέσματα από την πρώτη μέρα.</p>
       </div>
-      <div class="tools-grid">
-        <div class="tool-card fade-in fade-in-delay-1">
-          <h4 data-i18n="tools.cad">CAD — Μοντελοποίηση</h4>
-          <div class="tool-chips">
-            <span class="tool-chip"><img src="icons/PowerShape.png" alt="" aria-hidden="true">PowerShape</span>
-            <span class="tool-chip"><img src="icons/Inventor.png" alt="" aria-hidden="true">Inventor</span>
-            <span class="tool-chip"><img src="icons/Fusion360.png" alt="" aria-hidden="true">Fusion 360</span>
-            <span class="tool-chip"><img src="icons/SiemensNX.ico" alt="" aria-hidden="true">Siemens NX</span>
+      <div class="benefits-grid">
+        <div class="benefit-card fade-in fade-in-delay-1" data-num="01">
+          <div class="benefit-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6M12 5V2"/></svg>
           </div>
+          <div class="benefit-number">01</div>
+          <h3 data-i18n="benefits.b1_title">Εξοικονόμηση χρόνου έως 85%</h3>
+          <p data-i18n="benefits.b1_desc">Ροές εργασίας που γίνονταν σε ώρες, τρέχουν σε λεπτά. Λιγότερα κλικ, λιγότερα χειροκίνητα βήματα, ταχύτερα αποτελέσματα.</p>
         </div>
-        <div class="tool-card fade-in fade-in-delay-2">
-          <h4 data-i18n="tools.cam">CAM — Κατεργασία</h4>
-          <div class="tool-chips">
-            <span class="tool-chip"><img src="icons/PowerMill.png" alt="" aria-hidden="true">PowerMill</span>
-            <span class="tool-chip"><img src="icons/Fusion360.png" alt="" aria-hidden="true">Fusion 360</span>
-            <span class="tool-chip"><img src="icons/FeatureCAM.png" alt="" aria-hidden="true">FeatureCAM</span>
-            <span class="tool-chip"><img src="icons/SiemensNX.ico" alt="" aria-hidden="true">Siemens NX</span>
+        <div class="benefit-card fade-in fade-in-delay-2" data-num="02">
+          <div class="benefit-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V5l8-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>
           </div>
+          <div class="benefit-number">02</div>
+          <h3 data-i18n="benefits.b2_title">Εξάλειψη σφαλμάτων</h3>
+          <p data-i18n="benefits.b2_desc">Σταματήστε να δημιουργείτε λάθη και να εξαρτάστε από μεμονωμένους χειριστές. Σταθερή ποιότητα ανεξάρτητα από τον χειριστή.</p>
         </div>
-        <div class="tool-card fade-in fade-in-delay-3">
-          <h4 data-i18n="tools.bim">BIM / AEC</h4>
-          <div class="tool-chips">
-            <span class="tool-chip"><img src="icons/Revit.png" alt="" aria-hidden="true">Revit</span>
-            <span class="tool-chip"><img src="icons/AutoCAD.png" alt="" aria-hidden="true">AutoCAD</span>
+        <div class="benefit-card fade-in fade-in-delay-3" data-num="03">
+          <div class="benefit-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5-5 4 4 8-8"/><path d="M16 4h5v5"/><path d="M3 21h18"/></svg>
           </div>
+          <div class="benefit-number">03</div>
+          <h3 data-i18n="benefits.b3_title">Περισσότερο output, ίδιο κόστος</h3>
+          <p data-i18n="benefits.b3_desc">Αυξήστε την παραγωγική ικανότητα χωρίς να επεκτείνετε το κόστος προσωπικού ή τα μηχανήματα. Ελευθερώστε χρόνο από εξειδικευμένο προσωπικό.</p>
         </div>
-        <div class="tool-card tool-card-wide fade-in">
-          <h4 data-i18n="tools.standalone_title">Standalone λύσεις χωρίς τρίτο λογισμικό</h4>
-          <p data-i18n-html="tools.standalone_desc">Υλοποιούμε επίσης λύσεις χωρίς την ανάγκη χρήσης τρίτου CAD/CAM λογισμικού, με τη χρήση των εργαλείων DevDept:
-            <a href="https://devdept.com/Industries/ProductDesign" target="_blank">Product Design</a>,
-            <a href="https://devdept.com/Industries/IndustrialEquipment" target="_blank">Industrial Equipment</a>,
-            <a href="https://devdept.com/Industries/Metrology" target="_blank">Metrology</a>
-          </p>
+        <div class="benefit-card fade-in fade-in-delay-4" data-num="04">
+          <div class="benefit-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 15c-1.5 1.5-2 5-2 5s3.5-.5 5-2c.9-.9.9-2.3 0-3.2-.9-.8-2.1-.7-3 .2z"/><path d="M9 13c2-6 5-9 11-9 0 6-3 9-9 11l-2-2z"/><circle cx="14.5" cy="8.5" r="1.4"/></svg>
+          </div>
+          <div class="benefit-number">04</div>
+          <h3 data-i18n="benefits.b4_title">Γρήγορο onboarding</h3>
+          <p data-i18n="benefits.b4_desc">Νέοι χειριστές παράγουν σωστά από την πρώτη μέρα. Η τεχνογνωσία σας ενσωματώνεται στο λογισμικό και τους καθοδηγεί βήμα προς βήμα.</p>
         </div>
       </div>
-      <div class="trust-badge fade-in">
-        <img src="autodesk-authorized-developer-black.png" alt="Autodesk Authorized Developer certification" />
-      </div>
-      <p class="disclaimer fade-in" data-i18n="tools.disclaimer">Τα εμπορικά σήματα που αναφέρονται ανήκουν στους αντίστοιχους κατόχους τους.</p>
     </div>
   </section>
 
@@ -1360,6 +1306,80 @@
     </div>
   </section>
 
+  <!-- ΕΡΓΑΛΕΙΑ -->
+  <section id="ergaleia" class="integrations-section">
+    <div class="container">
+      <div class="section-header center fade-in">
+        <div class="section-label" data-i18n="tools.label">Ενσωματώσεις</div>
+        <h2 data-i18n-html="tools.title">Δουλεύει με <strong>τα εργαλεία που ήδη έχετε</strong></h2>
+        <p class="section-subtitle" data-i18n="tools.subtitle">Τα προγράμματα CAD και CAM που ήδη έχετε, κρύβουν δυνατότητες που δεν χρησιμοποιείτε. Δουλεύουμε με 8 συστήματα CAD, CAM και BIM. Ό,τι κι αν χρησιμοποιείτε, ενσωματωνόμαστε σε αυτό.</p>
+      </div>
+      <div class="tools-grid">
+        <div class="tool-card fade-in fade-in-delay-1">
+          <h4 data-i18n="tools.cad">CAD — Μοντελοποίηση</h4>
+          <div class="tool-chips">
+            <span class="tool-chip"><img src="icons/PowerShape.png" alt="" aria-hidden="true">PowerShape</span>
+            <span class="tool-chip"><img src="icons/Inventor.png" alt="" aria-hidden="true">Inventor</span>
+            <span class="tool-chip"><img src="icons/Fusion360.png" alt="" aria-hidden="true">Fusion 360</span>
+            <span class="tool-chip"><img src="icons/SiemensNX.ico" alt="" aria-hidden="true">Siemens NX</span>
+          </div>
+        </div>
+        <div class="tool-card fade-in fade-in-delay-2">
+          <h4 data-i18n="tools.cam">CAM — Κατεργασία</h4>
+          <div class="tool-chips">
+            <span class="tool-chip"><img src="icons/PowerMill.png" alt="" aria-hidden="true">PowerMill</span>
+            <span class="tool-chip"><img src="icons/Fusion360.png" alt="" aria-hidden="true">Fusion 360</span>
+            <span class="tool-chip"><img src="icons/FeatureCAM.png" alt="" aria-hidden="true">FeatureCAM</span>
+            <span class="tool-chip"><img src="icons/SiemensNX.ico" alt="" aria-hidden="true">Siemens NX</span>
+          </div>
+        </div>
+        <div class="tool-card fade-in fade-in-delay-3">
+          <h4 data-i18n="tools.bim">BIM / AEC</h4>
+          <div class="tool-chips">
+            <span class="tool-chip"><img src="icons/Revit.png" alt="" aria-hidden="true">Revit</span>
+            <span class="tool-chip"><img src="icons/AutoCAD.png" alt="" aria-hidden="true">AutoCAD</span>
+          </div>
+        </div>
+        <div class="tool-card tool-card-wide fade-in">
+          <h4 data-i18n="tools.standalone_title">Standalone λύσεις χωρίς τρίτο λογισμικό</h4>
+          <p data-i18n-html="tools.standalone_desc">Υλοποιούμε επίσης λύσεις χωρίς την ανάγκη χρήσης τρίτου CAD/CAM λογισμικού, με τη χρήση των εργαλείων DevDept:
+            <a href="https://devdept.com/Industries/ProductDesign" target="_blank">Product Design</a>,
+            <a href="https://devdept.com/Industries/IndustrialEquipment" target="_blank">Industrial Equipment</a>,
+            <a href="https://devdept.com/Industries/Metrology" target="_blank">Metrology</a>
+          </p>
+        </div>
+      </div>
+      <div class="trust-badge fade-in">
+        <img src="autodesk-authorized-developer-black.png" alt="Autodesk Authorized Developer certification" />
+      </div>
+      <p class="disclaimer fade-in" data-i18n="tools.disclaimer">Τα εμπορικά σήματα που αναφέρονται ανήκουν στους αντίστοιχους κατόχους τους.</p>
+    </div>
+  </section>
+
+  <!-- ΣΤΑΤΙΣΤΙΚΑ / Stats (proof strip) -->
+  <div class="stats-bar">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item fade-in">
+          <div class="stat-number" data-count="85" data-suffix="%">85%</div>
+          <div class="stat-label" data-i18n="stats.time">Εξοικονόμηση χρόνου</div>
+        </div>
+        <div class="stat-item fade-in fade-in-delay-1">
+          <div class="stat-number" data-count="5" data-suffix="+">5+</div>
+          <div class="stat-label" data-i18n="stats.countries">Χώρες δραστηριοποίησης</div>
+        </div>
+        <div class="stat-item fade-in fade-in-delay-2">
+          <div class="stat-number" data-count="8">8</div>
+          <div class="stat-label" data-i18n="stats.integrations">Υποστηριζόμενα CAD/CAM</div>
+        </div>
+        <div class="stat-item fade-in fade-in-delay-3">
+          <div class="stat-number" data-count="100" data-suffix="%">100%</div>
+          <div class="stat-label" data-i18n="stats.custom">Εξατομικευμένες λύσεις</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- ΓΙΑΤΙ AIDEDCAM — merged with ΣΧΕΤΙΚΑ: identity + pillars in one section -->
   <section id="giati" style="background: var(--bg-light);">
     <div class="container">
@@ -1419,6 +1439,22 @@
     </div>
   </section>
 
+  <!-- ROI BRIDGE — go deeper before contact -->
+  <div class="roi-teaser">
+    <div class="container">
+      <div class="roi-teaser-content fade-in">
+        <h2 class="roi-teaser-heading" data-i18n-html="roi_teaser.heading">
+          <span class="roi-hl">Χρόνος</span> που επιστρέφεται αμέσως.<br>
+          <span class="roi-hl">Ποιότητα</span> που εξασφαλίζεται πάντα.<br>
+          <span class="roi-hl">Λογισμικό</span> φτιαγμένο αποκλειστικά για εσάς.<br>
+          <span class="roi-hl">Μία συνδρομή</span>, απεριόριστοι χρήστες.
+        </h2>
+        <a href="what-you-gain.html" class="btn-primary roi-teaser-cta" data-i18n="roi_teaser.cta">Δείτε τι κερδίζετε</a>
+        <a href="calculator.html" class="btn-primary roi-teaser-cta" data-i18n="calc.cta" style="margin-top:1rem;">Υπολογίστε με τα δικά σας νούμερα</a>
+      </div>
+    </div>
+  </div>
+
   <!-- ΕΠΙΚΟΙΝΩΝΙΑ -->
   <section id="contact" class="contact-section">
     <div class="container">
@@ -1466,8 +1502,9 @@
         <div class="footer-col">
           <h4 data-i18n="nav.method">Μέθοδος</h4>
           <div class="footer-links">
-            <a href="#kerdizeis" data-i18n="nav.benefits">Οφέλη</a>
             <a href="#ti-kanoume" data-i18n="footer.whatwedo">Τι Κάνουμε</a>
+            <a href="#kerdizeis" data-i18n="nav.benefits">Οφέλη</a>
+            <a href="#methodos" data-i18n="nav.method">Μέθοδος</a>
             <a href="#ergaleia" data-i18n="nav.tools">Εργαλεία</a>
             <a href="#giati" data-i18n="nav.whyus">Γιατί Εμείς</a>
           </div>
@@ -1525,6 +1562,16 @@
         'stats.countries': 'Χώρες δραστηριοποίησης',
         'stats.integrations': 'Υποστηριζόμενα CAD/CAM',
         'stats.custom': 'Εξατομικευμένες λύσεις',
+
+        'problem.label': 'Το Πρόβλημα',
+        'problem.title': 'Έμπειροι μηχανικοί ξοδεύουν τη μέρα τους σε <strong>επαναλαμβανόμενη χειροκίνητη δουλειά</strong>',
+        'problem.subtitle': 'Η ίδια γεωμετρία, η ίδια επιλογή εργαλείων, οι ίδιοι έλεγχοι — ξανά και ξανά. Αργό, επιρρεπές σε λάθη, και όλα στηρίζονται σε λίγους έμπειρους ανθρώπους.',
+        'problem.p1_title': 'Χαμένες ώρες σε επαναλήψεις',
+        'problem.p1_desc': 'Ρουτίνες που κρατούν ώρες θα μπορούσαν να τελειώνουν σε λεπτά — αλλά σήμερα γίνονται χειροκίνητα, κάθε φορά.',
+        'problem.p2_title': 'Λάθη που εξαρτώνται από τον χειριστή',
+        'problem.p2_desc': 'Η ποιότητα αλλάζει ανάλογα με τον χειριστή. Μια στιγμή κούρασης ή μια ξεχασμένη ρύθμιση γίνεται σκάρτο κομμάτι.',
+        'problem.p3_title': 'Τεχνογνωσία κλειδωμένη σε λίγους',
+        'problem.p3_desc': 'Όταν οι πιο έμπειροι λείπουν, η παραγωγή επιβραδύνεται. Η γνώση ζει σε αυτούς, όχι στη διαδικασία.',
         // Workflow Visualization
         'viz.title': '<span class="viz-muted">10 βήματα</span> γίνονται <span class="viz-green">μία ενέργεια</span>',
         'viz.perpart': 'ανά τεμάχιο',
@@ -1671,6 +1718,16 @@
         'stats.countries': 'Countries served',
         'stats.integrations': 'Supported CAD/CAM',
         'stats.custom': 'Custom-built solutions',
+
+        'problem.label': 'The Problem',
+        'problem.title': 'Skilled engineers spend their day on <strong>repetitive manual work</strong>',
+        'problem.subtitle': 'The same geometry, the same tool selection, the same checks — over and over. Slow, easy to get wrong, and it all rests on a few experienced people.',
+        'problem.p1_title': 'Hours lost to repetition',
+        'problem.p1_desc': 'Routine that runs for hours could run in minutes — but today it is done by hand, every single time.',
+        'problem.p2_title': 'Errors that depend on the operator',
+        'problem.p2_desc': 'Quality swings with the operator. A tired moment or a missed setting becomes a scrapped part.',
+        'problem.p3_title': 'Know-how locked in a few heads',
+        'problem.p3_desc': 'When your most experienced people are away, the line slows down. The expertise lives in them, not the process.',
         // Workflow Visualization
         'viz.title': '<span class="viz-muted">10 steps</span> become <span class="viz-green">one action</span>',
         'viz.perpart': 'per part',
@@ -1817,6 +1874,16 @@
         'stats.countries': 'Paesi serviti',
         'stats.integrations': 'CAD/CAM supportati',
         'stats.custom': 'Soluzioni su misura',
+
+        'problem.label': 'Il Problema',
+        'problem.title': 'Tecnici esperti passano la giornata su <strong>lavoro manuale ripetitivo</strong>',
+        'problem.subtitle': 'La stessa geometria, la stessa selezione di utensili, gli stessi controlli — ancora e ancora. Lento, facile da sbagliare e dipende da poche persone esperte.',
+        'problem.p1_title': 'Ore perse in ripetizioni',
+        'problem.p1_desc': 'Attività di routine che durano ore potrebbero durare minuti — ma oggi si fanno a mano, ogni volta.',
+        'problem.p2_title': 'Errori che dipendono dall\'operatore',
+        'problem.p2_desc': 'La qualità varia con l\'operatore. Un momento di stanchezza o un\'impostazione mancata diventa un pezzo da scartare.',
+        'problem.p3_title': 'Know-how chiuso in poche persone',
+        'problem.p3_desc': 'Quando le persone più esperte sono assenti, la produzione rallenta. La competenza vive in loro, non nel processo.',
         // Workflow Visualization
         'viz.title': '<span class="viz-muted">10 passaggi</span> diventano <span class="viz-green">una sola azione</span>',
         'viz.perpart': 'per pezzo',

@@ -1,17 +1,19 @@
 /* ═══ ΜΕΘΟΔΟΣ — "system ▸ workflow ▸ task" nested-layers diagram ═══
    Self-contained, in-viewport interactive block (tabs + auto first-pass).
    No scroll-pinning — the section flows with natural page scroll.
-   Logic + 3-language copy live in js/methodos.js. */
+   Logic + 3-language copy live in js/methodos.js.
+   Editorial re-skin: flat light panels, hairline rules, mono labels,
+   green only on the active/focused layer. */
 
 .tm-root {
-  /* Local palette used by the questions cards below. */
-  --green: #3a9b6b;
-  --green-dark: #256b48;
-  --green-deep: #163f2c;
-  --muted: #5a6a61;
-  --faint: #c8d7ce;
-  --paper: #fff;
-  --ink: #0f1412;
+  /* Local palette, aligned to css/editorial.css. */
+  --green: #0d7a3e;
+  --green-dark: #0a5c2f;
+  --green-deep: #0a5c2f;
+  --muted: #6b6a60;
+  --faint: #dcdacf;
+  --paper: #ffffff;
+  --ink: #17170f;
   position: relative;
   width: 100%;
   font-family: 'Barlow', system-ui, sans-serif;
@@ -23,12 +25,12 @@
 #methodos.methodos-section {
   padding: 0;
   position: relative;
-  background: var(--bg-light);
+  background: var(--paper-2, #ecebe3);
 }
 
 /* ── Bridge intro (uses the site's section-header rhythm) ── */
 .methodos-intro {
-  padding: 90px 0 50px;
+  padding: clamp(4.5rem, 9vw, 8rem) 0 clamp(2.5rem, 4vw, 3.5rem);
   text-align: center;
 }
 .methodos-intro .section-label,
@@ -40,28 +42,26 @@
 
 /* ── Method block ── */
 .method {
-  max-width: 1200px;
+  max-width: 1320px;
   margin: 0 auto;
-  padding: 0 3rem 40px;
+  padding: 0 clamp(1.25rem, 5vw, 4rem) 40px;
 }
 
 .method-thesis {
   font-family: 'Barlow', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: clamp(26px, 3.2vw, 44px);
   line-height: 1.18;
   letter-spacing: -0.02em;
   text-align: center;
   max-width: 920px;
   margin: 0 auto 56px;
-  color: var(--text-dark, #161616);
+  color: var(--ink);
   text-wrap: balance;
 }
 .method-thesis strong {
-  font-weight: 800;
-  background: var(--gradient-text, linear-gradient(92deg, #3db365, #7ee8a4));
-  -webkit-background-clip: text; background-clip: text;
-  -webkit-text-fill-color: transparent;
+  font-weight: 600;
+  color: var(--green-deep);
 }
 
 .method-stage {
@@ -74,24 +74,23 @@
 /* ── Diagram: a SYSTEM frame holding WORKFLOW cards holding TASK cells ── */
 .method-diagram {
   position: relative;
-  border-radius: 24px;
+  border-radius: 2px;
   padding: 1.7rem 1.6rem 2rem;
-  background: var(--grid-dark), var(--mesh-dark), var(--gradient-hero, #0b3220);
-  border: 1px solid rgba(126, 232, 164, 0.16);
-  box-shadow: var(--elev-3, 0 20px 60px rgba(8, 30, 18, 0.18)), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  background: var(--panel, #fff);
+  border: 1px solid var(--line, #dcdacf);
   transition: box-shadow 0.5s ease, border-color 0.5s ease;
 }
 
 .md-tag {
   font-family: 'JetBrains Mono', monospace;
-  font-weight: 700;
-  letter-spacing: 0.18em;
+  font-weight: 500;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 .md-sys-tag {
   display: block;
   font-size: 10px;
-  color: #7ee8a4;
+  color: var(--green-deep);
   margin-bottom: 1.1rem;
 }
 
@@ -101,48 +100,46 @@
   gap: 0.85rem;
 }
 .md-flow {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 14px;
+  background: var(--paper, #fff);
+  border: 1px solid var(--line, #dcdacf);
+  border-radius: 2px;
   padding: 0.85rem 0.75rem 0.95rem;
   transition: opacity 0.45s ease, border-color 0.45s ease, box-shadow 0.45s ease, transform 0.45s ease;
 }
 .md-flow .md-tag {
   display: block;
   font-size: 8px;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--muted);
   margin-bottom: 0.7rem;
 }
 .md-tasks { display: flex; flex-wrap: wrap; gap: 6px; }
 .md-tasks i {
   width: 16px; height: 16px;
-  border-radius: 4px;
-  background: rgba(126, 232, 164, 0.28);
+  border-radius: 1px;
+  background: var(--line-strong, #c2bfb1);
   transition: background 0.45s ease, box-shadow 0.45s ease, transform 0.45s ease;
 }
 
 /* Focus: SYSTEM — the whole frame is the subject */
 .method-diagram[data-focus="system"] {
-  box-shadow: var(--elev-3, 0 20px 60px rgba(8, 30, 18, 0.18)),
-              0 0 0 2px rgba(126, 232, 164, 0.35),
-              0 0 50px rgba(61, 179, 101, 0.30);
+  border-color: var(--green);
+  box-shadow: 0 0 0 1px var(--green);
 }
 
 /* Focus: WORKFLOW — one flow card lit, the rest recede */
-.method-diagram[data-focus="workflow"] .md-flow { opacity: 0.4; }
+.method-diagram[data-focus="workflow"] .md-flow { opacity: 0.45; }
 .method-diagram[data-focus="workflow"] .md-flow.is-active {
   opacity: 1;
-  border-color: rgba(126, 232, 164, 0.6);
-  box-shadow: 0 0 28px rgba(61, 179, 101, 0.45);
-  transform: translateY(-4px);
+  border-color: var(--green);
+  box-shadow: 0 0 0 1px var(--green);
+  transform: translateY(-3px);
 }
 
 /* Focus: TASK — the individual cells become the subject */
-.method-diagram[data-focus="task"] .md-flow { opacity: 0.45; }
+.method-diagram[data-focus="task"] .md-flow { opacity: 0.5; }
 .method-diagram[data-focus="task"] .md-flow.is-active { opacity: 1; }
 .method-diagram[data-focus="task"] .md-flow.is-active .md-tasks i {
-  background: var(--gradient-emerald, linear-gradient(135deg, #0d7a3e, #7ee8a4));
-  box-shadow: 0 0 10px rgba(126, 232, 164, 0.6);
+  background: var(--green);
 }
 .method-diagram[data-focus="task"] .md-flow.is-active .md-tasks i:nth-child(2n) {
   animation: mdTaskPulse 1.7s ease-in-out infinite;
@@ -152,131 +149,130 @@
 /* ── Info column (tabs + definition that swaps per layer) ── */
 .method-tabs {
   display: inline-flex;
-  gap: 0.35rem;
-  background: rgba(13, 122, 62, 0.06);
-  border: 1px solid var(--border, #ebebeb);
-  border-radius: 50px;
-  padding: 5px;
+  gap: 0.3rem;
+  background: var(--paper-2, #ecebe3);
+  border: 1px solid var(--line, #dcdacf);
+  border-radius: 2px;
+  padding: 4px;
   margin-bottom: 1.7rem;
 }
 .m-tab {
   border: 0;
   background: transparent;
   cursor: pointer;
-  font-family: 'Barlow', sans-serif;
-  font-weight: 700;
-  font-size: 0.82rem;
-  letter-spacing: 0.03em;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   color: var(--muted);
-  padding: 0.5rem 1.15rem;
-  border-radius: 50px;
-  transition: color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+  padding: 0.45rem 1rem;
+  border-radius: 1px;
+  transition: color 0.25s ease, background 0.25s ease;
 }
-.m-tab:hover { color: var(--green-deep); }
+.m-tab:hover { color: var(--ink); }
 .m-tab.on {
-  background: var(--gradient-emerald, linear-gradient(135deg, #0d7a3e, #3db365));
+  background: var(--ink);
   color: #fff;
-  box-shadow: 0 4px 14px rgba(13, 122, 62, 0.3);
 }
 
 .m-kicker {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--accent, #0d7a3e); font-weight: 700; margin-bottom: 14px;
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--green-deep); font-weight: 500; margin-bottom: 14px;
 }
 .m-title {
-  font-family: 'Barlow', sans-serif; font-weight: 300;
+  font-family: 'Barlow', sans-serif; font-weight: 500;
   font-size: clamp(32px, 3.6vw, 48px); line-height: 1.05;
-  letter-spacing: -0.03em; color: var(--text-dark, #161616); margin: 0 0 16px;
+  letter-spacing: -0.03em; color: var(--ink); margin: 0 0 16px;
 }
-.m-title strong { font-weight: 800; color: var(--accent, #0d7a3e); }
+.m-title strong { font-weight: 600; color: var(--green-deep); }
 .m-defn {
   font-size: clamp(16px, 1.2vw, 19px); line-height: 1.55;
-  color: var(--text-gray, #555); margin: 0 0 22px; max-width: 460px; text-wrap: pretty;
+  color: var(--muted); margin: 0 0 22px; max-width: 460px; text-wrap: pretty;
 }
-.reveals { border-top: 1px solid var(--border, #ebebeb); padding-top: 18px; max-width: 460px; }
+.reveals { border-top: 1px solid var(--line, #dcdacf); padding-top: 18px; max-width: 460px; }
 .reveals-label {
   font-family: 'JetBrains Mono', monospace; font-size: 10px;
-  letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-light, #888); margin-bottom: 8px;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--faint, #9a988c); margin-bottom: 8px;
 }
-.m-reveals { margin: 0; font-size: clamp(14px, 1vw, 16px); line-height: 1.55; color: var(--text-gray, #555); text-wrap: pretty; }
-.m-reveals strong { color: var(--text-dark, #161616); font-weight: 700; }
+.m-reveals { margin: 0; font-size: clamp(14px, 1vw, 16px); line-height: 1.55; color: var(--muted); text-wrap: pretty; }
+.m-reveals strong { color: var(--ink); font-weight: 600; }
 
 /* ── Questions panel: three big cards, one per layer ── */
 .tm-root .questions {
-  position: relative; z-index: 5; background: var(--bg-light);
-  padding: 80px 44px 130px;
+  position: relative; z-index: 5; background: var(--paper-2, #ecebe3);
+  padding: clamp(3.5rem, 7vw, 5rem) clamp(1.25rem, 5vw, 2.75rem) clamp(5rem, 9vw, 8rem);
 }
-.tm-root .questions-inner { max-width: 1200px; margin: 0 auto; }
+.tm-root .questions-inner { max-width: 1320px; margin: 0 auto; }
 .tm-root .questions .q-kicker {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
-  color: var(--green); font-weight: 700; margin-bottom: 18px;
+  font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--green-deep); font-weight: 500; margin-bottom: 18px;
 }
 .tm-root .questions h2 {
-  font-family: 'Barlow', sans-serif; font-weight: 300;
+  font-family: 'Barlow', sans-serif; font-weight: 500;
   font-size: clamp(34px, 3.6vw, 54px); line-height: 1.08;
   letter-spacing: -0.035em; margin: 0 0 12px 0; color: var(--ink);
   max-width: 900px; text-wrap: balance;
 }
-.tm-root .questions h2 strong { font-weight: 700; color: var(--green-deep); }
+.tm-root .questions h2 strong { font-weight: 600; color: var(--green-deep); }
 .tm-root .questions .sub {
   font-family: 'Barlow', sans-serif; font-weight: 400;
   font-size: 19px; color: var(--muted); max-width: 560px;
   margin: 0 0 56px 0; line-height: 1.5;
 }
-.tm-root .q-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.tm-root .q-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
 .tm-root .q-card {
-  background: linear-gradient(160deg, #ffffff 0%, #f3f9f5 100%);
-  border: 1px solid var(--faint); border-radius: 18px;
+  background: var(--panel, #fff);
+  border: 1px solid var(--line, #dcdacf); border-radius: 2px;
   padding: 34px 32px 30px;
   position: relative; overflow: hidden;
-  box-shadow: var(--elev-1, 0 8px 24px rgba(8, 30, 18, 0.06));
-  transition: transform 240ms ease, border-color 240ms ease, box-shadow 240ms ease;
+  transition: transform 240ms ease, border-color 240ms ease;
 }
 .tm-root .q-card::before {
-  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
-  background: var(--gradient-emerald, linear-gradient(135deg, #0d7a3e, #7ee8a4));
-  opacity: 0.85; transition: width 0.3s ease;
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+  background: var(--green);
+  transition: width 0.3s ease;
 }
-.tm-root .q-card:hover { border-color: rgba(61, 179, 101, 0.4); transform: translateY(-4px); box-shadow: var(--elev-2, 0 18px 50px rgba(8, 30, 18, 0.1)); }
-.tm-root .q-card:hover::before { width: 7px; }
+.tm-root .q-card:hover { border-color: var(--line-strong, #c2bfb1); transform: translateY(-3px); }
+.tm-root .q-card:hover::before { width: 5px; }
 .tm-root .q-num {
   font-family: 'JetBrains Mono', monospace; font-size: 11px;
-  color: var(--muted); letter-spacing: 0.2em; margin-bottom: 6px;
+  color: var(--muted); letter-spacing: 0.18em; margin-bottom: 6px;
 }
 .tm-root .q-tag {
   display: inline-block; font-family: 'JetBrains Mono', monospace;
-  font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
-  font-weight: 700; color: white; background: var(--green-deep);
-  padding: 4px 10px; border-radius: 4px; margin-bottom: 24px;
+  font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+  font-weight: 500; color: white; background: var(--green-deep);
+  padding: 4px 10px; border-radius: 2px; margin-bottom: 24px;
 }
 .tm-root .q-text {
   font-family: 'Barlow', sans-serif; font-weight: 400;
   font-size: 22px; line-height: 1.4; color: var(--ink);
   letter-spacing: -0.008em; text-wrap: pretty; min-height: 124px;
 }
-.tm-root .q-text strong { color: var(--green-deep); font-weight: 700; }
-.tm-root .q-divider { height: 1px; background: var(--faint); margin: 26px 0 14px; }
+.tm-root .q-text strong { color: var(--green-deep); font-weight: 600; }
+.tm-root .q-divider { height: 1px; background: var(--line, #dcdacf); margin: 26px 0 14px; }
 .tm-root .q-hint {
   font-family: 'JetBrains Mono', monospace; font-size: 10px;
-  color: var(--muted); letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--muted); letter-spacing: 0.14em; text-transform: uppercase;
 }
 
 /* CTA after the three questions — highest-intent moment on the page. */
 .tm-root .q-cta { margin-top: 56px; text-align: center; }
 .tm-root .q-cta a {
   display: inline-flex; align-items: center; gap: 0.55rem;
-  padding: 16px 34px;
-  background: var(--gradient-emerald, linear-gradient(135deg, #0d7a3e, #3db365));
+  padding: 0.9rem 1.8rem;
+  background: var(--ink);
   color: #fff; text-decoration: none;
-  font-family: 'Barlow', sans-serif; font-weight: 700;
-  font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase;
-  border-radius: 50px;
-  box-shadow: 0 8px 22px rgba(13, 122, 62, 0.32);
-  transition: transform 220ms ease, box-shadow 220ms ease;
+  font-family: 'Barlow', sans-serif; font-weight: 600;
+  font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase;
+  border: 1px solid var(--ink);
+  border-radius: 2px;
+  transition: background 0.25s ease, border-color 0.25s ease;
 }
-.tm-root .q-cta a:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(13, 122, 62, 0.45), 0 0 24px rgba(61, 179, 101, 0.28); }
+.tm-root .q-cta a:hover { background: var(--green-deep); border-color: var(--green-deep); }
 .tm-root .q-cta a svg { width: 16px; height: 16px; }
 .tm-root .q-cta a::after {
   content: ''; width: 1.05em; height: 1.05em; flex: none;
@@ -289,12 +285,10 @@
 
 /* ── Responsive ── */
 @media (max-width: 900px) {
-  .methodos-intro { padding: 96px 0 36px; }
   .method { padding: 0 1.5rem 30px; }
   .method-thesis { margin-bottom: 38px; }
   .method-stage { grid-template-columns: 1fr; gap: 2.2rem; }
   .tm-root .q-grid { grid-template-columns: 1fr; gap: 16px; }
-  .tm-root .questions { padding: 60px 22px 90px; }
   .tm-root .q-text { min-height: 0; }
 }
 @media (max-width: 420px) {

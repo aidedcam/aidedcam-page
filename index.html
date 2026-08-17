@@ -299,9 +299,125 @@
       background: var(--accent);
     }
 
+    /* ===== HERO WORDMARK DRUM =====
+       The AIDEDCAM logotype with the suffix rolling CAM > CAD > CNC > BIM > CAM
+       on an iPhone-picker cylinder, looping for as long as the hero is on screen.
+
+       Every dimension is derived in em from the geometry of a 90 degree drum, so
+       it scales with font-size and never needs JS to measure text:
+         row pitch   h = 1.18em                (1em line box + leading)
+         radius      r = h / (2 * tan 45)      = 0.59em
+         perspective p = 20h                   = 23.6em
+         front-face magnification  p / (p - r) = 1.0256
+       The window is sized from the MAGNIFIED word, not its layout box: translateZ
+       brings the front face toward the viewer, so it paints ~4.5% larger than it
+       measures and would otherwise be clipped by its own window.
+
+       Only `transform` animates, on a single element, with no JS in the loop. */
+    .wordmark-drum {
+      --wd-row:   1.18em;
+      --wd-r:     0.59em;     /* row / (2 * tan 45) */
+      --wd-persp: 23.6em;
+      --wd-win-h: 1.2103em;   /* row x 1.0256 */
+      --wd-win-w: 2.8611em;   /* widest word (CAM, 2.4581em) x 1.0256 + 2 x bleed */
+      --wd-bleed: 0.17em;     /* slack so the 3D edges are never sliced */
+      --wd-pad:   0.2015em;   /* puts the MAGNIFIED left edge exactly at --wd-bleed */
+
+      /* Block-level, not inline-flex: .hero-badge above it is inline-flex, and two
+         inline-level boxes would share a line. */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 4.2vw, 3rem);
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      line-height: 1;
+      color: var(--ink);
+      margin-bottom: 1.25rem;
+      user-select: none;
+    }
+
+    /* Icon-to-text proportions copied from .nav-logo in editorial.css (34px / 1.15rem) */
+    .wd-icon { height: 1.85em; width: auto; flex: none; margin-right: 0.52em; }
+    .wd-stem { display: block; }
+
+    .wd-window {
+      position: relative;
+      display: block;
+      width: var(--wd-win-w);
+      height: var(--wd-win-h);
+      margin-left: calc(-1 * var(--wd-bleed));
+      margin-right: calc(-1 * var(--wd-bleed));
+      overflow: hidden;
+    }
+
+    .wd-projection { position: absolute; inset: 0; perspective: var(--wd-persp); }
+
+    .wd-drum {
+      position: absolute; left: 0; right: 0;
+      height: var(--wd-row);
+      top: calc(50% - var(--wd-row) / 2);
+      transform-style: preserve-3d;
+      transform: rotateX(0deg);
+    }
+
+    .wd-face {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: flex-start;
+      padding-left: var(--wd-pad);
+      color: var(--accent-deep);
+      backface-visibility: hidden;
+      white-space: nowrap;
+    }
+
+    /* Four faces at 90 degrees: a square prism, so ONE cycle is exactly one full
+       turn. That is what makes the loop seamless, and it is not just tidiness —
+       a 60 degree drum would need five faces and a 240 degree sweep, which lands
+       the closing frame on a DIFFERENT element from the opening frame. The two
+       elements paint the same word at the same place to six decimals, but Chrome
+       rasterises their glyphs at visibly different weights, and the word twitches
+       once per cycle. Ending on the very element it started on removes that. */
+    .wd-face:nth-child(1) { transform: rotateX(   0deg) translateZ(var(--wd-r)); }
+    .wd-face:nth-child(2) { transform: rotateX( -90deg) translateZ(var(--wd-r)); }
+    .wd-face:nth-child(3) { transform: rotateX(-180deg) translateZ(var(--wd-r)); }
+    .wd-face:nth-child(4) { transform: rotateX(-270deg) translateZ(var(--wd-r)); }
+
+    .wordmark-drum.is-playing .wd-drum { animation: wdRoll 6920ms infinite forwards; }
+
+    /* Costs nothing while the visitor is reading the rest of the page. */
+    .wordmark-drum.is-offscreen .wd-drum { animation-play-state: paused; }
+
+    /* 4 beats of 1080ms spin + 650ms dwell = 6920ms.
+
+       The curve is editorial's strong ease-out, deliberately with NO overshoot. An
+       easeOutBack carried the drum ~9 degrees past each stop, and at that angle the
+       face two slots away sits at -81 degrees — just inside the window's bottom
+       edge — so a sliver of the wrong word flashed under the settled one. Stopping
+       exactly on the quarter turn keeps the off-screen faces exactly edge-on, where
+       they have zero projected height and cannot show at all.
+       Under the reduced-motion kill switch in editorial.css the duration collapses
+       and iteration-count is forced to 1; `forwards` then lands on the final
+       keyframe, which is CAM — the same frame the drum starts on, so nothing moves
+       and nothing flashes. */
+    @keyframes wdRoll {
+      0%     { transform: rotateX(0deg);   animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1); }
+      15.61% { transform: rotateX(90deg);  animation-timing-function: linear; }
+      25%    { transform: rotateX(90deg);  animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1); }
+      40.61% { transform: rotateX(180deg); animation-timing-function: linear; }
+      50%    { transform: rotateX(180deg); animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1); }
+      65.61% { transform: rotateX(270deg); animation-timing-function: linear; }
+      75%    { transform: rotateX(270deg); animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1); }
+      90.61% { transform: rotateX(360deg); animation-timing-function: linear; }
+      100%   { transform: rotateX(360deg); }
+    }
+
     .hero h1 {
       font-family: var(--font-display);
-      font-size: clamp(2.6rem, 6vw, 5rem);
+      /* Sized for Greek, which is the default language and the longest of the
+         three: at 5rem the title broke onto four lines instead of the two the
+         <br> intends. This keeps el on two lines and leaves en/it room to spare. */
+      font-size: clamp(2.1rem, 4.6vw, 3.75rem);
       font-weight: 500;
       letter-spacing: -0.03em;
       color: var(--ink);
@@ -905,7 +1021,8 @@
     }
 
     @media (max-width: 480px) {
-      .hero h1 { font-size: clamp(2rem, 8vw, 2.6rem); }
+      .hero h1 { font-size: clamp(1.7rem, 7vw, 2.2rem); }
+      .wordmark-drum { font-size: clamp(1.3rem, 6.6vw, 1.8rem); margin-bottom: 1rem; }
       .stats-grid { grid-template-columns: 1fr 1fr; }
       .stat-item { padding: 0 0.8rem; }
     }
@@ -960,6 +1077,23 @@
   <section class="hero">
     <div class="hero-content">
       <div class="hero-badge">Made by engineers, for engineers</div>
+      <!-- role="img" with aria-hidden children, so assistive tech announces one
+           wordmark instead of five loose acronyms. The words are product names
+           and are identical in el/en/it, so they carry no data-i18n. -->
+      <div class="wordmark-drum" id="wordmarkDrum" role="img" aria-label="AidedCAM — CAD, CAM, CNC, BIM">
+        <img class="wd-icon" src="aided-cam-transparent.png" alt="" aria-hidden="true" />
+        <span class="wd-stem" aria-hidden="true">AIDED</span>
+        <span class="wd-window" aria-hidden="true">
+          <span class="wd-projection">
+            <span class="wd-drum">
+              <span class="wd-face">CAM</span>
+              <span class="wd-face">CAD</span>
+              <span class="wd-face">CNC</span>
+              <span class="wd-face">BIM</span>
+            </span>
+          </span>
+        </span>
+      </div>
       <h1 data-i18n-html="hero.title"><span class="highlight">85%</span> της τεχνικής δουλειάς<br>μπορεί να γίνει αυτόματα</h1>
       <p class="subtitle" data-i18n="hero.subtitle">Εξατομικευμένες λύσεις αυτοματοποίησης CAD/CAM/CNC — κομμένες και ραμμένες στον τρόπο που δουλεύετε.</p>
       <div class="hero-ctas">
@@ -2205,6 +2339,35 @@
     document.querySelectorAll('.fade-in').forEach(el => {
       observer.observe(el);
     });
+
+    // ===== HERO WORDMARK DRUM =====
+    // The roll itself is pure CSS and loops forever; this only gates it on
+    // visibility, so it never animates to an empty screen and stops consuming
+    // compositor time once the visitor scrolls past the hero.
+    const wordmarkDrum = document.getElementById('wordmarkDrum');
+    if (wordmarkDrum) {
+      const watchDrum = () => {
+        const drumObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            // Pausing, not removing, the animation: play-state keeps its position,
+            // so scrolling back does not restart the cycle mid-word.
+            entry.target.classList.toggle('is-offscreen', !entry.isIntersecting);
+            if (entry.isIntersecting) entry.target.classList.add('is-playing');
+          });
+        }, { threshold: 0.5 });
+
+        drumObserver.observe(wordmarkDrum);
+      };
+
+      // Barlow is font-display:swap, so wait for it — the drum's window is sized
+      // in em from Barlow's metrics, and rolling in the fallback face would run
+      // the words against the edge of their own window.
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(watchDrum);
+      } else {
+        watchDrum();
+      }
+    }
 
     // ===== MOBILE MENU =====
     const navToggle = document.querySelector('.nav-toggle');

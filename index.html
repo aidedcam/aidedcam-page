@@ -503,110 +503,13 @@
     .contact-trust:hover { opacity: 1; }
     .contact-trust img { height: 40px; width: auto; }
 
-    /* ===== WHAT WE DO - Split layout ===== */
+    /* ===== WHAT WE DO ===== */
     .split-section {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6rem;
-      align-items: center;
+      grid-template-columns: 1fr;
     }
 
-    .split-visual {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 2px;
-      padding: 3rem 2.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 380px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* ── Automation diagram: 10 steps → 1 click ── */
-    .automation-diagram {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      align-items: center;
-      gap: 1.2rem;
-      width: 100%;
-      justify-content: center;
-    }
-    .ad-col {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: .35rem;
-      flex: 1;
-      max-width: 150px;
-    }
-    .ad-num {
-      font-family: var(--font-display);
-      font-weight: 500;
-      font-size: 3.4rem;
-      line-height: 1;
-      color: var(--ink);
-      letter-spacing: -0.03em;
-    }
-    .ad-num.accent {
-      color: var(--accent-deep);
-      font-weight: 600;
-      font-size: 4.4rem;
-    }
-    .ad-tag {
-      font-family: var(--font-mono);
-      font-size: .64rem;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      font-weight: 500;
-      color: var(--muted);
-    }
-    .ad-steps {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      width: 100%;
-      margin-top: .6rem;
-    }
-    .ad-steps i {
-      display: block;
-      height: 6px;
-      border-radius: 1px;
-      background: var(--line-strong);
-      animation: adStep 3.2s ease-in-out infinite;
-      animation-delay: var(--d);
-    }
-    @keyframes adStep {
-      0%, 70%, 100% { background: var(--line-strong); transform: scaleX(.82); }
-      12%, 22% { background: var(--accent); transform: scaleX(1); }
-    }
-    .ad-flow {
-      position: relative;
-      flex: 0 0 90px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .ad-flow svg { width: 90px; height: 26px; overflow: visible; }
-    .ad-line, .ad-head { stroke: var(--accent); stroke-width: 2; }
-    .ad-line { stroke-dasharray: 5 5; animation: adDash 1s linear infinite; }
-    .ad-head { stroke-linecap: round; stroke-linejoin: round; }
-    @keyframes adDash { to { stroke-dashoffset: -20; } }
-    .ad-bolt {
-      position: absolute;
-      top: -20px;
-      font-size: 1rem;
-    }
-    .ad-click {
-      width: 74px; height: 74px;
-      border-radius: 2px;
-      background: var(--accent);
-      display: flex; align-items: center; justify-content: center;
-      position: relative;
-    }
-    .ad-click svg { width: 36px; height: 36px; }
+    .split-content { max-width: 760px; }
 
     .split-content .section-subtitle {
       max-width: 100%;
@@ -676,7 +579,9 @@
 
     .benefit-card:hover {
       border-color: var(--line-strong);
-      transform: translateY(-3px);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .benefit-card:hover { transform: translateY(-3px); }
     }
 
     .benefit-icon {
@@ -739,8 +644,10 @@
     }
 
     .tool-card:hover {
-      transform: translateY(-3px);
       border-color: var(--line-strong);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .tool-card:hover { transform: translateY(-3px); }
     }
 
     .tool-card h4 {
@@ -979,16 +886,6 @@
       .hero { min-height: 500px; }
       .hero-scroll-indicator { bottom: 22px; }
 
-      .split-section { grid-template-columns: 1fr; gap: 3rem; }
-      .split-visual { min-height: 280px; padding: 2.5rem 1.5rem; }
-      .automation-diagram { gap: .5rem; }
-      .ad-col { max-width: 120px; }
-      .ad-num { font-size: 2.6rem; }
-      .ad-num.accent { font-size: 3.2rem; }
-      .ad-flow { flex: 0 0 58px; }
-      .ad-flow svg { width: 58px; }
-      .ad-click { width: 60px; height: 60px; }
-      .ad-click svg { width: 30px; height: 30px; }
       .benefits-grid, .problem-grid, .why-grid, .contact-grid { grid-template-columns: 1fr; }
       .tools-grid { grid-template-columns: 1fr; }
 
@@ -1137,34 +1034,6 @@
             <li><span class="check">&#10003;</span> <span data-i18n="whatwedo.f3">Ενσωματώνουμε τους κανόνες και τα standards σας στο λογισμικό</span></li>
             <li><span class="check">&#10003;</span> <span data-i18n="whatwedo.f4">Ενώνουμε σχεδιασμό, κατεργασίες και μηχανές σε μία ενιαία διαδικασία</span></li>
           </ul>
-        </div>
-        <div class="split-visual fade-in fade-in-delay-2">
-          <div class="automation-diagram" role="img" aria-label="From 10 manual steps to 1 automated click">
-            <div class="ad-col ad-manual">
-              <span class="ad-num">10</span>
-              <span class="ad-tag" data-i18n="whatwedo.diagram_before">χειροκίνητα βήματα</span>
-              <div class="ad-steps">
-                <i style="--d:0s"></i><i style="--d:.18s"></i><i style="--d:.36s"></i><i style="--d:.54s"></i><i style="--d:.72s"></i>
-                <i style="--d:.9s"></i><i style="--d:1.08s"></i><i style="--d:1.26s"></i><i style="--d:1.44s"></i><i style="--d:1.62s"></i>
-              </div>
-            </div>
-            <div class="ad-flow" aria-hidden="true">
-              <svg viewBox="0 0 80 24" preserveAspectRatio="none">
-                <line x1="2" y1="12" x2="64" y2="12" class="ad-line"/>
-                <path d="M58 5l8 7-8 7" class="ad-head" fill="none"/>
-              </svg>
-              <span class="ad-bolt">⚡</span>
-            </div>
-            <div class="ad-col ad-auto">
-              <div class="ad-click">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M9 4v10l2.5-2.3 1.8 4 2.2-1-1.8-3.9H20L9 4z"/>
-                </svg>
-              </div>
-              <span class="ad-num accent">1</span>
-              <span class="ad-tag" data-i18n="whatwedo.diagram_after">κλικ</span>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -1614,8 +1483,6 @@
         'whatwedo.f2': 'Αντικαθιστούμε χειροκίνητα βήματα με αυτόματες ροές',
         'whatwedo.f3': 'Ενσωματώνουμε τους κανόνες και τα standards σας στο λογισμικό',
         'whatwedo.f4': 'Ενώνουμε σχεδιασμό, κατεργασίες και μηχανές σε μία ενιαία διαδικασία',
-        'whatwedo.diagram_before': 'χειροκίνητα βήματα',
-        'whatwedo.diagram_after': 'κλικ',
         'methodos.qcta': 'Έχετε τέτοια εργασία; Ας μιλήσουμε',
         // Benefits
         'benefits.label': 'Οφέλη',
@@ -1770,8 +1637,6 @@
         'whatwedo.f2': 'We replace manual steps with automated workflows',
         'whatwedo.f3': 'We embed your rules and standards into the software',
         'whatwedo.f4': 'We unify design, machining and machines into one seamless process',
-        'whatwedo.diagram_before': 'manual steps',
-        'whatwedo.diagram_after': 'click',
         'methodos.qcta': 'Got work like this? Let’s talk',
         // Benefits
         'benefits.label': 'Benefits',
@@ -1926,8 +1791,6 @@
         'whatwedo.f2': 'Sostituiamo i passaggi manuali con flussi automatizzati',
         'whatwedo.f3': 'Integriamo le vostre regole e i vostri standard nel software',
         'whatwedo.f4': 'Uniamo progettazione, lavorazioni e macchine in un unico processo',
-        'whatwedo.diagram_before': 'passaggi manuali',
-        'whatwedo.diagram_after': 'clic',
         'methodos.qcta': 'Avete lavori come questi? Parliamone',
         // Benefits
         'benefits.label': 'Vantaggi',
@@ -2366,7 +2229,7 @@
     const navbar = document.querySelector('.navbar');
     window.addEventListener('scroll', () => {
       navbar.classList.toggle('scrolled', window.scrollY > 50);
-    });
+    }, { passive: true });
 
     // Hero particles, animated counters and the typing effect were removed
     // for the editorial redesign. Stat values render statically; the hero
@@ -2459,7 +2322,7 @@
             gaEvent('page_scroll_percentage', { percent: d });
           }
         });
-      });
+      }, { passive: true });
     })();
 
     // -- Section visibility tracking --
@@ -2572,21 +2435,40 @@
       var progressBar = document.getElementById('scrollProgress');
       var backToTopBtn = document.getElementById('backToTop');
 
-      window.addEventListener('scroll', function() {
-        var scrollTop = window.scrollY;
-        var docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        var progress = (scrollTop / docHeight) * 100;
-        progressBar.style.width = progress + '%';
+      var docHeight = 0;
+      var ticking = false;
+      var lastVisible = null;
 
-        if (scrollTop > 500) {
-          backToTopBtn.classList.add('visible');
-        } else {
-          backToTopBtn.classList.remove('visible');
+      function measure() {
+        docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      }
+
+      function update() {
+        ticking = false;
+        var scrollTop = window.scrollY;
+        var progress = docHeight > 0 ? scrollTop / docHeight : 0;
+        if (progress < 0) progress = 0;
+        if (progress > 1) progress = 1;
+        progressBar.style.transform = 'scaleX(' + progress + ')';
+
+        var visible = scrollTop > 500;
+        if (visible !== lastVisible) {
+          backToTopBtn.classList.toggle('visible', visible);
+          lastVisible = visible;
         }
-      });
+      }
+
+      measure();
+      window.addEventListener('load', measure);
+      window.addEventListener('resize', measure, { passive: true });
+      window.addEventListener('scroll', function() {
+        if (!ticking) { ticking = true; requestAnimationFrame(update); }
+      }, { passive: true });
+      update();
 
       backToTopBtn.addEventListener('click', function() {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
       });
     })();
 

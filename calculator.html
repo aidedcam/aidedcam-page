@@ -170,9 +170,9 @@
     /* ===== CALCULATOR CONTENT ===== */
     .calc-content {
       display: none; opacity: 0;
-      transition: opacity 0.6s ease;
+      transition: opacity 450ms var(--ease-out);
     }
-    .calc-content.fade-in { opacity: 1; }
+    .calc-content.fade-in { opacity: 1; transform: none; }
 
     /* ===== CALCULATOR HEADER ===== */
     .calc-header {
@@ -1214,10 +1214,15 @@
 
       localStorage.setItem('aidedcam-lang', lang);
 
-      // Re-render dynamic parts (guard: these are defined later in the script)
-      if (typeof renderResults === 'function') renderResults();
-      if (typeof updateProcessSummary === 'function') updateProcessSummary();
-      if (typeof updateErrorSummary === 'function') updateErrorSummary();
+      // Re-render dynamic parts. Both the functions and the state they read
+      // (lastResults, processes, errors) are defined further down the script,
+      // so the init-time call below runs before any of it exists — skip it then.
+      // The static markup already carries data-i18n, so nothing is missed.
+      if (typeof lastResults !== 'undefined') {
+        if (typeof renderResults === 'function') renderResults();
+        if (typeof updateProcessSummary === 'function') updateProcessSummary();
+        if (typeof updateErrorSummary === 'function') updateErrorSummary();
+      }
     }
 
     // Init language — wrapped so a failure here never kills pill/form handlers below
@@ -1324,7 +1329,7 @@
       var gate = document.getElementById('gateSection');
       var content = document.getElementById('calcContent');
 
-      gate.style.transition = 'opacity 0.4s ease';
+      gate.style.transition = 'opacity 400ms var(--ease-out)';
       gate.style.opacity = '0';
       setTimeout(function() {
         gate.style.display = 'none';

@@ -3,3 +3,5 @@ CLAUDE.md
 CLAUDE.local.md
 
 .claude/settings.local.json
+.claude/skills/
+skills-lock.json

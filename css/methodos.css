@@ -235,7 +235,10 @@
   background: var(--green);
   transition: width 0.3s ease;
 }
-.tm-root .q-card:hover { border-color: var(--line-strong, #c2bfb1); transform: translateY(-3px); }
+.tm-root .q-card:hover { border-color: var(--line-strong, #c2bfb1); }
+@media (hover: hover) and (pointer: fine) {
+  .tm-root .q-card:hover { transform: translateY(-3px); }
+}
 .tm-root .q-card:hover::before { width: 5px; }
 .tm-root .q-num {
   font-family: 'JetBrains Mono', monospace; font-size: 11px;

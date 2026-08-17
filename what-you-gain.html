@@ -206,13 +206,14 @@
     /* ===== ROI CONTENT (hidden initially) ===== */
     .roi-content {
       display: none; opacity: 0;
-      transition: opacity 0.6s ease;
+      transition: opacity 450ms var(--ease-out);
     }
     .roi-content.visible {
       display: block;
     }
     .roi-content.fade-in {
       opacity: 1;
+      transform: none;
     }
 
     /* ===== ROI HERO ===== */
@@ -370,7 +371,10 @@
       display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;
       transition: border-color 0.25s ease, transform 0.25s ease;
     }
-    .scaling-card:hover { border-color: var(--line-strong); transform: translateY(-3px); }
+    .scaling-card:hover { border-color: var(--line-strong); }
+    @media (hover: hover) and (pointer: fine) {
+      .scaling-card:hover { transform: translateY(-3px); }
+    }
 
     .scaling-text { flex: 1 1 200px; }
     .scaling-text .label {
@@ -408,7 +412,10 @@
       border-radius: 2px; padding: 1.4rem;
       transition: transform .25s ease, border-color .25s ease;
     }
-    .quality-card:hover { transform: translateY(-3px); border-color: var(--line-strong); }
+    .quality-card:hover { border-color: var(--line-strong); }
+    @media (hover: hover) and (pointer: fine) {
+      .quality-card:hover { transform: translateY(-3px); }
+    }
     .quality-card h4 {
       font-size: 1.1rem; font-weight: 600; color: var(--ink);
       margin-bottom: 0.4rem; font-family: var(--font-display);
@@ -458,7 +465,10 @@
       border-radius: 2px; padding: 1.6rem;
       transition: border-color 0.25s ease, transform 0.25s ease;
     }
-    .custom-col:hover { border-color: var(--line-strong); transform: translateY(-3px); }
+    .custom-col:hover { border-color: var(--line-strong); }
+    @media (hover: hover) and (pointer: fine) {
+      .custom-col:hover { transform: translateY(-3px); }
+    }
     .custom-col h4 {
       font-family: var(--font-mono);
       font-size: 0.72rem; font-weight: 500; color: var(--muted);
@@ -1470,7 +1480,7 @@
       }
 
       // Fade out gate
-      gate.style.transition = 'opacity 0.4s ease';
+      gate.style.transition = 'opacity 400ms var(--ease-out)';
       gate.style.opacity = '0';
       setTimeout(function() {
         gate.style.display = 'none';

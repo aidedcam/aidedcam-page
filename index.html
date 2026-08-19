@@ -523,7 +523,26 @@
       margin-bottom: 2.5rem;
       letter-spacing: -0.02em;
     }
-    .roi-hl { color: var(--accent-deep); font-weight: 600; }
+    .roi-hl { color: var(--accent-deep); font-weight: 600; position: relative; white-space: nowrap; }
+    /* Staggered reveal: each promise rises in, then its keyword is underlined left→right.
+       Driven by the shared .fade-in → .visible observer; lines are numbered via nth-child. */
+    .roi-line { display: block; opacity: 0; transform: translateY(14px); }
+    .roi-teaser-content.visible .roi-line { animation: roiLine 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: calc(var(--i, 0) * 220ms + 120ms); }
+    .roi-line:nth-child(1) { --i: 0; } .roi-line:nth-child(2) { --i: 1; } .roi-line:nth-child(3) { --i: 2; } .roi-line:nth-child(4) { --i: 3; }
+    @keyframes roiLine { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+    .roi-hl::after {
+      content: ""; position: absolute; left: 0; right: 0; bottom: -0.08em; height: 0.09em; border-radius: 1px;
+      background: var(--accent); transform: scaleX(0); transform-origin: left center;
+    }
+    .roi-teaser-content.visible .roi-hl::after { animation: roiUnderline 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: calc(var(--i, 0) * 220ms + 520ms); }
+    @keyframes roiUnderline { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+    .roi-teaser-content .roi-teaser-cta { opacity: 0; transform: translateY(10px); }
+    .roi-teaser-content.visible .roi-teaser-cta { animation: roiLine 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: 1.35s; }
+    .roi-teaser-content.visible .roi-teaser-cta + .roi-teaser-cta { animation-delay: 1.5s; }
+    @media (prefers-reduced-motion: reduce) {
+      .roi-line, .roi-teaser-content .roi-teaser-cta { opacity: 1; transform: none; }
+      .roi-hl::after { transform: none; }
+    }
     .roi-teaser-content .hero-ctas,
     .roi-teaser-content { display: block; }
     .roi-teaser-cta { margin: 0.5rem 0.5rem 0; }
@@ -968,6 +987,22 @@
     .tool-card-wide a { color: var(--accent-deep); text-decoration: underline; text-underline-offset: 3px; font-weight: 500; transition: color 0.2s; }
     .tool-card-wide a:hover { color: var(--ink); }
 
+    /* "Using something else?" — the list is what we've built for so far, not a limit */
+    .tool-card-ask {
+      display: flex; align-items: center; justify-content: space-between; gap: 1.5rem 2.5rem; flex-wrap: wrap;
+      background: var(--paper-2); border-color: var(--line);
+    }
+    .tool-card-ask h4 { margin: 0 0 0.35rem; }
+    .tool-card-ask p { margin: 0; max-width: 640px; }
+    .tool-card-ask .btn-secondary { flex: none; }
+    .integration-logos .integration-ask {
+      color: var(--accent-deep); text-decoration: none; font-weight: 600; font-size: 0.82rem; cursor: pointer;
+      border-bottom: 1px solid currentColor; padding-bottom: 1px; white-space: nowrap;
+      transition: color 0.2s ease;
+    }
+    .integration-logos .integration-ask:hover { color: var(--ink); }
+    .integration-logos .integration-ask::after { content: " \2192"; }
+
     .trust-badge {
       margin-top: 3rem;
       text-align: center;
@@ -1262,6 +1297,7 @@
         <span data-system="Revit"><img src="icons/Revit.png" alt="Revit" class="integration-icon">Revit</span>
         <span data-system="AutoCAD"><img src="icons/AutoCAD.png" alt="AutoCAD" class="integration-icon">AutoCAD</span>
         <span data-system="SiemensNX"><img src="icons/SiemensNX.ico" alt="SiemensNX" class="integration-icon">SiemensNX</span>
+        <a href="#contact" class="integration-ask" data-i18n="hero.ask">Κάτι άλλο; Ρωτήστε μας</a>
       </div>
     </div>
   </section>
@@ -1551,6 +1587,13 @@
             <a href="https://devdept.com/Industries/Metrology" target="_blank">Metrology</a>
           </p>
         </div>
+        <div class="tool-card tool-card-wide tool-card-ask fade-in">
+          <div>
+            <h4 data-i18n="tools.ask_title">Χρησιμοποιείτε κάτι άλλο;</h4>
+            <p data-i18n="tools.ask_desc">Η λίστα δείχνει πού έχουμε ήδη δουλέψει, όχι πού σταματάμε. Αν δουλεύετε με άλλο σύστημα CAD, CAM, BIM ή CNC, πείτε μας ποιο — τα περισσότερα έχουν API πάνω στο οποίο μπορούμε να χτίσουμε.</p>
+          </div>
+          <a href="#contact" class="btn-secondary" data-i18n="tools.ask_cta">Ρωτήστε μας</a>
+        </div>
       </div>
       <div class="trust-badge fade-in">
         <img src="autodesk-authorized-developer-black.png" alt="Autodesk Authorized Developer certification" />
@@ -1647,10 +1690,10 @@
     <div class="container">
       <div class="roi-teaser-content fade-in">
         <h2 class="roi-teaser-heading" data-i18n-html="roi_teaser.heading">
-          <span class="roi-hl">Χρόνος</span> που επιστρέφεται αμέσως.<br>
-          <span class="roi-hl">Ποιότητα</span> που εξασφαλίζεται πάντα.<br>
-          <span class="roi-hl">Λογισμικό</span> φτιαγμένο αποκλειστικά για εσάς.<br>
-          <span class="roi-hl">Μία συνδρομή</span>, απεριόριστοι χρήστες.
+          <span class="roi-line"><span class="roi-hl">Χρόνος</span> που επιστρέφεται αμέσως.</span>
+          <span class="roi-line"><span class="roi-hl">Ποιότητα</span> που εξασφαλίζεται πάντα.</span>
+          <span class="roi-line"><span class="roi-hl">Λογισμικό</span> φτιαγμένο αποκλειστικά για εσάς.</span>
+          <span class="roi-line"><span class="roi-hl">Μία συνδρομή</span>, απεριόριστοι χρήστες.</span>
         </h2>
         <a href="what-you-gain.html" class="btn-primary roi-teaser-cta" data-i18n="roi_teaser.cta">Δείτε τι κερδίζετε</a>
         <a href="calculator.html" class="btn-primary roi-teaser-cta" data-i18n="calc.cta" style="margin-top:1rem;">Υπολογίστε με τα δικά σας νούμερα</a>
@@ -1757,9 +1800,10 @@
         'hero.subtitle': 'Εξατομικευμένες λύσεις αυτοματοποίησης CAD/CAM/CNC — κομμένες και ραμμένες στον τρόπο που δουλεύετε.',
         'hero.cta': 'Επικοινωνήστε Μαζί Μας',
         'hero.learn_more': 'Μάθετε Περισσότερα',
-        'roi_teaser.heading': '<span class="roi-hl">Χρόνος</span> που επιστρέφεται αμέσως.<br><span class="roi-hl">Ποιότητα</span> που εξασφαλίζεται πάντα.<br><span class="roi-hl">Λογισμικό</span> φτιαγμένο αποκλειστικά για εσάς.<br><span class="roi-hl">Μία συνδρομή</span>, απεριόριστοι χρήστες.',
+        'roi_teaser.heading': '<span class="roi-line"><span class="roi-hl">Χρόνος</span> που επιστρέφεται αμέσως.</span><span class="roi-line"><span class="roi-hl">Ποιότητα</span> που εξασφαλίζεται πάντα.</span><span class="roi-line"><span class="roi-hl">Λογισμικό</span> φτιαγμένο αποκλειστικά για εσάς.</span><span class="roi-line"><span class="roi-hl">Μία συνδρομή</span>, απεριόριστοι χρήστες.</span>',
         'roi_teaser.cta': 'Δείτε τι κερδίζετε',
         'hero.supported': 'Υποστηριζόμενα συστήματα',
+        'hero.ask': 'Κάτι άλλο; Ρωτήστε μας',
         // Stats bar
         'stats.time': 'Εξοικονόμηση χρόνου',
         'stats.countries': 'Χώρες δραστηριοποίησης',
@@ -1815,6 +1859,9 @@
         'tools.cam': 'CAM — Κατεργασία',
         'tools.bim': 'BIM / AEC',
         'tools.standalone_title': 'Standalone λύσεις χωρίς τρίτο λογισμικό',
+        'tools.ask_title': 'Χρησιμοποιείτε κάτι άλλο;',
+        'tools.ask_desc': 'Η λίστα δείχνει πού έχουμε ήδη δουλέψει, όχι πού σταματάμε. Αν δουλεύετε με άλλο σύστημα CAD, CAM, BIM ή CNC, πείτε μας ποιο — τα περισσότερα έχουν API πάνω στο οποίο μπορούμε να χτίσουμε.',
+        'tools.ask_cta': 'Ρωτήστε μας',
         'tools.standalone_desc': 'Υλοποιούμε επίσης λύσεις χωρίς τρίτο CAD/CAM λογισμικό, με τα εργαλεία DevDept: <a href="https://devdept.com/Industries/ProductDesign" target="_blank">Product Design</a>, <a href="https://devdept.com/Industries/IndustrialEquipment" target="_blank">Industrial Equipment</a>, <a href="https://devdept.com/Industries/Metrology" target="_blank">Metrology</a>',
         'tools.disclaimer': 'Τα εμπορικά σήματα που αναφέρονται ανήκουν στους αντίστοιχους κατόχους τους.',
         // Services
@@ -1885,9 +1932,10 @@
         'hero.subtitle': 'Custom CAD/CAM/CNC automation solutions — tailored to the way you work.',
         'hero.cta': 'Get in Touch',
         'hero.learn_more': 'Learn More',
-        'roi_teaser.heading': '<span class="roi-hl">Time</span> returned immediately.<br><span class="roi-hl">Quality</span> guaranteed always.<br><span class="roi-hl">Software</span> built exclusively for you.<br><span class="roi-hl">One subscription</span>, unlimited users.',
+        'roi_teaser.heading': '<span class="roi-line"><span class="roi-hl">Time</span> returned immediately.</span><span class="roi-line"><span class="roi-hl">Quality</span> guaranteed always.</span><span class="roi-line"><span class="roi-hl">Software</span> built exclusively for you.</span><span class="roi-line"><span class="roi-hl">One subscription</span>, unlimited users.</span>',
         'roi_teaser.cta': 'See what you gain',
         'hero.supported': 'Supported systems',
+        'hero.ask': 'Something else? Ask us',
         // Stats bar
         'stats.time': 'Time savings',
         'stats.countries': 'Countries served',
@@ -1943,6 +1991,9 @@
         'tools.cam': 'CAM — Machining',
         'tools.bim': 'BIM / AEC',
         'tools.standalone_title': 'Standalone solutions without third-party software',
+        'tools.ask_title': 'Using something else?',
+        'tools.ask_desc': 'This list shows where we have already built, not where we stop. If you work in another CAD, CAM, BIM or CNC system, tell us which — most have an API we can build on.',
+        'tools.ask_cta': 'Ask us',
         'tools.standalone_desc': 'We also develop solutions without the need for third-party CAD/CAM software, using DevDept tools: <a href="https://devdept.com/Industries/ProductDesign" target="_blank">Product Design</a>, <a href="https://devdept.com/Industries/IndustrialEquipment" target="_blank">Industrial Equipment</a>, <a href="https://devdept.com/Industries/Metrology" target="_blank">Metrology</a>',
         'tools.disclaimer': 'All trademarks mentioned belong to their respective owners.',
         // Services
@@ -2013,9 +2064,10 @@
         'hero.subtitle': 'Soluzioni personalizzate di automazione CAD/CAM/CNC — su misura per il vostro modo di lavorare.',
         'hero.cta': 'Contattaci',
         'hero.learn_more': 'Scopri di Più',
-        'roi_teaser.heading': '<span class="roi-hl">Tempo</span> restituito immediatamente.<br><span class="roi-hl">Qualit\u00e0</span> garantita sempre.<br><span class="roi-hl">Software</span> costruito esclusivamente per voi.<br><span class="roi-hl">Un abbonamento</span>, utenti illimitati.',
+        'roi_teaser.heading': '<span class="roi-line"><span class="roi-hl">Tempo</span> restituito immediatamente.</span><span class="roi-line"><span class="roi-hl">Qualit\u00e0</span> garantita sempre.</span><span class="roi-line"><span class="roi-hl">Software</span> costruito esclusivamente per voi.</span><span class="roi-line"><span class="roi-hl">Un abbonamento</span>, utenti illimitati.</span>',
         'roi_teaser.cta': 'Scoprite cosa guadagnate',
         'hero.supported': 'Sistemi supportati',
+        'hero.ask': 'Qualcos’altro? Chiedeteci',
         // Stats bar
         'stats.time': 'Risparmio di tempo',
         'stats.countries': 'Paesi serviti',
@@ -2071,6 +2123,9 @@
         'tools.cam': 'CAM — Lavorazione',
         'tools.bim': 'BIM / AEC',
         'tools.standalone_title': 'Soluzioni standalone senza software di terze parti',
+        'tools.ask_title': 'Usate qualcos’altro?',
+        'tools.ask_desc': 'Questa lista mostra dove abbiamo già lavorato, non dove ci fermiamo. Se lavorate con un altro sistema CAD, CAM, BIM o CNC, diteci quale: la maggior parte ha un’API su cui possiamo costruire.',
+        'tools.ask_cta': 'Chiedeteci',
         'tools.standalone_desc': 'Sviluppiamo anche soluzioni senza la necessità di software CAD/CAM di terze parti, utilizzando gli strumenti DevDept: <a href="https://devdept.com/Industries/ProductDesign" target="_blank">Product Design</a>, <a href="https://devdept.com/Industries/IndustrialEquipment" target="_blank">Industrial Equipment</a>, <a href="https://devdept.com/Industries/Metrology" target="_blank">Metrology</a>',
         'tools.disclaimer': 'Tutti i marchi menzionati appartengono ai rispettivi proprietari.',
         // Services

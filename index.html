@@ -247,9 +247,9 @@
     }
     if (localStorage.getItem('privacy-pref') === 'accepted') { loadGA(); }
   </script>
-  <link rel="stylesheet" href="fonts.css?v=20260819" />
-  <link rel="stylesheet" href="css/editorial.css?v=20260819" />
-  <link rel="stylesheet" href="css/methodos.css?v=20260819" />
+  <link rel="stylesheet" href="fonts.css?v=20260819b" />
+  <link rel="stylesheet" href="css/editorial.css?v=20260819b" />
+  <link rel="stylesheet" href="css/methodos.css?v=20260819b" />
   <style>
     /* ===== Tokens, base, nav, lang-switcher, consent banner, scroll-progress,
        back-to-top and fade-in now live in css/editorial.css ===== */
@@ -757,6 +757,16 @@
     /* Force the green highlight onto its own line in these headings */
     #provlima .section-header h2 strong,
     #ti-kanoume .split-content h2 strong { display: block; }
+    .what-you-get {
+      margin: 1.4rem 0 0; padding: 1rem 1.1rem; max-width: 560px;
+      background: var(--paper-2); border-left: 2px solid var(--accent);
+      font-size: 1rem; line-height: 1.6; color: var(--ink-soft);
+    }
+    .what-you-get .wyg-label {
+      display: block; margin-bottom: 0.3rem;
+      font-family: var(--font-mono); font-size: 0.66rem; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-deep);
+    }
 
     /* Problem section — "a typical day" timeline. The workday fills with the
        same task stamped in twelve times, a counter ticks alongside, and a thin
@@ -829,6 +839,14 @@
       .pd-block::before { top: 10px; bottom: 10px; left: 26%; right: 26%; }
       .pd-count b { font-size: 1.4rem; }
     }
+
+    /* Problem section — closing turn under the three cards */
+    .problem-turn {
+      text-align: center; max-width: 640px; margin: clamp(2rem, 4vw, 2.8rem) auto 0;
+      font-size: clamp(1.05rem, 1.4vw, 1.25rem); line-height: 1.55; color: var(--ink-soft);
+      padding-top: 1.4rem; border-top: 1px solid var(--line);
+    }
+    .problem-turn strong { color: var(--accent-deep); font-weight: 600; }
 
     /* Problem section — 3 pain cells (reuses .benefit-card) */
     .problem-grid {
@@ -1233,10 +1251,11 @@
         <span>AIDEDCAM</span>
       </a>
       <ul class="nav-menu">
+        <li><a href="#provlima" class="nav-link" data-i18n="nav.problem">Το Πρόβλημα</a></li>
         <li><a href="#ti-kanoume" class="nav-link" data-i18n="nav.whatwedo">Τι Κάνουμε</a></li>
         <li><a href="#kerdizeis" class="nav-link" data-i18n="nav.benefits">Οφέλη</a></li>
         <li><a href="#methodos" class="nav-link" data-i18n="nav.method">Μέθοδος</a></li>
-        <li><a href="#ergaleia" class="nav-link" data-i18n="nav.tools">Εργαλεία</a></li>
+        <li><a href="#ergaleia" class="nav-link" data-i18n="nav.tools">Ενσωματώσεις</a></li>
         <li><a href="#giati" class="nav-link" data-i18n="nav.whyus">Γιατί Εμείς</a></li>
         <li><a href="#contact" class="nav-cta" data-i18n="nav.contact">Επικοινωνία</a></li>
         <li class="nav-lang">
@@ -1277,7 +1296,7 @@
         </span>
       </div>
       <h1 data-i18n-html="hero.title"><span class="highlight">85%</span> της τεχνικής δουλειάς<br>μπορεί να γίνει αυτόματα</h1>
-      <p class="subtitle" data-i18n="hero.subtitle">Εξατομικευμένες λύσεις αυτοματοποίησης CAD/CAM/CNC — κομμένες και ραμμένες στον τρόπο που δουλεύετε.</p>
+      <p class="subtitle" data-i18n="hero.subtitle">Φτιάχνουμε λογισμικό αποκλειστικά για την εταιρεία σας που δουλεύει με τα προγράμματα CAD, CAM και BIM που ήδη χρησιμοποιείτε, και αυτόνομα εργαλεία που ταιριάζουν στον τρόπο που δουλεύετε και κάνουν την επαναλαμβανόμενη δουλειά για εσάς.</p>
       <div class="hero-ctas">
         <a href="#contact" class="btn-primary" data-i18n="hero.cta">Επικοινωνήστε Μαζί Μας</a>
         <a href="#provlima" class="btn-secondary" data-i18n="hero.learn_more">Μάθετε Περισσότερα</a>
@@ -1352,6 +1371,7 @@
           <p data-i18n="problem.p3_desc">Όταν οι πιο έμπειροι λείπουν, η παραγωγή επιβραδύνεται. Η γνώση ζει σε αυτούς, όχι στη διαδικασία.</p>
         </div>
       </div>
+      <p class="problem-turn fade-in" data-i18n-html="problem.turn">Το λογισμικό που φτιάχνουμε αναλαμβάνει <strong>ακριβώς αυτά τα βήματα</strong> — για να μην χρειάζεται να τα κάνουν οι μηχανικοί σας.</p>
     </div>
   </section>
 
@@ -1362,6 +1382,7 @@
         <div class="split-content fade-in">
           <div class="section-label" data-i18n="whatwedo.label">Τι Κάνουμε</div>
           <h2 data-i18n-html="whatwedo.title">Αυτοματοποιούμε <strong>όλη τη ροή παραγωγής</strong></h2>
+          <p class="what-you-get"><span class="wyg-label" data-i18n="whatwedo.get_label">Τι παίρνετε</span><span data-i18n="whatwedo.get_desc">Ένα εργαλείο φτιαγμένο για τη δική σας εταιρεία, όχι ένα γενικό προϊόν: τρέχει μέσα στο λογισμικό σας, ακολουθεί τα δικά σας πρότυπα, και το χρησιμοποιεί όλη η ομάδα.</span></p>
           <ul class="feature-list">
             <li><span class="check">&#10003;</span> <span data-i18n="whatwedo.f1">Χτίζουμε εργαλεία μέσα στα προγράμματα που ήδη χρησιμοποιείτε</span></li>
             <li><span class="check">&#10003;</span> <span data-i18n="whatwedo.f2">Αντικαθιστούμε χειροκίνητα βήματα με αυτόματες ροές</span></li>
@@ -1413,7 +1434,7 @@
           </div>
           <div class="benefit-number">01</div>
           <h3 data-i18n="benefits.b1_title">Εξοικονόμηση χρόνου έως 85%</h3>
-          <p data-i18n="benefits.b1_desc">Ροές εργασίας που γίνονταν σε ώρες, τρέχουν σε λεπτά. Λιγότερα κλικ, λιγότερα χειροκίνητα βήματα, ταχύτερα αποτελέσματα.</p>
+          <p data-i18n="benefits.b1_desc">Ροές εργασίας που γίνονταν σε ώρες, τρέχουν σε λεπτά με το δικό σας λογισμικό. Λιγότερα κλικ, λιγότερα χειροκίνητα βήματα, ταχύτερα αποτελέσματα.</p>
         </div>
         <div class="benefit-card fade-in fade-in-delay-2" data-num="02">
           <div class="benefit-icon" aria-hidden="true">
@@ -1550,8 +1571,8 @@
     <div class="container">
       <div class="section-header center fade-in">
         <div class="section-label" data-i18n="tools.label">Ενσωματώσεις</div>
-        <h2 data-i18n-html="tools.title">Δουλεύει με <strong>τα εργαλεία που ήδη έχετε</strong></h2>
-        <p class="section-subtitle" data-i18n="tools.subtitle">Τα προγράμματα CAD και CAM που ήδη έχετε, κρύβουν δυνατότητες που δεν χρησιμοποιείτε. Δουλεύουμε με 8 συστήματα CAD, CAM και BIM. Ό,τι κι αν χρησιμοποιείτε, ενσωματωνόμαστε σε αυτό.</p>
+        <h2 data-i18n-html="tools.title">Χτισμένο μέσα <strong>στα εργαλεία που ήδη έχετε</strong></h2>
+        <p class="section-subtitle" data-i18n="tools.subtitle">Τα προγράμματα CAD και CAM που ήδη έχετε, κρύβουν δυνατότητες που δεν χρησιμοποιείτε. Δουλεύουμε με 8 συστήματα CAD, CAM και BIM. Ό,τι κι αν χρησιμοποιείτε, το λογισμικό σας χτίζεται μέσα σε αυτό.</p>
       </div>
       <div class="tools-grid">
         <div class="tool-card fade-in fade-in-delay-1">
@@ -1707,7 +1728,7 @@
       <div class="section-header fade-in">
         <div class="section-label" data-i18n="contact.label">Επικοινωνία</div>
         <h2 data-i18n-html="contact.title"><strong>Έτοιμοι</strong> να ξεκινήσουμε;</h2>
-        <p class="section-subtitle" data-i18n="contact.subtitle">Γράψε μας email και θα επικοινωνήσουμε μαζί σου εντός 48 ωρών.</p>
+        <p class="section-subtitle" data-i18n="contact.subtitle">Πείτε μας ποιο βήμα σας τρώει τη μέρα. Θα απαντήσουμε εντός 48 ωρών με το πώς θα φτιάχναμε το λογισμικό γι’ αυτό.</p>
       </div>
       <div class="contact-grid">
         <div class="contact-card fade-in fade-in-delay-1">
@@ -1748,10 +1769,11 @@
         <div class="footer-col">
           <h4 data-i18n="nav.method">Μέθοδος</h4>
           <div class="footer-links">
+            <a href="#provlima" data-i18n="nav.problem">Το Πρόβλημα</a>
             <a href="#ti-kanoume" data-i18n="footer.whatwedo">Τι Κάνουμε</a>
             <a href="#kerdizeis" data-i18n="nav.benefits">Οφέλη</a>
             <a href="#methodos" data-i18n="nav.method">Μέθοδος</a>
-            <a href="#ergaleia" data-i18n="nav.tools">Εργαλεία</a>
+            <a href="#ergaleia" data-i18n="nav.tools">Ενσωματώσεις</a>
             <a href="#giati" data-i18n="nav.whyus">Γιατί Εμείς</a>
           </div>
         </div>
@@ -1789,15 +1811,16 @@
     const translations = {
       el: {
         // Nav
+        'nav.problem': 'Το Πρόβλημα',
         'nav.whatwedo': 'Τι Κάνουμε',
         'nav.benefits': 'Οφέλη',
-        'nav.tools': 'Εργαλεία',
+        'nav.tools': 'Ενσωματώσεις',
         'nav.method': 'Μέθοδος',
         'nav.whyus': 'Γιατί Εμείς',
         'nav.contact': 'Επικοινωνία',
         // Hero
         'hero.title': '<span class="highlight">85%</span> της τεχνικής δουλειάς<br>μπορεί να γίνει αυτόματα',
-        'hero.subtitle': 'Εξατομικευμένες λύσεις αυτοματοποίησης CAD/CAM/CNC — κομμένες και ραμμένες στον τρόπο που δουλεύετε.',
+        'hero.subtitle': 'Φτιάχνουμε λογισμικό αποκλειστικά για την εταιρεία σας που δουλεύει με τα προγράμματα CAD, CAM και BIM που ήδη χρησιμοποιείτε, και αυτόνομα εργαλεία που ταιριάζουν στον τρόπο που δουλεύετε και κάνουν την επαναλαμβανόμενη δουλειά για εσάς.',
         'hero.cta': 'Επικοινωνήστε Μαζί Μας',
         'hero.learn_more': 'Μάθετε Περισσότερα',
         'roi_teaser.heading': '<span class="roi-line"><span class="roi-hl">Χρόνος</span> που επιστρέφεται αμέσως.</span><span class="roi-line"><span class="roi-hl">Ποιότητα</span> που εξασφαλίζεται πάντα.</span><span class="roi-line"><span class="roi-hl">Λογισμικό</span> φτιαγμένο αποκλειστικά για εσάς.</span><span class="roi-line"><span class="roi-hl">Μία συνδρομή</span>, απεριόριστοι χρήστες.</span>',
@@ -1818,6 +1841,7 @@
         'problem.p2_desc': 'Η ποιότητα αλλάζει ανάλογα με τον χειριστή. Μια στιγμή κούρασης ή μια ξεχασμένη ρύθμιση γίνεται σκάρτο κομμάτι.',
         'problem.p3_title': 'Τεχνογνωσία κλειδωμένη σε λίγους',
         'problem.p3_desc': 'Όταν οι πιο έμπειροι λείπουν, η παραγωγή επιβραδύνεται. Η γνώση ζει σε αυτούς, όχι στη διαδικασία.',
+        'problem.turn': 'Το λογισμικό που φτιάχνουμε αναλαμβάνει <strong>ακριβώς αυτά τα βήματα</strong> — για να μην χρειάζεται να τα κάνουν οι μηχανικοί σας.',
         'problem.day_label': 'Μια τυπική μέρα',
         'problem.day_count': 'η ίδια εργασία, ξανά',
         'problem.day_manual': 'Χειροκίνητη επανάληψη',
@@ -1825,6 +1849,8 @@
         // What We Do
         'whatwedo.label': 'Τι Κάνουμε',
         'whatwedo.title': 'Αυτοματοποιούμε <strong>όλη τη ροή παραγωγής</strong>',
+        'whatwedo.get_label': 'Τι παίρνετε',
+        'whatwedo.get_desc': 'Ένα εργαλείο φτιαγμένο για τη δική σας εταιρεία, όχι ένα γενικό προϊόν: τρέχει μέσα στο λογισμικό σας, ακολουθεί τα δικά σας πρότυπα, και το χρησιμοποιεί όλη η ομάδα.',
         'whatwedo.f1': 'Χτίζουμε εργαλεία μέσα στα προγράμματα που ήδη χρησιμοποιείτε',
         'whatwedo.f2': 'Αντικαθιστούμε χειροκίνητα βήματα με αυτόματες ροές',
         'whatwedo.f3': 'Ενσωματώνουμε τους κανόνες και τα standards σας στο λογισμικό',
@@ -1842,7 +1868,7 @@
         'benefits.title': 'Τι <strong>Κερδίζεις</strong>',
         'benefits.subtitle': 'Μετρήσιμα αποτελέσματα από την πρώτη μέρα.',
         'benefits.b1_title': 'Εξοικονόμηση χρόνου έως 85%',
-        'benefits.b1_desc': 'Ροές εργασίας που γίνονταν σε ώρες, τρέχουν σε λεπτά. Λιγότερα κλικ, λιγότερα χειροκίνητα βήματα, ταχύτερα αποτελέσματα.',
+        'benefits.b1_desc': 'Ροές εργασίας που γίνονταν σε ώρες, τρέχουν σε λεπτά με το δικό σας λογισμικό. Λιγότερα κλικ, λιγότερα χειροκίνητα βήματα, ταχύτερα αποτελέσματα.',
         'benefits.b2_title': 'Εξάλειψη σφαλμάτων',
         'benefits.b2_desc': 'Σταματήστε να δημιουργείτε λάθη και να εξαρτάστε από μεμονωμένους χειριστές. Σταθερή ποιότητα ανεξάρτητα από τον χειριστή.',
         'benefits.b3_title': 'Περισσότερο output, ίδιο κόστος',
@@ -1853,8 +1879,8 @@
         'calc.cta': 'Υπολογίστε με τα δικά σας νούμερα',
         // Tools / Integrations
         'tools.label': 'Ενσωματώσεις',
-        'tools.title': 'Δουλεύει με <strong>τα εργαλεία που ήδη έχετε</strong>',
-        'tools.subtitle': 'Δουλεύουμε με 8 συστήματα CAD, CAM και BIM. Ό,τι κι αν χρησιμοποιείτε, ενσωματωνόμαστε σε αυτό.',
+        'tools.title': 'Χτισμένο μέσα <strong>στα εργαλεία που ήδη έχετε</strong>',
+        'tools.subtitle': 'Δουλεύουμε με 8 συστήματα CAD, CAM και BIM. Ό,τι κι αν χρησιμοποιείτε, το λογισμικό σας χτίζεται μέσα σε αυτό.',
         'tools.cad': 'CAD — Μοντελοποίηση',
         'tools.cam': 'CAM — Κατεργασία',
         'tools.bim': 'BIM / AEC',
@@ -1887,7 +1913,7 @@
         // Contact
         'contact.label': 'Επικοινωνία',
         'contact.title': '<strong>Έτοιμοι</strong> να ξεκινήσουμε;',
-        'contact.subtitle': 'Γράψε μας email και θα επικοινωνήσουμε μαζί σου εντός 48 ωρών.',
+        'contact.subtitle': 'Πείτε μας ποιο βήμα σας τρώει τη μέρα. Θα απαντήσουμε εντός 48 ωρών με το πώς θα φτιάχναμε το λογισμικό γι’ αυτό.',
         'contact.athens': 'Αθήνα',
         'contact.thessaloniki': 'Θεσσαλονίκη',
         'contact.phone': 'Τηλέφωνο',
@@ -1921,15 +1947,16 @@
       },
       en: {
         // Nav
+        'nav.problem': 'The Problem',
         'nav.whatwedo': 'What We Do',
         'nav.benefits': 'Benefits',
-        'nav.tools': 'Tools',
+        'nav.tools': 'Integrations',
         'nav.method': 'Method',
         'nav.whyus': 'Why Us',
         'nav.contact': 'Contact',
         // Hero
         'hero.title': '<span class="highlight">85%</span> of technical work<br>can be automated',
-        'hero.subtitle': 'Custom CAD/CAM/CNC automation solutions — tailored to the way you work.',
+        'hero.subtitle': 'We build software exclusively for your company that works with the CAD, CAM and BIM programs you already use, and standalone tools that align with the way you work and do the repetitive work for you.',
         'hero.cta': 'Get in Touch',
         'hero.learn_more': 'Learn More',
         'roi_teaser.heading': '<span class="roi-line"><span class="roi-hl">Time</span> returned immediately.</span><span class="roi-line"><span class="roi-hl">Quality</span> guaranteed always.</span><span class="roi-line"><span class="roi-hl">Software</span> built exclusively for you.</span><span class="roi-line"><span class="roi-hl">One subscription</span>, unlimited users.</span>',
@@ -1950,6 +1977,7 @@
         'problem.p2_desc': 'Quality swings with the operator. A tired moment or a missed setting becomes a scrapped part.',
         'problem.p3_title': 'Know-how locked in a few heads',
         'problem.p3_desc': 'When your most experienced people are away, the line slows down. The expertise lives in them, not the process.',
+        'problem.turn': 'The software we build takes over <strong>exactly these steps</strong> — so your engineers don’t have to.',
         'problem.day_label': 'A typical day',
         'problem.day_count': 'the same task, again',
         'problem.day_manual': 'Manual repetition',
@@ -1957,6 +1985,8 @@
         // What We Do
         'whatwedo.label': 'What We Do',
         'whatwedo.title': 'We automate <strong>the entire production workflow</strong>',
+        'whatwedo.get_label': 'What you get',
+        'whatwedo.get_desc': 'A tool built for your company, not a generic product: it runs inside your software, follows your standards, and your whole team uses it.',
         'whatwedo.f1': 'We build tools inside the software you already use',
         'whatwedo.f2': 'We replace manual steps with automated workflows',
         'whatwedo.f3': 'We embed your rules and standards into the software',
@@ -1974,7 +2004,7 @@
         'benefits.title': 'What You <strong>Gain</strong>',
         'benefits.subtitle': 'Measurable results from day one.',
         'benefits.b1_title': 'Save up to 85% of time',
-        'benefits.b1_desc': 'Workflows that took hours now run in minutes. Fewer clicks, fewer manual steps, faster results.',
+        'benefits.b1_desc': 'Workflows that took hours now run in minutes with your own software. Fewer clicks, fewer manual steps, faster results.',
         'benefits.b2_title': 'Error elimination',
         'benefits.b2_desc': 'Stop creating errors and relying on individual operators. Consistent quality regardless of the operator.',
         'benefits.b3_title': 'More output, same cost',
@@ -1985,8 +2015,8 @@
         'calc.cta': 'Calculate with your own numbers',
         // Tools / Integrations
         'tools.label': 'Integrations',
-        'tools.title': 'Works with <strong>the tools you already use</strong>',
-        'tools.subtitle': 'We work with 8 CAD, CAM and BIM systems. Whatever you use, we integrate into it.',
+        'tools.title': 'Built inside <strong>the tools you already use</strong>',
+        'tools.subtitle': 'We work with 8 CAD, CAM and BIM systems. Whatever you use, your software is built inside it.',
         'tools.cad': 'CAD — Modeling',
         'tools.cam': 'CAM — Machining',
         'tools.bim': 'BIM / AEC',
@@ -2019,7 +2049,7 @@
         // Contact
         'contact.label': 'Contact',
         'contact.title': '<strong>Ready</strong> to get started?',
-        'contact.subtitle': 'Send us an email and we\'ll get back to you within 48 hours.',
+        'contact.subtitle': 'Tell us which step eats your day. We\'ll get back within 48 hours with how we\'d build the software for it.',
         'contact.athens': 'Athens',
         'contact.thessaloniki': 'Thessaloniki',
         'contact.phone': 'Phone',
@@ -2053,15 +2083,16 @@
       },
       it: {
         // Nav
+        'nav.problem': 'Il Problema',
         'nav.whatwedo': 'Cosa Facciamo',
         'nav.benefits': 'Vantaggi',
-        'nav.tools': 'Strumenti',
+        'nav.tools': 'Integrazioni',
         'nav.method': 'Metodo',
         'nav.whyus': 'Perché Noi',
         'nav.contact': 'Contatti',
         // Hero
         'hero.title': '<span class="highlight">85%</span> del lavoro tecnico<br>può essere automatizzato',
-        'hero.subtitle': 'Soluzioni personalizzate di automazione CAD/CAM/CNC — su misura per il vostro modo di lavorare.',
+        'hero.subtitle': 'Sviluppiamo software esclusivamente per la vostra azienda che funziona con i programmi CAD, CAM e BIM che già usate, e strumenti standalone che si adattano al vostro modo di lavorare e svolgono il lavoro ripetitivo al posto vostro.',
         'hero.cta': 'Contattaci',
         'hero.learn_more': 'Scopri di Più',
         'roi_teaser.heading': '<span class="roi-line"><span class="roi-hl">Tempo</span> restituito immediatamente.</span><span class="roi-line"><span class="roi-hl">Qualit\u00e0</span> garantita sempre.</span><span class="roi-line"><span class="roi-hl">Software</span> costruito esclusivamente per voi.</span><span class="roi-line"><span class="roi-hl">Un abbonamento</span>, utenti illimitati.</span>',
@@ -2082,6 +2113,7 @@
         'problem.p2_desc': 'La qualità varia con l\'operatore. Un momento di stanchezza o un\'impostazione mancata diventa un pezzo da scartare.',
         'problem.p3_title': 'Know-how chiuso in poche persone',
         'problem.p3_desc': 'Quando le persone più esperte sono assenti, la produzione rallenta. La competenza vive in loro, non nel processo.',
+        'problem.turn': 'Il software che costruiamo si prende carico <strong>esattamente di questi passaggi</strong> — così i vostri tecnici non devono farlo.',
         'problem.day_label': 'Una giornata tipo',
         'problem.day_count': 'lo stesso compito, di nuovo',
         'problem.day_manual': 'Ripetizione manuale',
@@ -2089,6 +2121,8 @@
         // What We Do
         'whatwedo.label': 'Cosa Facciamo',
         'whatwedo.title': 'Automatizziamo <strong>l\'intero flusso produttivo</strong>',
+        'whatwedo.get_label': 'Cosa ottenete',
+        'whatwedo.get_desc': 'Uno strumento costruito per la vostra azienda, non un prodotto generico: gira dentro il vostro software, segue i vostri standard e lo usa tutto il team.',
         'whatwedo.f1': 'Costruiamo strumenti dentro i software che già utilizzate',
         'whatwedo.f2': 'Sostituiamo i passaggi manuali con flussi automatizzati',
         'whatwedo.f3': 'Integriamo le vostre regole e i vostri standard nel software',
@@ -2106,7 +2140,7 @@
         'benefits.title': 'Cosa <strong>Ottenete</strong>',
         'benefits.subtitle': 'Risultati misurabili dal primo giorno.',
         'benefits.b1_title': 'Risparmio di tempo fino al 85%',
-        'benefits.b1_desc': 'Flussi di lavoro che richiedevano ore ora si completano in minuti. Meno clic, meno passaggi manuali, risultati più rapidi.',
+        'benefits.b1_desc': 'Flussi di lavoro che richiedevano ore ora si completano in minuti con il vostro software. Meno clic, meno passaggi manuali, risultati più rapidi.',
         'benefits.b2_title': 'Eliminazione degli errori',
         'benefits.b2_desc': 'Basta creare errori e dipendere da singoli operatori. Qualità costante indipendentemente dall\'operatore.',
         'benefits.b3_title': 'Più output, stesso costo',
@@ -2117,8 +2151,8 @@
         'calc.cta': 'Calcolate con i vostri numeri',
         // Tools / Integrations
         'tools.label': 'Integrazioni',
-        'tools.title': 'Funziona con <strong>gli strumenti che già usate</strong>',
-        'tools.subtitle': 'Lavoriamo con 8 sistemi CAD, CAM e BIM. Qualunque strumento usiate, ci integriamo in esso.',
+        'tools.title': 'Costruito dentro <strong>gli strumenti che già usate</strong>',
+        'tools.subtitle': 'Lavoriamo con 8 sistemi CAD, CAM e BIM. Qualunque strumento usiate, il vostro software viene costruito al suo interno.',
         'tools.cad': 'CAD — Modellazione',
         'tools.cam': 'CAM — Lavorazione',
         'tools.bim': 'BIM / AEC',
@@ -2151,7 +2185,7 @@
         // Contact
         'contact.label': 'Contatti',
         'contact.title': '<strong>Pronti</strong> per iniziare?',
-        'contact.subtitle': 'Inviateci un\'email e vi risponderemo entro 48 ore.',
+        'contact.subtitle': 'Diteci quale passaggio vi ruba la giornata. Vi risponderemo entro 48 ore con come costruiremmo il software per quello.',
         'contact.athens': 'Atene',
         'contact.thessaloniki': 'Salonicco',
         'contact.phone': 'Telefono',
@@ -2863,6 +2897,6 @@
 
 
 
-  <script src="js/methodos.js?v=20260819" defer></script>
+  <script src="js/methodos.js?v=20260819b" defer></script>
 </body>
 </html>

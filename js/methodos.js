@@ -34,7 +34,7 @@
       result: {
         k: '04 · The whole picture',
         t: 'The <strong>result</strong>',
-        d: 'We automate the task. The workflow gets shorter. The whole system moves faster — with the same people.',
+        d: 'We build the tool that does the task. The workflow gets shorter. The whole system moves faster — with the same people.',
         r: 'Hours become <strong>minutes</strong>, errors <strong>disappear</strong>, and the know-how is built into the <strong>software</strong>, available to the whole team, not just to one expert.',
       },
       cols: ['Design', 'Preparation', 'Production'],
@@ -75,7 +75,7 @@
       result: {
         k: '04 · Η συνολική εικόνα',
         t: 'Το <strong>αποτέλεσμα</strong>',
-        d: 'Αυτοματοποιούμε την εργασία. Η ροή γίνεται πιο σύντομη. Όλο το σύστημα κινείται πιο γρήγορα — με τους ίδιους ανθρώπους.',
+        d: 'Φτιάχνουμε το εργαλείο που κάνει την εργασία. Η ροή γίνεται πιο σύντομη. Όλο το σύστημα κινείται πιο γρήγορα — με τους ίδιους ανθρώπους.',
         r: 'Οι ώρες γίνονται <strong>λεπτά</strong>, τα λάθη <strong>εξαφανίζονται</strong>, και η τεχνογνωσία ενσωματώνεται στο <strong>λογισμικό</strong>, διαθέσιμη σε όλη την ομάδα, όχι μόνο σε έναν ειδικό.',
       },
       cols: ['Σχεδιασμός', 'Προετοιμασία', 'Παραγωγή'],
@@ -116,7 +116,7 @@
       result: {
         k: '04 · Il quadro completo',
         t: 'Il <strong>risultato</strong>',
-        d: 'Automatizziamo l’attività. Il flusso si accorcia. Tutto il sistema va più veloce — con le stesse persone.',
+        d: 'Costruiamo lo strumento che svolge l’attività. Il flusso si accorcia. Tutto il sistema va più veloce — con le stesse persone.',
         r: 'Le ore diventano <strong>minuti</strong>, gli errori <strong>spariscono</strong>, e il know-how è integrato nel <strong>software</strong>, a disposizione di tutto il team, non solo di un esperto.',
       },
       cols: ['Progettazione', 'Preparazione', 'Produzione'],

@@ -623,6 +623,111 @@
     .split-section {
       display: grid;
       grid-template-columns: 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    @media (min-width: 900px) {
+      .split-section { grid-template-columns: 1.05fr 1fr; gap: clamp(2.5rem, 5vw, 5rem); }
+    }
+
+    /* ---- Interactive mark: press play, the workflow runs ----
+       The AidedCAM mark is drawn from the brand vector (three segments + the
+       play triangle). The triangle is a real button; pressing it spins the
+       three segments once and lights the four workflow stages in sequence.
+       Auto-runs once when scrolled into view, then it is the visitor's. */
+    .mark-stage {
+      position: relative;
+      padding: clamp(2rem, 4vw, 3rem) clamp(1.5rem, 3vw, 2.5rem) clamp(1.6rem, 3vw, 2.2rem);
+      background: var(--paper-2);
+      border: 1px solid var(--line);
+      border-radius: 2px;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .mark-stage::before {
+      content: attr(data-corner);
+      position: absolute; top: 0.9rem; left: 1.1rem;
+      font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--faint);
+    }
+    .mark-wrap {
+      position: relative;
+      width: clamp(150px, 42%, 220px);
+      aspect-ratio: 452 / 506;
+      margin: 0.6rem 0 0;
+    }
+    .mark-ring { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+    .mark-ring path { fill: #65B08B; }
+    .mark-ring g { transform-origin: 226px 253px; }
+    .mark-ring.is-spinning g { animation: markSpin var(--mark-spin, 1.8s) cubic-bezier(0.55, 0, 0.35, 1) 1; }
+    @keyframes markSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .mark-ripple {
+      position: absolute; left: 50%; top: 50%; width: 118%; height: 118%;
+      margin: -59% 0 0 -59%; border-radius: 50%;
+      border: 1px solid var(--accent); opacity: 0; transform: scale(0.55);
+      pointer-events: none;
+    }
+    .mark-ripple.go { animation: markRipple 0.95s cubic-bezier(0.2, 0.7, 0.3, 1) 1; }
+    @keyframes markRipple { 0% { opacity: 0.85; transform: scale(0.55); } 100% { opacity: 0; transform: scale(1.35); } }
+    .mark-play {
+      position: absolute; left: 42.45%; top: 40.98%; width: 19.68%; height: 21.02%;
+      padding: 0; border: 0; background: none; cursor: pointer;
+      transform-origin: 50% 50%;
+      transition: transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .mark-play::before { content: ""; position: absolute; inset: -30%; } /* bigger hit area */
+    .mark-play svg { display: block; width: 100%; height: 100%; overflow: visible; }
+    .mark-play path { fill: #65B08B; transition: fill 0.2s ease; }
+    .mark-play:hover { transform: scale(1.08); }
+    .mark-play:hover path { fill: var(--accent-deep); }
+    .mark-play.is-pressed { transform: scale(0.8); transition-duration: 0.09s; }
+    .mark-play:focus-visible { outline: 2px solid var(--accent-deep); outline-offset: 6px; border-radius: 4px; }
+    .mark-stage.is-idle .mark-play { animation: markPulse 2.6s ease-in-out infinite; }
+    .mark-stage.is-idle .mark-play:hover { animation: none; }
+    @keyframes markPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.07); } }
+
+    .mark-rail {
+      display: flex; align-items: center; width: 100%; max-width: 440px;
+      margin-top: clamp(1.6rem, 3vw, 2.4rem);
+    }
+    .mark-step {
+      position: relative; flex: none;
+      font-family: var(--font-mono); font-size: 0.62rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+      padding: 0.42rem 0.6rem; border: 1px solid var(--line-strong); border-radius: 2px;
+      background: var(--paper);
+      transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+    }
+    .mark-step.on {
+      color: var(--accent-deep); border-color: var(--accent); background: #fff;
+      animation: markPop 0.36s cubic-bezier(0.2, 0.8, 0.2, 1) 1;
+    }
+    @keyframes markPop { 0% { transform: scale(0.94); } 60% { transform: scale(1.05); } 100% { transform: scale(1); } }
+    .mark-link { flex: 1; height: 1px; background: var(--line-strong); position: relative; overflow: hidden; }
+    .mark-link::after {
+      content: ""; position: absolute; inset: 0; background: var(--accent);
+      transform: scaleX(0); transform-origin: left center; transition: transform 0.55s ease-out;
+    }
+    .mark-link.on::after { transform: scaleX(1); }
+    .mark-status {
+      margin-top: 1rem; min-height: 1.2em;
+      font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--faint); text-align: center;
+    }
+    .mark-status span { display: none; }
+    .mark-stage[data-state="idle"] .ms-idle,
+    .mark-stage[data-state="running"] .ms-running,
+    .mark-stage[data-state="done"] .ms-done { display: inline; }
+    .mark-stage[data-state="done"] .mark-status { color: var(--accent-deep); }
+    .mark-stage[data-state="running"] .ms-running::after {
+      content: "\2026"; display: inline-block; width: 1.2em; text-align: left;
+    }
+    @media (max-width: 480px) {
+      .mark-step { font-size: 0.56rem; padding: 0.36rem 0.3rem; letter-spacing: 0.03em; }
+      .mark-link { min-width: 8px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .mark-stage.is-idle .mark-play { animation: none; }
     }
 
     .split-content { max-width: 760px; }
@@ -665,6 +770,78 @@
     /* Force the green highlight onto its own line in these headings */
     #provlima .section-header h2 strong,
     #ti-kanoume .split-content h2 strong { display: block; }
+
+    /* Problem section — "a typical day" timeline. The workday fills with the
+       same task stamped in twelve times, a counter ticks alongside, and a thin
+       green sliver at the end is the actual engineering. Replays on a slow loop
+       while in view (see problemDay in the script). */
+    .problem-day {
+      margin: clamp(2rem, 4vw, 3rem) auto clamp(2.5rem, 4vw, 3.5rem);
+      max-width: 1000px;
+    }
+    .pd-head {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      gap: 1rem; margin-bottom: 0.7rem;
+    }
+    .pd-label {
+      font-family: var(--font-mono); font-size: 0.68rem; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted);
+    }
+    .pd-count {
+      display: flex; align-items: baseline; gap: 0.6rem;
+      font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--faint); white-space: nowrap;
+    }
+    .pd-count b {
+      font-family: var(--font-display); font-weight: 600; font-size: 1.7rem;
+      line-height: 1; letter-spacing: -0.02em; color: var(--ink);
+      font-variant-numeric: tabular-nums; min-width: 2.6ch; text-align: right;
+    }
+    .pd-count b.tick { animation: pdTick 0.28s ease-out; }
+    @keyframes pdTick { 0% { transform: translateY(-4px); opacity: 0.4; } 100% { transform: none; opacity: 1; } }
+    .pd-axis {
+      display: flex; justify-content: space-between;
+      border-top: 1px solid var(--line-strong); padding-top: 0.4rem;
+      font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.1em; color: var(--faint);
+    }
+    .pd-track {
+      display: grid; grid-template-columns: repeat(12, 1fr) 2.2fr; gap: 5px;
+      height: 62px; margin: 0.6rem 0 0.9rem;
+    }
+    .pd-block {
+      position: relative; border-radius: 2px;
+      background: var(--paper-2); border: 1px solid var(--line-strong);
+      opacity: 0; transform: translateY(8px) scale(0.86); transform-origin: 50% 100%;
+      transition: opacity 0.26s ease, transform 0.34s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    /* the same three steps in every block */
+    .pd-block::before {
+      content: ""; position: absolute; left: 30%; right: 30%; top: 14px; bottom: 14px;
+      background: repeating-linear-gradient(to bottom, var(--line-strong) 0 2px, transparent 2px 10px);
+      opacity: 0.9;
+    }
+    .pd-block.on { opacity: 1; transform: none; }
+    .pd-eng { background: var(--accent); border-color: var(--accent); }
+    .pd-eng::before { display: none; }
+    .pd-legend {
+      display: flex; flex-wrap: wrap; gap: 0.5rem 1.8rem;
+      font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .pd-legend span::before {
+      content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 2px;
+      margin-right: 0.55rem; vertical-align: -1px;
+      background: var(--paper-2); border: 1px solid var(--line-strong);
+    }
+    .pd-legend span.is-eng::before { background: var(--accent); border-color: var(--accent); }
+    @media (prefers-reduced-motion: reduce) {
+      .pd-block { opacity: 1; transform: none; }
+    }
+    @media (max-width: 768px) {
+      .pd-track { height: 48px; gap: 3px; }
+      .pd-block::before { top: 10px; bottom: 10px; left: 26%; right: 26%; }
+      .pd-count b { font-size: 1.4rem; }
+    }
 
     /* Problem section — 3 pain cells (reuses .benefit-card) */
     .problem-grid {
@@ -1135,7 +1312,32 @@
       <div class="section-header center fade-in">
         <div class="section-label" data-i18n="problem.label">Το Πρόβλημα</div>
         <h2 data-i18n-html="problem.title">Έμπειροι μηχανικοί ξοδεύουν τη μέρα τους σε <strong>επαναλαμβανόμενη χειροκίνητη δουλειά</strong></h2>
-        <p class="section-subtitle" data-i18n="problem.subtitle">Η ίδια γεωμετρία, η ίδια επιλογή εργαλείων, οι ίδιοι έλεγχοι — ξανά και ξανά. Αργό, επιρρεπές σε λάθη, και όλα στηρίζονται σε λίγους έμπειρους ανθρώπους.</p>
+      </div>
+      <div class="problem-day fade-in" id="problemDay" role="img" aria-label="A typical day: the same task repeated twelve times, a thin sliver of actual engineering">
+        <div class="pd-head">
+          <div class="pd-label" data-i18n="problem.day_label">Μια τυπική μέρα</div>
+          <div class="pd-count"><b class="pd-n">×0</b><span data-i18n="problem.day_count">η ίδια εργασία, ξανά</span></div>
+        </div>
+        <div class="pd-axis"><span>08:00</span><span>17:00</span></div>
+        <div class="pd-track">
+          <div class="pd-block"></div>
+          <div class="pd-block"></div>
+          <div class="pd-block"></div>
+          <div class="pd-block"></div>
+          <div class="pd-block"></div>
+          <div class="pd-block"></div>
+          <div class="pd-block"></div>
+          <div class="pd-block"></div>
+          <div class="pd-block"></div>
+          <div class="pd-block"></div>
+          <div class="pd-block"></div>
+          <div class="pd-block"></div>
+          <div class="pd-block pd-eng"></div>
+        </div>
+        <div class="pd-legend">
+          <span data-i18n="problem.day_manual">Χειροκίνητη επανάληψη</span>
+          <span class="is-eng" data-i18n="problem.day_eng">Πραγματική μηχανική δουλειά</span>
+        </div>
       </div>
       <div class="problem-grid">
         <div class="benefit-card fade-in fade-in-delay-1" data-num="01">
@@ -1164,13 +1366,37 @@
         <div class="split-content fade-in">
           <div class="section-label" data-i18n="whatwedo.label">Τι Κάνουμε</div>
           <h2 data-i18n-html="whatwedo.title">Αυτοματοποιούμε <strong>όλη τη ροή παραγωγής</strong></h2>
-          <p class="section-subtitle" data-i18n="whatwedo.subtitle">Σχεδιασμός, CAM, post-processing: μία ενέργεια αντί για δέκα.</p>
           <ul class="feature-list">
             <li><span class="check">&#10003;</span> <span data-i18n="whatwedo.f1">Χτίζουμε εργαλεία μέσα στα προγράμματα που ήδη χρησιμοποιείτε</span></li>
             <li><span class="check">&#10003;</span> <span data-i18n="whatwedo.f2">Αντικαθιστούμε χειροκίνητα βήματα με αυτόματες ροές</span></li>
             <li><span class="check">&#10003;</span> <span data-i18n="whatwedo.f3">Ενσωματώνουμε τους κανόνες και τα standards σας στο λογισμικό</span></li>
             <li><span class="check">&#10003;</span> <span data-i18n="whatwedo.f4">Ενώνουμε σχεδιασμό, κατεργασίες και μηχανές σε μία ενιαία διαδικασία</span></li>
           </ul>
+        </div>
+        <div class="split-visual fade-in fade-in-delay-2">
+          <div class="mark-stage is-idle" id="markStage" data-state="idle" data-corner="AidedCAM">
+            <div class="mark-wrap">
+              <span class="mark-ripple" aria-hidden="true"></span>
+              <svg class="mark-ring" viewBox="0 0 452 506" aria-hidden="true" focusable="false">
+                <g>
+                  <path d="M333.32 300.61 L332.95 191.19 L130.97 74.55 L225.30 19.69 L427.88 136.69 L428.23 245.87 Z"/>
+                  <path d="M118.31 424.36 L23.41 369.59 L24.08 136.67 L118.41 81.84 L213.28 136.70 L118.99 191.54 Z"/>
+                  <path d="M225.99 486.57 L130.98 431.71 L131.39 322.63 L225.97 377.24 L428.15 260.48 L428.64 369.51 Z"/>
+                </g>
+              </svg>
+              <button type="button" class="mark-play" id="markPlay" aria-label="Play: run the workflow" data-i18n-aria="whatwedo.play">
+                <svg viewBox="191.91 207.44 88.97 106.42" aria-hidden="true" focusable="false"><path d="M191.91 215.00 L191.91 306.30 C191.91 310.98 197.02 313.86 201.03 311.45 L276.99 265.81 C280.88 263.47 280.88 257.83 276.99 255.49 L201.03 209.85 C197.02 207.44 191.91 210.32 191.91 215.00 Z"/></svg>
+              </button>
+            </div>
+            <div class="mark-rail" aria-hidden="true">
+              <span class="mark-step" data-i18n="whatwedo.s1">Συντονισμός</span><i class="mark-link"></i><span class="mark-step" data-i18n="whatwedo.s2">Έλεγχος</span><i class="mark-link"></i><span class="mark-step" data-i18n="whatwedo.s3">Εκτέλεση</span><i class="mark-link"></i><span class="mark-step" data-i18n="whatwedo.s4">Έτοιμο</span>
+            </div>
+            <div class="mark-status" aria-live="polite">
+              <span class="ms-idle" data-i18n="whatwedo.st_idle">Πάτησε play</span>
+              <span class="ms-running" data-i18n="whatwedo.st_running">Εκτελείται</span>
+              <span class="ms-done" data-i18n="whatwedo.st_done">Μία ενέργεια — όλη η ροή</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1273,41 +1499,6 @@
           </div>
         </div>
       </div>
-
-      <section class="questions" id="questions">
-        <div class="questions-inner">
-          <div class="q-kicker" data-k="qK">Three questions · one per layer</div>
-          <h2 data-t="qTitle">Now look at your own company.</h2>
-          <p class="sub" data-t="qSub">Keep a notebook nearby. The answers tend to arrive over the following week, not in the next minute.</p>
-          <div class="q-grid">
-            <div class="q-card">
-              <div class="q-num">Q · 01</div>
-              <div class="q-tag" data-t="qTag1">Task</div>
-              <p class="q-text" data-t="q1">Which task in your company is done <strong>by hand, the same way, again and again</strong> — and whose hands are on it?</p>
-              <div class="q-divider"></div>
-              <div class="q-hint" data-t="qHint">Observe for a day</div>
-            </div>
-            <div class="q-card">
-              <div class="q-num">Q · 02</div>
-              <div class="q-tag" data-t="qTag2">Workflow</div>
-              <p class="q-text" data-t="q2">In your longest workflow, <strong>between which two steps</strong> does work most often pause?</p>
-              <div class="q-divider"></div>
-              <div class="q-hint" data-t="qHint">Observe for a day</div>
-            </div>
-            <div class="q-card">
-              <div class="q-num">Q · 03</div>
-              <div class="q-tag" data-t="qTag3">System</div>
-              <p class="q-text" data-t="q3">Which two parts of your operation <strong>need the same information</strong> but store it separately?</p>
-              <div class="q-divider"></div>
-              <div class="q-hint" data-t="qHint">Observe for a day</div>
-            </div>
-          </div>
-
-          <div class="q-cta">
-            <a href="#contact" data-i18n="methodos.qcta">Έχετε τέτοια εργασία; Ας μιλήσουμε</a>
-          </div>
-        </div>
-      </section>
 
     </div>
   </section>
@@ -1571,13 +1762,16 @@
 
         'problem.label': 'Το Πρόβλημα',
         'problem.title': 'Έμπειροι μηχανικοί ξοδεύουν τη μέρα τους σε <strong>επαναλαμβανόμενη χειροκίνητη δουλειά</strong>',
-        'problem.subtitle': 'Η ίδια γεωμετρία, η ίδια επιλογή εργαλείων, οι ίδιοι έλεγχοι — ξανά και ξανά. Αργό, επιρρεπές σε λάθη, και όλα στηρίζονται σε λίγους έμπειρους ανθρώπους.',
         'problem.p1_title': 'Χαμένες ώρες σε επαναλήψεις',
         'problem.p1_desc': 'Ρουτίνες που κρατούν ώρες θα μπορούσαν να τελειώνουν σε λεπτά — αλλά σήμερα γίνονται χειροκίνητα, κάθε φορά.',
         'problem.p2_title': 'Λάθη που εξαρτώνται από τον χειριστή',
         'problem.p2_desc': 'Η ποιότητα αλλάζει ανάλογα με τον χειριστή. Μια στιγμή κούρασης ή μια ξεχασμένη ρύθμιση γίνεται σκάρτο κομμάτι.',
         'problem.p3_title': 'Τεχνογνωσία κλειδωμένη σε λίγους',
         'problem.p3_desc': 'Όταν οι πιο έμπειροι λείπουν, η παραγωγή επιβραδύνεται. Η γνώση ζει σε αυτούς, όχι στη διαδικασία.',
+        'problem.day_label': 'Μια τυπική μέρα',
+        'problem.day_count': 'η ίδια εργασία, ξανά',
+        'problem.day_manual': 'Χειροκίνητη επανάληψη',
+        'problem.day_eng': 'Πραγματική μηχανική δουλειά',
         // Workflow Visualization
         'viz.title': '<span class="viz-muted">10 βήματα</span> γίνονται <span class="viz-green">μία ενέργεια</span>',
         'viz.perpart': 'ανά τεμάχιο',
@@ -1615,12 +1809,18 @@
         // What We Do
         'whatwedo.label': 'Τι Κάνουμε',
         'whatwedo.title': 'Αυτοματοποιούμε <strong>όλη τη ροή παραγωγής</strong>',
-        'whatwedo.subtitle': 'Σχεδιασμός, CAM, post-processing: μία ενέργεια αντί για δέκα.',
         'whatwedo.f1': 'Χτίζουμε εργαλεία μέσα στα προγράμματα που ήδη χρησιμοποιείτε',
         'whatwedo.f2': 'Αντικαθιστούμε χειροκίνητα βήματα με αυτόματες ροές',
         'whatwedo.f3': 'Ενσωματώνουμε τους κανόνες και τα standards σας στο λογισμικό',
         'whatwedo.f4': 'Ενώνουμε σχεδιασμό, κατεργασίες και μηχανές σε μία ενιαία διαδικασία',
-        'methodos.qcta': 'Έχετε τέτοια εργασία; Ας μιλήσουμε',
+        'whatwedo.s1': 'Συντονισμός',
+        'whatwedo.s2': 'Έλεγχος',
+        'whatwedo.s3': 'Εκτέλεση',
+        'whatwedo.s4': 'Έτοιμο',
+        'whatwedo.st_idle': 'Πάτησε play',
+        'whatwedo.st_running': 'Εκτελείται',
+        'whatwedo.st_done': 'Μία ενέργεια — όλη η ροή',
+        'whatwedo.play': 'Play: τρέξε τη ροή',
         // Benefits
         'benefits.label': 'Οφέλη',
         'benefits.title': 'Τι <strong>Κερδίζεις</strong>',
@@ -1725,13 +1925,16 @@
 
         'problem.label': 'The Problem',
         'problem.title': 'Skilled engineers spend their day on <strong>repetitive manual work</strong>',
-        'problem.subtitle': 'The same geometry, the same tool selection, the same checks — over and over. Slow, easy to get wrong, and it all rests on a few experienced people.',
         'problem.p1_title': 'Hours lost to repetition',
         'problem.p1_desc': 'Routine that runs for hours could run in minutes — but today it is done by hand, every single time.',
         'problem.p2_title': 'Errors that depend on the operator',
         'problem.p2_desc': 'Quality swings with the operator. A tired moment or a missed setting becomes a scrapped part.',
         'problem.p3_title': 'Know-how locked in a few heads',
         'problem.p3_desc': 'When your most experienced people are away, the line slows down. The expertise lives in them, not the process.',
+        'problem.day_label': 'A typical day',
+        'problem.day_count': 'the same task, again',
+        'problem.day_manual': 'Manual repetition',
+        'problem.day_eng': 'Actual engineering',
         // Workflow Visualization
         'viz.title': '<span class="viz-muted">10 steps</span> become <span class="viz-green">one action</span>',
         'viz.perpart': 'per part',
@@ -1769,12 +1972,18 @@
         // What We Do
         'whatwedo.label': 'What We Do',
         'whatwedo.title': 'We automate <strong>the entire production workflow</strong>',
-        'whatwedo.subtitle': 'Design, CAM, post-processing: one action instead of ten.',
         'whatwedo.f1': 'We build tools inside the software you already use',
         'whatwedo.f2': 'We replace manual steps with automated workflows',
         'whatwedo.f3': 'We embed your rules and standards into the software',
         'whatwedo.f4': 'We unify design, machining and machines into one seamless process',
-        'methodos.qcta': 'Got work like this? Let’s talk',
+        'whatwedo.s1': 'Coordination',
+        'whatwedo.s2': 'Check',
+        'whatwedo.s3': 'Execution',
+        'whatwedo.s4': 'Done',
+        'whatwedo.st_idle': 'Press play',
+        'whatwedo.st_running': 'Running',
+        'whatwedo.st_done': 'One action — the whole workflow',
+        'whatwedo.play': 'Play: run the workflow',
         // Benefits
         'benefits.label': 'Benefits',
         'benefits.title': 'What You <strong>Gain</strong>',
@@ -1879,13 +2088,16 @@
 
         'problem.label': 'Il Problema',
         'problem.title': 'Tecnici esperti passano la giornata su <strong>lavoro manuale ripetitivo</strong>',
-        'problem.subtitle': 'La stessa geometria, la stessa selezione di utensili, gli stessi controlli — ancora e ancora. Lento, facile da sbagliare e dipende da poche persone esperte.',
         'problem.p1_title': 'Ore perse in ripetizioni',
         'problem.p1_desc': 'Attività di routine che durano ore potrebbero durare minuti — ma oggi si fanno a mano, ogni volta.',
         'problem.p2_title': 'Errori che dipendono dall\'operatore',
         'problem.p2_desc': 'La qualità varia con l\'operatore. Un momento di stanchezza o un\'impostazione mancata diventa un pezzo da scartare.',
         'problem.p3_title': 'Know-how chiuso in poche persone',
         'problem.p3_desc': 'Quando le persone più esperte sono assenti, la produzione rallenta. La competenza vive in loro, non nel processo.',
+        'problem.day_label': 'Una giornata tipo',
+        'problem.day_count': 'lo stesso compito, di nuovo',
+        'problem.day_manual': 'Ripetizione manuale',
+        'problem.day_eng': 'Vera progettazione',
         // Workflow Visualization
         'viz.title': '<span class="viz-muted">10 passaggi</span> diventano <span class="viz-green">una sola azione</span>',
         'viz.perpart': 'per pezzo',
@@ -1923,12 +2135,18 @@
         // What We Do
         'whatwedo.label': 'Cosa Facciamo',
         'whatwedo.title': 'Automatizziamo <strong>l\'intero flusso produttivo</strong>',
-        'whatwedo.subtitle': 'Progettazione, CAM, post-processing: un\'azione invece di dieci.',
         'whatwedo.f1': 'Costruiamo strumenti dentro i software che già utilizzate',
         'whatwedo.f2': 'Sostituiamo i passaggi manuali con flussi automatizzati',
         'whatwedo.f3': 'Integriamo le vostre regole e i vostri standard nel software',
         'whatwedo.f4': 'Uniamo progettazione, lavorazioni e macchine in un unico processo',
-        'methodos.qcta': 'Avete lavori come questi? Parliamone',
+        'whatwedo.s1': 'Coordinamento',
+        'whatwedo.s2': 'Controllo',
+        'whatwedo.s3': 'Esecuzione',
+        'whatwedo.s4': 'Fatto',
+        'whatwedo.st_idle': 'Premi play',
+        'whatwedo.st_running': 'In esecuzione',
+        'whatwedo.st_done': 'Un\'azione — tutto il flusso',
+        'whatwedo.play': 'Play: esegui il flusso',
         // Benefits
         'benefits.label': 'Vantaggi',
         'benefits.title': 'Cosa <strong>Ottenete</strong>',
@@ -2025,6 +2243,10 @@
       });
 
       // Update HTML content (elements with rich markup)
+      document.querySelectorAll('[data-i18n-aria]').forEach(el => {
+        const key = el.getAttribute('data-i18n-aria');
+        if (translations[lang] && translations[lang][key]) el.setAttribute('aria-label', translations[lang][key]);
+      });
       document.querySelectorAll('[data-i18n-html]').forEach(el => {
         const key = el.getAttribute('data-i18n-html');
         if (t[key] !== undefined) {
@@ -2372,6 +2594,145 @@
       }
     }
 
+    // ===== PROBLEM: "A TYPICAL DAY" TIMELINE =====
+    // Stamps the same block in twelve times with a ticking counter, then the
+    // green engineering sliver; holds, clears, and replays while in view.
+    const problemDay = document.getElementById('problemDay');
+    if (problemDay) {
+      const pdBlocks = Array.from(problemDay.querySelectorAll('.pd-block'));
+      const pdNum = problemDay.querySelector('.pd-n');
+      const pdReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const pdManual = pdBlocks.filter(b => !b.classList.contains('pd-eng')).length;
+      let pdTimer = null;
+      let pdVisible = false;
+
+      const pdSetCount = (n) => {
+        pdNum.textContent = '\u00d7' + n;
+        pdNum.classList.remove('tick');
+        void pdNum.offsetWidth; // restart the tick animation
+        pdNum.classList.add('tick');
+      };
+
+      const pdPlay = () => {
+        clearTimeout(pdTimer);
+        pdBlocks.forEach(b => b.classList.remove('on'));
+        pdNum.textContent = '\u00d70';
+        let i = 0;
+        const step = () => {
+          if (!pdVisible) return;
+          if (i < pdBlocks.length) {
+            const block = pdBlocks[i];
+            block.classList.add('on');
+            if (!block.classList.contains('pd-eng')) pdSetCount(i + 1);
+            i += 1;
+            // small beat before the green sliver so it reads as "and then, finally"
+            pdTimer = setTimeout(step, i === pdBlocks.length - 1 ? 520 : 150);
+          } else {
+            pdTimer = setTimeout(pdPlay, 5600);
+          }
+        };
+        pdTimer = setTimeout(step, 350);
+      };
+
+      if (pdReduced) {
+        pdBlocks.forEach(b => b.classList.add('on'));
+        pdNum.textContent = '\u00d7' + pdManual;
+      } else {
+        new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            pdVisible = entry.isIntersecting;
+            clearTimeout(pdTimer);
+            if (pdVisible) pdPlay();
+          });
+        }, { threshold: 0.4 }).observe(problemDay);
+      }
+    }
+
+    // ===== WHAT WE DO: PRESS PLAY, THE WORKFLOW RUNS =====
+    const markStage = document.getElementById('markStage');
+    if (markStage) {
+      const markPlay = document.getElementById('markPlay');
+      const markRing = markStage.querySelector('.mark-ring');
+      const markRipple = markStage.querySelector('.mark-ripple');
+      const markSteps = Array.from(markStage.querySelectorAll('.mark-step'));
+      const markLinks = Array.from(markStage.querySelectorAll('.mark-link'));
+      const markReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let markTimers = [];
+      let markState = 'idle';
+      let markVisible = false;
+      const MARK_HOLD = 2000;   // how long the finished state stays before it clears
+      const MARK_REST = 900;    // idle pause before the next automatic replay
+
+      const markLater = (fn, ms) => { markTimers.push(setTimeout(fn, ms)); };
+      const markSetState = (st) => { markState = st; markStage.dataset.state = st; markStage.classList.toggle('is-idle', st === 'idle'); };
+      const markReset = () => {
+        markTimers.forEach(clearTimeout); markTimers = [];
+        markSteps.forEach(el => el.classList.remove('on'));
+        markLinks.forEach(el => el.classList.remove('on'));
+        markSetState('idle');
+      };
+
+      const markRun = () => {
+        if (markState === 'running') return;
+        markReset();
+        markSetState('running');
+
+        // the press
+        markPlay.classList.add('is-pressed');
+        markLater(() => markPlay.classList.remove('is-pressed'), 160);
+        markRipple.classList.remove('go'); void markRipple.offsetWidth; markRipple.classList.add('go');
+
+        // the four stages light up in order …
+        const stepStart = 320;
+        const stepGap = markReduced ? 0 : 480;
+        const lastStep = stepStart + (markSteps.length - 1) * stepGap;
+        markSteps.forEach((el, i) => {
+          markLater(() => {
+            if (i > 0) markLinks[i - 1].classList.add('on');
+            el.classList.add('on');
+          }, stepStart + i * stepGap);
+        });
+
+        // … and the mark turns exactly once while they do: it starts as the first
+        // stage lights and comes to rest the moment the "done" line appears.
+        // 360deg lands on the same picture, so there is no snap afterwards.
+        const doneAt = lastStep + 420;
+        const spinMs = Math.max(doneAt - stepStart, 600);
+        markStage.style.setProperty('--mark-spin', spinMs + 'ms');
+        markLater(() => {
+          markRing.classList.remove('is-spinning'); void markRing.offsetWidth; markRing.classList.add('is-spinning');
+        }, stepStart);
+        markLater(() => markRing.classList.remove('is-spinning'), stepStart + spinMs + 80);
+
+        markLater(() => markSetState('done'), doneAt);
+        // hold, clear, rest — then replay on its own while it is on screen
+        markLater(() => {
+          markReset();
+          if (markVisible && !markReduced) markLater(markRun, MARK_REST);
+        }, doneAt + MARK_HOLD);
+      };
+
+      markPlay.addEventListener('click', () => {
+        markRun();
+        gaEvent('click_workflow_demo_play', { section: 'ti-kanoume' });
+      });
+
+      if (!markReduced) {
+        // Loops while in view; leaving the viewport stops the cycle and clears
+        // it, coming back starts a fresh run.
+        new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            markVisible = entry.isIntersecting;
+            if (markVisible) {
+              if (markState === 'idle') markLater(markRun, 700);
+            } else {
+              markReset();
+            }
+          });
+        }, { threshold: 0.55 }).observe(markStage);
+      }
+    }
+
     // ===== MOBILE MENU =====
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('.nav-menu');
@@ -2639,8 +3000,8 @@
     })();
 
     // ===== NAVBAR ACTIVE SECTION HIGHLIGHT =====
-    // Only observe sections that actually correspond to a nav link (so nested
-    // sections like #questions inside #methodos don't side-effect-clear state).
+    // Only observe sections that actually correspond to a nav link, so other
+    // sections don't side-effect-clear state.
     // rootMargin defines a narrow mid-viewport detection band, so section
     // height is irrelevant — this matters for #methodos, which is ~7 viewports
     // tall because of the scroll-driven panels and would never reach a

@@ -20,14 +20,6 @@
       sysTitle: 'A <strong>system</strong>.',
       sysDefn: 'How the workflows in your company connect to each other — what they share, and what they don’t.',
       sysReveals: 'Where the <strong>same information</strong> lives in more than one place, where <strong>tools overlap</strong>, and where one group’s output doesn’t quite fit the next group’s input.',
-      qK: 'Three questions · one per layer',
-      qTitle: 'Now look at your own company.',
-      qSub: 'Keep a notebook nearby. The answers tend to arrive over the following week, not in the next minute.',
-      qTag1: 'Task', qTag2: 'Workflow', qTag3: 'System',
-      q1: 'Which task in your company is done <strong>by hand, the same way, again and again</strong> — and whose hands are on it?',
-      q2: 'In your longest workflow, <strong>between which two steps</strong> does work most often pause?',
-      q3: 'Which two parts of your operation <strong>need the same information</strong> but store it separately?',
-      qHint: 'Observe for a day',
       labels: { system: 'System', workflow: 'Workflow', task: 'Task' },
     },
     el: {
@@ -43,14 +35,6 @@
       sysTitle: 'Ένα <strong>σύστημα</strong>.',
       sysDefn: 'Πώς οι ροές της εταιρείας σας συνδέονται μεταξύ τους — τι μοιράζονται και τι όχι.',
       sysReveals: 'Πού η <strong>ίδια πληροφορία</strong> ζει σε παραπάνω από ένα σημεία, πού <strong>τα εργαλεία επικαλύπτονται</strong>, και πού το αποτέλεσμα μιας ομάδας δεν ταιριάζει στην επόμενη.',
-      qK: 'Τρεις ερωτήσεις · μία για κάθε επίπεδο',
-      qTitle: 'Τώρα κοιτάξτε τη δική σας εταιρεία.',
-      qSub: 'Κρατήστε ένα μπλοκ κοντά. Οι απαντήσεις συνήθως έρχονται μέσα στην επόμενη εβδομάδα, όχι στο επόμενο λεπτό.',
-      qTag1: 'Εργασία', qTag2: 'Ροή', qTag3: 'Σύστημα',
-      q1: 'Ποια εργασία στην εταιρεία σας γίνεται <strong>με το χέρι, με τον ίδιο τρόπο, ξανά και ξανά</strong> — και ποιος την κάνει;',
-      q2: 'Στη μακρύτερη ροή σας, <strong>ανάμεσα σε ποια δύο βήματα</strong> σταματά πιο συχνά η δουλειά;',
-      q3: 'Ποια δύο μέρη της λειτουργίας σας <strong>χρειάζονται την ίδια πληροφορία</strong> αλλά την κρατούν ξεχωριστά;',
-      qHint: 'Παρατηρήστε μία μέρα',
       labels: { system: 'Σύστημα', workflow: 'Ροή', task: 'Εργασία' },
     },
     it: {
@@ -66,14 +50,6 @@
       sysTitle: 'Un <strong>sistema</strong>.',
       sysDefn: 'Come i flussi della vostra azienda si collegano tra loro — cosa condividono e cosa no.',
       sysReveals: "Dove le <strong>stesse informazioni</strong> vivono in più di un luogo, dove gli <strong>strumenti si sovrappongono</strong>, e dove l'output di un gruppo non si adatta bene all'input del successivo.",
-      qK: 'Tre domande · una per livello',
-      qTitle: 'Ora guardate la vostra azienda.',
-      qSub: 'Tenete un taccuino vicino. Le risposte arrivano di solito nella settimana successiva, non nel minuto successivo.',
-      qTag1: 'Attività', qTag2: 'Flusso', qTag3: 'Sistema',
-      q1: 'Quale attività nella vostra azienda viene svolta <strong>a mano, nello stesso modo, ancora e ancora</strong> — e di chi sono le mani che la svolgono?',
-      q2: 'Nel vostro flusso più lungo, <strong>tra quali due passaggi</strong> si ferma più spesso il lavoro?',
-      q3: 'Quali due parti della vostra operatività <strong>hanno bisogno delle stesse informazioni</strong> ma le conservano separatamente?',
-      qHint: 'Osservate per un giorno',
       labels: { system: 'Sistema', workflow: 'Flusso', task: 'Attività' },
     },
   };
@@ -113,15 +89,6 @@
     els.t.innerHTML = c[m.t];
     if (els.d) els.d.innerHTML = c[m.d];
     if (els.r) els.r.innerHTML = c[m.r];
-    // Questions section (still uses data-t / data-k keys from COPY).
-    root.querySelectorAll('[data-t]').forEach(n => {
-      const k = n.getAttribute('data-t');
-      if (c[k] !== undefined) { if (/[<>]/.test(c[k])) n.innerHTML = c[k]; else n.textContent = c[k]; }
-    });
-    root.querySelectorAll('[data-k]').forEach(n => {
-      const k = n.getAttribute('data-k');
-      if (c[k] !== undefined) n.textContent = c[k];
-    });
   }
 
   function setLayer(next) {

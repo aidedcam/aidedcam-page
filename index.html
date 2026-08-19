@@ -450,33 +450,6 @@
 
     /* Button styles now live in css/editorial.css */
 
-    /* Hero scroll indicator */
-    .hero-scroll-indicator {
-      position: absolute;
-      bottom: 32px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 3;
-    }
-
-    .hero-scroll-indicator svg { display: block; }
-    .hero-scroll-indicator .scroll-arrow { stroke: var(--line-strong); }
-
-    .scroll-arrow {
-      opacity: 0;
-      animation: scrollArrow 2s infinite;
-    }
-    .scroll-arrow.arrow-1 { animation-delay: -1s; }
-    .scroll-arrow.arrow-2 { animation-delay: -0.5s; }
-    .scroll-arrow.arrow-3 { animation-delay: 0s; }
-
-    @keyframes scrollArrow {
-      0% { opacity: 0; }
-      40% { opacity: 1; }
-      80% { opacity: 0; }
-      100% { opacity: 0; }
-    }
-
     /* Integration logos bar */
     .integrations-bar {
       position: relative;
@@ -520,12 +493,7 @@
 
     .integration-logos span:hover { color: var(--ink); }
 
-    .integration-icon {
-      height: 20px; width: 20px; object-fit: contain;
-      filter: grayscale(1) opacity(0.7);
-      transition: filter 0.25s ease;
-    }
-    .integration-logos span:hover .integration-icon { filter: grayscale(0) opacity(1); }
+    .integration-icon { height: 20px; width: 20px; object-fit: contain; }
 
     .autodesk-badge { margin-bottom: 2rem; }
     .autodesk-badge img { height: 46px; width: auto; opacity: 0.85; transition: opacity 0.25s; }
@@ -1180,7 +1148,6 @@
 
     @media (max-width: 768px) {
       .hero { min-height: 500px; }
-      .hero-scroll-indicator { bottom: 22px; }
 
       .benefits-grid, .problem-grid, .why-grid, .contact-grid { grid-template-columns: 1fr; }
       .tools-grid { grid-template-columns: 1fr; }
@@ -1296,13 +1263,6 @@
         <span data-system="AutoCAD"><img src="icons/AutoCAD.png" alt="AutoCAD" class="integration-icon">AutoCAD</span>
         <span data-system="SiemensNX"><img src="icons/SiemensNX.ico" alt="SiemensNX" class="integration-icon">SiemensNX</span>
       </div>
-    </div>
-    <div class="hero-scroll-indicator">
-      <svg width="30" height="55" viewBox="0 0 30 55">
-        <polyline class="scroll-arrow arrow-1" points="5,15 15,25 25,15" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <polyline class="scroll-arrow arrow-2" points="5,25 15,35 25,25" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <polyline class="scroll-arrow arrow-3" points="5,35 15,45 25,35" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
     </div>
   </section>
 
@@ -1429,7 +1389,7 @@
         </div>
         <div class="benefit-card fade-in fade-in-delay-3" data-num="03">
           <div class="benefit-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5-5 4 4 8-8"/><path d="M16 4h5v5"/><path d="M3 21h18"/></svg>
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18l6-6 4 4 8-8"/><path d="M15 8h6v6"/></svg>
           </div>
           <div class="benefit-number">03</div>
           <h3 data-i18n="benefits.b3_title">Περισσότερο output, ίδιο κόστος</h3>
@@ -1539,7 +1499,7 @@
         </div>
         <div class="tool-card tool-card-wide fade-in">
           <h4 data-i18n="tools.standalone_title">Standalone λύσεις χωρίς τρίτο λογισμικό</h4>
-          <p data-i18n-html="tools.standalone_desc">Υλοποιούμε επίσης λύσεις χωρίς την ανάγκη χρήσης τρίτου CAD/CAM λογισμικού, με τη χρήση των εργαλείων DevDept:
+          <p data-i18n-html="tools.standalone_desc">Υλοποιούμε επίσης λύσεις χωρίς τρίτο CAD/CAM λογισμικό, με τα εργαλεία DevDept:
             <a href="https://devdept.com/Industries/ProductDesign" target="_blank">Product Design</a>,
             <a href="https://devdept.com/Industries/IndustrialEquipment" target="_blank">Industrial Equipment</a>,
             <a href="https://devdept.com/Industries/Metrology" target="_blank">Metrology</a>
@@ -1843,7 +1803,7 @@
         'tools.cam': 'CAM — Κατεργασία',
         'tools.bim': 'BIM / AEC',
         'tools.standalone_title': 'Standalone λύσεις χωρίς τρίτο λογισμικό',
-        'tools.standalone_desc': 'Υλοποιούμε επίσης λύσεις χωρίς την ανάγκη χρήσης τρίτου CAD/CAM λογισμικού, με τη χρήση των εργαλείων DevDept: <a href="https://devdept.com/Industries/ProductDesign" target="_blank">Product Design</a>, <a href="https://devdept.com/Industries/IndustrialEquipment" target="_blank">Industrial Equipment</a>, <a href="https://devdept.com/Industries/Metrology" target="_blank">Metrology</a>',
+        'tools.standalone_desc': 'Υλοποιούμε επίσης λύσεις χωρίς τρίτο CAD/CAM λογισμικό, με τα εργαλεία DevDept: <a href="https://devdept.com/Industries/ProductDesign" target="_blank">Product Design</a>, <a href="https://devdept.com/Industries/IndustrialEquipment" target="_blank">Industrial Equipment</a>, <a href="https://devdept.com/Industries/Metrology" target="_blank">Metrology</a>',
         'tools.disclaimer': 'Τα εμπορικά σήματα που αναφέρονται ανήκουν στους αντίστοιχους κατόχους τους.',
         // Services
         // Process

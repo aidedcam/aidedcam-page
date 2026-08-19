@@ -1,6 +1,6 @@
 # AidedCAM
 
-> Custom CAD/CAM/CNC automation software for manufacturing companies.
+> Custom CAD/CAM/CNC/BIM automation software for manufacturing and engineering companies.
 > Autodesk Authorized Developer. Based in Greece (Athens, Thessaloniki).
 > Serves companies in Greece, Belgium, Switzerland, Austria, Germany.
 
@@ -9,11 +9,15 @@
 - Whole Workflow: End-to-end production workflow automation (from design to manufacturing)
 - Workflow + Continuous Support: Full automation with ongoing monitoring, improvements, and bug fixes
 
-## Supported Software
-- Autodesk PowerMill (CAM)
+## Supported Software (8 CAD / CAM / BIM systems)
 - Autodesk PowerShape (CAD)
+- Autodesk PowerMill (CAM)
+- Autodesk Fusion 360 (CAD/CAM)
 - Autodesk FeatureCAM (CAM)
 - Autodesk Inventor (CAD)
+- Autodesk Revit (BIM)
+- Autodesk AutoCAD (CAD)
+- Siemens NX (CAD/CAM)
 - TopSolid (coming soon)
 - Standalone solutions via DevDept (no third-party CAD/CAM required)
 

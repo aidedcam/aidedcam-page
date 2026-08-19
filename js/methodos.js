@@ -8,7 +8,7 @@
   // ── I18N ──
   const COPY = {
     en: {
-      thesisHTML: 'A company is a <strong>system</strong> of workflows. A workflow is a <strong>chain</strong> of tasks. Automation starts at the <strong>task</strong> — the gain shows up in the system.',
+      thesisHTML: 'A company is a <strong>system</strong> of workflows. A workflow is a <strong>chain</strong> of tasks. Automation starts at the <strong>task</strong>. The gain shows up in the system.',
       corner: 'How we look at your work',
       tabs: { system: 'System', workflow: 'Workflow', task: 'Task', result: 'Result' },
       lookLabel: 'What we look for',
@@ -23,7 +23,7 @@
         k: '02 · Step back',
         t: 'One <strong>workflow</strong>',
         d: 'The chain of steps a job travels through, from the moment it comes in until it is delivered.',
-        r: 'Which steps <strong>block the others</strong>, and where the work sits <strong>waiting</strong> for someone.',
+        r: 'Which steps are done <strong>by hand on every job</strong>, and how they chain together. That stretch is what we automate.',
       },
       task: {
         k: '01 · Up close',
@@ -35,13 +35,13 @@
         k: '04 · The whole picture',
         t: 'The <strong>result</strong>',
         d: 'We automate the task. The workflow gets shorter. The whole system moves faster — with the same people.',
-        r: 'Hours become <strong>minutes</strong>, errors <strong>disappear</strong>, and the know-how lives in the <strong>software</strong>, not in one person’s head.',
+        r: 'Hours become <strong>minutes</strong>, errors <strong>disappear</strong>, and the know-how is built into the <strong>software</strong>, available to the whole team, not just to one expert.',
       },
       cols: ['Design', 'Preparation', 'Production'],
       sysNote: 'Same information, entered twice',
       steps: ['Receive', 'Check', 'Prepare', 'Execute', 'Approve', 'Deliver'],
-      wait: 'waiting',
-      wfNote: 'Work waits here',
+      manualTag: '3 × by hand',
+      wfNote: 'Three steps done by hand, on every job',
       taskTitle: 'Prepare the file',
       taskSteps: ['Open the model', 'Check units & layers', 'Apply your standards', 'Name & save'],
       taskFoot: 'By hand · same way · every time',
@@ -49,7 +49,7 @@
       resNote: 'One action instead of three steps',
     },
     el: {
-      thesisHTML: 'Μια εταιρεία είναι ένα <strong>σύστημα</strong> από ροές. Μια ροή είναι μια <strong>αλυσίδα</strong> από εργασίες. Η αυτοματοποίηση ξεκινά από την <strong>εργασία</strong> — το κέρδος φαίνεται στο σύστημα.',
+      thesisHTML: 'Μια εταιρεία είναι ένα <strong>σύστημα</strong> από ροές. Μια ροή είναι μια <strong>αλυσίδα</strong> από εργασίες. Η αυτοματοποίηση ξεκινά από την <strong>εργασία</strong>. Το κέρδος φαίνεται στο σύστημα.',
       corner: 'Πώς βλέπουμε τη δουλειά σας',
       tabs: { system: 'Σύστημα', workflow: 'Ροή', task: 'Εργασία', result: 'Αποτέλεσμα' },
       lookLabel: 'Τι ψάχνουμε',
@@ -64,7 +64,7 @@
         k: '02 · Ένα βήμα πίσω',
         t: 'Μία <strong>ροή</strong>',
         d: 'Η αλυσίδα των βημάτων που περνά μια δουλειά, από τη στιγμή που μπαίνει μέχρι να παραδοθεί.',
-        r: 'Ποια βήματα <strong>μπλοκάρουν τα υπόλοιπα</strong>, και πού η δουλειά <strong>περιμένει</strong> κάποιον.',
+        r: 'Ποια βήματα γίνονται <strong>με το χέρι σε κάθε δουλειά</strong>, και πώς δένουν μεταξύ τους. Αυτό το κομμάτι αυτοματοποιούμε.',
       },
       task: {
         k: '01 · Από κοντά',
@@ -76,13 +76,13 @@
         k: '04 · Η συνολική εικόνα',
         t: 'Το <strong>αποτέλεσμα</strong>',
         d: 'Αυτοματοποιούμε την εργασία. Η ροή γίνεται πιο σύντομη. Όλο το σύστημα κινείται πιο γρήγορα — με τους ίδιους ανθρώπους.',
-        r: 'Οι ώρες γίνονται <strong>λεπτά</strong>, τα λάθη <strong>εξαφανίζονται</strong>, και η τεχνογνωσία ζει στο <strong>λογισμικό</strong>, όχι στο κεφάλι ενός ανθρώπου.',
+        r: 'Οι ώρες γίνονται <strong>λεπτά</strong>, τα λάθη <strong>εξαφανίζονται</strong>, και η τεχνογνωσία ενσωματώνεται στο <strong>λογισμικό</strong>, διαθέσιμη σε όλη την ομάδα, όχι μόνο σε έναν ειδικό.',
       },
       cols: ['Σχεδιασμός', 'Προετοιμασία', 'Παραγωγή'],
       sysNote: 'Ίδια πληροφορία, δύο φορές',
       steps: ['Παραλαβή', 'Έλεγχος', 'Στήσιμο', 'Εκτέλεση', 'Έγκριση', 'Παράδοση'],
-      wait: 'αναμονή',
-      wfNote: 'Εδώ περιμένει η δουλειά',
+      manualTag: '3 × με το χέρι',
+      wfNote: 'Τρία βήματα με το χέρι, σε κάθε δουλειά',
       taskTitle: 'Προετοιμασία αρχείου',
       taskSteps: ['Άνοιγμα μοντέλου', 'Έλεγχος μονάδων & layers', 'Εφαρμογή προτύπων', 'Ονομασία & αποθήκευση'],
       taskFoot: 'Με το χέρι · ίδιος τρόπος · κάθε φορά',
@@ -90,7 +90,7 @@
       resNote: 'Μία ενέργεια αντί για τρία βήματα',
     },
     it: {
-      thesisHTML: 'Un’azienda è un <strong>sistema</strong> di flussi. Un flusso è una <strong>catena</strong> di attività. L’automazione parte dall’<strong>attività</strong> — il guadagno si vede nel sistema.',
+      thesisHTML: 'Un’azienda è un <strong>sistema</strong> di flussi. Un flusso è una <strong>catena</strong> di attività. L’automazione parte dall’<strong>attività</strong>. Il guadagno si vede nel sistema.',
       corner: 'Come guardiamo il vostro lavoro',
       tabs: { system: 'Sistema', workflow: 'Flusso', task: 'Attività', result: 'Risultato' },
       lookLabel: 'Cosa cerchiamo',
@@ -105,7 +105,7 @@
         k: '02 · Un passo indietro',
         t: 'Un <strong>flusso</strong>',
         d: 'La catena di passaggi che un lavoro attraversa, da quando entra a quando viene consegnato.',
-        r: 'Quali passaggi <strong>bloccano gli altri</strong>, e dove il lavoro resta <strong>in attesa</strong> di qualcuno.',
+        r: 'Quali passaggi si fanno <strong>a mano su ogni lavoro</strong>, e come si concatenano. È quel tratto che automatizziamo.',
       },
       task: {
         k: '01 · Da vicino',
@@ -117,13 +117,13 @@
         k: '04 · Il quadro completo',
         t: 'Il <strong>risultato</strong>',
         d: 'Automatizziamo l’attività. Il flusso si accorcia. Tutto il sistema va più veloce — con le stesse persone.',
-        r: 'Le ore diventano <strong>minuti</strong>, gli errori <strong>spariscono</strong>, e il know-how vive nel <strong>software</strong>, non nella testa di una persona.',
+        r: 'Le ore diventano <strong>minuti</strong>, gli errori <strong>spariscono</strong>, e il know-how è integrato nel <strong>software</strong>, a disposizione di tutto il team, non solo di un esperto.',
       },
       cols: ['Progettazione', 'Preparazione', 'Produzione'],
       sysNote: 'Stessa informazione, due volte',
       steps: ['Arrivo', 'Verifica', 'Prepara', 'Esegui', 'Approva', 'Consegna'],
-      wait: 'attesa',
-      wfNote: 'Qui il lavoro aspetta',
+      manualTag: '3 × a mano',
+      wfNote: 'Tre passaggi fatti a mano, su ogni lavoro',
       taskTitle: 'Prepara il file',
       taskSteps: ['Apri il modello', 'Controlla unità e layer', 'Applica gli standard', 'Nomina e salva'],
       taskFoot: 'A mano · stesso modo · ogni volta',
@@ -170,7 +170,7 @@
     setList('.mv-system .mnote', [c.sysNote]);
     setList('.mv-workflow .mw-cell .mtag', c.steps);
     setList('.mv-workflow .mnote', [c.wfNote]);
-    root.querySelectorAll('.mw-gap.wait').forEach(g => g.setAttribute('data-label', c.wait));
+    setList('.mv-workflow .mw-brace .mtag', [c.manualTag]);
     setList('.mv-task .mt-head .mtag', [c.taskTitle]);
     setList('.mv-task .mt-steps li span', c.taskSteps);
     setList('.mv-task .mt-foot', [c.taskFoot]);
@@ -212,13 +212,14 @@
       b.setAttribute('aria-selected', on ? 'true' : 'false');
     });
     renderCopy(true);
+    syncTabIndex();
     if (next === 'task') startTaskLoop(); else stopTaskLoop();
     if (next === 'workflow' || next === 'result') measureChain();
   }
 
   // Positions of the chain cells (as % of the chain width) feed the CSS keyframes.
   function measureChain() {
-    const setVars = (chain, prefix, waitVar) => {
+    const setVars = (chain, prefix) => {
       if (!chain) return;
       const cw = chain.getBoundingClientRect();
       if (!cw.width) return;
@@ -227,14 +228,16 @@
         const r = cell.getBoundingClientRect();
         chain.style.setProperty(prefix + (i + 1), (((r.left + r.width / 2) - cw.left) / cw.width * 100).toFixed(2) + '%');
       });
-      const wait = chain.querySelector('.mw-gap.wait');
-      if (wait && waitVar) {
-        const r = wait.getBoundingClientRect();
-        chain.style.setProperty(waitVar, (((r.left + r.width / 2) - cw.left) / cw.width * 100).toFixed(2) + '%');
+      // brace over the manual (.rep) cells
+      const reps = cells.filter(cell => cell.classList.contains('rep'));
+      if (reps.length) {
+        const a = reps[0].getBoundingClientRect(), b = reps[reps.length - 1].getBoundingClientRect();
+        chain.style.setProperty('--b1', ((a.left - cw.left) / cw.width * 100).toFixed(2) + '%');
+        chain.style.setProperty('--bw', ((b.right - a.left) / cw.width * 100).toFixed(2) + '%');
       }
     };
-    setVars(root.querySelector('.mv-workflow .mw-chain'), '--p', '--pw');
-    setVars(root.querySelector('.mv-result .mw-chain'), '--r', null);
+    setVars(root.querySelector('.mv-workflow .mw-chain'), '--p');
+    setVars(root.querySelector('.mv-result .mw-chain'), '--r');
     drawTie();
   }
 
@@ -294,11 +297,24 @@
     }, wait);
   }
 
-  tabs.forEach(b => b.addEventListener('click', () => {
+  const pickTab = (b) => {
     userDriven = true;
     clearTimeout(autoTimer);
     setView(b.dataset.layer);
-  }));
+  };
+  tabs.forEach((b, i) => {
+    b.addEventListener('click', () => pickTab(b));
+    // roving tabs: ← → Home End move focus and select, as a tablist should
+    b.addEventListener('keydown', (e) => {
+      const map = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: tabs.length - 1 };
+      if (!(e.key in map)) return;
+      e.preventDefault();
+      const next = tabs[(map[e.key] + tabs.length) % tabs.length];
+      next.focus();
+      pickTab(next);
+    });
+  });
+  const syncTabIndex = () => tabs.forEach(b => b.setAttribute('tabindex', b.classList.contains('on') ? '0' : '-1'));
 
   if ('IntersectionObserver' in window) {
     new IntersectionObserver((entries) => {
@@ -321,6 +337,7 @@
   scene.setAttribute('data-view', 'task');
   scene.setAttribute('data-dir', 'out');
   renderCopy(false);
+  syncTabIndex();
   measureChain();
   new MutationObserver(() => { lang = pick(); renderCopy(false); })
     .observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });

@@ -110,7 +110,7 @@
 .ms-tie { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
 .ms-tie path { fill: none; stroke: var(--green-soft); stroke-width: 1; stroke-dasharray: 3 4; opacity: 0.9; }
 
-/* ── View 2: WORKFLOW — one job travelling through a chain of steps ── */
+/* ── View 2: WORKFLOW — one job travelling through a chain; three steps in the middle are done by hand ── */
 .mw-chain { position: relative; display: flex; align-items: stretch; gap: 0; }
 .mw-cell {
   flex: 1 1 0; min-width: 0; background: #fff; border: 1px solid var(--line, #dcdacf); border-radius: 2px;
@@ -123,37 +123,35 @@
 }
 .mw-gap { flex: 0 0 14px; position: relative; }
 .mw-gap::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--line-strong, #c2bfb1); }
-.mw-gap.wait { flex-basis: 66px; }
-.mw-gap.wait::before { background: repeating-linear-gradient(90deg, var(--line-strong, #c2bfb1) 0 3px, transparent 3px 6px); }
-.mw-gap.wait::after {
-  content: attr(data-label); position: absolute; left: 50%; top: calc(50% + 9px); transform: translateX(-50%);
-  font-family: 'JetBrains Mono', monospace; font-size: 8px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--faint); white-space: nowrap;
+/* the manual stretch: the three ↻ steps sit on a soft green tint, with a brace above */
+.mw-cell.rep { background: #f3f8f5; border-color: rgba(101,176,139,0.55); }
+.mw-brace {
+  position: absolute; top: -22px; left: var(--b1, 33%); width: var(--bw, 34%); height: 10px;
+  border: 1px solid var(--green-soft); border-bottom: 0; border-radius: 2px 2px 0 0;
+}
+.mw-brace .mtag {
+  position: absolute; left: 50%; top: -7px; transform: translate(-50%, -50%);
+  padding: 0 6px; background: var(--paper-2, #ecebe3); color: var(--green-deep); font-size: 8px; white-space: nowrap;
 }
 .mw-item {
   position: absolute; top: -9px; left: 0; width: 12px; height: 12px; margin-left: -6px; border-radius: 50%;
   background: var(--green); box-shadow: 0 0 0 3px #fff; z-index: 2; opacity: 0;
 }
 .mv.is-on .mw-item { animation: mwTravel 5.2s linear infinite; }
-/* six cells + waiting gap: positions are the cell centres in % of the chain (see JS: --p1..--p6 set from layout) */
+/* six cells: positions are the cell centres in % of the chain (see JS: --p1..--p6 set from layout).
+   The job moves briskly through the automatic-able steps and crawls through the three manual ones. */
 @keyframes mwTravel {
   0%   { left: var(--p1); opacity: 0; }
   4%   { opacity: 1; }
-  12%  { left: var(--p1); }
-  20%  { left: var(--p2); }
-  32%  { left: var(--p3); }
-  40%  { left: var(--pw); }   /* reaches the waiting gap */
-  62%  { left: var(--pw); }   /* …and waits */
-  70%  { left: var(--p4); }
-  82%  { left: var(--p5); }
+  10%  { left: var(--p1); }
+  17%  { left: var(--p2); }
+  24%  { left: var(--p3); }
+  46%  { left: var(--p4); }
+  68%  { left: var(--p5); }
+  78%  { left: var(--p6); }
   94%  { left: var(--p6); opacity: 1; }
   100% { left: var(--p6); opacity: 0; }
 }
-.mw-wait-clock {
-  position: absolute; left: var(--pw); top: -30px; transform: translateX(-50%);
-  font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--green-deep); font-weight: 700; opacity: 0;
-}
-.mv.is-on .mw-wait-clock { animation: mwClock 5.2s linear infinite; }
-@keyframes mwClock { 0%, 40% { opacity: 0; } 46%, 60% { opacity: 1; } 66%, 100% { opacity: 0; } }
 
 /* ── View 3: TASK — one step, by hand, again and again ── */
 .mt-card {
@@ -243,8 +241,8 @@
   .mw-cell.rep::after { display: none; }
   .mw-cell b { display: none; }
   .mw-gap { flex-basis: 8px; }
-  .mw-gap.wait { flex-basis: 30px; }
-  .mw-gap.wait::after { display: none; }
+  .mw-brace { top: -16px; height: 7px; }
+  .mw-brace .mtag { font-size: 7px; }
   .mt-card { padding: 0.8rem 0.85rem; }
   .mnote { font-size: 9px; letter-spacing: 0.08em; }
 }

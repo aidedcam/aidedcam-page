@@ -203,7 +203,7 @@
         "name": "What CAD/CAM software does AidedCAM support?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "AidedCAM develops automation solutions for Autodesk PowerMill, PowerShape, FeatureCAM, Inventor, and TopSolid (coming soon). We also build standalone solutions using DevDept tools without requiring third-party CAD/CAM software."
+          "text": "AidedCAM develops automation solutions for 8 CAD, CAM and BIM systems: Autodesk PowerShape, PowerMill, Fusion 360, FeatureCAM, Inventor, Revit and AutoCAD, and Siemens NX (TopSolid coming soon). We also build standalone solutions using DevDept tools without requiring third-party CAD/CAM software."
         }
       },
       {
@@ -247,9 +247,9 @@
     }
     if (localStorage.getItem('privacy-pref') === 'accepted') { loadGA(); }
   </script>
-  <link rel="stylesheet" href="fonts.css" />
-  <link rel="stylesheet" href="css/editorial.css" />
-  <link rel="stylesheet" href="css/methodos.css" />
+  <link rel="stylesheet" href="fonts.css?v=20260819" />
+  <link rel="stylesheet" href="css/editorial.css?v=20260819" />
+  <link rel="stylesheet" href="css/methodos.css?v=20260819" />
   <style>
     /* ===== Tokens, base, nav, lang-switcher, consent banner, scroll-progress,
        back-to-top and fade-in now live in css/editorial.css ===== */
@@ -1420,7 +1420,7 @@
       <div class="method">
         <p class="method-thesis">
           Μια εταιρεία είναι ένα <strong>σύστημα</strong> από ροές. Μια ροή είναι μια <strong>αλυσίδα</strong> από εργασίες.
-          Η αυτοματοποίηση ξεκινά από την <strong>εργασία</strong> — το κέρδος φαίνεται στο σύστημα.
+          Η αυτοματοποίηση ξεκινά από την <strong>εργασία</strong>. Το κέρδος φαίνεται στο σύστημα.
         </p>
 
         <div class="method-stage">
@@ -1440,20 +1440,20 @@
           <div class="mv mv-workflow" data-view="workflow">
             <div class="mw-chain">
               <span class="mw-item" aria-hidden="true"></span>
-              <span class="mw-wait-clock" aria-hidden="true">+2h</span>
+              <span class="mw-brace" aria-hidden="true"><span class="mtag">3 × με το χέρι</span></span>
               <div class="mw-cell"><b>01</b><span class="mtag">Παραλαβή</span></div>
               <i class="mw-gap"></i>
               <div class="mw-cell"><b>02</b><span class="mtag">Έλεγχος</span></div>
               <i class="mw-gap"></i>
               <div class="mw-cell rep"><b>03</b><span class="mtag">Στήσιμο</span></div>
-              <i class="mw-gap wait" data-label="αναμονή"></i>
+              <i class="mw-gap"></i>
               <div class="mw-cell rep"><b>04</b><span class="mtag">Εκτέλεση</span></div>
               <i class="mw-gap"></i>
               <div class="mw-cell rep"><b>05</b><span class="mtag">Έγκριση</span></div>
               <i class="mw-gap"></i>
               <div class="mw-cell"><b>06</b><span class="mtag">Παράδοση</span></div>
             </div>
-            <div class="mnote">Εδώ περιμένει η δουλειά</div>
+            <div class="mnote">Τρία βήματα με το χέρι, σε κάθε δουλειά</div>
           </div>
           <div class="mv mv-task" data-view="task">
             <div class="mt-card">
@@ -1593,7 +1593,7 @@
       </div>
 
       <div class="about-content fade-in">
-        <p data-i18n="about.p1">Μηχανικοί και προγραμματιστές με χρόνια εμπειρίας σε τμήματα παραγωγής — σε Ελλάδα, Βέλγιο, Ελβετία, Αυστρία και Γερμανία.</p>
+        <p data-i18n="about.p1">Μηχανικοί και προγραμματιστές με χρόνια εμπειρίας σε τμήματα παραγωγής σε Ελλάδα, Βέλγιο, Ελβετία, Αυστρία και Γερμανία.</p>
         <p data-i18n="about.p2">Η αποστολή μας; Κάθε χρονοβόρο, επιρρεπές σε λάθη βήμα της παραγωγής σας να γίνεται αυτόματο, γρήγορο και αξιόπιστο.</p>
       </div>
 
@@ -1700,7 +1700,7 @@
             <img src="aided-cam-transparent.png" alt="AidedCAM" />
             <span>AIDEDCAM</span>
           </div>
-          <p class="footer-about-text" data-i18n="about.p1">Μηχανικοί και προγραμματιστές με χρόνια εμπειρίας σε τμήματα παραγωγής — σε Ελλάδα, Βέλγιο, Ελβετία, Αυστρία και Γερμανία.</p>
+          <p class="footer-about-text" data-i18n="about.p1">Μηχανικοί και προγραμματιστές με χρόνια εμπειρίας σε τμήματα παραγωγής σε Ελλάδα, Βέλγιο, Ελβετία, Αυστρία και Γερμανία.</p>
         </div>
         <div class="footer-col">
           <h4 data-i18n="nav.method">Μέθοδος</h4>
@@ -1778,40 +1778,6 @@
         'problem.day_count': 'η ίδια εργασία, ξανά',
         'problem.day_manual': 'Χειροκίνητη επανάληψη',
         'problem.day_eng': 'Πραγματική μηχανική δουλειά',
-        // Workflow Visualization
-        'viz.title': '<span class="viz-muted">10 βήματα</span> γίνονται <span class="viz-green">μία ενέργεια</span>',
-        'viz.perpart': 'ανά τεμάχιο',
-        'viz.manual': 'Χειροκίνητα',
-        'viz.automated': 'Αυτοματοποιημένα',
-        'viz.oneaction': 'Μία Ενέργεια',
-        'viz.auto_subtitle': 'Η AidedCAM αναλαμβάνει όλη τη διαδικασία',
-        'viz.timesaved': 'Εξοικονόμηση',
-        'viz.errors': 'Σφάλματα',
-        'viz.click': 'Κλικ',
-        'viz.remaining': '{x} από 10 χειροκίνητα βήματα απομένουν',
-        'viz.complete': '&#10003; Πλήρης αυτοματοποίηση με AidedCAM',
-        'viz.play': 'Αναπαραγωγή',
-        'viz.clickhint': 'πάτα',
-        'viz.step1_title': 'Λήψη Προδιαγραφών',
-        'viz.step1_desc': 'Φύλλο παραγγελίας & διαστάσεις',
-        'viz.step2_title': 'Άνοιγμα CAD',
-        'viz.step2_desc': 'Εκκίνηση & ρύθμιση project',
-        'viz.step3_title': 'Σχεδίαση Γεωμετρίας',
-        'viz.step3_desc': 'Δημιουργία 2D/3D μοντέλου',
-        'viz.step4_title': 'Ορισμός Features',
-        'viz.step4_desc': 'Οπές, τσέπες, αυλάκια',
-        'viz.step5_title': 'Επιλογή Εργαλείων',
-        'viz.step5_desc': 'Κοπτικά & τρυπάνια',
-        'viz.step6_title': 'Ρύθμιση Παραμέτρων',
-        'viz.step6_desc': 'Ταχύτητες, προώσεις, βάθη',
-        'viz.step7_title': 'Δημιουργία Toolpaths',
-        'viz.step7_desc': 'Λειτουργίες CNC μία-μία',
-        'viz.step8_title': 'Προσομοίωση',
-        'viz.step8_desc': 'Έλεγχος συγκρούσεων & σφαλμάτων',
-        'viz.step9_title': 'Post-Process',
-        'viz.step9_desc': 'Δημιουργία G-code',
-        'viz.step10_title': 'Μεταφορά στο CNC',
-        'viz.step10_desc': 'Φόρτωση στον controller',
         // What We Do
         'whatwedo.label': 'Τι Κάνουμε',
         'whatwedo.title': 'Αυτοματοποιούμε <strong>όλη τη ροή παραγωγής</strong>',
@@ -1868,7 +1834,7 @@
         'whyus.w4_title': 'Εξατομικευμένες λύσεις',
         'whyus.w4_desc': 'Τα λογισμικά CAD/CAM είναι generic. Εμείς φτιάχνουμε εργαλεία κομμένα και ραμμένα στις δικές σας ανάγκες — πάνω στα προγράμματα που ήδη χρησιμοποιείτε.',
         // About
-        'about.p1': 'Μηχανικοί και προγραμματιστές με χρόνια εμπειρίας σε τμήματα παραγωγής — σε Ελλάδα, Βέλγιο, Ελβετία, Αυστρία και Γερμανία.',
+        'about.p1': 'Μηχανικοί και προγραμματιστές με χρόνια εμπειρίας σε τμήματα παραγωγής σε Ελλάδα, Βέλγιο, Ελβετία, Αυστρία και Γερμανία.',
         'about.p2': 'Η αποστολή μας; Κάθε χρονοβόρο, επιρρεπές σε λάθη βήμα της παραγωγής σας να γίνεται αυτόματο, γρήγορο και αξιόπιστο.',
         'about.quote': '«Το κόστος της αδράνειας είναι μεγαλύτερο από οτιδήποτε άλλο.»',
         // Contact
@@ -1940,40 +1906,6 @@
         'problem.day_count': 'the same task, again',
         'problem.day_manual': 'Manual repetition',
         'problem.day_eng': 'Actual engineering',
-        // Workflow Visualization
-        'viz.title': '<span class="viz-muted">10 steps</span> become <span class="viz-green">one action</span>',
-        'viz.perpart': 'per part',
-        'viz.manual': 'Manual',
-        'viz.automated': 'Automated',
-        'viz.oneaction': 'One Action',
-        'viz.auto_subtitle': 'AidedCAM handles the entire workflow',
-        'viz.timesaved': 'Time saved',
-        'viz.errors': 'Errors',
-        'viz.click': 'Click',
-        'viz.remaining': '{x} of 10 manual steps remaining',
-        'viz.complete': '&#10003; Fully automated with AidedCAM',
-        'viz.play': 'Play',
-        'viz.clickhint': 'click',
-        'viz.step1_title': 'Receive Specs',
-        'viz.step1_desc': 'Order sheet & dimensions',
-        'viz.step2_title': 'Open CAD',
-        'viz.step2_desc': 'Launch & set up project',
-        'viz.step3_title': 'Draw Geometry',
-        'viz.step3_desc': 'Create/adjust 2D/3D model',
-        'viz.step4_title': 'Define Features',
-        'viz.step4_desc': 'Place holes, pockets, slots',
-        'viz.step5_title': 'Select Tools',
-        'viz.step5_desc': 'Look up cutters & drills',
-        'viz.step6_title': 'Set Parameters',
-        'viz.step6_desc': 'Feeds, speeds, depths',
-        'viz.step7_title': 'Gen. Toolpaths',
-        'viz.step7_desc': 'CNC ops one by one',
-        'viz.step8_title': 'Simulate',
-        'viz.step8_desc': 'Check collisions & errors',
-        'viz.step9_title': 'Post-Process',
-        'viz.step9_desc': 'Generate G-code',
-        'viz.step10_title': 'Transfer CNC',
-        'viz.step10_desc': 'Load to controller',
         // What We Do
         'whatwedo.label': 'What We Do',
         'whatwedo.title': 'We automate <strong>the entire production workflow</strong>',
@@ -2030,7 +1962,7 @@
         'whyus.w4_title': 'Custom solutions',
         'whyus.w4_desc': 'CAD/CAM software is generic. We build tools tailored to your specific needs — on top of the programs you already use.',
         // About
-        'about.p1': 'Engineers and developers with years of experience on production floors — in Greece, Belgium, Switzerland, Austria and Germany.',
+        'about.p1': 'Engineers and developers with years of experience on production floors in Greece, Belgium, Switzerland, Austria and Germany.',
         'about.p2': 'Our mission? Every time-consuming, error-prone step in your production becomes automatic, fast and reliable.',
         'about.quote': '"The cost of inaction is greater than anything else."',
         // Contact
@@ -2102,40 +2034,6 @@
         'problem.day_count': 'lo stesso compito, di nuovo',
         'problem.day_manual': 'Ripetizione manuale',
         'problem.day_eng': 'Vera progettazione',
-        // Workflow Visualization
-        'viz.title': '<span class="viz-muted">10 passaggi</span> diventano <span class="viz-green">una sola azione</span>',
-        'viz.perpart': 'per pezzo',
-        'viz.manual': 'Manuale',
-        'viz.automated': 'Automatizzato',
-        'viz.oneaction': 'Una Azione',
-        'viz.auto_subtitle': 'AidedCAM gestisce l\'intero flusso di lavoro',
-        'viz.timesaved': 'Tempo risparmiato',
-        'viz.errors': 'Errori',
-        'viz.click': 'Clic',
-        'viz.remaining': '{x} di 10 passaggi manuali rimanenti',
-        'viz.complete': '&#10003; Completamente automatizzato con AidedCAM',
-        'viz.play': 'Riproduci',
-        'viz.clickhint': 'clicca',
-        'viz.step1_title': 'Ricezione Specifiche',
-        'viz.step1_desc': 'Foglio ordine e dimensioni',
-        'viz.step2_title': 'Apertura CAD',
-        'viz.step2_desc': 'Avvio e configurazione progetto',
-        'viz.step3_title': 'Disegno Geometria',
-        'viz.step3_desc': 'Creazione modello 2D/3D',
-        'viz.step4_title': 'Definizione Feature',
-        'viz.step4_desc': 'Fori, tasche, scanalature',
-        'viz.step5_title': 'Selezione Utensili',
-        'viz.step5_desc': 'Frese e punte',
-        'viz.step6_title': 'Impostazione Parametri',
-        'viz.step6_desc': 'Avanzamenti, velocità, profondità',
-        'viz.step7_title': 'Creazione Toolpath',
-        'viz.step7_desc': 'Operazioni CNC una per una',
-        'viz.step8_title': 'Simulazione',
-        'viz.step8_desc': 'Controllo collisioni ed errori',
-        'viz.step9_title': 'Post-Process',
-        'viz.step9_desc': 'Generazione G-code',
-        'viz.step10_title': 'Trasferimento al CNC',
-        'viz.step10_desc': 'Caricamento nel controller',
         // What We Do
         'whatwedo.label': 'Cosa Facciamo',
         'whatwedo.title': 'Automatizziamo <strong>l\'intero flusso produttivo</strong>',
@@ -2192,7 +2090,7 @@
         'whyus.w4_title': 'Soluzioni personalizzate',
         'whyus.w4_desc': 'I software CAD/CAM sono generici. Noi creiamo strumenti su misura per le vostre esigenze specifiche — sui programmi che già utilizzate.',
         // About
-        'about.p1': 'Ingegneri e sviluppatori con anni di esperienza nei reparti produttivi — in Grecia, Belgio, Svizzera, Austria e Germania.',
+        'about.p1': 'Ingegneri e sviluppatori con anni di esperienza nei reparti produttivi in Grecia, Belgio, Svizzera, Austria e Germania.',
         'about.p2': 'La nostra missione? Ogni passaggio dispendioso e soggetto a errori della vostra produzione diventa automatico, veloce e affidabile.',
         'about.quote': '«Il costo dell\'inazione è maggiore di qualsiasi altra cosa.»',
         // Contact
@@ -2290,267 +2188,6 @@
         setLanguage(btn.getAttribute('data-lang'));
       });
     });
-
-    // ===== WORKFLOW VISUALIZATION (removed - section replaced by ROI teaser) =====
-    /* (function() {
-      const vizSteps = [
-        { icon: '\u{1F4CB}', titleKey: 'viz.step1_title', descKey: 'viz.step1_desc' },
-        { icon: '\u{1F4BB}', titleKey: 'viz.step2_title', descKey: 'viz.step2_desc' },
-        { icon: '\u270F\uFE0F', titleKey: 'viz.step3_title', descKey: 'viz.step3_desc' },
-        { icon: '\u{1F4D0}', titleKey: 'viz.step4_title', descKey: 'viz.step4_desc' },
-        { icon: '\u{1F527}', titleKey: 'viz.step5_title', descKey: 'viz.step5_desc' },
-        { icon: '\u2699\uFE0F', titleKey: 'viz.step6_title', descKey: 'viz.step6_desc' },
-        { icon: '\u{1F6E4}\uFE0F', titleKey: 'viz.step7_title', descKey: 'viz.step7_desc' },
-        { icon: '\u{1F50D}', titleKey: 'viz.step8_title', descKey: 'viz.step8_desc' },
-        { icon: '\u{1F4E4}', titleKey: 'viz.step9_title', descKey: 'viz.step9_desc' },
-        { icon: '\u{1F3ED}', titleKey: 'viz.step10_title', descKey: 'viz.step10_desc' },
-      ];
-
-      let vizProgress = 0;
-      const vizGrid = document.getElementById('vizStepsGrid');
-      const vizAutoCard = document.getElementById('vizAutomatedCard');
-      const vizCounter = document.getElementById('vizCounter');
-      const vizTimeVal = document.getElementById('vizTimeValue');
-      const vizSliderTrack = document.getElementById('vizSliderTrack');
-      const vizSliderFill = document.getElementById('vizSliderFill');
-      const vizSliderThumb = document.getElementById('vizSliderThumb');
-      const vizLabelManual = document.getElementById('vizLabelManual');
-      const vizLabelAutomated = document.getElementById('vizLabelAutomated');
-
-      function getLang() {
-        return localStorage.getItem('aidedcam-lang') || 'el';
-      }
-
-      function t(key) {
-        const lang = getLang();
-        return (translations[lang] && translations[lang][key]) || key;
-      }
-
-      function renderVizCards() {
-        vizGrid.innerHTML = '';
-        vizSteps.forEach(function(step, i) {
-          const card = document.createElement('div');
-          card.className = 'viz-step-card';
-          card.setAttribute('data-viz-index', i);
-          card.innerHTML =
-            '<div class="viz-step-icon">' + step.icon + '</div>' +
-            '<div class="viz-step-info">' +
-              '<div class="viz-step-title"><span class="viz-step-num">' +
-                String(i + 1).padStart(2, '0') +
-              '</span><span data-i18n="' + step.titleKey + '">' + t(step.titleKey) + '</span></div>' +
-              '<div class="viz-step-desc" data-i18n="' + step.descKey + '">' + t(step.descKey) + '</div>' +
-            '</div>';
-          vizGrid.appendChild(card);
-        });
-      }
-
-      function formatTime(totalMins) {
-        if (totalMins >= 60) {
-          const h = Math.floor(totalMins / 60);
-          const m = totalMins % 60;
-          return m > 0 ? h + 'h ' + m + 'min' : h + 'h';
-        }
-        return totalMins + ' min';
-      }
-
-      function updateViz(progress) {
-        vizProgress = progress;
-        const total = vizSteps.length;
-        const cards = vizGrid.querySelectorAll('.viz-step-card');
-
-        cards.forEach(function(card, i) {
-          const threshold = (i / total) * 100;
-          const collapseStart = Math.max(0, threshold - 5);
-          const collapseEnd = threshold + 15;
-          let opacity, scale;
-          if (progress <= collapseStart) { opacity = 1; scale = 1; }
-          else if (progress >= collapseEnd) { opacity = 0; scale = 0.5; }
-          else {
-            const t = (progress - collapseStart) / (collapseEnd - collapseStart);
-            const ease = t * t * (3 - 2 * t);
-            opacity = 1 - ease;
-            scale = 1 - ease * 0.5;
-          }
-          card.style.opacity = opacity;
-          card.style.transform = 'scale(' + scale + ')';
-        });
-
-        // Grid overall opacity near end
-        if (progress >= 85) {
-          vizGrid.style.opacity = Math.max(0, 1 - (progress - 85) / 15);
-        } else {
-          vizGrid.style.opacity = 1;
-        }
-
-        // Automated card
-        const autoVisible = progress > 30;
-        const autoOpacity = autoVisible ? Math.min(1, (progress - 30) / 40) : 0;
-        const autoScale = autoVisible ? 0.85 + Math.min(0.15, (progress - 30) / 100) : 0.85;
-        const glow = Math.min(20, (progress - 30) * 0.4);
-        vizAutoCard.style.opacity = autoOpacity;
-        vizAutoCard.style.pointerEvents = autoVisible ? 'auto' : 'none';
-        const inner = vizAutoCard.querySelector('.viz-automated-inner');
-        inner.style.transform = 'scale(' + autoScale + ')';
-        inner.style.boxShadow = '0 0 ' + Math.max(0, glow) + 'px rgba(95, 189, 122, 0.25)';
-
-        // Time: 5h (300min) at 0% → 10min at 100%
-        const mins = Math.round(300 - (progress / 100) * 285);
-        vizTimeVal.textContent = formatTime(mins);
-        vizTimeVal.classList.toggle('green', progress >= 50);
-
-        // Update slider aria-valuenow
-        vizSliderTrack.setAttribute('aria-valuenow', Math.round(progress));
-
-        // Counter text
-        const visible = vizSteps.filter(function(_, i) {
-          return progress < (i / total) * 100 + 15;
-        }).length;
-        if (progress < 85) {
-          const remainingText = t('viz.remaining').replace('{x}', visible);
-          vizCounter.innerHTML = remainingText;
-        } else {
-          vizCounter.innerHTML = '<span class="green">' + t('viz.complete') + '</span>';
-        }
-
-        // Slider labels
-        vizLabelManual.style.color = progress < 50 ? '#ffffff' : '#555555';
-        vizLabelAutomated.style.color = progress >= 50 ? 'var(--accent)' : '#555555';
-
-        // Slider position
-        vizSliderFill.style.width = progress + '%';
-        vizSliderThumb.style.left = progress + '%';
-      }
-
-      // Arrow element
-      const vizArrow = document.getElementById('vizSliderArrow');
-      const vizPlayBtn = document.getElementById('vizPlayBtn');
-      const vizClickHint = document.getElementById('vizClickHint');
-
-      function updateArrowPosition(progress) {
-        vizArrow.style.left = progress + '%';
-      }
-
-      // Slider interaction
-      let dragging = false;
-      let autoPlaying = false;
-      let autoPlayDone = false;
-      let autoPlayRaf = null;
-
-      function stopAutoPlay() {
-        autoPlaying = false;
-        if (autoPlayRaf) {
-          cancelAnimationFrame(autoPlayRaf);
-          autoPlayRaf = null;
-        }
-        vizArrow.classList.remove('visible');
-        vizPlayBtn.classList.remove('playing');
-      }
-
-      let vizCurrentPct = 0;
-
-      function updateFromPointer(clientX) {
-        const rect = vizSliderTrack.getBoundingClientRect();
-        const pct = Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100));
-        vizCurrentPct = pct;
-        updateViz(pct);
-        updateArrowPosition(pct);
-      }
-
-      vizSliderTrack.addEventListener('mousedown', function(e) {
-        gaEvent('drag_before_after_slider', { method: 'mouse' });
-        if (autoPlaying) stopAutoPlay();
-        dragging = true;
-        updateFromPointer(e.clientX);
-      });
-      vizSliderTrack.addEventListener('touchstart', function(e) {
-        gaEvent('drag_before_after_slider', { method: 'touch' });
-        if (autoPlaying) stopAutoPlay();
-        dragging = true;
-        updateFromPointer(e.touches[0].clientX);
-      }, { passive: true });
-
-      window.addEventListener('mousemove', function(e) {
-        if (dragging) updateFromPointer(e.clientX);
-      });
-      window.addEventListener('touchmove', function(e) {
-        if (dragging) updateFromPointer(e.touches[0].clientX);
-      }, { passive: true });
-      window.addEventListener('mouseup', function() {
-        if (dragging) { dragging = false; vizForward = vizCurrentPct < 50; }
-      });
-      window.addEventListener('touchend', function() {
-        if (dragging) { dragging = false; vizForward = vizCurrentPct < 50; }
-      });
-
-      // Autoplay animation
-      let vizForward = true; // true = next click plays forward, false = next click rewinds
-
-      function startAutoPlay(forward) {
-        if (autoPlaying) return;
-        autoPlaying = true;
-        vizArrow.classList.add('visible');
-        vizPlayBtn.classList.add('playing');
-        vizClickHint.style.visibility = 'hidden';
-
-        const startPct = vizCurrentPct;
-        const endPct = forward ? 100 : 0;
-        const range = Math.abs(endPct - startPct);
-        let duration = (range / 100) * (forward ? 4000 : 2000); // scale duration to remaining distance
-        if (duration < 200) duration = 200;
-        let startTime = null;
-
-        function animate(timestamp) {
-          if (!autoPlaying) return;
-          if (!startTime) startTime = timestamp;
-          const elapsed = timestamp - startTime;
-
-          if (elapsed < duration) {
-            const t = elapsed / duration;
-            const eased = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-            const pct = startPct + (endPct - startPct) * eased;
-            vizCurrentPct = pct;
-            updateViz(pct);
-            updateArrowPosition(pct);
-          } else {
-            vizCurrentPct = endPct;
-            updateViz(endPct);
-            updateArrowPosition(endPct);
-            autoPlaying = false;
-            autoPlayDone = forward;
-            vizForward = !forward;
-            vizArrow.classList.remove('visible');
-            vizPlayBtn.classList.remove('playing');
-            vizClickHint.style.visibility = '';
-            return;
-          }
-
-          autoPlayRaf = requestAnimationFrame(animate);
-        }
-
-        autoPlayRaf = requestAnimationFrame(animate);
-      }
-
-      // Play button click
-      vizPlayBtn.addEventListener('click', function() {
-        if (autoPlaying) {
-          gaEvent('play_pause_automation_demo', { action: 'pause' });
-          stopAutoPlay();
-          return;
-        }
-        gaEvent('play_pause_automation_demo', { action: 'play' });
-        startAutoPlay(vizForward);
-      });
-
-      // Initialize
-      renderVizCards();
-      updateViz(0);
-
-      // Re-render on language change via event
-      document.addEventListener('languageChanged', function() {
-        renderVizCards();
-        updateViz(vizProgress);
-      });
-    })(); */
 
     // ===== SCROLL ANIMATIONS =====
     const observer = new IntersectionObserver((entries) => {
@@ -3171,6 +2808,6 @@
 
 
 
-  <script src="js/methodos.js" defer></script>
+  <script src="js/methodos.js?v=20260819" defer></script>
 </body>
 </html>

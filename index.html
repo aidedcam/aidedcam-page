@@ -1413,53 +1413,99 @@
     <div class="methodos-intro fade-in">
       <div class="container">
         <div class="section-label" data-i18n="methodos.label">Μέθοδος</div>
-        <h2 data-i18n-html="methodos.title">Πριν αυτοματοποιήσετε, <strong>κοιτάξτε τη δουλειά σας</strong> έτσι.</h2>
-        <p class="section-subtitle" data-i18n="methodos.subtitle">Τρία επίπεδα — σύστημα, ροή, εργασία — για να ξεχωρίσετε τι αξίζει να αυτοματοποιηθεί.</p>
+        <h2 data-i18n-html="methodos.title">Πριν αυτοματοποιήσουμε, <strong>χαρτογραφούμε τη δουλειά σας</strong>.</h2>
       </div>
     </div>
     <div class="tm-root">
       <div class="method">
         <p class="method-thesis">
-          Every <strong>system</strong> is a pack of <strong>workflows</strong>.
-          Every <strong>workflow</strong> is a pack of <strong>tasks</strong>.
+          Μια εταιρεία είναι ένα <strong>σύστημα</strong> από ροές. Μια ροή είναι μια <strong>αλυσίδα</strong> από εργασίες.
+          Η αυτοματοποίηση ξεκινά από την <strong>εργασία</strong> — το κέρδος φαίνεται στο σύστημα.
         </p>
 
         <div class="method-stage">
-          <div class="method-diagram" data-focus="system" role="img" aria-label="A system contains workflows, each containing repeated tasks">
-            <span class="md-tag md-sys-tag" data-ml="system">SYSTEM</span>
-            <div class="md-flows">
-              <div class="md-flow" data-wf="0">
-                <span class="md-tag" data-ml="workflow">WORKFLOW</span>
-                <div class="md-tasks"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-              </div>
-              <div class="md-flow is-active" data-wf="1">
-                <span class="md-tag" data-ml="workflow">WORKFLOW</span>
-                <div class="md-tasks"><i></i><i></i><i></i><i></i><i></i></div>
-              </div>
-              <div class="md-flow" data-wf="2">
-                <span class="md-tag" data-ml="workflow">WORKFLOW</span>
-                <div class="md-tasks"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-              </div>
+          <div class="method-scene" data-view="task" data-dir="out" data-corner="Πώς βλέπουμε τη δουλειά σας" role="img" aria-label="System, workflow, task, result: zooming into where work repeats and back out to the gain">
+            <div class="ms-steps" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+          <div class="mv mv-system" data-view="system">
+            <div class="ms-cols">
+              <div class="ms-col"><span class="mtag">Σχεδιασμός</span><div class="ms-cells"><i></i><i></i><i></i><i></i><i></i><i class="dup"></i><i></i><i></i></div></div>
+              <div class="ms-link"><b></b></div>
+              <div class="ms-col"><span class="mtag">Προετοιμασία</span><div class="ms-cells"><i></i><i></i><i></i><i></i><i class="dup"></i><i></i><i></i><i></i></div></div>
+              <div class="ms-link"><b></b></div>
+              <div class="ms-col"><span class="mtag">Παραγωγή</span><div class="ms-cells"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
             </div>
+            <svg class="ms-tie" aria-hidden="true"><path d=""/></svg>
+            <div class="mnote">Ίδια πληροφορία, δύο φορές</div>
+          </div>
+          <div class="mv mv-workflow" data-view="workflow">
+            <div class="mw-chain">
+              <span class="mw-item" aria-hidden="true"></span>
+              <span class="mw-wait-clock" aria-hidden="true">+2h</span>
+              <div class="mw-cell"><b>01</b><span class="mtag">Παραλαβή</span></div>
+              <i class="mw-gap"></i>
+              <div class="mw-cell"><b>02</b><span class="mtag">Έλεγχος</span></div>
+              <i class="mw-gap"></i>
+              <div class="mw-cell rep"><b>03</b><span class="mtag">Στήσιμο</span></div>
+              <i class="mw-gap wait" data-label="αναμονή"></i>
+              <div class="mw-cell rep"><b>04</b><span class="mtag">Εκτέλεση</span></div>
+              <i class="mw-gap"></i>
+              <div class="mw-cell rep"><b>05</b><span class="mtag">Έγκριση</span></div>
+              <i class="mw-gap"></i>
+              <div class="mw-cell"><b>06</b><span class="mtag">Παράδοση</span></div>
+            </div>
+            <div class="mnote">Εδώ περιμένει η δουλειά</div>
+          </div>
+          <div class="mv mv-task" data-view="task">
+            <div class="mt-card">
+              <div class="mt-head"><span class="mtag">Προετοιμασία αρχείου</span><b class="mt-count">×1</b></div>
+              <ul class="mt-steps">
+                <li><span>Άνοιγμα μοντέλου</span></li>
+                <li><span>Έλεγχος μονάδων &amp; layers</span></li>
+                <li><span>Εφαρμογή προτύπων</span></li>
+                <li><span>Ονομασία &amp; αποθήκευση</span></li>
+              </ul>
+              <div class="mt-foot">Με το χέρι · ίδιος τρόπος · κάθε φορά</div>
+            </div>
+          </div>
+          <div class="mv mv-result" data-view="result">
+            <div class="mw-chain">
+              <span class="mw-item" aria-hidden="true"></span>
+              <div class="mw-cell"><b>01</b><span class="mtag">Παραλαβή</span></div>
+              <i class="mw-gap"></i>
+              <div class="mw-cell"><b>02</b><span class="mtag">Έλεγχος</span></div>
+              <i class="mw-gap"></i>
+              <div class="mw-cell auto"><svg viewBox="191.91 207.44 88.97 106.42" aria-hidden="true"><path d="M191.91 215.00 L191.91 306.30 C191.91 310.98 197.02 313.86 201.03 311.45 L276.99 265.81 C280.88 263.47 280.88 257.83 276.99 255.49 L201.03 209.85 C197.02 207.44 191.91 210.32 191.91 215.00 Z"/></svg><b>03</b><span class="mtag">Αυτόματα</span></div>
+              <i class="mw-gap"></i>
+              <div class="mw-cell"><b>04</b><span class="mtag">Παράδοση</span></div>
+            </div>
+            <div class="mr-sys">
+              <div class="ms-col"><span class="mtag">Σχεδιασμός</span><div class="ms-cells"><i></i><i></i><i></i><i></i><i></i><i class="dup"></i><i></i><i></i></div></div>
+              <div class="ms-link"><b></b></div>
+              <div class="ms-col"><span class="mtag">Προετοιμασία</span><div class="ms-cells"><i></i><i></i><i></i><i></i><i class="dup"></i><i></i><i></i><i></i></div></div>
+              <div class="ms-link"><b></b></div>
+              <div class="ms-col"><span class="mtag">Παραγωγή</span><div class="ms-cells"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+            </div>
+            <div class="mnote">Μία ενέργεια αντί για τρία βήματα</div>
+          </div>
           </div>
 
           <div class="method-info">
             <div class="method-tabs" role="tablist" aria-label="Choose a layer">
-              <button class="m-tab on" data-layer="system" role="tab" aria-selected="true">System</button>
-              <button class="m-tab" data-layer="workflow" role="tab" aria-selected="false">Workflow</button>
-              <button class="m-tab" data-layer="task" role="tab" aria-selected="false">Task</button>
+              <button class="m-tab on" data-layer="task" role="tab" aria-selected="true">Εργασία</button>
+              <button class="m-tab" data-layer="workflow" role="tab" aria-selected="false">Ροή</button>
+              <button class="m-tab" data-layer="system" role="tab" aria-selected="false">Σύστημα</button>
+              <button class="m-tab" data-layer="result" role="tab" aria-selected="false">Αποτέλεσμα</button>
             </div>
-            <div class="m-kicker" data-mk>Zoom all the way out</div>
-            <h3 class="m-title" data-mt>A <strong>system</strong>.</h3>
-            <p class="m-defn" data-md>How the workflows in your company connect to each other — what they share, and what they don't.</p>
+            <div class="m-kicker" data-mk>01 · Από κοντά</div>
+            <h3 class="m-title" data-mt>Μία <strong>εργασία</strong></h3>
+            <p class="m-defn" data-md>Ένα μόνο βήμα, από ένα άτομο, με τον ίδιο τρόπο κάθε φορά. Κανείς δεν το προσέχει — έτσι γίνεται η δουλειά.</p>
             <div class="reveals">
-              <div class="reveals-label" data-mrl>This view reveals</div>
-              <p class="m-reveals" data-mr>Where the <strong>same information</strong> lives in more than one place, where <strong>tools overlap</strong>, and where one group's output doesn't quite fit the next group's input.</p>
+              <div class="reveals-label" data-mrl>Τι ψάχνουμε</div>
+              <p class="m-reveals" data-mr>Τα βήματα που γίνονται <strong>με το χέρι και επαναλαμβάνονται</strong>. Από εδώ ξεκινάμε.</p>
             </div>
           </div>
         </div>
       </div>
-
     </div>
   </section>
 
@@ -1808,8 +1854,7 @@
         // Services
         // Process
         'methodos.label': 'Μέθοδος',
-        'methodos.title': 'Πριν αυτοματοποιήσετε, <strong>κοιτάξτε τη δουλειά σας</strong> έτσι.',
-        'methodos.subtitle': 'Τρία επίπεδα — σύστημα, ροή, εργασία — για να ξεχωρίσετε τι αξίζει να αυτοματοποιηθεί.',
+        'methodos.title': 'Πριν αυτοματοποιήσουμε, <strong>χαρτογραφούμε τη δουλειά σας</strong>.',
         // Why Us
         'whyus.label': 'Γιατί Εμείς',
         'whyus.title': 'Γιατί <strong>AidedCAM</strong>',
@@ -1971,8 +2016,7 @@
         // Services
         // Process
         'methodos.label': 'Method',
-        'methodos.title': 'Before you automate, <strong>look at your work</strong> like this.',
-        'methodos.subtitle': 'Three layers — system, workflow, task — to see what\'s worth automating.',
+        'methodos.title': 'Before we automate, <strong>we map your work</strong>.',
         // Why Us
         'whyus.label': 'Why Us',
         'whyus.title': 'Why <strong>AidedCAM</strong>',
@@ -2134,8 +2178,7 @@
         // Services
         // Process
         'methodos.label': 'Metodo',
-        'methodos.title': 'Prima di automatizzare, <strong>guardate il vostro lavoro</strong> così.',
-        'methodos.subtitle': 'Tre livelli — sistema, flusso, attività — per capire cosa vale la pena automatizzare.',
+        'methodos.title': 'Prima di automatizzare, <strong>mappiamo il vostro lavoro</strong>.',
         // Why Us
         'whyus.label': 'Perché Noi',
         'whyus.title': 'Perché <strong>AidedCAM</strong>',

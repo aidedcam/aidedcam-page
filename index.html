@@ -662,6 +662,9 @@
       grid-template-columns: repeat(2, 1fr);
       gap: 2.5rem;
     }
+    /* Force the green highlight onto its own line in these headings */
+    #provlima .section-header h2 strong,
+    #ti-kanoume .split-content h2 strong { display: block; }
 
     /* Problem section — 3 pain cells (reuses .benefit-card) */
     .problem-grid {
@@ -1057,7 +1060,7 @@
         <li><a href="#ergaleia" class="nav-link" data-i18n="nav.tools">Εργαλεία</a></li>
         <li><a href="#giati" class="nav-link" data-i18n="nav.whyus">Γιατί Εμείς</a></li>
         <li><a href="#contact" class="nav-cta" data-i18n="nav.contact">Επικοινωνία</a></li>
-        <li>
+        <li class="nav-lang">
           <div class="lang-switcher">
             <button class="lang-btn active" data-lang="el">EL</button>
             <button class="lang-btn" data-lang="en">EN</button>

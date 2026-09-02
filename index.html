@@ -12,25 +12,29 @@
   <meta property="og:description" content="Από 10 χειροκίνητα βήματα σε 1 κλικ. Εξατομικευμένες λύσεις αυτοματοποίησης CAD/CAM/CNC. Εξοικονόμηση χρόνου παραγωγής έως 85%." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.aidedcam.com" />
-  <meta property="og:image" content="https://www.aidedcam.com/aided-cam-transparent.png" />
+  <meta property="og:image" content="https://www.aidedcam.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="AidedCAM - Custom CAD/CAM/CNC Automation Software" />
   <meta property="og:site_name" content="AidedCAM" />
   <meta property="og:locale" content="el_GR" />
   <meta property="og:locale:alternate" content="en_US" />
   <meta property="og:locale:alternate" content="it_IT" />
   <!-- Twitter / X Card -->
-  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="AidedCAM - Custom CAD/CAM/CNC Automation Software" />
   <meta name="twitter:description" content="From 10 manual steps to 1 click. Custom CAD/CAM/CNC automation solutions. Reduce production time by up to 85%. Autodesk Authorized Developer." />
-  <meta name="twitter:image" content="https://www.aidedcam.com/aided-cam-transparent.png" />
+  <meta name="twitter:image" content="https://www.aidedcam.com/og-image.png" />
   <!-- Hreflang — same URL since language is client-side; x-default covers all -->
   <link rel="alternate" hreflang="el" href="https://www.aidedcam.com/?lang=el" />
   <link rel="alternate" hreflang="en" href="https://www.aidedcam.com/?lang=en" />
   <link rel="alternate" hreflang="it" href="https://www.aidedcam.com/?lang=it" />
   <link rel="alternate" hreflang="x-default" href="https://www.aidedcam.com/" />
   <link rel="canonical" href="https://www.aidedcam.com/" />
-  <link rel="icon" type="image/png" href="/aided-cam-transparent.png" />
-  <link rel="apple-touch-icon" href="/aided-cam-transparent.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <meta name="theme-color" content="#f4f3ee" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -226,7 +230,7 @@
   }
   </script>
   <!-- Preload critical assets -->
-  <link rel="preload" as="image" href="aided-cam-transparent.png" />
+  <link rel="preload" as="image" href="aided-cam-mark.png" />
   <!-- Google Analytics - loaded only after cookie consent -->
   <script>
     function loadGA() {
@@ -247,9 +251,10 @@
     }
     if (localStorage.getItem('privacy-pref') === 'accepted') { loadGA(); }
   </script>
-  <link rel="stylesheet" href="fonts.css?v=20260819b" />
-  <link rel="stylesheet" href="css/editorial.css?v=20260819b" />
-  <link rel="stylesheet" href="css/methodos.css?v=20260819b" />
+  <link rel="stylesheet" href="fonts.css?v=20260902" />
+  <link rel="stylesheet" href="css/editorial.css?v=20260902" />
+  <link rel="stylesheet" href="css/methodos.css?v=20260902" />
+  <noscript><style>.fade-in { opacity: 1 !important; transform: none !important; }</style></noscript>
   <style>
     /* ===== Tokens, base, nav, lang-switcher, consent banner, scroll-progress,
        back-to-top and fade-in now live in css/editorial.css ===== */
@@ -293,6 +298,15 @@
       letter-spacing: 0.14em;
       text-transform: uppercase;
     }
+    .hero-proof {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem 1.6rem;
+      margin: 1.8rem auto 0; max-width: 720px;
+      font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--muted);
+    }
+    .hero-proof b { color: var(--ink); font-weight: 700; }
+    .hero-proof span { display: inline-flex; align-items: center; gap: 0.5rem; }
+    .hero-proof span + span::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--accent); }
     .hero-badge::before {
       content: '';
       width: 6px; height: 6px; border-radius: 50%;
@@ -545,7 +559,7 @@
     }
     .roi-teaser-content .hero-ctas,
     .roi-teaser-content { display: block; }
-    .roi-teaser-cta { margin: 0.5rem 0.5rem 0; }
+    .roi-teaser-ctas { display: flex; justify-content: center; align-items: center; gap: 1rem 1.5rem; flex-wrap: wrap; }
 
     /* ===== STATS BAR ===== */
     .stats-bar {
@@ -597,6 +611,7 @@
     }
 
     /* ===== CONTACT TRUST ===== */
+    .contact-card .contact-trust { margin-top: 1.5rem; }
     .contact-trust {
       margin-top: 2rem;
       text-align: center;
@@ -1019,7 +1034,6 @@
       transition: color 0.2s ease;
     }
     .integration-logos .integration-ask:hover { color: var(--ink); }
-    .integration-logos .integration-ask::after { content: " \2192"; }
 
     .trust-badge {
       margin-top: 3rem;
@@ -1140,11 +1154,45 @@
 
     .contact-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: minmax(0, 1.5fr) minmax(280px, 1fr);
       gap: 1.5rem;
       margin-top: 3rem;
-      max-width: 760px;
+      align-items: start;
     }
+    .contact-form {
+      padding: 2.2rem;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 2px;
+    }
+    .contact-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .contact-field { margin-bottom: 1.2rem; }
+    .contact-field label { display: block; }
+    .contact-input {
+      width: 100%; padding: 0.8rem 0.9rem;
+      font-family: var(--font-body); font-size: 1rem; color: var(--ink);
+      background: var(--paper); border: 1px solid var(--line-strong); border-radius: 2px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .contact-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+    textarea.contact-input { resize: vertical; min-height: 110px; line-height: 1.5; }
+    .contact-form-foot { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+    .contact-submit { flex: none; }
+    .contact-privacy { flex: 1; min-width: 220px; font-size: 0.78rem; color: var(--muted); line-height: 1.5; margin: 0; }
+    .contact-privacy a { color: var(--ink); text-decoration: underline; text-underline-offset: 2px; }
+    .contact-form.is-sent .contact-form-row, .contact-form.is-sent .contact-field, .contact-form.is-sent .contact-form-foot { display: none; }
+    .contact-done { padding: 1.5rem 0; font-size: 1.1rem; color: var(--ink); }
+    .contact-done strong { display: block; font-size: 1.4rem; font-weight: 600; color: var(--accent-deep); margin-bottom: 0.3rem; }
+    .contact-link {
+      display: flex; flex-direction: column; gap: 0.2rem;
+      padding: 0.9rem 1rem; margin-top: 0.75rem;
+      border: 1px solid var(--line); border-radius: 2px;
+      text-decoration: none; color: var(--ink);
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+    .contact-link:hover { border-color: var(--accent); background: var(--accent-soft); }
+    .contact-link-label { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); }
+    .contact-link-value { font-size: 1.05rem; font-weight: 500; }
 
     .contact-card {
       padding: 2.2rem;
@@ -1211,7 +1259,14 @@
       #giati .about-content p { font-size: 1rem; line-height: 1.75; }
 
       .hero-ctas { flex-direction: column; align-items: stretch; }
+      .hero-proof { flex-direction: column; gap: 0.5rem; align-items: center; }
+      .hero-proof span + span::before { display: none; }
       .integration-logos { gap: 1.5rem; }
+      /* Section 02: the mark is a visual aside on phones, not a 400px hero */
+      .mark-stage { padding: 2rem 1rem 1.2rem; }
+      .mark-wrap { width: 110px; }
+      .roi-teaser-ctas { flex-direction: column; align-items: stretch; }
+      .contact-form-row { grid-template-columns: 1fr; }
 
       .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 2.5rem 0; }
       .stat-item { padding: 0 1.2rem; }
@@ -1247,7 +1302,7 @@
     <div class="nav-accent" aria-hidden="true"></div>
     <div class="nav-container">
       <a href="#" class="nav-logo">
-        <img src="aided-cam-transparent.png" alt="AidedCAM" />
+        <img src="aided-cam-mark.png" alt="AidedCAM" width="30" height="34" />
         <span>AIDEDCAM</span>
       </a>
       <ul class="nav-menu">
@@ -1282,7 +1337,7 @@
            wordmark instead of five loose acronyms. The words are product names
            and are identical in el/en/it, so they carry no data-i18n. -->
       <div class="wordmark-drum" id="wordmarkDrum" role="img" aria-label="AidedCAM — CAD, CAM, CNC, BIM">
-        <img class="wd-icon" src="aided-cam-transparent.png" alt="" aria-hidden="true" />
+        <img class="wd-icon" src="aided-cam-mark.png" alt="" aria-hidden="true" width="79" height="89" />
         <span class="wd-stem" aria-hidden="true">AIDED</span>
         <span class="wd-window" aria-hidden="true">
           <span class="wd-projection">
@@ -1301,21 +1356,22 @@
         <a href="#contact" class="btn-primary" data-i18n="hero.cta">Επικοινωνήστε Μαζί Μας</a>
         <a href="#provlima" class="btn-secondary" data-i18n="hero.learn_more">Μάθετε Περισσότερα</a>
       </div>
+      <p class="hero-proof" data-i18n-html="hero.proof"><span>Έργα σε <b>5+ χώρες</b></span><span><b>8</b> συστήματα CAD/CAM/BIM</span><span>Απάντηση <b>εντός 48 ωρών</b></span></p>
     </div>
     <div class="integrations-bar">
       <div class="autodesk-badge">
-        <img src="autodesk-authorized-developer-black.png" alt="Autodesk Authorized Developer badge" />
+        <img src="autodesk-authorized-developer-black.png" alt="Autodesk Authorized Developer badge" width="180" height="46" />
       </div>
       <p data-i18n="hero.supported">Υποστηριζόμενα συστήματα</p>
       <div class="integration-logos">
-        <span data-system="PowerShape"><img src="icons/PowerShape.png" alt="PowerShape" class="integration-icon">PowerShape</span>
-        <span data-system="PowerMill"><img src="icons/PowerMill.png" alt="PowerMill" class="integration-icon">PowerMill</span>
-        <span data-system="Fusion360"><img src="icons/Fusion360.png" alt="Fusion360" class="integration-icon">Fusion360</span>
-        <span data-system="FeatureCAM"><img src="icons/FeatureCAM.png" alt="FeatureCAM" class="integration-icon">FeatureCAM</span>
-        <span data-system="Inventor"><img src="icons/Inventor.png" alt="Inventor" class="integration-icon">Inventor</span>
-        <span data-system="Revit"><img src="icons/Revit.png" alt="Revit" class="integration-icon">Revit</span>
-        <span data-system="AutoCAD"><img src="icons/AutoCAD.png" alt="AutoCAD" class="integration-icon">AutoCAD</span>
-        <span data-system="SiemensNX"><img src="icons/SiemensNX.ico" alt="SiemensNX" class="integration-icon">SiemensNX</span>
+        <span data-system="PowerShape"><img src="icons/PowerShape.png" alt="PowerShape" class="integration-icon" width="20" height="20">PowerShape</span>
+        <span data-system="PowerMill"><img src="icons/PowerMill.png" alt="PowerMill" class="integration-icon" width="20" height="20">PowerMill</span>
+        <span data-system="Fusion360"><img src="icons/Fusion360.png" alt="Fusion 360" class="integration-icon" width="20" height="20">Fusion 360</span>
+        <span data-system="FeatureCAM"><img src="icons/FeatureCAM.png" alt="FeatureCAM" class="integration-icon" width="20" height="20">FeatureCAM</span>
+        <span data-system="Inventor"><img src="icons/Inventor.png" alt="Inventor" class="integration-icon" width="20" height="20">Inventor</span>
+        <span data-system="Revit"><img src="icons/Revit.png" alt="Revit" class="integration-icon" width="20" height="20">Revit</span>
+        <span data-system="AutoCAD"><img src="icons/AutoCAD.png" alt="AutoCAD" class="integration-icon" width="20" height="20">AutoCAD</span>
+        <span data-system="SiemensNX"><img src="icons/SiemensNX.png" alt="Siemens NX" class="integration-icon" width="20" height="20">Siemens NX</span>
         <a href="#contact" class="integration-ask" data-i18n="hero.ask">Κάτι άλλο; Ρωτήστε μας</a>
       </div>
     </div>
@@ -1578,26 +1634,26 @@
         <div class="tool-card fade-in fade-in-delay-1">
           <h4 data-i18n="tools.cad">CAD · Μοντελοποίηση</h4>
           <div class="tool-chips">
-            <span class="tool-chip"><img src="icons/PowerShape.png" alt="" aria-hidden="true">PowerShape</span>
-            <span class="tool-chip"><img src="icons/Inventor.png" alt="" aria-hidden="true">Inventor</span>
-            <span class="tool-chip"><img src="icons/Fusion360.png" alt="" aria-hidden="true">Fusion 360</span>
-            <span class="tool-chip"><img src="icons/SiemensNX.ico" alt="" aria-hidden="true">Siemens NX</span>
+            <span class="tool-chip"><img src="icons/PowerShape.png" alt="" aria-hidden="true" width="20" height="20" loading="lazy">PowerShape</span>
+            <span class="tool-chip"><img src="icons/Inventor.png" alt="" aria-hidden="true" width="20" height="20" loading="lazy">Inventor</span>
+            <span class="tool-chip"><img src="icons/Fusion360.png" alt="" aria-hidden="true" width="20" height="20" loading="lazy">Fusion 360</span>
+            <span class="tool-chip"><img src="icons/SiemensNX.png" alt="" aria-hidden="true" width="20" height="20" loading="lazy">Siemens NX</span>
           </div>
         </div>
         <div class="tool-card fade-in fade-in-delay-2">
           <h4 data-i18n="tools.cam">CAM · Κατεργασία</h4>
           <div class="tool-chips">
-            <span class="tool-chip"><img src="icons/PowerMill.png" alt="" aria-hidden="true">PowerMill</span>
-            <span class="tool-chip"><img src="icons/Fusion360.png" alt="" aria-hidden="true">Fusion 360</span>
-            <span class="tool-chip"><img src="icons/FeatureCAM.png" alt="" aria-hidden="true">FeatureCAM</span>
-            <span class="tool-chip"><img src="icons/SiemensNX.ico" alt="" aria-hidden="true">Siemens NX</span>
+            <span class="tool-chip"><img src="icons/PowerMill.png" alt="" aria-hidden="true" width="20" height="20" loading="lazy">PowerMill</span>
+            <span class="tool-chip"><img src="icons/Fusion360.png" alt="" aria-hidden="true" width="20" height="20" loading="lazy">Fusion 360</span>
+            <span class="tool-chip"><img src="icons/FeatureCAM.png" alt="" aria-hidden="true" width="20" height="20" loading="lazy">FeatureCAM</span>
+            <span class="tool-chip"><img src="icons/SiemensNX.png" alt="" aria-hidden="true" width="20" height="20" loading="lazy">Siemens NX</span>
           </div>
         </div>
         <div class="tool-card fade-in fade-in-delay-3">
           <h4 data-i18n="tools.bim">BIM / AEC</h4>
           <div class="tool-chips">
-            <span class="tool-chip"><img src="icons/Revit.png" alt="" aria-hidden="true">Revit</span>
-            <span class="tool-chip"><img src="icons/AutoCAD.png" alt="" aria-hidden="true">AutoCAD</span>
+            <span class="tool-chip"><img src="icons/Revit.png" alt="" aria-hidden="true" width="20" height="20" loading="lazy">Revit</span>
+            <span class="tool-chip"><img src="icons/AutoCAD.png" alt="" aria-hidden="true" width="20" height="20" loading="lazy">AutoCAD</span>
           </div>
         </div>
         <div class="tool-card tool-card-wide fade-in">
@@ -1613,7 +1669,7 @@
         </div>
       </div>
       <div class="trust-badge fade-in">
-        <img src="autodesk-authorized-developer-black.png" alt="Autodesk Authorized Developer certification" />
+        <img src="autodesk-authorized-developer-black.png" alt="Autodesk Authorized Developer certification" width="180" height="46" loading="lazy" />
       </div>
       <p class="disclaimer fade-in" data-i18n="tools.disclaimer">Τα εμπορικά σήματα που αναφέρονται ανήκουν στους αντίστοιχους κατόχους τους.</p>
     </div>
@@ -1712,8 +1768,10 @@
           <span class="roi-line"><span class="roi-hl">Λογισμικό</span> φτιαγμένο αποκλειστικά για εσάς.</span>
           <span class="roi-line"><span class="roi-hl">Μία συνδρομή</span>, απεριόριστοι χρήστες.</span>
         </h2>
-        <a href="what-you-gain.html" class="btn-primary roi-teaser-cta" data-i18n="roi_teaser.cta">Δείτε τι κερδίζετε</a>
-        <a href="calculator.html" class="btn-primary roi-teaser-cta" data-i18n="calc.cta" style="margin-top:1rem;">Υπολογίστε με τα δικά σας νούμερα</a>
+        <div class="roi-teaser-ctas">
+          <a href="calculator.html" class="btn-primary roi-teaser-cta" data-i18n="calc.cta">Υπολογίστε με τα δικά σας νούμερα</a>
+          <a href="what-you-gain.html" class="btn-secondary roi-teaser-cta" data-i18n="roi_teaser.cta">Δείτε τι κερδίζετε</a>
+        </div>
       </div>
     </div>
   </div>
@@ -1727,25 +1785,48 @@
         <p class="section-subtitle" data-i18n="contact.subtitle">Πείτε μας ποιο βήμα σας τρώει τη μέρα. Θα απαντήσουμε εντός 48 ωρών με το πώς θα φτιάχναμε το λογισμικό γι’ αυτό.</p>
       </div>
       <div class="contact-grid">
-        <div class="contact-card fade-in fade-in-delay-1">
-          <div class="contact-item">
-            <div class="contact-label">Email</div>
-            <div class="contact-value"><a href="mailto:info@aidedcam.com">info@aidedcam.com</a></div>
+        <form class="contact-form fade-in fade-in-delay-1" id="contactForm" action="https://formspree.io/f/xaqllyao" method="POST" novalidate>
+          <input type="hidden" name="_source" value="index_contact" />
+          <div class="contact-form-row">
+            <div class="contact-field">
+              <label class="contact-label" for="cfCompany" data-i18n="contact.form_company">Εταιρεία</label>
+              <input type="text" id="cfCompany" name="company" class="contact-input" required autocomplete="organization" />
+            </div>
+            <div class="contact-field">
+              <label class="contact-label" for="cfEmail">Email</label>
+              <input type="email" id="cfEmail" name="email" class="contact-input" required autocomplete="email" />
+            </div>
           </div>
-          <div class="contact-item">
-            <div class="contact-label" data-i18n="contact.athens">Αθήνα</div>
-            <div class="contact-value"><a href="tel:+306984680874">+30 6984680874</a></div>
+          <div class="contact-field">
+            <label class="contact-label" for="cfMessage" data-i18n="contact.form_message">Ποιο βήμα σας τρώει τη μέρα;</label>
+            <textarea id="cfMessage" name="message" class="contact-input" rows="4" required data-i18n-placeholder="contact.form_ph_message" placeholder="π.χ. Κάθε πρωί περνάμε 2 ώρες στήνοντας τις ίδιες κατεργασίες στο PowerMill."></textarea>
           </div>
-          <div class="contact-item">
-            <div class="contact-label" data-i18n="contact.thessaloniki">Θεσσαλονίκη</div>
-            <div class="contact-value"><a href="tel:+306980818754">+30 6980818754</a></div>
+          <div class="contact-form-foot">
+            <button type="submit" class="btn-primary contact-submit" data-i18n="contact.form_submit">Αποστολή</button>
+            <p class="contact-privacy" data-i18n-html="contact.form_privacy">Υποβάλλοντας, αποδέχεστε την <a href="privacy.html">Πολιτική Απορρήτου</a>. Χρησιμοποιούμε τα στοιχεία μόνο για να σας απαντήσουμε.</p>
           </div>
-        </div>
-      </div>
-      <div class="contact-cta fade-in">
-        <a href="mailto:info@aidedcam.com" class="btn-primary" data-i18n="contact.send_email">Στείλε Email</a>
-        <div class="contact-trust">
-          <img src="autodesk-authorized-developer-black.png" alt="Autodesk Authorized Developer partner" />
+          <div class="contact-done" id="contactDone" hidden>
+            <strong data-i18n="contact.form_done_title">Το λάβαμε.</strong>
+            <span data-i18n="contact.form_done_text">Θα σας απαντήσουμε εντός 48 ωρών.</span>
+          </div>
+        </form>
+        <div class="contact-card fade-in fade-in-delay-2">
+          <div class="contact-label" data-i18n="contact.or_direct">Ή απευθείας</div>
+          <a class="contact-link" href="mailto:info@aidedcam.com">
+            <span class="contact-link-label">Email</span>
+            <span class="contact-link-value">info@aidedcam.com</span>
+          </a>
+          <a class="contact-link" href="tel:+306984680874">
+            <span class="contact-link-label" data-i18n="contact.athens">Αθήνα</span>
+            <span class="contact-link-value">+30 6984680874</span>
+          </a>
+          <a class="contact-link" href="tel:+306980818754">
+            <span class="contact-link-label" data-i18n="contact.thessaloniki">Θεσσαλονίκη</span>
+            <span class="contact-link-value">+30 6980818754</span>
+          </a>
+          <div class="contact-trust">
+            <img src="autodesk-authorized-developer-black.png" alt="Autodesk Authorized Developer partner" width="157" height="40" loading="lazy" />
+          </div>
         </div>
       </div>
     </div>
@@ -1757,13 +1838,13 @@
       <div class="footer-content">
         <div class="footer-col">
           <div class="footer-logo">
-            <img src="aided-cam-transparent.png" alt="AidedCAM" />
+            <img src="aided-cam-mark.png" alt="AidedCAM" width="30" height="34" loading="lazy" />
             <span>AIDEDCAM</span>
           </div>
           <p class="footer-about-text" data-i18n="about.p1">Μηχανικοί και προγραμματιστές με χρόνια εμπειρίας σε τμήματα σχεδιασμού και παραγωγής σε Ελλάδα, Βέλγιο, Ελβετία, Αυστρία και Γερμανία.</p>
         </div>
         <div class="footer-col">
-          <h4 data-i18n="nav.method">Μέθοδος</h4>
+          <h4 data-i18n="footer.explore">Πλοήγηση</h4>
           <div class="footer-links">
             <a href="#provlima" data-i18n="nav.problem">Το Πρόβλημα</a>
             <a href="#ti-kanoume" data-i18n="footer.whatwedo">Τι Κάνουμε</a>
@@ -1915,6 +1996,17 @@
         'contact.phone': 'Τηλέφωνο',
         'contact.phone2': 'Τηλέφωνο',
         'contact.send_email': 'Στείλε Email',
+        'hero.proof': '<span>Έργα σε <b>5+ χώρες</b></span><span><b>8</b> συστήματα CAD/CAM/BIM</span><span>Απάντηση <b>εντός 48 ωρών</b></span>',
+        'footer.explore': 'Πλοήγηση',
+        'contact.form_company': 'Εταιρεία',
+        'contact.form_message': 'Ποιο βήμα σας τρώει τη μέρα;',
+        'contact.form_ph_message': 'π.χ. Κάθε πρωί περνάμε 2 ώρες στήνοντας τις ίδιες κατεργασίες στο PowerMill.',
+        'contact.form_submit': 'Αποστολή',
+        'contact.form_sending': 'Γίνεται αποστολή…',
+        'contact.form_privacy': 'Υποβάλλοντας, αποδέχεστε την <a href="privacy.html">Πολιτική Απορρήτου</a>. Χρησιμοποιούμε τα στοιχεία μόνο για να σας απαντήσουμε.',
+        'contact.form_done_title': 'Το λάβαμε.',
+        'contact.form_done_text': 'Θα σας απαντήσουμε εντός 48 ωρών.',
+        'contact.or_direct': 'Ή απευθείας',
         // Footer
         'footer.whatwedo': 'Τι Κάνουμε',
         'footer.contact': 'Επικοινωνία',
@@ -2051,6 +2143,17 @@
         'contact.phone': 'Phone',
         'contact.phone2': 'Phone',
         'contact.send_email': 'Send Email',
+        'hero.proof': '<span>Projects in <b>5+ countries</b></span><span><b>8</b> CAD/CAM/BIM systems</span><span>Reply <b>within 48 hours</b></span>',
+        'footer.explore': 'Explore',
+        'contact.form_company': 'Company',
+        'contact.form_message': 'Which step eats your day?',
+        'contact.form_ph_message': 'e.g. Every morning we spend 2 hours setting up the same toolpaths in PowerMill.',
+        'contact.form_submit': 'Send it',
+        'contact.form_sending': 'Sending…',
+        'contact.form_privacy': 'By submitting you accept our <a href="privacy.html">Privacy Policy</a>. We use your details only to reply to you.',
+        'contact.form_done_title': 'Got it.',
+        'contact.form_done_text': 'We\'ll reply within 48 hours.',
+        'contact.or_direct': 'Or directly',
         // Footer
         'footer.whatwedo': 'What We Do',
         'footer.contact': 'Contact',
@@ -2187,6 +2290,17 @@
         'contact.phone': 'Telefono',
         'contact.phone2': 'Telefono',
         'contact.send_email': 'Invia Email',
+        'hero.proof': '<span>Progetti in <b>5+ paesi</b></span><span><b>8</b> sistemi CAD/CAM/BIM</span><span>Risposta <b>entro 48 ore</b></span>',
+        'footer.explore': 'Esplora',
+        'contact.form_company': 'Azienda',
+        'contact.form_message': 'Quale passaggio vi ruba la giornata?',
+        'contact.form_ph_message': 'es. Ogni mattina passiamo 2 ore a impostare gli stessi percorsi utensile in PowerMill.',
+        'contact.form_submit': 'Inviate',
+        'contact.form_sending': 'Invio…',
+        'contact.form_privacy': 'Inviando accettate la nostra <a href="privacy.html">Informativa sulla privacy</a>. Usiamo i vostri dati solo per rispondervi.',
+        'contact.form_done_title': 'Ricevuto.',
+        'contact.form_done_text': 'Vi risponderemo entro 48 ore.',
+        'contact.or_direct': 'Oppure direttamente',
         // Footer
         'footer.whatwedo': 'Cosa Facciamo',
         'footer.contact': 'Contatti',
@@ -2232,6 +2346,10 @@
       document.querySelectorAll('[data-i18n-aria]').forEach(el => {
         const key = el.getAttribute('data-i18n-aria');
         if (translations[lang] && translations[lang][key]) el.setAttribute('aria-label', translations[lang][key]);
+      });
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (t[key]) el.setAttribute('placeholder', t[key]);
       });
       document.querySelectorAll('[data-i18n-html]').forEach(el => {
         const key = el.getAttribute('data-i18n-html');
@@ -2456,6 +2574,35 @@
           });
         }, { threshold: 0.55 }).observe(markStage);
       }
+    }
+
+    // ===== CONTACT FORM =====
+    // Posts to Formspree like the gated pages. If the network fails we fall
+    // back to the visitor's mail client with the message prefilled, so the
+    // lead is never lost silently.
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+      const T = (k) => (translations[document.documentElement.lang] || translations.el)[k] || '';
+      contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (!contactForm.reportValidity()) return;
+        const btn = contactForm.querySelector('.contact-submit');
+        const fd = new FormData(contactForm);
+        btn.disabled = true; btn.textContent = T('contact.form_sending');
+        const done = () => {
+          contactForm.classList.add('is-sent');
+          document.getElementById('contactDone').hidden = false;
+          gaEvent('submit_contact_form', { section: 'contact' });
+        };
+        fetch(contactForm.action, { method: 'POST', body: fd, headers: { 'Accept': 'application/json' } })
+          .then((r) => { if (!r.ok) throw new Error('formspree ' + r.status); done(); })
+          .catch(() => {
+            btn.disabled = false; btn.textContent = T('contact.form_submit');
+            const subject = encodeURIComponent('AidedCAM - ' + (fd.get('company') || ''));
+            const body = encodeURIComponent((fd.get('message') || '') + '\n\n' + (fd.get('company') || '') + ' / ' + (fd.get('email') || ''));
+            window.location.href = 'mailto:info@aidedcam.com?subject=' + subject + '&body=' + body;
+          });
+      });
     }
 
     // ===== MOBILE MENU =====

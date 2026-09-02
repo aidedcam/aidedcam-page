@@ -6,9 +6,12 @@
   <title>AidedCAM - Τι Κερδίζετε</title>
   <meta name="description" content="Δείτε τι κερδίζετε με μία συνεργασία AidedCAM. Εξοικονόμηση 1.700+ ωρών/χειριστή, εξασφαλισμένη ποιότητα, λογισμικό φτιαγμένο για εσάς." />
   <meta name="robots" content="index, follow" />
-  <link rel="icon" type="image/png" href="/aided-cam-transparent.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <meta name="theme-color" content="#f4f3ee" />
   <link rel="canonical" href="https://www.aidedcam.com/what-you-gain.html" />
-  <link rel="preload" as="image" href="aided-cam-transparent.png" />
+  <link rel="preload" as="image" href="aided-cam-mark.png" />
   <!-- Google Analytics - loaded only after cookie consent -->
   <script>
     function loadGA() {
@@ -27,8 +30,9 @@
     }
     if (localStorage.getItem('privacy-pref') === 'accepted') { loadGA(); }
   </script>
-  <link rel="stylesheet" href="fonts.css?v=20260819b" />
-  <link rel="stylesheet" href="css/editorial.css?v=20260819b" />
+  <link rel="stylesheet" href="fonts.css?v=20260902" />
+  <link rel="stylesheet" href="css/editorial.css?v=20260902" />
+  <noscript><style>.fade-in { opacity: 1 !important; transform: none !important; } .roi-content, .roi-locked { display: block !important; opacity: 1 !important; }</style></noscript>
   <style>
     /* ===== Tokens, base, navbar, nav-logo, lang-switcher, footer, consent,
        scroll-progress, back-to-top, buttons, section base and fade-in now
@@ -73,13 +77,23 @@
     .form-submit:hover::after, .roi-closing .cta-btn:hover::after { transform: translateX(3px); }
 
     /* ===== GATE SECTION ===== */
+    /* The gate no longer walls the page: the hero and the first pillar are
+       open, the form sits between pillar 1 and 2 and unlocks the rest. */
     .gate-section {
-      min-height: calc(100vh - 74px);
       display: flex; align-items: center; justify-content: center;
-      background: var(--paper);
-      padding: clamp(3rem, 8vw, 6rem) 2rem;
+      background: var(--paper-2);
+      padding: clamp(3rem, 6vw, 5rem) 2rem;
       position: relative;
+      border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
     }
+    .gate-section.is-unlocked { display: none; }
+    .roi-locked { display: none; }
+    .roi-locked.is-unlocked { display: block; }
+    .gate-teaser {
+      font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent-deep); margin: -0.6rem 0 1.2rem;
+    }
+    .form-note a { color: var(--ink); text-decoration: underline; text-underline-offset: 2px; }
 
     .gate-card {
       position: relative; z-index: 1;
@@ -205,7 +219,7 @@
 
     /* ===== ROI CONTENT (hidden initially) ===== */
     .roi-content {
-      display: none; opacity: 0;
+      display: block; opacity: 1;
       transition: opacity 450ms var(--ease-out);
     }
     .roi-content.visible {
@@ -665,7 +679,7 @@
   <nav class="navbar" id="navbar">
     <div class="nav-container">
       <a href="/" class="nav-logo">
-        <img src="aided-cam-transparent.png" alt="AidedCAM" />
+        <img src="aided-cam-mark.png" alt="AidedCAM" width="30" height="34" />
         <span>AIDEDCAM</span>
       </a>
       <div class="nav-right">
@@ -678,61 +692,6 @@
       </div>
     </div>
   </nav>
-
-  <!-- GATE: Lead capture form -->
-  <section class="gate-section" id="gateSection">
-    <div class="gate-card">
-      <div class="gate-badge">AIDEDCAM</div>
-      <h1 class="gate-title" data-i18n-html="roi.gate_title">Δείτε τι <span class="hl" style="color:var(--accent-bright)">πραγματικά κερδίζετε</span></h1>
-      <p class="gate-subtitle" data-i18n="roi.gate_subtitle">Συμπληρώστε τα παρακάτω και δείτε τι κερδίζετε με την AidedCAM.</p>
-
-      <form id="roiForm" action="https://formspree.io/f/xaqllyao" method="POST">
-        <div class="form-group">
-          <label class="form-label" data-i18n-html="roi.label_company">Επωνυμία εταιρείας <span class="required">*</span></label>
-          <input type="text" name="company" class="form-input" required data-i18n-placeholder="roi.ph_company" placeholder="π.χ. Μεταλλοτεχνική ΑΕ" />
-        </div>
-
-        <div class="form-group">
-          <label class="form-label" data-i18n-html="roi.label_email">Email <span class="required">*</span></label>
-          <input type="email" name="email" class="form-input" required placeholder="info@company.com" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="email@domain.com" />
-        </div>
-
-        <div class="form-group">
-          <label class="form-label" data-i18n="roi.label_system">Σύστημα CAD/CAM/BIM</label>
-          <div class="system-pills" id="systemPills">
-            <button type="button" class="system-pill" data-value="PowerShape">PowerShape</button>
-            <button type="button" class="system-pill" data-value="PowerMill">PowerMill</button>
-            <button type="button" class="system-pill" data-value="Fusion360">Fusion360</button>
-            <button type="button" class="system-pill" data-value="FeatureCAM">FeatureCAM</button>
-            <button type="button" class="system-pill" data-value="Inventor">Inventor</button>
-            <button type="button" class="system-pill" data-value="SiemensNX">SiemensNX</button>
-            <button type="button" class="system-pill" data-value="Revit">Revit</button>
-            <button type="button" class="system-pill" data-value="AutoCAD">AutoCAD</button>
-            <button type="button" class="system-pill" data-value="other" data-i18n="roi.other">Άλλο</button>
-          </div>
-          <input type="text" name="system_other" class="form-input system-other-input" id="systemOtherInput" data-i18n-placeholder="roi.ph_other" placeholder="Γράψτε το σύστημά σας..." />
-          <input type="hidden" name="systems" id="systemsHidden" />
-        </div>
-
-        <div class="form-group">
-          <label class="form-label" data-i18n="roi.label_project">Έχετε κάποιο project στο μυαλό σας;</label>
-          <div class="form-checkbox-group">
-            <label class="form-toggle">
-              <input type="radio" name="has_project" value="yes" />
-              <span class="toggle-pill" data-i18n="roi.yes">Ναι</span>
-            </label>
-            <label class="form-toggle">
-              <input type="radio" name="has_project" value="no" checked />
-              <span class="toggle-pill" data-i18n="roi.no">Όχι</span>
-            </label>
-          </div>
-        </div>
-
-        <button type="submit" class="form-submit" data-i18n="roi.submit">Δείτε τι κερδίζετε</button>
-        <p class="form-note" data-i18n="roi.form_note">Δεν απαιτείται δέσμευση. Τα στοιχεία σας είναι ασφαλή.</p>
-      </form>
-    </div>
-  </section>
 
   <!-- ROI CONTENT (revealed after form) -->
   <div class="roi-content" id="roiContent">
@@ -850,6 +809,63 @@
       </div>
     </section>
 
+  <!-- GATE: Lead capture form -->
+  <section class="gate-section" id="gateSection">
+    <div class="gate-card">
+      <div class="gate-badge">AIDEDCAM</div>
+      <h2 class="gate-title" data-i18n-html="roi.gate_title">Δείτε τι <span class="hl" style="color:var(--accent-bright)">πραγματικά κερδίζετε</span></h2>
+      <p class="gate-teaser" data-i18n="roi.gate_teaser">Ακολουθούν 3 ακόμη ενότητες</p>
+      <p class="gate-subtitle" data-i18n="roi.gate_subtitle">Συμπληρώστε τα παρακάτω και δείτε τι κερδίζετε με την AidedCAM.</p>
+
+      <form id="roiForm" action="https://formspree.io/f/xaqllyao" method="POST">
+        <div class="form-group">
+          <label class="form-label" data-i18n-html="roi.label_company">Επωνυμία εταιρείας <span class="required">*</span></label>
+          <input type="text" name="company" class="form-input" required data-i18n-placeholder="roi.ph_company" placeholder="π.χ. Μεταλλοτεχνική ΑΕ" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" data-i18n-html="roi.label_email">Email <span class="required">*</span></label>
+          <input type="email" name="email" class="form-input" required placeholder="info@company.com" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="email@domain.com" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" data-i18n="roi.label_system">Σύστημα CAD/CAM/BIM</label>
+          <div class="system-pills" id="systemPills">
+            <button type="button" class="system-pill" data-value="PowerShape">PowerShape</button>
+            <button type="button" class="system-pill" data-value="PowerMill">PowerMill</button>
+            <button type="button" class="system-pill" data-value="Fusion360">Fusion 360</button>
+            <button type="button" class="system-pill" data-value="FeatureCAM">FeatureCAM</button>
+            <button type="button" class="system-pill" data-value="Inventor">Inventor</button>
+            <button type="button" class="system-pill" data-value="SiemensNX">Siemens NX</button>
+            <button type="button" class="system-pill" data-value="Revit">Revit</button>
+            <button type="button" class="system-pill" data-value="AutoCAD">AutoCAD</button>
+            <button type="button" class="system-pill" data-value="other" data-i18n="roi.other">Άλλο</button>
+          </div>
+          <input type="text" name="system_other" class="form-input system-other-input" id="systemOtherInput" data-i18n-placeholder="roi.ph_other" placeholder="Γράψτε το σύστημά σας..." />
+          <input type="hidden" name="systems" id="systemsHidden" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" data-i18n="roi.label_project">Έχετε κάποιο project στο μυαλό σας;</label>
+          <div class="form-checkbox-group">
+            <label class="form-toggle">
+              <input type="radio" name="has_project" value="yes" />
+              <span class="toggle-pill" data-i18n="roi.yes">Ναι</span>
+            </label>
+            <label class="form-toggle">
+              <input type="radio" name="has_project" value="no" checked />
+              <span class="toggle-pill" data-i18n="roi.no">Όχι</span>
+            </label>
+          </div>
+        </div>
+
+        <button type="submit" class="form-submit" data-i18n="roi.submit">Δείτε τι κερδίζετε</button>
+        <p class="form-note" data-i18n-html="roi.form_note">Χωρίς δέσμευση. Υποβάλλοντας, αποδέχεστε την <a href="privacy.html">Πολιτική Απορρήτου</a>· χρησιμοποιούμε τα στοιχεία μόνο για να επικοινωνήσουμε μαζί σας.</p>
+      </form>
+    </div>
+  </section>
+
+    <div class="roi-locked" id="roiLocked">
     <!-- PILLAR 2: QUALITY -->
     <section class="pillar" id="pillar2">
       <div class="container">
@@ -969,6 +985,7 @@
       <a href="mailto:info@aidedcam.com" class="cta-btn" data-i18n="roi.closing_cta">Ας μιλήσουμε</a>
         <a href="calculator.html" class="cta-btn cta-btn-outline" data-i18n="roi.calc_crosslink">Υπολογίστε με τα δικά σας νούμερα</a>
     </section>
+    </div><!-- /roiLocked -->
 
     <!-- FOOTER -->
     <div class="roi-footer">
@@ -1053,7 +1070,8 @@
         'roi.yes': 'Ναι',
         'roi.no': 'Όχι',
         'roi.submit': 'Δείτε τι κερδίζετε',
-        'roi.form_note': 'Δεν απαιτείται δέσμευση. Τα στοιχεία σας είναι ασφαλή.',
+        'roi.form_note': 'Χωρίς δέσμευση. Υποβάλλοντας, αποδέχεστε την <a href="privacy.html">Πολιτική Απορρήτου</a>· χρησιμοποιούμε τα στοιχεία μόνο για να επικοινωνήσουμε μαζί σας.',
+        'roi.gate_teaser': 'Ακολουθούν 3 ακόμη ενότητες',
         'roi.greeting_prefix': 'Για την',
         'roi.hero_title': '<span class="hl">Χρόνος</span> που επιστρέφεται αμέσως.<br><span class="hl">Ποιότητα</span> που εξασφαλίζεται πάντα.<br><span class="hl">Λογισμικό</span> φτιαγμένο αποκλειστικά για εσάς.<br><span class="hl">Μία συνδρομή</span>, απεριόριστοι χρήστες.',
         'roi.tagline': 'Αυτά κερδίζετε στην πράξη.',
@@ -1147,7 +1165,8 @@
         'roi.yes': 'Yes',
         'roi.no': 'No',
         'roi.submit': 'See what you gain',
-        'roi.form_note': 'No commitment required. Your data is safe.',
+        'roi.form_note': 'No commitment. By submitting you accept our <a href="privacy.html">Privacy Policy</a>; we use your details only to get in touch with you.',
+        'roi.gate_teaser': '3 more sections follow',
         'roi.greeting_prefix': 'For',
         'roi.hero_title': '<span class="hl">Time</span> returned immediately.<br><span class="hl">Quality</span> guaranteed always.<br><span class="hl">Software</span> built exclusively for you.<br><span class="hl">One subscription</span>, unlimited users.',
         'roi.tagline': 'This is what you actually gain.',
@@ -1241,7 +1260,8 @@
         'roi.yes': 'S\u00ec',
         'roi.no': 'No',
         'roi.submit': 'Scoprite cosa guadagnate',
-        'roi.form_note': 'Nessun impegno richiesto. I vostri dati sono al sicuro.',
+        'roi.form_note': 'Nessun impegno. Inviando accettate la nostra <a href="privacy.html">Informativa sulla privacy</a>; usiamo i vostri dati solo per contattarvi.',
+        'roi.gate_teaser': 'Seguono altre 3 sezioni',
         'roi.greeting_prefix': 'Per',
         'roi.hero_title': '<span class="hl">Tempo</span> restituito immediatamente.<br><span class="hl">Qualit\u00e0</span> garantita sempre.<br><span class="hl">Software</span> costruito esclusivamente per voi.<br><span class="hl">Un abbonamento</span>, utenti illimitati.',
         'roi.tagline': 'Questo è ciò che guadagnate davvero.',
@@ -1360,11 +1380,13 @@
     var currentLang = urlLang || savedLang || browserLang;
     if (currentLang !== 'el') setLanguage(currentLang);
 
-    // Auto-reveal if lead already exists
+    // Hero + pillar 1 are always open; a stored lead unlocks the rest immediately.
     var existingLead = getLeadData();
     if (existingLead) {
-      // Small delay to ensure DOM is ready
-      setTimeout(function() { revealROI(existingLead.company); }, 50);
+      unlockROI(existingLead.company, false);
+    } else {
+      startBarAnimations();
+      initScrollAnimations();
     }
 
     document.querySelectorAll('.lang-btn').forEach(function(btn) {
@@ -1469,9 +1491,12 @@
       }
     });
 
-    function revealROI(companyName) {
+    var roiUnlocked = false;
+    function unlockROI(companyName, scrollToNext) {
+      if (roiUnlocked) return;
+      roiUnlocked = true;
       var gate = document.getElementById('gateSection');
-      var content = document.getElementById('roiContent');
+      var locked = document.getElementById('roiLocked');
 
       // Personalize greeting
       if (companyName) {
@@ -1479,24 +1504,17 @@
         document.getElementById('roiGreeting').style.display = 'inline-block';
       }
 
-      // Fade out gate
-      gate.style.transition = 'opacity 400ms var(--ease-out)';
-      gate.style.opacity = '0';
-      setTimeout(function() {
-        gate.style.display = 'none';
-        content.style.display = 'block';
-        // Trigger reflow then fade in
-        content.offsetHeight;
-        content.classList.add('fade-in');
-        window.scrollTo(0, 0);
-
-        // Start animations after a tick
-        setTimeout(function() {
-          startBarAnimations();
-          initScrollAnimations();
-        }, 100);
-      }, 400);
+      gate.classList.add('is-unlocked');
+      locked.classList.add('is-unlocked');
+      locked.offsetHeight; // reflow so the observers see the new layout
+      startBarAnimations();
+      initScrollAnimations();
+      if (scrollToNext) {
+        var next = document.getElementById('pillar2');
+        if (next) next.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     }
+    function revealROI(companyName) { unlockROI(companyName, true); }
 
     // ===== SCROLL-TRIGGERED FADE-IN =====
     function initScrollAnimations() {

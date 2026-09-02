@@ -6,9 +6,12 @@
   <title>AidedCAM - Υπολογιστής ROI</title>
   <meta name="description" content="Υπολογίστε πόσο σας κοστίζει η μη αυτοματοποίηση. Προσθέστε τις διαδικασίες σας και δείτε το πραγματικό κόστος αδράνειας." />
   <meta name="robots" content="index, follow" />
-  <link rel="icon" type="image/png" href="/aided-cam-transparent.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <meta name="theme-color" content="#f4f3ee" />
   <link rel="canonical" href="https://www.aidedcam.com/calculator.html" />
-  <link rel="preload" as="image" href="aided-cam-transparent.png" />
+  <link rel="preload" as="image" href="aided-cam-mark.png" />
   <!-- Google Analytics - loaded only after cookie consent -->
   <script>
     function loadGA() {
@@ -27,8 +30,9 @@
     }
     if (localStorage.getItem('privacy-pref') === 'accepted') { loadGA(); }
   </script>
-  <link rel="stylesheet" href="fonts.css?v=20260819b" />
-  <link rel="stylesheet" href="css/editorial.css?v=20260819b" />
+  <link rel="stylesheet" href="fonts.css?v=20260902" />
+  <link rel="stylesheet" href="css/editorial.css?v=20260902" />
+  <noscript><style>.fade-in { opacity: 1 !important; transform: none !important; }</style></noscript>
   <style>
     /* ===== Tokens, base, navbar, lang-switcher, consent banner, scroll-progress,
        back-to-top, buttons and fade-in now live in css/editorial.css ===== */
@@ -67,14 +71,23 @@
     .form-submit:hover::after, .closing-cta:hover::after { transform: translateX(3px); }
 
     /* ===== GATE SECTION (lead capture) ===== */
+    /* The calculator runs ungated. The lead form is a dialog that opens only
+       when the visitor asks to save or print their results. */
     .gate-section {
-      min-height: calc(100vh - 74px);
-      display: flex; align-items: center; justify-content: center;
-      background: var(--paper);
-      padding: clamp(3rem, 8vw, 6rem) clamp(1.25rem, 5vw, 4rem);
-      position: relative;
-      border-bottom: 1px solid var(--line);
+      display: none; align-items: flex-start; justify-content: center;
+      position: fixed; inset: 0; z-index: 9000; overflow-y: auto;
+      background: rgba(23, 23, 15, 0.55);
+      padding: clamp(1.5rem, 6vh, 5rem) clamp(1rem, 5vw, 4rem);
     }
+    .gate-section.is-open { display: flex; }
+    body.gate-open { overflow: hidden; }
+    .gate-close {
+      position: absolute; top: 0.6rem; right: 0.6rem;
+      width: 40px; height: 40px; border: 0; background: transparent; cursor: pointer;
+      color: var(--muted); font-size: 1.5rem; line-height: 1; border-radius: 2px;
+    }
+    .gate-close:hover { color: var(--ink); background: var(--paper-2); }
+    .form-note a { color: var(--ink); text-decoration: underline; text-underline-offset: 2px; }
 
     .gate-card {
       position: relative;
@@ -169,7 +182,7 @@
 
     /* ===== CALCULATOR CONTENT ===== */
     .calc-content {
-      display: none; opacity: 0;
+      display: block; opacity: 1;
       transition: opacity 450ms var(--ease-out);
     }
     .calc-content.fade-in { opacity: 1; transform: none; }
@@ -562,7 +575,7 @@
       body { background: #fff !important; }
       .navbar, .calc-header, .calc-closing, .calc-footer,
       .consent-banner, .calc-actions, .examples-notice,
-      .methodology-toggle, .calc-add-btn { display: none !important; }
+      .methodology-toggle, .calc-add-btn, .gate-section, .calc-contact { display: none !important; }
       .calc-content { display: block !important; }
       .calc-body { padding: 0 !important; }
       .calc-layout { display: block !important; }
@@ -653,6 +666,29 @@
     .closing-cta:hover {
       background: var(--accent-deep); border-color: var(--accent-deep);
     }
+    .closing-ctas { display: flex; justify-content: center; align-items: center; gap: 1rem 1.5rem; flex-wrap: wrap; }
+    .closing-cta-outline { background: transparent; color: var(--ink); border-color: var(--line-strong); }
+    .closing-cta-outline:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
+    .closing-direct { margin-top: 1.4rem; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; color: var(--muted); }
+    .closing-direct a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line-strong); }
+    .closing-direct a:hover { color: var(--accent-deep); border-color: var(--accent-deep); }
+    /* Contact block under the results */
+    .calc-contact {
+      margin-top: 1.2rem; padding: 1.3rem 1.4rem;
+      background: var(--panel); border: 1px solid var(--accent); border-radius: 2px;
+    }
+    .calc-contact-label { font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-deep); margin-bottom: 0.5rem; }
+    .calc-contact p { font-size: 0.95rem; color: var(--ink-soft); line-height: 1.55; margin: 0 0 1rem; }
+    .calc-contact-actions { display: flex; align-items: center; gap: 0.8rem 1.4rem; flex-wrap: wrap; }
+    .calc-contact-cta {
+      display: inline-flex; align-items: center; gap: 0.55rem; padding: 0.8rem 1.4rem;
+      background: var(--ink); color: #fff; text-decoration: none; border-radius: 2px; border: 1px solid var(--ink);
+      font-family: var(--font-display); font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em;
+      transition: background 0.25s ease, border-color 0.25s ease;
+    }
+    .calc-contact-cta:hover { background: var(--accent-deep); border-color: var(--accent-deep); }
+    .calc-contact-phone { font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line-strong); }
+    @media (max-width: 480px) { .calc-contact-actions { flex-direction: column; align-items: stretch; } .calc-contact-cta { justify-content: center; } .calc-contact-phone { text-align: center; } }
 
     /* ===== RESPONSIVE (calculator-specific; shared nav/footer/consent in editorial.css) ===== */
     @media (max-width: 768px) {
@@ -690,7 +726,7 @@
   <nav class="navbar" id="navbar">
     <div class="nav-container">
       <a href="/" class="nav-logo">
-        <img src="aided-cam-transparent.png" alt="AidedCAM" />
+        <img src="aided-cam-mark.png" alt="AidedCAM" width="30" height="34" />
         <span>AIDEDCAM</span>
       </a>
       <div class="nav-right">
@@ -705,10 +741,11 @@
   </nav>
 
   <!-- GATE: Lead capture form -->
-  <section class="gate-section" id="gateSection">
+  <section class="gate-section" id="gateSection" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
     <div class="gate-card">
+      <button type="button" class="gate-close" id="gateClose" aria-label="Close" data-i18n-aria="calc.gate_close">&times;</button>
       <div class="gate-badge">AIDEDCAM</div>
-      <h1 class="gate-title" data-i18n-html="calc.gate_title">Υπολογίστε πόσο <span class="hl">εξοικονομείτε</span></h1>
+      <h2 class="gate-title" id="gateTitle" data-i18n-html="calc.gate_title">Υπολογίστε πόσο <span class="hl">εξοικονομείτε</span></h2>
       <p class="gate-subtitle" data-i18n="calc.gate_subtitle">Συμπληρώστε τα παρακάτω για να δείτε τα αποτελέσματα.</p>
 
       <form id="calcForm" action="https://formspree.io/f/xaqllyao" method="POST">
@@ -729,10 +766,10 @@
           <div class="system-pills" id="systemPills">
             <button type="button" class="system-pill" data-value="PowerShape">PowerShape</button>
             <button type="button" class="system-pill" data-value="PowerMill">PowerMill</button>
-            <button type="button" class="system-pill" data-value="Fusion360">Fusion360</button>
+            <button type="button" class="system-pill" data-value="Fusion360">Fusion 360</button>
             <button type="button" class="system-pill" data-value="FeatureCAM">FeatureCAM</button>
             <button type="button" class="system-pill" data-value="Inventor">Inventor</button>
-            <button type="button" class="system-pill" data-value="SiemensNX">SiemensNX</button>
+            <button type="button" class="system-pill" data-value="SiemensNX">Siemens NX</button>
             <button type="button" class="system-pill" data-value="Revit">Revit</button>
             <button type="button" class="system-pill" data-value="AutoCAD">AutoCAD</button>
             <button type="button" class="system-pill" data-value="other" data-i18n="calc.gate_other">Άλλο</button>
@@ -742,7 +779,7 @@
         </div>
 
         <button type="submit" class="form-submit" data-i18n-html="calc.gate_submit">Υπολογίστε</button>
-        <p class="form-note" data-i18n="calc.gate_note">Δεν απαιτείται δέσμευση. Τα στοιχεία σας είναι ασφαλή.</p>
+        <p class="form-note" data-i18n-html="calc.gate_note">Χωρίς δέσμευση. Υποβάλλοντας, αποδέχεστε την <a href="privacy.html">Πολιτική Απορρήτου</a>· χρησιμοποιούμε τα στοιχεία μόνο για να επικοινωνήσουμε μαζί σας.</p>
       </form>
     </div>
   </section>
@@ -835,7 +872,11 @@
     <!-- CLOSING CTA -->
     <section class="calc-closing">
       <h2 data-i18n="calc.closing">Θέλετε να δείτε αναλυτικά τι κερδίζετε;</h2>
-      <a href="what-you-gain.html" class="closing-cta" data-i18n="calc.roi_crosslink">Δείτε αναλυτικά τι κερδίζετε</a>
+      <div class="closing-ctas">
+        <a href="mailto:info@aidedcam.com" class="closing-cta" id="closingTalk" data-i18n="calc.closing_talk">Ας μιλήσουμε</a>
+        <a href="what-you-gain.html" class="closing-cta closing-cta-outline" data-i18n="calc.roi_crosslink">Δείτε αναλυτικά τι κερδίζετε</a>
+      </div>
+      <p class="closing-direct"><a href="tel:+306984680874">+30 6984680874</a> &middot; <a href="tel:+306980818754">+30 6980818754</a> &middot; <a href="mailto:info@aidedcam.com">info@aidedcam.com</a></p>
     </section>
 
     <!-- PRINT FOOTER (visible only in print) -->
@@ -921,7 +962,8 @@
         'calc.gate_other': 'Άλλο',
         'calc.gate_ph_other': 'Γράψτε το σύστημά σας...',
         'calc.gate_submit': 'Υπολογίστε',
-        'calc.gate_note': 'Δεν απαιτείται δέσμευση. Τα στοιχεία σας είναι ασφαλή.',
+        'calc.gate_note': 'Χωρίς δέσμευση. Υποβάλλοντας, αποδέχεστε την <a href="privacy.html">Πολιτική Απορρήτου</a>· χρησιμοποιούμε τα στοιχεία μόνο για να επικοινωνήσουμε μαζί σας.',
+        'calc.gate_close': 'Κλείσιμο',
         'calc.title': 'Πόσο σας κοστίζει η μη αυτοματοποίηση;',
         'calc.subtitle': 'Προσθέστε τις διαδικασίες σας και δείτε τι χάνετε, κάθε μέρα.',
         'calc.examples_notice': 'Βλέπετε ενδεικτικά παραδείγματα',
@@ -977,6 +1019,12 @@
         'calc.btn_pdf': 'Εκτύπωση',
         'calc.closing': 'Θέλετε να δείτε αναλυτικά τι κερδίζετε;',
         'calc.roi_crosslink': 'Δείτε αναλυτικά τι κερδίζετε',
+        'calc.closing_talk': 'Ας μιλήσουμε',
+        'calc.contact_title': 'Το επόμενο βήμα',
+        'calc.contact_text': 'Στείλτε μας αυτά τα νούμερα. Θα απαντήσουμε εντός 48 ωρών με το ποια από τις διαδικασίες αξίζει να αυτοματοποιηθεί πρώτη.',
+        'calc.contact_cta': 'Στείλτε μας τα νούμερα',
+        'calc.contact_subject': 'Υπολογιστής AidedCAM:',
+        'calc.contact_body': 'Καλησπέρα,\n\nΑπό τον υπολογιστή AidedCAM:\nΕτήσιο κόστος αδράνειας: {annual}\nΧαμένος χρόνος / έτος: {time}\nΚόστος σφαλμάτων / έτος: {errors}\n\nΘα θέλαμε να συζητήσουμε τι μπορεί να αυτοματοποιηθεί.\n',
         'cookie_text': 'Αυτός ο ιστότοπος χρησιμοποιεί cookies για τη βελτιστοποίηση της λειτουργίας του και την ανάλυση επισκεψιμότητας.',
         'cookie_accept': 'Αποδοχή',
         'cookie_decline': 'Απόρριψη',
@@ -1009,7 +1057,8 @@
         'calc.gate_other': 'Other',
         'calc.gate_ph_other': 'Type your system...',
         'calc.gate_submit': 'Calculate',
-        'calc.gate_note': 'No commitment required. Your data is safe.',
+        'calc.gate_note': 'No commitment. By submitting you accept our <a href="privacy.html">Privacy Policy</a>; we use your details only to get in touch with you.',
+        'calc.gate_close': 'Close',
         'calc.title': 'How much does not automating cost you?',
         'calc.subtitle': 'Add your processes and see what you lose, every day.',
         'calc.examples_notice': 'You are viewing example data',
@@ -1065,6 +1114,12 @@
         'calc.btn_pdf': 'Print',
         'calc.closing': 'Want to see what else you gain?',
         'calc.roi_crosslink': 'See what you gain in detail',
+        'calc.closing_talk': 'Let\'s talk',
+        'calc.contact_title': 'Next step',
+        'calc.contact_text': 'Send us these numbers. We\'ll reply within 48 hours with which process is worth automating first.',
+        'calc.contact_cta': 'Send us the numbers',
+        'calc.contact_subject': 'AidedCAM calculator:',
+        'calc.contact_body': 'Hello,\n\nFrom the AidedCAM calculator:\nAnnual cost of inaction: {annual}\nLost time / year: {time}\nCost of errors / year: {errors}\n\nWe would like to discuss what can be automated.\n',
         'cookie_text': 'This website uses cookies to optimize functionality and analyze traffic.',
         'cookie_accept': 'Accept',
         'cookie_decline': 'Decline',
@@ -1097,7 +1152,8 @@
         'calc.gate_other': 'Altro',
         'calc.gate_ph_other': 'Scrivi il tuo sistema...',
         'calc.gate_submit': 'Calcola',
-        'calc.gate_note': 'Nessun impegno richiesto. I vostri dati sono al sicuro.',
+        'calc.gate_note': 'Nessun impegno. Inviando accettate la nostra <a href="privacy.html">Informativa sulla privacy</a>; usiamo i vostri dati solo per contattarvi.',
+        'calc.gate_close': 'Chiudi',
         'calc.title': 'Quanto vi costa non automatizzare?',
         'calc.subtitle': 'Aggiungete i vostri processi e vedete cosa perdete, ogni giorno.',
         'calc.examples_notice': 'State visualizzando dati di esempio',
@@ -1153,6 +1209,12 @@
         'calc.btn_pdf': 'Stampa',
         'calc.closing': 'Volete vedere cos\'altro guadagnate?',
         'calc.roi_crosslink': 'Scoprite cosa guadagnate in dettaglio',
+        'calc.closing_talk': 'Parliamone',
+        'calc.contact_title': 'Il prossimo passo',
+        'calc.contact_text': 'Inviateci questi numeri. Vi risponderemo entro 48 ore indicando quale processo conviene automatizzare per primo.',
+        'calc.contact_cta': 'Inviateci i numeri',
+        'calc.contact_subject': 'Calcolatore AidedCAM:',
+        'calc.contact_body': 'Buongiorno,\n\nDal calcolatore AidedCAM:\nCosto annuo dell\'inerzia: {annual}\nTempo perso / anno: {time}\nCosto degli errori / anno: {errors}\n\nVorremmo discutere cosa si può automatizzare.\n',
         'cookie_text': 'Questo sito web utilizza i cookie per ottimizzare le sue funzionalit\u00e0 e analizzare il traffico.',
         'cookie_accept': 'Accetta',
         'cookie_decline': 'Rifiuta',
@@ -1321,25 +1383,36 @@
       }
     });
 
-    var calculatorRevealed = false;
+    // ===== LEAD DIALOG =====
+    var gatePending = null;
+    var gateEl = document.getElementById('gateSection');
+    function openGate(action) {
+      gatePending = action || null;
+      gateEl.classList.add('is-open');
+      document.body.classList.add('gate-open');
+      var first = gateEl.querySelector('input[name="company"]');
+      if (first) setTimeout(function() { first.focus(); }, 50);
+      if (window.gtag) gtag('event', 'open_lead_dialog', { action: gatePending || 'none' });
+    }
+    function closeGate() {
+      gateEl.classList.remove('is-open');
+      document.body.classList.remove('gate-open');
+    }
+    document.getElementById('gateClose').addEventListener('click', function() { gatePending = null; closeGate(); });
+    gateEl.addEventListener('click', function(e) { if (e.target === gateEl) { gatePending = null; closeGate(); } });
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && gateEl.classList.contains('is-open')) { gatePending = null; closeGate(); } });
+
+    // Called after the lead is stored: close the dialog and finish what the
+    // visitor asked for (save or print) by replaying the button click.
     function revealCalculator() {
-      if (calculatorRevealed) return;
-      calculatorRevealed = true;
-
-      var gate = document.getElementById('gateSection');
-      var content = document.getElementById('calcContent');
-
-      gate.style.transition = 'opacity 400ms var(--ease-out)';
-      gate.style.opacity = '0';
-      setTimeout(function() {
-        gate.style.display = 'none';
-        content.style.display = 'block';
-        content.offsetHeight;
-        content.classList.add('fade-in');
-        window.scrollTo(0, 0);
-
-        initCalculator();
-      }, 400);
+      closeGate();
+      var btn = calcForm.querySelector('.form-submit');
+      btn.disabled = false;
+      btn.innerHTML = T('calc.gate_submit');
+      var action = gatePending; gatePending = null;
+      if (typeof renderResults === 'function') renderResults(); // refresh the mailto with the company name
+      if (action === 'save') { var b = document.getElementById('btnSave'); if (b) b.click(); }
+      if (action === 'print') { var pb = document.getElementById('btnPdf'); if (pb) pb.click(); }
     }
 
     // ===== CALCULATOR STATE =====
@@ -1964,6 +2037,17 @@
         '</button>' +
       '</div>';
 
+      // Contact block: the number is on screen, so the next step must be too.
+      var mailHref = buildContactMailto(r);
+      html += '<div class="calc-contact">' +
+        '<div class="calc-contact-label">' + T('calc.contact_title') + '</div>' +
+        '<p>' + T('calc.contact_text') + '</p>' +
+        '<div class="calc-contact-actions">' +
+          '<a class="calc-contact-cta" href="' + mailHref + '" id="calcContactCta">' + T('calc.contact_cta') + ' &rarr;</a>' +
+          '<a class="calc-contact-phone" href="tel:+306984680874">+30 6984680874</a>' +
+        '</div>' +
+      '</div>';
+
       html += '</div>'; // close resultsDetail
       html += '</div>'; // close results-panel
 
@@ -1987,6 +2071,7 @@
       var saveBtn = document.getElementById('btnSave');
       if (saveBtn) {
         saveBtn.addEventListener('click', function() {
+          if (!getLeadData()) { openGate('save'); return; }
           sendCalcToFormspree();
           saveBtn.classList.add('done');
           saveBtn.innerHTML = '<span class="action-icon">&#x2713;</span> ' + T('calc.btn_save_done');
@@ -2001,6 +2086,7 @@
       var pdfBtn = document.getElementById('btnPdf');
       if (pdfBtn) {
         pdfBtn.addEventListener('click', function() {
+          if (!getLeadData()) { openGate('print'); return; }
           sendCalcToFormspree();
 
           // Populate print header
@@ -2014,6 +2100,19 @@
         });
       }
 
+    }
+
+    function buildContactMailto(r) {
+      var lead = getLeadData();
+      var subject = T('calc.contact_subject') + ' ' + formatCurrency(r.totalAnnual) + (lead && lead.company ? ' - ' + lead.company : '');
+      var body = T('calc.contact_body')
+        .replace('{annual}', formatCurrency(r.totalAnnual))
+        .replace('{time}', formatCurrency(r.timeCostAnnual || 0))
+        .replace('{errors}', formatCurrency(r.errorCostAnnual || 0));
+      var href = 'mailto:info@aidedcam.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      var closing = document.getElementById('closingTalk');
+      if (closing) closing.setAttribute('href', href);
+      return href;
     }
 
     function escapeHtml(str) {
@@ -2089,11 +2188,8 @@
       localStorage.setItem('aidedcam-lead', JSON.stringify(obj));
     }
 
-    // Auto-reveal if lead already exists
-    var existingLead = getLeadData();
-    if (existingLead) {
-      setTimeout(function() { revealCalculator(); }, 50);
-    }
+    // The calculator is open to everyone; the lead form only appears on save / print.
+    initCalculator();
 
     // ===== SEND DATA ON PAGE LEAVE =====
     function sendOnLeave() {

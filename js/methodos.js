@@ -8,7 +8,7 @@
   // ── I18N ──
   const COPY = {
     en: {
-      thesisHTML: 'A company is a <strong>system</strong> of workflows. A workflow is a <strong>chain</strong> of tasks. Automation starts at the <strong>task</strong>. The gain shows up in the system.',
+      thesisHTML: 'Your company is a <strong>chain</strong> of steps. We look for the ones done <strong>by hand, on every job</strong>. Those we automate. The whole chain speeds up.',
       corner: 'How we look at your work',
       tabs: { system: 'System', workflow: 'Workflow', task: 'Task', result: 'Result' },
       lookLabel: 'What we look for',
@@ -16,7 +16,7 @@
       system: {
         k: '03 · Step all the way back',
         t: 'The <strong>system</strong>',
-        d: 'All the workflows in your company, and how they hand work to each other — from design, through preparation, to production.',
+        d: 'All the workflows in your company, and how they hand work to each other: from design to preparation, and from there to production.',
         r: 'Where the <strong>same information is entered twice</strong>, and where one team’s output doesn’t fit the next team’s input.',
       },
       workflow: {
@@ -28,13 +28,13 @@
       task: {
         k: '01 · Up close',
         t: 'One <strong>task</strong>',
-        d: 'A single step, done by one person, the same way every time. Nobody notices it — it’s just how the work is done.',
+        d: 'A single step, done by one person, the same way every time. Nobody notices it. It’s just how the work is done.',
         r: 'The steps that are <strong>manual and repeated</strong>. This is where we start.',
       },
       result: {
         k: '04 · The whole picture',
         t: 'The <strong>result</strong>',
-        d: 'We build the tool that does the task. The workflow gets shorter. The whole system moves faster — with the same people.',
+        d: 'We build the tool that does the task. The workflow gets shorter. The whole system moves faster, with the same people.',
         r: 'Hours become <strong>minutes</strong>, errors <strong>disappear</strong>, and the know-how is built into the <strong>software</strong>, available to the whole team, not just to one expert.',
       },
       cols: ['Design', 'Preparation', 'Production'],
@@ -49,7 +49,7 @@
       resNote: 'One action instead of three steps',
     },
     el: {
-      thesisHTML: 'Μια εταιρεία είναι ένα <strong>σύστημα</strong> από ροές. Μια ροή είναι μια <strong>αλυσίδα</strong> από εργασίες. Η αυτοματοποίηση ξεκινά από την <strong>εργασία</strong>. Το κέρδος φαίνεται στο σύστημα.',
+      thesisHTML: 'Η εταιρεία σας είναι μια <strong>αλυσίδα</strong> από βήματα. Ψάχνουμε αυτά που γίνονται <strong>με το χέρι, σε κάθε δουλειά</strong>. Αυτά αυτοματοποιούμε. Όλη η αλυσίδα επιταχύνεται.',
       corner: 'Πώς βλέπουμε τη δουλειά σας',
       tabs: { system: 'Σύστημα', workflow: 'Ροή', task: 'Εργασία', result: 'Αποτέλεσμα' },
       lookLabel: 'Τι ψάχνουμε',
@@ -57,7 +57,7 @@
       system: {
         k: '03 · Ακόμη πιο πίσω',
         t: 'Το <strong>σύστημα</strong>',
-        d: 'Όλες οι ροές της εταιρείας σας και το πώς παραδίδουν τη δουλειά η μία στην άλλη — από τον σχεδιασμό, στην προετοιμασία, στην παραγωγή.',
+        d: 'Όλες οι ροές της εταιρείας σας και το πώς παραδίδουν τη δουλειά η μία στην άλλη: από τον σχεδιασμό στην προετοιμασία και από εκεί στην παραγωγή.',
         r: 'Πού η <strong>ίδια πληροφορία μπαίνει δύο φορές</strong>, και πού αυτό που βγάζει μια ομάδα δεν ταιριάζει με αυτό που χρειάζεται η επόμενη.',
       },
       workflow: {
@@ -69,13 +69,13 @@
       task: {
         k: '01 · Από κοντά',
         t: 'Μία <strong>εργασία</strong>',
-        d: 'Ένα μόνο βήμα, από ένα άτομο, με τον ίδιο τρόπο κάθε φορά. Κανείς δεν το προσέχει — έτσι γίνεται η δουλειά.',
+        d: 'Ένα μόνο βήμα, από ένα άτομο, με τον ίδιο τρόπο κάθε φορά. Κανείς δεν το προσέχει. Έτσι γίνεται η δουλειά.',
         r: 'Τα βήματα που γίνονται <strong>με το χέρι και επαναλαμβάνονται</strong>. Από εδώ ξεκινάμε.',
       },
       result: {
         k: '04 · Η συνολική εικόνα',
         t: 'Το <strong>αποτέλεσμα</strong>',
-        d: 'Φτιάχνουμε το εργαλείο που κάνει την εργασία. Η ροή γίνεται πιο σύντομη. Όλο το σύστημα κινείται πιο γρήγορα — με τους ίδιους ανθρώπους.',
+        d: 'Φτιάχνουμε το εργαλείο που κάνει την εργασία. Η ροή γίνεται πιο σύντομη. Όλο το σύστημα κινείται πιο γρήγορα, με τους ίδιους ανθρώπους.',
         r: 'Οι ώρες γίνονται <strong>λεπτά</strong>, τα λάθη <strong>εξαφανίζονται</strong>, και η τεχνογνωσία ενσωματώνεται στο <strong>λογισμικό</strong>, διαθέσιμη σε όλη την ομάδα, όχι μόνο σε έναν ειδικό.',
       },
       cols: ['Σχεδιασμός', 'Προετοιμασία', 'Παραγωγή'],
@@ -90,7 +90,7 @@
       resNote: 'Μία ενέργεια αντί για τρία βήματα',
     },
     it: {
-      thesisHTML: 'Un’azienda è un <strong>sistema</strong> di flussi. Un flusso è una <strong>catena</strong> di attività. L’automazione parte dall’<strong>attività</strong>. Il guadagno si vede nel sistema.',
+      thesisHTML: 'La vostra azienda è una <strong>catena</strong> di passaggi. Cerchiamo quelli fatti <strong>a mano, su ogni lavoro</strong>. Quelli automatizziamo. Tutta la catena accelera.',
       corner: 'Come guardiamo il vostro lavoro',
       tabs: { system: 'Sistema', workflow: 'Flusso', task: 'Attività', result: 'Risultato' },
       lookLabel: 'Cosa cerchiamo',
@@ -98,7 +98,7 @@
       system: {
         k: '03 · Ancora più indietro',
         t: 'Il <strong>sistema</strong>',
-        d: 'Tutti i flussi della vostra azienda e come si passano il lavoro — dalla progettazione, alla preparazione, alla produzione.',
+        d: 'Tutti i flussi della vostra azienda e come si passano il lavoro: dalla progettazione alla preparazione, e da lì alla produzione.',
         r: 'Dove la <strong>stessa informazione viene inserita due volte</strong>, e dove ciò che produce un team non combacia con ciò che serve al successivo.',
       },
       workflow: {
@@ -110,13 +110,13 @@
       task: {
         k: '01 · Da vicino',
         t: 'Un’<strong>attività</strong>',
-        d: 'Un singolo passaggio, fatto da una persona, sempre allo stesso modo. Nessuno ci fa caso — è così che si lavora.',
+        d: 'Un singolo passaggio, fatto da una persona, sempre allo stesso modo. Nessuno ci fa caso. È così che si lavora.',
         r: 'I passaggi <strong>manuali e ripetuti</strong>. È da qui che partiamo.',
       },
       result: {
         k: '04 · Il quadro completo',
         t: 'Il <strong>risultato</strong>',
-        d: 'Costruiamo lo strumento che svolge l’attività. Il flusso si accorcia. Tutto il sistema va più veloce — con le stesse persone.',
+        d: 'Costruiamo lo strumento che svolge l’attività. Il flusso si accorcia. Tutto il sistema va più veloce, con le stesse persone.',
         r: 'Le ore diventano <strong>minuti</strong>, gli errori <strong>spariscono</strong>, e il know-how è integrato nel <strong>software</strong>, a disposizione di tutto il team, non solo di un esperto.',
       },
       cols: ['Progettazione', 'Preparazione', 'Produzione'],

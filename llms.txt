@@ -1,19 +1,25 @@
 # AidedCAM
 
-> Software tailor-made to one company, with automation applied where time and money are lost.
-> Runs inside the CAD/CAM/BIM tools a company already uses, or as a standalone desktop, web or mobile app.
+> Custom, tailor-made software built for one company's needs, with automation applied where time and money are lost.
+> Runs inside the CAD/CAM/BIM tools a company already uses, or as the company's own desktop application.
 > Autodesk Authorized Developer. Based in Greece (Athens, Thessaloniki).
 > Serves companies in Greece, Italy, Belgium, Switzerland, Austria, Germany.
 
-## What we build
-- Custom applications for one specific job (e.g. a tool that designs parts and generates G-code, a project-management app, a production-tracking app), with the automations that job needs built in
-- Add-ins inside CAD/CAM/BIM software (new buttons that run a company's own workflow)
-- Standalone desktop, web and mobile apps that share data, e.g. shop-floor stage logging with a live view in the office and on the phone
+## What we build (three kinds of results)
+- Task automation: a manual, multi-step job becomes one button, in the company's own order, rules and standards
+- Management, from Excel to a live picture: estimates, schedules, workload and time tracking move from Excel files into one shared application everyone sees and updates
+- Special CAD/CAM/BIM solutions: add-ins inside PowerMill, PowerShape, Revit and other systems, or standalone design and machine-programming applications
+
+## Built so far (anonymised)
+- Lathe machine shop, Greece: a standalone CAD/CAM application, from DXF drawing to Fanuc G-code in six steps (240 min -> 3 min from drawing to program)
+- Mould making, Greece: automation inside PowerShape and PowerMill, routing plan per phase, cooling/screw/plate holes with one button (480 min -> 9 min per mould plate)
+- Industrial equipment, BIM department, Belgium: forty Revit commands in one ribbon tab, sheet export to PDF/DWG/DWFX/IFC in one run (45 min -> 3 min for drawings and schedules)
+- Structural engineering office, Greece: estimation, Gantt schedule, workload and time tracking on one shared database, replacing dozens of Excel files
 
 ## Engagement tiers
 - Light: one software solution, complete
 - Advanced: several software solutions, independent of each other, added in the order needed
-- Pro: several solutions sharing data and reachable from many points (desktop, web, phone)
+- Pro: several solutions connected to each other, sharing the same data
 - Same services in every tier: requirements analysis, development, testing, installation, training, bug fixes, new features, support, unlimited users, one flat monthly price
 
 ## Supported Software (8 CAD / CAM / BIM systems)

@@ -1,0 +1,252 @@
+/* ===== "Τι φτιάχνουμε" — the three solution families (index.html #ti-kanoume) =====
+   Three cards, each with a wordless animated illustration of the family:
+     A  automation of tasks     — five manual steps collapse into one press
+     B  Excel → live picture    — an edited cell travels into a shared board
+     C  CAD · CAM · BIM         — a 2D profile is cut, then appears as the turned part
+   Rules (see .claude/skills/review-animations/STANDARDS.md):
+   - transform / opacity only, --ease-out for entrances, ease-in-out for on-screen moves
+   - every visual's BASE style (no animation) is a readable "after" still;
+     keyframes only run while the card carries .is-on (IntersectionObserver in index.html)
+   - the editorial.css reduced-motion kill-switch collapses durations, so the
+     still shows; an explicit rule at the bottom removes the loops entirely.
+   Loaded on index.html only. Bump ?v= in index.html when this file changes. */
+
+.fam-section .section-header.center h2 strong { display: block; }
+
+.fam-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.benefit-card.fam-card { padding-top: 0; --fam-delay: 0ms; }
+.fam-card h3 { margin-top: 0.2rem; }
+.fam-eg {
+  margin-top: 1rem !important;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 0.68rem !important;
+  letter-spacing: 0.04em;
+  line-height: 1.5 !important;
+  color: var(--muted);
+}
+.fam-turn {
+  text-align: center; max-width: 640px; margin: clamp(2rem, 4vw, 2.8rem) auto 0;
+  font-size: clamp(1.05rem, 1.4vw, 1.25rem); line-height: 1.55; color: var(--ink-soft);
+  padding-top: 1.4rem; border-top: 1px solid var(--line);
+}
+.fam-turn strong { color: var(--accent-deep); font-weight: 600; }
+
+/* the illustration frame: bleeds to the card edges, sits above the number */
+.fam-visual {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  margin: 0 -2.4rem 1.6rem;
+  background: var(--paper-2);
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  gap: 6%;
+  padding: 8% 9%;
+}
+.fam-visual, .fam-visual * { box-sizing: border-box; }
+.fam-tag {
+  position: absolute; top: 0.7rem; left: 0.9rem;
+  font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--faint);
+}
+.fam-arrow {
+  flex: none; width: 12%; height: 1px; background: var(--line-strong); position: relative;
+}
+.fam-arrow::after {
+  content: ""; position: absolute; right: -1px; top: -3px;
+  width: 6px; height: 6px; border-top: 1px solid var(--line-strong); border-right: 1px solid var(--line-strong);
+  transform: rotate(45deg);
+}
+
+/* ---------- A · automation: five manual steps → one press ---------- */
+.fa-stack { flex: 1 1 0; display: flex; flex-direction: column; gap: 7%; }
+.fa-step {
+  display: flex; align-items: center; gap: 8%;
+  opacity: 0.35;                       /* base still: ticked and dimmed */
+}
+.fa-dot {
+  position: relative; flex: none; width: 10px; height: 10px; border-radius: 50%;
+  border: 1px solid var(--line-strong); background: var(--paper);
+}
+.fa-dot::after {
+  content: ""; position: absolute; inset: 2px; border-radius: 50%;
+  background: var(--accent);           /* base still: ticked */
+}
+.fa-bar { flex: 1 1 0; height: 6px; border-radius: 2px; background: var(--line-strong); }
+.fa-step:nth-child(2) .fa-bar { width: 70%; flex: none; }
+.fa-step:nth-child(4) .fa-bar { width: 85%; flex: none; }
+.fa-one {
+  position: relative; flex: 1 1 0; display: flex; align-items: center; gap: 8%;
+  padding: 9% 8%; border-radius: 2px;
+  background: var(--panel); border: 1px solid var(--accent);
+}
+.fa-play { flex: none; width: 14px; height: 16px; }
+.fa-play path { fill: var(--accent); }
+.fa-one .fa-bar { background: var(--accent); }
+.fa-one .fa-tag {
+  position: absolute; right: 0.5rem; bottom: -1.4rem;
+  font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.1em; color: var(--accent-deep);
+}
+.fa-ripple {
+  position: absolute; inset: -12%; border-radius: 4px;
+  border: 1px solid var(--accent); opacity: 0; transform: scale(0.9);
+  pointer-events: none;
+}
+
+.fam-card.is-on .fa-step   { animation: faRow 7s cubic-bezier(0.77, 0, 0.175, 1) infinite; animation-delay: calc(var(--fam-delay) + var(--i) * 60ms); }
+.fam-card.is-on .fa-dot::after { animation: faTick 7s linear infinite; animation-delay: calc(var(--fam-delay) + 300ms + var(--i) * 330ms); }
+.fam-card.is-on .fa-one    { animation: faOne 7s var(--ease-out) infinite; animation-delay: var(--fam-delay); }
+.fam-card.is-on .fa-ripple { animation: faRipple 7s cubic-bezier(0.2, 0.7, 0.3, 1) infinite; animation-delay: var(--fam-delay); }
+
+@keyframes faRow {
+  0%, 30%  { opacity: 1; transform: none; }
+  46%, 90% { opacity: 0.35; transform: translateY(calc(var(--i) * -114%)) scale(0.92); }
+  100%     { opacity: 1; transform: none; }
+}
+@keyframes faTick {
+  0%      { opacity: 0; }
+  3%, 92% { opacity: 1; }
+  100%    { opacity: 0; }
+}
+@keyframes faOne {
+  0%, 48%  { opacity: 0.25; transform: scale(0.96); }
+  53%      { opacity: 1; transform: scale(0.92); }
+  58%, 92% { opacity: 1; transform: scale(1); }
+  100%     { opacity: 0.25; transform: scale(0.96); }
+}
+@keyframes faRipple {
+  0%, 52% { opacity: 0; transform: scale(0.9); }
+  56%     { opacity: 0.85; transform: scale(0.95); }
+  74%     { opacity: 0; transform: scale(1.18); }
+  100%    { opacity: 0; transform: scale(1.18); }
+}
+
+/* ---------- B · Excel → live, shared picture ---------- */
+.fb-sheet {
+  flex: none; width: 34%;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+  background: var(--line); border: 1px solid var(--line); border-radius: 2px;
+}
+.fb-cell { position: relative; aspect-ratio: 2 / 1; background: var(--panel); }
+.fb-cell::before { content: ""; position: absolute; left: 18%; right: 30%; top: 40%; height: 3px; border-radius: 1px; background: var(--line-strong); }
+.fb-cell.is-edit::before { background: var(--accent); }
+.fb-cell.is-edit::after { content: ""; position: absolute; inset: 0; background: var(--accent); opacity: 0; }
+.fb-link {
+  flex: none; width: 2.2rem; height: 1px; background: var(--line-strong); position: relative;
+}
+.fb-token {
+  position: absolute; left: 0; top: -4px; width: 9px; height: 9px; border-radius: 2px;
+  background: var(--accent); opacity: 0; transform: translateX(calc(2.2rem - 9px));
+}
+.fb-desk { flex: 1 1 0; position: relative; padding-bottom: 14%; }
+.fb-board {
+  position: relative; padding: 8% 9% 9%;
+  background: var(--panel); border: 1px solid var(--line-strong); border-radius: 2px;
+}
+.fb-board.is-mirror {
+  position: absolute; right: -4%; bottom: 0; width: 58%;
+  padding: 6% 7%;
+  border-color: var(--line); box-shadow: var(--elev-1);
+}
+.fb-head { display: flex; align-items: center; gap: 0.35rem; margin-bottom: 9%; }
+.fb-live { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+.fb-head span { font-family: var(--font-mono); font-size: 0.52rem; letter-spacing: 0.16em; color: var(--accent-deep); }
+.fb-bar { height: 6px; border-radius: 2px; background: var(--paper-2); margin-top: 6%; overflow: hidden; }
+.fb-bar i {
+  display: block; height: 100%; width: 100%; border-radius: 2px; background: var(--accent);
+  transform: scaleX(var(--w)); transform-origin: left center;
+}
+.fb-gauge {
+  position: absolute; right: 9%; top: 8%; width: 22%; aspect-ratio: 2 / 1;
+  border: 1px solid var(--line-strong); border-bottom: 0; border-radius: 999px 999px 0 0;
+  overflow: hidden;
+}
+.fb-needle {
+  position: absolute; left: 50%; bottom: 0; width: 1px; height: 82%;
+  background: var(--ink); transform-origin: 50% 100%; transform: rotate(40deg);
+}
+.fb-board.is-mirror .fb-gauge { display: none; }
+
+.fam-card.is-on .fb-cell.is-edit::after { animation: fbEdit 7s var(--ease-out) infinite; animation-delay: var(--fam-delay); }
+.fam-card.is-on .fb-token  { animation: fbToken 7s cubic-bezier(0.77, 0, 0.175, 1) infinite; animation-delay: var(--fam-delay); }
+.fam-card.is-on .fb-bar i  { animation: fbBar 7s var(--ease-out) infinite; animation-delay: calc(var(--fam-delay) + var(--i) * 70ms + var(--fb-extra, 0ms)); }
+.fam-card.is-on .fb-needle { animation: fbNeedle 7s var(--ease-out) infinite; animation-delay: var(--fam-delay); }
+.fam-card.is-on .fb-live   { animation: fbLive 7s var(--ease-out) infinite; animation-delay: calc(var(--fam-delay) + var(--fb-extra, 0ms)); }
+.fb-board.is-mirror { --fb-extra: 300ms; }
+
+@keyframes fbEdit  { 0%, 3% { opacity: 0; } 8% { opacity: 0.35; } 20%, 100% { opacity: 0; } }
+@keyframes fbToken {
+  0%, 18% { opacity: 0; transform: translateX(0); }
+  22%     { opacity: 1; transform: translateX(0); }
+  34%     { opacity: 1; transform: translateX(calc(2.2rem - 9px)); }
+  38%, 100% { opacity: 0; transform: translateX(calc(2.2rem - 9px)); }
+}
+@keyframes fbBar   { 0%, 36% { transform: scaleX(0.45); } 52%, 100% { transform: scaleX(var(--w)); } }
+@keyframes fbNeedle { 0%, 36% { transform: rotate(-60deg); } 54%, 100% { transform: rotate(40deg); } }
+@keyframes fbLive  {
+  0%, 38% { transform: scale(1); opacity: 1; }
+  44%     { transform: scale(1.35); opacity: 0.55; }
+  50%     { transform: scale(1); opacity: 1; }
+  56%     { transform: scale(1.35); opacity: 0.55; }
+  62%, 100% { transform: scale(1); opacity: 1; }
+}
+
+/* ---------- C · CAD · CAM · BIM: profile → toolpath → turned part ---------- */
+.fc-profile { flex: none; width: 34%; aspect-ratio: 1; overflow: visible; }
+.fc-profile .fc-axis, .fc-part .fc-axis { stroke: var(--line-strong); stroke-width: 1; stroke-dasharray: 3 3; }
+.fc-profile .fc-line { fill: none; stroke: var(--ink); stroke-width: 1.4; stroke-linejoin: round; }
+.fc-profile .fc-cut  { stroke: var(--accent); stroke-width: 3; stroke-linecap: round; opacity: 1; }   /* base still: all cut */
+.fc-profile .fc-tool { fill: var(--panel); stroke: var(--accent-deep); stroke-width: 1.2; transform: translate(41px, 66px); }
+.fc-part { flex: none; width: 34%; aspect-ratio: 1; overflow: visible; }
+.fc-part .fc-sil  { fill: var(--panel); stroke: var(--accent-deep); stroke-width: 1.4; stroke-linejoin: round; transform-box: fill-box; transform-origin: 50% 50%; }
+.fc-part .fc-ring { fill: none; stroke: var(--accent); stroke-width: 1; opacity: 1; }                 /* base still: turned */
+.fc-chips {
+  position: absolute; left: 0; right: 0; bottom: 0.7rem;
+  display: flex; justify-content: center; gap: 0.4rem;
+}
+.fc-chip {
+  font-family: var(--font-mono); font-size: 0.56rem; letter-spacing: 0.14em;
+  padding: 0.22rem 0.45rem; border: 1px solid var(--accent); border-radius: 2px;
+  color: var(--accent-deep); background: var(--panel); opacity: 1;          /* base still: lit */
+}
+
+.fam-card.is-on .fc-tool { animation: fcTool 8s linear infinite; animation-delay: var(--fam-delay); }
+.fam-card.is-on .fc-cut  { animation: fcCut 8s linear infinite; animation-delay: calc(var(--fam-delay) + var(--c) * 800ms); }
+.fam-card.is-on .fc-sil  { animation: fcSil 8s var(--ease-out) infinite; animation-delay: var(--fam-delay); }
+.fam-card.is-on .fc-ring { animation: fcRing 8s var(--ease-out) infinite; animation-delay: calc(var(--fam-delay) + var(--r) * 180ms); }
+.fam-card.is-on .fc-chip { animation: fcChip 8s var(--ease-out) infinite; animation-delay: calc(var(--fam-delay) + var(--c) * 260ms); }
+
+@keyframes fcTool {
+  0%, 4%  { transform: translate(51px, 11px); opacity: 0; }
+  6%      { transform: translate(51px, 11px); opacity: 1; }
+  15%     { transform: translate(51px, 36px); }
+  25%     { transform: translate(76px, 36px); }
+  35%     { transform: translate(76px, 66px); }
+  45%     { transform: translate(41px, 66px); opacity: 1; }
+  50%, 100% { transform: translate(41px, 66px); opacity: 0; }
+}
+@keyframes fcCut  { 0%, 14% { opacity: 0.15; } 16%, 94% { opacity: 1; } 100% { opacity: 0.15; } }
+@keyframes fcSil  { 0%, 48% { opacity: 0; transform: scale(0.94); } 58%, 94% { opacity: 1; transform: none; } 100% { opacity: 0; transform: scale(0.94); } }
+@keyframes fcRing { 0%, 58% { opacity: 0; } 66%, 94% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes fcChip { 0%, 74% { opacity: 0.35; } 78%, 94% { opacity: 1; } 100% { opacity: 0.35; } }
+
+/* ---------- responsive ---------- */
+@media (max-width: 1024px) {
+  .fam-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .fam-grid { grid-template-columns: 1fr; }
+  .fam-visual { aspect-ratio: 16 / 9; }
+}
+
+/* ---------- reduced motion: keep the stills, drop the loops ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .fam-card.is-on .fam-visual,
+  .fam-card.is-on .fam-visual * { animation: none !important; }
+}

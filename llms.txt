@@ -42,7 +42,7 @@
 5. Training and support - onboard the team
 
 ## Key Facts
-- Up to 85% reduction in production preparation time
+- Measured on delivered solutions: 240 -> 3 min from DXF drawing to lathe program, 480 -> 9 min per mould plate, 45 -> 3 min for Revit drawings and schedules
 - Active in 5+ countries
 - 100% custom-built solutions
 - Zero dependency on individual operators

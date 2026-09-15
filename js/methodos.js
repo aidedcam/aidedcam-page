@@ -8,7 +8,7 @@
   // ── I18N ──
   const COPY = {
     en: {
-      thesisHTML: 'Your company is a <strong>chain</strong> of steps. We look for the ones done <strong>by hand, on every job</strong>. Those we automate. The whole chain speeds up.',
+      thesisHTML: 'We look at your work <strong>up close and from a distance</strong>: which steps are done by hand on every order, and what they cost. That is where automation goes in. That is where the gain shows.',
       corner: 'How we look at your work',
       tabs: { system: 'System', workflow: 'Workflow', task: 'Task', result: 'Result' },
       lookLabel: 'What we look for',
@@ -34,7 +34,7 @@
       result: {
         k: '04 · The whole picture',
         t: 'The <strong>result</strong>',
-        d: 'We build the tool that does the task. The workflow gets shorter. The whole system moves faster, with the same people.',
+        d: 'We build the software that does the job. The workflow gets shorter and the company gets more done, with the same people.',
         r: 'Hours become <strong>minutes</strong>, errors <strong>disappear</strong>, and the know-how is built into the <strong>software</strong>, available to the whole team, not just to one expert.',
       },
       cols: ['Design', 'Preparation', 'Production'],
@@ -49,7 +49,7 @@
       resNote: 'One action instead of three steps',
     },
     el: {
-      thesisHTML: 'Η εταιρεία σας είναι μια <strong>αλυσίδα</strong> από βήματα. Ψάχνουμε αυτά που γίνονται <strong>με το χέρι, σε κάθε δουλειά</strong>. Αυτά αυτοματοποιούμε. Όλη η αλυσίδα επιταχύνεται.',
+      thesisHTML: 'Κοιτάμε τη δουλειά σας <strong>από κοντά και από μακριά</strong>: ποια βήματα γίνονται με το χέρι σε κάθε παραγγελία, και τι κοστίζουν. Εκεί μπαίνει ο αυτοματισμός. Εκεί φαίνεται το κέρδος.',
       corner: 'Πώς βλέπουμε τη δουλειά σας',
       tabs: { system: 'Σύστημα', workflow: 'Ροή', task: 'Εργασία', result: 'Αποτέλεσμα' },
       lookLabel: 'Τι ψάχνουμε',
@@ -75,7 +75,7 @@
       result: {
         k: '04 · Η συνολική εικόνα',
         t: 'Το <strong>αποτέλεσμα</strong>',
-        d: 'Φτιάχνουμε το εργαλείο που κάνει την εργασία. Η ροή γίνεται πιο σύντομη. Όλο το σύστημα κινείται πιο γρήγορα, με τους ίδιους ανθρώπους.',
+        d: 'Φτιάχνουμε το λογισμικό που κάνει τη δουλειά. Η ροή γίνεται πιο σύντομη και η εταιρεία βγάζει περισσότερο, με τους ίδιους ανθρώπους.',
         r: 'Οι ώρες γίνονται <strong>λεπτά</strong>, τα λάθη <strong>εξαφανίζονται</strong>, και η τεχνογνωσία ενσωματώνεται στο <strong>λογισμικό</strong>, διαθέσιμη σε όλη την ομάδα, όχι μόνο σε έναν ειδικό.',
       },
       cols: ['Σχεδιασμός', 'Προετοιμασία', 'Παραγωγή'],
@@ -90,7 +90,7 @@
       resNote: 'Μία ενέργεια αντί για τρία βήματα',
     },
     it: {
-      thesisHTML: 'La vostra azienda è una <strong>catena</strong> di passaggi. Cerchiamo quelli fatti <strong>a mano, su ogni lavoro</strong>. Quelli automatizziamo. Tutta la catena accelera.',
+      thesisHTML: 'Guardiamo il vostro lavoro <strong>da vicino e da lontano</strong>: quali passaggi si fanno a mano su ogni ordine, e quanto costano. Lì entra l’automazione. Lì si vede il guadagno.',
       corner: 'Come guardiamo il vostro lavoro',
       tabs: { system: 'Sistema', workflow: 'Flusso', task: 'Attività', result: 'Risultato' },
       lookLabel: 'Cosa cerchiamo',
@@ -116,7 +116,7 @@
       result: {
         k: '04 · Il quadro completo',
         t: 'Il <strong>risultato</strong>',
-        d: 'Costruiamo lo strumento che svolge l’attività. Il flusso si accorcia. Tutto il sistema va più veloce, con le stesse persone.',
+        d: 'Costruiamo il software che fa il lavoro. Il flusso si accorcia e l’azienda produce di più, con le stesse persone.',
         r: 'Le ore diventano <strong>minuti</strong>, gli errori <strong>spariscono</strong>, e il know-how è integrato nel <strong>software</strong>, a disposizione di tutto il team, non solo di un esperto.',
       },
       cols: ['Progettazione', 'Preparazione', 'Produzione'],

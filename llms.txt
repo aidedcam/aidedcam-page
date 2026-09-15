@@ -1,13 +1,20 @@
 # AidedCAM
 
-> Custom CAD/CAM/CNC/BIM automation software for manufacturing and engineering companies.
+> Software tailor-made to one company, with automation applied where time and money are lost.
+> Runs inside the CAD/CAM/BIM tools a company already uses, or as a standalone desktop, web or mobile app.
 > Autodesk Authorized Developer. Based in Greece (Athens, Thessaloniki).
-> Serves companies in Greece, Belgium, Switzerland, Austria, Germany.
+> Serves companies in Greece, Italy, Belgium, Switzerland, Austria, Germany.
 
-## Services
-- Single Project: Automation of one specific CAD/CAM task or workflow
-- Whole Workflow: End-to-end production workflow automation (from design to manufacturing)
-- Workflow + Continuous Support: Full automation with ongoing monitoring, improvements, and bug fixes
+## What we build
+- Custom applications for one specific job (e.g. a tool that designs parts and generates G-code, a project-management app, a production-tracking app), with the automations that job needs built in
+- Add-ins inside CAD/CAM/BIM software (new buttons that run a company's own workflow)
+- Standalone desktop, web and mobile apps that share data, e.g. shop-floor stage logging with a live view in the office and on the phone
+
+## Engagement tiers
+- Light: one software solution, complete
+- Advanced: several software solutions, independent of each other, added in the order needed
+- Pro: several solutions sharing data and reachable from many points (desktop, web, phone)
+- Same services in every tier: requirements analysis, development, testing, installation, training, bug fixes, new features, support, unlimited users, one flat monthly price
 
 ## Supported Software (8 CAD / CAM / BIM systems)
 - Autodesk PowerShape (CAD)
@@ -23,7 +30,7 @@
 
 ## Process
 1. Workflow analysis - map every production step
-2. Solution design - decide what to automate and how
+2. Solution design - decide what the solution must do and where automation pays off
 3. Tool development - build custom software
 4. Integration and testing - install and fine-tune
 5. Training and support - onboard the team

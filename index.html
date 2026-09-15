@@ -581,6 +581,49 @@
       gap: 2.5rem;
     }
 
+    /* ===== THE BIG PICTURE (#megali-eikona) — today vs. with a software partner ===== */
+    .big-section .section-header.center h2 strong { display: block; }
+    .big-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; max-width: 1040px; margin: 0 auto; }
+    .benefit-card.big-panel { padding-top: 0; }
+    .benefit-card.big-panel::after { content: none; }
+    .benefit-card.big-with { border-color: var(--accent); }
+    .big-visual {
+      position: relative; height: 120px; margin: 0 -2.4rem 1.4rem;
+      background: var(--paper-2); border-bottom: 1px solid var(--line);
+      display: flex; align-items: center; justify-content: center; gap: 6%; padding: 0 9%;
+      overflow: hidden;
+    }
+    .big-visual, .big-visual * { box-sizing: border-box; }
+    .bg-search { position: absolute; top: 14px; left: 9%; right: 9%; height: 22px; border: 1px solid var(--line-strong); border-radius: 999px; background: var(--panel); }
+    .bg-search i { position: absolute; left: 9px; top: 6px; width: 8px; height: 8px; border: 1.5px solid var(--muted); border-radius: 50%; }
+    .bg-search i::after { content: ""; position: absolute; left: 7px; top: 7px; width: 5px; height: 1.5px; background: var(--muted); transform: rotate(45deg); }
+    .bg-search b { position: absolute; left: 26px; top: 9px; width: 42%; height: 3px; border-radius: 1px; background: var(--line-strong); }
+    .bg-apps { position: absolute; left: 9%; right: 9%; top: 50px; display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; }
+    .bg-apps i { aspect-ratio: 1; border-radius: 3px; background: var(--panel); border: 1px solid var(--line-strong); opacity: 0.55; }
+    .bg-apps i:nth-child(3n) { opacity: 0.35; }
+    .bg-need { flex: 1 1 0; display: flex; flex-direction: column; gap: 6px; }
+    .bg-need b { display: block; height: 6px; border-radius: 2px; background: var(--line-strong); }
+    .bg-need b:last-child { width: 62%; }
+    .bg-tool {
+      flex: 1 1 0; display: flex; align-items: center; gap: 8%;
+      padding: 12px 10%; border-radius: 2px; background: var(--panel); border: 1px solid var(--accent);
+    }
+    .bg-tool svg { flex: none; width: 14px; height: 16px; }
+    .bg-tool svg path { fill: var(--accent); }
+    .bg-tool b { flex: 1 1 0; height: 6px; border-radius: 2px; background: var(--accent); }
+    .big-label {
+      font-family: var(--font-mono); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 0.7rem;
+    }
+    .big-with .big-label { color: var(--accent-deep); }
+    .benefit-card.big-panel p { font-size: 1rem; color: var(--ink-soft); line-height: 1.65; }
+    .big-closer {
+      text-align: center; max-width: 640px; margin: clamp(2rem, 4vw, 2.8rem) auto 0;
+      font-size: clamp(1.05rem, 1.4vw, 1.25rem); line-height: 1.55; color: var(--ink-soft);
+      padding-top: 1.4rem; border-top: 1px solid var(--line);
+    }
+    .big-closer strong { color: var(--accent-deep); font-weight: 600; }
+
     /* ===== BUILT FOR REAL (#lyseis) — four anonymised solutions ===== */
     .built-section .section-header.center h2 strong { display: block; }
     .built-grid {
@@ -1038,7 +1081,7 @@
     @media (max-width: 768px) {
       .hero { min-height: 500px; }
 
-      .benefits-grid, .built-grid, .why-grid, .contact-grid { grid-template-columns: 1fr; }
+      .benefits-grid, .built-grid, .big-grid, .why-grid, .contact-grid { grid-template-columns: 1fr; }
       .tools-grid { grid-template-columns: 1fr; }
 
       .quote-block { padding: 2rem 1.5rem; }
@@ -1137,7 +1180,7 @@
       <p class="subtitle" data-i18n="hero.subtitle">Ξεκινάμε από τη δική σας ανάγκη, όχι από ένα έτοιμο προϊόν. Άλλοτε είναι ένα κουμπί που κάνει δέκα βήματα, άλλοτε το Excel που γίνεται ζωντανή εικόνα, άλλοτε ένα εργαλείο CAD/CAM που δεν υπάρχει στην αγορά. Μέσα στα προγράμματα που ήδη χρησιμοποιείτε, ή ως δική σας εφαρμογή.</p>
       <div class="hero-ctas">
         <a href="#contact" class="btn-primary" data-i18n="hero.cta">Επικοινωνήστε Μαζί Μας</a>
-        <a href="#ti-kanoume" class="btn-secondary" data-i18n="hero.learn_more">Μάθετε Περισσότερα</a>
+        <a href="#megali-eikona" class="btn-secondary" data-i18n="hero.learn_more">Μάθετε Περισσότερα</a>
       </div>
       <p class="hero-proof" data-i18n-html="hero.proof"><span>Έργα σε <b>5+ χώρες</b></span><span><b>8</b> συστήματα CAD/CAM/BIM</span><span>Απάντηση <b>εντός 48 ωρών</b></span></p>
     </div>
@@ -1157,6 +1200,38 @@
         <span data-system="SiemensNX"><img src="icons/SiemensNX.png" alt="Siemens NX" class="integration-icon" width="20" height="20">Siemens NX</span>
         <a href="#contact" class="integration-ask" data-i18n="hero.ask">Κάτι άλλο; Ρωτήστε μας</a>
       </div>
+    </div>
+  </section>
+
+  <!-- Η ΜΕΓΑΛΗ ΕΙΚΟΝΑ — the insight: companies know they will need an accountant and a lawyer;
+       almost none know they can have a software team for their own needs, so they search for
+       random apps. Not in the nav on purpose (the nav is at its width limit). -->
+  <section id="megali-eikona" class="big-section">
+    <div class="container">
+      <div class="section-header center fade-in">
+        <div class="section-label" data-i18n="big.label">Η μεγάλη εικόνα</div>
+        <h2 data-i18n-html="big.title">Κάθε εταιρεία έχει ανάγκες που λύνονται με λογισμικό. <strong>Λίγες ξέρουν ότι μπορεί να είναι δικό τους.</strong></h2>
+      </div>
+      <div class="big-grid">
+        <div class="benefit-card big-panel big-now fade-in fade-in-delay-1" data-num="—">
+          <div class="big-visual" aria-hidden="true">
+            <div class="bg-search"><i></i><b></b></div>
+            <div class="bg-apps"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          </div>
+          <div class="big-label" data-i18n="big.now_label">Σήμερα</div>
+          <p data-i18n="big.now_text">Όταν προκύπτει μια ανάγκη, μια κοστολόγηση που αργεί, ένα Excel που το ξέρει μόνο ένας, μια δουλειά που γίνεται με το χέρι, η αναζήτηση ξεκινά στο ίντερνετ: έτοιμες εφαρμογές, φτιαγμένες για όλους, που καλύπτουν το μισό και το υπόλοιπο το προσαρμόζετε εσείς.</p>
+        </div>
+        <div class="benefit-card big-panel big-with fade-in fade-in-delay-2" data-num="—">
+          <div class="big-visual" aria-hidden="true">
+            <div class="bg-need"><b></b><b></b></div>
+            <i class="fam-arrow"></i>
+            <div class="bg-tool"><svg viewBox="191.91 207.44 88.97 106.42" focusable="false"><path d="M191.91 215.00 L191.91 306.30 C191.91 310.98 197.02 313.86 201.03 311.45 L276.99 265.81 C280.88 263.47 280.88 257.83 276.99 255.49 L201.03 209.85 C197.02 207.44 191.91 210.32 191.91 215.00 Z"/></svg><b></b></div>
+          </div>
+          <div class="big-label" data-i18n="big.with_label">Με έναν συνεργάτη λογισμικού</div>
+          <p data-i18n="big.with_text">Όπως έχετε λογιστή και δικηγόρο για ό,τι προκύψει, μπορείτε να έχετε και μια ομάδα λογισμικού. Μας λέτε την ανάγκη. Φτιάχνουμε το εργαλείο που τη λύνει, στα μέτρα σας, και το κρατάμε ζωντανό καθώς η εταιρεία αλλάζει.</p>
+        </div>
+      </div>
+      <p class="big-closer fade-in" data-i18n-html="big.closer">Δεν ψάχνετε πια εφαρμογή. <strong>Έχετε κάποιον που τη φτιάχνει.</strong></p>
     </div>
   </section>
 
@@ -1774,6 +1849,14 @@
         'hero.supported': 'Υποστηριζόμενα συστήματα',
         'hero.ask': 'Κάτι άλλο; Ρωτήστε μας',
 
+        // The big picture
+        'big.label': 'Η μεγάλη εικόνα',
+        'big.title': 'Κάθε εταιρεία έχει ανάγκες που λύνονται με λογισμικό. <strong>Λίγες ξέρουν ότι μπορεί να είναι δικό τους.</strong>',
+        'big.now_label': 'Σήμερα',
+        'big.now_text': 'Όταν προκύπτει μια ανάγκη, μια κοστολόγηση που αργεί, ένα Excel που το ξέρει μόνο ένας, μια δουλειά που γίνεται με το χέρι, η αναζήτηση ξεκινά στο ίντερνετ: έτοιμες εφαρμογές, φτιαγμένες για όλους, που καλύπτουν το μισό και το υπόλοιπο το προσαρμόζετε εσείς.',
+        'big.with_label': 'Με έναν συνεργάτη λογισμικού',
+        'big.with_text': 'Όπως έχετε λογιστή και δικηγόρο για ό,τι προκύψει, μπορείτε να έχετε και μια ομάδα λογισμικού. Μας λέτε την ανάγκη. Φτιάχνουμε το εργαλείο που τη λύνει, στα μέτρα σας, και το κρατάμε ζωντανό καθώς η εταιρεία αλλάζει.',
+        'big.closer': 'Δεν ψάχνετε πια εφαρμογή. <strong>Έχετε κάποιον που τη φτιάχνει.</strong>',
         // What we build — the three families
         'fam.label': 'Τι Φτιάχνουμε',
         'fam.title': 'Μας δείχνετε τη δουλειά. <strong>Φτιάχνουμε το λογισμικό που την κάνει.</strong>',
@@ -1940,6 +2023,14 @@
         'hero.supported': 'Supported systems',
         'hero.ask': 'Something else? Ask us',
 
+        // The big picture
+        'big.label': 'The big picture',
+        'big.title': 'Every company has needs that software can solve. <strong>Few know it can be their own.</strong>',
+        'big.now_label': 'Today',
+        'big.now_text': 'When a need appears, an estimate that takes too long, a spreadsheet only one person understands, a job done by hand, the search starts on the internet: ready-made apps, built for everyone, that cover half of it and leave you to adapt to the rest.',
+        'big.with_label': 'With a software partner',
+        'big.with_text': 'Just as you have an accountant and a lawyer for whatever comes up, you can have a software team. You tell us the need. We build the tool that solves it, made to fit, and we keep it alive as the company changes.',
+        'big.closer': 'You no longer search for an app. <strong>You have someone who builds it.</strong>',
         // What we build — the three families
         'fam.label': 'What We Build',
         'fam.title': 'You show us the job. <strong>We build the software that does it.</strong>',
@@ -2106,6 +2197,14 @@
         'hero.supported': 'Sistemi supportati',
         'hero.ask': 'Qualcos’altro? Chiedeteci',
 
+        // The big picture
+        'big.label': 'Il quadro d’insieme',
+        'big.title': 'Ogni azienda ha esigenze che il software può risolvere. <strong>Poche sanno che può essere il proprio.</strong>',
+        'big.now_label': 'Oggi',
+        'big.now_text': 'Quando nasce un’esigenza, un preventivo che tarda, un foglio Excel che conosce solo una persona, un lavoro fatto a mano, la ricerca parte su internet: applicazioni pronte, fatte per tutti, che coprono metà del bisogno e lasciano a voi il resto.',
+        'big.with_label': 'Con un partner software',
+        'big.with_text': 'Come avete un commercialista e un avvocato per quello che capita, potete avere anche un team software. Ci dite l’esigenza. Costruiamo lo strumento che la risolve, su misura, e lo teniamo vivo mentre l’azienda cambia.',
+        'big.closer': 'Non cercate più un’applicazione. <strong>Avete chi la costruisce.</strong>',
         // What we build — the three families
         'fam.label': 'Cosa Costruiamo',
         'fam.title': 'Ci mostrate il lavoro. <strong>Costruiamo il software che lo fa.</strong>',

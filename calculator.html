@@ -30,8 +30,8 @@
     }
     if (localStorage.getItem('privacy-pref') === 'accepted') { loadGA(); }
   </script>
-  <link rel="stylesheet" href="fonts.css?v=20260902" />
-  <link rel="stylesheet" href="css/editorial.css?v=20260902" />
+  <link rel="stylesheet" href="fonts.css?v=20260916" />
+  <link rel="stylesheet" href="css/editorial.css?v=20260916" />
   <noscript><style>.fade-in { opacity: 1 !important; transform: none !important; }</style></noscript>
   <style>
     /* ===== Tokens, base, navbar, lang-switcher, consent banner, scroll-progress,
@@ -552,10 +552,6 @@
       display: flex; justify-content: space-between; align-items: center;
       max-width: 800px; margin: 0 auto; flex-wrap: wrap; gap: 0.5rem;
     }
-    .calc-footer .tag {
-      font-family: var(--font-mono); font-size: 0.72rem; font-weight: 400;
-      letter-spacing: 0.06em; color: var(--muted);
-    }
     .calc-footer .brand {
       font-family: var(--font-display); font-size: 1rem;
       font-weight: 700; color: var(--ink); letter-spacing: 0.14em;
@@ -882,11 +878,10 @@
     </section>
 
     <!-- PRINT FOOTER (visible only in print) -->
-    <div class="print-footer">www.aidedcam.com &mdash; Made by engineers, for engineers</div>
+    <div class="print-footer">www.aidedcam.com</div>
 
     <!-- FOOTER -->
     <div class="calc-footer">
-      <div class="tag">Made by engineers, for engineers</div>
       <div class="brand">AIDEDCAM</div>
       <div class="calc-footer-legal">
         <a href="privacy.html" data-i18n="footer.privacy">Απόρρητο</a>

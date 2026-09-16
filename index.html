@@ -252,9 +252,9 @@
     }
     if (localStorage.getItem('privacy-pref') === 'accepted') { loadGA(); }
   </script>
-  <link rel="stylesheet" href="fonts.css?v=20260902" />
-  <link rel="stylesheet" href="css/editorial.css?v=20260902" />
-  <link rel="stylesheet" href="css/methodos.css?v=20260902" />
+  <link rel="stylesheet" href="fonts.css?v=20260916" />
+  <link rel="stylesheet" href="css/editorial.css?v=20260916" />
+  <link rel="stylesheet" href="css/methodos.css?v=20260916" />
   <link rel="stylesheet" href="css/families.css?v=20260915" />
   <noscript><style>.fade-in { opacity: 1 !important; transform: none !important; }</style></noscript>
   <style>
@@ -284,22 +284,6 @@
       padding: 0 clamp(1.25rem, 5vw, 4rem);
     }
 
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.55rem;
-      padding: 0.4rem 0.95rem;
-      background: transparent;
-      border: 1px solid var(--line-strong);
-      border-radius: 2px;
-      color: var(--muted);
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      font-weight: 500;
-      margin-bottom: 2rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-    }
     .hero-proof {
       display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem 1.6rem;
       margin: 1.8rem auto 0; max-width: 720px;
@@ -309,12 +293,6 @@
     .hero-proof b { color: var(--ink); font-weight: 700; }
     .hero-proof span { display: inline-flex; align-items: center; gap: 0.5rem; }
     .hero-proof span + span::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--accent); }
-    .hero-badge::before {
-      content: '';
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--accent);
-    }
-
     /* ===== HERO WORDMARK DRUM =====
        The AIDEDCAM logotype with the suffix rolling CAM > CAD > CNC > BIM > CAM
        on an iPhone-picker cylinder, looping for as long as the hero is on screen.
@@ -339,8 +317,6 @@
       --wd-bleed: 0.17em;     /* slack so the 3D edges are never sliced */
       --wd-pad:   0.2015em;   /* puts the MAGNIFIED left edge exactly at --wd-bleed */
 
-      /* Block-level, not inline-flex: .hero-badge above it is inline-flex, and two
-         inline-level boxes would share a line. */
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1172,7 +1148,6 @@
   <!-- HERO -->
   <section class="hero">
     <div class="hero-content">
-      <div class="hero-badge">Made by engineers, for engineers</div>
       <!-- role="img" with aria-hidden children, so assistive tech announces one
            wordmark instead of five loose acronyms. The words are product names
            and are identical in el/en/it, so they carry no data-i18n. -->

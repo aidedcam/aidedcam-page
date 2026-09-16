@@ -47,7 +47,7 @@
 }
 .method-scene::before {
   content: attr(data-corner); position: absolute; top: 0.85rem; left: 1rem; z-index: 5;
-  font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.16em;
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.16em;
   text-transform: uppercase; color: var(--faint);
 }
 /* step dots, top-right: which of the four views is on */
@@ -73,12 +73,12 @@
 
 /* shared bits */
 .mtag {
-  font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 9px;
+  font-family: var(--font-mono); font-weight: 500; font-size: 9px;
   letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted);
 }
 .mnote {
   position: absolute; left: 50%; bottom: clamp(0.9rem, 2.2vw, 1.4rem); transform: translateX(-50%);
-  font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em;
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em;
   text-transform: uppercase; color: var(--green-deep); white-space: nowrap;
   display: inline-flex; align-items: center; gap: 0.5rem;
 }
@@ -117,7 +117,7 @@
   padding: 0.7rem 0.35rem 0.6rem; text-align: center; position: relative;
 }
 .mw-cell .mtag { display: block; font-size: 8px; letter-spacing: 0.1em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.mw-cell b { display: block; font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--faint); margin-bottom: 0.4rem; }
+.mw-cell b { display: block; font-family: var(--font-mono); font-size: 9px; color: var(--faint); margin-bottom: 0.4rem; }
 .mw-cell.rep::after { /* repeat glyph on the manual, repeated steps */
   content: "\21bb"; position: absolute; top: 5px; right: 6px; font-size: 10px; color: var(--green-soft); line-height: 1;
 }
@@ -160,11 +160,11 @@
 }
 .mt-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 0.7rem; }
 .mt-head .mtag { color: var(--green-deep); font-size: 10px; }
-.mt-count { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; }
+.mt-count { font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; }
 .mt-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem; }
 .mt-steps li {
   display: flex; align-items: center; gap: 0.6rem;
-  font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.06em; color: var(--muted);
+  font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.06em; color: var(--muted);
   padding: 0.35rem 0.5rem; border: 1px solid var(--line, #dcdacf); border-radius: 2px; background: var(--paper, #f4f3ee);
   transition: border-color 0.25s, color 0.25s, background 0.25s;
 }
@@ -174,7 +174,7 @@
 }
 .mt-steps li.done { color: var(--ink); border-color: var(--line-strong, #c2bfb1); background: #fff; }
 .mt-steps li.done::before { background: var(--green); border-color: var(--green); }
-.mt-foot { margin-top: 0.75rem; font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--faint); }
+.mt-foot { margin-top: 0.75rem; font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--faint); }
 
 /* ── View 4: RESULT — the same chain, three steps become one green action ── */
 .mw-cell.auto {
@@ -206,19 +206,19 @@
 }
 .m-tab {
   border: 0; background: transparent; cursor: pointer;
-  font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase;
+  font-family: var(--font-mono); font-weight: 500; font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase;
   color: var(--muted); padding: 0.45rem 0.9rem; border-radius: 1px; transition: color 0.25s ease, background 0.25s ease;
 }
 .m-tab:hover { color: var(--ink); }
 .m-tab.on { background: var(--ink); color: #fff; }
 .m-tab.on.is-result { background: var(--green-deep); }
 
-.m-kicker { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--green-deep); font-weight: 500; margin-bottom: 12px; }
+.m-kicker { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--green-deep); font-weight: 500; margin-bottom: 12px; }
 .m-title { font-weight: 500; font-size: clamp(30px, 3.4vw, 46px); line-height: 1.05; letter-spacing: -0.03em; color: var(--ink); margin: 0 0 14px; }
 .m-title strong { font-weight: 600; color: var(--green-deep); }
 .m-defn { font-size: clamp(16px, 1.15vw, 18px); line-height: 1.55; color: var(--muted); margin: 0 0 20px; max-width: 460px; text-wrap: pretty; }
 .reveals { border-top: 1px solid var(--line, #dcdacf); padding-top: 16px; max-width: 460px; }
-.reveals-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--faint); margin-bottom: 8px; }
+.reveals-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--faint); margin-bottom: 8px; }
 .m-reveals { margin: 0; font-size: clamp(14px, 1vw, 16px); line-height: 1.55; color: var(--muted); text-wrap: pretty; }
 .m-reveals strong { color: var(--ink); font-weight: 600; }
 /* copy swap: a soft rise when the layer changes */

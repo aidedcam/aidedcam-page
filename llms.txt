@@ -11,9 +11,9 @@
 - Special CAD/CAM/BIM solutions: add-ins inside PowerMill, PowerShape, Revit and other systems, or standalone design and machine-programming applications
 
 ## Built so far (anonymised)
-- Lathe machine shop, Greece: a standalone CAD/CAM application, from DXF drawing to Fanuc G-code in six steps (240 min -> 3 min from drawing to program)
-- Mould making, Greece: automation inside PowerShape and PowerMill, routing plan per phase, cooling/screw/plate holes with one button (480 min -> 9 min per mould plate)
-- Industrial equipment, BIM department, Belgium: forty Revit commands in one ribbon tab, sheet export to PDF/DWG/DWFX/IFC in one run (45 min -> 3 min for drawings and schedules)
+- Lathe machine shop, Greece: a standalone CAD/CAM application, from DXF drawing to Fanuc G-code in six steps (2 days -> 12 min of design and programming)
+- Mould making, Greece: automation inside PowerShape and PowerMill, routing plan per phase, cooling/screw/plate holes with one button (4 days -> 26 min per mould plate)
+- Industrial equipment, BIM department, Belgium: forty Revit commands in one ribbon tab, sheet export to PDF/DWG/DWFX/IFC in one run (1 day -> 11 min for drawings and schedules)
 - Structural engineering office, Greece: estimation, Gantt schedule, workload and time tracking on one shared database, replacing dozens of Excel files
 
 ## Engagement tiers
@@ -42,7 +42,7 @@
 5. Training and support - onboard the team
 
 ## Key Facts
-- Measured on delivered solutions: 240 -> 3 min from DXF drawing to lathe program, 480 -> 9 min per mould plate, 45 -> 3 min for Revit drawings and schedules
+- Measured on delivered solutions: 2 days -> 12 min from DXF drawing to lathe program, 4 days -> 26 min per mould plate, 1 day -> 11 min for Revit drawings and schedules
 - Active in 5+ countries
 - 100% custom-built solutions
 - Zero dependency on individual operators

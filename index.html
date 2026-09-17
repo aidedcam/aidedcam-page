@@ -256,7 +256,10 @@
   <link rel="stylesheet" href="css/editorial.css?v=20260916b" />
   <link rel="stylesheet" href="css/methodos.css?v=20260916" />
   <link rel="stylesheet" href="css/families.css?v=20260915" />
-  <noscript><style>.fade-in { opacity: 1 !important; transform: none !important; }</style></noscript>
+  <noscript><style>.fade-in { opacity: 1 !important; transform: none !important; }
+    .built-timer { display: none; }
+    .built-sr { position: static; width: auto; height: auto; margin: 1.3rem 0 0; padding-top: 1.1rem; overflow: visible;
+      clip: auto; clip-path: none; white-space: normal; border-top: 1px solid var(--line); font-size: 0.95rem; color: var(--muted); }</style></noscript>
   <style>
     /* ===== Tokens, base, nav, lang-switcher, consent banner, scroll-progress,
        back-to-top and fade-in now live in css/editorial.css ===== */
@@ -669,8 +672,46 @@
       text-transform: uppercase; color: var(--accent-deep); padding: 0.5rem 0.7rem;
     }
     .built-where { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); }
-    .built-card .built-outcome { margin-top: 1.3rem; padding-top: 1.1rem; border-top: 1px solid var(--line); font-size: 0.95rem; color: var(--muted); }
+    /* The before/after timer that replaced the written "2 days -> 12 min" line.
+       Two tracks share one scale: the "before" bar is the whole duration, the
+       "after" bar is the same job at its new length (floored at 3% so a 1%
+       result still reads as a sliver rather than nothing). The after value
+       spins down from the before value when the card comes into view. */
+    .built-timer { margin-top: 1.3rem; padding-top: 1.1rem; border-top: 1px solid var(--line); }
+    .bt-row { display: grid; grid-template-columns: 3.2rem 1fr auto; align-items: center; gap: 0.7rem; }
+    .bt-row + .bt-row { margin-top: 0.55rem; }
+    .bt-label {
+      font-family: var(--font-mono); font-size: 0.6rem; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint);
+    }
+    .bt-track {
+      position: relative; height: 6px; border-radius: 1px; overflow: hidden;
+      background: var(--paper-2); border: 1px solid var(--line);
+    }
+    .bt-fill {
+      position: absolute; top: 0; bottom: 0; left: 0; width: 0;
+      background: var(--line-strong); transition: width 0.9s var(--ease-out);
+    }
+    .bt-row.is-after .bt-fill { background: var(--accent); transition-delay: 0.22s; }
+    .bt-val {
+      font-size: 0.95rem; font-weight: 600; color: var(--muted);
+      font-variant-numeric: tabular-nums; white-space: nowrap; text-align: right;
+    }
+    .bt-row.is-after .bt-val { color: var(--accent-deep); }
+    .built-timer:not(.is-static) .bt-val { min-width: 5.4rem; }
+    .bt-caption { margin: 0.8rem 0 0; font-size: 0.93rem; color: var(--muted); line-height: 1.55; }
+    /* The written claim stays in the markup for screen readers and for a
+       no-JS visitor (see the <noscript> rule), it is just no longer the visual. */
+    .built-sr {
+      position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+      overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0;
+    }
     .built-outcome b { color: var(--accent-deep); font-weight: 600; }
+    @media (max-width: 420px) {
+      .bt-row { grid-template-columns: 2.9rem 1fr auto; gap: 0.5rem; }
+      .bt-val { font-size: 0.88rem; }
+      .built-timer:not(.is-static) .bt-val { min-width: 4.8rem; }
+    }
     /* the rail under the cards: one → several → connected (lights on reveal) */
     .built-path { display: flex; align-items: center; justify-content: center; max-width: 720px; margin: clamp(2.5rem, 5vw, 3.5rem) auto 0; }
     .bp-step {
@@ -1349,7 +1390,12 @@
             <div class="built-foot">
               <div class="tool-chips"><span class="tool-chip tool-chip-text" data-i18n="built.chip_own">Αυτόνομη εφαρμογή</span></div>
             </div>
-            <p class="built-outcome" data-i18n-html="built.s1_outcome"><b>2 μέρες → 12 λεπτά</b> σχεδιασμός και προγραμματισμός</p>
+            <div class="built-timer" data-from="960" data-to="12" aria-hidden="true">
+              <div class="bt-row"><span class="bt-label" data-i18n="built.before">Πριν</span><span class="bt-track"><i class="bt-fill"></i></span><span class="bt-val bt-from">2 μέρες</span></div>
+              <div class="bt-row is-after"><span class="bt-label" data-i18n="built.after">Μετά</span><span class="bt-track"><i class="bt-fill"></i></span><span class="bt-val bt-to">12 λεπτά</span></div>
+              <p class="bt-caption" data-i18n="built.s1_for">σχεδιασμός και προγραμματισμός</p>
+            </div>
+            <p class="built-outcome built-sr" data-i18n-html="built.s1_outcome"><b>2 μέρες → 12 λεπτά</b> σχεδιασμός και προγραμματισμός</p>
           </div>
         </article>
         <article class="benefit-card built-card fade-in fade-in-delay-2" data-num="02" data-fam="auto">
@@ -1372,7 +1418,12 @@
             <div class="built-foot">
               <div class="tool-chips"><span class="tool-chip"><img src="icons/PowerShape.png" alt="" aria-hidden="true" width="20" height="20" loading="lazy">PowerShape</span><span class="tool-chip"><img src="icons/PowerMill.png" alt="" aria-hidden="true" width="20" height="20" loading="lazy">PowerMill</span><span class="tool-chip"><img src="icons/SiemensNX.png" alt="" aria-hidden="true" width="20" height="20" loading="lazy">Siemens NX</span></div>
             </div>
-            <p class="built-outcome" data-i18n-html="built.s2_outcome"><b>4 μέρες → 26 λεπτά</b> για τον προγραμματισμό μιας πλάκας</p>
+            <div class="built-timer" data-from="1920" data-to="26" aria-hidden="true">
+              <div class="bt-row"><span class="bt-label" data-i18n="built.before">Πριν</span><span class="bt-track"><i class="bt-fill"></i></span><span class="bt-val bt-from">4 μέρες</span></div>
+              <div class="bt-row is-after"><span class="bt-label" data-i18n="built.after">Μετά</span><span class="bt-track"><i class="bt-fill"></i></span><span class="bt-val bt-to">26 λεπτά</span></div>
+              <p class="bt-caption" data-i18n="built.s2_for">για τον προγραμματισμό μιας πλάκας</p>
+            </div>
+            <p class="built-outcome built-sr" data-i18n-html="built.s2_outcome"><b>4 μέρες → 26 λεπτά</b> για τον προγραμματισμό μιας πλάκας</p>
           </div>
         </article>
         <article class="benefit-card built-card fade-in fade-in-delay-3" data-num="03" data-fam="bim">
@@ -1395,7 +1446,12 @@
             <div class="built-foot">
               <div class="tool-chips"><span class="tool-chip"><img src="icons/Revit.png" alt="" aria-hidden="true" width="20" height="20" loading="lazy">Revit</span><span class="tool-chip"><img src="icons/AutoCAD.png" alt="" aria-hidden="true" width="20" height="20" loading="lazy">AutoCAD</span></div>
             </div>
-            <p class="built-outcome" data-i18n-html="built.s3_outcome"><b>1 μέρα → 11 λεπτά</b> για σχέδια και πίνακες από το μοντέλο</p>
+            <div class="built-timer" data-from="480" data-to="11" aria-hidden="true">
+              <div class="bt-row"><span class="bt-label" data-i18n="built.before">Πριν</span><span class="bt-track"><i class="bt-fill"></i></span><span class="bt-val bt-from">1 μέρα</span></div>
+              <div class="bt-row is-after"><span class="bt-label" data-i18n="built.after">Μετά</span><span class="bt-track"><i class="bt-fill"></i></span><span class="bt-val bt-to">11 λεπτά</span></div>
+              <p class="bt-caption" data-i18n="built.s3_for">για σχέδια και πίνακες από το μοντέλο</p>
+            </div>
+            <p class="built-outcome built-sr" data-i18n-html="built.s3_outcome"><b>1 μέρα → 11 λεπτά</b> για σχέδια και πίνακες από το μοντέλο</p>
           </div>
         </article>
         <article class="benefit-card built-card fade-in fade-in-delay-4" data-num="04" data-fam="live">
@@ -1417,7 +1473,12 @@
             <div class="built-foot">
               <div class="tool-chips"><span class="tool-chip tool-chip-text" data-i18n="built.chip_own">Αυτόνομη εφαρμογή</span></div>
             </div>
-            <p class="built-outcome" data-i18n-html="built.s4_outcome"><b>Μία κοινή πηγή</b> αντί για δεκάδες αρχεία Excel</p>
+            <div class="built-timer is-static" data-ratio="0.06" aria-hidden="true">
+              <div class="bt-row"><span class="bt-label" data-i18n="built.before">Πριν</span><span class="bt-track"><i class="bt-fill"></i></span><span class="bt-val bt-from" data-i18n="built.s4_before">Δεκάδες αρχεία Excel</span></div>
+              <div class="bt-row is-after"><span class="bt-label" data-i18n="built.after">Μετά</span><span class="bt-track"><i class="bt-fill"></i></span><span class="bt-val bt-to" data-i18n="built.s4_after">Μία κοινή πηγή</span></div>
+              <p class="bt-caption" data-i18n="built.s4_for">κοστολόγηση, χρονοδιάγραμμα και ώρες</p>
+            </div>
+            <p class="built-outcome built-sr" data-i18n-html="built.s4_outcome"><b>Μία κοινή πηγή</b> αντί για δεκάδες αρχεία Excel</p>
           </div>
         </article>
       </div>
@@ -1876,6 +1937,20 @@
         'built.s4_f2': 'Χρονοδιάγραμμα Gantt και φόρτος ανά άτομο σε όλα τα έργα',
         'built.s4_f3': 'Καταγραφή ωρών από όλους, χωρίς να χάνεται η αλλαγή κανενός',
         'built.s4_outcome': '<b>Μία κοινή πηγή</b> αντί για δεκάδες αρχεία Excel',
+        'built.before': 'Πριν',
+        'built.after': 'Μετά',
+        'built.s1_for': 'σχεδιασμός και προγραμματισμός',
+        'built.s2_for': 'για τον προγραμματισμό μιας πλάκας',
+        'built.s3_for': 'για σχέδια και πίνακες από το μοντέλο',
+        'built.s4_for': 'κοστολόγηση, χρονοδιάγραμμα και ώρες',
+        'built.s4_before': 'Δεκάδες αρχεία Excel',
+        'built.s4_after': 'Μία κοινή πηγή',
+        'unit.day': 'μέρα',
+        'unit.days': 'μέρες',
+        'unit.hour': 'ώρα',
+        'unit.hours': 'ώρες',
+        'unit.min_one': 'λεπτό',
+        'unit.min': 'λεπτά',
         'built.path_1': 'Μία λύση',
         'built.path_2': 'Περισσότερες, ανεξάρτητες',
         'built.path_3': 'Συνδεδεμένες μεταξύ τους',
@@ -2056,6 +2131,20 @@
         'built.s4_f2': 'Gantt schedule and per-person workload across all projects',
         'built.s4_f3': 'Hours logged by everyone, and nobody’s change gets lost',
         'built.s4_outcome': '<b>One shared source</b> instead of dozens of Excel files',
+        'built.before': 'Before',
+        'built.after': 'After',
+        'built.s1_for': 'of design and programming',
+        'built.s2_for': 'to program a mould plate',
+        'built.s3_for': 'for drawings and schedules from the model',
+        'built.s4_for': 'costing, schedule and hours',
+        'built.s4_before': 'Dozens of Excel files',
+        'built.s4_after': 'One shared source',
+        'unit.day': 'day',
+        'unit.days': 'days',
+        'unit.hour': 'hour',
+        'unit.hours': 'hours',
+        'unit.min_one': 'min',
+        'unit.min': 'min',
         'built.path_1': 'One solution',
         'built.path_2': 'Several, independent',
         'built.path_3': 'Connected to each other',
@@ -2236,6 +2325,20 @@
         'built.s4_f2': 'Pianificazione Gantt e carico per persona su tutti i progetti',
         'built.s4_f3': 'Ore registrate da tutti, senza che nessuna modifica vada persa',
         'built.s4_outcome': '<b>Un’unica fonte condivisa</b> invece di decine di file Excel',
+        'built.before': 'Prima',
+        'built.after': 'Dopo',
+        'built.s1_for': 'di progettazione e programmazione',
+        'built.s2_for': 'per programmare una piastra stampo',
+        'built.s3_for': 'per tavole e abachi dal modello',
+        'built.s4_for': 'preventivi, planning e ore',
+        'built.s4_before': 'Decine di file Excel',
+        'built.s4_after': 'Un’unica fonte condivisa',
+        'unit.day': 'giorno',
+        'unit.days': 'giorni',
+        'unit.hour': 'ora',
+        'unit.hours': 'ore',
+        'unit.min_one': 'min',
+        'unit.min': 'min',
         'built.path_1': 'Una soluzione',
         'built.path_2': 'Più soluzioni, indipendenti',
         'built.path_3': 'Collegate tra loro',
@@ -2462,6 +2565,100 @@
       famCards.forEach((card, i) => {
         card.style.setProperty('--fam-delay', (i * 400) + 'ms');
         famObserver.observe(card);
+      });
+    }
+
+    // ===== BUILT SOLUTIONS: the before/after timers =====
+    // The written "2 days -> 12 min" line is now two tracks on one scale plus a
+    // readout that spins the "after" value down from the "before" value when the
+    // card comes into view. The sweep is logarithmic, so it visibly runs through
+    // days and hours instead of sitting near the top for most of its duration.
+    // The written claim itself stays in the markup (.built-sr) for screen readers.
+    const builtTimers = document.querySelectorAll('.built-timer');
+    if (builtTimers.length) {
+      const WORKDAY_MIN = 480;   // the day the "2 days" style figures are counted in
+      const MIN_BAR = 3;         // %, so an "after" worth 1% still reads as a sliver
+      const SWEEP_MS = 1500;
+      const reduceTimers = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      const timerWord = (key) => {
+        const t = translations[document.documentElement.lang] || translations.el;
+        return t[key] !== undefined ? t[key] : translations.el[key];
+      };
+      const timerPart = (value, oneKey, manyKey) => {
+        const r = value >= 10 ? Math.round(value) : Math.round(value * 10) / 10;
+        let txt;
+        try { txt = r.toLocaleString(document.documentElement.lang || 'el'); }
+        catch (e) { txt = String(r); }
+        return txt + ' ' + timerWord(r === 1 ? oneKey : manyKey);
+      };
+      const formatMinutes = (min) => {
+        if (min >= WORKDAY_MIN) return timerPart(min / WORKDAY_MIN, 'unit.day', 'unit.days');
+        if (min >= 60) return timerPart(min / 60, 'unit.hour', 'unit.hours');
+        return timerPart(Math.max(1, Math.round(min)), 'unit.min_one', 'unit.min');
+      };
+
+      const timers = [];
+      builtTimers.forEach(el => {
+        const from = parseFloat(el.dataset.from);
+        const to = parseFloat(el.dataset.to);
+        const timed = !el.classList.contains('is-static') && from > 0 && to > 0;
+        const state = {
+          el: el, from: from, to: to, timed: timed,
+          ratio: timed ? to / from : parseFloat(el.dataset.ratio || '0.06'),
+          fromEl: el.querySelector('.bt-from'),
+          toEl: el.querySelector('.bt-to'),
+          done: false
+        };
+        if (timed) {
+          state.fromEl.textContent = formatMinutes(from);
+          state.toEl.textContent = formatMinutes(from);  // the readout starts at the old duration
+        }
+        timers.push(state);
+      });
+
+      const runTimer = (state) => {
+        const bars = state.el.querySelectorAll('.bt-fill');
+        bars[0].style.width = '100%';
+        bars[1].style.width = Math.max(MIN_BAR, state.ratio * 100) + '%';
+        if (!state.timed || reduceTimers) {
+          if (state.timed) state.toEl.textContent = formatMinutes(state.to);
+          state.done = true;
+          return;
+        }
+        const span = state.to / state.from;
+        const start = performance.now();
+        const step = (now) => {
+          const p = Math.min(1, (now - start) / SWEEP_MS);
+          const eased = 1 - Math.pow(1 - p, 3);
+          state.toEl.textContent = formatMinutes(state.from * Math.pow(span, eased));
+          if (p < 1) {
+            requestAnimationFrame(step);
+          } else {
+            state.toEl.textContent = formatMinutes(state.to);
+            state.done = true;
+          }
+        };
+        requestAnimationFrame(step);
+      };
+
+      const timerObserver = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          obs.unobserve(entry.target);
+          const state = timers.filter(s => s.el === entry.target)[0];
+          if (state && !state.done) runTimer(state);
+        });
+      }, { threshold: 0.5 });
+      timers.forEach(s => timerObserver.observe(s.el));
+
+      // The units are translated, so a language switch has to re-print the readouts.
+      document.addEventListener('languageChanged', () => {
+        timers.forEach(s => {
+          if (!s.timed) return;
+          s.fromEl.textContent = formatMinutes(s.from);
+          s.toEl.textContent = formatMinutes(s.done ? s.to : s.from);
+        });
       });
     }
 

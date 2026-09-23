@@ -9,8 +9,8 @@
   <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <meta name="theme-color" content="#f4f3ee" />
-  <link rel="stylesheet" href="fonts.css?v=20260916" />
-  <link rel="stylesheet" href="css/editorial.css?v=20260916b" />
+  <link rel="stylesheet" href="fonts.css?v=20260923" />
+  <link rel="stylesheet" href="css/editorial.css?v=20260923b" />
   <noscript><style>.fade-in { opacity: 1 !important; transform: none !important; }</style></noscript>
   <style>
     /* Editorial tokens come from css/editorial.css; only page-specific rules here. */
@@ -48,22 +48,7 @@
 
     .nav-accent { display: none; }
 
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      text-decoration: none;
-    }
-
-    .nav-logo img { height: 34px; width: auto; }
-
-    .nav-logo span {
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: 1.15rem;
-      color: var(--ink);
-      letter-spacing: 0.16em;
-    }
+    /* .nav-logo lockup (mark + wordmark) comes from css/editorial.css; resize it with --mark-h */
 
     .nav-right {
       display: flex;
@@ -112,7 +97,7 @@
     .legal-content h1 {
       font-family: var(--font-display);
       font-size: clamp(2rem, 4.5vw, 2.9rem);
-      font-weight: 500;
+      font-weight: 300;
       color: var(--ink);
       margin-bottom: 0.6rem;
       letter-spacing: -0.02em;
@@ -249,7 +234,7 @@
         height: 64px;
       }
 
-      .nav-logo img { height: 30px; }
+      .nav-logo { --mark-h: 30px; }
 
       .legal-content h1 {
         font-size: 1.8rem;
@@ -272,9 +257,8 @@
         height: 60px;
       }
 
-      .nav-logo img { height: 28px; }
+      .nav-logo { --mark-h: 28px; }
 
-      .nav-logo span { font-size: 0.95rem; letter-spacing: 0.1em; }
 
       .lang-btn {
         padding: 0.3rem 0.5rem;
@@ -307,7 +291,7 @@
     <div class="nav-container">
       <a href="index.html" class="nav-logo">
         <img src="aided-cam-mark.png" alt="AidedCAM" width="30" height="34" />
-        <span>AIDEDCAM</span>
+        <img class="wordmark" src="aidedcam-wordmark.svg" alt="" width="716" height="67" />
       </a>
       <div class="nav-right">
         <div class="lang-switcher">

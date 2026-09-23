@@ -15,7 +15,7 @@
   --ink: #17170f;
   position: relative;
   width: 100%;
-  font-family: 'Barlow', system-ui, sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   color: var(--ink);
 }
 .tm-root * { box-sizing: border-box; }

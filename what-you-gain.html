@@ -30,8 +30,8 @@
     }
     if (localStorage.getItem('privacy-pref') === 'accepted') { loadGA(); }
   </script>
-  <link rel="stylesheet" href="fonts.css?v=20260916" />
-  <link rel="stylesheet" href="css/editorial.css?v=20260916b" />
+  <link rel="stylesheet" href="fonts.css?v=20260923" />
+  <link rel="stylesheet" href="css/editorial.css?v=20260923b" />
   <noscript><style>.fade-in { opacity: 1 !important; transform: none !important; } .roi-content, .roi-locked { display: block !important; opacity: 1 !important; }</style></noscript>
   <style>
     /* ===== Tokens, base, navbar, nav-logo, lang-switcher, footer, consent,
@@ -117,7 +117,7 @@
 
     .gate-title {
       font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2rem);
-      font-weight: 500; color: var(--ink); line-height: 1.15;
+      font-weight: 300; color: var(--ink); line-height: 1.15;
       margin-bottom: 0.8rem; letter-spacing: -0.02em;
     }
     .gate-title .hl,
@@ -254,7 +254,7 @@
 
     .roi-hero h1 {
       font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 2.6rem);
-      font-weight: 500; color: var(--ink); line-height: 1.25;
+      font-weight: 300; color: var(--ink); line-height: 1.25;
       margin-bottom: 1.2rem; letter-spacing: -0.02em;
     }
     .roi-hero h1 .hl,
@@ -308,7 +308,7 @@
 
     .pillar-title {
       font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 2.6rem);
-      font-weight: 500; color: var(--ink); letter-spacing: -0.02em;
+      font-weight: 300; color: var(--ink); letter-spacing: -0.02em;
     }
 
     .pillar-intro {
@@ -529,7 +529,7 @@
     .roi-closing h2 {
       font-family: var(--font-display);
       font-size: clamp(1.8rem, 3.5vw, 2.4rem);
-      font-weight: 500; color: var(--ink);
+      font-weight: 300; color: var(--ink);
       line-height: 1.3;
       letter-spacing: -0.02em;
       max-width: 600px; margin: 0 auto 2rem;
@@ -568,10 +568,7 @@
       display: flex; justify-content: space-between; align-items: center;
       max-width: 800px; margin: 0 auto; flex-wrap: wrap; gap: 0.5rem;
     }
-    .roi-footer .brand {
-      font-family: var(--font-display); font-size: 1rem;
-      font-weight: 700; color: var(--ink); letter-spacing: 0.14em;
-    }
+    .roi-footer .brand img { display: block; height: 12px; width: auto; } /* logo artwork, see .nav-logo */
     .roi-footer-legal {
       width: 100%; display: flex; justify-content: center; gap: 1.5rem;
       padding-top: 0.8rem;
@@ -675,7 +672,7 @@
     <div class="nav-container">
       <a href="/" class="nav-logo">
         <img src="aided-cam-mark.png" alt="AidedCAM" width="30" height="34" />
-        <span>AIDEDCAM</span>
+        <img class="wordmark" src="aidedcam-wordmark.svg" alt="" width="716" height="67" />
       </a>
       <div class="nav-right">
         <a href="/" class="nav-back" data-i18n="roi.back">Αρχική</a>
@@ -984,7 +981,7 @@
 
     <!-- FOOTER -->
     <div class="roi-footer">
-      <div class="brand">AIDEDCAM</div>
+      <div class="brand"><img src="aidedcam-wordmark.svg" alt="AidedCAM" width="716" height="67" loading="lazy" /></div>
       <div class="roi-footer-legal">
         <a href="privacy.html" data-i18n="footer.privacy">Απόρρητο</a>
         <a href="legal.html" data-i18n="footer.legal">Νομικά</a>

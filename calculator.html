@@ -30,8 +30,8 @@
     }
     if (localStorage.getItem('privacy-pref') === 'accepted') { loadGA(); }
   </script>
-  <link rel="stylesheet" href="fonts.css?v=20260916" />
-  <link rel="stylesheet" href="css/editorial.css?v=20260916b" />
+  <link rel="stylesheet" href="fonts.css?v=20260923" />
+  <link rel="stylesheet" href="css/editorial.css?v=20260923b" />
   <noscript><style>.fade-in { opacity: 1 !important; transform: none !important; }</style></noscript>
   <style>
     /* ===== Tokens, base, navbar, lang-switcher, consent banner, scroll-progress,
@@ -110,7 +110,7 @@
 
     .gate-title {
       font-family: var(--font-display); font-size: clamp(1.7rem, 3.2vw, 2.3rem);
-      font-weight: 500; color: var(--ink); line-height: 1.1;
+      font-weight: 300; color: var(--ink); line-height: 1.1;
       margin-bottom: 0.8rem; letter-spacing: -0.02em;
     }
     .gate-title .hl,
@@ -207,7 +207,7 @@
     }
     .calc-header h1 {
       font-family: var(--font-display); font-size: clamp(1.7rem, 3.6vw, 2.5rem);
-      font-weight: 500; color: var(--ink); line-height: 1.1;
+      font-weight: 300; color: var(--ink); line-height: 1.1;
       margin-bottom: 0.8rem; letter-spacing: -0.02em;
     }
     .calc-header h1 .hl,
@@ -552,10 +552,7 @@
       display: flex; justify-content: space-between; align-items: center;
       max-width: 800px; margin: 0 auto; flex-wrap: wrap; gap: 0.5rem;
     }
-    .calc-footer .brand {
-      font-family: var(--font-display); font-size: 1rem;
-      font-weight: 700; color: var(--ink); letter-spacing: 0.14em;
-    }
+    .calc-footer .brand img { display: block; height: 12px; width: auto; } /* logo artwork, see .nav-logo */
     .calc-footer-legal {
       width: 100%; display: flex; justify-content: center; gap: 1.5rem;
       padding-top: 0.8rem;
@@ -585,7 +582,7 @@
 
       /* Print header */
       .print-header { display: block !important; text-align: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid #2d5a3d; }
-      .print-header .ph-brand { font-weight: 800; font-size: 22px; letter-spacing: 3px; color: #1a4a2e; }
+      .print-header .ph-brand img { height: 18px; width: auto; }
       .print-header .ph-company { font-size: 13px; color: #555; margin-top: 6px; }
       .print-header .ph-date { font-size: 11px; color: #888; margin-top: 4px; }
 
@@ -644,7 +641,7 @@
     .calc-closing h2 {
       font-family: var(--font-display);
       font-size: clamp(1.5rem, 3vw, 2rem);
-      font-weight: 500; color: var(--ink);
+      font-weight: 300; color: var(--ink);
       line-height: 1.2; letter-spacing: -0.02em;
       max-width: 540px; margin: 0 auto 1.7rem;
     }
@@ -723,7 +720,7 @@
     <div class="nav-container">
       <a href="/" class="nav-logo">
         <img src="aided-cam-mark.png" alt="AidedCAM" width="30" height="34" />
-        <span>AIDEDCAM</span>
+        <img class="wordmark" src="aidedcam-wordmark.svg" alt="" width="716" height="67" />
       </a>
       <div class="nav-right">
         <a href="/" class="nav-back" data-i18n="calc.back">Αρχική</a>
@@ -785,7 +782,7 @@
 
     <!-- PRINT HEADER (visible only in print) -->
     <div class="print-header" id="printHeader">
-      <div class="ph-brand">AIDEDCAM</div>
+      <div class="ph-brand"><img src="aidedcam-wordmark.svg" alt="AidedCAM" width="716" height="67" /></div>
       <div class="ph-company" id="printCompany"></div>
       <div class="ph-date" id="printDate"></div>
     </div>
@@ -882,7 +879,7 @@
 
     <!-- FOOTER -->
     <div class="calc-footer">
-      <div class="brand">AIDEDCAM</div>
+      <div class="brand"><img src="aidedcam-wordmark.svg" alt="AidedCAM" width="716" height="67" loading="lazy" /></div>
       <div class="calc-footer-legal">
         <a href="privacy.html" data-i18n="footer.privacy">Απόρρητο</a>
         <a href="legal.html" data-i18n="footer.legal">Νομικά</a>

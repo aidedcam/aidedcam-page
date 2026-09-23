@@ -26,9 +26,9 @@
   --accent-soft:   rgba(13, 122, 62, 0.10);
 
   /* —— Type —— */
-  --font-display: 'Barlow', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-body:    'Barlow', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-mono:    'Barlow', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; /* same face as body: labels/numbers are no longer monospace */
+  --font-display: 'Barlow', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; /* Greek drawn by Roboto, see fonts.css */
+  --font-body:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; /* same face as body: labels/numbers are no longer monospace */
 
   /* —— Soft elevation (editorial = almost none) —— */
   --elev-1: 0 1px 2px rgba(20, 20, 14, 0.04);
@@ -147,6 +147,8 @@ h1, h2, h3, h4 {
   line-height: 1.08;
   font-weight: 500;
 }
+/* Large headings are Barlow Light; <strong> inside them stays 600 (below). */
+h1, h2 { font-weight: 300; }
 
 h2 {
   font-size: clamp(2rem, 4vw, 3.1rem);
@@ -237,12 +239,15 @@ h2 strong { font-weight: 600; color: var(--accent-deep); }
   height: 74px; position: relative; z-index: 1;
 }
 
-.nav-logo { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
-.nav-logo img { height: 34px; width: auto; }
-.nav-logo span {
-  font-family: var(--font-display); font-weight: 700; font-size: 1.15rem;
-  color: var(--ink); letter-spacing: 0.16em;
-}
+/* Logo lockups: the mark plus aidedcam-wordmark.svg, which is the logo artwork
+   itself (brand file Artboard 1_2), never live text. Proportions come from the
+   official horizontal lockup (Artboard 1): the mark is 3.306x the wordmark's cap
+   height and the gap is 0.5385x the cap height, both centred on one axis. The SVG
+   is 1.015x cap height tall (C overshoots the cap line), so as fractions of the
+   mark: wordmark height 0.307, gap 0.1629. Size a lockup by setting --mark-h. */
+.nav-logo { --mark-h: 34px; display: flex; align-items: center; gap: calc(var(--mark-h) * 0.1629); text-decoration: none; }
+.nav-logo img { height: var(--mark-h); width: auto; }
+.nav-logo img.wordmark { height: calc(var(--mark-h) * 0.307); }
 
 .nav-menu { display: flex; gap: 0.1rem; list-style: none; align-items: center; justify-content: center; flex: 1; }
 .nav-menu > li:first-child, .nav-menu .nav-lang { margin-left: auto; }
@@ -298,9 +303,9 @@ h2 strong { font-weight: 600; color: var(--accent-deep); }
   text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 1.4rem; padding-bottom: 0.8rem;
   border-bottom: 1px solid var(--line);
 }
-.footer-logo { display: flex; align-items: center; gap: 0.55rem; margin-bottom: 1.3rem; }
-.footer-logo img { height: 30px; width: auto; }
-.footer-logo span { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; color: var(--ink); letter-spacing: 0.14em; }
+.footer-logo { --mark-h: 30px; display: flex; align-items: center; gap: calc(var(--mark-h) * 0.1629); margin-bottom: 1.3rem; }
+.footer-logo img { height: var(--mark-h); width: auto; }
+.footer-logo img.wordmark { height: calc(var(--mark-h) * 0.307); }
 .footer-about-text { font-size: 0.9rem; color: var(--muted); line-height: 1.75; max-width: 320px; }
 .footer-links { display: flex; flex-direction: column; gap: 0.7rem; }
 .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s ease; }

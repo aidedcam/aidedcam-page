@@ -252,9 +252,9 @@
     }
     if (localStorage.getItem('privacy-pref') === 'accepted') { loadGA(); }
   </script>
-  <link rel="stylesheet" href="fonts.css?v=20260916" />
-  <link rel="stylesheet" href="css/editorial.css?v=20260916b" />
-  <link rel="stylesheet" href="css/methodos.css?v=20260916" />
+  <link rel="stylesheet" href="fonts.css?v=20260923" />
+  <link rel="stylesheet" href="css/editorial.css?v=20260923b" />
+  <link rel="stylesheet" href="css/methodos.css?v=20260918" />
   <link rel="stylesheet" href="css/families.css?v=20260915" />
   <noscript><style>.fade-in { opacity: 1 !important; transform: none !important; }
     .built-timer { display: none; }
@@ -297,45 +297,58 @@
     .hero-proof span { display: inline-flex; align-items: center; gap: 0.5rem; }
     .hero-proof span + span::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--accent); }
     /* ===== HERO WORDMARK DRUM =====
-       The AIDEDCAM logotype with the suffix rolling CAM > CAD > CNC > BIM > CAM
-       on an iPhone-picker cylinder, looping for as long as the hero is on screen.
+       The AIDEDCAM logo with the suffix rolling CAM > CAD > CNC > BIM > CAM on an
+       iPhone-picker cylinder, looping for as long as the hero is on screen.
 
-       Every dimension is derived in em from the geometry of a 90 degree drum, so
-       it scales with font-size and never needs JS to measure text:
-         row pitch   h = 1.18em                (1em line box + leading)
-         radius      r = h / (2 * tan 45)      = 0.59em
-         perspective p = 20h                   = 23.6em
-         front-face magnification  p / (p - r) = 1.0256
+       The letters are the logo artwork, not a font: A I D E C M are the outlines
+       from the brand file (Artboard 1_2.pdf), placed with the logo's own spacing.
+       N and B do not occur in the logo and were constructed from its measurements:
+       N = M's stems plus one diagonal of M's thickness (its joins land at y 15.4,
+       as M's do); B = D's outer contour with two counters on E's bar grid. Each
+       glyph is defined once in .wd-defs and placed with <use>. Glyph units: cap
+       height 65.56, SVG box 66.54 (C overshoots), as in the logo file.
+
+       Every dimension derives from the icon height through the official lockup
+       (Artboard 1): the mark is 3.306x the cap height, the gap 0.5385x. Drum
+       geometry keeps its original ratios to the letters:
+         row pitch   h = 1.6224 cap            (the old 1.18em over Inter's 0.727 cap)
+         radius      r = h / (2 * tan 45)      = h / 2
+         perspective p = 20h
+         front-face magnification  p / (p - r) = 20 / 19.5 = 1.025641
        The window is sized from the MAGNIFIED word, not its layout box: translateZ
-       brings the front face toward the viewer, so it paints ~4.5% larger than it
+       brings the front face toward the viewer, so it paints ~2.6% larger than it
        measures and would otherwise be clipped by its own window.
 
        Only `transform` animates, on a single element, with no JS in the loop. */
     .wordmark-drum {
-      --wd-row:   1.18em;
-      --wd-r:     0.59em;     /* row / (2 * tan 45) */
-      --wd-persp: 23.6em;
-      --wd-win-h: 1.2103em;   /* row x 1.0256 */
-      --wd-win-w: 2.8611em;   /* widest word (CAM, 2.4581em) x 1.0256 + 2 x bleed */
-      --wd-bleed: 0.17em;     /* slack so the 3D edges are never sliced */
-      --wd-pad:   0.2015em;   /* puts the MAGNIFIED left edge exactly at --wd-bleed */
+      --wd-cap:   calc(1.85em / 3.306);         /* cap height, from the icon via the lockup */
+      --wd-u:     calc(var(--wd-cap) / 65.56);  /* one glyph unit */
+      --wd-row:   calc(var(--wd-cap) * 1.6224);
+      --wd-r:     calc(var(--wd-row) / 2);
+      --wd-persp: calc(var(--wd-row) * 20);
+      --wd-win-h: calc(var(--wd-row) * 1.025641);
+      --wd-bleed: calc(var(--wd-row) * 0.14407);  /* slack so the 3D edges are never sliced */
+      /* widest word is CAM, 300.95 units, magnified */
+      --wd-win-w: calc(300.95 * var(--wd-u) * 1.025641 + 2 * var(--wd-bleed));
+      /* puts the MAGNIFIED left edge exactly at --wd-bleed: c + (bleed - c) / M,
+         with c = half the window and 1/M = 0.975 */
+      --wd-pad:   calc(var(--wd-win-w) * 0.0125 + var(--wd-bleed) * 0.975);
 
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: var(--font-display);
-      font-size: clamp(1.6rem, 4.2vw, 3rem);
-      font-weight: 700;
-      letter-spacing: 0.16em;
-      line-height: 1;
+      font-size: clamp(1.6rem, 4.2vw, 3rem);    /* the em that everything above scales from */
       color: var(--ink);
       margin-bottom: 1.25rem;
       user-select: none;
     }
 
-    /* Icon-to-text proportions copied from .nav-logo in editorial.css (34px / 1.15rem) */
-    .wd-icon { height: 1.85em; width: auto; flex: none; margin-right: 0.52em; }
-    .wd-stem { display: block; }
+    .wd-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+    .wd-icon { height: 1.85em; width: auto; flex: none; margin-right: calc(var(--wd-cap) * 0.5385); }
+    /* Glyph boxes: --w is the word's width in glyph units. The stem's right margin
+       is the logo's own D-to-C gap (9.53 units). */
+    .wd-stem, .wd-face svg { display: block; flex: none; height: calc(66.54 * var(--wd-u)); width: calc(var(--w) * var(--wd-u)); }
+    .wd-stem { margin-right: calc(9.53 * var(--wd-u)); }
 
     .wd-window {
       position: relative;
@@ -411,9 +424,13 @@
       font-family: var(--font-display);
       /* Sized for Greek, which is the default language and the longest of the
          three: at 5rem the title broke onto four lines instead of the two the
-         <br> intends. This keeps el on two lines and leaves en/it room to spare. */
-      font-size: clamp(2.1rem, 4.6vw, 3.75rem);
-      font-weight: 500;
+         <br> intends. This keeps el on two lines and leaves en/it room to spare.
+         Measured with Barlow Light + Roboto Greek (fonts.css): the Greek title
+         takes a third line from 55px, so the cap is 3.25rem (52px), ~5% headroom
+         for rendering differences between platforms. en fits to 70px, it to 58px.
+         Re-check this if the hero copy or the display font changes. */
+      font-size: clamp(2.1rem, 4.6vw, 3.25rem);
+      font-weight: 300;
       letter-spacing: -0.03em;
       color: var(--ink);
       line-height: 1.04;
@@ -512,7 +529,7 @@
     .roi-teaser-heading {
       font-family: var(--font-display);
       font-size: clamp(1.5rem, 3vw, 2.3rem);
-      font-weight: 500;
+      font-weight: 300;
       color: var(--ink);
       line-height: 1.45;
       margin-bottom: 2.5rem;
@@ -1136,7 +1153,10 @@
     @media (max-width: 480px) {
       .hero h1 { font-size: clamp(1.7rem, 7vw, 2.2rem); }
       .wordmark-drum { font-size: clamp(1.3rem, 6.6vw, 1.8rem); margin-bottom: 1rem; }
-      .bp-step { font-size: 0.54rem; padding: 0.4rem 0.4rem; letter-spacing: 0.04em; }
+      /* flex:none from the desktop rule keeps these chips at content width, and
+         Inter sets the Greek labels wider than Barlow did — enough to push the
+         rail past a 380px viewport. Let them shrink and wrap instead. */
+      .bp-step { font-size: 0.54rem; padding: 0.4rem 0.4rem; letter-spacing: 0.04em; flex: 0 1 auto; min-width: 0; }
     }
 
   </style>
@@ -1160,7 +1180,7 @@
     <div class="nav-container">
       <a href="#" class="nav-logo">
         <img src="aided-cam-mark.png" alt="AidedCAM" width="30" height="34" />
-        <span>AIDEDCAM</span>
+        <img class="wordmark" src="aidedcam-wordmark.svg" alt="" width="716" height="67" />
       </a>
       <ul class="nav-menu">
         <li><a href="#ti-kanoume" class="nav-link" data-i18n="nav.whatwedo">Τι Φτιάχνουμε</a></li>
@@ -1193,15 +1213,17 @@
            wordmark instead of five loose acronyms. The words are product names
            and are identical in el/en/it, so they carry no data-i18n. -->
       <div class="wordmark-drum" id="wordmarkDrum" role="img" aria-label="AidedCAM — CAD, CAM, CNC, BIM">
+        <!-- Logo glyphs, defined once: see HERO WORDMARK DRUM in the <style> above -->
+        <svg class="wd-defs" aria-hidden="true" focusable="false"><defs><path id="wgA" d="M64.18 40.69L50.03 14.55L36.07 40.69L64.18 40.69M36.86 0.49L63.59 0.49L99.47 66.05L77.65 66.05L71.16 54.35L28.9 54.35L22.61 66.05L0 66.05L36.86 0.49Z"/><path id="wgI" d="M0 0.49H19.95V66.05H0ZZ"/><path id="wgD" d="M53.37 50.42C58.78 50.42 59.17 50.42 61.53 49.64C66.35 48.16 67.62 44.72 67.62 33.42C67.62 19.66 65.26 16.81 53.76 16.81L19.95 16.81L19.95 50.42L53.37 50.42M0 0.49L56.61 0.49C70.47 0.49 76.96 2.06 81.48 6.58C85.12 10.12 86.59 14.25 87.28 22.61C87.48 25.65 87.67 30.17 87.67 33.32C87.67 39.22 87.28 46 86.69 49.73C85.61 57.6 80.11 63.69 72.93 65.07C69.2 65.85 66.25 66.05 59.27 66.05L0 66.05L0 0.49Z"/><path id="wgE" d="M72.64 0.49L72.64 15.33L19.66 15.33L19.66 26.64L69.59 26.64L69.59 39.61L19.66 39.61L19.66 51.21L73.32 51.21L73.32 66.05L0 66.05L0 0.49L72.64 0.49Z"/><path id="wgC" d="M83.45 41.38C83.35 50.91 83.05 54.16 81.68 57.1C79.12 62.71 73.82 65.36 63.59 66.05C59.56 66.44 51.7 66.54 38.63 66.54C19.76 66.54 13.66 65.66 8.35 62.22C1.87 58.09 0 51.21 0 31.75C0 14.45 1.97 8.26 8.85 4.33C14.74 0.89 21.03 0 39.41 0C63.89 0 69.2 0.49 74.8 3.24C80.11 5.9 82.56 11.7 82.56 21.33L82.56 23.49L63.49 23.49C63.1 16.32 61.63 15.73 44.33 15.73C28.01 15.73 25.06 16.12 22.61 18.28C20.25 20.44 19.76 23.1 19.76 33.71C19.76 49.44 21.23 50.62 40.4 50.62C55.24 50.62 57.4 50.52 60.15 49.34C63 48.16 64.09 46.1 64.09 41.38L83.45 41.38Z"/><path id="wgM" d="M0 0.49L31.65 0.49L55.53 44.03L79.32 0.49L110.77 0.49L110.77 66.05L91.31 66.05L92.29 15.43L63.2 66.05L47.28 66.05L18.67 15.43L19.27 66.05L0 66.05L0 0.49Z"/><path id="wgN" d="M0 0.49L31.65 0.49L68.5 51.13L68.5 0.49L88 0.49L88 66.05L56.35 66.05L19.5 15.41L19.5 66.05L0 66.05Z"/><path id="wgB" d="M0 0.49L56.61 0.49C70.47 0.49 76.96 2.06 81.48 6.58C85.12 10.12 86.59 14.25 87.28 22.61C87.48 25.65 87.67 30.17 87.67 33.32C87.67 39.22 87.28 46 86.69 49.73C85.61 57.6 80.11 63.69 72.93 65.07C69.2 65.85 66.25 66.05 59.27 66.05L0 66.05L0 0.49ZM58.84 26.64C61.97 26.64 64.5 24.11 64.5 20.98C64.5 17.86 61.97 15.33 58.84 15.33L19.95 15.33L19.95 26.64ZM61.82 51.21C65.02 51.21 67.62 48.61 67.62 45.41C67.62 42.21 65.02 39.61 61.82 39.61L19.95 39.61L19.95 51.21Z"/></defs></svg>
         <img class="wd-icon" src="aided-cam-mark.png" alt="" aria-hidden="true" width="79" height="89" />
-        <span class="wd-stem" aria-hidden="true">AIDED</span>
+        <svg class="wd-stem" style="--w:405.12" viewBox="0 0 405.12 66.54" fill="currentColor" aria-hidden="true" focusable="false"><use href="#wgA"/><use href="#wgI" x="103.69"/><use href="#wgD" x="135.83"/><use href="#wgE" x="234.31"/><use href="#wgD" x="317.45"/></svg>
         <span class="wd-window" aria-hidden="true">
           <span class="wd-projection">
             <span class="wd-drum">
-              <span class="wd-face">CAM</span>
-              <span class="wd-face">CAD</span>
-              <span class="wd-face">CNC</span>
-              <span class="wd-face">BIM</span>
+              <span class="wd-face"><svg style="--w:300.95" viewBox="0 0 300.95 66.54" fill="currentColor" focusable="false"><use href="#wgC"/><use href="#wgA" x="86.49"/><use href="#wgM" x="190.18"/></svg></span>
+              <span class="wd-face"><svg style="--w:277.85" viewBox="0 0 277.85 66.54" fill="currentColor" focusable="false"><use href="#wgC"/><use href="#wgA" x="86.49"/><use href="#wgD" x="190.18"/></svg></span>
+              <span class="wd-face"><svg style="--w:275.24" viewBox="0 0 275.24 66.54" fill="currentColor" focusable="false"><use href="#wgC"/><use href="#wgN" x="92.98"/><use href="#wgC" x="191.79"/></svg></span>
+              <span class="wd-face"><svg style="--w:241.39" viewBox="0 0 241.39 66.54" fill="currentColor" focusable="false"><use href="#wgB"/><use href="#wgI" x="98.48"/><use href="#wgM" x="130.62"/></svg></span>
             </span>
           </span>
         </span>
@@ -1813,7 +1835,7 @@
         <div class="footer-col">
           <div class="footer-logo">
             <img src="aided-cam-mark.png" alt="AidedCAM" width="30" height="34" loading="lazy" />
-            <span>AIDEDCAM</span>
+            <img class="wordmark" src="aidedcam-wordmark.svg" alt="" width="716" height="67" loading="lazy" />
           </div>
           <p class="footer-about-text" data-i18n="about.p1">Μηχανικοί και προγραμματιστές με χρόνια εμπειρίας σε τμήματα σχεδιασμού και παραγωγής σε Ελλάδα, Βέλγιο, Ελβετία, Αυστρία και Γερμανία.</p>
         </div>
@@ -2542,14 +2564,8 @@
         drumObserver.observe(wordmarkDrum);
       };
 
-      // Barlow is font-display:swap, so wait for it — the drum's window is sized
-      // in em from Barlow's metrics, and rolling in the fallback face would run
-      // the words against the edge of their own window.
-      if (document.fonts && document.fonts.ready) {
-        document.fonts.ready.then(watchDrum);
-      } else {
-        watchDrum();
-      }
+      // The letters are SVG logo outlines, so there is no webfont to wait for.
+      watchDrum();
     }
 
     // ===== WHAT WE BUILD: the three family illustrations =====

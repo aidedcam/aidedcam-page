@@ -8,8 +8,10 @@
   // ── I18N ──
   const COPY = {
     en: {
-      thesisHTML: 'We look at your work <strong>up close and from a distance</strong>: which steps are done by hand on every order, and what they cost. That is where automation goes in. That is where the gain shows.',
+      thesisHTML: 'We look at your work <strong>up close and from a distance</strong>: which steps are done by hand on every order, and what they cost. That is where <strong>automation</strong> goes in. That is where the gain shows.',
       corner: 'How we look at your work',
+      sceneLabel: 'System, workflow, task, result: zooming into where work repeats and back out to the gain',
+      tablistLabel: 'Choose a layer',
       tabs: { system: 'System', workflow: 'Workflow', task: 'Task', result: 'Result' },
       lookLabel: 'What we look for',
       changeLabel: 'What changes',
@@ -49,8 +51,10 @@
       resNote: 'One action instead of three steps',
     },
     el: {
-      thesisHTML: 'Κοιτάμε τη δουλειά σας <strong>από κοντά και από μακριά</strong>: ποια βήματα γίνονται με το χέρι σε κάθε παραγγελία, και τι κοστίζουν. Εκεί μπαίνει ο αυτοματισμός. Εκεί φαίνεται το κέρδος.',
+      thesisHTML: 'Κοιτάμε τη δουλειά σας <strong>από κοντά και από μακριά</strong>: ποια βήματα γίνονται με το χέρι σε κάθε παραγγελία, και τι κοστίζουν. Εκεί μπαίνει ο <strong>αυτοματισμός</strong>. Εκεί φαίνεται το κέρδος.',
       corner: 'Πώς βλέπουμε τη δουλειά σας',
+      sceneLabel: 'Σύστημα, ροή, εργασία, αποτέλεσμα: ζουμ εκεί που η δουλειά επαναλαμβάνεται και πίσω ξανά στο κέρδος',
+      tablistLabel: 'Επιλέξτε επίπεδο',
       tabs: { system: 'Σύστημα', workflow: 'Ροή', task: 'Εργασία', result: 'Αποτέλεσμα' },
       lookLabel: 'Τι ψάχνουμε',
       changeLabel: 'Τι αλλάζει',
@@ -90,8 +94,10 @@
       resNote: 'Μία ενέργεια αντί για τρία βήματα',
     },
     it: {
-      thesisHTML: 'Guardiamo il vostro lavoro <strong>da vicino e da lontano</strong>: quali passaggi si fanno a mano su ogni ordine, e quanto costano. Lì entra l’automazione. Lì si vede il guadagno.',
+      thesisHTML: 'Guardiamo il vostro lavoro <strong>da vicino e da lontano</strong>: quali passaggi si fanno a mano su ogni ordine, e quanto costano. Lì entra l’<strong>automazione</strong>. Lì si vede il guadagno.',
       corner: 'Come guardiamo il vostro lavoro',
+      sceneLabel: 'Sistema, flusso, attività, risultato: uno zoom dove il lavoro si ripete e di nuovo indietro fino al guadagno',
+      tablistLabel: 'Scegliete un livello',
       tabs: { system: 'Sistema', workflow: 'Flusso', task: 'Attività', result: 'Risultato' },
       lookLabel: 'Cosa cerchiamo',
       changeLabel: 'Cosa cambia',
@@ -142,6 +148,8 @@
   root.querySelectorAll('.mv').forEach(v => { views[v.dataset.view] = v; });
   const tabs = Array.from(root.querySelectorAll('.m-tab'));
   const thesisEl = root.querySelector('.method-thesis');
+  const tablist = root.querySelector('[role="tablist"]');
+  const panel = root.querySelector('[role="tabpanel"]');
   const info = {
     k:  root.querySelector('[data-mk]'),
     t:  root.querySelector('[data-mt]'),
@@ -163,6 +171,8 @@
     const c = COPY[lang] || COPY.el;
     if (thesisEl) thesisEl.innerHTML = c.thesisHTML;
     scene.setAttribute('data-corner', c.corner);
+    scene.setAttribute('aria-label', c.sceneLabel);
+    if (tablist) tablist.setAttribute('aria-label', c.tablistLabel);
     tabs.forEach(b => { b.textContent = c.tabs[b.dataset.layer]; });
     // scene labels
     setList('.mv-system .ms-col .mtag', c.cols);
@@ -210,6 +220,7 @@
       b.classList.toggle('on', on);
       b.classList.toggle('is-result', on && next === 'result');
       b.setAttribute('aria-selected', on ? 'true' : 'false');
+      if (on && panel && b.id) panel.setAttribute('aria-labelledby', b.id);
     });
     renderCopy(true);
     syncTabIndex();
@@ -261,9 +272,11 @@
   }
 
   // Task view: tick the four sub-steps, then wipe and count another repetition.
-  let taskTimer = null;
+  // Every pending timeout is tracked, so stopping clears the tick-offs too,
+  // not just the next cycle.
+  let taskTimers = [];
   let taskCount = 0;
-  function stopTaskLoop() { clearTimeout(taskTimer); taskTimer = null; }
+  function stopTaskLoop() { taskTimers.forEach(clearTimeout); taskTimers = []; }
   function startTaskLoop() {
     stopTaskLoop();
     const items = Array.from(root.querySelectorAll('.mv-task .mt-steps li'));
@@ -272,11 +285,12 @@
     if (reduced) { items.forEach(li => li.classList.add('done')); count.textContent = '×12'; return; }
     taskCount = 0;
     const cycle = () => {
+      taskTimers = [];
       items.forEach(li => li.classList.remove('done'));
       taskCount += 1;
       count.textContent = '×' + taskCount;
-      items.forEach((li, i) => { taskTimer = setTimeout(() => li.classList.add('done'), 260 + i * 300); });
-      taskTimer = setTimeout(cycle, 260 + items.length * 300 + 650);
+      items.forEach((li, i) => { taskTimers.push(setTimeout(() => li.classList.add('done'), 260 + i * 300)); });
+      taskTimers.push(setTimeout(cycle, 260 + items.length * 300 + 650));
     };
     cycle();
   }

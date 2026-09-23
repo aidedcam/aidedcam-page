@@ -25,15 +25,10 @@
   <meta name="twitter:title" content="AidedCAM - Software made to fit your company, automation where the time goes" />
   <meta name="twitter:description" content="Software built for one company: yours. Task automation, from Excel to a live picture, special CAD/CAM/BIM solutions. Autodesk Authorized Developer." />
   <meta name="twitter:image" content="https://www.aidedcam.com/og-image.png" />
-  <!-- Hreflang — same URL since language is client-side; x-default covers all -->
-  <link rel="alternate" hreflang="el" href="https://www.aidedcam.com/?lang=el" />
-  <link rel="alternate" hreflang="en" href="https://www.aidedcam.com/?lang=en" />
-  <link rel="alternate" hreflang="it" href="https://www.aidedcam.com/?lang=it" />
-  <link rel="alternate" hreflang="x-default" href="https://www.aidedcam.com/" />
   <link rel="canonical" href="https://www.aidedcam.com/" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
-  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <meta name="theme-color" content="#f4f3ee" />
   <script type="application/ld+json">
   {
@@ -54,7 +49,7 @@
         "telephone": "+30-6984680874",
         "email": "info@aidedcam.com",
         "contactType": "sales",
-        "areaServed": ["GR", "BE", "CH", "AT", "DE"],
+        "areaServed": ["GR", "IT", "BE", "CH", "AT", "DE"],
         "availableLanguage": ["Greek", "English"]
       },
       {
@@ -62,7 +57,7 @@
         "telephone": "+30-6980818754",
         "email": "info@aidedcam.com",
         "contactType": "sales",
-        "areaServed": ["GR", "BE", "CH", "AT", "DE"],
+        "areaServed": ["GR", "IT", "BE", "CH", "AT", "DE"],
         "availableLanguage": ["Greek", "English"]
       }
     ],
@@ -112,6 +107,7 @@
     },
     "areaServed": [
       {"@type": "Country", "name": "Greece"},
+      {"@type": "Country", "name": "Italy"},
       {"@type": "Country", "name": "Belgium"},
       {"@type": "Country", "name": "Switzerland"},
       {"@type": "Country", "name": "Austria"},
@@ -190,52 +186,17 @@
     ]
   }
   </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Τι φτιάχνει η AidedCAM;",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Λογισμικό φτιαγμένο για μία εταιρεία, με βάση τη δική της ανάγκη και όχι ένα έτοιμο προϊόν. Μέχρι σήμερα αυτό έχει πάρει τρεις μορφές: αυτοματισμός εργασιών (δέκα χειροκίνητα βήματα γίνονται ένα κουμπί), διαχείριση από το Excel σε ζωντανή, κοινή εικόνα (κοστολόγηση, χρονοδιάγραμμα, ώρες), και ειδικές λύσεις CAD/CAM/BIM μέσα στα προγράμματα που ήδη έχετε ή ως δική σας εφαρμογή. Ο αυτοματισμός μπαίνει εκεί που χάνεται χρόνος και χρήμα."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What CAD/CAM software does AidedCAM support?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "AidedCAM develops automation solutions for 8 CAD, CAM and BIM systems: Autodesk PowerShape, PowerMill, Fusion 360, FeatureCAM, Inventor, Revit and AutoCAD, and Siemens NX (TopSolid coming soon). We also build standalone solutions using DevDept tools without requiring third-party CAD/CAM software."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Πόσο χρόνο εξοικονομεί η αυτοματοποίηση AidedCAM;",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Στις λύσεις που έχουμε παραδώσει, μετρημένα σε πραγματικές δουλειές: 2 μέρες → 12 λεπτά από το σχέδιο DXF στο πρόγραμμα του τόρνου, 4 μέρες → 26 λεπτά για τον προγραμματισμό μιας πλάκας καλουπιού, 1 μέρα → 11 λεπτά για σχέδια και πίνακες από το μοντέλο Revit."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Does AidedCAM build software outside CAD/CAM, such as project management or production tracking?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes. Besides add-ins inside CAD/CAM/BIM tools, AidedCAM builds standalone applications that replace Excel-based management: project estimation, scheduling, workload and time tracking on one shared database, plus production tracking with live views. Delivered solutions include a lathe CAD/CAM application, mould automation inside PowerShape and PowerMill, forty Revit commands in one ribbon, and an estimation and scheduling application for an engineering office."
-        }
-      }
-    ]
-  }
-  </script>
   <!-- Preload critical assets -->
   <link rel="preload" as="image" href="aided-cam-mark.png" />
   <!-- Google Analytics - loaded only after cookie consent -->
   <script>
     function loadGA() {
-      if (document.getElementById('ga-script')) return;
+      window['ga-disable-G-81935T6DNE'] = false;
+      if (document.getElementById('ga-script')) {
+        // Re-accepted in the same session after a revokeGA(): switch it back on.
+        if (window.gtag) gtag('consent', 'update', { analytics_storage: 'granted' });
+        return;
+      }
       const s = document.createElement('script');
       s.id = 'ga-script';
       s.async = true;
@@ -247,22 +208,53 @@
       gtag('js', new Date());
       gtag('config', 'G-81935T6DNE');
       // Set user language as a user property for segmentation
-      var userLang = localStorage.getItem('aidedcam-lang') || document.documentElement.lang || 'el';
+      var storedLang = null;
+      try { storedLang = localStorage.getItem('aidedcam-lang'); } catch (e) {}
+      var userLang = storedLang || document.documentElement.lang || 'el';
       gtag('set', 'user_properties', { preferred_language: userLang });
     }
-    if (localStorage.getItem('privacy-pref') === 'accepted') { loadGA(); }
+    // Consent withdrawn: stop GA for the rest of this session and drop its cookies.
+    function revokeGA() {
+      window['ga-disable-G-81935T6DNE'] = true;
+      if (window.gtag) gtag('consent', 'update', { analytics_storage: 'denied' });
+      var root = location.hostname.replace(/^www\./, '');
+      document.cookie.split(';').forEach(function (c) {
+        var n = c.split('=')[0].trim();
+        if (n === '_ga' || n.indexOf('_ga_') === 0) {
+          ['', location.hostname, '.' + root].forEach(function (d) {
+            document.cookie = n + '=; Max-Age=0; path=/' + (d ? '; domain=' + d : '');
+          });
+        }
+      });
+    }
+    try { if (localStorage.getItem('privacy-pref') === 'accepted') { loadGA(); } } catch (e) {}
   </script>
   <link rel="stylesheet" href="fonts.css?v=20260923" />
   <link rel="stylesheet" href="css/editorial.css?v=20260923b" />
-  <link rel="stylesheet" href="css/methodos.css?v=20260918" />
+  <link rel="stylesheet" href="css/methodos.css?v=20260923" />
   <link rel="stylesheet" href="css/families.css?v=20260915" />
   <noscript><style>.fade-in { opacity: 1 !important; transform: none !important; }
+    /* Everything below waits for a class that only JS adds (.visible, .is-on). */
+    .roi-line, .roi-teaser-content .roi-teaser-cta { opacity: 1 !important; transform: none !important; }
+    .roi-hl::after, .built-path .bp-link::after { transform: none !important; }
+    .method-scene .mv-task { opacity: 1 !important; transform: none !important; }
+    .method-tabs { display: none; }
     .built-timer { display: none; }
     .built-sr { position: static; width: auto; height: auto; margin: 1.3rem 0 0; padding-top: 1.1rem; overflow: visible;
       clip: auto; clip-path: none; white-space: normal; border-top: 1px solid var(--line); font-size: 0.95rem; color: var(--muted); }</style></noscript>
   <style>
     /* ===== Tokens, base, nav, lang-switcher, consent banner, scroll-progress,
        back-to-top and fade-in now live in css/editorial.css ===== */
+
+    /* The hamburger is a real <button>: strip the UA button chrome so it looks
+       exactly like the old div (layout and size come from editorial.css). */
+    .nav-toggle {
+      -webkit-appearance: none; appearance: none;
+      background: none; border: 0; border-radius: 0; margin: 0;
+      font: inherit; color: inherit; line-height: 0;
+    }
+    /* <main> takes focus from the skip link (tabindex="-1"); no ring on the whole page */
+    #main:focus { outline: none; }
 
     /* ===== HERO ===== */
     .hero {
@@ -555,7 +547,6 @@
       .roi-line, .roi-teaser-content .roi-teaser-cta { opacity: 1; transform: none; }
       .roi-hl::after { transform: none; }
     }
-    .roi-teaser-content .hero-ctas,
     .roi-teaser-content { display: block; }
     .roi-teaser-ctas { display: flex; justify-content: center; align-items: center; gap: 1rem 1.5rem; flex-wrap: wrap; }
 
@@ -688,7 +679,6 @@
       font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.08em;
       text-transform: uppercase; color: var(--accent-deep); padding: 0.5rem 0.7rem;
     }
-    .built-where { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); }
     /* The before/after timer that replaced the written "2 days -> 12 min" line.
        Two tracks share one scale: the "before" bar is the whole duration, the
        "after" bar is the same job at its new length (floored at 3% so a 1%
@@ -916,13 +906,6 @@
     }
     .integration-logos .integration-ask:hover { color: var(--ink); }
 
-    .trust-badge {
-      margin-top: 3rem;
-      text-align: center;
-    }
-    .trust-badge img { height: 46px; width: auto; opacity: 0.7; transition: opacity 0.3s; }
-    .trust-badge img:hover { opacity: 1; }
-
     .disclaimer {
       font-size: 0.8rem;
       color: var(--faint);
@@ -943,7 +926,6 @@
       display: flex;
       gap: 1.5rem;
       align-items: flex-start;
-      transform-style: preserve-3d;
     }
 
     .why-icon {
@@ -1002,28 +984,6 @@
       margin-bottom: 0.8rem;
     }
     #giati .about-content p:last-child { margin-bottom: 0; }
-
-    .quote-block {
-      margin-top: 3rem;
-      padding: 2.5rem 3rem;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-left: 3px solid var(--accent);
-      border-radius: 2px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .quote-block p {
-      font-size: 1.4rem;
-      font-weight: 400;
-      color: var(--ink);
-      font-style: italic;
-      line-height: 1.5;
-      margin: 0;
-      position: relative;
-      z-index: 1;
-    }
 
     /* ===== CONTACT / CTA ===== */
     .contact-section {
@@ -1085,16 +1045,6 @@
 
     .contact-card:hover { border-color: var(--line-strong); }
 
-    .contact-card h3 {
-      font-size: 1.3rem;
-      font-weight: 600;
-      color: var(--ink);
-      margin-bottom: 1.5rem;
-    }
-
-    .contact-item { margin-bottom: 1.4rem; }
-    .contact-item:last-child { margin-bottom: 0; }
-
     .contact-label {
       font-family: var(--font-mono);
       font-size: 0.66rem;
@@ -1102,20 +1052,6 @@
       text-transform: uppercase;
       letter-spacing: 0.12em;
       margin-bottom: 0.35rem;
-    }
-
-    .contact-value { font-size: 1.05rem; color: var(--ink); font-weight: 500; }
-    .contact-value a { color: var(--ink); text-decoration: none; transition: color 0.2s; }
-    .contact-value a:hover { color: var(--accent-deep); }
-
-    .contact-cta {
-      margin-top: 3rem;
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-      flex-wrap: wrap;
-      position: relative;
-      z-index: 1;
     }
 
     /* ===== Footer, language switcher and fade-in animations now live
@@ -1131,9 +1067,6 @@
       .hero { min-height: 500px; }
 
       .benefits-grid, .built-grid, .big-grid, .why-grid, .contact-grid { grid-template-columns: 1fr; }
-
-      .quote-block { padding: 2rem 1.5rem; }
-      .quote-block p { font-size: 1.2rem; }
 
       #giati .about-content p { font-size: 1rem; line-height: 1.75; }
 
@@ -1167,12 +1100,12 @@
   <div class="scroll-progress" id="scrollProgress"></div>
 
   <!-- BACK TO TOP -->
-  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+  <button type="button" class="back-to-top" id="backToTop" aria-label="Επιστροφή στην αρχή" data-i18n-aria="a11y.back_to_top">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
   </button>
 
   <!-- SKIP TO CONTENT -->
-  <a href="#ti-kanoume" class="skip-to-content">Skip to main content</a>
+  <a href="#main" class="skip-to-content" data-i18n="a11y.skip">Μετάβαση στο κύριο περιεχόμενο</a>
 
   <!-- NAVIGATION -->
   <nav class="navbar">
@@ -1182,7 +1115,7 @@
         <img src="aided-cam-mark.png" alt="AidedCAM" width="30" height="34" />
         <img class="wordmark" src="aidedcam-wordmark.svg" alt="" width="716" height="67" />
       </a>
-      <ul class="nav-menu">
+      <ul class="nav-menu" id="navMenu">
         <li><a href="#ti-kanoume" class="nav-link" data-i18n="nav.whatwedo">Τι Φτιάχνουμε</a></li>
         <li><a href="#lyseis" class="nav-link" data-i18n="nav.solutions">Λύσεις</a></li>
         <li><a href="#kerdizeis" class="nav-link" data-i18n="nav.benefits">Οφέλη</a></li>
@@ -1198,16 +1131,18 @@
           </div>
         </li>
       </ul>
-      <div class="nav-toggle" role="button" aria-label="Toggle navigation menu" aria-expanded="false">
+      <button type="button" class="nav-toggle" aria-label="Άνοιγμα/κλείσιμο μενού" data-i18n-aria="a11y.menu" aria-expanded="false" aria-controls="navMenu">
         <span></span>
         <span></span>
         <span></span>
-      </div>
+      </button>
     </div>
   </nav>
 
+  <main id="main" tabindex="-1">
+
   <!-- HERO -->
-  <section class="hero">
+  <section class="hero" data-ga-location="hero">
     <div class="hero-content">
       <!-- role="img" with aria-hidden children, so assistive tech announces one
            wordmark instead of five loose acronyms. The words are product names
@@ -1573,7 +1508,7 @@
         </p>
 
         <div class="method-stage">
-          <div class="method-scene" data-view="task" data-dir="out" data-corner="Πώς βλέπουμε τη δουλειά σας" role="img" aria-label="System, workflow, task, result: zooming into where work repeats and back out to the gain">
+          <div class="method-scene" data-view="task" data-dir="out" data-corner="Πώς βλέπουμε τη δουλειά σας" role="img" aria-label="Σύστημα, ροή, εργασία, αποτέλεσμα: ζουμ εκεί που η δουλειά επαναλαμβάνεται και πίσω ξανά στο κέρδος">
             <div class="ms-steps" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
           <div class="mv mv-system" data-view="system">
             <div class="ms-cols">
@@ -1639,18 +1574,20 @@
           </div>
 
           <div class="method-info">
-            <div class="method-tabs" role="tablist" aria-label="Choose a layer">
-              <button class="m-tab on" data-layer="task" role="tab" aria-selected="true">Εργασία</button>
-              <button class="m-tab" data-layer="workflow" role="tab" aria-selected="false">Ροή</button>
-              <button class="m-tab" data-layer="system" role="tab" aria-selected="false">Σύστημα</button>
-              <button class="m-tab" data-layer="result" role="tab" aria-selected="false">Αποτέλεσμα</button>
+            <div class="method-tabs" role="tablist" aria-label="Επιλέξτε επίπεδο">
+              <button type="button" class="m-tab on" id="mTab-task" data-layer="task" role="tab" aria-selected="true" aria-controls="methodPanel">Εργασία</button>
+              <button type="button" class="m-tab" id="mTab-workflow" data-layer="workflow" role="tab" aria-selected="false" aria-controls="methodPanel">Ροή</button>
+              <button type="button" class="m-tab" id="mTab-system" data-layer="system" role="tab" aria-selected="false" aria-controls="methodPanel">Σύστημα</button>
+              <button type="button" class="m-tab" id="mTab-result" data-layer="result" role="tab" aria-selected="false" aria-controls="methodPanel">Αποτέλεσμα</button>
             </div>
+            <div class="m-panel" id="methodPanel" role="tabpanel" aria-labelledby="mTab-task">
             <div class="m-kicker" data-mk>01 · Από κοντά</div>
             <h3 class="m-title" data-mt>Μία <strong>εργασία</strong></h3>
             <p class="m-defn" data-md>Ένα μόνο βήμα, από ένα άτομο, με τον ίδιο τρόπο κάθε φορά. Κανείς δεν το προσέχει. Έτσι γίνεται η δουλειά.</p>
             <div class="reveals">
               <div class="reveals-label" data-mrl>Τι ψάχνουμε</div>
               <p class="m-reveals" data-mr>Τα βήματα που γίνονται <strong>με το χέρι και επαναλαμβάνονται</strong>. Από εδώ ξεκινάμε.</p>
+            </div>
             </div>
           </div>
         </div>
@@ -1751,7 +1688,7 @@
   </section>
 
   <!-- ROI BRIDGE — go deeper before contact -->
-  <div class="roi-teaser">
+  <div class="roi-teaser" data-ga-location="roi_teaser">
     <div class="container">
       <div class="roi-teaser-content fade-in">
         <h2 class="roi-teaser-heading" data-i18n-html="roi_teaser.heading">
@@ -1828,6 +1765,8 @@
     </div>
   </section>
 
+  </main>
+
   <!-- FOOTER -->
   <footer class="footer">
     <div class="container">
@@ -1837,7 +1776,7 @@
             <img src="aided-cam-mark.png" alt="AidedCAM" width="30" height="34" loading="lazy" />
             <img class="wordmark" src="aidedcam-wordmark.svg" alt="" width="716" height="67" loading="lazy" />
           </div>
-          <p class="footer-about-text" data-i18n="about.p1">Μηχανικοί και προγραμματιστές με χρόνια εμπειρίας σε τμήματα σχεδιασμού και παραγωγής σε Ελλάδα, Βέλγιο, Ελβετία, Αυστρία και Γερμανία.</p>
+          <p class="footer-about-text" data-i18n="about.p1">Μηχανικοί και προγραμματιστές με χρόνια εμπειρίας σε τμήματα σχεδιασμού και παραγωγής.</p>
         </div>
         <div class="footer-col">
           <h4 data-i18n="footer.explore">Πλοήγηση</h4>
@@ -1869,7 +1808,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <div class="footer-copy">&copy; <span id="footerYear">2026</span> AidedCAM. All rights reserved.</div>
+        <div class="footer-copy">&copy; <span id="footerYear">2026</span> AidedCAM. <span data-i18n="footer.rights">Με την επιφύλαξη παντός δικαιώματος.</span></div>
         <div class="footer-bottom-links">
           <a href="privacy.html" data-i18n="footer.privacy">Απόρρητο</a>
           <a href="legal.html" data-i18n="footer.legal">Νομικά</a>
@@ -2001,8 +1940,7 @@
         'tools.ask_cta': 'Ρωτήστε μας',
         'tools.standalone_desc': 'Διαχείριση έργων, παρακολούθηση παραγωγής, δεδομένα από το εργοστάσιο στο γραφείο. Και προγράμματα σχεδιασμού που τρέχουν μόνα τους, χωρίς άλλο CAD ή CAM εγκατεστημένο.',
         'tools.disclaimer': 'Τα εμπορικά σήματα που αναφέρονται ανήκουν στους αντίστοιχους κατόχους τους.',
-        // Services
-        // Process
+        // Method
         'methodos.label': 'Μέθοδος',
         'methodos.title': 'Πριν γράψουμε κώδικα, <strong>βλέπουμε πού πάει ο χρόνος</strong>.',
         'method.steps_title': 'Πώς δουλεύουμε μαζί σας, σε πέντε βήματα',
@@ -2016,7 +1954,6 @@
         'method.s4_d': 'Το εγκαθιστούμε στους υπολογιστές σας και το δοκιμάζουμε σε πραγματικές δουλειές.',
         'method.s5_t': 'Εκπαίδευση & υποστήριξη',
         'method.s5_d': 'Εκπαιδεύουμε την ομάδα σας και μένουμε δίπλα σας.',
-        'contact.form_phone': 'Τηλέφωνο (προαιρετικό)',
         // Why Us
         'whyus.label': 'Γιατί Εμείς',
         'whyus.title': 'Γιατί <strong>AidedCAM</strong>',
@@ -2037,12 +1974,10 @@
         'contact.subtitle': 'Πείτε μας τι κάνετε σήμερα με το χέρι και τι θα θέλατε να κάνει το λογισμικό σας. Θα απαντήσουμε εντός 48 ωρών με το πώς θα το φτιάχναμε.',
         'contact.athens': 'Αθήνα',
         'contact.thessaloniki': 'Θεσσαλονίκη',
-        'contact.phone': 'Τηλέφωνο',
-        'contact.phone2': 'Τηλέφωνο',
-        'contact.send_email': 'Στείλε Email',
         'hero.proof': '<span>Έργα σε <b>5 χώρες</b></span><span><b>8</b> συστήματα CAD/CAM/BIM</span><span>Απάντηση <b>εντός 48 ωρών</b></span>',
         'footer.explore': 'Πλοήγηση',
         'contact.form_company': 'Εταιρεία',
+        'contact.form_phone': 'Τηλέφωνο (προαιρετικό)',
         'contact.form_message': 'Τι δουλειά σας τρώει τον περισσότερο χρόνο;',
         'contact.form_ph_message': 'π.χ. Θέλουμε να βλέπουμε τα στάδια της παραγωγής ζωντανά. Ή: κάθε πρωί περνάμε 2 ώρες στήνοντας τις ίδιες κατεργασίες στο PowerMill.',
         'contact.form_submit': 'Αποστολή',
@@ -2054,7 +1989,7 @@
         // Footer
         'footer.contact': 'Επικοινωνία',
         // Privacy consent
-        'cookie_text': 'Αυτός ο ιστότοπος χρησιμοποιεί cookies για τη βελτιστοποίηση της λειτουργίας του και την ανάλυση της επισκεψιμότητας.',
+        'cookie_text': 'Αυτός ο ιστότοπος χρησιμοποιεί cookies για τη βελτιστοποίηση της λειτουργίας του και την ανάλυση επισκεψιμότητας.',
         'cookie_accept': 'Αποδοχή',
         'cookie_manage': 'Διαχείριση προτιμήσεων',
         'cookie_prefs_desc': 'Επιλέξτε ποιες κατηγορίες cookies επιθυμείτε να ενεργοποιήσετε. Τα απαραίτητα cookies είναι πάντα ενεργά για τη σωστή λειτουργία του ιστότοπου.',
@@ -2073,6 +2008,11 @@
         'footer.privacy': 'Απόρρητο',
         'footer.legal': 'Νομικά',
         'footer.cookie_settings': 'Ρυθμίσεις Cookies',
+        'footer.rights': 'Με την επιφύλαξη παντός δικαιώματος.',
+        // Accessibility labels (data-i18n-aria / skip link)
+        'a11y.back_to_top': 'Επιστροφή στην αρχή',
+        'a11y.menu': 'Άνοιγμα/κλείσιμο μενού',
+        'a11y.skip': 'Μετάβαση στο κύριο περιεχόμενο',
         // Page title
         '_title': 'AidedCAM - Λογισμικό στα μέτρα της εταιρείας σας, με αυτοματισμό εκεί που χάνεται χρόνος'
       },
@@ -2195,8 +2135,7 @@
         'tools.ask_cta': 'Ask us',
         'tools.standalone_desc': 'Project management, production tracking, data from the shop floor to the office. And design programs that run on their own, with no other CAD or CAM installed.',
         'tools.disclaimer': 'All trademarks mentioned belong to their respective owners.',
-        // Services
-        // Process
+        // Method
         'methodos.label': 'Method',
         'methodos.title': 'Before we write code, <strong>we see where the time goes</strong>.',
         'method.steps_title': 'How we work with you, in five steps',
@@ -2210,7 +2149,6 @@
         'method.s4_d': 'We install it on your computers and test it on real jobs.',
         'method.s5_t': 'Training & support',
         'method.s5_d': 'We train your team and stay at your side.',
-        'contact.form_phone': 'Phone (optional)',
         // Why Us
         'whyus.label': 'Why Us',
         'whyus.title': 'Why <strong>AidedCAM</strong>',
@@ -2231,12 +2169,10 @@
         'contact.subtitle': 'Tell us what you do by hand today and what you would want your software to do. We reply within 48 hours with how we would build it.',
         'contact.athens': 'Athens',
         'contact.thessaloniki': 'Thessaloniki',
-        'contact.phone': 'Phone',
-        'contact.phone2': 'Phone',
-        'contact.send_email': 'Send Email',
         'hero.proof': '<span>Projects in <b>5 countries</b></span><span><b>8</b> CAD/CAM/BIM systems</span><span>Reply <b>within 48 hours</b></span>',
         'footer.explore': 'Explore',
         'contact.form_company': 'Company',
+        'contact.form_phone': 'Phone (optional)',
         'contact.form_message': 'Which job eats most of your time?',
         'contact.form_ph_message': 'e.g. We want to see production stages live. Or: every morning we spend 2 hours setting up the same toolpaths in PowerMill.',
         'contact.form_submit': 'Send it',
@@ -2248,7 +2184,7 @@
         // Footer
         'footer.contact': 'Contact',
         // Privacy consent
-        'cookie_text': 'This website uses cookies to optimize its functionality and analyze traffic.',
+        'cookie_text': 'This website uses cookies to optimize functionality and analyze traffic.',
         'cookie_accept': 'Accept',
         'cookie_manage': 'Manage preferences',
         'cookie_prefs_desc': 'Choose which categories of cookies you wish to enable. Essential cookies are always active for the proper functioning of the website.',
@@ -2267,6 +2203,11 @@
         'footer.privacy': 'Privacy',
         'footer.legal': 'Legal',
         'footer.cookie_settings': 'Cookie Settings',
+        'footer.rights': 'All rights reserved.',
+        // Accessibility labels (data-i18n-aria / skip link)
+        'a11y.back_to_top': 'Back to top',
+        'a11y.menu': 'Open or close the menu',
+        'a11y.skip': 'Skip to main content',
         // Page title
         '_title': 'AidedCAM - Software made to fit your company, automation where the time goes'
       },
@@ -2389,8 +2330,7 @@
         'tools.ask_cta': 'Chiedeteci',
         'tools.standalone_desc': 'Gestione dei progetti, monitoraggio della produzione, dati dall’officina all’ufficio. E programmi di progettazione che funzionano da soli, senza altro CAD o CAM installato.',
         'tools.disclaimer': 'Tutti i marchi menzionati appartengono ai rispettivi proprietari.',
-        // Services
-        // Process
+        // Method
         'methodos.label': 'Metodo',
         'methodos.title': 'Prima di scrivere codice, <strong>guardiamo dove va il tempo</strong>.',
         'method.steps_title': 'Come lavoriamo con voi, in cinque passi',
@@ -2404,7 +2344,6 @@
         'method.s4_d': 'Lo installiamo sui vostri computer e lo testiamo su lavori reali.',
         'method.s5_t': 'Formazione e assistenza',
         'method.s5_d': 'Formiamo il vostro team e restiamo al vostro fianco.',
-        'contact.form_phone': 'Telefono (facoltativo)',
         // Why Us
         'whyus.label': 'Perché Noi',
         'whyus.title': 'Perché <strong>AidedCAM</strong>',
@@ -2425,12 +2364,10 @@
         'contact.subtitle': 'Diteci cosa fate a mano oggi e cosa vorreste che facesse il vostro software. Vi rispondiamo entro 48 ore con come lo costruiremmo.',
         'contact.athens': 'Atene',
         'contact.thessaloniki': 'Salonicco',
-        'contact.phone': 'Telefono',
-        'contact.phone2': 'Telefono',
-        'contact.send_email': 'Invia Email',
         'hero.proof': '<span>Progetti in <b>5 paesi</b></span><span><b>8</b> sistemi CAD/CAM/BIM</span><span>Risposta <b>entro 48 ore</b></span>',
         'footer.explore': 'Esplora',
         'contact.form_company': 'Azienda',
+        'contact.form_phone': 'Telefono (facoltativo)',
         'contact.form_message': 'Quale lavoro vi porta via più tempo?',
         'contact.form_ph_message': 'es. Vogliamo vedere le fasi di produzione in tempo reale. Oppure: ogni mattina passiamo 2 ore a impostare gli stessi percorsi utensile in PowerMill.',
         'contact.form_submit': 'Inviate',
@@ -2461,10 +2398,19 @@
         'footer.privacy': 'Privacy',
         'footer.legal': 'Note Legali',
         'footer.cookie_settings': 'Impostazioni Cookie',
+        'footer.rights': 'Tutti i diritti riservati.',
+        // Accessibility labels (data-i18n-aria / skip link)
+        'a11y.back_to_top': 'Torna all’inizio',
+        'a11y.menu': 'Apri o chiudi il menu',
+        'a11y.skip': 'Vai al contenuto principale',
         // Page title
         '_title': 'AidedCAM - Software su misura per la vostra azienda, automazione dove si perde tempo'
       }
     };
+
+    // ===== STORAGE (never lets a blocked localStorage break the page) =====
+    function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+    function lsSet(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
 
     // ===== LANGUAGE SWITCHER =====
     function setLanguage(lang) {
@@ -2479,15 +2425,16 @@
         }
       });
 
-      // Update HTML content (elements with rich markup)
+      // Translated aria-labels (icon-only buttons)
       document.querySelectorAll('[data-i18n-aria]').forEach(el => {
-        const key = el.getAttribute('data-i18n-aria');
-        if (translations[lang] && translations[lang][key]) el.setAttribute('aria-label', translations[lang][key]);
+        const v = t[el.dataset.i18nAria];
+        if (v) el.setAttribute('aria-label', v);
       });
       document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
         const key = el.getAttribute('data-i18n-placeholder');
         if (t[key]) el.setAttribute('placeholder', t[key]);
       });
+      // Update HTML content (elements with rich markup)
       document.querySelectorAll('[data-i18n-html]').forEach(el => {
         const key = el.getAttribute('data-i18n-html');
         if (t[key] !== undefined) {
@@ -2505,7 +2452,7 @@
       });
 
       // Save preference
-      localStorage.setItem('aidedcam-lang', lang);
+      lsSet('aidedcam-lang', lang);
 
       // Dispatch event so other modules can react
       document.dispatchEvent(new CustomEvent('languageChanged', { detail: { lang } }));
@@ -2514,7 +2461,8 @@
     // Initialize language: URL param > localStorage > browser language > Greek default
     const urlLangParam = new URLSearchParams(window.location.search).get('lang');
     const urlLang = (urlLangParam && translations[urlLangParam]) ? urlLangParam : null;
-    const savedLang = localStorage.getItem('aidedcam-lang');
+    const storedLang = lsGet('aidedcam-lang');
+    const savedLang = (storedLang && translations[storedLang]) ? storedLang : null;
     const browserLangCode = navigator.language ? navigator.language.substring(0, 2) : 'el';
     const browserLang = browserLangCode === 'el' ? 'el' : browserLangCode === 'it' ? 'it' : 'en';
     const initialLang = urlLang || savedLang || browserLang;
@@ -2711,19 +2659,28 @@
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('.nav-menu');
 
+    const setMenuOpen = (open) => {
+      navToggle.classList.toggle('active', open);
+      navMenu.classList.toggle('active', open);
+      navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    };
+
     navToggle.addEventListener('click', () => {
-      const isActive = navToggle.classList.toggle('active');
-      navMenu.classList.toggle('active');
-      navToggle.setAttribute('aria-expanded', isActive);
+      const open = !navToggle.classList.contains('active');
+      setMenuOpen(open);
+      gaEvent('open_close_mobile_menu', { action: open ? 'open' : 'close' });
     });
 
     // Close mobile menu on link click
     document.querySelectorAll('.nav-link, .nav-cta').forEach(link => {
-      link.addEventListener('click', () => {
-        navToggle.classList.remove('active');
-        navMenu.classList.remove('active');
-        navToggle.setAttribute('aria-expanded', 'false');
-      });
+      link.addEventListener('click', () => setMenuOpen(false));
+    });
+
+    // Escape closes the open menu and hands focus back to the toggle
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape' || !navToggle.classList.contains('active')) return;
+      setMenuOpen(false);
+      navToggle.focus();
     });
 
     // ===== NAVBAR SCROLL =====
@@ -2733,8 +2690,8 @@
     }, { passive: true });
 
     // Hero particles, animated counters and the typing effect were removed
-    // for the editorial redesign. Stat values render statically; the hero
-    // headline is populated by setLanguage() via its data-i18n-html attribute.
+    // for the editorial redesign. The hero headline is populated by
+    // setLanguage() via its data-i18n-html attribute.
 
     // ===== GOOGLE ANALYTICS CUSTOM EVENTS =====
     function gaEvent(eventName, params) {
@@ -2769,12 +2726,19 @@
     });
 
     // -- CTA button clicks --
+    // Location = the nearest container that names itself for GA (hero, ROI
+    // teaser) or the enclosing section id; 'nav' only for links in the navbar.
+    function ctaLocation(el) {
+      const box = el.closest('[data-ga-location], section[id]');
+      if (box) return box.getAttribute('data-ga-location') || box.id;
+      return el.closest('.navbar') ? 'nav' : 'unknown';
+    }
     document.querySelectorAll('.btn-primary, .btn-secondary, .nav-cta').forEach(btn => {
       btn.addEventListener('click', () => {
         gaEvent('click_call_to_action', {
           text: btn.textContent.trim(),
           href: btn.href || '',
-          location: btn.closest('section')?.id || 'nav'
+          location: ctaLocation(btn)
         });
       });
     });
@@ -2800,16 +2764,6 @@
         if (window.gtag) gtag('set', 'user_properties', { preferred_language: lang });
       });
     });
-
-    // -- Mobile nav toggle --
-    var mobileNavBtn = document.querySelector('.nav-toggle');
-    if (mobileNavBtn) {
-      mobileNavBtn.addEventListener('click', () => {
-        gaEvent('open_close_mobile_menu', {
-          action: mobileNavBtn.classList.contains('active') ? 'close' : 'open'
-        });
-      });
-    }
 
     // -- Scroll depth tracking (25/50/75/100% — complements GA4 Enhanced Measurement which only fires at 90%) --
     (function() {
@@ -2974,12 +2928,13 @@
     })();
 
     // ===== NAVBAR ACTIVE SECTION HIGHLIGHT =====
-    // Only observe sections that actually correspond to a nav link, so other
-    // sections don't side-effect-clear state.
-    // rootMargin defines a narrow mid-viewport detection band, so section
-    // height is irrelevant — this matters for #methodos, which is ~7 viewports
-    // tall because of the scroll-driven panels and would never reach a
-    // percentage-based threshold.
+    // Every top-level block of <main> is observed. When the one crossing the
+    // mid-viewport band has a nav link, that link is highlighted; when it has
+    // none (hero, #megali-eikona, the ROI teaser, #contact) every link is
+    // cleared, so the nav never keeps pointing at a section that has scrolled
+    // away. The narrow rootMargin band makes section height irrelevant, so
+    // tall blocks such as #methodos (intro, animated scene and the five
+    // steps) register without needing a percentage threshold.
     (function() {
       var navLinks = document.querySelectorAll('.nav-link');
       var linkedIds = new Set();
@@ -2987,21 +2942,15 @@
         var href = l.getAttribute('href');
         if (href && href.charAt(0) === '#' && href.length > 1) linkedIds.add(href.slice(1));
       });
-      var sections = Array.prototype.filter.call(
-        document.querySelectorAll('section[id]'),
-        function(s) { return linkedIds.has(s.id); }
-      );
+      var sections = document.querySelectorAll('#main > section, #main > .roi-teaser');
 
       var activeObserver = new IntersectionObserver(function(entries) {
         entries.forEach(function(entry) {
           if (entry.isIntersecting) {
             var id = entry.target.id;
+            var linked = !!id && linkedIds.has(id);
             navLinks.forEach(function(link) {
-              if (link.getAttribute('href') === '#' + id) {
-                link.classList.add('active');
-              } else {
-                link.classList.remove('active');
-              }
+              link.classList.toggle('active', linked && link.getAttribute('href') === '#' + id);
             });
           }
         });
@@ -3018,7 +2967,7 @@
   <div class="consent-banner" id="privacyOverlay">
     <div class="consent-inner">
       <p>
-        <span data-i18n="cookie_text">Αυτός ο ιστότοπος χρησιμοποιεί cookies για τη βελτιστοποίηση της λειτουργίας του και την ανάλυση της επισκεψιμότητας.</span>
+        <span data-i18n="cookie_text">Αυτός ο ιστότοπος χρησιμοποιεί cookies για τη βελτιστοποίηση της λειτουργίας του και την ανάλυση επισκεψιμότητας.</span>
         <a href="privacy.html" class="consent-privacy-link" data-i18n="cookie_privacy_link">Πολιτική Απορρήτου</a>
       </p>
       <div class="consent-actions">
@@ -3046,7 +2995,7 @@
             </label>
           </div>
           <div class="consent-cat">
-            <input type="checkbox" id="cookieAnalytics" checked>
+            <input type="checkbox" id="cookieAnalytics">
             <label for="cookieAnalytics">
               <span class="consent-cat-name" data-i18n="cookie_cat_analytics">Ανάλυση επισκεψιμότητας</span>
               <span class="consent-cat-desc" data-i18n="cookie_cat_analytics_desc">Google Analytics, ανώνυμα στατιστικά</span>
@@ -3077,22 +3026,23 @@
       function hideBanner() { overlay.classList.remove('visible'); prefsPanel.classList.remove('visible'); }
 
       // Load saved prefs into checkboxes
+      // Analytics is opt-in: unticked unless the visitor has saved a yes.
       function loadPrefs() {
         try {
-          var raw = localStorage.getItem('cookie-prefs');
-          if (!raw) { analyticsCheckbox.checked = true; return; }
+          var raw = lsGet('cookie-prefs');
+          if (!raw) { analyticsCheckbox.checked = false; return; }
           var prefs = JSON.parse(raw);
           analyticsCheckbox.checked = !!prefs.analytics;
-        } catch(e) { analyticsCheckbox.checked = true; }
+        } catch(e) { analyticsCheckbox.checked = false; }
       }
 
       // Show banner if no preference set
-      if (!localStorage.getItem('privacy-pref')) { showBanner(); }
+      if (!lsGet('privacy-pref')) { showBanner(); }
 
       // Accept all
       document.getElementById('privacyAccept').addEventListener('click', function() {
-        localStorage.setItem('privacy-pref', 'accepted');
-        localStorage.setItem('cookie-prefs', JSON.stringify({ analytics: true }));
+        lsSet('privacy-pref', 'accepted');
+        lsSet('cookie-prefs', JSON.stringify({ analytics: true }));
         hideBanner();
         loadGA();
         gaEvent('accepted_cookie_consent', { action: 'accept' });
@@ -3100,9 +3050,10 @@
 
       // Decline all
       document.getElementById('privacyDecline').addEventListener('click', function() {
-        localStorage.setItem('privacy-pref', 'declined');
-        localStorage.setItem('cookie-prefs', JSON.stringify({ analytics: false }));
+        lsSet('privacy-pref', 'declined');
+        lsSet('cookie-prefs', JSON.stringify({ analytics: false }));
         hideBanner();
+        revokeGA();
       });
 
       // Manage preferences
@@ -3119,10 +3070,15 @@
       // Save custom preferences
       document.getElementById('privacySavePrefs').addEventListener('click', function() {
         var prefs = { analytics: analyticsCheckbox.checked };
-        localStorage.setItem('cookie-prefs', JSON.stringify(prefs));
-        localStorage.setItem('privacy-pref', prefs.analytics ? 'accepted' : 'declined');
+        lsSet('cookie-prefs', JSON.stringify(prefs));
+        lsSet('privacy-pref', prefs.analytics ? 'accepted' : 'declined');
         hideBanner();
-        if (prefs.analytics) { loadGA(); }
+        if (prefs.analytics) {
+          loadGA();
+          gaEvent('accepted_cookie_consent', { action: 'save_preferences' });
+        } else {
+          revokeGA();
+        }
       });
 
       // Global function to reopen banner (used by footer link)
@@ -3142,6 +3098,6 @@
 
 
 
-  <script src="js/methodos.js?v=20260915" defer></script>
+  <script src="js/methodos.js?v=20260923" defer></script>
 </body>
 </html>

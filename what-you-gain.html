@@ -6,16 +6,35 @@
   <title>AidedCAM - Τι Κερδίζετε</title>
   <meta name="description" content="Δείτε τι κερδίζετε με μία συνεργασία AidedCAM. Εξοικονόμηση 1.700+ ωρών/χειριστή, εξασφαλισμένη ποιότητα, λογισμικό φτιαγμένο για εσάς." />
   <meta name="robots" content="index, follow" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
-  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <meta property="og:title" content="AidedCAM - Τι Κερδίζετε" />
+  <meta property="og:description" content="Δείτε τι κερδίζετε με μία συνεργασία AidedCAM. Εξοικονόμηση 1.700+ ωρών/χειριστή, εξασφαλισμένη ποιότητα, λογισμικό φτιαγμένο για εσάς." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.aidedcam.com/what-you-gain.html" />
+  <meta property="og:image" content="https://www.aidedcam.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="AidedCAM" />
+  <meta property="og:locale" content="el_GR" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AidedCAM - Τι Κερδίζετε" />
+  <meta name="twitter:description" content="Δείτε τι κερδίζετε με μία συνεργασία AidedCAM. Εξοικονόμηση 1.700+ ωρών/χειριστή, εξασφαλισμένη ποιότητα, λογισμικό φτιαγμένο για εσάς." />
+  <meta name="twitter:image" content="https://www.aidedcam.com/og-image.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <meta name="theme-color" content="#f4f3ee" />
   <link rel="canonical" href="https://www.aidedcam.com/what-you-gain.html" />
   <link rel="preload" as="image" href="aided-cam-mark.png" />
   <!-- Google Analytics - loaded only after cookie consent -->
   <script>
+    function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+    function lsSet(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
     function loadGA() {
-      if (document.getElementById('ga-script')) return;
+      window['ga-disable-G-81935T6DNE'] = false;
+      if (document.getElementById('ga-script')) {
+        if (window.gtag) gtag('consent', 'update', { analytics_storage: 'granted' });
+        return;
+      }
       var s = document.createElement('script');
       s.id = 'ga-script'; s.async = true;
       s.src = 'https://www.googletagmanager.com/gtag/js?id=G-81935T6DNE';
@@ -25,10 +44,23 @@
       window.gtag = gtag;
       gtag('js', new Date());
       gtag('config', 'G-81935T6DNE');
-      var userLang = localStorage.getItem('aidedcam-lang') || document.documentElement.lang || 'el';
+      var userLang = lsGet('aidedcam-lang') || document.documentElement.lang || 'el';
       gtag('set', 'user_properties', { preferred_language: userLang });
     }
-    if (localStorage.getItem('privacy-pref') === 'accepted') { loadGA(); }
+    function revokeGA() {
+      window['ga-disable-G-81935T6DNE'] = true;
+      if (window.gtag) gtag('consent', 'update', { analytics_storage: 'denied' });
+      var root = location.hostname.replace(/^www\./, '');
+      document.cookie.split(';').forEach(function (c) {
+        var n = c.split('=')[0].trim();
+        if (n === '_ga' || n.indexOf('_ga_') === 0) {
+          ['', location.hostname, '.' + root].forEach(function (d) {
+            document.cookie = n + '=; Max-Age=0; path=/' + (d ? '; domain=' + d : '');
+          });
+        }
+      });
+    }
+    if (lsGet('privacy-pref') === 'accepted') { loadGA(); }
   </script>
   <link rel="stylesheet" href="fonts.css?v=20260923" />
   <link rel="stylesheet" href="css/editorial.css?v=20260923b" />
@@ -222,13 +254,6 @@
       display: block; opacity: 1;
       transition: opacity 450ms var(--ease-out);
     }
-    .roi-content.visible {
-      display: block;
-    }
-    .roi-content.fade-in {
-      opacity: 1;
-      transform: none;
-    }
 
     /* ===== ROI HERO ===== */
     .roi-hero {
@@ -291,7 +316,10 @@
       background: var(--paper);
       border-bottom: 1px solid var(--line);
     }
-    .pillar:nth-child(even) { background: var(--paper-2); }
+    /* Explicit alternation (nth-child counted across different parents).
+       Visible sequences: hero(alt) · p1 · gate(alt) before unlock;
+       hero(alt) · p1 · p2(alt) · p3 · p4(alt) · closing after. */
+    .pillar--alt { background: var(--paper-2); }
 
     .pillar-header {
       display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;
@@ -524,7 +552,7 @@
     /* ===== CLOSING ===== */
     .roi-closing {
       text-align: center; padding: clamp(4rem, 8vw, 6rem) 2rem;
-      background: var(--paper-2);
+      background: var(--paper);
     }
     .roi-closing h2 {
       font-family: var(--font-display);
@@ -594,7 +622,7 @@
 
       /* Hero */
       .roi-hero { padding: 50px 1.5rem 40px; }
-      .roi-hero h1 { font-size: 1.1rem; line-height: 1.6; }
+      .roi-hero h1 { font-size: 1.3rem; line-height: 1.45; } /* never smaller than .pillar-title */
       .roi-hero h1 br { display: none; }
       .roi-hero .tagline { font-size: 0.9rem; }
       .roi-greeting { padding: 0.7rem 1rem; margin-bottom: 1.2rem; }
@@ -654,7 +682,6 @@
     }
 
     @media (max-width: 380px) {
-      .roi-hero h1 { font-size: 1.15rem; }
       .services-grid { grid-template-columns: 1fr; }
       .gate-section { padding: 30px 0.8rem; }
       .gate-card { padding: 1.5rem 1.2rem; }
@@ -670,12 +697,12 @@
   <!-- NAVIGATION -->
   <nav class="navbar" id="navbar">
     <div class="nav-container">
-      <a href="/" class="nav-logo">
+      <a href="index.html" class="nav-logo">
         <img src="aided-cam-mark.png" alt="AidedCAM" width="30" height="34" />
         <img class="wordmark" src="aidedcam-wordmark.svg" alt="" width="716" height="67" />
       </a>
       <div class="nav-right">
-        <a href="/" class="nav-back" data-i18n="roi.back">Αρχική</a>
+        <a href="index.html" class="nav-back" data-i18n="roi.back">Αρχική</a>
         <div class="lang-switcher">
           <button class="lang-btn active" data-lang="el">EL</button>
           <button class="lang-btn" data-lang="en">EN</button>
@@ -715,7 +742,7 @@
         </div>
         <p class="pillar-intro fade-in" data-i18n-html="roi.p1_intro">Το νιώθετε την πρώτη εβδομάδα. Κάθε νέα λύση <strong>προστίθεται στην προηγούμενη</strong>.</p>
 
-        <div class="bar-group fade-in" data-before="1920" data-after="26" data-unit="min" data-pct="99">
+        <div class="bar-group fade-in">
           <div class="bar-header">
             <span class="bar-label" data-i18n="roi.process1">Προγραμματισμός πλάκας καλουπιού</span>
             <span class="bar-pct">-99%</span>
@@ -732,7 +759,7 @@
           </div>
         </div>
 
-        <div class="bar-group fade-in fade-in-d1" data-before="960" data-after="12" data-unit="min" data-pct="99">
+        <div class="bar-group fade-in fade-in-d1">
           <div class="bar-header">
             <span class="bar-label" data-i18n="roi.process2">Από το σχέδιο στο πρόγραμμα τόρνου</span>
             <span class="bar-pct">-99%</span>
@@ -749,7 +776,7 @@
           </div>
         </div>
 
-        <div class="bar-group fade-in fade-in-d2" data-before="480" data-after="11" data-unit="min" data-pct="98">
+        <div class="bar-group fade-in fade-in-d2">
           <div class="bar-header">
             <span class="bar-label" data-i18n="roi.process3">Σχέδια και πίνακες από το μοντέλο Revit</span>
             <span class="bar-pct">-98%</span>
@@ -766,7 +793,7 @@
           </div>
         </div>
 
-        <div class="bar-group fade-in fade-in-d3" data-before="120" data-after="3" data-unit-after="sec" data-pct="99">
+        <div class="bar-group fade-in fade-in-d3">
           <div class="bar-header">
             <span class="bar-label" data-i18n="roi.process4">Έγγραφα για την παραγωγή</span>
             <span class="bar-pct">-99%</span>
@@ -805,7 +832,7 @@
   <section class="gate-section" id="gateSection">
     <div class="gate-card">
       <div class="gate-badge">AIDEDCAM</div>
-      <h2 class="gate-title" data-i18n-html="roi.gate_title">Δείτε τι <span class="hl" style="color:var(--accent-bright)">πραγματικά κερδίζετε</span></h2>
+      <h2 class="gate-title" data-i18n-html="roi.gate_title">Δείτε τι <span class="hl">πραγματικά κερδίζετε</span></h2>
       <p class="gate-teaser" data-i18n="roi.gate_teaser">Ακολουθούν 3 ακόμη ενότητες</p>
       <p class="gate-subtitle" data-i18n="roi.gate_subtitle">Συμπληρώστε τα παρακάτω και δείτε τι κερδίζετε με την AidedCAM.</p>
 
@@ -859,7 +886,7 @@
 
     <div class="roi-locked" id="roiLocked">
     <!-- PILLAR 2: QUALITY -->
-    <section class="pillar" id="pillar2">
+    <section class="pillar pillar--alt" id="pillar2">
       <div class="container">
         <div class="pillar-header fade-in">
           <div class="pillar-num">02</div>
@@ -937,7 +964,7 @@
     </section>
 
     <!-- PILLAR 4: ALL-INCLUSIVE -->
-    <section class="pillar" id="pillar4">
+    <section class="pillar pillar--alt" id="pillar4">
       <div class="container">
         <div class="pillar-header fade-in">
           <div class="pillar-num">04</div>
@@ -1049,7 +1076,7 @@
     var translations = {
       el: {
         'roi.back': 'Αρχική',
-        'roi.gate_title': 'Δείτε τι <span class="hl" style="color:var(--accent-bright)">πραγματικά κερδίζετε</span>',
+        'roi.gate_title': 'Δείτε τι <span class="hl">πραγματικά κερδίζετε</span>',
         'roi.gate_subtitle': 'Συμπληρώστε τα παρακάτω και δείτε τι κερδίζετε με την AidedCAM.',
         'roi.label_company': 'Επωνυμία εταιρείας <span class="required">*</span>',
         'roi.ph_company': 'π.χ. Μεταλλοτεχνική ΑΕ',
@@ -1143,11 +1170,11 @@
         'footer.privacy': 'Απόρρητο',
         'footer.legal': 'Νομικά',
         'footer.cookie_settings': 'Ρυθμίσεις Cookies',
-        '_title': 'AidedCAM - Γιατί να Συνεργαστούμε'
+        '_title': 'AidedCAM - Τι Κερδίζετε'
       },
       en: {
         'roi.back': 'Home',
-        'roi.gate_title': 'See what you <span class="hl" style="color:var(--accent-bright)">actually gain</span>',
+        'roi.gate_title': 'See what you <span class="hl">actually gain</span>',
         'roi.gate_subtitle': 'Fill in the details below and see exactly what you gain by partnering with AidedCAM.',
         'roi.label_company': 'Company name <span class="required">*</span>',
         'roi.ph_company': 'e.g. Precision Machining Ltd',
@@ -1241,11 +1268,11 @@
         'footer.privacy': 'Privacy',
         'footer.legal': 'Legal',
         'footer.cookie_settings': 'Cookie Settings',
-        '_title': 'AidedCAM - Why Partner With Us'
+        '_title': 'AidedCAM - What You Gain'
       },
       it: {
         'roi.back': 'Home',
-        'roi.gate_title': 'Scoprite cosa <span class="hl" style="color:var(--accent-bright)">guadagnate davvero</span>',
+        'roi.gate_title': 'Scoprite cosa <span class="hl">guadagnate davvero</span>',
         'roi.gate_subtitle': 'Compilate i dati qui sotto e scoprite esattamente cosa guadagnate con una collaborazione AidedCAM.',
         'roi.label_company': 'Nome azienda <span class="required">*</span>',
         'roi.ph_company': 'es. Precision Machining Srl',
@@ -1339,9 +1366,26 @@
         'footer.privacy': 'Privacy',
         'footer.legal': 'Note Legali',
         'footer.cookie_settings': 'Impostazioni Cookie',
-        '_title': 'AidedCAM - Perch\u00e9 Collaborare Con Noi'
+        '_title': 'AidedCAM - Cosa Guadagnate'
       }
     };
+
+    // Counter / bar state (declared before the init code below runs)
+    var COUNTER_TARGET = 1700;
+    var COUNTER_SUFFIX = '+';
+    var counterDone = false;    // the 1,700+ counter has reached its final value
+    var counterArmed = false;   // an observer is already waiting for it
+    var LOCALES = { el: 'el-GR', en: 'en-GB', it: 'it-IT' };
+    function reducedMotion() {
+      return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    }
+    function formatCount(n) {
+      return n.toLocaleString(LOCALES[document.documentElement.lang] || 'el-GR') + COUNTER_SUFFIX;
+    }
+    function renderCounterFinal() {
+      var el = document.getElementById('animCounter');
+      if (el) el.textContent = formatCount(COUNTER_TARGET);
+    }
 
     // ===== I18N ENGINE =====
     function setLanguage(lang) {
@@ -1368,17 +1412,21 @@
         btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
       });
 
-      localStorage.setItem('aidedcam-lang', lang);
+      lsSet('aidedcam-lang', lang);
+      // A counter that has already finished is re-formatted in the new locale.
+      if (counterDone) renderCounterFinal();
     }
 
     // Init language
     var urlLangParam = new URLSearchParams(window.location.search).get('lang');
     var urlLang = (urlLangParam && translations[urlLangParam]) ? urlLangParam : null;
-    var savedLang = localStorage.getItem('aidedcam-lang');
+    var savedLang = lsGet('aidedcam-lang');
     var browserLangCode = navigator.language ? navigator.language.substring(0, 2) : 'el';
     var browserLang = browserLangCode === 'el' ? 'el' : browserLangCode === 'it' ? 'it' : 'en';
     var currentLang = urlLang || savedLang || browserLang;
     if (currentLang !== 'el') setLanguage(currentLang);
+
+    var roiUnlocked = false;
 
     // Hero + pillar 1 are always open; a stored lead unlocks the rest immediately.
     var existingLead = getLeadData();
@@ -1389,9 +1437,15 @@
       initScrollAnimations();
     }
 
+    retryUnsentLead();
+
     document.querySelectorAll('.lang-btn').forEach(function(btn) {
       btn.addEventListener('click', function() {
-        setLanguage(btn.getAttribute('data-lang'));
+        var lang = btn.getAttribute('data-lang');
+        setLanguage(lang);
+        gaEvent('switch_site_language', { language: lang });
+        // Update user property so all future events are segmented by language
+        if (window.gtag) gtag('set', 'user_properties', { preferred_language: lang });
       });
     });
 
@@ -1438,22 +1492,49 @@
     // ===== LEAD PERSISTENCE =====
     function getLeadData() {
       try {
-        var data = JSON.parse(localStorage.getItem('aidedcam-lead'));
+        var data = JSON.parse(lsGet('aidedcam-lead'));
         if (data && data.email && data.timestamp) return data;
       } catch(e) {}
       return null;
     }
 
-    function storeLeadData(formData, source) {
+    function saveLead(lead, sent) {
+      lead.sent = sent;
+      lsSet('aidedcam-lead', JSON.stringify(lead));
+    }
+
+    function buildLead(formData, source) {
       var lead = {
         company: formData.get('company') || '',
         email: formData.get('email') || '',
         systems: formData.get('systems') || '',
         source: source,
-        timestamp: Date.now()
+        timestamp: Date.now(),
+        sent: false
       };
+      if (formData.get('system_other')) lead.system_other = formData.get('system_other');
+      // This page's "intent" field is the has_project yes/no toggle.
       if (formData.get('has_project')) lead.has_project = formData.get('has_project');
-      localStorage.setItem('aidedcam-lead', JSON.stringify(lead));
+      return lead;
+    }
+
+    // A lead that never reached Formspree is retried once, silently, on load.
+    // Old stored leads without a `sent` field count as sent.
+    function retryUnsentLead() {
+      var lead = getLeadData();
+      if (!lead || lead.sent !== false || !window.fetch) return;
+      var fd = new FormData();
+      ['company', 'email', 'systems', 'system_other', 'has_project', 'source'].forEach(function(k) {
+        if (lead[k]) fd.append(k, lead[k]);
+      });
+      fd.append('_retry', '1');
+      fetch(document.getElementById('roiForm').action, {
+        method: 'POST',
+        body: fd,
+        headers: { 'Accept': 'application/json' }
+      }).then(function(response) {
+        if (response.ok) saveLead(lead, true);
+      }).catch(function() {});
     }
 
     // ===== FORM SUBMISSION =====
@@ -1466,32 +1547,42 @@
       btn.textContent = '...';
 
       var formData = new FormData(roiForm);
-      storeLeadData(formData, 'roi');
+      // system_other only travels when the "Other" pill is actually selected
+      var otherPill = document.querySelector('.system-pill[data-value="other"]');
+      if (!otherPill || !otherPill.classList.contains('selected') || !formData.get('system_other')) {
+        formData.delete('system_other');
+      }
+      var lead = buildLead(formData, 'roi');
+      saveLead(lead, false);
 
-      // Send to Formspree
+      // Send to Formspree. Content is revealed either way; the lead is kept
+      // with sent:false on failure and retried on the next visit.
       fetch(roiForm.action, {
         method: 'POST',
         body: formData,
         headers: { 'Accept': 'application/json' }
       }).then(function(response) {
-        // Show ROI content regardless of response (don't block on Formspree misconfiguration)
-        revealROI(formData.get('company'));
+        saveLead(lead, !!response.ok);
+        revealROI(lead.company);
       }).catch(function() {
-        // Show ROI content even if network fails
-        revealROI(formData.get('company'));
+        saveLead(lead, false);
+        revealROI(lead.company);
       });
 
-      // GA event
-      if (window.gtag) {
-        gtag('event', 'what_you_gain_form_submit', {
-          company: formData.get('company'),
-          systems: formData.get('systems'),
-          has_project: formData.get('has_project')
-        });
-      }
+      // GA event: no company, email or free text
+      // (`systems` in the form may contain the typed "Other" text, so send pill values only)
+      var pillValues = [];
+      document.querySelectorAll('.system-pill.selected').forEach(function(p) {
+        var v = p.getAttribute('data-value');
+        if (v !== 'other') pillValues.push(v);
+      });
+      gaEvent('what_you_gain_form_submit', {
+        systems: pillValues.join(', '),
+        system_other_selected: !!(otherPill && otherPill.classList.contains('selected')),
+        has_project: formData.get('has_project')
+      });
     });
 
-    var roiUnlocked = false;
     function unlockROI(companyName, scrollToNext) {
       if (roiUnlocked) return;
       roiUnlocked = true;
@@ -1527,12 +1618,16 @@
         });
       }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
 
-      document.querySelectorAll('.roi-content .fade-in').forEach(function(el) {
+      document.querySelectorAll('.roi-content .fade-in:not(.visible)').forEach(function(el) {
         observer.observe(el);
       });
     }
 
     // ===== BAR ANIMATIONS =====
+    // Called on load and again on unlock: only arms bars / the counter that
+    // have not run yet, so nothing replays from 0. The bar fills are a CSS
+    // width transition (collapsed by the reduced-motion kill-switch in
+    // css/editorial.css); the counter is rAF-driven and checks it itself.
     function startBarAnimations() {
       var barObserver = new IntersectionObserver(function(entries) {
         entries.forEach(function(entry) {
@@ -1547,33 +1642,45 @@
         });
       }, { threshold: 0.2 });
 
-      document.querySelectorAll('.bar-group').forEach(function(group) {
+      document.querySelectorAll('.bar-group:not([data-armed])').forEach(function(group) {
+        group.setAttribute('data-armed', '');
         barObserver.observe(group);
       });
 
       // Animated counter for 1700+
+      var counterEl = document.getElementById('animCounter');
+      if (!counterEl || counterDone || counterArmed) return;
+      if (reducedMotion()) { animateCounter(counterEl); return; } // final value, no rAF
+      counterArmed = true;
       var counterObserver = new IntersectionObserver(function(entries) {
         entries.forEach(function(entry) {
           if (entry.isIntersecting) {
-            animateCounter(document.getElementById('animCounter'), 1700, '+');
             counterObserver.unobserve(entry.target);
+            animateCounter(entry.target);
           }
         });
       }, { threshold: 0.7 });
-
-      var counterEl = document.getElementById('animCounter');
-      if (counterEl) counterObserver.observe(counterEl);
+      counterObserver.observe(counterEl);
     }
 
-    function animateCounter(el, target, suffix) {
+    function animateCounter(el) {
+      if (reducedMotion()) {
+        counterDone = true;
+        renderCounterFinal();
+        return;
+      }
       var start = Date.now();
       var duration = 2000;
       function tick() {
         var p = Math.min((Date.now() - start) / duration, 1);
         var eased = 1 - Math.pow(1 - p, 3);
-        var current = Math.round(eased * target);
-        el.textContent = current.toLocaleString('el-GR') + (suffix || '');
-        if (p < 1) requestAnimationFrame(tick);
+        if (p < 1) {
+          el.textContent = formatCount(Math.round(eased * COUNTER_TARGET));
+          requestAnimationFrame(tick);
+        } else {
+          counterDone = true;
+          renderCounterFinal();
+        }
       }
       tick();
     }
@@ -1588,23 +1695,25 @@
       function hideBanner() { overlay.classList.remove('visible'); prefsPanel.classList.remove('visible'); }
       function loadPrefs() {
         try {
-          var prefs = JSON.parse(localStorage.getItem('cookie-prefs') || '{}');
-          analyticsCheckbox.checked = !!prefs.analytics;
+          var prefs = JSON.parse(lsGet('cookie-prefs') || '{}');
+          analyticsCheckbox.checked = !!(prefs && prefs.analytics);
         } catch(e) { analyticsCheckbox.checked = false; }
       }
 
-      if (!localStorage.getItem('privacy-pref')) { showBanner(); }
+      if (!lsGet('privacy-pref')) { showBanner(); }
 
       document.getElementById('privacyAccept').addEventListener('click', function() {
-        localStorage.setItem('privacy-pref', 'accepted');
-        localStorage.setItem('cookie-prefs', JSON.stringify({ analytics: true }));
+        lsSet('privacy-pref', 'accepted');
+        lsSet('cookie-prefs', JSON.stringify({ analytics: true }));
         hideBanner();
         loadGA();
+        gaEvent('accepted_cookie_consent', {});
       });
       document.getElementById('privacyDecline').addEventListener('click', function() {
-        localStorage.setItem('privacy-pref', 'declined');
-        localStorage.setItem('cookie-prefs', JSON.stringify({ analytics: false }));
+        lsSet('privacy-pref', 'declined');
+        lsSet('cookie-prefs', JSON.stringify({ analytics: false }));
         hideBanner();
+        revokeGA();
       });
       document.getElementById('privacyManage').addEventListener('click', function() {
         loadPrefs();
@@ -1615,10 +1724,15 @@
       });
       document.getElementById('privacySavePrefs').addEventListener('click', function() {
         var prefs = { analytics: analyticsCheckbox.checked };
-        localStorage.setItem('cookie-prefs', JSON.stringify(prefs));
-        localStorage.setItem('privacy-pref', prefs.analytics ? 'accepted' : 'declined');
+        lsSet('cookie-prefs', JSON.stringify(prefs));
+        lsSet('privacy-pref', prefs.analytics ? 'accepted' : 'declined');
         hideBanner();
-        if (prefs.analytics) { loadGA(); }
+        if (prefs.analytics) {
+          loadGA();
+          gaEvent('accepted_cookie_consent', {});
+        } else {
+          revokeGA();
+        }
       });
       window.openCookieSettings = function() {
         loadPrefs();

@@ -6,16 +6,40 @@
   <title>AidedCAM - Υπολογιστής ROI</title>
   <meta name="description" content="Υπολογίστε πόσο σας κοστίζει η δουλειά που γίνεται με το χέρι. Προσθέστε τις διαδικασίες σας και δείτε το πραγματικό κόστος αδράνειας." />
   <meta name="robots" content="index, follow" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
-  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <meta name="theme-color" content="#f4f3ee" />
   <link rel="canonical" href="https://www.aidedcam.com/calculator.html" />
+  <meta property="og:title" content="AidedCAM - Υπολογιστής ROI" />
+  <meta property="og:description" content="Υπολογίστε πόσο σας κοστίζει η δουλειά που γίνεται με το χέρι. Προσθέστε τις διαδικασίες σας και δείτε το πραγματικό κόστος αδράνειας." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.aidedcam.com/calculator.html" />
+  <meta property="og:image" content="https://www.aidedcam.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="AidedCAM - Υπολογιστής ROI" />
+  <meta property="og:site_name" content="AidedCAM" />
+  <meta property="og:locale" content="el_GR" />
+  <meta property="og:locale:alternate" content="en_US" />
+  <meta property="og:locale:alternate" content="it_IT" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AidedCAM - Υπολογιστής ROI" />
+  <meta name="twitter:description" content="Υπολογίστε πόσο σας κοστίζει η δουλειά που γίνεται με το χέρι. Προσθέστε τις διαδικασίες σας και δείτε το πραγματικό κόστος αδράνειας." />
+  <meta name="twitter:image" content="https://www.aidedcam.com/og-image.png" />
   <link rel="preload" as="image" href="aided-cam-mark.png" />
   <!-- Google Analytics - loaded only after cookie consent -->
   <script>
+    // Storage helpers: private mode / blocked site data must never break the page.
+    function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+    function lsSet(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+
     function loadGA() {
-      if (document.getElementById('ga-script')) return;
+      window['ga-disable-G-81935T6DNE'] = false;
+      if (document.getElementById('ga-script')) {
+        if (window.gtag) gtag('consent', 'update', { analytics_storage: 'granted' });
+        return;
+      }
       var s = document.createElement('script');
       s.id = 'ga-script'; s.async = true;
       s.src = 'https://www.googletagmanager.com/gtag/js?id=G-81935T6DNE';
@@ -25,10 +49,24 @@
       window.gtag = gtag;
       gtag('js', new Date());
       gtag('config', 'G-81935T6DNE');
-      var userLang = localStorage.getItem('aidedcam-lang') || document.documentElement.lang || 'el';
+      var userLang = lsGet('aidedcam-lang') || document.documentElement.lang || 'el';
       gtag('set', 'user_properties', { preferred_language: userLang });
     }
-    if (localStorage.getItem('privacy-pref') === 'accepted') { loadGA(); }
+    // Consent withdrawn: stop GA for the rest of this session and drop its cookies.
+    function revokeGA() {
+      window['ga-disable-G-81935T6DNE'] = true;
+      if (window.gtag) gtag('consent', 'update', { analytics_storage: 'denied' });
+      var root = location.hostname.replace(/^www\./, '');
+      document.cookie.split(';').forEach(function (c) {
+        var n = c.split('=')[0].trim();
+        if (n === '_ga' || n.indexOf('_ga_') === 0) {
+          ['', location.hostname, '.' + root].forEach(function (d) {
+            document.cookie = n + '=; Max-Age=0; path=/' + (d ? '; domain=' + d : '');
+          });
+        }
+      });
+    }
+    if (lsGet('privacy-pref') === 'accepted') { loadGA(); }
   </script>
   <link rel="stylesheet" href="fonts.css?v=20260923" />
   <link rel="stylesheet" href="css/editorial.css?v=20260923b" />
@@ -181,11 +219,7 @@
     }
 
     /* ===== CALCULATOR CONTENT ===== */
-    .calc-content {
-      display: block; opacity: 1;
-      transition: opacity 450ms var(--ease-out);
-    }
-    .calc-content.fade-in { opacity: 1; transform: none; }
+    .calc-content { display: block; }
 
     /* ===== CALCULATOR HEADER ===== */
     .calc-header {
@@ -718,12 +752,12 @@
   <!-- NAVIGATION -->
   <nav class="navbar" id="navbar">
     <div class="nav-container">
-      <a href="/" class="nav-logo">
+      <a href="index.html" class="nav-logo">
         <img src="aided-cam-mark.png" alt="AidedCAM" width="30" height="34" />
         <img class="wordmark" src="aidedcam-wordmark.svg" alt="" width="716" height="67" />
       </a>
       <div class="nav-right">
-        <a href="/" class="nav-back" data-i18n="calc.back">Αρχική</a>
+        <a href="index.html" class="nav-back" data-i18n="calc.back">Αρχική</a>
         <div class="lang-switcher">
           <button class="lang-btn active" data-lang="el">EL</button>
           <button class="lang-btn" data-lang="en">EN</button>
@@ -738,8 +772,8 @@
     <div class="gate-card">
       <button type="button" class="gate-close" id="gateClose" aria-label="Close" data-i18n-aria="calc.gate_close">&times;</button>
       <div class="gate-badge">AIDEDCAM</div>
-      <h2 class="gate-title" id="gateTitle" data-i18n-html="calc.gate_title">Υπολογίστε πόσο <span class="hl">εξοικονομείτε</span></h2>
-      <p class="gate-subtitle" data-i18n="calc.gate_subtitle">Συμπληρώστε τα παρακάτω για να δείτε τα αποτελέσματα.</p>
+      <h2 class="gate-title" id="gateTitle" data-i18n-html="calc.gate_title">Αποθηκεύστε ή εκτυπώστε <span class="hl">τα αποτελέσματά σας</span></h2>
+      <p class="gate-subtitle" data-i18n="calc.gate_subtitle">Αφήστε τα στοιχεία σας για να συνεχίσετε. Θα επικοινωνήσουμε μαζί σας για τα νούμερά σας.</p>
 
       <form id="calcForm" action="https://formspree.io/f/xaqllyao" method="POST">
         <input type="hidden" name="_source" value="roi_calculator" />
@@ -771,7 +805,7 @@
           <input type="hidden" name="systems" id="systemsHidden" />
         </div>
 
-        <button type="submit" class="form-submit" data-i18n-html="calc.gate_submit">Υπολογίστε</button>
+        <button type="submit" class="form-submit" data-i18n-html="calc.gate_submit">Συνέχεια</button>
         <p class="form-note" data-i18n-html="calc.gate_note">Χωρίς δέσμευση. Υποβάλλοντας, αποδέχεστε την <a href="privacy.html">Πολιτική Απορρήτου</a>· χρησιμοποιούμε τα στοιχεία μόνο για να επικοινωνήσουμε μαζί σας.</p>
       </form>
     </div>
@@ -808,7 +842,7 @@
         <div class="calc-left">
 
           <!-- General Parameters -->
-          <div class="calc-card green-border">
+          <div class="calc-card">
             <div class="calc-card-header">
               <div class="calc-card-title" data-i18n="calc.general_params">Γενικές παράμετροι</div>
             </div>
@@ -947,15 +981,15 @@
     var translations = {
       el: {
         'calc.back': 'Αρχική',
-        'calc.gate_title': 'Υπολογίστε πόσο <span class="hl">εξοικονομείτε</span>',
-        'calc.gate_subtitle': 'Συμπληρώστε τα παρακάτω για να δείτε τα αποτελέσματα.',
+        'calc.gate_title': 'Αποθηκεύστε ή εκτυπώστε <span class="hl">τα αποτελέσματά σας</span>',
+        'calc.gate_subtitle': 'Αφήστε τα στοιχεία σας για να συνεχίσετε. Θα επικοινωνήσουμε μαζί σας για τα νούμερά σας.',
         'calc.gate_company': 'Επωνυμία εταιρείας <span class="required">*</span>',
         'calc.gate_ph_company': 'π.χ. Μεταλλοτεχνική ΑΕ',
         'calc.gate_email': 'Email <span class="required">*</span>',
         'calc.gate_system': 'Σύστημα CAD/CAM/BIM',
         'calc.gate_other': 'Άλλο',
         'calc.gate_ph_other': 'Γράψτε το σύστημά σας...',
-        'calc.gate_submit': 'Υπολογίστε',
+        'calc.gate_submit': 'Συνέχεια',
         'calc.gate_note': 'Χωρίς δέσμευση. Υποβάλλοντας, αποδέχεστε την <a href="privacy.html">Πολιτική Απορρήτου</a>· χρησιμοποιούμε τα στοιχεία μόνο για να επικοινωνήσουμε μαζί σας.',
         'calc.gate_close': 'Κλείσιμο',
         'calc.title': 'Πόσο σας κοστίζει η δουλειά που γίνεται με το χέρι;',
@@ -975,6 +1009,7 @@
         'calc.process_placeholder': 'π.χ. Προετοιμασία κατεργασίας',
         'calc.minutes': 'min',
         'calc.times_month': '\u00d7/μήνα',
+        'calc.times_month_person': '\u00d7/μήνα ανά άτομο',
         'calc.add': '+ Προσθήκη',
         'calc.executions_month': 'εκτελέσεις/μήνα',
         'calc.hours_month': 'ώρες/μήνα',
@@ -998,7 +1033,7 @@
         'calc.receipt_total': 'Σύνολο / έτος',
         'calc.methodology': 'Πώς υπολογίζουμε',
         'calc.method_time': 'Χρόνος:',
-        'calc.method_time_formula': 'min/φορά \u00d7 φορές/μήνα \u00d7 95% \u00f7 60 \u00d7 €/ώρα \u00d7 χειριστές \u00d7 12',
+        'calc.method_time_formula': 'min/φορά \u00d7 φορές/μήνα ανά άτομο \u00d7 95% \u00f7 60 \u00d7 €/ώρα \u00d7 άτομα \u00d7 12',
         'calc.method_errors': 'Σφάλματα:',
         'calc.method_errors_formula': 'φορές/μήνα \u00d7 €/φορά \u00d7 12',
         'calc.method_monthly': 'Μηνιαίο:',
@@ -1019,6 +1054,7 @@
         'calc.contact_cta': 'Στείλτε μας τα νούμερα',
         'calc.contact_subject': 'Υπολογιστής AidedCAM:',
         'calc.contact_body': 'Καλησπέρα,\n\nΑπό τον υπολογιστή AidedCAM:\nΕτήσιο κόστος αδράνειας: {annual}\nΧαμένος χρόνος / έτος: {time}\nΚόστος σφαλμάτων / έτος: {errors}\n\nΘα θέλαμε να συζητήσουμε τι μπορεί να αυτοματοποιηθεί.\n',
+        'calc.contact_body_empty': 'Καλησπέρα,\n\nΘα θέλαμε να συζητήσουμε τι μπορεί να αυτοματοποιηθεί.\n',
         'cookie_text': 'Αυτός ο ιστότοπος χρησιμοποιεί cookies για τη βελτιστοποίηση της λειτουργίας του και την ανάλυση επισκεψιμότητας.',
         'cookie_accept': 'Αποδοχή',
         'cookie_decline': 'Απόρριψη',
@@ -1042,15 +1078,15 @@
       },
       en: {
         'calc.back': 'Home',
-        'calc.gate_title': 'Calculate how much you <span class="hl">save</span>',
-        'calc.gate_subtitle': 'Fill in the details below to see your results.',
+        'calc.gate_title': 'Save or print <span class="hl">your results</span>',
+        'calc.gate_subtitle': 'Leave your details to continue. We\'ll get in touch about your numbers.',
         'calc.gate_company': 'Company name <span class="required">*</span>',
         'calc.gate_ph_company': 'e.g. MetalTech Ltd',
         'calc.gate_email': 'Email <span class="required">*</span>',
         'calc.gate_system': 'CAD/CAM/BIM system',
         'calc.gate_other': 'Other',
         'calc.gate_ph_other': 'Type your system...',
-        'calc.gate_submit': 'Calculate',
+        'calc.gate_submit': 'Continue',
         'calc.gate_note': 'No commitment. By submitting you accept our <a href="privacy.html">Privacy Policy</a>; we use your details only to get in touch with you.',
         'calc.gate_close': 'Close',
         'calc.title': 'What does work done by hand cost you?',
@@ -1070,6 +1106,7 @@
         'calc.process_placeholder': 'e.g. Machining preparation',
         'calc.minutes': 'min',
         'calc.times_month': '\u00d7/month',
+        'calc.times_month_person': '\u00d7/month per person',
         'calc.add': '+ Add',
         'calc.executions_month': 'executions/month',
         'calc.hours_month': 'hours/month',
@@ -1093,7 +1130,7 @@
         'calc.receipt_total': 'Total / year',
         'calc.methodology': 'How we calculate',
         'calc.method_time': 'Time:',
-        'calc.method_time_formula': 'min/time \u00d7 times/month \u00d7 95% \u00f7 60 \u00d7 \u20ac/hour \u00d7 operators \u00d7 12',
+        'calc.method_time_formula': 'min/time \u00d7 times/month per person \u00d7 95% \u00f7 60 \u00d7 \u20ac/hour \u00d7 people \u00d7 12',
         'calc.method_errors': 'Errors:',
         'calc.method_errors_formula': 'times/month \u00d7 \u20ac/time \u00d7 12',
         'calc.method_monthly': 'Monthly:',
@@ -1114,6 +1151,7 @@
         'calc.contact_cta': 'Send us the numbers',
         'calc.contact_subject': 'AidedCAM calculator:',
         'calc.contact_body': 'Hello,\n\nFrom the AidedCAM calculator:\nAnnual cost of inaction: {annual}\nLost time / year: {time}\nCost of errors / year: {errors}\n\nWe would like to discuss what can be automated.\n',
+        'calc.contact_body_empty': 'Hello,\n\nWe would like to discuss what can be automated.\n',
         'cookie_text': 'This website uses cookies to optimize functionality and analyze traffic.',
         'cookie_accept': 'Accept',
         'cookie_decline': 'Decline',
@@ -1137,15 +1175,15 @@
       },
       it: {
         'calc.back': 'Home',
-        'calc.gate_title': 'Calcolate quanto <span class="hl">risparmiate</span>',
-        'calc.gate_subtitle': 'Compilate i dati qui sotto per vedere i risultati.',
+        'calc.gate_title': 'Salvate o stampate <span class="hl">i vostri risultati</span>',
+        'calc.gate_subtitle': 'Lasciate i vostri dati per continuare. Vi contatteremo in merito ai vostri numeri.',
         'calc.gate_company': 'Nome azienda <span class="required">*</span>',
         'calc.gate_ph_company': 'es. MetalTech Srl',
         'calc.gate_email': 'Email <span class="required">*</span>',
         'calc.gate_system': 'Sistema CAD/CAM/BIM',
         'calc.gate_other': 'Altro',
         'calc.gate_ph_other': 'Scrivi il tuo sistema...',
-        'calc.gate_submit': 'Calcola',
+        'calc.gate_submit': 'Continua',
         'calc.gate_note': 'Nessun impegno. Inviando accettate la nostra <a href="privacy.html">Informativa sulla privacy</a>; usiamo i vostri dati solo per contattarvi.',
         'calc.gate_close': 'Chiudi',
         'calc.title': 'Quanto vi costa il lavoro fatto a mano?',
@@ -1165,6 +1203,7 @@
         'calc.process_placeholder': 'es. Preparazione lavorazione',
         'calc.minutes': 'min',
         'calc.times_month': '\u00d7/mese',
+        'calc.times_month_person': '\u00d7/mese a persona',
         'calc.add': '+ Aggiungi',
         'calc.executions_month': 'esecuzioni/mese',
         'calc.hours_month': 'ore/mese',
@@ -1188,7 +1227,7 @@
         'calc.receipt_total': 'Totale / anno',
         'calc.methodology': 'Come calcoliamo',
         'calc.method_time': 'Tempo:',
-        'calc.method_time_formula': 'min/volta \u00d7 volte/mese \u00d7 95% \u00f7 60 \u00d7 \u20ac/ora \u00d7 operatori \u00d7 12',
+        'calc.method_time_formula': 'min/volta \u00d7 volte/mese a persona \u00d7 95% \u00f7 60 \u00d7 \u20ac/ora \u00d7 persone \u00d7 12',
         'calc.method_errors': 'Errori:',
         'calc.method_errors_formula': 'volte/mese \u00d7 \u20ac/volta \u00d7 12',
         'calc.method_monthly': 'Mensile:',
@@ -1209,6 +1248,7 @@
         'calc.contact_cta': 'Inviateci i numeri',
         'calc.contact_subject': 'Calcolatore AidedCAM:',
         'calc.contact_body': 'Buongiorno,\n\nDal calcolatore AidedCAM:\nCosto annuo dell\'inerzia: {annual}\nTempo perso / anno: {time}\nCosto degli errori / anno: {errors}\n\nVorremmo discutere cosa si può automatizzare.\n',
+        'calc.contact_body_empty': 'Buongiorno,\n\nVorremmo discutere cosa si può automatizzare.\n',
         'cookie_text': 'Questo sito web utilizza i cookie per ottimizzare le sue funzionalit\u00e0 e analizzare il traffico.',
         'cookie_accept': 'Accetta',
         'cookie_decline': 'Rifiuta',
@@ -1233,7 +1273,7 @@
     };
 
     // ===== I18N ENGINE =====
-    var localeMap = { el: 'el-GR', en: 'en-IE', it: 'it-IT' };
+    var localeMap = { el: 'el-GR', en: 'en-GB', it: 'it-IT' };
     var currencyFormatter = null;
     var currentLang = 'el';
 
@@ -1260,6 +1300,10 @@
         var key = el.getAttribute('data-i18n-placeholder');
         if (t[key] !== undefined) el.placeholder = t[key];
       });
+      document.querySelectorAll('[data-i18n-aria]').forEach(function(el) {
+        var key = el.getAttribute('data-i18n-aria');
+        if (t[key] !== undefined) el.setAttribute('aria-label', t[key]);
+      });
 
       document.title = t['_title'] || document.title;
       document.documentElement.lang = lang;
@@ -1268,13 +1312,15 @@
         btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
       });
 
-      localStorage.setItem('aidedcam-lang', lang);
+      lsSet('aidedcam-lang', lang);
 
       // Re-render dynamic parts. Both the functions and the state they read
       // (lastResults, processes, errors) are defined further down the script,
       // so the init-time call below runs before any of it exists — skip it then.
-      // The static markup already carries data-i18n, so nothing is missed.
+      // Row labels and placeholders carry data-i18n*, so the loops above
+      // already translated them; example names are filled in here.
       if (typeof lastResults !== 'undefined') {
+        if (typeof refreshExampleNames === 'function') refreshExampleNames();
         if (typeof renderResults === 'function') renderResults();
         if (typeof updateProcessSummary === 'function') updateProcessSummary();
         if (typeof updateErrorSummary === 'function') updateErrorSummary();
@@ -1285,7 +1331,7 @@
     try {
       var urlLangParam = new URLSearchParams(window.location.search).get('lang');
       var urlLang = (urlLangParam && translations[urlLangParam]) ? urlLangParam : null;
-      var savedLang = localStorage.getItem('aidedcam-lang');
+      var savedLang = lsGet('aidedcam-lang');
       if (savedLang && !translations[savedLang]) savedLang = null;
       var browserLangCode = navigator.language ? navigator.language.substring(0, 2) : 'el';
       var browserLang = browserLangCode === 'el' ? 'el' : browserLangCode === 'it' ? 'it' : 'en';
@@ -1295,7 +1341,10 @@
 
     document.querySelectorAll('.lang-btn').forEach(function(btn) {
       btn.addEventListener('click', function() {
-        setLanguage(btn.getAttribute('data-lang'));
+        var lang = btn.getAttribute('data-lang');
+        setLanguage(lang);
+        gaEvent('switch_site_language', { language: lang });
+        if (window.gtag) gtag('set', 'user_properties', { preferred_language: lang });
       });
     });
 
@@ -1312,38 +1361,29 @@
     });
 
     // ===== SYSTEM PILLS (multi-select) =====
-    var selectedSystems = [];
-    document.querySelectorAll('.system-pill').forEach(function(pill) {
-      pill.addEventListener('click', function() {
-        var val = pill.getAttribute('data-value');
-        if (val === 'other') {
-          pill.classList.toggle('selected');
-          document.getElementById('systemOtherInput').classList.toggle('visible', pill.classList.contains('selected'));
-        } else {
-          pill.classList.toggle('selected');
-        }
-        var selected = [];
-        document.querySelectorAll('.system-pill.selected').forEach(function(p) {
-          var v = p.getAttribute('data-value');
-          if (v !== 'other') selected.push(v);
-        });
-        var otherVal = document.getElementById('systemOtherInput').value;
-        if (document.querySelector('.system-pill[data-value="other"]').classList.contains('selected') && otherVal) {
-          selected.push(otherVal);
-        }
-        document.getElementById('systemsHidden').value = selected.join(', ');
-      });
-    });
-
-    document.getElementById('systemOtherInput').addEventListener('input', function() {
+    function isOtherSelected() {
+      return document.querySelector('.system-pill[data-value="other"]').classList.contains('selected');
+    }
+    function updateSystemsHidden() {
       var selected = [];
       document.querySelectorAll('.system-pill.selected').forEach(function(p) {
         var v = p.getAttribute('data-value');
         if (v !== 'other') selected.push(v);
       });
-      if (this.value) selected.push(this.value);
+      var otherVal = document.getElementById('systemOtherInput').value;
+      if (isOtherSelected() && otherVal) selected.push(otherVal);
       document.getElementById('systemsHidden').value = selected.join(', ');
+    }
+    document.querySelectorAll('.system-pill').forEach(function(pill) {
+      pill.addEventListener('click', function() {
+        pill.classList.toggle('selected');
+        if (pill.getAttribute('data-value') === 'other') {
+          document.getElementById('systemOtherInput').classList.toggle('visible', pill.classList.contains('selected'));
+        }
+        updateSystemsHidden();
+      });
     });
+    document.getElementById('systemOtherInput').addEventListener('input', updateSystemsHidden);
 
     // ===== FORM SUBMISSION =====
     var FORMSPREE_URL = 'https://formspree.io/f/xaqllyao';
@@ -1357,266 +1397,400 @@
       btn.textContent = '...';
 
       var formData = new FormData(calcForm);
-      storeLeadData({ company: formData.get('company') || '', email: formData.get('email') || '', systems: formData.get('systems') || '', source: 'calculator', timestamp: Date.now() });
+      var otherOn = isOtherSelected();
+      if (!otherOn) formData.delete('system_other');
+      var lead = {
+        company: formData.get('company') || '',
+        email: formData.get('email') || '',
+        systems: formData.get('systems') || '',
+        system_other: otherOn ? (formData.get('system_other') || '') : '',
+        intent: formData.get('intent') || '',
+        source: 'calculator',
+        timestamp: Date.now(),
+        sent: false
+      };
+      // Stored before the request, so the lead survives a closed tab and is retried on the next visit.
+      storeLeadData(lead);
 
       fetch(FORMSPREE_URL, {
         method: 'POST',
         body: formData,
         headers: { 'Accept': 'application/json' }
-      }).then(function() {
+      }).then(function(res) {
+        lead.sent = !!(res && res.ok);
+        storeLeadData(lead);
         revealCalculator();
       }).catch(function() {
+        lead.sent = false;
+        storeLeadData(lead);
         revealCalculator();
       });
 
-      if (window.gtag) {
-        gtag('event', 'roi_calculator_form_submit', {
-          company: formData.get('company'),
-          systems: formData.get('systems')
-        });
-      }
+      gaEvent('roi_calculator_form_submit', { systems: lead.systems });
     });
+
+    // A lead that did not reach Formspree last time is retried once, silently.
+    function retryUnsentLead() {
+      var lead = getLeadData();
+      if (!lead || lead.sent !== false) return;
+      var fd = new FormData();
+      fd.append('_source', 'roi_calculator');
+      ['company', 'email', 'systems', 'system_other', 'intent', 'source', 'timestamp'].forEach(function(k) {
+        if (lead[k]) fd.append(k, lead[k]);
+      });
+      fd.append('_retry', 1);
+      fetch(FORMSPREE_URL, {
+        method: 'POST',
+        body: fd,
+        headers: { 'Accept': 'application/json' }
+      }).then(function(res) {
+        if (!res.ok) return;
+        var cur = getLeadData();
+        if (cur && cur.timestamp === lead.timestamp) { cur.sent = true; storeLeadData(cur); }
+      }).catch(function() {});
+    }
 
     // ===== LEAD DIALOG =====
     var gatePending = null;
+    var gateReturnId = null;
     var gateEl = document.getElementById('gateSection');
+    var GATE_FOCUSABLE = 'a[href], button:not([disabled]), input:not([type="hidden"]):not([disabled]), select, textarea, [tabindex]:not([tabindex="-1"])';
+
+    function gateFocusables() {
+      return Array.prototype.filter.call(gateEl.querySelectorAll(GATE_FOCUSABLE), function(el) {
+        return el.offsetParent !== null; // skips the hidden "other" input
+      });
+    }
     function openGate(action) {
       gatePending = action || null;
+      gateReturnId = action === 'save' ? 'btnSave' : action === 'print' ? 'btnPdf' : null;
       gateEl.classList.add('is-open');
       document.body.classList.add('gate-open');
       var first = gateEl.querySelector('input[name="company"]');
       if (first) setTimeout(function() { first.focus(); }, 50);
-      if (window.gtag) gtag('event', 'open_lead_dialog', { action: gatePending || 'none' });
+      gaEvent('open_lead_dialog', { action: gatePending || 'none' });
     }
+    // The results panel is re-rendered while the dialog is open, so focus goes
+    // back to the button by id rather than to a stored (possibly replaced) node.
     function closeGate() {
       gateEl.classList.remove('is-open');
       document.body.classList.remove('gate-open');
+      var back = gateReturnId && document.getElementById(gateReturnId);
+      gateReturnId = null;
+      if (back) back.focus();
     }
-    document.getElementById('gateClose').addEventListener('click', function() { gatePending = null; closeGate(); });
-    gateEl.addEventListener('click', function(e) { if (e.target === gateEl) { gatePending = null; closeGate(); } });
-    document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && gateEl.classList.contains('is-open')) { gatePending = null; closeGate(); } });
+    function dismissGate() { gatePending = null; closeGate(); }
+    document.getElementById('gateClose').addEventListener('click', dismissGate);
+    gateEl.addEventListener('click', function(e) { if (e.target === gateEl) dismissGate(); });
+    document.addEventListener('keydown', function(e) {
+      if (!gateEl.classList.contains('is-open')) return;
+      if (e.key === 'Escape') { e.preventDefault(); dismissGate(); return; }
+      if (e.key !== 'Tab') return;
+      var items = gateFocusables();
+      if (!items.length) return;
+      var first = items[0], last = items[items.length - 1];
+      if (!gateEl.contains(document.activeElement)) { e.preventDefault(); first.focus(); }
+      else if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
 
     // Called after the lead is stored: close the dialog and finish what the
     // visitor asked for (save or print) by replaying the button click.
     function revealCalculator() {
-      closeGate();
       var btn = calcForm.querySelector('.form-submit');
       btn.disabled = false;
       btn.innerHTML = T('calc.gate_submit');
       var action = gatePending; gatePending = null;
       if (typeof renderResults === 'function') renderResults(); // refresh the mailto with the company name
+      closeGate();
       if (action === 'save') { var b = document.getElementById('btnSave'); if (b) b.click(); }
       if (action === 'print') { var pb = document.getElementById('btnPdf'); if (pb) pb.click(); }
     }
 
     // ===== CALCULATOR STATE =====
+    // Row objects: { id, name, exampleKey, example, ... }. `name` is only what the
+    // visitor typed; example rows keep `exampleKey` and get their name from T()
+    // at render time, so they follow the language.
     var processes = [];
     var errors = [];
     var processIdCounter = 0;
     var errorIdCounter = 0;
+    // True once the visitor changed anything (a row, a setting, removed or cleared
+    // rows). Until then the saved state is "untouched defaults" and is not stored.
+    var calcTouched = false;
+
+    var EXAMPLE_PROCESSES = [
+      { exampleKey: 'calc.ex_process_1', minutes: 120, timesPerMonth: 25 },
+      { exampleKey: 'calc.ex_process_2', minutes: 60, timesPerMonth: 40 }
+    ];
+    var EXAMPLE_ERRORS = [
+      { exampleKey: 'calc.ex_error_1', timesPerMonth: 4, costPerIncident: 400 },
+      { exampleKey: 'calc.ex_error_2', timesPerMonth: 3, costPerIncident: 600 }
+    ];
+
+    function rowNameValue(r) { return r.name || (r.exampleKey ? T(r.exampleKey) : ''); }
+    function rowDisplayName(r, fallbackKey) { return rowNameValue(r) || T(fallbackKey); }
+
+    function refreshExampleNames() {
+      processes.concat(errors).forEach(function(r) {
+        if (r.exampleKey && !r.name && r.nameEl) r.nameEl.value = T(r.exampleKey);
+      });
+    }
+
+    function markTouched() {
+      calcTouched = true;
+    }
 
     // ===== SAVE / LOAD CALC DATA =====
     function saveCalcData() {
+      if (!calcTouched) return;
       var data = {
+        touched: true,
         operators: parseFloat(document.getElementById('inputOperators').value) || 0,
         hourlyRate: parseFloat(document.getElementById('inputHourlyRate').value) || 0,
-        processes: processes.filter(function(p) { return !p.example; }).map(function(p) {
-          return { name: p.name, minutes: p.minutes, timesPerMonth: p.timesPerMonth };
+        processes: processes.map(function(p) {
+          return { name: p.name, exampleKey: p.exampleKey || null, example: p.example, minutes: p.minutes, timesPerMonth: p.timesPerMonth };
         }),
-        errors: errors.filter(function(e) { return !e.example; }).map(function(e) {
-          return { name: e.name, timesPerMonth: e.timesPerMonth, costPerIncident: e.costPerIncident };
+        errors: errors.map(function(e) {
+          return { name: e.name, exampleKey: e.exampleKey || null, example: e.example, timesPerMonth: e.timesPerMonth, costPerIncident: e.costPerIncident };
         }),
         timestamp: Date.now()
       };
-      localStorage.setItem('aidedcam-calc-data', JSON.stringify(data));
+      lsSet('aidedcam-calc-data', JSON.stringify(data));
     }
 
+    // Old saves (no `touched` flag) held only the visitor's own rows and were
+    // written even when untouched; they are restored only if they have rows,
+    // exactly as before.
     function loadCalcData() {
       try {
-        var data = JSON.parse(localStorage.getItem('aidedcam-calc-data'));
-        if (data && data.timestamp && (data.processes.length > 0 || data.errors.length > 0)) return data;
+        var data = JSON.parse(lsGet('aidedcam-calc-data'));
+        if (!data || !data.timestamp) return null;
+        data.processes = Array.isArray(data.processes) ? data.processes : [];
+        data.errors = Array.isArray(data.errors) ? data.errors : [];
+        if (data.touched || data.processes.length > 0 || data.errors.length > 0) return data;
       } catch(e) {}
       return null;
     }
 
-    // ===== FORMSPREE DEDUP =====
-    function calcFingerprint() {
-      var procs = processes.filter(function(p) { return !p.example; }).map(function(p) {
-        return p.name + ':' + p.minutes + ':' + p.timesPerMonth;
-      }).join('|');
-      var errs = errors.filter(function(e) { return !e.example; }).map(function(e) {
-        return e.name + ':' + e.timesPerMonth + ':' + e.costPerIncident;
-      }).join('|');
+    // ===== WHAT GETS SENT =====
+    // On screen the untouched example rows count (they are the demo). Anything
+    // sent (Formspree payload, mailto) uses only the visitor's own rows, and its
+    // totals are computed from exactly those rows.
+    function processCostAnnual(p, operators, hourlyRate) {
+      return p.minutes * p.timesPerMonth * 0.95 / 60 * hourlyRate * operators * 12;
+    }
+    function errorCostAnnual(e) {
+      return e.timesPerMonth * e.costPerIncident * 12;
+    }
+    function isBlankRow(r) {
+      return !rowNameValue(r) && !r.minutes && !r.timesPerMonth && !r.costPerIncident;
+    }
+    function sentData() {
       var r = lastResults;
-      return (r.operators || 0) + ':' + (r.hourlyRate || 0) + ':' + procs + ':' + errs;
+      var operators = r.operators || 0, hourlyRate = r.hourlyRate || 0;
+      var procs = processes.filter(function(p) { return !p.example && !isBlankRow(p); });
+      var errs = errors.filter(function(e) { return !e.example && !isBlankRow(e); });
+      var timeCost = 0, errorCost = 0;
+      procs.forEach(function(p) { timeCost += processCostAnnual(p, operators, hourlyRate); });
+      errs.forEach(function(e) { errorCost += errorCostAnnual(e); });
+      return {
+        operators: operators, hourlyRate: hourlyRate,
+        processes: procs, errors: errs,
+        timeCostAnnual: timeCost, errorCostAnnual: errorCost, totalAnnual: timeCost + errorCost,
+        empty: procs.length === 0 && errs.length === 0
+      };
     }
 
-    var lastSentFingerprint = localStorage.getItem('aidedcam-calc-sent') || '';
+    // ===== FORMSPREE DEDUP =====
+    function calcFingerprint(d) {
+      var procs = d.processes.map(function(p) {
+        return rowDisplayName(p, 'calc.process_label') + ':' + p.minutes + ':' + p.timesPerMonth;
+      }).join('|');
+      var errs = d.errors.map(function(e) {
+        return rowDisplayName(e, 'calc.error_label') + ':' + e.timesPerMonth + ':' + e.costPerIncident;
+      }).join('|');
+      return d.operators + ':' + d.hourlyRate + ':' + procs + ':' + errs;
+    }
 
-    function buildCalcPayload(source) {
+    var lastSentFingerprint = lsGet('aidedcam-calc-sent') || '';
+
+    function buildCalcPayload(source, d) {
       var lead = getLeadData();
-      var r = lastResults;
       var formData = new FormData();
       formData.append('_source', source);
       formData.append('company', lead ? lead.company : '');
       formData.append('email', lead ? lead.email : '');
       formData.append('systems', lead ? lead.systems : '');
-      formData.append('operators', r.operators || 0);
-      formData.append('hourly_rate', r.hourlyRate || 0);
-      formData.append('annual_cost', Math.round(r.totalAnnual || 0));
-      formData.append('time_cost_annual', Math.round(r.timeCostAnnual || 0));
-      formData.append('error_cost_annual', Math.round(r.errorCostAnnual || 0));
+      formData.append('operators', d.operators);
+      formData.append('hourly_rate', d.hourlyRate);
+      formData.append('annual_cost', Math.round(d.totalAnnual));
+      formData.append('time_cost_annual', Math.round(d.timeCostAnnual));
+      formData.append('error_cost_annual', Math.round(d.errorCostAnnual));
 
-      var procSummary = processes.filter(function(p) { return !p.example && p.name; }).map(function(p) {
-        return p.name + ' (' + p.minutes + 'min x' + p.timesPerMonth + '/mo)';
+      var procSummary = d.processes.map(function(p) {
+        return rowDisplayName(p, 'calc.process_label') + ' (' + p.minutes + 'min x' + p.timesPerMonth + '/mo per person)';
       }).join(' | ');
       formData.append('processes', procSummary);
 
-      var errSummary = errors.filter(function(e) { return !e.example && e.name; }).map(function(e) {
-        return e.name + ' (x' + e.timesPerMonth + '/mo, €' + e.costPerIncident + ')';
+      var errSummary = d.errors.map(function(e) {
+        return rowDisplayName(e, 'calc.error_label') + ' (x' + e.timesPerMonth + '/mo, €' + e.costPerIncident + ')';
       }).join(' | ');
       formData.append('errors', errSummary);
 
       return formData;
     }
 
-    function markFingerprint() {
-      lastSentFingerprint = calcFingerprint();
-      localStorage.setItem('aidedcam-calc-sent', lastSentFingerprint);
-    }
-
+    // Sent only on Save / Print with a stored lead. The fingerprint is recorded
+    // only once Formspree accepted the data, so a failed send is retried next time.
     function sendCalcToFormspree() {
-      var fp = calcFingerprint();
+      var d = sentData();
+      if (d.empty) return; // nothing of the visitor's own to send
+      var fp = calcFingerprint(d);
       if (fp === lastSentFingerprint) return;
 
-      fetch('https://formspree.io/f/xaqllyao', {
+      fetch(FORMSPREE_URL, {
         method: 'POST',
-        body: buildCalcPayload('roi_calculator_data'),
+        body: buildCalcPayload('roi_calculator_data', d),
         headers: { 'Accept': 'application/json' }
-      });
+      }).then(function(res) {
+        if (!res.ok) return;
+        lastSentFingerprint = fp;
+        lsSet('aidedcam-calc-sent', fp);
+      }).catch(function() {});
 
-      markFingerprint();
-
-      if (window.gtag) {
-        gtag('event', 'roi_calculator_save', {
-          annual_cost: Math.round(lastResults.totalAnnual || 0)
-        });
-      }
+      gaEvent('roi_calculator_save', { annual_cost: Math.round(d.totalAnnual) });
     }
 
     function initCalculator() {
       var saved = loadCalcData();
       if (saved) {
-        // Restore saved data
+        calcTouched = true;
         if (saved.operators) document.getElementById('inputOperators').value = saved.operators;
         if (saved.hourlyRate) document.getElementById('inputHourlyRate').value = saved.hourlyRate;
         saved.processes.forEach(function(p) {
-          addProcessRow(p.name, p.minutes, p.timesPerMonth, false);
+          addProcessRow({ name: p.name, exampleKey: p.exampleKey, example: !!p.example, minutes: p.minutes, timesPerMonth: p.timesPerMonth });
         });
         saved.errors.forEach(function(e) {
-          addErrorRow(e.name, e.timesPerMonth, e.costPerIncident, false);
+          addErrorRow({ name: e.name, exampleKey: e.exampleKey, example: !!e.example, timesPerMonth: e.timesPerMonth, costPerIncident: e.costPerIncident });
         });
       } else {
-        // Add example rows
-        addProcessRow(T('calc.ex_process_1'), 120, 25, true);
-        addProcessRow(T('calc.ex_process_2'), 60, 40, true);
-        addErrorRow(T('calc.ex_error_1'), 4, 400, true);
-        addErrorRow(T('calc.ex_error_2'), 3, 600, true);
+        EXAMPLE_PROCESSES.forEach(function(p) {
+          addProcessRow({ exampleKey: p.exampleKey, example: true, minutes: p.minutes, timesPerMonth: p.timesPerMonth });
+        });
+        EXAMPLE_ERRORS.forEach(function(e) {
+          addErrorRow({ exampleKey: e.exampleKey, example: true, timesPerMonth: e.timesPerMonth, costPerIncident: e.costPerIncident });
+        });
       }
 
+      updateExamplesNotice(); // a restored empty list has no rows to call it
       recalculate();
     }
 
-    // ===== PROCESS ROWS =====
-    function addProcessRow(name, minutes, timesPerMonth, isExample) {
-      var id = ++processIdCounter;
-      var proc = { id: id, name: name || '', minutes: minutes || 0, timesPerMonth: timesPerMonth || 0, example: !!isExample };
-      processes.push(proc);
-
-      var row = document.createElement('div');
-      row.className = 'calc-row' + (isExample ? ' example' : '');
-      row.setAttribute('data-id', id);
-
+    // ===== ROW HELPERS =====
+    function makeNumInput(extraClass, value, min, max, placeholder, placeholderKey) {
+      var input = document.createElement('input');
+      input.type = 'number';
+      input.className = 'row-num' + (extraClass ? ' ' + extraClass : '');
+      input.value = value || '';
+      input.min = min; input.max = max;
+      if (placeholderKey) {
+        input.setAttribute('data-i18n-placeholder', placeholderKey);
+        input.placeholder = T(placeholderKey);
+      } else {
+        input.placeholder = placeholder;
+      }
+      return input;
+    }
+    function makeRowLabel(key) {
+      var label = document.createElement('span');
+      label.className = 'row-label';
+      label.setAttribute('data-i18n', key);
+      label.textContent = T(key);
+      return label;
+    }
+    function makeNameInput(r, placeholderKey) {
       var nameInput = document.createElement('input');
       nameInput.type = 'text';
       nameInput.className = 'row-name';
-      nameInput.value = name || '';
-      nameInput.placeholder = T('calc.process_placeholder');
-
-      var minInput = document.createElement('input');
-      minInput.type = 'number';
-      minInput.className = 'row-num';
-      minInput.value = minutes || '';
-      minInput.min = '1'; minInput.max = '960';
-      minInput.placeholder = 'min';
-
-      var minLabel = document.createElement('span');
-      minLabel.className = 'row-label';
-      minLabel.textContent = T('calc.minutes');
-
-      var timesInput = document.createElement('input');
-      timesInput.type = 'number';
-      timesInput.className = 'row-num';
-      timesInput.value = timesPerMonth || '';
-      timesInput.min = '1'; timesInput.max = '500';
-      timesInput.placeholder = '\u00d7';
-
-      var timesLabel = document.createElement('span');
-      timesLabel.className = 'row-label';
-      timesLabel.textContent = T('calc.times_month');
-
+      nameInput.value = rowNameValue(r);
+      nameInput.setAttribute('data-i18n-placeholder', placeholderKey);
+      nameInput.placeholder = T(placeholderKey);
+      r.nameEl = nameInput;
+      return nameInput;
+    }
+    function makeRemoveBtn() {
       var removeBtn = document.createElement('button');
       removeBtn.className = 'row-remove';
-      removeBtn.innerHTML = '\u2715';
+      removeBtn.innerHTML = '✕';
       removeBtn.type = 'button';
+      return removeBtn;
+    }
+    // Any edit turns an example row into the visitor's own row.
+    function markRowEdited(r, row) {
+      markTouched();
+      if (r.example) {
+        r.example = false;
+        row.classList.remove('example');
+        updateExamplesNotice();
+      }
+    }
+    // Number field bound to row[field]; clamped to lo..hi on blur.
+    function bindNum(input, r, row, field, lo, hi) {
+      input.addEventListener('input', function() {
+        markRowEdited(r, row);
+        r[field] = parseFloat(this.value) || 0;
+        recalculate();
+      });
+      input.addEventListener('blur', function() {
+        var v = parseFloat(this.value);
+        if (v && v < lo) { this.value = lo; r[field] = lo; }
+        if (v && v > hi) { this.value = hi; r[field] = hi; }
+        recalculate();
+      });
+    }
+    function bindName(input, r, row) {
+      input.addEventListener('input', function() {
+        markRowEdited(r, row);
+        r.name = this.value;
+        r.exampleKey = null; // typed over: the name is the visitor's now
+        recalculate();
+      });
+    }
+
+    // ===== PROCESS ROWS =====
+    function addProcessRow(opts) {
+      var id = ++processIdCounter;
+      var proc = {
+        id: id, name: opts.name || '', exampleKey: opts.exampleKey || null, example: !!opts.example,
+        minutes: opts.minutes || 0, timesPerMonth: opts.timesPerMonth || 0
+      };
+      processes.push(proc);
+
+      var row = document.createElement('div');
+      row.className = 'calc-row' + (proc.example ? ' example' : '');
+      row.setAttribute('data-id', id);
+
+      var nameInput = makeNameInput(proc, 'calc.process_placeholder');
+      var minInput = makeNumInput('', proc.minutes, '1', '960', '', 'calc.minutes');
+      var timesInput = makeNumInput('', proc.timesPerMonth, '1', '500', '×');
+      var removeBtn = makeRemoveBtn();
 
       row.appendChild(nameInput);
       row.appendChild(minInput);
-      row.appendChild(minLabel);
+      row.appendChild(makeRowLabel('calc.minutes'));
       row.appendChild(timesInput);
-      row.appendChild(timesLabel);
+      row.appendChild(makeRowLabel('calc.times_month_person'));
       row.appendChild(removeBtn);
 
       document.getElementById('processList').appendChild(row);
 
-      function markEdited() {
-        if (proc.example) {
-          proc.example = false;
-          row.classList.remove('example');
-          updateExamplesNotice();
-        }
-      }
-
-      nameInput.addEventListener('input', function() {
-        markEdited();
-        proc.name = this.value;
-      });
-
-      minInput.addEventListener('input', function() {
-        markEdited();
-        proc.minutes = parseFloat(this.value) || 0;
-        recalculate();
-      });
-      minInput.addEventListener('blur', function() {
-        var v = parseFloat(this.value);
-        if (v && v < 1) { this.value = 1; proc.minutes = 1; }
-        if (v && v > 960) { this.value = 960; proc.minutes = 960; }
-        recalculate();
-      });
-
-      timesInput.addEventListener('input', function() {
-        markEdited();
-        proc.timesPerMonth = parseFloat(this.value) || 0;
-        recalculate();
-      });
-      timesInput.addEventListener('blur', function() {
-        var v = parseFloat(this.value);
-        if (v && v < 1) { this.value = 1; proc.timesPerMonth = 1; }
-        if (v && v > 500) { this.value = 500; proc.timesPerMonth = 500; }
-        recalculate();
-      });
+      bindName(nameInput, proc, row);
+      bindNum(minInput, proc, row, 'minutes', 1, 960);
+      bindNum(timesInput, proc, row, 'timesPerMonth', 1, 500);
 
       removeBtn.addEventListener('click', function() {
+        markTouched();
         processes = processes.filter(function(p) { return p.id !== id; });
         row.remove();
         updateExamplesNotice();
@@ -1627,95 +1801,38 @@
     }
 
     // ===== ERROR ROWS =====
-    function addErrorRow(name, timesPerMonth, costPerIncident, isExample) {
+    function addErrorRow(opts) {
       var id = ++errorIdCounter;
-      var err = { id: id, name: name || '', timesPerMonth: timesPerMonth || 0, costPerIncident: costPerIncident || 0, example: !!isExample };
+      var err = {
+        id: id, name: opts.name || '', exampleKey: opts.exampleKey || null, example: !!opts.example,
+        timesPerMonth: opts.timesPerMonth || 0, costPerIncident: opts.costPerIncident || 0
+      };
       errors.push(err);
 
       var row = document.createElement('div');
-      row.className = 'calc-row' + (isExample ? ' example' : '');
+      row.className = 'calc-row' + (err.example ? ' example' : '');
       row.setAttribute('data-id', id);
 
-      var nameInput = document.createElement('input');
-      nameInput.type = 'text';
-      nameInput.className = 'row-name';
-      nameInput.value = name || '';
-      nameInput.placeholder = T('calc.error_placeholder');
-
-      var timesInput = document.createElement('input');
-      timesInput.type = 'number';
-      timesInput.className = 'row-num';
-      timesInput.value = timesPerMonth || '';
-      timesInput.min = '1'; timesInput.max = '200';
-      timesInput.placeholder = '\u00d7';
-
-      var timesLabel = document.createElement('span');
-      timesLabel.className = 'row-label';
-      timesLabel.textContent = T('calc.times_month');
-
-      var costInput = document.createElement('input');
-      costInput.type = 'number';
-      costInput.className = 'row-num wide';
-      costInput.value = costPerIncident || '';
-      costInput.min = '10'; costInput.max = '50000';
-      costInput.placeholder = '\u20ac';
-
-      var costLabel = document.createElement('span');
-      costLabel.className = 'row-label';
-      costLabel.textContent = T('calc.error_cost_label');
-
-      var removeBtn = document.createElement('button');
-      removeBtn.className = 'row-remove';
-      removeBtn.innerHTML = '\u2715';
-      removeBtn.type = 'button';
+      var nameInput = makeNameInput(err, 'calc.error_placeholder');
+      var timesInput = makeNumInput('', err.timesPerMonth, '1', '200', '×');
+      var costInput = makeNumInput('wide', err.costPerIncident, '10', '50000', '€');
+      var removeBtn = makeRemoveBtn();
 
       row.appendChild(nameInput);
       row.appendChild(timesInput);
-      row.appendChild(timesLabel);
+      row.appendChild(makeRowLabel('calc.times_month'));
       row.appendChild(costInput);
-      row.appendChild(costLabel);
+      row.appendChild(makeRowLabel('calc.error_cost_label'));
       row.appendChild(removeBtn);
 
       document.getElementById('errorList').appendChild(row);
 
-      function markEdited() {
-        if (err.example) {
-          err.example = false;
-          row.classList.remove('example');
-          updateExamplesNotice();
-        }
-      }
-
-      nameInput.addEventListener('input', function() {
-        markEdited();
-        err.name = this.value;
-      });
-
-      timesInput.addEventListener('input', function() {
-        markEdited();
-        err.timesPerMonth = parseFloat(this.value) || 0;
-        recalculate();
-      });
-      timesInput.addEventListener('blur', function() {
-        var v = parseFloat(this.value);
-        if (v && v < 1) { this.value = 1; err.timesPerMonth = 1; }
-        if (v && v > 200) { this.value = 200; err.timesPerMonth = 200; }
-        recalculate();
-      });
-
-      costInput.addEventListener('input', function() {
-        markEdited();
-        err.costPerIncident = parseFloat(this.value) || 0;
-        recalculate();
-      });
-      costInput.addEventListener('blur', function() {
-        var v = parseFloat(this.value);
-        if (v && v < 10) { this.value = 10; err.costPerIncident = 10; }
-        if (v && v > 50000) { this.value = 50000; err.costPerIncident = 50000; }
-        recalculate();
-      });
+      bindName(nameInput, err, row);
+      bindNum(timesInput, err, row, 'timesPerMonth', 1, 200);
+      bindNum(costInput, err, row, 'costPerIncident', 10, 50000);
 
       removeBtn.addEventListener('click', function() {
+        markTouched();
         errors = errors.filter(function(e) { return e.id !== id; });
         row.remove();
         updateExamplesNotice();
@@ -1727,11 +1844,15 @@
 
     // ===== ADD BUTTONS =====
     document.getElementById('addProcess').addEventListener('click', function() {
-      addProcessRow('', 0, 0, false);
+      markTouched();
+      addProcessRow({});
+      debouncedSave();
     });
 
     document.getElementById('addError').addEventListener('click', function() {
-      addErrorRow('', 0, 0, false);
+      markTouched();
+      addErrorRow({});
+      debouncedSave();
     });
 
     // ===== EXAMPLES NOTICE =====
@@ -1746,6 +1867,7 @@
     }
 
     document.getElementById('clearExamples').addEventListener('click', function() {
+      markTouched();
       // Remove all example rows
       var exampleProcessIds = processes.filter(function(p) { return p.example; }).map(function(p) { return p.id; });
       var exampleErrorIds = errors.filter(function(e) { return e.example; }).map(function(e) { return e.id; });
@@ -1767,7 +1889,7 @@
     });
 
     // ===== GENERAL PARAM INPUTS =====
-    document.getElementById('inputOperators').addEventListener('input', function() { recalculate(); });
+    document.getElementById('inputOperators').addEventListener('input', function() { markTouched(); recalculate(); });
     document.getElementById('inputOperators').addEventListener('blur', function() {
       var v = parseInt(this.value);
       if (!v || v < 1) this.value = 1;
@@ -1775,7 +1897,7 @@
       recalculate();
     });
 
-    document.getElementById('inputHourlyRate').addEventListener('input', function() { recalculate(); });
+    document.getElementById('inputHourlyRate').addEventListener('input', function() { markTouched(); recalculate(); });
     document.getElementById('inputHourlyRate').addEventListener('blur', function() {
       var v = parseInt(this.value);
       if (!v || v < 8) this.value = 8;
@@ -1790,31 +1912,32 @@
       var operators = parseFloat(document.getElementById('inputOperators').value) || 0;
       var hourlyRate = parseFloat(document.getElementById('inputHourlyRate').value) || 0;
 
-      // Per-process costs
+      // Per-process costs. Rows are kept by reference so their names are
+      // resolved at render time (language switches, unnamed rows).
       var timeCostAnnual = 0;
       var processCosts = [];
       processes.forEach(function(p) {
-        var cost = p.minutes * p.timesPerMonth * 0.95 / 60 * hourlyRate * operators * 12;
+        var cost = processCostAnnual(p, operators, hourlyRate);
         timeCostAnnual += cost;
-        processCosts.push({ name: p.name || T('calc.process_label'), cost: cost });
+        processCosts.push({ row: p, cost: cost });
       });
 
       // Per-error costs
-      var errorCostAnnual = 0;
+      var errorCostTotal = 0;
       var errorCosts = [];
       errors.forEach(function(e) {
-        var cost = e.timesPerMonth * e.costPerIncident * 12;
-        errorCostAnnual += cost;
-        errorCosts.push({ name: e.name || T('calc.error_label'), cost: cost });
+        var cost = errorCostAnnual(e);
+        errorCostTotal += cost;
+        errorCosts.push({ row: e, cost: cost });
       });
 
-      var totalAnnual = timeCostAnnual + errorCostAnnual;
+      var totalAnnual = timeCostAnnual + errorCostTotal;
       var monthlyLoss = totalAnnual / 12;
 
       lastResults = {
         totalAnnual: totalAnnual,
         timeCostAnnual: timeCostAnnual,
-        errorCostAnnual: errorCostAnnual,
+        errorCostAnnual: errorCostTotal,
         monthlyLoss: monthlyLoss,
         processCosts: processCosts,
         errorCosts: errorCosts,
@@ -1906,6 +2029,10 @@
     }
 
     // ===== RENDER RESULTS =====
+    // Kept outside the panel so re-rendering on every keystroke does not
+    // collapse the methodology section.
+    var methodologyOpen = false;
+
     function renderResults() {
       var panel = document.getElementById('resultsPanel');
       var r = lastResults;
@@ -1917,6 +2044,7 @@
             '<div class="ph-title" data-i18n="calc.placeholder_title">' + T('calc.placeholder_title') + '</div>' +
             '<div class="ph-text" data-i18n="calc.placeholder_text">' + T('calc.placeholder_text') + '</div>' +
           '</div>';
+        buildContactMailto(); // keep the closing "Let's talk" link in step
         return;
       }
 
@@ -1928,10 +2056,8 @@
       var maxErrorCost = sortedErrors.length ? sortedErrors[0].cost : 1;
 
       // Calculate summary details
-      var totalProcessExec = 0;
       var totalProcessHours = 0;
       processes.forEach(function(p) {
-        totalProcessExec += p.timesPerMonth;
         totalProcessHours += p.minutes * p.timesPerMonth / 60;
       });
       var totalErrorsMonth = 0;
@@ -1946,14 +2072,14 @@
         '<div class="rh-daily"><strong id="animMonthly">' + formatCurrency(r.monthlyLoss) + '</strong> <span data-i18n="calc.monthly_suffix">' + T('calc.monthly_suffix') + '</span></div>' +
       '</div>';
 
-      // Detailed results (soft-gated)
-      html += '<div id="resultsDetail">';
+      // Everything below the hero, grouped so the panel's gap only separates the two
+      html += '<div>';
 
       // Breakdown card
       html += '<div class="result-breakdown">' +
         '<div class="breakdown-row">' +
           '<div><div class="breakdown-label" data-i18n="calc.time_loss">' + T('calc.time_loss') + '</div>' +
-          '<div class="breakdown-detail">' + totalProcessHours.toFixed(0) + ' ' + T('calc.hours_month_operators') + ' \u00d7 ' + r.operators + '</div></div>' +
+          '<div class="breakdown-detail">' + totalProcessHours.toFixed(0) + ' ' + T('calc.hours_month_operators') + ' × ' + r.operators + '</div></div>' +
           '<div class="breakdown-value">' + formatCurrency(r.timeCostAnnual) + '</div>' +
         '</div>' +
         '<div class="breakdown-row">' +
@@ -1967,11 +2093,11 @@
       if (sortedProcesses.length > 0) {
         html += '<div class="result-bars">' +
           '<div class="result-bars-title" data-i18n="calc.cost_per_process">' + T('calc.cost_per_process') + '</div>';
-        sortedProcesses.forEach(function(p, i) {
+        sortedProcesses.forEach(function(p) {
           var pct = maxProcessCost > 0 ? (p.cost / maxProcessCost * 100) : 0;
           html += '<div class="result-bar-item">' +
             '<div class="result-bar-header">' +
-              '<span class="result-bar-name">' + escapeHtml(p.name) + '</span>' +
+              '<span class="result-bar-name">' + escapeHtml(rowDisplayName(p.row, 'calc.process_label')) + '</span>' +
               '<span class="result-bar-val">' + formatCurrency(p.cost) + '</span>' +
             '</div>' +
             '<div class="result-bar-track"><div class="result-bar-fill" style="width:' + pct + '%"></div></div>' +
@@ -1984,11 +2110,11 @@
       if (sortedErrors.length > 0) {
         html += '<div class="result-bars">' +
           '<div class="result-bars-title" data-i18n="calc.cost_per_error">' + T('calc.cost_per_error') + '</div>';
-        sortedErrors.forEach(function(e, i) {
+        sortedErrors.forEach(function(e) {
           var pct = maxErrorCost > 0 ? (e.cost / maxErrorCost * 100) : 0;
           html += '<div class="result-bar-item">' +
             '<div class="result-bar-header">' +
-              '<span class="result-bar-name">' + escapeHtml(e.name) + '</span>' +
+              '<span class="result-bar-name">' + escapeHtml(rowDisplayName(e.row, 'calc.error_label')) + '</span>' +
               '<span class="result-bar-val">' + formatCurrency(e.cost) + '</span>' +
             '</div>' +
             '<div class="result-bar-track"><div class="result-bar-fill" style="width:' + pct + '%"></div></div>' +
@@ -2006,12 +2132,13 @@
       '</div>';
 
       // Methodology toggle
+      var mOpen = methodologyOpen ? ' open' : '';
       html += '<div class="methodology-toggle">' +
-        '<button class="methodology-btn" id="methodologyBtn" type="button">' +
+        '<button class="methodology-btn' + mOpen + '" id="methodologyBtn" type="button" aria-expanded="' + methodologyOpen + '" aria-controls="methodologyBody">' +
           '<span data-i18n="calc.methodology">' + T('calc.methodology') + '</span>' +
-          '<span class="arrow">&#x25BC;</span>' +
+          '<span class="arrow" aria-hidden="true">&#x25BC;</span>' +
         '</button>' +
-        '<div class="methodology-body" id="methodologyBody">' +
+        '<div class="methodology-body' + mOpen + '" id="methodologyBody">' +
           '<div class="methodology-inner">' +
             '<p><strong data-i18n="calc.method_time">' + T('calc.method_time') + '</strong> <code>' + T('calc.method_time_formula') + '</code></p>' +
             '<p><strong data-i18n="calc.method_errors">' + T('calc.method_errors') + '</strong> <code>' + T('calc.method_errors_formula') + '</code></p>' +
@@ -2032,7 +2159,7 @@
       '</div>';
 
       // Contact block: the number is on screen, so the next step must be too.
-      var mailHref = buildContactMailto(r);
+      var mailHref = buildContactMailto();
       html += '<div class="calc-contact">' +
         '<div class="calc-contact-label">' + T('calc.contact_title') + '</div>' +
         '<p>' + T('calc.contact_text') + '</p>' +
@@ -2042,7 +2169,7 @@
         '</div>' +
       '</div>';
 
-      html += '</div>'; // close resultsDetail
+      html += '</div>'; // close the group below the hero
       html += '</div>'; // close results-panel
 
       panel.innerHTML = html;
@@ -2056,8 +2183,10 @@
       var body = document.getElementById('methodologyBody');
       if (btn && body) {
         btn.addEventListener('click', function() {
-          btn.classList.toggle('open');
-          body.classList.toggle('open');
+          methodologyOpen = !methodologyOpen;
+          btn.classList.toggle('open', methodologyOpen);
+          body.classList.toggle('open', methodologyOpen);
+          btn.setAttribute('aria-expanded', String(methodologyOpen));
         });
       }
 
@@ -2071,7 +2200,7 @@
           saveBtn.innerHTML = '<span class="action-icon">&#x2713;</span> ' + T('calc.btn_save_done');
           setTimeout(function() {
             saveBtn.classList.remove('done');
-            saveBtn.innerHTML = '<span class="action-icon">&#x1F4BE;</span> <span>' + T('calc.btn_save') + '</span>';
+            saveBtn.innerHTML = '<span class="action-icon">&#x1F4BE;</span> <span data-i18n="calc.btn_save">' + T('calc.btn_save') + '</span>';
           }, 2000);
         });
       }
@@ -2088,7 +2217,7 @@
           var companyEl = document.getElementById('printCompany');
           var dateEl = document.getElementById('printDate');
           if (companyEl) companyEl.textContent = (lead && lead.company) ? lead.company : '';
-          if (dateEl) dateEl.textContent = new Date().toLocaleDateString();
+          if (dateEl) dateEl.textContent = new Date().toLocaleDateString(localeMap[currentLang] || 'el-GR');
 
           window.print();
         });
@@ -2096,13 +2225,23 @@
 
     }
 
-    function buildContactMailto(r) {
+    // Figures in the mail come from the visitor's own rows only (see sentData),
+    // the same set the Formspree payload lists. With none, the mail carries no figures.
+    function buildContactMailto() {
       var lead = getLeadData();
-      var subject = T('calc.contact_subject') + ' ' + formatCurrency(r.totalAnnual) + (lead && lead.company ? ' - ' + lead.company : '');
-      var body = T('calc.contact_body')
-        .replace('{annual}', formatCurrency(r.totalAnnual))
-        .replace('{time}', formatCurrency(r.timeCostAnnual || 0))
-        .replace('{errors}', formatCurrency(r.errorCostAnnual || 0));
+      var d = sentData();
+      var company = (lead && lead.company) ? ' - ' + lead.company : '';
+      var subject, body;
+      if (d.empty) {
+        subject = T('calc.contact_subject').replace(/:\s*$/, '') + company;
+        body = T('calc.contact_body_empty');
+      } else {
+        subject = T('calc.contact_subject') + ' ' + formatCurrency(d.totalAnnual) + company;
+        body = T('calc.contact_body')
+          .replace('{annual}', formatCurrency(d.totalAnnual))
+          .replace('{time}', formatCurrency(d.timeCostAnnual))
+          .replace('{errors}', formatCurrency(d.errorCostAnnual));
+      }
       var href = 'mailto:info@aidedcam.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
       var closing = document.getElementById('closingTalk');
       if (closing) closing.setAttribute('href', href);
@@ -2125,23 +2264,25 @@
       function hideBanner() { overlay.classList.remove('visible'); prefsPanel.classList.remove('visible'); }
       function loadPrefs() {
         try {
-          var prefs = JSON.parse(localStorage.getItem('cookie-prefs') || '{}');
-          analyticsCheckbox.checked = !!prefs.analytics;
+          var prefs = JSON.parse(lsGet('cookie-prefs') || '{}');
+          analyticsCheckbox.checked = !!(prefs && prefs.analytics);
         } catch(e) { analyticsCheckbox.checked = false; }
       }
 
-      if (!localStorage.getItem('privacy-pref')) { showBanner(); }
+      if (!lsGet('privacy-pref')) { showBanner(); }
 
       document.getElementById('privacyAccept').addEventListener('click', function() {
-        localStorage.setItem('privacy-pref', 'accepted');
-        localStorage.setItem('cookie-prefs', JSON.stringify({ analytics: true }));
+        lsSet('privacy-pref', 'accepted');
+        lsSet('cookie-prefs', JSON.stringify({ analytics: true }));
         hideBanner();
         loadGA();
+        gaEvent('accepted_cookie_consent', {});
       });
       document.getElementById('privacyDecline').addEventListener('click', function() {
-        localStorage.setItem('privacy-pref', 'declined');
-        localStorage.setItem('cookie-prefs', JSON.stringify({ analytics: false }));
+        lsSet('privacy-pref', 'declined');
+        lsSet('cookie-prefs', JSON.stringify({ analytics: false }));
         hideBanner();
+        revokeGA();
       });
       document.getElementById('privacyManage').addEventListener('click', function() {
         loadPrefs();
@@ -2152,10 +2293,15 @@
       });
       document.getElementById('privacySavePrefs').addEventListener('click', function() {
         var prefs = { analytics: analyticsCheckbox.checked };
-        localStorage.setItem('cookie-prefs', JSON.stringify(prefs));
-        localStorage.setItem('privacy-pref', prefs.analytics ? 'accepted' : 'declined');
+        lsSet('cookie-prefs', JSON.stringify(prefs));
+        lsSet('privacy-pref', prefs.analytics ? 'accepted' : 'declined');
         hideBanner();
-        if (prefs.analytics) { loadGA(); }
+        if (prefs.analytics) {
+          loadGA();
+          gaEvent('accepted_cookie_consent', {});
+        } else {
+          revokeGA();
+        }
       });
       window.openCookieSettings = function() {
         loadPrefs();
@@ -2172,41 +2318,21 @@
     // ===== LEAD PERSISTENCE =====
     function getLeadData() {
       try {
-        var data = JSON.parse(localStorage.getItem('aidedcam-lead'));
+        var data = JSON.parse(lsGet('aidedcam-lead'));
         if (data && data.email && data.timestamp) return data;
       } catch(e) {}
       return null;
     }
 
     function storeLeadData(obj) {
-      localStorage.setItem('aidedcam-lead', JSON.stringify(obj));
+      lsSet('aidedcam-lead', JSON.stringify(obj));
     }
 
     // The calculator is open to everyone; the lead form only appears on save / print.
+    // Nothing is sent on page leave: data reaches Formspree only through the
+    // lead form or Save / Print with a stored lead.
     initCalculator();
-
-    // ===== SEND DATA ON PAGE LEAVE =====
-    function sendOnLeave() {
-      var hasUserData = processes.some(function(p) { return !p.example; }) || errors.some(function(e) { return !e.example; });
-      if (!hasUserData) return;
-
-      var fp = calcFingerprint();
-      if (fp === lastSentFingerprint) return;
-
-      // Use URLSearchParams — sendBeacon only works without CORS preflight (no application/json)
-      var fd = buildCalcPayload('roi_calculator_auto');
-      var params = new URLSearchParams();
-      fd.forEach(function(value, key) { params.append(key, value); });
-      var sent = navigator.sendBeacon('https://formspree.io/f/xaqllyao', params);
-      if (sent) markFingerprint();
-    }
-
-    // visibilitychange is the most reliable event for tab close / switch / minimize
-    document.addEventListener('visibilitychange', function() {
-      if (document.visibilityState === 'hidden') sendOnLeave();
-    });
-    // pagehide fires on navigation away and page close (including mobile)
-    window.addEventListener('pagehide', sendOnLeave);
+    retryUnsentLead();
   </script>
 
 </body>

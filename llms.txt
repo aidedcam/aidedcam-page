@@ -11,16 +11,13 @@
 - Special CAD/CAM/BIM solutions: add-ins inside PowerMill, PowerShape, Revit and other systems, or standalone design and machine-programming applications
 
 ## Built so far (anonymised)
-- Lathe machine shop, Greece: a standalone CAD/CAM application, from DXF drawing to Fanuc G-code in six steps (2 days -> 12 min of design and programming)
-- Mould making, Greece: automation inside PowerShape and PowerMill, routing plan per phase, cooling/screw/plate holes with one button (4 days -> 26 min per mould plate)
-- Industrial equipment, BIM department, Belgium: forty Revit commands in one ribbon tab, sheet export to PDF/DWG/DWFX/IFC in one run (1 day -> 11 min for drawings and schedules)
-- Structural engineering office, Greece: estimation, Gantt schedule, workload and time tracking on one shared database, replacing dozens of Excel files
+- Lathe machine shop: a standalone CAD/CAM application, from DXF drawing to Fanuc G-code in six steps (2 days -> 12 min of design and programming)
+- Mould making: automation inside PowerShape and PowerMill, routing plan per phase, cooling/screw/plate holes with one button (4 days -> 26 min per mould plate)
+- Industrial equipment, BIM department: forty Revit commands in one ribbon tab, sheet export to PDF/DWG/DWFX/IFC in one run (1 day -> 11 min for drawings and schedules)
+- Structural engineering office: estimation, Gantt schedule, workload and time tracking on one shared database, replacing dozens of Excel files
 
-## Engagement tiers
-- Light: one software solution, complete
-- Advanced: several software solutions, independent of each other, added in the order needed
-- Pro: several solutions connected to each other, sharing the same data
-- Same services in every tier: requirements analysis, development, testing, installation, training, bug fixes, new features, support, unlimited users, one flat monthly price
+## What every engagement includes
+- Requirements analysis, development, testing, installation, training, bug fixes, new features and ongoing support
 
 ## Supported Software (8 CAD / CAM / BIM systems)
 - Autodesk PowerShape (CAD)
@@ -43,11 +40,12 @@
 
 ## Key Facts
 - Measured on delivered solutions: 2 days -> 12 min from DXF drawing to lathe program, 4 days -> 26 min per mould plate, 1 day -> 11 min for Revit drawings and schedules
-- Active in 5+ countries
+- Projects in 5 countries
 - 100% custom-built solutions
 - Zero dependency on individual operators
 
 ## Contact
-- Athens: akoulousis@aidedcam.com | +30 6984680874
-- Thessaloniki: tfountoglou@aidedcam.com | +30 6980818754
+- Email: info@aidedcam.com
+- Athens: +30 6984680874
+- Thessaloniki: +30 6980818754
 - Website: https://www.aidedcam.com

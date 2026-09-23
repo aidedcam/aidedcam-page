@@ -5,10 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AidedCAM - Νομικές Πληροφορίες</title>
   <meta name="robots" content="noindex, nofollow" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
-  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <meta name="theme-color" content="#f4f3ee" />
+  <link rel="canonical" href="https://www.aidedcam.com/legal.html" />
+  <!-- Google Analytics - loaded only after cookie consent -->
+  <script>
+    function loadGA() {
+      window['ga-disable-G-81935T6DNE'] = false;
+      if (document.getElementById('ga-script')) {
+        if (window.gtag) gtag('consent', 'update', { analytics_storage: 'granted' });
+        return;
+      }
+      var s = document.createElement('script');
+      s.id = 'ga-script'; s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-81935T6DNE';
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', 'G-81935T6DNE');
+      var userLang = document.documentElement.lang || 'el';
+      try { userLang = localStorage.getItem('aidedcam-lang') || userLang; } catch (e) {}
+      gtag('set', 'user_properties', { preferred_language: userLang });
+    }
+    function revokeGA() {
+      window['ga-disable-G-81935T6DNE'] = true;
+      if (window.gtag) gtag('consent', 'update', { analytics_storage: 'denied' });
+      var root = location.hostname.replace(/^www\./, '');
+      document.cookie.split(';').forEach(function (c) {
+        var n = c.split('=')[0].trim();
+        if (n === '_ga' || n.indexOf('_ga_') === 0) {
+          ['', location.hostname, '.' + root].forEach(function (d) {
+            document.cookie = n + '=; Max-Age=0; path=/' + (d ? '; domain=' + d : '');
+          });
+        }
+      });
+    }
+    try { if (localStorage.getItem('privacy-pref') === 'accepted') { loadGA(); } } catch (e) {}
+  </script>
   <link rel="stylesheet" href="fonts.css?v=20260923" />
   <link rel="stylesheet" href="css/editorial.css?v=20260923b" />
   <noscript><style>.fade-in { opacity: 1 !important; transform: none !important; }</style></noscript>
@@ -380,9 +417,9 @@
     <p><strong>Aristotelis Koulousis</strong></p>
     <p data-i18n="legal.responsible_address">Κορινθίας 7, 11526 Αθήνα, Ελλάδα</p>
 
-    <!-- 4. EU Dispute Resolution -->
-    <h2 data-i18n="legal.dispute_title">4. Επίλυση Διαφορών ΕΕ</h2>
-    <p data-i18n-html="legal.dispute_odr">Η Ευρωπαϊκή Επιτροπή παρέχει πλατφόρμα για την ηλεκτρονική επίλυση διαφορών (ODR): <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener noreferrer">https://ec.europa.eu/consumers/odr/</a></p>
+    <!-- 4. Dispute Resolution -->
+    <h2 data-i18n="legal.dispute_title">4. Επίλυση Διαφορών</h2>
+    <p data-i18n="legal.dispute_info">Για διαφορές καταναλωτών, οι καταναλωτές μπορούν να απευθύνονται στις αρμόδιες εθνικές αρχές προστασίας καταναλωτή ή σε φορείς εναλλακτικής επίλυσης διαφορών (ΕΕΔ).</p>
     <p data-i18n="legal.dispute_note">Δεν είμαστε υποχρεωμένοι ούτε πρόθυμοι να συμμετάσχουμε σε διαδικασίες επίλυσης διαφορών ενώπιον φορέα εναλλακτικής επίλυσης διαφορών καταναλωτών.</p>
 
     <!-- 5. Liability Disclaimer -->
@@ -398,15 +435,136 @@
   <!-- FOOTER -->
   <footer class="footer">
     <div class="footer-inner">
-      <div class="footer-copy">&copy; <span id="footerYear">2026</span> AidedCAM. All rights reserved.</div>
+      <div class="footer-copy">&copy; <span id="footerYear">2026</span> AidedCAM. <span data-i18n="footer.rights">Με την επιφύλαξη παντός δικαιώματος.</span></div>
       <div class="footer-links">
         <a href="privacy.html" data-i18n="footer.privacy">Πολιτική Απορρήτου</a>
         <a href="index.html" data-i18n="footer.home">Αρχική</a>
+        <a href="javascript:void(0)" onclick="openCookieSettings()" data-i18n="footer.cookie_settings">Ρυθμίσεις Cookies</a>
       </div>
     </div>
   </footer>
 
+  <!-- COOKIE CONSENT BANNER -->
+  <div class="consent-banner" id="privacyOverlay">
+    <div class="consent-inner">
+      <p>
+        <span data-i18n="cookie_text">Αυτός ο ιστότοπος χρησιμοποιεί cookies για τη βελτιστοποίηση της λειτουργίας του και την ανάλυση επισκεψιμότητας.</span>
+        <a href="privacy.html" class="consent-privacy-link" data-i18n="cookie_privacy_link">Πολιτική Απορρήτου</a>
+      </p>
+      <div class="consent-actions">
+        <button class="consent-btn consent-btn-accept" id="privacyAccept" data-i18n="cookie_accept">Αποδοχή</button>
+        <button class="consent-btn consent-btn-manage" id="privacyManage" data-i18n="cookie_manage">Διαχείριση προτιμήσεων</button>
+        <button class="consent-btn consent-btn-decline" id="privacyDecline" data-i18n="cookie_decline">Απόρριψη</button>
+      </div>
+    </div>
+    <div class="consent-prefs" id="consentPrefs">
+      <div class="consent-prefs-inner">
+        <p class="consent-prefs-desc" data-i18n="cookie_prefs_desc">Επιλέξτε ποιες κατηγορίες cookies επιθυμείτε να ενεργοποιήσετε. Τα απαραίτητα cookies είναι πάντα ενεργά για τη σωστή λειτουργία του ιστότοπου.</p>
+        <div class="consent-categories">
+          <div class="consent-cat">
+            <input type="checkbox" checked disabled id="cookieNecessary">
+            <label for="cookieNecessary">
+              <span class="consent-cat-name" data-i18n="cookie_cat_necessary">Απαραίτητα</span>
+              <span class="consent-cat-desc" data-i18n="cookie_cat_necessary_desc">Βασική λειτουργία ιστότοπου</span>
+            </label>
+          </div>
+          <div class="consent-cat">
+            <input type="checkbox" checked disabled id="cookieFunctional">
+            <label for="cookieFunctional">
+              <span class="consent-cat-name" data-i18n="cookie_cat_functional">Λειτουργικά</span>
+              <span class="consent-cat-desc" data-i18n="cookie_cat_functional_desc">Αποθήκευση προτιμήσεων γλώσσας</span>
+            </label>
+          </div>
+          <div class="consent-cat">
+            <input type="checkbox" id="cookieAnalytics">
+            <label for="cookieAnalytics">
+              <span class="consent-cat-name" data-i18n="cookie_cat_analytics">Ανάλυση επισκεψιμότητας</span>
+              <span class="consent-cat-desc" data-i18n="cookie_cat_analytics_desc">Google Analytics, ανώνυμα στατιστικά</span>
+            </label>
+          </div>
+          <div class="consent-cat">
+            <input type="checkbox" disabled id="cookieMarketing">
+            <label for="cookieMarketing">
+              <span class="consent-cat-name" data-i18n="cookie_cat_marketing">Διαφημιστικά</span>
+              <span class="consent-cat-desc" data-i18n="cookie_cat_marketing_desc">Δεν χρησιμοποιούνται αυτήν τη στιγμή</span>
+            </label>
+          </div>
+        </div>
+        <div class="consent-prefs-actions">
+          <button class="consent-btn consent-btn-accept" id="privacySavePrefs" data-i18n="cookie_save">Αποθήκευση προτιμήσεων</button>
+          <button class="consent-btn consent-btn-decline" id="privacyBack" data-i18n="cookie_back">Πίσω</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
   <script>
+    // ===== STORAGE (a blocked localStorage must never break the page) =====
+    function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+    function lsSet(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+
+    // ===== GA HELPER =====
+    function gaEvent(name, params) {
+      if (window.gtag) gtag('event', name, params);
+    }
+
+    // ===== COOKIE CONSENT =====
+    (function() {
+      var overlay = document.getElementById('privacyOverlay');
+      var prefsPanel = document.getElementById('consentPrefs');
+      var analyticsCheckbox = document.getElementById('cookieAnalytics');
+
+      function showBanner() { overlay.classList.add('visible'); prefsPanel.classList.remove('visible'); }
+      function hideBanner() { overlay.classList.remove('visible'); prefsPanel.classList.remove('visible'); }
+      function loadPrefs() {
+        try {
+          var prefs = JSON.parse(lsGet('cookie-prefs') || '{}');
+          analyticsCheckbox.checked = !!prefs.analytics;
+        } catch(e) { analyticsCheckbox.checked = false; }
+      }
+
+      if (!lsGet('privacy-pref')) { showBanner(); }
+
+      document.getElementById('privacyAccept').addEventListener('click', function() {
+        lsSet('privacy-pref', 'accepted');
+        lsSet('cookie-prefs', JSON.stringify({ analytics: true }));
+        hideBanner();
+        loadGA();
+        gaEvent('accepted_cookie_consent', {});
+      });
+      document.getElementById('privacyDecline').addEventListener('click', function() {
+        lsSet('privacy-pref', 'declined');
+        lsSet('cookie-prefs', JSON.stringify({ analytics: false }));
+        hideBanner();
+        revokeGA();
+      });
+      document.getElementById('privacyManage').addEventListener('click', function() {
+        loadPrefs();
+        prefsPanel.classList.toggle('visible');
+      });
+      document.getElementById('privacyBack').addEventListener('click', function() {
+        prefsPanel.classList.remove('visible');
+      });
+      document.getElementById('privacySavePrefs').addEventListener('click', function() {
+        var prefs = { analytics: analyticsCheckbox.checked };
+        lsSet('cookie-prefs', JSON.stringify(prefs));
+        lsSet('privacy-pref', prefs.analytics ? 'accepted' : 'declined');
+        hideBanner();
+        if (prefs.analytics) {
+          loadGA();
+          gaEvent('accepted_cookie_consent', {});
+        } else {
+          revokeGA();
+        }
+      });
+      window.openCookieSettings = function() {
+        loadPrefs();
+        showBanner();
+        prefsPanel.classList.add('visible');
+      };
+    })();
+
     // ===== TRANSLATIONS =====
     var translations = {
       el: {
@@ -436,8 +594,8 @@
         'legal.responsible_title': '3. Υπεύθυνος Περιεχομένου',
         'legal.responsible_text': 'Υπεύθυνος για το περιεχόμενο κατά το άρθρο 18 παρ. 2 MStV (Medienstaatsvertrag):',
         'legal.responsible_address': 'Κορινθίας 7, 11526 Αθήνα, Ελλάδα',
-        'legal.dispute_title': '4. Επίλυση Διαφορών ΕΕ',
-        'legal.dispute_odr': 'Η Ευρωπαϊκή Επιτροπή παρέχει πλατφόρμα για την ηλεκτρονική επίλυση διαφορών (ODR): <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener noreferrer">https://ec.europa.eu/consumers/odr/</a>',
+        'legal.dispute_title': '4. Επίλυση Διαφορών',
+        'legal.dispute_info': 'Για διαφορές καταναλωτών, οι καταναλωτές μπορούν να απευθύνονται στις αρμόδιες εθνικές αρχές προστασίας καταναλωτή ή σε φορείς εναλλακτικής επίλυσης διαφορών (ΕΕΔ).',
         'legal.dispute_note': 'Δεν είμαστε υποχρεωμένοι ούτε πρόθυμοι να συμμετάσχουμε σε διαδικασίες επίλυσης διαφορών ενώπιον φορέα εναλλακτικής επίλυσης διαφορών καταναλωτών.',
         'legal.liability_title': '5. Αποποίηση Ευθύνης',
         'legal.liability_content': 'Το περιεχόμενο αυτής της ιστοσελίδας δημιουργείται με τη μέγιστη δυνατή επιμέλεια. Ωστόσο, δεν μπορούμε να εγγυηθούμε την ακρίβεια, πληρότητα και επικαιρότητα του περιεχομένου. Ως πάροχος υπηρεσιών, είμαστε υπεύθυνοι για το δικό μας περιεχόμενο σε αυτές τις σελίδες σύμφωνα με τη γενική νομοθεσία. Ωστόσο, δεν είμαστε υποχρεωμένοι να παρακολουθούμε τις μεταδιδόμενες ή αποθηκευμένες πληροφορίες τρίτων ή να ερευνούμε περιστάσεις που υποδεικνύουν παράνομη δραστηριότητα.',
@@ -445,7 +603,25 @@
         'legal.copyright_title': '6. Πνευματική Ιδιοκτησία',
         'legal.copyright_text': 'Το περιεχόμενο και τα έργα σε αυτές τις σελίδες που δημιουργήθηκαν από τους διαχειριστές της ιστοσελίδας υπόκεινται στην ελληνική και ευρωπαϊκή νομοθεσία πνευματικής ιδιοκτησίας. Η αναπαραγωγή, επεξεργασία, διανομή ή οποιαδήποτε μορφή εμπορικής αξιοποίησης πέρα από τα όρια του δικαιώματος πνευματικής ιδιοκτησίας απαιτεί την εγγραφή συγκατάθεση του αντίστοιχου δημιουργού. &copy; <span id="copyrightYear">2026</span> AidedCAM. Με επιφύλαξη παντός δικαιώματος.',
         'footer.privacy': 'Πολιτική Απορρήτου',
-        'footer.home': 'Αρχική'
+        'footer.home': 'Αρχική',
+        'footer.cookie_settings': 'Ρυθμίσεις Cookies',
+        'footer.rights': 'Με την επιφύλαξη παντός δικαιώματος.',
+        'cookie_text': 'Αυτός ο ιστότοπος χρησιμοποιεί cookies για τη βελτιστοποίηση της λειτουργίας του και την ανάλυση επισκεψιμότητας.',
+        'cookie_accept': 'Αποδοχή',
+        'cookie_decline': 'Απόρριψη',
+        'cookie_manage': 'Διαχείριση προτιμήσεων',
+        'cookie_privacy_link': 'Πολιτική Απορρήτου',
+        'cookie_prefs_desc': 'Επιλέξτε ποιες κατηγορίες cookies επιθυμείτε να ενεργοποιήσετε. Τα απαραίτητα cookies είναι πάντα ενεργά για τη σωστή λειτουργία του ιστότοπου.',
+        'cookie_cat_necessary': 'Απαραίτητα',
+        'cookie_cat_necessary_desc': 'Βασική λειτουργία ιστότοπου',
+        'cookie_cat_functional': 'Λειτουργικά',
+        'cookie_cat_functional_desc': 'Αποθήκευση προτιμήσεων γλώσσας',
+        'cookie_cat_analytics': 'Ανάλυση επισκεψιμότητας',
+        'cookie_cat_analytics_desc': 'Google Analytics, ανώνυμα στατιστικά',
+        'cookie_cat_marketing': 'Διαφημιστικά',
+        'cookie_cat_marketing_desc': 'Δεν χρησιμοποιούνται αυτήν τη στιγμή',
+        'cookie_back': 'Πίσω',
+        'cookie_save': 'Αποθήκευση προτιμήσεων'
       },
       en: {
         '_title': 'AidedCAM - Legal Notice',
@@ -474,8 +650,8 @@
         'legal.responsible_title': '3. Responsible for Content',
         'legal.responsible_text': 'Responsible for content pursuant to Section 18(2) MStV (Medienstaatsvertrag / German Interstate Media Treaty):',
         'legal.responsible_address': 'Korinthias 7, 11526 Athens, Greece',
-        'legal.dispute_title': '4. EU Dispute Resolution',
-        'legal.dispute_odr': 'The European Commission provides a platform for online dispute resolution (ODR): <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener noreferrer">https://ec.europa.eu/consumers/odr/</a>',
+        'legal.dispute_title': '4. Dispute Resolution',
+        'legal.dispute_info': 'For consumer disputes, consumers may contact the competent national consumer protection authorities or alternative dispute resolution (ADR) bodies.',
         'legal.dispute_note': 'We are not obligated nor willing to participate in dispute resolution proceedings before a consumer arbitration board.',
         'legal.liability_title': '5. Liability Disclaimer',
         'legal.liability_content': 'The contents of this website are created with the utmost care. However, we cannot guarantee the accuracy, completeness, or timeliness of the content. As a service provider, we are responsible for our own content on these pages in accordance with general legislation. However, we are not obligated to monitor transmitted or stored third-party information or to investigate circumstances that indicate illegal activity.',
@@ -483,7 +659,25 @@
         'legal.copyright_title': '6. Copyright',
         'legal.copyright_text': 'The content and works on these pages created by the site operators are subject to Greek and European copyright law. Reproduction, editing, distribution, or any form of commercial exploitation beyond the scope of copyright law requires the written consent of the respective creator. &copy; <span id="copyrightYear">2026</span> AidedCAM. All rights reserved.',
         'footer.privacy': 'Privacy Policy',
-        'footer.home': 'Home'
+        'footer.home': 'Home',
+        'footer.cookie_settings': 'Cookie Settings',
+        'footer.rights': 'All rights reserved.',
+        'cookie_text': 'This website uses cookies to optimize functionality and analyze traffic.',
+        'cookie_accept': 'Accept',
+        'cookie_decline': 'Decline',
+        'cookie_manage': 'Manage preferences',
+        'cookie_privacy_link': 'Privacy Policy',
+        'cookie_prefs_desc': 'Choose which categories of cookies you wish to enable. Essential cookies are always active for the proper functioning of the website.',
+        'cookie_cat_necessary': 'Essential',
+        'cookie_cat_necessary_desc': 'Basic website functionality',
+        'cookie_cat_functional': 'Functional',
+        'cookie_cat_functional_desc': 'Language preference storage',
+        'cookie_cat_analytics': 'Analytics',
+        'cookie_cat_analytics_desc': 'Google Analytics, anonymous statistics',
+        'cookie_cat_marketing': 'Marketing',
+        'cookie_cat_marketing_desc': 'Not currently used',
+        'cookie_back': 'Back',
+        'cookie_save': 'Save preferences'
       },
       it: {
         '_title': 'AidedCAM - Avviso Legale',
@@ -512,8 +706,8 @@
         'legal.responsible_title': '3. Responsabile dei Contenuti',
         'legal.responsible_text': 'Responsabile dei contenuti ai sensi dell\'art. 18 comma 2 MStV (Medienstaatsvertrag / Trattato interstatale tedesco sui media):',
         'legal.responsible_address': 'Korinthias 7, 11526 Atene, Grecia',
-        'legal.dispute_title': '4. Risoluzione delle Controversie UE',
-        'legal.dispute_odr': 'La Commissione Europea mette a disposizione una piattaforma per la risoluzione delle controversie online (ODR): <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener noreferrer">https://ec.europa.eu/consumers/odr/</a>',
+        'legal.dispute_title': '4. Risoluzione delle Controversie',
+        'legal.dispute_info': 'Per le controversie dei consumatori, i consumatori possono rivolgersi alle autorità nazionali competenti per la tutela dei consumatori o agli organismi di risoluzione alternativa delle controversie (ADR).',
         'legal.dispute_note': 'Non siamo obbligati ne disposti a partecipare a procedimenti di risoluzione delle controversie dinanzi a un organismo di risoluzione alternativa delle controversie dei consumatori.',
         'legal.liability_title': '5. Esclusione di Responsabilita',
         'legal.liability_content': 'I contenuti di questo sito web sono creati con la massima cura. Tuttavia, non possiamo garantire l\'accuratezza, la completezza o l\'attualita dei contenuti. In qualita di fornitori di servizi, siamo responsabili dei nostri contenuti su queste pagine in conformita alla legislazione generale. Tuttavia, non siamo obbligati a monitorare le informazioni trasmesse o memorizzate da terzi o a indagare su circostanze che indichino attivita illegali.',
@@ -521,7 +715,25 @@
         'legal.copyright_title': '6. Diritto d\'Autore',
         'legal.copyright_text': 'I contenuti e le opere di queste pagine creati dai gestori del sito sono soggetti alla legge greca ed europea sul diritto d\'autore. La riproduzione, l\'elaborazione, la distribuzione o qualsiasi forma di sfruttamento commerciale al di la dell\'ambito del diritto d\'autore richiede il consenso scritto del rispettivo autore. &copy; <span id="copyrightYear">2026</span> AidedCAM. Tutti i diritti riservati.',
         'footer.privacy': 'Informativa sulla Privacy',
-        'footer.home': 'Home'
+        'footer.home': 'Home',
+        'footer.cookie_settings': 'Impostazioni Cookie',
+        'footer.rights': 'Tutti i diritti riservati.',
+        'cookie_text': 'Questo sito web utilizza i cookie per ottimizzare le sue funzionalit\u00e0 e analizzare il traffico.',
+        'cookie_accept': 'Accetta',
+        'cookie_decline': 'Rifiuta',
+        'cookie_manage': 'Gestisci preferenze',
+        'cookie_privacy_link': 'Informativa Privacy',
+        'cookie_prefs_desc': 'Scegliete quali categorie di cookie desiderate attivare. I cookie essenziali sono sempre attivi per il corretto funzionamento del sito.',
+        'cookie_cat_necessary': 'Essenziali',
+        'cookie_cat_necessary_desc': 'Funzionalit\u00e0 di base del sito web',
+        'cookie_cat_functional': 'Funzionali',
+        'cookie_cat_functional_desc': 'Memorizzazione preferenza lingua',
+        'cookie_cat_analytics': 'Analitici',
+        'cookie_cat_analytics_desc': 'Google Analytics, statistiche anonime',
+        'cookie_cat_marketing': 'Marketing',
+        'cookie_cat_marketing_desc': 'Attualmente non utilizzati',
+        'cookie_back': 'Indietro',
+        'cookie_save': 'Salva preferenze'
       }
     };
 
@@ -555,14 +767,20 @@
         btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
       });
 
+      // copyright_text re-renders its year span
+      document.querySelectorAll('#copyrightYear').forEach(function(el) {
+        el.textContent = new Date().getFullYear();
+      });
+
       // Save preference
-      localStorage.setItem('aidedcam-lang', lang);
+      lsSet('aidedcam-lang', lang);
     }
 
     // Initialize language: URL param > localStorage > browser language > Greek default
     var urlLangParam = new URLSearchParams(window.location.search).get('lang');
     var urlLang = (urlLangParam && translations[urlLangParam]) ? urlLangParam : null;
-    var savedLang = localStorage.getItem('aidedcam-lang');
+    var savedLang = lsGet('aidedcam-lang');
+    if (!translations[savedLang]) savedLang = null;
     var browserLangCode = navigator.language ? navigator.language.substring(0, 2) : 'el';
     var browserLang = browserLangCode === 'el' ? 'el' : browserLangCode === 'it' ? 'it' : 'en';
     var initialLang = urlLang || savedLang || browserLang;
@@ -573,7 +791,10 @@
     // Language button click handlers
     document.querySelectorAll('.lang-btn').forEach(function(btn) {
       btn.addEventListener('click', function() {
-        setLanguage(btn.getAttribute('data-lang'));
+        var lang = btn.getAttribute('data-lang');
+        setLanguage(lang);
+        gaEvent('switch_site_language', { language: lang });
+        if (window.gtag) gtag('set', 'user_properties', { preferred_language: lang });
       });
     });
 

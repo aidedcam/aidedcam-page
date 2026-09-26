@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AidedCAM - Προβολή G-code τόρνου</title>
+  <meta name="description" content="Δωρεάν προβολή G-code τόρνου: δείτε τα περάσματα των κύκλων G71, G72, G76 και τον χρόνο κύκλου ανά εργαλείο. Χωρίς εγκατάσταση, χωρίς εγγραφή." />
+  <meta name="robots" content="index, follow" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+  <meta name="theme-color" content="#f4f3ee" />
+  <link rel="canonical" href="https://www.aidedcam.com/gcode-viewer.html" />
+  <meta property="og:title" content="AidedCAM - Προβολή G-code τόρνου" />
+  <meta property="og:description" content="Δείτε τα περάσματα που κάνει στην πραγματικότητα ο έλεγχός σας, και πόσο χρόνο παίρνουν." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.aidedcam.com/gcode-viewer.html" />
+  <meta property="og:image" content="https://www.aidedcam.com/og-image.png" />
+  <meta property="og:site_name" content="AidedCAM" />
+  <meta property="og:locale" content="el_GR" />
+  <meta property="og:locale:alternate" content="en_US" />
+  <meta property="og:locale:alternate" content="it_IT" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <!-- Google Analytics - loaded only after cookie consent (copied from calculator.html) -->
+  <script>
+    function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+    function lsSet(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+    function loadGA() {
+      window['ga-disable-G-81935T6DNE'] = false;
+      if (document.getElementById('ga-script')) {
+        if (window.gtag) gtag('consent', 'update', { analytics_storage: 'granted' });
+        return;
+      }
+      var s = document.createElement('script');
+      s.id = 'ga-script'; s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-81935T6DNE';
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', 'G-81935T6DNE');
+      var userLang = lsGet('aidedcam-lang') || document.documentElement.lang || 'el';
+      gtag('set', 'user_properties', { preferred_language: userLang });
+    }
+    function revokeGA() {
+      window['ga-disable-G-81935T6DNE'] = true;
+      if (window.gtag) gtag('consent', 'update', { analytics_storage: 'denied' });
+      var root = location.hostname.replace(/^www\./, '');
+      document.cookie.split(';').forEach(function (c) {
+        var n = c.split('=')[0].trim();
+        if (n === '_ga' || n.indexOf('_ga_') === 0) {
+          ['', location.hostname, '.' + root].forEach(function (d) {
+            document.cookie = n + '=; Max-Age=0; path=/' + (d ? '; domain=' + d : '');
+          });
+        }
+      });
+    }
+    if (lsGet('privacy-pref') === 'accepted') { loadGA(); }
+  </script>
+  <link rel="stylesheet" href="fonts.css?v=20260923" />
+  <link rel="stylesheet" href="css/editorial.css?v=20260927" />
+  <link rel="stylesheet" href="css/tools.css?v=20260927" />
+</head>
+<body>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="aided-cam-mark.png" alt="AidedCAM" width="30" height="34" />
+        <img class="wordmark" src="aidedcam-wordmark.svg" alt="" width="716" height="67" />
+      </a>
+      <div class="nav-right">
+        <a href="index.html" class="nav-back" data-i18n="gv.back">Αρχική</a>
+        <div class="lang-switcher">
+          <button class="lang-btn active" data-lang="el">EL</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+          <button class="lang-btn" data-lang="it">IT</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="gv">
+    <header class="gv-head">
+      <p class="gv-eyebrow" data-i18n="gv.eyebrow">Δωρεάν εργαλείο</p>
+      <h1 data-i18n="gv.title">Προβολή G-code τόρνου</h1>
+      <p class="gv-lede" data-i18n="gv.lede">Δείτε τα περάσματα που κάνει στην πραγματικότητα ο έλεγχός σας, και πόσο χρόνο παίρνουν.</p>
+      <p class="gv-privacy" data-i18n="gv.privacy">Το πρόγραμμά σας δεν φεύγει ποτέ από τον υπολογιστή σας.</p>
+    </header>
+
+    <div class="gv-wrap">
+      <div class="gv-print-head" aria-hidden="true">
+        <img src="aidedcam-wordmark.svg" alt="AidedCAM" width="716" height="67" />
+        <span id="gvPrintName"></span><span id="gvPrintDate"></span>
+      </div>
+      <noscript><p class="gv-banner" data-i18n="gv.noscript">Το εργαλείο χρειάζεται JavaScript.</p></noscript>
+
+      <section class="gv-bar" aria-label="Program">
+        <label class="gv-btn gv-btn-primary gv-file-label"><input type="file" id="gvFile" class="gv-visually-hidden" /><span data-i18n="gv.open">Άνοιγμα αρχείου</span></label>
+        <button type="button" class="gv-btn" id="gvExample" data-i18n="gv.example">Φόρτωση παραδείγματος</button>
+        <button type="button" class="gv-btn" id="gvPaste" data-i18n="gv.paste">Επικόλληση</button>
+        <button type="button" class="gv-btn" id="gvPrint" data-i18n="gv.print">Εκτύπωση / Αποθήκευση PDF</button>
+        <details class="gv-settings">
+          <summary data-i18n="gv.settings">Ρυθμίσεις</summary>
+          <div class="gv-settings-grid">
+            <label><span data-i18n="gv.set.control">Έλεγχος</span>
+              <output id="gvControl"></output></label>
+            <label><span data-i18n="gv.set.system">Σύστημα G-code</span>
+              <select id="gvSystem"><option value="A">A</option><option value="B">B</option><option value="C">C</option></select></label>
+            <label><span data-i18n="gv.set.integer">Αριθμοί χωρίς υποδιαστολή</span>
+              <select id="gvInteger"><option value="mm">mm</option><option value="um">µm</option></select></label>
+            <label><span data-i18n="gv.set.xmode">Το X προγραμματίζεται ως</span>
+              <select id="gvXMode"><option value="dia" data-i18n="gv.set.dia">διάμετρος</option><option value="rad" data-i18n="gv.set.rad">ακτίνα</option></select></label>
+            <label><span data-i18n="gv.set.rapidx">Ταχεία X (mm/min)</span><input id="gvRapidX" type="number" min="100" step="100" /></label>
+            <label><span data-i18n="gv.set.rapidz">Ταχεία Z (mm/min)</span><input id="gvRapidZ" type="number" min="100" step="100" /></label>
+            <label><span data-i18n="gv.set.toolchange">Αλλαγή εργαλείου (s)</span><input id="gvToolChange" type="number" min="0" step="0.5" /></label>
+            <label><span data-i18n="gv.set.correction">Διόρθωση (%)</span><input id="gvCorrection" type="number" step="1" /></label>
+            <label><span data-i18n="gv.set.flip">X+ στην οθόνη</span>
+              <select id="gvFlip"><option value="up" data-i18n="gv.set.up">πάνω</option><option value="down" data-i18n="gv.set.down">κάτω</option></select></label>
+          </div>
+        </details>
+      </section>
+
+      <div class="gv-banner" id="gvBanner" role="status" hidden></div>
+
+      <section class="gv-main">
+        <div class="gv-program">
+          <div class="gv-panel-head"><span data-i18n="gv.program">Πρόγραμμα</span><button type="button" class="gv-link" id="gvEdit" data-i18n="gv.edit">Επεξεργασία</button></div>
+          <div class="gv-code" id="gvCode" tabindex="0" data-i18n-aria="gv.aria.code" aria-label="Γραμμές προγράμματος"></div>
+          <textarea class="gv-editor" id="gvEditor" spellcheck="false" hidden></textarea>
+          <div class="gv-drop-hint" id="gvDropHint" data-i18n="gv.drop">Αφήστε εδώ ένα αρχείο ή επικολλήστε ένα πρόγραμμα</div>
+        </div>
+        <div class="gv-drawing">
+          <div class="gv-tools">
+            <span class="gv-tools-controls">
+              <button type="button" class="gv-link" id="gvFit" data-i18n="gv.fit">Προσαρμογή</button>
+              <button type="button" class="gv-zoom" id="gvZoomOut" data-i18n-aria="gv.aria.zoomout" aria-label="Σμίκρυνση">−</button>
+              <button type="button" class="gv-zoom" id="gvZoomIn" data-i18n-aria="gv.aria.zoomin" aria-label="Μεγέθυνση">+</button>
+              <label class="gv-check"><input type="checkbox" id="gvAspect" checked /><span data-i18n="gv.aspect">1:1</span></label>
+            </span>
+            <label class="gv-check"><input type="checkbox" data-layer="feed" checked /><i class="gv-swatch feed"></i><span data-i18n="gv.l.feed">Κινήσεις κοπής</span></label>
+            <label class="gv-check"><input type="checkbox" data-layer="rapid" checked /><i class="gv-swatch rapid"></i><span data-i18n="gv.l.rapid">Ταχείες</span></label>
+            <label class="gv-check"><input type="checkbox" data-layer="pass" checked /><i class="gv-swatch pass"></i><span data-i18n="gv.l.pass">Από τον έλεγχο</span></label>
+            <label class="gv-check"><input type="checkbox" data-layer="profile" checked /><i class="gv-swatch profile"></i><span data-i18n="gv.l.profile">Τελικό προφίλ</span></label>
+          </div>
+          <svg class="gv-svg" id="gvSvg" tabindex="0" role="img" data-i18n-aria="gv.aria.svg" aria-label="Σχέδιο διαδρομών, ημιτομή X–Z"></svg>
+          <p class="gv-readout" id="gvReadout"></p>
+        </div>
+      </section>
+
+      <section class="gv-results">
+        <div class="gv-time">
+          <h2 data-i18n="gv.time.title">Χρόνος κύκλου</h2>
+          <p class="gv-note" data-i18n="gv.time.note">Εκτίμηση για προγραμματισμό, υπολογισμένη κίνηση προς κίνηση, μαζί με τα περάσματα που παράγει ο έλεγχος.</p>
+          <div class="gv-table-wrap">
+            <table class="gv-table" id="gvTimeTable">
+              <thead><tr>
+                <th data-i18n="gv.time.tool">Εργαλείο</th><th data-i18n="gv.time.label">Περιγραφή</th>
+                <th data-i18n="gv.time.cycles">Κύκλοι</th><th data-i18n="gv.time.passes">Περάσματα</th>
+                <th id="gvLengthHeader" data-i18n="gv.time.length">Μήκος κοπής</th><th data-i18n="gv.time.cut">Κοπή</th>
+                <th data-i18n="gv.time.rapid">Ταχείες</th><th data-i18n="gv.time.total">Σύνολο</th>
+              </tr></thead>
+              <tbody></tbody>
+              <tfoot><tr><td colspan="7" data-i18n="gv.time.program">Σύνολο προγράμματος (με αλλαγές εργαλείων)</td><td id="gvTotal">–</td></tr></tfoot>
+            </table>
+          </div>
+          <p class="gv-note" id="gvIncomplete" data-i18n="gv.time.incomplete" hidden>Κάποιες κινήσεις δεν έχουν πρόωση ή στροφές· ο χρόνος τους δεν μετράει.</p>
+          <p class="gv-note" data-i18n="gv.time.excluded">Δεν περιλαμβάνονται: επιταχύνσεις και επιβραδύνσεις, επιτάχυνση ατράκτου, επεξεργασία μπλοκ, ενέργειες M (ψυκτικό, τσοκ) και επιστροφές G28.</p>
+        </div>
+        <div class="gv-checks">
+          <h2 data-i18n="gv.checks.title">Έλεγχοι προγράμματος</h2>
+          <ul class="gv-check-list" id="gvChecks"></ul>
+          <p class="gv-note" data-i18n="gv.disclaimer">Προβολή, όχι προσομοίωση: ελέγχετε πάντα στη μηχανή σας.</p>
+        </div>
+      </section>
+
+      <section class="gv-cta">
+        <h2 data-i18n="gv.cta.title">Το θέλετε φτιαγμένο για τη δική σας μηχανή;</h2>
+        <p data-i18n="gv.cta.text">Φτιάχνουμε λογισμικό CAM τόρνου σαν αυτό, στα μέτρα της μηχανής σας, του post-processor σας και του τρόπου που δουλεύει το μηχανουργείο σας.</p>
+        <a class="btn-primary" id="gvCta" href="index.html#contact" data-i18n="gv.cta.button">Μιλήστε μαζί μας</a>
+        <div class="gv-survey" id="gvSurvey">
+          <p data-i18n="gv.survey.q">Πώς γράφετε τα προγράμματα τόρνου;</p>
+          <button type="button" class="gv-chip" data-answer="machine" data-i18n="gv.survey.machine">Στη μηχανή</button>
+          <button type="button" class="gv-chip" data-answer="hand" data-i18n="gv.survey.hand">Με το χέρι</button>
+          <button type="button" class="gv-chip" data-answer="cam" data-i18n="gv.survey.cam">Από CAM</button>
+          <p class="gv-thanks" id="gvThanks" data-i18n="gv.survey.thanks" hidden>Ευχαριστούμε!</p>
+        </div>
+      </section>
+
+      <div class="gv-print-foot" aria-hidden="true">www.aidedcam.com · <span data-i18n="gv.print.estimate">Εκτίμηση για προγραμματισμό</span></div>
+    </div>
+  </main>
+
+  <footer class="gv-footer">
+    <img src="aidedcam-wordmark.svg" alt="AidedCAM" width="716" height="67" loading="lazy" />
+    <div class="gv-footer-legal">
+      <a href="privacy.html" data-i18n="footer.privacy">Απόρρητο</a>
+      <a href="legal.html" data-i18n="footer.legal">Νομικά</a>
+      <a href="javascript:void(0)" onclick="openCookieSettings()" data-i18n="footer.cookie_settings">Ρυθμίσεις Cookies</a>
+    </div>
+  </footer>
+
+  <!-- COOKIE CONSENT BANNER: markup identical to calculator.html lines 925-977 -->
+  <div class="consent-banner" id="privacyOverlay">
+    <div class="consent-inner">
+      <p>
+        <span data-i18n="cookie_text">Αυτός ο ιστότοπος χρησιμοποιεί cookies για τη βελτιστοποίηση της λειτουργίας του και την ανάλυση επισκεψιμότητας.</span>
+        <a href="privacy.html" class="consent-privacy-link" data-i18n="cookie_privacy_link">Πολιτική Απορρήτου</a>
+      </p>
+      <div class="consent-actions">
+        <button class="consent-btn consent-btn-accept" id="privacyAccept" data-i18n="cookie_accept">Αποδοχή</button>
+        <button class="consent-btn consent-btn-manage" id="privacyManage" data-i18n="cookie_manage">Διαχείριση προτιμήσεων</button>
+        <button class="consent-btn consent-btn-decline" id="privacyDecline" data-i18n="cookie_decline">Απόρριψη</button>
+      </div>
+    </div>
+    <div class="consent-prefs" id="consentPrefs">
+      <div class="consent-prefs-inner">
+        <p class="consent-prefs-desc" data-i18n="cookie_prefs_desc">Επιλέξτε ποιες κατηγορίες cookies επιθυμείτε να ενεργοποιήσετε. Τα απαραίτητα cookies είναι πάντα ενεργά για τη σωστή λειτουργία του ιστότοπου.</p>
+        <div class="consent-categories">
+          <div class="consent-cat">
+            <input type="checkbox" checked disabled id="cookieNecessary">
+            <label for="cookieNecessary">
+              <span class="consent-cat-name" data-i18n="cookie_cat_necessary">Απαραίτητα</span>
+              <span class="consent-cat-desc" data-i18n="cookie_cat_necessary_desc">Βασική λειτουργία ιστότοπου</span>
+            </label>
+          </div>
+          <div class="consent-cat">
+            <input type="checkbox" checked disabled id="cookieFunctional">
+            <label for="cookieFunctional">
+              <span class="consent-cat-name" data-i18n="cookie_cat_functional">Λειτουργικά</span>
+              <span class="consent-cat-desc" data-i18n="cookie_cat_functional_desc">Αποθήκευση προτιμήσεων γλώσσας</span>
+            </label>
+          </div>
+          <div class="consent-cat">
+            <input type="checkbox" id="cookieAnalytics">
+            <label for="cookieAnalytics">
+              <span class="consent-cat-name" data-i18n="cookie_cat_analytics">Ανάλυση επισκεψιμότητας</span>
+              <span class="consent-cat-desc" data-i18n="cookie_cat_analytics_desc">Google Analytics, ανώνυμα στατιστικά</span>
+            </label>
+          </div>
+          <div class="consent-cat">
+            <input type="checkbox" disabled id="cookieMarketing">
+            <label for="cookieMarketing">
+              <span class="consent-cat-name" data-i18n="cookie_cat_marketing">Διαφημιστικά</span>
+              <span class="consent-cat-desc" data-i18n="cookie_cat_marketing_desc">Δεν χρησιμοποιούνται αυτήν τη στιγμή</span>
+            </label>
+          </div>
+        </div>
+        <div class="consent-prefs-actions">
+          <button class="consent-btn consent-btn-accept" id="privacySavePrefs" data-i18n="cookie_save">Αποθήκευση προτιμήσεων</button>
+          <button class="consent-btn consent-btn-decline" id="privacyBack" data-i18n="cookie_back">Πίσω</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var translations = {
+      el: {
+        '_title': 'AidedCAM - Προβολή G-code τόρνου',
+        'gv.back': 'Αρχική', 'gv.eyebrow': 'Δωρεάν εργαλείο', 'gv.title': 'Προβολή G-code τόρνου',
+        'gv.lede': 'Δείτε τα περάσματα που κάνει στην πραγματικότητα ο έλεγχός σας, και πόσο χρόνο παίρνουν.',
+        'gv.privacy': 'Το πρόγραμμά σας δεν φεύγει ποτέ από τον υπολογιστή σας.',
+        'gv.noscript': 'Το εργαλείο χρειάζεται JavaScript.',
+        'gv.open': 'Άνοιγμα αρχείου', 'gv.example': 'Φόρτωση παραδείγματος', 'gv.paste': 'Επικόλληση',
+        'gv.print': 'Εκτύπωση / Αποθήκευση PDF', 'gv.settings': 'Ρυθμίσεις',
+        'gv.set.control': 'Έλεγχος', 'gv.set.system': 'Σύστημα G-code',
+        'gv.set.integer': 'Αριθμοί χωρίς υποδιαστολή', 'gv.set.xmode': 'Το X προγραμματίζεται ως',
+        'gv.set.dia': 'διάμετρος', 'gv.set.rad': 'ακτίνα', 'gv.set.rapidx': 'Ταχεία X (mm/min)',
+        'gv.set.rapidz': 'Ταχεία Z (mm/min)', 'gv.set.toolchange': 'Αλλαγή εργαλείου (s)',
+        'gv.set.correction': 'Διόρθωση (%)', 'gv.set.flip': 'X+ στην οθόνη', 'gv.set.up': 'πάνω', 'gv.set.down': 'κάτω',
+        'gv.program': 'Πρόγραμμα', 'gv.edit': 'Επεξεργασία', 'gv.done': 'Τέλος',
+        'gv.drop': 'Αφήστε εδώ ένα αρχείο ή επικολλήστε ένα πρόγραμμα',
+        'gv.fit': 'Προσαρμογή', 'gv.aspect': '1:1', 'gv.l.feed': 'Κινήσεις κοπής', 'gv.l.rapid': 'Ταχείες',
+        'gv.l.pass': 'Από τον έλεγχο', 'gv.l.profile': 'Τελικό προφίλ',
+        'gv.aria.code': 'Γραμμές προγράμματος', 'gv.aria.svg': 'Σχέδιο διαδρομών, ημιτομή X–Z',
+        'gv.aria.zoomout': 'Σμίκρυνση', 'gv.aria.zoomin': 'Μεγέθυνση',
+        'gv.readout': 'Γραμμή {line} · {xlabel}{x} Z{z}',
+        'gv.time.title': 'Χρόνος κύκλου',
+        'gv.time.note': 'Εκτίμηση για προγραμματισμό, υπολογισμένη κίνηση προς κίνηση, μαζί με τα περάσματα που παράγει ο έλεγχος.',
+        'gv.time.tool': 'Εργαλείο', 'gv.time.label': 'Περιγραφή', 'gv.time.cycles': 'Κύκλοι', 'gv.time.passes': 'Περάσματα',
+        'gv.time.length': 'Μήκος κοπής', 'gv.time.cut': 'Κοπή', 'gv.time.rapid': 'Ταχείες', 'gv.time.total': 'Σύνολο',
+        'gv.time.program': 'Σύνολο προγράμματος (με αλλαγές εργαλείων)',
+        'gv.time.incomplete': 'Για τα εργαλεία με «–» ο χρόνος δεν υπολογίζεται πλήρως: κινήσεις χωρίς πρόωση ή στροφές, ή κύκλοι που δεν υποστηρίζονται ή απέτυχαν. Το σύνολο του προγράμματος δεν τα περιλαμβάνει.',
+        'gv.time.excluded': 'Δεν περιλαμβάνονται: επιταχύνσεις και επιβραδύνσεις, επιτάχυνση ατράκτου, επεξεργασία μπλοκ, ενέργειες M (ψυκτικό, τσοκ) και επιστροφές G28.',
+        'gv.checks.title': 'Έλεγχοι προγράμματος', 'gv.checks.none': 'Δεν βρέθηκαν προβλήματα.', 'gv.checks.line': 'Γραμμή',
+        'gv.disclaimer': 'Προβολή, όχι προσομοίωση: ελέγχετε πάντα στη μηχανή σας.',
+        'gv.cta.title': 'Το θέλετε φτιαγμένο για τη δική σας μηχανή;',
+        'gv.cta.text': 'Φτιάχνουμε λογισμικό CAM τόρνου σαν αυτό, στα μέτρα της μηχανής σας, του post-processor σας και του τρόπου που δουλεύει το μηχανουργείο σας.',
+        'gv.cta.button': 'Μιλήστε μαζί μας',
+        'gv.survey.q': 'Πώς γράφετε τα προγράμματα τόρνου;', 'gv.survey.machine': 'Στη μηχανή',
+        'gv.survey.hand': 'Με το χέρι', 'gv.survey.cam': 'Από CAM', 'gv.survey.thanks': 'Ευχαριστούμε!',
+        'gv.banner.toolarge': 'Το αρχείο έχει {lines} γραμμές· η προβολή δέχεται έως {max}.',
+        'gv.banner.error': 'Το πρόγραμμα δεν μπόρεσε να αναλυθεί. Αν συμβαίνει ξανά, πείτε μας ποιο μπλοκ το προκαλεί.',
+        'gv.paste.fail': 'Ο browser δεν επιτρέπει την επικόλληση από το κουμπί. Πατήστε Ctrl+V μέσα στη σελίδα.',
+        'gv.print.estimate': 'Εκτίμηση για προγραμματισμό',
+        'gv.check.g96-no-g50': 'G96 (σταθερή ταχύτητα κοπής) χωρίς όριο στροφών G50: η άτρακτος μπορεί να ξεπεράσει τις στροφές κοντά στο κέντρο.',
+        'gv.check.type1-monotonic': 'Το προφίλ Τύπου I δεν είναι μονότονο (συναγερμός Fanuc 064). Χρησιμοποιήστε Τύπο II (X και Z στο μπλοκ P) ή αλλάξτε το προφίλ.',
+        'gv.check.p-block': 'Το μπλοκ P δεν κινεί τον άξονα που χρειάζεται ο κύκλος (συναγερμός Fanuc 065).',
+        'gv.check.q-block-corner': 'Λοξότμηση ή στρογγύλευση (C/R) στο μπλοκ Q (συναγερμός Fanuc 069).',
+        'gv.check.tnrc-scope': 'Η αντιστάθμιση ακτίνας μύτης (G41/G42) είναι ενεργή στην κλήση του κύκλου ή δεν ακυρώνεται μέχρι το μπλοκ Q.',
+        'gv.check.start-in-material': 'Το σημείο εκκίνησης του κύκλου βρίσκεται μέσα στο προφίλ: το πρώτο πέρασμα θα ξεκινήσει μέσα στο υλικό.',
+        'gv.check.allowance-vs-depth': 'Το περιθώριο φινιρίσματος δεν είναι μικρότερο από το βάθος κοπής.',
+        'gv.check.pq-decimal': 'Τα P/Q στους G74/G75/G76 δίνονται σε μικρά χωρίς υποδιαστολή (Q250 = 0,25 mm).',
+        'gv.check.css-threading': 'Σπείρωμα με G96: οι περισσότεροι έλεγχοι θέλουν G97 (σταθερές στροφές) για σπειρώματα.',
+        'gv.check.no-feed': 'Κίνηση κοπής χωρίς πρόωση (F).',
+        'gv.check.no-speed': 'Πρόωση ανά στροφή χωρίς στροφές ατράκτου (S).',
+        'gv.check.tool-zero': 'Κοπή με εργαλείο ή διόρθωση μηδέν ({tool}).',
+        'gv.check.subprogram': 'Η κλήση υποπρογράμματος M98 δεν ακολουθείται σε αυτή την έκδοση.',
+        'gv.check.skipped': 'Παραλείφθηκαν {count} γραμμές macro/εκφράσεων.',
+        'gv.check.milling': 'Μοιάζει με πρόγραμμα φρέζας· η προβολή είναι για προγράμματα τόρνου.',
+        'gv.check.pq-not-found': 'P{p}/Q{q}: δεν βρέθηκαν τα μπλοκ του προφίλ.',
+        'gv.check.cycle-no-start': 'Άγνωστο σημείο εκκίνησης κύκλου (καμία θέση πριν από τον κύκλο).',
+        'gv.check.cycle-form': 'Λείπουν απαραίτητες λέξεις από τον κύκλο G{code}.',
+        'gv.check.cycle-unsupported': 'Ο κύκλος G{code} δεν υποστηρίζεται σε αυτή την έκδοση.',
+        'gv.check.type2-pocket': 'Προφίλ Τύπου II με εσοχές: τα περάσματα μέσα στις εσοχές διαφέρουν ανά έλεγχο και δεν σχεδιάζονται· ελέγξτε στη μηχανή σας.',
+        'cookie_text': 'Αυτός ο ιστότοπος χρησιμοποιεί cookies για τη βελτιστοποίηση της λειτουργίας του και την ανάλυση επισκεψιμότητας.',
+        'cookie_accept': 'Αποδοχή', 'cookie_decline': 'Απόρριψη', 'cookie_manage': 'Διαχείριση προτιμήσεων',
+        'cookie_privacy_link': 'Πολιτική Απορρήτου',
+        'cookie_prefs_desc': 'Επιλέξτε ποιες κατηγορίες cookies επιθυμείτε να ενεργοποιήσετε. Τα απαραίτητα cookies είναι πάντα ενεργά για τη σωστή λειτουργία του ιστότοπου.',
+        'cookie_cat_necessary': 'Απαραίτητα', 'cookie_cat_necessary_desc': 'Βασική λειτουργία ιστότοπου',
+        'cookie_cat_functional': 'Λειτουργικά', 'cookie_cat_functional_desc': 'Αποθήκευση προτιμήσεων γλώσσας',
+        'cookie_cat_analytics': 'Ανάλυση επισκεψιμότητας', 'cookie_cat_analytics_desc': 'Google Analytics, ανώνυμα στατιστικά',
+        'cookie_cat_marketing': 'Διαφημιστικά', 'cookie_cat_marketing_desc': 'Δεν χρησιμοποιούνται αυτήν τη στιγμή',
+        'cookie_back': 'Πίσω', 'cookie_save': 'Αποθήκευση προτιμήσεων',
+        'footer.privacy': 'Απόρρητο', 'footer.legal': 'Νομικά', 'footer.cookie_settings': 'Ρυθμίσεις Cookies'
+      },
+      en: {
+        '_title': 'AidedCAM - Lathe G-code viewer',
+        'gv.back': 'Home', 'gv.eyebrow': 'Free tool', 'gv.title': 'Lathe G-code viewer',
+        'gv.lede': 'See the passes your control really makes, and how long they take.',
+        'gv.privacy': 'Your program never leaves your computer.',
+        'gv.noscript': 'This tool needs JavaScript.',
+        'gv.open': 'Open file', 'gv.example': 'Load example', 'gv.paste': 'Paste',
+        'gv.print': 'Print / Save as PDF', 'gv.settings': 'Settings',
+        'gv.set.control': 'Control', 'gv.set.system': 'G-code system',
+        'gv.set.integer': 'Numbers without a decimal point', 'gv.set.xmode': 'X programmed as',
+        'gv.set.dia': 'diameter', 'gv.set.rad': 'radius', 'gv.set.rapidx': 'Rapid X (mm/min)',
+        'gv.set.rapidz': 'Rapid Z (mm/min)', 'gv.set.toolchange': 'Tool change (s)',
+        'gv.set.correction': 'Correction (%)', 'gv.set.flip': 'X+ on screen', 'gv.set.up': 'up', 'gv.set.down': 'down',
+        'gv.program': 'Program', 'gv.edit': 'Edit', 'gv.done': 'Done',
+        'gv.drop': 'Drop a file here or paste a program',
+        'gv.fit': 'Fit', 'gv.aspect': '1:1', 'gv.l.feed': 'Feed moves', 'gv.l.rapid': 'Rapids',
+        'gv.l.pass': 'Generated by the control', 'gv.l.profile': 'Finished profile',
+        'gv.aria.code': 'Program lines', 'gv.aria.svg': 'Toolpath drawing, X–Z half-section',
+        'gv.aria.zoomout': 'Zoom out', 'gv.aria.zoomin': 'Zoom in',
+        'gv.readout': 'Line {line} · {xlabel}{x} Z{z}',
+        'gv.time.title': 'Cycle time',
+        'gv.time.note': 'Planning estimate, calculated move by move, including the passes the control generates.',
+        'gv.time.tool': 'Tool', 'gv.time.label': 'Description', 'gv.time.cycles': 'Cycles', 'gv.time.passes': 'Passes',
+        'gv.time.length': 'Cut length', 'gv.time.cut': 'Cutting', 'gv.time.rapid': 'Rapids', 'gv.time.total': 'Total',
+        'gv.time.program': 'Program total (incl. tool changes)',
+        'gv.time.incomplete': 'Tools marked “–” could not be fully timed: moves without feed or speed, or cycles that are unsupported or failed. The program total leaves them out.',
+        'gv.time.excluded': 'Not included: acceleration and deceleration, spindle ramp-up, block processing, M-code actions (coolant, chuck) and G28 reference returns.',
+        'gv.checks.title': 'Program checks', 'gv.checks.none': 'No issues found.', 'gv.checks.line': 'Line',
+        'gv.disclaimer': 'A viewer, not a simulator: always verify on your machine.',
+        'gv.cta.title': 'Want this built around your own machine?',
+        'gv.cta.text': 'We build lathe CAM software like this, tailored to your machine, your post-processor and the way your shop works.',
+        'gv.cta.button': 'Talk to us',
+        'gv.survey.q': 'How do you write your lathe programs?', 'gv.survey.machine': 'At the machine',
+        'gv.survey.hand': 'By hand', 'gv.survey.cam': 'From CAM', 'gv.survey.thanks': 'Thank you!',
+        'gv.banner.toolarge': 'This file has {lines} lines; the viewer handles up to {max}.',
+        'gv.banner.error': 'This program could not be analysed. If it happens again, tell us which block causes it.',
+        'gv.paste.fail': 'The browser blocks pasting from the button. Press Ctrl+V anywhere on the page.',
+        'gv.print.estimate': 'Planning estimate',
+        'gv.check.g96-no-g50': 'G96 (constant surface speed) with no G50 spindle limit: the spindle can over-speed near the centre.',
+        'gv.check.type1-monotonic': 'The Type I profile is not monotonic (Fanuc alarm 064). Use Type II (X and Z in the P block) or change the profile.',
+        'gv.check.p-block': 'The P block does not move the axis this cycle needs (Fanuc alarm 065).',
+        'gv.check.q-block-corner': 'Chamfer or corner (C/R) in the Q block (Fanuc alarm 069).',
+        'gv.check.tnrc-scope': 'Nose-radius compensation (G41/G42) is active at the cycle call or not cancelled by the Q block.',
+        'gv.check.start-in-material': 'The cycle start point is inside the profile: the first pass would start in material.',
+        'gv.check.allowance-vs-depth': 'The finishing allowance is not smaller than the depth of cut.',
+        'gv.check.pq-decimal': 'P/Q in G74/G75/G76 are microns without a decimal point (Q250 = 0.25 mm).',
+        'gv.check.css-threading': 'Threading under G96: most controls need G97 (fixed rpm) for threads.',
+        'gv.check.no-feed': 'Cutting move with no feed (F).',
+        'gv.check.no-speed': 'Feed per rev with no spindle speed (S).',
+        'gv.check.tool-zero': 'Cutting with tool or offset zero ({tool}).',
+        'gv.check.subprogram': 'The M98 subprogram call is not followed in this version.',
+        'gv.check.skipped': '{count} macro/expression lines skipped.',
+        'gv.check.milling': 'This looks like a milling program; the viewer is for lathe programs.',
+        'gv.check.pq-not-found': 'P{p}/Q{q}: profile blocks not found.',
+        'gv.check.cycle-no-start': 'Cycle start point unknown (no position before the cycle).',
+        'gv.check.cycle-form': 'Cycle G{code} is missing required words.',
+        'gv.check.cycle-unsupported': 'Cycle G{code} is not supported in this version.',
+        'gv.check.type2-pocket': 'Type II profile with pockets: pocket passes differ by control and are not drawn; verify on your machine.',
+        'cookie_text': 'This website uses cookies to optimize functionality and analyze traffic.',
+        'cookie_accept': 'Accept', 'cookie_decline': 'Decline', 'cookie_manage': 'Manage preferences',
+        'cookie_privacy_link': 'Privacy Policy',
+        'cookie_prefs_desc': 'Choose which categories of cookies you wish to enable. Essential cookies are always active for the proper functioning of the website.',
+        'cookie_cat_necessary': 'Essential', 'cookie_cat_necessary_desc': 'Basic website functionality',
+        'cookie_cat_functional': 'Functional', 'cookie_cat_functional_desc': 'Language preference storage',
+        'cookie_cat_analytics': 'Analytics', 'cookie_cat_analytics_desc': 'Google Analytics, anonymous statistics',
+        'cookie_cat_marketing': 'Marketing', 'cookie_cat_marketing_desc': 'Not currently used',
+        'cookie_back': 'Back', 'cookie_save': 'Save preferences',
+        'footer.privacy': 'Privacy', 'footer.legal': 'Legal', 'footer.cookie_settings': 'Cookie Settings'
+      },
+      it: {
+        '_title': 'AidedCAM - Visualizzatore G-code per tornio',
+        'gv.back': 'Home', 'gv.eyebrow': 'Strumento gratuito', 'gv.title': 'Visualizzatore G-code per tornio',
+        'gv.lede': 'Vedete le passate che il vostro controllo esegue davvero, e quanto tempo richiedono.',
+        'gv.privacy': 'Il vostro programma non lascia mai il vostro computer.',
+        'gv.noscript': 'Questo strumento richiede JavaScript.',
+        'gv.open': 'Apri file', 'gv.example': 'Carica esempio', 'gv.paste': 'Incolla',
+        'gv.print': 'Stampa / Salva PDF', 'gv.settings': 'Impostazioni',
+        'gv.set.control': 'Controllo', 'gv.set.system': 'Sistema G-code',
+        'gv.set.integer': 'Numeri senza punto decimale', 'gv.set.xmode': 'X programmato come',
+        'gv.set.dia': 'diametro', 'gv.set.rad': 'raggio', 'gv.set.rapidx': 'Rapido X (mm/min)',
+        'gv.set.rapidz': 'Rapido Z (mm/min)', 'gv.set.toolchange': 'Cambio utensile (s)',
+        'gv.set.correction': 'Correzione (%)', 'gv.set.flip': 'X+ sullo schermo', 'gv.set.up': 'in alto', 'gv.set.down': 'in basso',
+        'gv.program': 'Programma', 'gv.edit': 'Modifica', 'gv.done': 'Fatto',
+        'gv.drop': 'Trascinate qui un file o incollate un programma',
+        'gv.fit': 'Adatta', 'gv.aspect': '1:1', 'gv.l.feed': 'Movimenti di taglio', 'gv.l.rapid': 'Rapidi',
+        'gv.l.pass': 'Generati dal controllo', 'gv.l.profile': 'Profilo finito',
+        'gv.aria.code': 'Righe del programma', 'gv.aria.svg': 'Disegno dei percorsi, semisezione X–Z',
+        'gv.aria.zoomout': 'Riduci', 'gv.aria.zoomin': 'Ingrandisci',
+        'gv.readout': 'Riga {line} · {xlabel}{x} Z{z}',
+        'gv.time.title': 'Tempo ciclo',
+        'gv.time.note': 'Stima per la pianificazione, calcolata movimento per movimento, comprese le passate generate dal controllo.',
+        'gv.time.tool': 'Utensile', 'gv.time.label': 'Descrizione', 'gv.time.cycles': 'Cicli', 'gv.time.passes': 'Passate',
+        'gv.time.length': 'Lunghezza di taglio', 'gv.time.cut': 'Taglio', 'gv.time.rapid': 'Rapidi', 'gv.time.total': 'Totale',
+        'gv.time.program': 'Totale programma (inclusi cambi utensile)',
+        'gv.time.incomplete': 'Per gli utensili con «–» il tempo non è calcolabile per intero: movimenti senza avanzamento o giri, oppure cicli non supportati o non riusciti. Il totale del programma li esclude.',
+        'gv.time.excluded': 'Non inclusi: accelerazioni e decelerazioni, rampa del mandrino, elaborazione dei blocchi, azioni M (refrigerante, autocentrante) e ritorni G28.',
+        'gv.checks.title': 'Controlli del programma', 'gv.checks.none': 'Nessun problema rilevato.', 'gv.checks.line': 'Riga',
+        'gv.disclaimer': 'Un visualizzatore, non un simulatore: verificate sempre sulla vostra macchina.',
+        'gv.cta.title': 'Lo volete su misura per la vostra macchina?',
+        'gv.cta.text': 'Sviluppiamo software CAM per tornio come questo, su misura per la vostra macchina, il vostro post-processor e il modo in cui lavora la vostra officina.',
+        'gv.cta.button': 'Parlate con noi',
+        'gv.survey.q': 'Come scrivete i programmi per il tornio?', 'gv.survey.machine': 'In macchina',
+        'gv.survey.hand': 'A mano', 'gv.survey.cam': 'Da CAM', 'gv.survey.thanks': 'Grazie!',
+        'gv.banner.toolarge': 'Questo file ha {lines} righe; il visualizzatore ne gestisce fino a {max}.',
+        'gv.banner.error': 'Non è stato possibile analizzare il programma. Se succede di nuovo, diteci quale blocco lo causa.',
+        'gv.paste.fail': 'Il browser blocca l’incolla dal pulsante. Premete Ctrl+V in un punto qualsiasi della pagina.',
+        'gv.print.estimate': 'Stima per la pianificazione',
+        'gv.check.g96-no-g50': 'G96 (velocità di taglio costante) senza limite giri G50: il mandrino può andare fuori giri vicino al centro.',
+        'gv.check.type1-monotonic': 'Il profilo di Tipo I non è monotono (allarme Fanuc 064). Usate il Tipo II (X e Z nel blocco P) o modificate il profilo.',
+        'gv.check.p-block': 'Il blocco P non muove l’asse richiesto dal ciclo (allarme Fanuc 065).',
+        'gv.check.q-block-corner': 'Smusso o raccordo (C/R) nel blocco Q (allarme Fanuc 069).',
+        'gv.check.tnrc-scope': 'La compensazione del raggio utensile (G41/G42) è attiva alla chiamata del ciclo o non viene annullata entro il blocco Q.',
+        'gv.check.start-in-material': 'Il punto di partenza del ciclo è dentro il profilo: la prima passata partirebbe nel materiale.',
+        'gv.check.allowance-vs-depth': 'Il sovrametallo di finitura non è inferiore alla profondità di passata.',
+        'gv.check.pq-decimal': 'P/Q in G74/G75/G76 sono in micron senza punto decimale (Q250 = 0,25 mm).',
+        'gv.check.css-threading': 'Filettatura in G96: la maggior parte dei controlli richiede G97 (giri fissi) per le filettature.',
+        'gv.check.no-feed': 'Movimento di taglio senza avanzamento (F).',
+        'gv.check.no-speed': 'Avanzamento al giro senza velocità del mandrino (S).',
+        'gv.check.tool-zero': 'Taglio con utensile o correttore zero ({tool}).',
+        'gv.check.subprogram': 'La chiamata di sottoprogramma M98 non viene seguita in questa versione.',
+        'gv.check.skipped': '{count} righe di macro/espressioni ignorate.',
+        'gv.check.milling': 'Sembra un programma di fresatura; il visualizzatore è per programmi di tornitura.',
+        'gv.check.pq-not-found': 'P{p}/Q{q}: blocchi del profilo non trovati.',
+        'gv.check.cycle-no-start': 'Punto di partenza del ciclo sconosciuto (nessuna posizione prima del ciclo).',
+        'gv.check.cycle-form': 'Al ciclo G{code} mancano parole obbligatorie.',
+        'gv.check.cycle-unsupported': 'Il ciclo G{code} non è supportato in questa versione.',
+        'gv.check.type2-pocket': 'Profilo di Tipo II con tasche: le passate nelle tasche variano secondo il controllo e non sono disegnate; verificate sulla vostra macchina.',
+        'cookie_text': 'Questo sito web utilizza i cookie per ottimizzare le sue funzionalità e analizzare il traffico.',
+        'cookie_accept': 'Accetta', 'cookie_decline': 'Rifiuta', 'cookie_manage': 'Gestisci preferenze',
+        'cookie_privacy_link': 'Informativa Privacy',
+        'cookie_prefs_desc': 'Scegliete quali categorie di cookie desiderate attivare. I cookie essenziali sono sempre attivi per il corretto funzionamento del sito.',
+        'cookie_cat_necessary': 'Essenziali', 'cookie_cat_necessary_desc': 'Funzionalità di base del sito web',
+        'cookie_cat_functional': 'Funzionali', 'cookie_cat_functional_desc': 'Memorizzazione preferenza lingua',
+        'cookie_cat_analytics': 'Analitici', 'cookie_cat_analytics_desc': 'Google Analytics, statistiche anonime',
+        'cookie_cat_marketing': 'Marketing', 'cookie_cat_marketing_desc': 'Attualmente non utilizzati',
+        'cookie_back': 'Indietro', 'cookie_save': 'Salva preferenze',
+        'footer.privacy': 'Privacy', 'footer.legal': 'Note Legali', 'footer.cookie_settings': 'Impostazioni Cookie'
+      }
+    };
+    window.GV_I18N = translations;
+    var currentLang = 'el';
+
+    function setLanguage(lang) {
+      var t = translations[lang];
+      if (!t) return;
+      currentLang = lang;
+      document.querySelectorAll('[data-i18n]').forEach(function (el) {
+        var key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined) el.textContent = t[key];
+      });
+      document.querySelectorAll('[data-i18n-aria]').forEach(function (el) {
+        var key = el.getAttribute('data-i18n-aria');
+        if (t[key] !== undefined) el.setAttribute('aria-label', t[key]);
+      });
+      document.title = t['_title'] || document.title;
+      document.documentElement.lang = lang;
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+      });
+      lsSet('aidedcam-lang', lang);
+      document.dispatchEvent(new CustomEvent('gv:lang', { detail: lang }));
+    }
+
+    try {
+      var urlLangParam = new URLSearchParams(window.location.search).get('lang');
+      var urlLang = (urlLangParam && translations[urlLangParam]) ? urlLangParam : null;
+      var savedLang = lsGet('aidedcam-lang');
+      if (savedLang && !translations[savedLang]) savedLang = null;
+      var browserLangCode = navigator.language ? navigator.language.substring(0, 2) : 'el';
+      var browserLang = browserLangCode === 'el' ? 'el' : browserLangCode === 'it' ? 'it' : 'en';
+      currentLang = urlLang || savedLang || browserLang;
+      if (currentLang !== 'el') setLanguage(currentLang);
+    } catch (e) { console.error('i18n init:', e); }
+
+    document.querySelectorAll('.lang-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () { setLanguage(btn.getAttribute('data-lang')); });
+    });
+
+    // ===== COOKIE CONSENT (copied from calculator.html) =====
+    (function () {
+      var overlay = document.getElementById('privacyOverlay');
+      var prefsPanel = document.getElementById('consentPrefs');
+      var analyticsCheckbox = document.getElementById('cookieAnalytics');
+      function showBanner() { overlay.classList.add('visible'); prefsPanel.classList.remove('visible'); }
+      function hideBanner() { overlay.classList.remove('visible'); prefsPanel.classList.remove('visible'); }
+      function loadPrefs() {
+        try {
+          var prefs = JSON.parse(lsGet('cookie-prefs') || '{}');
+          analyticsCheckbox.checked = !!(prefs && prefs.analytics);
+        } catch (e) { analyticsCheckbox.checked = false; }
+      }
+      if (!lsGet('privacy-pref')) { showBanner(); }
+      document.getElementById('privacyAccept').addEventListener('click', function () {
+        lsSet('privacy-pref', 'accepted');
+        lsSet('cookie-prefs', JSON.stringify({ analytics: true }));
+        hideBanner(); loadGA(); gaEvent('accepted_cookie_consent', {});
+      });
+      document.getElementById('privacyDecline').addEventListener('click', function () {
+        lsSet('privacy-pref', 'declined');
+        lsSet('cookie-prefs', JSON.stringify({ analytics: false }));
+        hideBanner(); revokeGA();
+      });
+      document.getElementById('privacyManage').addEventListener('click', function () {
+        loadPrefs(); prefsPanel.classList.toggle('visible');
+      });
+      document.getElementById('privacyBack').addEventListener('click', function () {
+        prefsPanel.classList.remove('visible');
+      });
+      document.getElementById('privacySavePrefs').addEventListener('click', function () {
+        var prefs = { analytics: analyticsCheckbox.checked };
+        lsSet('cookie-prefs', JSON.stringify(prefs));
+        lsSet('privacy-pref', prefs.analytics ? 'accepted' : 'declined');
+        hideBanner();
+        if (prefs.analytics) { loadGA(); gaEvent('accepted_cookie_consent', {}); } else { revokeGA(); }
+      });
+      window.openCookieSettings = function () { loadPrefs(); showBanner(); prefsPanel.classList.add('visible'); };
+    })();
+
+    // ===== GA HELPER: events only exist when the visitor accepted analytics =====
+    function gaEvent(name, params) { if (window.gtag) gtag('event', name, params); }
+    window.gaEvent = gaEvent;
+  </script>
+  <script type="module" src="js/gcode/ui.js?v=20260927"></script>
+</body>
+</html>

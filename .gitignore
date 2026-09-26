@@ -5,3 +5,6 @@ CLAUDE.local.md
 .claude/settings.local.json
 .claude/skills/
 skills-lock.json
+
+# Local-only G-code test material (customer programs). Never commit.
+_tests/private/

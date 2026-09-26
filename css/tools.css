@@ -1,0 +1,169 @@
+/* Free-tool pages (the G-code viewer first). Builds on the css/editorial.css tokens. Spec §8. */
+:root {
+  --gv-feed: #0d7a3e;      /* = --accent */
+  --gv-rapid: #b8741a;     /* amber, dashed */
+  --gv-pass: #4a6f8f;      /* slate: passes the control generates */
+  --gv-profile: #8a897f;   /* R5: lighter than --gv-feed (luminance 0.248 vs 0.144), still >=3:1 on white/paper */
+  --gv-hi: #c2410c;        /* hover highlight */
+  --gv-mono: ui-monospace, 'Cascadia Mono', Consolas, 'Courier New', monospace; /* program panel only */
+  --gv-line-h: 20px;       /* must equal LINE_H in js/gcode/ui.js */
+}
+
+/* Tool-page nav: back link + language switcher on one row (same as calculator.html's inline styles) */
+:root {
+  --ic-arrow-l: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19 12H6M12 5l-7 7 7 7'/%3E%3C/svg%3E");
+}
+.nav-right { display: flex; align-items: center; gap: 1.25rem; }
+.nav-back {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  color: var(--muted); text-decoration: none;
+  font-family: var(--font-mono); font-weight: 400; font-size: 0.72rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  transition: color 0.2s ease;
+}
+.nav-back:hover { color: var(--ink); }
+.nav-back::before {
+  content: ''; width: 1em; height: 1em; flex: none;
+  background-color: currentColor;
+  -webkit-mask: var(--ic-arrow-l) center / contain no-repeat;
+          mask: var(--ic-arrow-l) center / contain no-repeat;
+  transition: transform 0.25s ease;
+}
+.nav-back:hover::before { transform: translateX(-3px); }
+@media (max-width: 768px) { .nav-back { display: none; } }
+
+.gv { background: var(--paper); }
+.gv [hidden] { display: none !important; }   /* a class display rule must never beat the hidden attribute */
+.gv-head { text-align: center; padding: clamp(2.5rem, 6vw, 4.5rem) 16px clamp(1.5rem, 3vw, 2.5rem); border-bottom: 1px solid var(--line); }
+.gv-eyebrow { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin: 0 0 1rem; }
+.gv-head h1 { font-family: var(--font-display); font-weight: 300; font-size: clamp(1.7rem, 3.6vw, 2.5rem); line-height: 1.1; letter-spacing: -0.02em; color: var(--ink); margin: 0 0 0.8rem; }
+.gv-lede { max-width: 640px; margin: 0 auto 0.6rem; color: var(--ink-soft); font-size: 1.05rem; line-height: 1.6; }
+.gv-privacy { color: var(--muted); font-size: 0.85rem; margin: 0; }
+.gv-wrap { max-width: 1320px; margin: 0 auto; padding: 0 16px; }
+@media (min-width: 720px) { .gv-wrap { padding: 0 clamp(1.25rem, 3vw, 2.5rem); } }
+
+.gv-bar { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; padding: 1rem 0; }
+.gv-btn { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.55rem 0.9rem; border: 1px solid var(--line-strong); background: var(--panel); color: var(--ink); font-family: var(--font-body); font-size: 0.9rem; font-weight: 500; border-radius: 2px; cursor: pointer; }
+.gv-btn:hover { border-color: var(--accent-deep); color: var(--accent-deep); }
+.gv-btn-primary { background: var(--ink); color: #fff; border-color: var(--ink); }
+.gv-btn-primary:hover { background: var(--accent-deep); border-color: var(--accent-deep); color: #fff; }
+/* Keyboard file open (item 2): the input stays in the layout and focusable, unlike display:none. */
+.gv-visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; opacity: 0; }
+.gv-file-label:focus-within { outline: 2px solid var(--accent); outline-offset: 2px; }
+.gv-settings { flex-basis: 100%; }
+.gv-settings summary { cursor: pointer; color: var(--muted); font-size: 0.9rem; }
+.gv-settings-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 0.6rem 1rem; padding: 0.8rem 0; }
+.gv-settings-grid label { display: flex; flex-direction: column; gap: 0.25rem; font-size: 0.8rem; color: var(--muted); }
+.gv-settings-grid select, .gv-settings-grid input, .gv-settings-grid output { display: block; font-family: var(--font-body); font-size: 0.9rem; padding: 0.4rem 0.5rem; border: 1px solid var(--line-strong); background: var(--panel); color: var(--ink); border-radius: 2px; min-width: 0; }
+.gv-banner { margin: 0 0 1rem; padding: 0.7rem 0.9rem; border: 1px solid var(--line-strong); background: var(--accent-soft); font-size: 0.9rem; }
+
+.gv-main { display: grid; grid-template-columns: 1fr; gap: 1rem; padding: 0; }   /* editorial.css pads every <section> */
+.gv-drawing { order: -1; }                                     /* phones: drawing first */
+@media (min-width: 960px) {
+  .gv-main { grid-template-columns: minmax(300px, 0.8fr) 1.6fr; }
+  .gv-drawing { order: 0; }
+}
+.gv-program, .gv-drawing { background: var(--panel); border: 1px solid var(--line); min-width: 0; }
+.gv-panel-head { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--line); font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.gv-link { background: none; border: 0; padding: 0; color: var(--accent-deep); cursor: pointer; font-family: var(--font-body); font-size: 0.85rem; font-weight: 500; letter-spacing: 0; text-transform: none; }
+
+.gv-code, .gv-editor { height: min(62vh, 560px); overflow: auto; font-family: var(--gv-mono); font-size: 13px; line-height: var(--gv-line-h); }
+.gv-code { position: relative; }
+.gv-code:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.gv-code-spacer { position: relative; }
+.gv-code-window { position: absolute; left: 0; right: 0; top: 0; will-change: transform; }
+.gv-line { display: flex; height: var(--gv-line-h); white-space: pre; }
+.gv-line:hover, .gv-line.is-hi { background: var(--accent-soft); }
+.gv-line.has-warn .gv-no { color: var(--gv-rapid); font-weight: 700; }
+.gv-no { flex: 0 0 3.5em; text-align: right; padding-right: 0.8em; color: var(--faint); user-select: none; }
+.gv-tx { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; color: var(--ink); }
+.gv-editor { display: block; width: 100%; border: 0; padding: 0 0.75rem; resize: vertical; background: var(--panel); color: var(--ink); box-sizing: border-box; }
+.gv-drop-hint { padding: 1.5rem 1rem; text-align: center; color: var(--muted); font-size: 0.9rem; }
+.gv-dragging .gv-program, .gv-dragging .gv-drawing { outline: 2px dashed var(--accent); outline-offset: -4px; }
+
+.gv-tools { display: flex; flex-wrap: wrap; gap: 0.4rem 0.9rem; align-items: center; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--line); font-size: 0.82rem; }
+.gv-check { display: inline-flex; align-items: center; gap: 0.35rem; color: var(--ink-soft); }
+.gv-swatch { display: inline-block; width: 18px; height: 0; border-top: 2px solid; }
+.gv-swatch.feed { border-color: var(--gv-feed); }
+.gv-swatch.rapid { border-color: var(--gv-rapid); border-top-style: dashed; }
+.gv-swatch.pass { border-color: var(--gv-pass); }
+.gv-swatch.profile { border-color: var(--gv-profile); border-top-width: 4px; }   /* R5: solid, matches the drawn stroke */
+.gv-svg { display: block; width: 100%; height: min(62vh, 560px); background: var(--panel); touch-action: none; cursor: crosshair; }
+.gv-svg:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+@media (max-width: 720px) {
+  /* The drawing must not trap the whole page's scroll on phones (item 3). */
+  .gv-svg { height: min(50vh, 380px); }
+}
+.gv-zoom {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 1.7rem; height: 1.7rem; padding: 0; line-height: 1;
+  border: 1px solid var(--line-strong); background: var(--panel); color: var(--ink);
+  font-family: var(--font-body); font-size: 1rem; border-radius: 2px; cursor: pointer;
+}
+.gv-zoom:hover { border-color: var(--accent-deep); color: var(--accent-deep); }
+.gv-zoom:focus-visible, .gv-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.gv-path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.gv-feed { stroke: var(--gv-feed); stroke-width: 1.6; }
+.gv-rapid { stroke: var(--gv-rapid); stroke-width: 1.1; stroke-dasharray: 5 4; }
+.gv-pass { stroke: var(--gv-pass); stroke-width: 1.1; }
+.gv-profile { stroke: var(--gv-profile); stroke-width: 4; }         /* solid: opacity blended it below 3:1 (item 18) */
+.gv-hi { stroke: var(--gv-hi); stroke-width: 3; }
+.gv-marker path { stroke: var(--gv-hi); stroke-width: 1.6; stroke-linecap: round; }
+.gv-axis { stroke: var(--line-strong); stroke-width: 1; stroke-dasharray: 10 4 2 4; }
+.gv-tick { stroke: var(--line-strong); stroke-width: 1; }
+.gv-tick-label { fill: var(--ink-soft); font-family: var(--font-mono); }
+.gv-start { fill: var(--ink); }
+.gv-label { fill: var(--ink-soft); font-family: var(--font-mono); }
+.gv-readout { margin: 0; padding: 0.4rem 0.75rem; border-top: 1px solid var(--line); font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 12px; color: var(--muted); min-height: 1.6em; }
+
+.gv-results { display: grid; grid-template-columns: 1fr; gap: 1.5rem; padding: 2rem 0; }
+.gv-time, .gv-checks { min-width: 0; }   /* let the table scroll inside its box on phones */
+@media (min-width: 960px) { .gv-results { grid-template-columns: 1.4fr 1fr; } }
+.gv-results h2, .gv-cta h2 { font-family: var(--font-display); font-weight: 400; font-size: 1.35rem; margin: 0 0 0.4rem; color: var(--ink); }
+.gv-note { color: var(--muted); font-size: 0.85rem; line-height: 1.5; margin: 0.4rem 0; }
+.gv-table-wrap { overflow-x: auto; }
+.gv-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; font-variant-numeric: tabular-nums; }
+.gv-table th, .gv-table td { text-align: left; padding: 0.45rem 0.5rem; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.gv-table th { font-weight: 500; color: var(--muted); font-size: 0.78rem; }
+.gv-table tfoot td { font-weight: 600; border-bottom: 0; }
+.gv-check-list { list-style: none; margin: 0; padding: 0; }
+.gv-w { display: flex; gap: 0.6rem; align-items: baseline; padding: 0.45rem 0; border-bottom: 1px solid var(--line); font-size: 0.9rem; }
+.gv-w::before { content: ''; flex: 0 0 8px; height: 8px; border-radius: 50%; background: var(--faint); }
+.gv-w.is-warn::before { background: var(--gv-rapid); }
+.gv-w.is-error::before { background: var(--gv-hi); }
+.gv-w.is-ok::before { background: var(--gv-feed); }
+.gv-w-line { background: none; border: 0; padding: 0; color: var(--accent-deep); cursor: pointer; font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 0.82rem; white-space: nowrap; }
+
+.gv-cta { border-top: 1px solid var(--line); padding: 2rem 0 3rem; }
+.gv-cta p { max-width: 640px; color: var(--ink-soft); line-height: 1.6; }
+.gv-survey { margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+.gv-survey p { margin: 0 0.5rem 0 0; color: var(--muted); font-size: 0.9rem; }
+.gv-chip { border: 1px solid var(--line-strong); background: var(--panel); border-radius: 999px; padding: 0.35rem 0.85rem; font-family: var(--font-body); font-size: 0.85rem; cursor: pointer; color: var(--ink); }
+.gv-chip:hover { border-color: var(--accent-deep); color: var(--accent-deep); }
+.gv-thanks { margin: 0; color: var(--accent-deep); font-size: 0.9rem; }
+
+.gv-footer { padding: 2rem 16px; border-top: 1px solid var(--line); display: flex; flex-direction: column; align-items: center; gap: 0.8rem; }
+.gv-footer img { display: block; height: 12px; width: auto; }
+.gv-footer-legal { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; }
+.gv-footer-legal a { font-size: 0.8rem; color: var(--muted); text-decoration: none; }
+.gv-footer-legal a:hover { color: var(--accent-deep); }
+
+.gv-print-head, .gv-print-foot { display: none; }
+@media print {
+  @page { size: A4; margin: 14mm; }
+  body, .gv { background: #fff !important; }
+  .navbar, .gv-head, .gv-bar, .gv-banner, .gv-program, .gv-readout, .gv-cta, .gv-footer, .consent-banner { display: none !important; }
+  /* Print keeps the layer legend (swatches + names), without the Fit/zoom/1:1 controls or the
+     checkboxes themselves (item 8). */
+  .gv-tools-controls, .gv-tools input[type="checkbox"] { display: none !important; }
+  .gv-print-head { display: flex !important; justify-content: space-between; align-items: center; gap: 12px; border-bottom: 2px solid var(--primary-light); padding-bottom: 8px; margin-bottom: 12px; font-size: 11px; color: #444; }
+  .gv-print-head img { height: 16px; width: auto; }
+  .gv-print-foot { display: block !important; margin-top: 12px; padding-top: 8px; border-top: 1px solid #ddd; font-size: 10px; color: #777; text-align: center; }
+  .gv-main { display: block; }
+  .gv-drawing { border: 1px solid #ccc; break-inside: avoid; }
+  .gv-svg { height: 95mm; }
+  .gv-results { display: block; padding: 0; }
+  .gv-time, .gv-checks { break-inside: avoid; margin-top: 10px; }
+  .gv-table-wrap { overflow: visible; }
+  .gv-hi { display: none !important; }   /* R13: a hover or pin never prints in the highlight colour */
+}

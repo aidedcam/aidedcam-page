@@ -260,7 +260,7 @@ h2 strong { font-weight: 600; color: var(--accent-deep); }
   transition: color 0.2s ease;
 }
 .nav-link:hover { color: var(--ink); }
-@media (max-width: 1180px) and (min-width: 1025px) {
+@media (max-width: 1300px) and (min-width: 1141px) {
   .nav-link { padding: 0.5rem 0.45rem; letter-spacing: 0.04em; font-size: 0.68rem; }
   .nav-cta { padding: 0.5rem 0.75rem; margin-left: 0.3rem; font-size: 0.68rem; letter-spacing: 0.06em; }
   .lang-switcher { margin-left: 0.5rem; }
@@ -392,9 +392,9 @@ h2 strong { font-weight: 600; color: var(--accent-deep); }
 .fade-in-delay-4 { transition-delay: 0.24s; }
 
 /* ===== Responsive: shared nav/footer/consent ===== */
-/* Seven links + CTA + language switcher don't fit under ~1000px: the index
-   menu collapses into the hamburger from 1024px down (other pages have no menu). */
-@media (max-width: 1024px) {
+/* Eight links + CTA + language switcher don't fit under ~1120px: the index
+   menu collapses into the hamburger from 1140px down (other pages have no menu). */
+@media (max-width: 1140px) {
   .nav-menu {
     position: fixed; top: 74px; left: 0; right: 0; flex-direction: column;
     background: var(--paper); padding: 1.25rem; gap: 0.4rem;
@@ -410,7 +410,10 @@ h2 strong { font-weight: 600; color: var(--accent-deep); }
   .nav-link { padding: 0.7rem 0.6rem; font-size: 0.72rem; letter-spacing: 0.1em; }
   .nav-cta { margin-left: 0; text-align: center; margin-top: 0.5rem; font-size: 0.72rem; letter-spacing: 0.1em; padding: 0.5rem 1.1rem; }
   .nav-menu > li:first-child, .nav-menu .nav-lang { margin-left: 0; }
-  .lang-switcher { display: inline-flex; width: max-content; margin: 0.5rem 0.6rem 0; }
+  /* R12: scoped to the switcher inside the index page's own collapsible menu (li.nav-lang), not
+     every .lang-switcher - a bare .lang-switcher here also matched tool pages' nav-right row,
+     dropping their switcher below the back link between 1025 and 1140px. */
+  .nav-menu .lang-switcher { display: inline-flex; width: max-content; margin: 0.5rem 0.6rem 0; }
   .lang-btn { padding: 0.32rem 0.6rem; min-height: 40px; min-width: 44px; }
 }
 

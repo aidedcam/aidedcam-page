@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AidedCAM - Προβολή G-code τόρνου</title>
-  <meta name="description" content="Δωρεάν προβολή G-code τόρνου: δείτε τα περάσματα των κύκλων G71, G72, G76 και τον χρόνο κύκλου ανά εργαλείο. Χωρίς εγκατάσταση, χωρίς εγγραφή." />
+  <title>AidedCAM - Προβολή G-code φρέζας</title>
+  <meta name="description" content="Δωρεάν προβολή G-code φρέζας σε 3D: κύκλοι διάτρησης G81–G89, χρόνος ανά εργαλείο και έλεγχοι προγράμματος. Χωρίς εγκατάσταση, χωρίς εγγραφή." />
   <meta name="robots" content="index, follow" />
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <meta name="theme-color" content="#f4f3ee" />
-  <link rel="canonical" href="https://www.aidedcam.com/gcode-viewer.html" />
-  <meta property="og:title" content="AidedCAM - Προβολή G-code τόρνου" />
-  <meta property="og:description" content="Δείτε τα περάσματα που κάνει στην πραγματικότητα ο έλεγχός σας, και πόσο χρόνο παίρνουν." />
+  <link rel="canonical" href="https://www.aidedcam.com/milling-gcode-viewer.html" />
+  <meta property="og:title" content="AidedCAM - Προβολή G-code φρέζας" />
+  <meta property="og:description" content="Δείτε κάθε κίνηση σε 3D, μαζί με τους κύκλους διάτρησης, και πόσο χρόνο παίρνει κάθε εργαλείο." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://www.aidedcam.com/gcode-viewer.html" />
+  <meta property="og:url" content="https://www.aidedcam.com/milling-gcode-viewer.html" />
   <meta property="og:image" content="https://www.aidedcam.com/og-image.png" />
   <meta property="og:site_name" content="AidedCAM" />
   <meta property="og:locale" content="el_GR" />
@@ -84,10 +84,10 @@
   <main class="gv">
     <header class="gv-head">
       <p class="gv-eyebrow" data-i18n="gv.eyebrow">Δωρεάν εργαλείο</p>
-      <h1 data-i18n="gv.title">Προβολή G-code τόρνου</h1>
-      <p class="gv-lede" data-i18n="gv.lede">Δείτε τα περάσματα που κάνει στην πραγματικότητα ο έλεγχός σας, και πόσο χρόνο παίρνουν.</p>
+      <h1 data-i18n="gv.title">Προβολή G-code φρέζας</h1>
+      <p class="gv-lede" data-i18n="gv.lede">Δείτε κάθε κίνηση σε 3D, μαζί με τους κύκλους διάτρησης, και πόσο χρόνο παίρνει κάθε εργαλείο.</p>
       <p class="gv-privacy" data-i18n="gv.privacy">Το πρόγραμμά σας δεν φεύγει ποτέ από τον υπολογιστή σας.</p>
-      <p class="gv-cross"><a href="milling-gcode-viewer.html" data-i18n="gv.tomill">Πρόγραμμα φρέζας; Ανοίξτε την προβολή G-code φρέζας →</a></p>
+      <p class="gv-cross"><a href="gcode-viewer.html" data-i18n="gv.tolathe">Πρόγραμμα τόρνου; Ανοίξτε την προβολή G-code τόρνου →</a></p>
     </header>
 
     <div class="gv-wrap">
@@ -107,18 +107,14 @@
           <div class="gv-settings-grid">
             <label><span data-i18n="gv.set.control">Έλεγχος</span>
               <output id="gvControl"></output></label>
-            <label><span data-i18n="gv.set.system">Σύστημα G-code</span>
-              <select id="gvSystem"><option value="A">A</option><option value="B">B</option><option value="C">C</option></select></label>
             <label><span data-i18n="gv.set.integer">Αριθμοί χωρίς υποδιαστολή</span>
               <select id="gvInteger"><option value="mm">mm</option><option value="um">µm</option></select></label>
-            <label><span data-i18n="gv.set.xmode">Το X προγραμματίζεται ως</span>
-              <select id="gvXMode"><option value="dia" data-i18n="gv.set.dia">διάμετρος</option><option value="rad" data-i18n="gv.set.rad">ακτίνα</option></select></label>
             <label><span data-i18n="gv.set.rapidx">Ταχεία X (mm/min)</span><input id="gvRapidX" type="number" min="100" step="100" /></label>
+            <label><span data-i18n="gv.set.rapidy">Ταχεία Y (mm/min)</span><input id="gvRapidY" type="number" min="100" step="100" /></label>
             <label><span data-i18n="gv.set.rapidz">Ταχεία Z (mm/min)</span><input id="gvRapidZ" type="number" min="100" step="100" /></label>
             <label><span data-i18n="gv.set.toolchange">Αλλαγή εργαλείου (s)</span><input id="gvToolChange" type="number" min="0" step="0.5" /></label>
             <label><span data-i18n="gv.set.correction">Διόρθωση (%)</span><input id="gvCorrection" type="number" step="1" /></label>
-            <label><span data-i18n="gv.set.flip">X+ στην οθόνη</span>
-              <select id="gvFlip"><option value="up" data-i18n="gv.set.up">πάνω</option><option value="down" data-i18n="gv.set.down">κάτω</option></select></label>
+            <label><span data-i18n="gv.set.peck">Επιστροφή G73/G83 (mm)</span><input id="gvPeck" type="number" min="0" step="0.1" /></label>
           </div>
         </details>
       </section>
@@ -136,17 +132,28 @@
           <div class="gv-tools">
             <span class="gv-tools-controls">
               <button type="button" class="gv-link" id="gvFit" data-i18n="gv.fit">Προσαρμογή</button>
+              <button type="button" class="gv-link" data-view="top" data-i18n="gv.mill.top">Πάνω</button>
+              <button type="button" class="gv-link" data-view="front" data-i18n="gv.mill.front">Εμπρός</button>
+              <button type="button" class="gv-link" data-view="right" data-i18n="gv.mill.right">Δεξιά</button>
+              <button type="button" class="gv-link" data-view="iso" data-i18n="gv.mill.iso">Ισομετρική</button>
               <button type="button" class="gv-zoom" id="gvZoomOut" data-i18n-aria="gv.aria.zoomout" aria-label="Σμίκρυνση">−</button>
               <button type="button" class="gv-zoom" id="gvZoomIn" data-i18n-aria="gv.aria.zoomin" aria-label="Μεγέθυνση">+</button>
-              <label class="gv-check"><input type="checkbox" id="gvAspect" checked /><span data-i18n="gv.aspect">1:1</span></label>
             </span>
             <label class="gv-check"><input type="checkbox" data-layer="feed" checked /><i class="gv-swatch feed"></i><span data-i18n="gv.l.feed">Κινήσεις κοπής</span></label>
             <label class="gv-check"><input type="checkbox" data-layer="rapid" checked /><i class="gv-swatch rapid"></i><span data-i18n="gv.l.rapid">Ταχείες</span></label>
-            <label class="gv-check"><input type="checkbox" data-layer="pass" checked /><i class="gv-swatch pass"></i><span data-i18n="gv.l.pass">Από τον έλεγχο</span></label>
-            <label class="gv-check"><input type="checkbox" data-layer="profile" checked /><i class="gv-swatch profile"></i><span data-i18n="gv.l.profile">Τελικό προφίλ</span></label>
+            <label class="gv-check"><input type="checkbox" data-layer="cycle" checked /><i class="gv-swatch pass"></i><span data-i18n="gv.l.cycle">Κύκλοι διάτρησης</span></label>
+            <label class="gv-check"><input type="checkbox" data-layer="markers" checked /><i class="gv-swatch hi"></i><span data-i18n="gv.l.markers">Σφάλματα</span></label>
           </div>
-          <svg class="gv-svg" id="gvSvg" tabindex="0" role="img" data-i18n-aria="gv.aria.svg" aria-label="Σχέδιο διαδρομών, ημιτομή X–Z"></svg>
+          <div class="gv-3d" id="gvView"></div>
+          <img class="gv-print-shot" id="gvShot" alt="" />
+          <div class="gv-play">
+            <button type="button" class="gv-zoom" id="gvPlay" data-i18n-aria="gv.mill.play" aria-label="Αναπαραγωγή">▶</button>
+            <input type="range" id="gvScrub" min="0" max="0" value="0" step="1" data-i18n-aria="gv.mill.play" aria-label="Αναπαραγωγή" />
+            <span class="gv-play-pos" id="gvPlayPos"></span>
+          </div>
           <p class="gv-readout" id="gvReadout"></p>
+          <p class="gv-note gv-dims" id="gvDims"></p>
+          <p class="gv-note gv-offsets" id="gvOffsets" hidden></p>
         </div>
       </section>
 
@@ -155,33 +162,36 @@
           <h2 data-i18n="gv.time.title">Χρόνος κύκλου</h2>
           <p class="gv-note" data-i18n="gv.time.note">Εκτίμηση για προγραμματισμό, υπολογισμένη κίνηση προς κίνηση, μαζί με τα περάσματα που παράγει ο έλεγχος.</p>
           <div class="gv-table-wrap">
-            <table class="gv-table" id="gvTimeTable">
+            <table class="gv-table gv-table-rows" id="gvTimeTable">
               <thead><tr>
                 <th data-i18n="gv.time.tool">Εργαλείο</th><th data-i18n="gv.time.label">Περιγραφή</th>
-                <th data-i18n="gv.time.cycles">Κύκλοι</th><th data-i18n="gv.time.passes">Περάσματα</th>
+                <th data-i18n="gv.mill.holes">Τρύπες</th>
                 <th id="gvLengthHeader" data-i18n="gv.time.length">Μήκος κοπής</th><th data-i18n="gv.time.cut">Κοπή</th>
                 <th data-i18n="gv.time.rapid">Ταχείες</th><th data-i18n="gv.time.total">Σύνολο</th>
               </tr></thead>
               <tbody></tbody>
-              <tfoot><tr><td colspan="7" data-i18n="gv.time.program">Σύνολο προγράμματος (με αλλαγές εργαλείων)</td><td id="gvTotal">–</td></tr></tfoot>
+              <tfoot><tr><td colspan="6" data-i18n="gv.time.program">Σύνολο προγράμματος (με αλλαγές εργαλείων)</td><td id="gvTotal">–</td></tr></tfoot>
             </table>
           </div>
-          <p class="gv-note" id="gvIncomplete" data-i18n="gv.time.incomplete" hidden>Κάποιες κινήσεις δεν έχουν πρόωση ή στροφές· ο χρόνος τους δεν μετράει.</p>
-          <p class="gv-note" data-i18n="gv.time.excluded">Δεν περιλαμβάνονται: επιταχύνσεις και επιβραδύνσεις, επιτάχυνση ατράκτου, επεξεργασία μπλοκ, ενέργειες M (ψυκτικό, τσοκ) και επιστροφές G28.</p>
+          <p class="gv-note" id="gvIsoHint"></p>
+          <p class="gv-note" id="gvIncomplete" data-i18n="gv.time.incomplete" hidden>Για τα εργαλεία με «–» ο χρόνος δεν υπολογίζεται πλήρως.</p>
+          <p class="gv-note" data-i18n="gv.mill.excluded">Δεν περιλαμβάνονται: επιταχύνσεις και επιβραδύνσεις, επιτάχυνση ατράκτου, επεξεργασία μπλοκ, ενέργειες M και επιστροφές G28/G30/G53.</p>
         </div>
         <div class="gv-checks">
           <h2 data-i18n="gv.checks.title">Έλεγχοι προγράμματος</h2>
           <ul class="gv-check-list" id="gvChecks"></ul>
           <p class="gv-note" data-i18n="gv.disclaimer">Προβολή, όχι προσομοίωση: ελέγχετε πάντα στη μηχανή σας.</p>
+          <p class="gv-note" data-i18n="gv.mill.notecomp">Οι διαδρομές σχεδιάζονται όπως είναι γραμμένες: οι αντισταθμίσεις μήκους και ακτίνας εργαλείου δεν εφαρμόζονται.</p>
+          <p class="gv-note" data-i18n="gv.mill.notewofs">Σχεδίαση σε συντεταγμένες προγράμματος: οι τιμές των μηδενικών σημείων δεν είναι γνωστές.</p>
         </div>
       </section>
 
       <section class="gv-cta">
-        <h2 data-i18n="gv.cta.title">Το θέλετε φτιαγμένο για τη δική σας μηχανή;</h2>
-        <p data-i18n="gv.cta.text">Φτιάχνουμε λογισμικό CAM τόρνου σαν αυτό, στα μέτρα της μηχανής σας, του post-processor σας και του τρόπου που δουλεύει το μηχανουργείο σας.</p>
+        <h2 data-i18n="gv.cta.title">Το θέλετε φτιαγμένο για τις δικές σας μηχανές;</h2>
+        <p data-i18n="gv.cta.text">Φτιάχνουμε λογισμικό CAM σαν αυτό, στα μέτρα των μηχανών σας, των post-processor σας και του τρόπου που δουλεύει το μηχανουργείο σας.</p>
         <a class="btn-primary" id="gvCta" href="index.html#contact" data-i18n="gv.cta.button">Μιλήστε μαζί μας</a>
         <div class="gv-survey" id="gvSurvey">
-          <p data-i18n="gv.survey.q">Πώς γράφετε τα προγράμματα τόρνου;</p>
+          <p data-i18n="gv.survey.q">Πώς γράφετε τα προγράμματα φρέζας;</p>
           <button type="button" class="gv-chip" data-answer="machine" data-i18n="gv.survey.machine">Στη μηχανή</button>
           <button type="button" class="gv-chip" data-answer="hand" data-i18n="gv.survey.hand">Με το χέρι</button>
           <button type="button" class="gv-chip" data-answer="cam" data-i18n="gv.survey.cam">Από CAM</button>
@@ -260,14 +270,13 @@
   <script>
     var translations = {
       el: {
-        "_title": "AidedCAM - Προβολή G-code τόρνου",
-        "gv.title": "Προβολή G-code τόρνου",
-        "gv.lede": "Δείτε τα περάσματα που κάνει στην πραγματικότητα ο έλεγχός σας, και πόσο χρόνο παίρνουν.",
-        "gv.aria.svg": "Σχέδιο διαδρομών, ημιτομή X–Z",
-        "gv.cta.title": "Το θέλετε φτιαγμένο για τη δική σας μηχανή;",
-        "gv.cta.text": "Φτιάχνουμε λογισμικό CAM τόρνου σαν αυτό, στα μέτρα της μηχανής σας, του post-processor σας και του τρόπου που δουλεύει το μηχανουργείο σας.",
+        "_title": "AidedCAM - Προβολή G-code φρέζας",
+        "gv.title": "Προβολή G-code φρέζας",
+        "gv.lede": "Δείτε κάθε κίνηση σε 3D, μαζί με τους κύκλους διάτρησης, και πόσο χρόνο παίρνει κάθε εργαλείο.",
+        "gv.cta.title": "Το θέλετε φτιαγμένο για τις δικές σας μηχανές;",
+        "gv.cta.text": "Φτιάχνουμε λογισμικό CAM σαν αυτό, στα μέτρα των μηχανών σας, των post-processor σας και του τρόπου που δουλεύει το μηχανουργείο σας.",
         "gv.cta.button": "Μιλήστε μαζί μας",
-        "gv.survey.q": "Πώς γράφετε τα προγράμματα τόρνου;",
+        "gv.survey.q": "Πώς γράφετε τα προγράμματα φρέζας;",
         "gv.survey.machine": "Στη μηχανή",
         "gv.survey.hand": "Με το χέρι",
         "gv.survey.cam": "Από CAM",
@@ -293,14 +302,13 @@
         "footer.cookie_settings": "Ρυθμίσεις Cookies",
       },
       en: {
-        "_title": "AidedCAM - Lathe G-code viewer",
-        "gv.title": "Lathe G-code viewer",
-        "gv.lede": "See the passes your control really makes, and how long they take.",
-        "gv.aria.svg": "Toolpath drawing, X–Z half-section",
-        "gv.cta.title": "Want this built around your own machine?",
-        "gv.cta.text": "We build lathe CAM software like this, tailored to your machine, your post-processor and the way your shop works.",
+        "_title": "AidedCAM - Milling G-code viewer",
+        "gv.title": "Milling G-code viewer",
+        "gv.lede": "See every move in 3D, drilling cycles included, and how long each tool takes.",
+        "gv.cta.title": "Want this built around your own machines?",
+        "gv.cta.text": "We build CAM software like this, tailored to your machines, your post-processors and the way your shop works.",
         "gv.cta.button": "Talk to us",
-        "gv.survey.q": "How do you write your lathe programs?",
+        "gv.survey.q": "How do you write milling programs?",
         "gv.survey.machine": "At the machine",
         "gv.survey.hand": "By hand",
         "gv.survey.cam": "From CAM",
@@ -326,14 +334,13 @@
         "footer.cookie_settings": "Cookie Settings",
       },
       it: {
-        "_title": "AidedCAM - Visualizzatore G-code per tornio",
-        "gv.title": "Visualizzatore G-code per tornio",
-        "gv.lede": "Vedete le passate che il vostro controllo esegue davvero, e quanto tempo richiedono.",
-        "gv.aria.svg": "Disegno dei percorsi, semisezione X–Z",
-        "gv.cta.title": "Lo volete su misura per la vostra macchina?",
-        "gv.cta.text": "Sviluppiamo software CAM per tornio come questo, su misura per la vostra macchina, il vostro post-processor e il modo in cui lavora la vostra officina.",
+        "_title": "AidedCAM - Visualizzatore G-code per fresa",
+        "gv.title": "Visualizzatore G-code per fresa",
+        "gv.lede": "Vedete ogni movimento in 3D, cicli di foratura compresi, e quanto tempo richiede ogni utensile.",
+        "gv.cta.title": "Lo volete costruito sulle vostre macchine?",
+        "gv.cta.text": "Realizziamo software CAM come questo, su misura per le vostre macchine, i vostri post-processor e il modo in cui lavora la vostra officina.",
         "gv.cta.button": "Parlate con noi",
-        "gv.survey.q": "Come scrivete i programmi per il tornio?",
+        "gv.survey.q": "Come scrivete i programmi per fresa?",
         "gv.survey.machine": "In macchina",
         "gv.survey.hand": "A mano",
         "gv.survey.cam": "Da CAM",
@@ -446,6 +453,6 @@
     function gaEvent(name, params) { if (window.gtag) gtag('event', name, params); }
     window.gaEvent = gaEvent;
   </script>
-  <script type="module" src="js/gcode/ui.js?v=20261015"></script>
+  <script type="module" src="js/mill/ui.js?v=20261015"></script>
 </body>
 </html>

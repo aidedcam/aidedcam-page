@@ -17,7 +17,9 @@
 - Structural engineering office: estimation, Gantt schedule, workload and time tracking on one shared database, replacing dozens of Excel files
 
 ## Free tools
+- Free tools index (https://www.aidedcam.com/free-tools.html): all free AidedCAM tools on one page.
 - Lathe G-code viewer (https://www.aidedcam.com/gcode-viewer.html): runs in the browser, nothing is uploaded; draws the passes Fanuc canned cycles G70-G76 and G90/G92/G94 generate, estimates cycle time per tool, and flags common programming mistakes. Greek, English, Italian.
+- Milling G-code viewer (https://www.aidedcam.com/milling-gcode-viewer.html): runs in the browser, nothing is uploaded; draws every move of a 3-axis Fanuc/Haas program in 3D, expands the drilling, peck, tapping and boring cycles G73/G74/G76/G81-G89 into their moves (G76/G87/G88 simplified), estimates cycle time per tool, and flags common programming mistakes. Greek, English, Italian.
 
 ## What every engagement includes
 - Requirements analysis, development, testing, installation, training, bug fixes, new features and ongoing support

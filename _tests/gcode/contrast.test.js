@@ -50,3 +50,15 @@ test('no .gv-<layer> drawing rule sets an opacity below 1', () => {
     assert.ok(!op || Number(op[1]) >= 1, `.gv-${name} sets opacity ${op && op[1]} (< 1)`);
   }
 });
+
+// Milling viewer (spec §8): the work-offset tints are shades of the feed colour and must pass too.
+test('milling work-offset tints are at least 3:1 against both backgrounds', async () => {
+  const { offsetTints } = await import('../../js/mill/scene.js');
+  const feed = css.match(/--gv-feed:\s*(#[0-9a-fA-F]{6})/)[1];
+  for (const tint of offsetTints(feed, 4)) {
+    for (const bg of [PAPER, PANEL]) {
+      const r = ratio(tint, bg);
+      assert.ok(r >= 3, `tint ${tint} has contrast ${r.toFixed(2)} against ${bg} (< 3)`);
+    }
+  }
+});

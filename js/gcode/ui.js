@@ -1,110 +1,108 @@
-// Page controller for gcode-viewer.html. DOM glue only; all maths lives in the pure modules.
+// Page controller for gcode-viewer.html. DOM glue only; all maths lives in the pure modules, and the
+// parts both viewers share (panel, selection, inputs, tables, i18n, storage) live in ./shell/.
 import { analyze, MAX_LINES } from './analyze.js';
 import { formatDuration } from './time.js';
 import { segmentsByLine } from './render.js';
 import { createDrawing } from './drawing.js';
 import { EXAMPLE_PROGRAM } from './example.js';
 import { DEFAULT_SETTINGS } from './settings.js';
+import { t, ga, fmtNum, lang } from './shell/i18n.js';
+import { lsGet, lsSet, loadStored, saveStored } from './shell/settings-store.js';
+import { wireInputs, writeHandoff, takeHandoff } from './shell/loader.js';
+import { createSelection } from './shell/selection.js';
+import { createProgramPanel } from './shell/program-panel.js';
+import { renderTimeRows, renderTotal, renderCheckList } from './shell/results.js';
+import { renderBanner } from './shell/banner.js';
 
 const $ = id => document.getElementById(id);
-const LINE_H = 20;                                        // px: must equal --gv-line-h in css/tools.css
 const SETTINGS_KEY = 'aidedcam-gv-settings';
 const SURVEY_KEY = 'aidedcam-gv-survey';
+// Reading sessionStorage can itself throw when a browser blocks storage; the handoff helpers accept null.
+const session = () => { try { return window.sessionStorage; } catch (e) { return null; } };
 
-function lsGetSafe(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
-function lsSetSafe(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* private mode */ } }
-function loadSettings() {
-  // 'control' is always ignored (item 6): even a value stored before this change must not override
-  // detection.
-  try { return { ...DEFAULT_SETTINGS, flipX: false, ...JSON.parse(lsGetSafe(SETTINGS_KEY) || '{}'), control: DEFAULT_SETTINGS.control }; }
-  catch (e) { return { ...DEFAULT_SETTINGS, flipX: false }; }
-}
-
+// 'control' is always ignored: it is detected, never chosen, even if an older visit stored one.
 const state = { text: '', fileName: '', result: null, byLine: new Map(), warnLines: new Set(),
-  hoverLine: null, pinnedLine: null, lastReadout: null, showingError: false,
-  editing: false, settings: loadSettings(), paint: () => {} };
+  lastReadout: null, banner: null, editing: false,
+  settings: loadStored(SETTINGS_KEY, { ...DEFAULT_SETTINGS, flipX: false }, { control: DEFAULT_SETTINGS.control }) };
 
-// Only the fields a user can actually change (item 15): never an internal key such as arcSegments
-// or oneLineRetract, so a returning visitor still gets any future default change to those.
-function saveSettings() {
-  const toSave = { flipX: state.settings.flipX };
-  for (const [, key] of FIELDS) toSave[key] = state.settings[key];
-  lsSetSafe(SETTINGS_KEY, JSON.stringify(toSave));
-}
-function lang() { return document.documentElement.lang || 'el'; }
-function t(key, params = {}) {
-  const all = window.GV_I18N || {};
-  const s = (all[lang()] && all[lang()][key]) ?? (all.en && all.en[key]) ?? key;
-  return String(s).replace(/\{(\w+)\}/g, (_, k) => (params[k] ?? ''));
-}
-function ga(name, params) {
-  try { if (typeof window.gaEvent === 'function') window.gaEvent(name, params || {}); } catch (e) { /* never break the tool */ }
-}
-
-// Locale-aware numbers (item 13): el-GR/it-IT use a decimal comma, en a point.
-function localeOf() { return lang() === 'el' ? 'el-GR' : lang() === 'it' ? 'it-IT' : 'en-US'; }
-function fmtNum(v, decimals) {
-  return new Intl.NumberFormat(localeOf(), { minimumFractionDigits: decimals, maximumFractionDigits: decimals }).format(v);
-}
+function saveSettings() { saveStored(SETTINGS_KEY, state.settings, ['flipX', ...FIELDS.map(f => f[1])]); }
 
 const drawing = createDrawing($('gvSvg'), {
   onHover: hoverFromDrawing, onPick: pickFromDrawing,
-  checkText: (id, params) => t(`gv.check.${id}`, params),          // error marker <title> (item 5)
-  unitFactor: () => (state.result && state.result.units === 'inch' ? 25.4 : 1),   // R4: tick units
-  fmtNumber: fmtNum,                                               // R4: tick labels use the same locale as the readout
+  checkText: (id, params) => t(`gv.check.${id}`, params),          // error marker <title>
+  unitFactor: () => (state.result && state.result.units === 'inch' ? 25.4 : 1),
+  fmtNumber: fmtNum,
 });
+
+const sel = createSelection({
+  apply(line, scroll) {
+    drawing.highlight(line ? (state.byLine.get(line) || []) : []);
+    if (scroll && line && !state.editing) panel.scrollToLine(line);
+    panel.paint();
+  },
+  onClear() { state.lastReadout = null; $('gvReadout').textContent = ''; },
+});
+
+const panel = createProgramPanel($('gvCode'), {
+  isHi: n => n === sel.line,
+  hasWarn: n => state.warnLines.has(n),
+  onOver: n => sel.hover(n, false),
+  onLeave: () => sel.hover(null, false),
+  onClick: n => sel.pin(n),
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && sel.pinned !== null) sel.clear(); });
 
 // ---- pipeline ----
 let timer = null;
 function schedule() { clearTimeout(timer); timer = setTimeout(run, 200); }
 
 function run(opts = {}) {
-  // R10: the whole pipeline is guarded, not just analyze(). A throw from drawing.update/buildScene
-  // etc. must reach this same analysis-error path regardless of which caller (paste included)
-  // triggered it, rather than surfacing as that caller's own, unrelated error message.
+  // The whole pipeline is guarded: a throw anywhere shows the analysis-error banner.
   try {
     const r = analyze(state.text, state.settings);
-    state.showingError = false;
     state.result = r;
     state.byLine = segmentsByLine(r.segments);
     state.warnLines = new Set(r.warnings.map(w => w.line));
     const milling = r.warnings.some(w => w.id === 'milling');
-    showBanner(r.tooLarge ? t('gv.banner.toolarge', { lines: r.lines.toLocaleString(), max: MAX_LINES.toLocaleString() })
-      : milling ? t('gv.check.milling') : '');
+    showBanner(r.tooLarge ? { key: 'gv.banner.toolarge', params: { lines: r.lines.toLocaleString(), max: MAX_LINES.toLocaleString() } }
+      : milling ? { key: 'gv.lathe.mill.q', action: { key: 'gv.lathe.mill.go', run: () => handoff('milling-gcode-viewer.html', 'mill') } }
+      : null);
     showDetectedControl();
-    // Only a new program resets the view (item 9); edits and settings changes keep the current pan/zoom.
-    drawing.update(r, { fit: !!opts.fit });
-    renderCode();
+    drawing.update(r, { fit: !!opts.fit });                   // only a new program resets the view
+    panel.setText(state.text);
     renderTime();
     renderChecks();
     renderPrintHead();
     $('gvDropHint').hidden = state.text.trim().length > 0;
-    reapplyPin();                                               // R1: keep, or drop, the pin across an edit/settings re-run
+    sel.reapply(panel.lineCount());
   } catch (err) {
     console.error(err);
     clearOnAnalysisError();
-    state.showingError = true;                                  // R6: so gv:lang can retranslate this banner
-    showBanner(t('gv.banner.error'));
+    showBanner({ key: 'gv.banner.error' });
   }
 }
 
-// Analysis threw: leave no stale drawing, tables or checks on screen (item 1, review item 3).
 function clearOnAnalysisError() {
   state.result = null;
   state.byLine = new Map();
   state.warnLines = new Set();
   drawing.clear();
-  $('gvCode').replaceChildren();
+  panel.clear();
   $('gvTimeTable').tBodies[0].replaceChildren();
   $('gvTotal').textContent = '–';
   $('gvIncomplete').hidden = true;
   $('gvChecks').replaceChildren();
 }
 
-function showBanner(text) { const b = $('gvBanner'); b.textContent = text; b.hidden = !text; }
+function showBanner(banner) { state.banner = banner; renderBanner($('gvBanner'), banner, t); }
 
-// The control is detected, not chosen (item 6, review item 9 ruling): a read-only name, so a wrong
-// guess is visible (spec §4).
+// The program moves to the other viewer in sessionStorage (spec §2), never leaving the browser.
+function handoff(page, to) {
+  if (!writeHandoff(session(), state.text, state.fileName)) { showBanner({ key: 'gv.handoff.big' }); return; }
+  ga('gcode_handoff', { from: 'lathe', to });                 // only a handoff that happened counts
+  location.href = page;
+}
+
 function showDetectedControl() {
   if (state.result) $('gvControl').textContent = state.result.control === 'haas' ? 'Haas' : 'Fanuc';
 }
@@ -112,186 +110,71 @@ function showDetectedControl() {
 function loadText(text, source, name = '') {
   state.text = String(text);
   state.fileName = name;
-  // A new program starts with no pin, no hover and no readout (R1): the old line number must not
-  // stay highlighted, inert, in a program that may not even have that many lines.
-  state.pinnedLine = null;
-  state.hoverLine = null;
+  sel.reset();                                   // a new program starts with no pin, hover or readout
   state.lastReadout = null;
   $('gvReadout').textContent = '';
   if (state.editing) $('gvEditor').value = state.text;
-  run({ fit: true });                            // a new program (file/example/paste/drop) resets the view (item 9)
-  if (!state.result) return;                    // run() already reported the analysis error; no GA event
-  if (source === 'example') ga('gcode_example_loaded');
+  run({ fit: true });
+  if (!state.result) return;                    // run() already reported the analysis error
+  if (source === 'example') ga('gcode_example_loaded', { machine: 'lathe' });
   else if (source === 'file' || source === 'paste') {
-    ga('gcode_file_loaded', { lines: state.result.lines, cycles: state.result.cycles.length, control: state.result.control });
+    ga('gcode_file_loaded', { lines: state.result.lines, cycles: state.result.cycles.length, control: state.result.control, machine: 'lathe' });
   }
-}
-
-// ---- program panel: virtualised, only visible lines are in the DOM ----
-function renderCode() {
-  const box = $('gvCode');
-  const lines = state.text.split(/\r\n?|\n/);
-  const spacer = document.createElement('div');
-  spacer.className = 'gv-code-spacer';
-  spacer.style.height = `${lines.length * LINE_H}px`;
-  const win = document.createElement('div');
-  win.className = 'gv-code-window';
-  spacer.appendChild(win);
-  box.replaceChildren(spacer);
-  state.paint = () => {
-    const first = Math.max(0, Math.floor(box.scrollTop / LINE_H) - 20);
-    const last = Math.min(lines.length, first + Math.ceil(box.clientHeight / LINE_H) + 40);
-    win.style.transform = `translateY(${first * LINE_H}px)`;
-    const frag = document.createDocumentFragment();
-    for (let i = first; i < last; i++) {
-      const n = i + 1;
-      const row = document.createElement('div');
-      row.className = 'gv-line' + (n === state.hoverLine ? ' is-hi' : '') + (state.warnLines.has(n) ? ' has-warn' : '');
-      row.dataset.line = String(n);
-      const no = document.createElement('span'); no.className = 'gv-no'; no.textContent = String(n);
-      const tx = document.createElement('span'); tx.className = 'gv-tx'; tx.textContent = lines[i] || ' ';
-      row.append(no, tx);
-      frag.appendChild(row);
-    }
-    win.replaceChildren(frag);
-  };
-  state.paint();
-}
-
-$('gvCode').addEventListener('scroll', () => requestAnimationFrame(() => state.paint()));
-$('gvCode').addEventListener('pointerover', e => {
-  const row = e.target.closest && e.target.closest('.gv-line');
-  if (row) highlightLine(Number(row.dataset.line), false);
-});
-$('gvCode').addEventListener('pointerleave', () => highlightLine(null, false));
-// Clicking a program line pins its highlight (item 11, spec §2 "hovering or clicking").
-$('gvCode').addEventListener('click', e => {
-  const row = e.target.closest && e.target.closest('.gv-line');
-  if (row) pinLine(Number(row.dataset.line));
-});
-document.addEventListener('keydown', e => { if (e.key === 'Escape' && state.pinnedLine !== null) clearPin(); });
-
-// `pin: true` is the only way to change the highlight while a line is pinned; hover-origin calls
-// (pointerover/pointerleave/onHover) are ignored until the pin is cleared (item 11).
-function highlightLine(line, scroll, { pin = false } = {}) {
-  if (state.pinnedLine !== null && !pin) return;
-  state.hoverLine = line;
-  drawing.highlight(line ? (state.byLine.get(line) || []) : []);
-  if (scroll && line && !state.editing) {
-    const box = $('gvCode');
-    const top = (line - 1) * LINE_H;
-    if (top < box.scrollTop || top > box.scrollTop + box.clientHeight - LINE_H) box.scrollTop = Math.max(0, top - box.clientHeight / 3);
-  }
-  state.paint();
-}
-
-// toggle=true (code-panel and drawing clicks/taps, R1): clicking the already-pinned line unpins it,
-// so touch users have a way out besides tapping empty drawing space. toggle=false (the checks'
-// "Line N" button, R1): always pins that line, replacing any existing pin.
-function pinLine(line, { toggle = true } = {}) {
-  if (toggle && state.pinnedLine === line) { clearPin(); return; }
-  state.pinnedLine = line;
-  highlightLine(line, true, { pin: true });
-}
-function clearPin() { state.pinnedLine = null; highlightLine(null, false, { pin: true }); state.lastReadout = null; $('gvReadout').textContent = ''; }
-
-// After an edit or a settings re-run (R1): keep the pin if that line still exists in the new text,
-// otherwise clear it. A brand-new program (loadText) already cleared the pin before calling run(),
-// so this is a no-op then.
-function reapplyPin() {
-  if (state.pinnedLine === null) return;
-  const lineCount = state.text.split(/\r\n?|\n/).length;
-  if (state.pinnedLine <= lineCount) highlightLine(state.pinnedLine, false, { pin: true });
-  else clearPin();
 }
 
 function readoutText(line, p) {
   const k = state.result && state.result.units === 'inch' ? 1 / 25.4 : 1;
-  const dia = state.settings.xDiameter;                       // item 14: X per the X-mode setting
+  const dia = state.settings.xDiameter;
   const xVal = (dia ? 2 : 1) * p.x * k;
   return t('gv.readout', { line: line ?? '–', xlabel: dia ? 'X' : 'X(r)', x: fmtNum(xVal, 3), z: fmtNum(p.z * k, 3) });
 }
 
 function hoverFromDrawing(segIndex, p, forcedLine) {
-  if (state.pinnedLine !== null) return;                    // pinned: hover elsewhere is inert (item 11)
-  // R8: a marker forces its own line; otherwise the nearest segment's, as before.
+  if (sel.pinned !== null) return;                          // pinned: hover elsewhere is inert
   const seg = segIndex === null || !state.result ? null : state.result.segments[segIndex];
-  const line = forcedLine != null ? forcedLine : (seg ? seg.line : null);
-  highlightLine(line, true);
+  const line = forcedLine != null ? forcedLine : (seg ? seg.line : null);   // a marker forces its own line
+  sel.hover(line, true);
   state.lastReadout = p ? { line, x: p.x, z: p.z } : null;
   $('gvReadout').textContent = p ? readoutText(line, p) : '';
 }
 
-// A click or tap on the drawing (item 3's tap-to-select, item 11's click-to-pin): empty space clears
-// the pin, a segment pins its line. R8: a marker pins its own line, not the nearest segment's.
+// A click or tap on the drawing: empty space clears the pin, a segment (or marker) pins its line.
 function pickFromDrawing(segIndex, p, forcedLine) {
   if (forcedLine != null) {
-    pinLine(forcedLine);
+    sel.pin(forcedLine);
     state.lastReadout = { line: forcedLine, x: p.x, z: p.z };
     $('gvReadout').textContent = readoutText(forcedLine, p);
     return;
   }
-  if (segIndex === null || !state.result) { clearPin(); return; }
+  if (segIndex === null || !state.result) { sel.clear(); return; }
   const seg = state.result.segments[segIndex];
-  pinLine(seg.line);
+  sel.pin(seg.line);
   state.lastReadout = { line: seg.line, x: p.x, z: p.z };
   $('gvReadout').textContent = readoutText(seg.line, p);
 }
 
 // ---- results ----
-function cell(text) { const c = document.createElement('td'); c.textContent = text; return c; }
-
 function renderTime() {
   const r = state.result;
-  // Cut length (item 13): metric programs in m; inch programs in inches (spec §3.3: inch programs
-  // are "converted on input and displayed in inches" - the same choice as the readout, not feet).
   const inch = r.units === 'inch';
-  const div = inch ? 25.4 : 1000;
+  const div = inch ? 25.4 : 1000;                           // cut length: m, or inches for inch programs
   $('gvLengthHeader').textContent = `${t('gv.time.length')} (${inch ? 'in' : 'm'})`;
-  $('gvTimeTable').tBodies[0].replaceChildren(...r.timing.rows.map(row => {
-    const tr = document.createElement('tr');
-    // An incomplete row (item 7): "-" in the timed cells, and it doesn't contribute to the total.
-    tr.append(cell(row.tool || '–'), cell(row.label), cell(String(row.cycles)), cell(String(row.passes)),
-      cell(fmtNum(row.cutLength / div, 2)),
-      cell(row.incomplete ? '–' : formatDuration(row.cutSeconds)),
-      cell(row.incomplete ? '–' : formatDuration(row.rapidSeconds)),
-      cell(row.incomplete ? '–' : formatDuration(row.totalSeconds)));
-    return tr;
-  }));
-  const total = r.timing.rows.filter(row => !row.incomplete).reduce((a, row) => a + row.totalSeconds, 0);
-  // R7: "≥" flags that the total leaves out every incomplete row's own time, not just this row's.
-  $('gvTotal').textContent = (r.timing.incomplete ? '≥ ' : '') + formatDuration(total);
-  $('gvIncomplete').hidden = !r.timing.incomplete;
+  const timed = f => row => (row.incomplete ? null : formatDuration(f(row)));
+  renderTimeRows($('gvTimeTable').tBodies[0], r.timing.rows, [
+    row => row.tool || '–', row => row.label, row => String(row.cycles), row => String(row.passes),
+    row => fmtNum(row.cutLength / div, 2),
+    timed(row => row.cutSeconds), timed(row => row.rapidSeconds), timed(row => row.totalSeconds),
+  ]);
+  renderTotal($('gvTotal'), $('gvIncomplete'), r.timing, formatDuration);
 }
 
 function renderChecks() {
-  const ul = $('gvChecks'), ws = state.result.warnings;
-  if (!ws.length) {
-    const li = document.createElement('li');
-    li.className = 'gv-w is-ok';
-    li.textContent = t('gv.checks.none');
-    ul.replaceChildren(li);
-    return;
-  }
-  // Loop-based, not a spread: a program with a warning on most of its (up to 300k) lines must not
-  // overflow the call stack (item 20).
-  const frag = document.createDocumentFragment();
-  for (const w of ws) {
-    const li = document.createElement('li');
-    li.className = `gv-w is-${w.severity}`;
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'gv-w-line';
-    btn.textContent = `${t('gv.checks.line')} ${w.line ?? '–'}`;
-    // Pins (replacing any existing pin), it doesn't toggle: the link must always scroll and
-    // highlight, even if that line happened to be the one already pinned (R1).
-    btn.addEventListener('click', () => { if (!w.line) return; if (state.editing) toggleEdit(); pinLine(w.line, { toggle: false }); });
-    const msg = document.createElement('span');
-    msg.textContent = t(`gv.check.${w.id}`, w.params);
-    li.append(btn, msg);
-    frag.appendChild(li);
-  }
-  ul.replaceChildren(frag);
+  renderCheckList($('gvChecks'), state.result.warnings, {
+    text: w => t(`gv.check.${w.id}`, w.params),
+    lineLabel: t('gv.checks.line'),
+    noneText: t('gv.checks.none'),
+    onLine: line => { if (state.editing) toggleEdit(); sel.pin(line, { toggle: false }); },
+  });
 }
 
 function renderPrintHead() {
@@ -313,57 +196,11 @@ $('gvEdit').addEventListener('click', toggleEdit);
 $('gvEditor').addEventListener('input', e => { state.text = e.target.value; schedule(); });
 
 // ---- input: file, example, paste, drop ----
-// Keyboard file open (item 2): Space already opens the dialog natively; add Enter for parity.
-// Legacy Greek comments saved as Windows-1253 decode as U+FFFD under UTF-8 (item 16): fall back
-// and re-decode the same bytes.
-async function readFileText(f) {
-  const buf = await f.arrayBuffer();
-  const utf8 = new TextDecoder('utf-8').decode(buf);
-  return utf8.includes('�') ? new TextDecoder('windows-1253').decode(buf) : utf8;
-}
-
-// R11: a failed read (arrayBuffer/decode) is caught here, not left as an unhandled rejection - the
-// same analysis-error banner, since from the visitor's chair "the file didn't load" is one thing.
-async function loadFile(f, source) {
-  let text;
-  try { text = await readFileText(f); }
-  catch (err) { console.error(err); state.showingError = true; showBanner(t('gv.banner.error')); return; }
-  loadText(text, source, f.name);
-}
-
-$('gvFile').addEventListener('keydown', e => {
-  if (e.key === 'Enter') { e.preventDefault(); $('gvFile').click(); }
-});
-$('gvFile').addEventListener('change', async e => {
-  const f = e.target.files && e.target.files[0];
-  if (f) await loadFile(f, 'file');
-  e.target.value = '';
-});
-$('gvExample').addEventListener('click', () => loadText(EXAMPLE_PROGRAM, 'example', 'example.nc'));
-$('gvPaste').addEventListener('click', async () => {
-  // R10: only the clipboard read is guarded here. loadText (and the run() it calls) has its own,
-  // wider try/catch now, so an unrelated failure there shows the analysis-error banner, not this one.
-  let txt;
-  try { txt = await navigator.clipboard.readText(); }
-  catch (e) { showBanner(t('gv.paste.fail')); return; }
-  if (txt) loadText(txt, 'paste');
-});
-document.addEventListener('paste', e => {
-  if (state.editing || (e.target.closest && e.target.closest('input, textarea, select'))) return;
-  const txt = e.clipboardData && e.clipboardData.getData('text');
-  if (txt) { e.preventDefault(); loadText(txt, 'paste'); }
-});
-// Drop anywhere on the page (item 12, spec §2): a file dropped on the nav or footer must be loaded,
-// not opened by the browser as a navigation.
-const main = document.querySelector('.gv');
-document.addEventListener('dragover', e => { e.preventDefault(); main.classList.add('gv-dragging'); });
-document.addEventListener('dragleave', e => { if (!e.relatedTarget) main.classList.remove('gv-dragging'); });
-document.addEventListener('drop', async e => {
-  e.preventDefault();
-  main.classList.remove('gv-dragging');
-  const f = e.dataTransfer.files && e.dataTransfer.files[0];
-  if (f) await loadFile(f, 'file');
-  else { const txt = e.dataTransfer.getData('text'); if (txt) loadText(txt, 'paste'); }
+wireInputs({
+  fileInput: $('gvFile'), exampleButton: $('gvExample'), example: EXAMPLE_PROGRAM, pasteButton: $('gvPaste'),
+  dropRoot: document.querySelector('.gv'), isEditing: () => state.editing,
+  onText: loadText,
+  onError: kind => showBanner({ key: kind === 'paste' ? 'gv.paste.fail' : 'gv.banner.error' }),
 });
 
 // ---- drawing controls ----
@@ -374,7 +211,7 @@ $('gvAspect').addEventListener('change', e => drawing.setAspect(e.target.checked
 document.querySelectorAll('[data-layer]').forEach(cb => cb.addEventListener('change', () => drawing.setLayerVisible(cb.dataset.layer, cb.checked)));
 
 // ---- settings ----
-// No 'control' entry (item 6): it's detected, not chosen, and #gvControl is a read-only <output>.
+// No 'control' entry: it's detected, not chosen, and #gvControl is a read-only <output>.
 const FIELDS = [
   ['gvSystem', 'system', v => v, v => v],
   ['gvInteger', 'integerUnit', v => v, v => v],
@@ -384,16 +221,14 @@ const FIELDS = [
   ['gvToolChange', 'toolChangeSeconds', Number, v => v],
   ['gvCorrection', 'correctionPct', Number, v => v],
 ];
-// A change of these three rescales the drawn geometry itself (µm vs mm, radius vs diameter, or a
-// dialect's own unit handling), leaving the part 1000x too small/large or off to one side until
-// the user finds Fit; every other setting only changes numbers, so it keeps the current view (R9).
+// These three rescale the drawn geometry itself, so a change refits; the rest keep the view.
 const REFIT_KEYS = new Set(['system', 'integerUnit', 'xDiameter']);
 for (const [id, key, read, write] of FIELDS) {
   const input = $(id);
   input.value = write(state.settings[key]);
   input.addEventListener('change', () => {
     const v = read(input.value);
-    const bad = typeof v === 'number' && (!Number.isFinite(v) || (key.startsWith('rapid') && v <= 0) || (key === 'toolChangeSeconds' && v < 0));
+    const bad = typeof v === 'number' && (!Number.isFinite(v) || (key.startsWith('rapid') && v <= 0) || (key === 'toolChangeSeconds' && v < 0) || (key === 'correctionPct' && v <= -100));
     if (bad) { input.value = write(state.settings[key]); return; }
     state.settings[key] = v;
     saveSettings();
@@ -405,35 +240,31 @@ drawing.setFlip(state.settings.flipX);
 $('gvFlip').addEventListener('change', () => { state.settings.flipX = $('gvFlip').value === 'down'; saveSettings(); drawing.setFlip(state.settings.flipX); });
 
 // ---- print, CTA, survey ----
-$('gvPrint').addEventListener('click', () => { renderPrintHead(); ga('gcode_print'); window.print(); });
-$('gvCta').addEventListener('click', () => ga('gcode_cta_click'));
+$('gvPrint').addEventListener('click', () => { renderPrintHead(); ga('gcode_print', { machine: 'lathe' }); window.print(); });
+$('gvCta').addEventListener('click', () => ga('gcode_cta_click', { machine: 'lathe' }));
 function surveyDone() {
   $('gvSurvey').querySelectorAll('.gv-chip').forEach(b => { b.hidden = true; });
   $('gvThanks').hidden = false;
 }
-if (lsGetSafe(SURVEY_KEY)) surveyDone();
+if (lsGet(SURVEY_KEY)) surveyDone();
 $('gvSurvey').querySelectorAll('.gv-chip').forEach(b => b.addEventListener('click', () => {
-  ga('gcode_survey', { answer: b.dataset.answer });
-  lsSetSafe(SURVEY_KEY, '1');
+  ga('gcode_survey', { answer: b.dataset.answer, machine: 'lathe' });
+  lsSet(SURVEY_KEY, '1');
   surveyDone();
 }));
 
 // ---- language changes re-render the dynamic text ----
 document.addEventListener('gv:lang', () => {
   $('gvEdit').textContent = t(state.editing ? 'gv.done' : 'gv.edit');
-  if (!state.result) {
-    if (state.showingError) showBanner(t('gv.banner.error'));      // R6: the error banner has no result to hang the check on
-    return;
-  }
+  showBanner(state.banner);
+  if (!state.result) return;
   renderTime(); renderChecks(); renderPrintHead();
-  drawing.relabel();                                               // R6: marker <title>s and tick labels (units/locale, R4)
-  if (state.result.tooLarge) showBanner(t('gv.banner.toolarge', { lines: state.result.lines.toLocaleString(), max: MAX_LINES.toLocaleString() }));
-  else if (state.result.warnings.some(w => w.id === 'milling')) showBanner(t('gv.check.milling'));
+  drawing.relabel();                                               // marker <title>s and tick labels
   showDetectedControl();
-  // Re-render the readout's numbers in the new language (item 13); it has no persistent state
-  // otherwise, so this is a no-op when nothing is currently shown.
   if (state.lastReadout) $('gvReadout').textContent = readoutText(state.lastReadout.line, state.lastReadout);
 });
 
-// First paint: show the example so the page is never empty (no GA event for this one).
-loadText(EXAMPLE_PROGRAM, 'init', 'example.nc');
+// First paint: a program handed over from the milling page, else the example (no GA event).
+const handed = takeHandoff(session());
+if (handed) loadText(handed.text, 'handoff', handed.name);       // counted once, as gcode_handoff
+else loadText(EXAMPLE_PROGRAM, 'init', 'example.nc');

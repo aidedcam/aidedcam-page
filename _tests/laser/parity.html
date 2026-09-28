@@ -1,0 +1,46 @@
+<!doctype html>
+<!-- Dev-only (Jekyll skips _tests): runs every parity fixture through the published browser engine and
+     compares with the desktop results in fixtures/expected.json (spec §13). window.__parity holds the outcome. -->
+<meta charset="utf-8"><link rel="icon" href="data:,"><title>laser engine parity</title><pre id="out">running…</pre>
+<script type="module">
+const expected = await (await fetch('./fixtures/expected.json')).json();
+const r3 = v => Math.round(v * 1000) / 1000;
+// The same summary as Fixtures.Summary in the C# tests.
+function summary(m) {
+  return {
+    parts: [...m.parts].sort((a, b) => b.area - a.area)
+      .map(p => ({ area: r3(p.area), cutLength: r3(p.cutLength), pierces: p.pierces, holes: p.holes.length })),
+    checks: m.checks.map(c => c.id),
+    openCutLength: r3(m.extras.openCutLength),
+    markLength: r3(m.extras.markLength),
+    contours: m.contours.length,
+    texts: m.texts.map(t => t.value),
+  };
+}
+function same(a, b, path, out) {
+  if (typeof a === 'number' && typeof b === 'number') { if (Math.abs(a - b) > 0.002) out.push(`${path}: ${a} ≠ ${b}`); return; }
+  if (Array.isArray(a) || (a && typeof a === 'object')) {
+    const keys = new Set([...Object.keys(a || {}), ...Object.keys(b || {})]);
+    for (const k of keys) same(a?.[k], b?.[k], `${path}.${k}`, out);
+    return;
+  }
+  if (a !== b) out.push(`${path}: ${JSON.stringify(a)} ≠ ${JSON.stringify(b)}`);
+}
+const w = new Worker('../../js/laser/worker.js', { type: 'module' });
+const pending = new Map();
+w.onmessage = e => { const m = e.data; if ((m.type === 'result' || m.type === 'error') && pending.has(m.id)) { pending.get(m.id)(m); pending.delete(m.id); } };
+const run = (id, name, bytes) => new Promise(res => { pending.set(id, res); w.postMessage({ type: 'process', id, name, bytes, settings: {} }, [bytes]); });
+const results = {};
+let id = 0;
+for (const name of Object.keys(expected)) {
+  const bytes = await (await fetch('./fixtures/' + name)).arrayBuffer();
+  const m = await run(++id, name, bytes);
+  const diffs = [];
+  if (m.type !== 'result') diffs.push(`engine error: ${m.reason} ${m.message}`);
+  else same(summary(m), expected[name], name, diffs);
+  results[name] = diffs;
+}
+const failed = Object.entries(results).filter(([, d]) => d.length);
+window.__parity = { files: Object.keys(results).length, failed: failed.length, diffs: failed };
+document.getElementById('out').textContent = JSON.stringify(window.__parity, null, 1);
+</script>

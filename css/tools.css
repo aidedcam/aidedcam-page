@@ -205,3 +205,60 @@
 .ft-card h2 { margin: 0 0 0.5rem; font-family: var(--font-display); font-weight: 300; font-size: 1.5rem; }
 .ft-card p { margin: 0 0 1rem; color: var(--ink-soft); }
 .ft-open { color: var(--accent-deep); font-weight: 500; }
+
+/* ---- laser-dxf-checker.html: the laser DXF check (spec §10) ---- */
+:root { --lc-mark: #1d4ed8; --lc-branch: #7c3aed; }
+.lc-table .lc-row { cursor: pointer; }
+.lc-table .lc-row:hover td, .lc-table .lc-row.is-sel td { background: var(--accent-soft); }
+.lc-table .lc-row:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.lc-name { max-width: 16rem; overflow: hidden; text-overflow: ellipsis; }
+.lc-table select, .lc-roles select, .lc-qty, .lc-speeds input { font: inherit; font-size: 0.85rem; padding: 0.2rem 0.3rem; border: 1px solid var(--line-strong); background: var(--panel); color: var(--ink); }
+.lc-qty { width: 4.5rem; }
+.lc-status { font-size: 1rem; }
+.lc-status.is-ok { color: var(--gv-feed); }
+.lc-status.is-warn { color: var(--gv-rapid); }
+.lc-status.is-error { color: var(--gv-hi); }
+.lc-status.is-busy { font-size: 0.8rem; font-style: italic; color: var(--muted); }
+.lc-detail { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 1.25rem; margin-top: 1.5rem; }
+@media (max-width: 900px) { .lc-detail { grid-template-columns: minmax(0, 1fr); } }
+.lc-view { min-width: 0; border: 1px solid var(--line); background: var(--panel); }
+.lc-svg { display: block; width: 100%; height: 420px; background: #fff; touch-action: none; cursor: grab; }
+@media (max-width: 600px) { .lc-svg { height: 300px; } }
+.lc-c { fill: none; stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.lc-cut { stroke: var(--ink); }
+.lc-mark { stroke: var(--lc-mark); }
+.lc-bend { stroke: var(--gv-rapid); stroke-dasharray: 6 4; }
+.lc-ignore { stroke: var(--faint); }
+.lc-c.lc-open { stroke: var(--gv-hi); }
+.lc-c.is-hi { stroke: var(--gv-hi); stroke-width: 3; }
+.lc-text { fill: var(--muted); font-family: var(--font-body); }
+.lc-m { fill: none; stroke-width: 2; vector-effect: non-scaling-stroke; }
+.lc-m-open, .lc-m-self { stroke: var(--gv-hi); }
+.lc-m-gap { stroke: var(--gv-rapid); }
+.lc-m-branch { stroke: var(--lc-branch); }
+.lc-pick { margin: 0; padding: 1rem 0.75rem; text-align: center; color: var(--muted); font-size: 0.9rem; }
+.lc-legend { display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; margin: 0; padding: 0.5rem 0.75rem; border-top: 1px solid var(--line); font-size: 0.8rem; color: var(--muted); }
+.lc-key { display: inline-block; width: 18px; border-top: 2px solid; vertical-align: middle; margin-right: 0.35rem; }
+.lc-key.cut { border-color: var(--ink); }
+.lc-key.mark { border-color: var(--lc-mark); }
+.lc-key.bend { border-color: var(--gv-rapid); border-top-style: dashed; }
+.lc-key.ignore { border-color: var(--faint); }
+.lc-dot { display: inline-block; width: 9px; height: 9px; border: 2px solid; border-radius: 50%; vertical-align: middle; margin-right: 0.35rem; }
+.lc-dot.open { border-color: var(--gv-hi); }
+.lc-dot.gap { border-color: var(--gv-rapid); }
+.lc-side { min-width: 0; }
+.lc-side h2 { margin: 0 0 0.5rem; font-family: var(--font-mono); font-weight: 400; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.lc-side .gv-check-list { margin-bottom: 1.25rem; }
+.lc-chip { display: inline-block; width: 14px; height: 14px; border: 1px solid var(--line-strong); vertical-align: middle; }
+.lc-settings { margin-top: 1.5rem; }
+.lc-settings h3 { margin: 0.5rem 0 0.25rem; font-size: 0.9rem; font-weight: 500; }
+.lc-speeds input { width: 7rem; }
+.lc-notice { margin: 0.75rem 0 0; font-size: 0.72rem; color: var(--muted); }
+.lc-print-all { display: none; }
+@media print {
+  .lc-detail, .lc-settings, .gv-drop-hint, .lc-table td:last-child, .lc-table th:last-child { display: none !important; }
+  .lc-print-all { display: block !important; }
+  .lc-print-file { break-inside: avoid; margin: 0 0 12px; }
+  .lc-print-file h3 { margin: 0 0 4px; font-size: 12px; }
+  .lc-print-svg { display: block; width: 100%; height: 80mm; border: 1px solid #ccc; }
+}

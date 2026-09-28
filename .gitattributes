@@ -1,0 +1,5 @@
+# CAD files stay byte-exact: the tests compare them and DXF code pages are not UTF-8.
+*.dxf binary
+*.dwg binary
+# The published WebAssembly engine is build output: served exactly as published, never diffed.
+js/laser/engine/** binary

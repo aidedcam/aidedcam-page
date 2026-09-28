@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk.WebAssembly">
+  <!-- The browser engine: a headless .NET WebAssembly module run inside a Web Worker (spec §3). -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <AssemblyName>AidedCam.Laser.Host</AssemblyName>
+    <PublishTrimmed>true</PublishTrimmed>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <UseSystemResourceKeys>false</UseSystemResourceKeys>
+    <!-- No PDB: otherwise its build path (a local user folder) is embedded in the published assemblies. -->
+    <DebugType>none</DebugType>
+    <!-- The trimmer rewrites every assembly that ships a PDB (ours and some packages) and would point it at a
+         PDB under obj/, embedding that path too; strip the symbols instead. -->
+    <TrimmerRemoveSymbols>true</TrimmerRemoveSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Engine\Engine.csproj" />
+  </ItemGroup>
+  <!-- The obfuscated Eyeshot DLL resolves types by name at run time, and its start-up reads the .NET
+       configuration system; trimming must keep these whole or the reader fails to start. -->
+  <ItemGroup>
+    <TrimmerRootAssembly Include="System.Runtime" />
+    <TrimmerRootAssembly Include="mscorlib" />
+    <TrimmerRootAssembly Include="devDept.Eyeshot.v2026" />
+    <TrimmerRootAssembly Include="System.Configuration.ConfigurationManager" />
+    <TrimmerRootAssembly Include="ACadSharp" />
+  </ItemGroup>
+</Project>

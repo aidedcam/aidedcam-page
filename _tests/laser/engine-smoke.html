@@ -1,0 +1,27 @@
+<!doctype html>
+<!-- Dev-only check that the published engine boots in a worker and processes a DXF (not deployed: Jekyll skips _tests). -->
+<meta charset="utf-8"><link rel="icon" href="data:,"><title>laser engine smoke</title><pre id="out">booting…</pre>
+<script type="module">
+const dxf = [
+  '0','SECTION','2','ENTITIES',
+  '0','LINE','8','0','10','0','20','0','30','0','11','100','21','0','31','0',
+  '0','LINE','8','0','10','100','20','0','30','0','11','100','21','50','31','0',
+  '0','LINE','8','0','10','100','20','50','30','0','11','0','21','50','31','0',
+  '0','LINE','8','0','10','0','20','50','30','0','11','0','21','0.1','31','0',
+  '0','CIRCLE','8','0','10','20','20','25','30','0','40','5',
+  '0','ENDSEC','0','EOF',
+].join('\r\n') + '\r\n';
+const w = new Worker('../../js/laser/worker.js', { type: 'module' });
+const progress = [];
+const t0 = performance.now();
+w.onmessage = e => {
+  const m = e.data;
+  if (m.type === 'boot-progress') { progress.push(m.pct); return; }
+  if (m.type === 'ready' || m.type === 'progress') return;
+  window.__smoke = { type: m.type, parts: m.parts, checks: (m.checks || []).map(c => c.id), dxfBytes: m.dxf ? m.dxf.byteLength : 0,
+    error: m.message, progressSteps: progress.length, lastPct: progress[progress.length - 1], ms: Math.round(performance.now() - t0) };
+  document.getElementById('out').textContent = JSON.stringify(window.__smoke, null, 1);
+};
+const bytes = new TextEncoder().encode(dxf).buffer;
+w.postMessage({ type: 'process', id: 1, name: 'smoke.dxf', bytes, settings: {} }, [bytes]);
+</script>

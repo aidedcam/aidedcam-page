@@ -1,0 +1,195 @@
+{
+  "array-2004.dxf": {
+    "parts": [
+      {
+        "area": 4030.354,
+        "cutLength": 373.097,
+        "pierces": 7,
+        "holes": 6
+      }
+    ],
+    "checks": [
+      "units-assumed"
+    ],
+    "openCutLength": 0,
+    "markLength": 0,
+    "contours": 7,
+    "texts": []
+  },
+  "array.dwg": {
+    "parts": [
+      {
+        "area": 4030.354,
+        "cutLength": 373.097,
+        "pierces": 7,
+        "holes": 6
+      }
+    ],
+    "checks": [
+      "units-assumed"
+    ],
+    "openCutLength": 0,
+    "markLength": 0,
+    "contours": 7,
+    "texts": []
+  },
+  "blocks-2004.dxf": {
+    "parts": [
+      {
+        "area": 3058.628,
+        "cutLength": 296.549,
+        "pierces": 3,
+        "holes": 2
+      }
+    ],
+    "checks": [
+      "units-assumed"
+    ],
+    "openCutLength": 0,
+    "markLength": 0,
+    "contours": 3,
+    "texts": []
+  },
+  "blocks.dwg": {
+    "parts": [
+      {
+        "area": 3058.628,
+        "cutLength": 296.549,
+        "pierces": 3,
+        "holes": 2
+      }
+    ],
+    "checks": [
+      "units-assumed"
+    ],
+    "openCutLength": 0,
+    "markLength": 0,
+    "contours": 3,
+    "texts": []
+  },
+  "curves-2004.dxf": {
+    "parts": [
+      {
+        "area": 2512.477,
+        "cutLength": 193.754,
+        "pierces": 1,
+        "holes": 0
+      }
+    ],
+    "checks": [
+      "units-assumed"
+    ],
+    "openCutLength": 0,
+    "markLength": 65.909,
+    "contours": 2,
+    "texts": []
+  },
+  "gaps.dxf": {
+    "parts": [
+      {
+        "area": 4760.631,
+        "cutLength": 382.757,
+        "pierces": 3,
+        "holes": 2
+      }
+    ],
+    "checks": [
+      "units-assumed",
+      "gaps-closed"
+    ],
+    "openCutLength": 0,
+    "markLength": 0,
+    "contours": 3,
+    "texts": []
+  },
+  "nested.dxf": {
+    "parts": [
+      {
+        "area": 6400,
+        "cutLength": 640,
+        "pierces": 2,
+        "holes": 1
+      },
+      {
+        "area": 400,
+        "cutLength": 80,
+        "pierces": 1,
+        "holes": 0
+      }
+    ],
+    "checks": [
+      "units-assumed",
+      "multi-part"
+    ],
+    "openCutLength": 0,
+    "markLength": 0,
+    "contours": 3,
+    "texts": []
+  },
+  "open.dxf": {
+    "parts": [],
+    "checks": [
+      "open-path",
+      "units-assumed"
+    ],
+    "openCutLength": 299,
+    "markLength": 0,
+    "contours": 1,
+    "texts": []
+  },
+  "plate-holes.dxf": {
+    "parts": [
+      {
+        "area": 4685.841,
+        "cutLength": 425.664,
+        "pierces": 5,
+        "holes": 4
+      }
+    ],
+    "checks": [
+      "units-assumed"
+    ],
+    "openCutLength": 0,
+    "markLength": 0,
+    "contours": 5,
+    "texts": []
+  },
+  "roles-text.dxf": {
+    "parts": [
+      {
+        "area": 19100,
+        "cutLength": 720,
+        "pierces": 2,
+        "holes": 1
+      }
+    ],
+    "checks": [
+      "units-assumed",
+      "duplicates-removed",
+      "text-kept"
+    ],
+    "openCutLength": 0,
+    "markLength": 60,
+    "contours": 5,
+    "texts": [
+      "ΤΕΜ. 1"
+    ]
+  },
+  "slot-bulge.dxf": {
+    "parts": [
+      {
+        "area": 6721.46,
+        "cutLength": 471.416,
+        "pierces": 2,
+        "holes": 1
+      }
+    ],
+    "checks": [
+      "units-assumed"
+    ],
+    "openCutLength": 0,
+    "markLength": 0,
+    "contours": 2,
+    "texts": []
+  }
+}

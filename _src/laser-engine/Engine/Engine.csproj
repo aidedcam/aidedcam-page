@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>AidedCam.Laser</RootNamespace>
+    <AssemblyName>AidedCam.Laser.Engine</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="devDept.Eyeshot" Version="2026.2.284" />
+    <!-- The library Eyeshot reads DXF/DWG with (the same version Eyeshot depends on, so nothing extra ships):
+         the reader uses it for arrayed inserts, which Eyeshot's conversion loses. -->
+    <PackageReference Include="ACadSharp" Version="3.3.23" />
+  </ItemGroup>
+</Project>

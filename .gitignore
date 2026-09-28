@@ -8,3 +8,7 @@ skills-lock.json
 
 # Local-only G-code test material (customer programs). Never commit.
 _tests/private/
+
+# Laser engine build output
+_src/laser-engine/**/bin/
+_src/laser-engine/**/obj/

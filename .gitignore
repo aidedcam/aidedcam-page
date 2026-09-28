@@ -12,3 +12,7 @@ _tests/private/
 # Laser engine build output
 _src/laser-engine/**/bin/
 _src/laser-engine/**/obj/
+
+# DWG quantities engine build output
+_src/dwg-engine/**/bin/
+_src/dwg-engine/**/obj/

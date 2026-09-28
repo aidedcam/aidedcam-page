@@ -1,0 +1,40 @@
+<!doctype html>
+<!-- Dev-only (Jekyll skips _tests): times the published engine on a generated building-sized DXF (spec §7, §8).
+     ?n=50000 sets the entity count. window.__perf holds { n, ms, items, jsonKB, simplified }. -->
+<meta charset="utf-8"><link rel="icon" href="data:,"><title>dwg engine perf</title><pre id="out">running…</pre>
+<script type="module">
+const n = Number(new URLSearchParams(location.search).get('n') || 50000);
+// A grid of "rooms": per room a closed polyline, a door arc, a pipe line and a fixture circle, plus one block
+// insert per room. Plain DXF text, so the page needs no fixture file. It has no LAYER table, so ACadSharp puts
+// every entity on layer 0; that does not change the timing.
+const out = ['0', 'SECTION', '2', 'HEADER', '9', '$ACADVER', '1', 'AC1015', '9', '$INSUNITS', '70', '4', '0', 'ENDSEC',
+  '0', 'SECTION', '2', 'BLOCKS', '0', 'BLOCK', '8', '0', '2', 'WC', '70', '0', '10', '0', '20', '0', '30', '0', '3', 'WC',
+  '0', 'CIRCLE', '8', '0', '10', '0', '20', '0', '30', '0', '40', '200', '0', 'ENDBLK', '8', '0', '0', 'ENDSEC',
+  '0', 'SECTION', '2', 'ENTITIES'];
+const per = 5, rooms = Math.ceil(n / per), side = Math.ceil(Math.sqrt(rooms));
+for (let i = 0; i < rooms; i++) {
+  const x = (i % side) * 5000, y = Math.floor(i / side) * 4000;
+  out.push('0', 'LWPOLYLINE', '8', 'WALLS', '90', '4', '70', '1',
+    '10', x, '20', y, '10', x + 4800, '20', y, '10', x + 4800, '20', y + 3800, '10', x, '20', y + 3800);
+  out.push('0', 'ARC', '8', 'DOORS', '10', x, '20', y, '30', '0', '40', '900', '50', '0', '51', '90');
+  out.push('0', 'LINE', '8', 'PIPE', '10', x + 100, '20', y + 100, '30', '0', '11', x + 4700, '21', y + 100, '31', '0');
+  out.push('0', 'CIRCLE', '8', 'FIXTURES', '10', x + 2400, '20', y + 1900, '30', '0', '40', '150');
+  out.push('0', 'INSERT', '8', 'SANITARY', '2', 'WC', '10', x + 600, '20', y + 3000, '30', '0');
+}
+out.push('0', 'ENDSEC', '0', 'EOF');
+const bytes = new TextEncoder().encode(out.join('\r\n') + '\r\n').buffer;
+const w = new Worker('../../js/dwg/worker.js', { type: 'module' });
+const warm = new TextEncoder().encode(['0', 'SECTION', '2', 'ENTITIES', '0', 'LINE', '8', '0', '10', '0', '20', '0', '30', '0', '11', '1', '21', '0', '31', '0', '0', 'ENDSEC', '0', 'EOF'].join('\r\n') + '\r\n').buffer;
+let t0 = 0;
+w.onmessage = e => {
+  const m = e.data;
+  if (m.type !== 'result' && m.type !== 'error') return;
+  if (m.id === 1) { t0 = performance.now(); w.postMessage({ type: 'process', id: 2, name: 'perf.dxf', bytes, settings: {} }, [bytes]); return; }
+  const ms = Math.round(performance.now() - t0);
+  window.__perf = m.type === 'result'
+    ? { n: rooms * per, bytesKB: Math.round(out.join('\r\n').length / 1024), ms, items: m.items.length, jsonKB: Math.round(JSON.stringify(m).length / 1024), simplified: m.simplified }
+    : { n: rooms * per, ms, error: m.reason + ' ' + m.message };
+  document.getElementById('out').textContent = JSON.stringify(window.__perf, null, 1);
+};
+w.postMessage({ type: 'process', id: 1, name: 'warm.dxf', bytes: warm, settings: {} }, [warm]);   // boot first: time the file alone
+</script>

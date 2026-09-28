@@ -3,3 +3,4 @@
 *.dwg binary
 # The published WebAssembly engine is build output: served exactly as published, never diffed.
 js/laser/engine/** binary
+js/dwg/engine/** binary

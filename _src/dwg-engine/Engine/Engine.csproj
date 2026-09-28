@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>AidedCam.Dwg</RootNamespace>
+    <AssemblyName>AidedCam.Dwg.Engine</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- Eyeshot measures splines (exact NURBS length); ACadSharp, the library Eyeshot itself reads DWG with,
+         reads the file: layers, blocks with their attributes, hatches (spec §3). -->
+    <PackageReference Include="devDept.Eyeshot" Version="2026.2.284" />
+    <PackageReference Include="ACadSharp" Version="3.3.23" />
+  </ItemGroup>
+</Project>

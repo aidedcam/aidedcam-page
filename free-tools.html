@@ -61,6 +61,11 @@
   <link rel="stylesheet" href="fonts.css?v=20260923" />
   <link rel="stylesheet" href="css/editorial.css?v=20260927" />
   <link rel="stylesheet" href="css/tools.css?v=20260929" />
+  <style>
+    /* This page only: a group with one card beside a group with two keeps its card at its own height
+       instead of stretching it to the taller group (the shared .ft-cards grid stretches its row). */
+    .ft-groups .ft-cards { align-content: start; }
+  </style>
 </head>
 <body>
 
@@ -121,6 +126,11 @@
             <a class="ft-card" href="dwg-quantities.html">
               <h3 data-i18n="ft.dwgq.title">Επιμετρήσεις από DWG</h3>
               <p data-i18n="ft.dwgq.text">Μήκη, εμβαδά και εμβαδά διαγράμμισης ανά στρώση, πλήθος μπλοκ και πίνακες χαρακτηριστικών (π.χ. κουφώματα) από αρχεία DWG και DXF, με το σχέδιο για επιβεβαίωση και λήψη σε Excel.</p>
+              <span class="ft-open" data-i18n="ft.open">Άνοιγμα →</span>
+            </a>
+            <a class="ft-card" href="coverage-precheck.html">
+              <h3 data-i18n="ft.coverage.title">Προέλεγχος διαγράμματος κάλυψης</h3>
+              <p data-i18n="ft.coverage.text">Κάλυψη, δόμηση, όγκος, φύτευση και συντεταγμένες ΕΓΣΑ87 από το DWG ή DXF της άδειας, απέναντι στους όρους δόμησης και με το άρθρο του Κώδικα σε κάθε μέγεθος. Ενδεικτικός προέλεγχος.</p>
               <span class="ft-open" data-i18n="ft.open">Άνοιγμα →</span>
             </a>
           </div>
@@ -237,6 +247,8 @@
         "ft.laser.text": "Διορθώνει τα DXF και DWG μιας παραγγελίας (κενά, διπλές γραμμές, ανοιχτά περιγράμματα) και δίνει μήκος κοπής, διατρήσεις, βάρος, χρόνο και καθαρό DXF για το laser.",
         "ft.dwgq.title": "Επιμετρήσεις από DWG",
         "ft.dwgq.text": "Μήκη, εμβαδά και εμβαδά διαγράμμισης ανά στρώση, πλήθος μπλοκ και πίνακες χαρακτηριστικών (π.χ. κουφώματα) από αρχεία DWG και DXF, με το σχέδιο για επιβεβαίωση και λήψη σε Excel.",
+        "ft.coverage.title": "Προέλεγχος διαγράμματος κάλυψης",
+        "ft.coverage.text": "Κάλυψη, δόμηση, όγκος, φύτευση και συντεταγμένες ΕΓΣΑ87 από το DWG ή DXF της άδειας, απέναντι στους όρους δόμησης και με το άρθρο του Κώδικα σε κάθε μέγεθος. Ενδεικτικός προέλεγχος.",
         "ft.open": "Άνοιγμα →",
         "gv.cta.title": "Χρειάζεστε εργαλεία φτιαγμένα για τη δική σας δουλειά;",
         "gv.cta.text": "Φτιάχνουμε λογισμικό στα μέτρα σας για μηχανικούς και παραγωγή: αυτοματισμούς CAD, CAM και BIM, post-processor και εργαλεία σαν αυτά.",
@@ -278,6 +290,8 @@
         "ft.laser.text": "Repairs the DXF and DWG files of an order (gaps, doubled lines, open contours) and gives cut length, pierces, weight, time and a clean DXF for the laser.",
         "ft.dwgq.title": "Quantities from DWG",
         "ft.dwgq.text": "Lengths, areas and hatch areas per layer, block counts and attribute schedules (doors, windows) from DWG and DXF files, with the drawing to check them and an Excel download.",
+        "ft.coverage.title": "Coverage diagram pre-check",
+        "ft.coverage.text": "Coverage, built floor area (δόμηση), volume, planting and ΕΓΣΑ87 coordinates from a Greek permit's DWG or DXF, against the zone's terms, with the Code article for every figure. An indicative pre-check.",
         "ft.open": "Open →",
         "gv.cta.title": "Need tools built around your own work?",
         "gv.cta.text": "We build tailor-made software for engineering and manufacturing: CAD, CAM and BIM automation, post-processors and tools like these.",
@@ -319,6 +333,8 @@
         "ft.laser.text": "Corregge i file DXF e DWG di un ordine (interruzioni, linee doppie, contorni aperti) e fornisce lunghezza di taglio, sfondamenti, peso, tempo e un DXF pulito per il laser.",
         "ft.dwgq.title": "Computi da DWG",
         "ft.dwgq.text": "Lunghezze, aree e aree dei tratteggi per layer, conteggio dei blocchi e tabelle degli attributi (porte, finestre) da file DWG e DXF, con il disegno per verificarle e il download in Excel.",
+        "ft.coverage.title": "Pre-verifica del diagramma di copertura",
+        "ft.coverage.text": "Copertura, superficie edificata (δόμηση), volume, verde e coordinate ΕΓΣΑ87 dal DWG o DXF di un permesso greco, a confronto con i parametri della zona, con l’articolo del Codice per ogni grandezza. Una pre-verifica indicativa.",
         "ft.open": "Apri →",
         "gv.cta.title": "Vi servono strumenti costruiti sul vostro lavoro?",
         "gv.cta.text": "Realizziamo software su misura per l’ingegneria e la produzione: automazioni CAD, CAM e BIM, post-processor e strumenti come questi.",

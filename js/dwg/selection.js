@@ -1,7 +1,7 @@
 // DWG quantities: picking in the drawing and the totals of a selection (spec §5 Selection). Everything
 // works on the engine's items[] in drawing coordinates (m), so a selection never calls the engine.
 // Pure: no DOM. A uniform grid over the items' bounding boxes keeps hit-tests fast on large drawings.
-import { cmpName } from './tables.js?v=20260928';
+import { cmpName } from './tables.js?v=20260930';
 
 const CURVES = new Set(['line', 'arc', 'circle', 'polyline', 'spline', 'ellipse']);
 const MAX_CELLS_PER_ITEM = 4096;          // bigger items (a site boundary, a big hatch) are always candidates

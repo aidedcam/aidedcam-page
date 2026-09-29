@@ -2,7 +2,7 @@
 // tessellated paths, grouped into one Path2D per colour so a frame is a handful of stroke calls even at
 // 50,000 items. Pan and zoom first move a cached bitmap of the last full frame, then redraw when the hand
 // stops. Paths are stored relative to the drawing's lower-left corner, so survey coordinates stay precise.
-import { createIndex, pick } from './selection.js?v=20260928';
+import { createIndex, pick } from './selection.js?v=20260930';
 
 const PICK_PX = 4;            // pick tolerance in CSS pixels
 const DRAG_PX = 4;            // a press that moves further than this is a box or a pan, not a click

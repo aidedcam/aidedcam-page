@@ -1,0 +1,660 @@
+  0
+SECTION
+  2
+HEADER
+  9
+$ACADVER
+  1
+AC1009
+  9
+$DWGCODEPAGE
+  3
+ANSI_1253
+  0
+ENDSEC
+  0
+SECTION
+  2
+TABLES
+  0
+TABLE
+  2
+LAYER
+ 70
+26
+  0
+LAYER
+  2
+0
+ 70
+0
+ 62
+7
+  6
+CONTINUOUS
+  0
+LAYER
+  2
+AC_PLOT
+ 70
+0
+ 62
+1
+  6
+CONTINUOUS
+  0
+LAYER
+  2
+AC_COVER
+ 70
+0
+ 62
+5
+  6
+CONTINUOUS
+  0
+LAYER
+  2
+AC_LVL_B2
+ 70
+0
+ 62
+7
+  6
+CONTINUOUS
+  0
+LAYER
+  2
+AC_LVL_B1
+ 70
+0
+ 62
+7
+  6
+CONTINUOUS
+  0
+LAYER
+  2
+AC_LVL_00
+ 70
+0
+ 62
+7
+  6
+CONTINUOUS
+  0
+LAYER
+  2
+AC_LVL_01
+ 70
+0
+ 62
+7
+  6
+CONTINUOUS
+  0
+LAYER
+  2
+AC_LVL_02
+ 70
+0
+ 62
+7
+  6
+CONTINUOUS
+  0
+LAYER
+  2
+AC_LVL_03
+ 70
+0
+ 62
+7
+  6
+CONTINUOUS
+  0
+LAYER
+  2
+AC_LVL_04
+ 70
+0
+ 62
+7
+  6
+CONTINUOUS
+  0
+LAYER
+  2
+AC_LVL_05
+ 70
+0
+ 62
+7
+  6
+CONTINUOUS
+  0
+LAYER
+  2
+AC_LVL_06
+ 70
+0
+ 62
+7
+  6
+CONTINUOUS
+  0
+LAYER
+  2
+AC_LVL_07
+ 70
+0
+ 62
+7
+  6
+CONTINUOUS
+  0
+LAYER
+  2
+AC_LVL_08
+ 70
+0
+ 62
+7
+  6
+CONTINUOUS
+  0
+LAYER
+  2
+AC_LVL_09
+ 70
+0
+ 62
+7
+  6
+CONTINUOUS
+  0
+LAYER
+  2
+AC_LVL_ATTIC
+ 70
+0
+ 62
+7
+  6
+CONTINUOUS
+  0
+LAYER
+  2
+AC_MEZZ
+ 70
+0
+ 62
+6
+  6
+CONTINUOUS
+  0
+LAYER
+  2
+AC_SEMIOPEN
+ 70
+0
+ 62
+4
+  6
+CONTINUOUS
+  0
+LAYER
+  2
+AC_BALCONY
+ 70
+0
+ 62
+30
+  6
+CONTINUOUS
+  0
+LAYER
+  2
+AC_STAIR_COMMON
+ 70
+0
+ 62
+2
+  6
+CONTINUOUS
+  0
+LAYER
+  2
+AC_STAIR_UNIT
+ 70
+0
+ 62
+40
+  6
+CONTINUOUS
+  0
+LAYER
+  2
+AC_VOID
+ 70
+0
+ 62
+8
+  6
+CONTINUOUS
+  0
+LAYER
+  2
+AC_PILOTIS
+ 70
+0
+ 62
+9
+  6
+CONTINUOUS
+  0
+LAYER
+  2
+AC_BSMT_MAIN
+ 70
+0
+ 62
+150
+  6
+CONTINUOUS
+  0
+LAYER
+  2
+AC_EXCL_OTHER
+ 70
+0
+ 62
+210
+  6
+CONTINUOUS
+  0
+LAYER
+  2
+AC_GREEN
+ 70
+0
+ 62
+3
+  6
+CONTINUOUS
+  0
+ENDTAB
+  0
+ENDSEC
+  0
+SECTION
+  2
+ENTITIES
+  0
+TEXT
+  8
+0
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+ 40
+0.5
+  1
+AidedCAM - Προέλεγχος διαγράμματος κάλυψης: πρότυπο στρώσεων
+  0
+TEXT
+  8
+AC_PLOT
+ 10
+0.0
+ 20
+-1.2
+ 30
+0.0
+ 40
+0.35
+  1
+AC_PLOT  Οικόπεδο
+  0
+TEXT
+  8
+AC_COVER
+ 10
+0.0
+ 20
+-1.9
+ 30
+0.0
+ 40
+0.35
+  1
+AC_COVER  Κάλυψη
+  0
+TEXT
+  8
+AC_LVL_B2
+ 10
+0.0
+ 20
+-2.6
+ 30
+0.0
+ 40
+0.35
+  1
+AC_LVL_B2  Περίγραμμα στάθμης - Υπόγειο -2
+  0
+TEXT
+  8
+AC_LVL_B1
+ 10
+0.0
+ 20
+-3.3
+ 30
+0.0
+ 40
+0.35
+  1
+AC_LVL_B1  Περίγραμμα στάθμης - Υπόγειο -1
+  0
+TEXT
+  8
+AC_LVL_00
+ 10
+0.0
+ 20
+-4.0
+ 30
+0.0
+ 40
+0.35
+  1
+AC_LVL_00  Περίγραμμα στάθμης - Ισόγειο
+  0
+TEXT
+  8
+AC_LVL_01
+ 10
+0.0
+ 20
+-4.7
+ 30
+0.0
+ 40
+0.35
+  1
+AC_LVL_01  Περίγραμμα στάθμης - 1ος όροφος
+  0
+TEXT
+  8
+AC_LVL_02
+ 10
+0.0
+ 20
+-5.4
+ 30
+0.0
+ 40
+0.35
+  1
+AC_LVL_02  Περίγραμμα στάθμης - 2ος όροφος
+  0
+TEXT
+  8
+AC_LVL_03
+ 10
+0.0
+ 20
+-6.1
+ 30
+0.0
+ 40
+0.35
+  1
+AC_LVL_03  Περίγραμμα στάθμης - 3ος όροφος
+  0
+TEXT
+  8
+AC_LVL_04
+ 10
+0.0
+ 20
+-6.8
+ 30
+0.0
+ 40
+0.35
+  1
+AC_LVL_04  Περίγραμμα στάθμης - 4ος όροφος
+  0
+TEXT
+  8
+AC_LVL_05
+ 10
+0.0
+ 20
+-7.5
+ 30
+0.0
+ 40
+0.35
+  1
+AC_LVL_05  Περίγραμμα στάθμης - 5ος όροφος
+  0
+TEXT
+  8
+AC_LVL_06
+ 10
+0.0
+ 20
+-8.2
+ 30
+0.0
+ 40
+0.35
+  1
+AC_LVL_06  Περίγραμμα στάθμης - 6ος όροφος
+  0
+TEXT
+  8
+AC_LVL_07
+ 10
+0.0
+ 20
+-8.9
+ 30
+0.0
+ 40
+0.35
+  1
+AC_LVL_07  Περίγραμμα στάθμης - 7ος όροφος
+  0
+TEXT
+  8
+AC_LVL_08
+ 10
+0.0
+ 20
+-9.6
+ 30
+0.0
+ 40
+0.35
+  1
+AC_LVL_08  Περίγραμμα στάθμης - 8ος όροφος
+  0
+TEXT
+  8
+AC_LVL_09
+ 10
+0.0
+ 20
+-10.3
+ 30
+0.0
+ 40
+0.35
+  1
+AC_LVL_09  Περίγραμμα στάθμης - 9ος όροφος
+  0
+TEXT
+  8
+AC_LVL_ATTIC
+ 10
+0.0
+ 20
+-11
+ 30
+0.0
+ 40
+0.35
+  1
+AC_LVL_ATTIC  Περίγραμμα στάθμης - Σοφίτα
+  0
+TEXT
+  8
+AC_MEZZ
+ 10
+0.0
+ 20
+-11.7
+ 30
+0.0
+ 40
+0.35
+  1
+AC_MEZZ  Πατάρι
+  0
+TEXT
+  8
+AC_SEMIOPEN
+ 10
+0.0
+ 20
+-12.4
+ 30
+0.0
+ 40
+0.35
+  1
+AC_SEMIOPEN  Ημιυπαίθριος
+  0
+TEXT
+  8
+AC_BALCONY
+ 10
+0.0
+ 20
+-13.1
+ 30
+0.0
+ 40
+0.35
+  1
+AC_BALCONY  Εξώστης
+  0
+TEXT
+  8
+AC_STAIR_COMMON
+ 10
+0.0
+ 20
+-13.8
+ 30
+0.0
+ 40
+0.35
+  1
+AC_STAIR_COMMON  Κοινόχρηστο κλιμακοστάσιο
+  0
+TEXT
+  8
+AC_STAIR_UNIT
+ 10
+0.0
+ 20
+-14.5
+ 30
+0.0
+ 40
+0.35
+  1
+AC_STAIR_UNIT  Εσωτερική κλίμακα
+  0
+TEXT
+  8
+AC_VOID
+ 10
+0.0
+ 20
+-15.2
+ 30
+0.0
+ 40
+0.35
+  1
+AC_VOID  Φωταγωγός, αίθριο, κενό
+  0
+TEXT
+  8
+AC_PILOTIS
+ 10
+0.0
+ 20
+-15.9
+ 30
+0.0
+ 40
+0.35
+  1
+AC_PILOTIS  Πυλωτή
+  0
+TEXT
+  8
+AC_BSMT_MAIN
+ 10
+0.0
+ 20
+-16.6
+ 30
+0.0
+ 40
+0.35
+  1
+AC_BSMT_MAIN  Υπόγειο κύριας χρήσης
+  0
+TEXT
+  8
+AC_EXCL_OTHER
+ 10
+0.0
+ 20
+-17.3
+ 30
+0.0
+ 40
+0.35
+  1
+AC_EXCL_OTHER  ¶λλο εκτός ΣΔ (206 §6)
+  0
+TEXT
+  8
+AC_GREEN
+ 10
+0.0
+ 20
+-18
+ 30
+0.0
+ 40
+0.35
+  1
+AC_GREEN  Φύτευση
+  0
+ENDSEC
+  0
+EOF

@@ -59,6 +59,7 @@ public sealed class Item
     public int Copies = 1;                         // a MINSERT's rows × columns
     public bool Bad;                               // area that cannot be trusted: left out of the totals
     public List<double[]> Path = new();
+    public double[] Verts;                         // closed 2D and lightweight polylines only: [x, y, bulge, …] in metres (coverage pre-check)
 }
 
 public sealed class NotMeasured

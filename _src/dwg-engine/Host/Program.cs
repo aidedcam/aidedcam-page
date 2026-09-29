@@ -12,6 +12,11 @@ public static partial class Api
     public static string Quantities(byte[] bytes, string name, string settingsJson) =>
         ResultJson.Run(bytes, name, ParseSettings(settingsJson));
 
+    // The 2D union of closed items of the last measured file (coverage pre-check, spec §3); ids as a JSON array
+    // of handles. Never throws.
+    [JSExport]
+    public static string Union(string idsJson) => ResultJson.Union(idsJson);
+
     static Settings ParseSettings(string json)
     {
         var s = new Settings();

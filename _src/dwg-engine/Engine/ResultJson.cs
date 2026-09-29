@@ -76,6 +76,7 @@ public static class ResultJson
                 w.WriteNumber("len", R6(it.Len)); w.WriteNumber("area", R6(it.Area));
                 if (it.Block != null) w.WriteString("block", it.Block); else w.WriteNull("block");
                 w.WriteNumber("copies", it.Copies); w.WriteBoolean("bad", it.Bad);
+                if (it.Verts != null) WriteVerts(w, "verts", it.Verts);
                 w.WriteStartArray("path");
                 foreach (var line in it.Path)
                 {
@@ -124,6 +125,47 @@ public static class ResultJson
             w.WriteStartObject();
             w.WriteString("type", "error"); w.WriteString("name", name);
             w.WriteString("reason", reason); w.WriteString("message", message ?? "");
+            w.WriteEndObject();
+        }
+        return System.Text.Encoding.UTF8.GetString(ms.ToArray());
+    }
+
+    // True vertices: coordinates to 0.1 mm like the paths would lose, so to the micrometre; bulges to 1e-12.
+    static void WriteVerts(Utf8JsonWriter w, string name, double[] v)
+    {
+        if (name != null) w.WriteStartArray(name); else w.WriteStartArray();
+        for (int i = 0; i + 2 < v.Length; i += 3) { w.WriteNumberValue(R6(v[i])); w.WriteNumberValue(R6(v[i + 1])); w.WriteNumberValue(Math.Round(v[i + 2], 12)); }
+        w.WriteEndArray();
+    }
+
+    // The union of the last file's closed items (coverage pre-check, spec §3): { type: 'union', area, paths,
+    // verts, bad, parts } or, when the booleans failed, the same with error set. Never throws.
+    public static string Union(string idsJson)
+    {
+        UnionResult u;
+        try
+        {
+            var ids = new List<string>();
+            using (var doc = JsonDocument.Parse(string.IsNullOrWhiteSpace(idsJson) ? "[]" : idsJson))
+                foreach (var e in doc.RootElement.EnumerateArray()) if (e.ValueKind == JsonValueKind.String) ids.Add(e.GetString());
+            u = AidedCam.Dwg.Union.Of(ids);
+        }
+        catch (Exception ex) { u = new UnionResult { Error = ex.GetType().Name }; }
+        var ms = new MemoryStream();
+        using (var w = Writer(ms))
+        {
+            w.WriteStartObject();
+            w.WriteString("type", "union");
+            w.WriteNumber("area", R6(u.Area));
+            w.WriteNumber("parts", u.Parts);
+            w.WriteStartArray("paths");
+            foreach (var line in u.Paths) { w.WriteStartArray(); foreach (var v in line) w.WriteNumberValue(R4(v)); w.WriteEndArray(); }
+            w.WriteEndArray();
+            w.WriteStartArray("verts");
+            foreach (var v in u.Verts) WriteVerts(w, null, v);
+            w.WriteEndArray();
+            w.WriteStartArray("bad"); foreach (var b in u.Bad) w.WriteStringValue(b); w.WriteEndArray();
+            if (u.Error != null) w.WriteString("error", u.Error); else w.WriteNull("error");
             w.WriteEndObject();
         }
         return System.Text.Encoding.UTF8.GetString(ms.ToArray());

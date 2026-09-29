@@ -1,0 +1,48 @@
+<!doctype html>
+<!-- Dev-only (Jekyll skips _tests): runs fixtures/union.dxf through the published browser engine and asks for
+     the union of each layer's outlines, then compares with the hand-worked values (the same cases as the
+     engine's CoverageTests). window.__union holds the outcome, window.__timings the milliseconds. -->
+<meta charset="utf-8"><link rel="icon" href="data:,"><title>coverage union parity</title><pre id="out">running…</pre>
+<script type="module">
+const EXPECTED = {
+  OVERLAP: { area: 175, verts: 8, parts: 1 },
+  TOUCH: { area: 200, verts: 4, parts: 1 },
+  FRAME: { area: 800, verts: 8, parts: 1, contours: 2 },
+  ARC: { area: 100 + Math.PI * 12.5 + 25, verts: 6, parts: 1, arcs: 1 },
+  SURVEY: { area: 200, verts: 6, parts: 1, first: [410000, 4495000] },
+  MANY: { area: 71 * 36, verts: 4, parts: 1 },
+};
+const w = new Worker('../../js/dwg/worker.js', { type: 'module' });
+const pending = new Map();
+w.onmessage = e => { const m = e.data; if (pending.has(m.id) && m.type !== 'progress') { pending.get(m.id)(m); pending.delete(m.id); } };
+let id = 0;
+const send = (msg, transfer = []) => new Promise(res => { const i = ++id; pending.set(i, res); w.postMessage({ ...msg, type: 'process', id: i }, transfer); });
+const t0 = performance.now();
+const bytes = await (await fetch('./fixtures/union.dxf')).arrayBuffer();
+const r = await send({ name: 'union.dxf', bytes, settings: {} }, [bytes]);
+const timings = { file: Math.round(performance.now() - t0) };
+const diffs = [];
+if (r.type !== 'result') diffs.push(`engine error ${r.reason} ${r.message}`);
+else {
+  for (const [layer, e] of Object.entries(EXPECTED)) {
+    const ids = r.items.filter(i => i.layer === layer).map(i => i.id);
+    const t1 = performance.now();
+    const u = await send({ name: 'union', bytes: new ArrayBuffer(0), settings: { union: { fileKey: r.id, ids } } });
+    timings[layer] = Math.round(performance.now() - t1);
+    const nverts = u.verts.reduce((a, v) => a + v.length / 3, 0);
+    if (u.error) diffs.push(`${layer}: error ${u.error}`);
+    if (Math.abs(u.area - e.area) > 1e-6) diffs.push(`${layer}: area ${u.area} ≠ ${e.area}`);
+    if (nverts !== e.verts) diffs.push(`${layer}: ${nverts} vertices ≠ ${e.verts}`);
+    if (u.parts !== e.parts) diffs.push(`${layer}: ${u.parts} parts ≠ ${e.parts}`);
+    if (e.contours && u.verts.length !== e.contours) diffs.push(`${layer}: ${u.verts.length} contours ≠ ${e.contours}`);
+    if (e.arcs && u.verts.flat().filter((v, i) => i % 3 === 2 && v !== 0).length !== e.arcs) diffs.push(`${layer}: arcs`);
+    if (e.first && (u.verts[0][0] !== e.first[0] || u.verts[0][1] !== e.first[1])) diffs.push(`${layer}: first vertex ${u.verts[0].slice(0, 2)}`);
+  }
+  // A union asked for an older file is refused as stale, never answered from the wrong drawing.
+  const stale = await send({ name: 'union', bytes: new ArrayBuffer(0), settings: { union: { fileKey: r.id - 1, ids: [] } } });
+  if (stale.error !== 'stale') diffs.push(`stale: ${stale.error}`);
+}
+window.__timings = timings;
+window.__union = { cases: Object.keys(EXPECTED).length, failed: diffs.length, diffs };
+document.getElementById('out').textContent = JSON.stringify({ ...window.__union, timings }, null, 1);
+</script>

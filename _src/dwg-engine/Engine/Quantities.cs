@@ -17,6 +17,7 @@ public static class Quantities
     public static Result Run(byte[] bytes, Settings settings)
     {
         var r = new Result();
+        LastFile.Clear();                                                       // the union cache holds the last file only (coverage pre-check)
         var doc = Reader.Open(bytes, r);
         double k = Reader.Scale(doc, settings, r);
         var model = doc.Entities.ToList();
@@ -66,7 +67,10 @@ public static class Quantities
                     {
                         var s = Measure.Curve(e);
                         if (s == null) { NotMeasured(r.NotMeasured, e); break; }
-                        pending.Add(new Pending { Item = new Item { Id = id, Layer = layer, Kind = s.Kind, Len = s.Len * k, Area = s.Area * k * k, Bad = s.Bad }, Shape = s });
+                        var item = new Item { Id = id, Layer = layer, Kind = s.Kind, Len = s.Len * k, Area = s.Area * k * k, Bad = s.Bad };
+                        var verts = s.Verts();
+                        if (verts != null) { for (int i = 0; i < verts.Length; i += 3) { verts[i] *= k; verts[i + 1] *= k; } item.Verts = verts; }
+                        pending.Add(new Pending { Item = item, Shape = s });
                     }
                     catch { r.NotMeasured.Other++; }
                     break;
@@ -87,6 +91,7 @@ public static class Quantities
                 .Select(v => new ScheduleRow { Values = Pad(v.Values, scheduleTags[s.Key].Count), Count = v.Count }).ToList(),
         }).ToList();
         Warn(r, settings);
+        LastFile.Keep(pending.Where(p => p.Shape != null && p.Shape.IsCurve).Select(p => (p.Item, p.Shape)), k);
         return r;
     }
 

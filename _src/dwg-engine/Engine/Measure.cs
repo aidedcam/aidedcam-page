@@ -13,6 +13,24 @@ public sealed class Shape
     public bool IsCurve => Kind != "hatch";
     public List<Outline> Outlines = new();
     public Affine Map = Affine.Identity;
+    public bool HasVerts;                           // a closed 2D or lightweight polyline: its true vertices are reported (Verts)
+
+    // The true vertices of a closed polyline in drawing coordinates (units, not metres): [x, y, bulge, …], arcs as
+    // bulges. Null unless HasVerts, or when the polyline does not lie flat in the drawing's XY plane.
+    public double[] Verts()
+    {
+        if (!HasVerts || Outlines.Count != 1 || !Flat.Of(Map, out double sign)) return null;
+        var o = Outlines[0];
+        var v = new double[o.Pieces.Count * 3];
+        for (int i = 0; i < o.Pieces.Count; i++)
+        {
+            var p = o.Pieces[i];
+            var a = Map.Apply(p.Start.X, p.Start.Y, 0);
+            v[3 * i] = a.X; v[3 * i + 1] = a.Y;
+            v[3 * i + 2] = p.Kind == PieceKind.Arc ? Math.Tan(p.Sweep / 4) * sign : 0;
+        }
+        return v;
+    }
 
     public IEnumerable<List<(double X, double Y, double Z)>> Polylines(double dev, Affine outer)
     {
@@ -88,6 +106,7 @@ public static class Measure
         var pts = p.Vertices.Select(v => (new V(v.Location.X, v.Location.Y), v.Bulge)).ToList();
         var s = BulgeShape(pts, p.IsClosed);
         s.Map = Affine.Ocs(p.Normal.X, p.Normal.Y, p.Normal.Z, p.Elevation);
+        s.HasVerts = s.Outlines[0].Closed && s.Outlines[0].Pieces.Count > 0;
         return s;
     }
 
@@ -98,6 +117,7 @@ public static class Measure
             .Select(v => (new V(v.Location.X, v.Location.Y), v.Bulge)).ToList();
         var s = BulgeShape(pts, p.IsClosed);
         s.Map = Affine.Ocs(p.Normal.X, p.Normal.Y, p.Normal.Z, p.Elevation);
+        s.HasVerts = s.Outlines[0].Closed && s.Outlines[0].Pieces.Count > 0;
         return s;
     }
 

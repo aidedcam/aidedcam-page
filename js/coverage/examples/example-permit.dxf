@@ -1,0 +1,918 @@
+  0
+SECTION
+  2
+HEADER
+  9
+$ACADVER
+  1
+AC1015
+  9
+$DWGCODEPAGE
+  3
+ANSI_1253
+  9
+$INSUNITS
+ 70
+6
+  0
+ENDSEC
+  0
+SECTION
+  2
+TABLES
+  0
+TABLE
+  2
+LAYER
+  5
+2
+100
+AcDbSymbolTable
+ 70
+11
+  0
+LAYER
+  5
+100
+330
+2
+100
+AcDbSymbolTableRecord
+100
+AcDbLayerTableRecord
+  2
+0
+ 70
+0
+ 62
+7
+  6
+Continuous
+  0
+LAYER
+  5
+101
+330
+2
+100
+AcDbSymbolTableRecord
+100
+AcDbLayerTableRecord
+  2
+AC_PLOT
+ 70
+0
+ 62
+1
+  6
+Continuous
+  0
+LAYER
+  5
+102
+330
+2
+100
+AcDbSymbolTableRecord
+100
+AcDbLayerTableRecord
+  2
+AC_COVER
+ 70
+0
+ 62
+5
+  6
+Continuous
+  0
+LAYER
+  5
+103
+330
+2
+100
+AcDbSymbolTableRecord
+100
+AcDbLayerTableRecord
+  2
+AC_GREEN
+ 70
+0
+ 62
+3
+  6
+Continuous
+  0
+LAYER
+  5
+104
+330
+2
+100
+AcDbSymbolTableRecord
+100
+AcDbLayerTableRecord
+  2
+AC_LVL_B1
+ 70
+0
+ 62
+7
+  6
+Continuous
+  0
+LAYER
+  5
+105
+330
+2
+100
+AcDbSymbolTableRecord
+100
+AcDbLayerTableRecord
+  2
+AC_LVL_00
+ 70
+0
+ 62
+7
+  6
+Continuous
+  0
+LAYER
+  5
+106
+330
+2
+100
+AcDbSymbolTableRecord
+100
+AcDbLayerTableRecord
+  2
+AC_SEMIOPEN
+ 70
+0
+ 62
+4
+  6
+Continuous
+  0
+LAYER
+  5
+107
+330
+2
+100
+AcDbSymbolTableRecord
+100
+AcDbLayerTableRecord
+  2
+AC_STAIR_COMMON
+ 70
+0
+ 62
+2
+  6
+Continuous
+  0
+LAYER
+  5
+108
+330
+2
+100
+AcDbSymbolTableRecord
+100
+AcDbLayerTableRecord
+  2
+AC_LVL_01
+ 70
+0
+ 62
+7
+  6
+Continuous
+  0
+LAYER
+  5
+109
+330
+2
+100
+AcDbSymbolTableRecord
+100
+AcDbLayerTableRecord
+  2
+AC_BALCONY
+ 70
+0
+ 62
+30
+  6
+Continuous
+  0
+LAYER
+  5
+10A
+330
+2
+100
+AcDbSymbolTableRecord
+100
+AcDbLayerTableRecord
+  2
+AC_LVL_02
+ 70
+0
+ 62
+7
+  6
+Continuous
+  0
+ENDTAB
+  0
+TABLE
+  2
+BLOCK_RECORD
+  5
+1
+100
+AcDbSymbolTable
+ 70
+2
+  0
+BLOCK_RECORD
+  5
+1F
+330
+1
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+*Model_Space
+  0
+BLOCK_RECORD
+  5
+1B
+330
+1
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+*Paper_Space
+  0
+ENDTAB
+  0
+ENDSEC
+  0
+SECTION
+  2
+BLOCKS
+  0
+BLOCK
+  5
+10B
+330
+1F
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+*Model_Space
+ 70
+0
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+*Model_Space
+  1
+
+  0
+ENDBLK
+  5
+10C
+330
+1F
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+BLOCK
+  5
+10D
+330
+1B
+100
+AcDbEntity
+ 67
+1
+  8
+0
+100
+AcDbBlockBegin
+  2
+*Paper_Space
+ 70
+0
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+*Paper_Space
+  1
+
+  0
+ENDBLK
+  5
+10E
+330
+1B
+100
+AcDbEntity
+ 67
+1
+  8
+0
+100
+AcDbBlockEnd
+  0
+ENDSEC
+  0
+SECTION
+  2
+ENTITIES
+  0
+LWPOLYLINE
+  5
+10F
+330
+1F
+100
+AcDbEntity
+  8
+AC_PLOT
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 43
+0.0
+ 10
+410000.0
+ 20
+4495000.0
+ 10
+410020.0
+ 20
+4495000.0
+ 10
+410020.0
+ 20
+4495025.0
+ 10
+410000.0
+ 20
+4495025.0
+  0
+LWPOLYLINE
+  5
+110
+330
+1F
+100
+AcDbEntity
+  8
+AC_COVER
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 43
+0.0
+ 10
+410000.0
+ 20
+4495010.0
+ 10
+410010.0
+ 20
+4495010.0
+ 10
+410010.0
+ 20
+4495025.0
+ 10
+410000.0
+ 20
+4495025.0
+  0
+LWPOLYLINE
+  5
+111
+330
+1F
+100
+AcDbEntity
+  8
+AC_GREEN
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 43
+0.0
+ 10
+410010.0
+ 20
+4495000.0
+ 10
+410020.0
+ 20
+4495000.0
+ 10
+410020.0
+ 20
+4495014.0
+ 10
+410010.0
+ 20
+4495014.0
+  0
+LWPOLYLINE
+  5
+112
+330
+1F
+100
+AcDbEntity
+  8
+AC_LVL_B1
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 43
+0.0
+ 10
+410030.0
+ 20
+4495010.0
+ 10
+410040.0
+ 20
+4495010.0
+ 10
+410040.0
+ 20
+4495025.0
+ 10
+410030.0
+ 20
+4495025.0
+  0
+LWPOLYLINE
+  5
+113
+330
+1F
+100
+AcDbEntity
+  8
+AC_LVL_00
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 43
+0.0
+ 10
+410045.0
+ 20
+4495010.0
+ 10
+410055.0
+ 20
+4495010.0
+ 10
+410055.0
+ 20
+4495025.0
+ 10
+410045.0
+ 20
+4495025.0
+  0
+LWPOLYLINE
+  5
+114
+330
+1F
+100
+AcDbEntity
+  8
+AC_SEMIOPEN
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 43
+0.0
+ 10
+410045.0
+ 20
+4495010.0
+ 10
+410050.0
+ 20
+4495010.0
+ 10
+410050.0
+ 20
+4495014.0
+ 10
+410045.0
+ 20
+4495014.0
+  0
+LWPOLYLINE
+  5
+115
+330
+1F
+100
+AcDbEntity
+  8
+AC_STAIR_COMMON
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 43
+0.0
+ 10
+410051.0
+ 20
+4495020.0
+ 10
+410055.0
+ 20
+4495020.0
+ 10
+410055.0
+ 20
+4495025.0
+ 10
+410051.0
+ 20
+4495025.0
+  0
+LWPOLYLINE
+  5
+116
+330
+1F
+100
+AcDbEntity
+  8
+AC_LVL_01
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 43
+0.0
+ 10
+410060.0
+ 20
+4495010.0
+ 10
+410070.0
+ 20
+4495010.0
+ 10
+410070.0
+ 20
+4495025.0
+ 10
+410060.0
+ 20
+4495025.0
+  0
+LWPOLYLINE
+  5
+117
+330
+1F
+100
+AcDbEntity
+  8
+AC_SEMIOPEN
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 43
+0.0
+ 10
+410060.0
+ 20
+4495010.0
+ 10
+410065.0
+ 20
+4495010.0
+ 10
+410065.0
+ 20
+4495016.0
+ 10
+410060.0
+ 20
+4495016.0
+  0
+LWPOLYLINE
+  5
+118
+330
+1F
+100
+AcDbEntity
+  8
+AC_STAIR_COMMON
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 43
+0.0
+ 10
+410066.0
+ 20
+4495020.0
+ 10
+410070.0
+ 20
+4495020.0
+ 10
+410070.0
+ 20
+4495025.0
+ 10
+410066.0
+ 20
+4495025.0
+  0
+LWPOLYLINE
+  5
+119
+330
+1F
+100
+AcDbEntity
+  8
+AC_BALCONY
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 43
+0.0
+ 10
+410060.0
+ 20
+4495007.0
+ 10
+410065.0
+ 20
+4495007.0
+ 10
+410065.0
+ 20
+4495010.0
+ 10
+410060.0
+ 20
+4495010.0
+  0
+LWPOLYLINE
+  5
+11A
+330
+1F
+100
+AcDbEntity
+  8
+AC_LVL_02
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 43
+0.0
+ 10
+410075.0
+ 20
+4495010.0
+ 10
+410085.0
+ 20
+4495010.0
+ 10
+410085.0
+ 20
+4495025.0
+ 10
+410075.0
+ 20
+4495025.0
+  0
+LWPOLYLINE
+  5
+11B
+330
+1F
+100
+AcDbEntity
+  8
+AC_SEMIOPEN
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 43
+0.0
+ 10
+410075.0
+ 20
+4495010.0
+ 10
+410080.0
+ 20
+4495010.0
+ 10
+410080.0
+ 20
+4495018.0
+ 10
+410075.0
+ 20
+4495018.0
+  0
+LWPOLYLINE
+  5
+11C
+330
+1F
+100
+AcDbEntity
+  8
+AC_STAIR_COMMON
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 43
+0.0
+ 10
+410081.0
+ 20
+4495020.0
+ 10
+410085.0
+ 20
+4495020.0
+ 10
+410085.0
+ 20
+4495025.0
+ 10
+410081.0
+ 20
+4495025.0
+  0
+LWPOLYLINE
+  5
+11D
+330
+1F
+100
+AcDbEntity
+  8
+AC_BALCONY
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 43
+0.0
+ 10
+410075.0
+ 20
+4495007.0
+ 10
+410080.0
+ 20
+4495007.0
+ 10
+410080.0
+ 20
+4495010.0
+ 10
+410075.0
+ 20
+4495010.0
+  0
+LWPOLYLINE
+  5
+11E
+330
+1F
+100
+AcDbEntity
+  8
+AC_GREEN
+100
+AcDbPolyline
+ 90
+3
+ 70
+0
+ 43
+0.0
+ 10
+410001.0
+ 20
+4495001.0
+ 10
+410008.0
+ 20
+4495001.0
+ 10
+410008.0
+ 20
+4495008.0
+  0
+ENDSEC
+  0
+SECTION
+  2
+OBJECTS
+  0
+DICTIONARY
+  5
+C
+330
+0
+100
+AcDbDictionary
+  0
+ENDSEC
+  0
+EOF

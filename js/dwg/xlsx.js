@@ -1,9 +1,9 @@
 // DWG quantities: the .xlsx download (spec §5 Output). A minimal SpreadsheetML writer on the laser tool's
 // stored ZIP: inline strings, numbers stored as numbers with a number format, a bold header row, column
 // widths and a frozen header. Pure: sheets in, bytes out.
-import { zipStore } from '../laser/zip.js?v=20260928';
-import { summary, layerRows, layerTotals, blockRows, blockTotals } from './tables.js?v=20260928';
-import { INFO_WARNINGS } from './state.js?v=20260928';
+import { zipStore } from '../laser/zip.js?v=20260930';
+import { summary, layerRows, layerTotals, blockRows, blockTotals } from './tables.js?v=20260930';
+import { INFO_WARNINGS } from './state.js?v=20260930';
 
 // Style ids in styles.xml: plain text, bold, then per format plain/bold.
 const FMT = { text: 0, int: 2, m: 3, m2: 3 };

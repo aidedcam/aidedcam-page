@@ -5,12 +5,12 @@ import { t, ga, fmtNum, lang } from '../gcode/shell/i18n.js';
 import { lsGet, lsSet, loadStored, saveStored } from '../gcode/shell/settings-store.js';
 import { renderBanner } from '../gcode/shell/banner.js';
 // The tool's own modules carry the deploy version, so a cached old module never meets a new controller.
-import { createEngine } from '../laser/bridge.js?v=20260928';
-import { layerRows, layerTotals, blockRows, blockTotals, summary } from './tables.js?v=20260928';
-import { selectBox, selectionTotals, selectionTsv } from './selection.js?v=20260928';
-import { writeXlsx, workbookFor, xlsxName } from './xlsx.js?v=20260928';
-import { createView } from './view.js?v=20260928';
-import { UNITS, INFO_WARNINGS, rowItems, clickSelection, boxSelection, fileStatus, engineSettings, admit, loadedEvent } from './state.js?v=20260928';
+import { createEngine } from '../laser/bridge.js?v=20260930';
+import { layerRows, layerTotals, blockRows, blockTotals, summary } from './tables.js?v=20260930';
+import { selectBox, selectionTotals, selectionTsv } from './selection.js?v=20260930';
+import { writeXlsx, workbookFor, xlsxName } from './xlsx.js?v=20260930';
+import { createView } from './view.js?v=20260930';
+import { UNITS, INFO_WARNINGS, rowItems, clickSelection, boxSelection, fileStatus, engineSettings, admit, loadedEvent } from './state.js?v=20260930';
 
 const $ = id => document.getElementById(id);
 const SETTINGS_KEY = 'aidedcam-dq-settings';
@@ -41,7 +41,7 @@ function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.
 // ---- the engine ----
 const supported = typeof WebAssembly === 'object' && typeof Worker === 'function' && typeof DecompressionStream === 'function';
 const engine = supported ? createEngine({
-  makeWorker: () => new Worker(new URL('./worker.js?v=20260928', import.meta.url), { type: 'module' }),
+  makeWorker: () => new Worker(new URL('./worker.js?v=20260930', import.meta.url), { type: 'module' }),
   onBootProgress: pct => showBanner({ key: 'dq.engine.loading', params: { pct } }),
   onReady: () => { state.engineReady = true; if (state.banner && state.banner.key === 'dq.engine.loading') showBanner(null); },
   timeoutMs: TIMEOUT_MS,

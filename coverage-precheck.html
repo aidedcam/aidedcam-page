@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AidedCAM - Επιμετρήσεις από DWG</title>
-  <meta name="description" content="Δωρεάν επιμετρήσεις από σχέδια DWG και DXF: μήκη, εμβαδά, διαγραμμίσεις και πλήθη μπλοκ ανά στρώση, πίνακες χαρακτηριστικών, σε Excel. Χωρίς εγκατάσταση, χωρίς εγγραφή." />
+  <title>AidedCAM - Προέλεγχος διαγράμματος κάλυψης</title>
+  <meta name="description" content="Δωρεάν προέλεγχος διαγράμματος κάλυψης από DWG ή DXF: κάλυψη, δόμηση, όγκος, φύτευση, αναλυτικός πίνακας επιφανειών και συντεταγμένες ΕΓΣΑ87, απέναντι στους όρους δόμησης. Χωρίς εγκατάσταση, χωρίς εγγραφή." />
   <meta name="robots" content="index, follow" />
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <meta name="theme-color" content="#f4f3ee" />
-  <link rel="canonical" href="https://www.aidedcam.com/dwg-quantities.html" />
-  <meta property="og:title" content="AidedCAM - Επιμετρήσεις από DWG" />
-  <meta property="og:description" content="Ρίξτε σχέδια DWG ή DXF και πάρτε μήκη, εμβαδά και πλήθη μπλοκ ανά στρώση, σε Excel." />
+  <link rel="canonical" href="https://www.aidedcam.com/coverage-precheck.html" />
+  <meta property="og:title" content="AidedCAM - Προέλεγχος διαγράμματος κάλυψης" />
+  <meta property="og:description" content="Ρίξτε το DWG της άδειας και πάρτε κάλυψη, δόμηση, όγκο και φύτευση απέναντι στους όρους δόμησης." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://www.aidedcam.com/dwg-quantities.html" />
+  <meta property="og:url" content="https://www.aidedcam.com/coverage-precheck.html" />
   <meta property="og:image" content="https://www.aidedcam.com/og-image.png" />
   <meta property="og:site_name" content="AidedCAM" />
   <meta property="og:locale" content="el_GR" />
@@ -71,7 +71,7 @@
         <img class="wordmark" src="aidedcam-wordmark.svg" alt="" width="716" height="67" />
       </a>
       <div class="nav-right">
-        <a href="index.html" class="nav-back" data-i18n="dq.back">Αρχική</a>
+        <a href="index.html" class="nav-back" data-i18n="cp.back">Αρχική</a>
         <div class="lang-switcher">
           <button class="lang-btn active" data-lang="el">EL</button>
           <button class="lang-btn" data-lang="en">EN</button>
@@ -81,143 +81,164 @@
     </div>
   </nav>
 
-  <main class="gv dq">
+  <main class="gv cp">
     <header class="gv-head">
-      <p class="gv-eyebrow" data-i18n="dq.eyebrow">Δωρεάν εργαλείο</p>
-      <h1 data-i18n="dq.title">Επιμετρήσεις από DWG</h1>
-      <p class="gv-lede" data-i18n="dq.lede">Ρίξτε σχέδια DWG ή DXF και πάρτε μήκη, εμβαδά και πλήθη μπλοκ ανά στρώση, μαζί με τους πίνακες χαρακτηριστικών, σε Excel.</p>
-      <p class="gv-privacy" data-i18n="dq.privacy">Τα αρχεία μένουν στον υπολογιστή σας· τίποτα δεν ανεβαίνει.</p>
-      <p class="gv-cross"><a href="free-tools.html" data-i18n="dq.cross">Όλα τα δωρεάν εργαλεία →</a></p>
+      <p class="gv-eyebrow" data-i18n="cp.eyebrow">Δωρεάν εργαλείο</p>
+      <h1 data-i18n="cp.title">Προέλεγχος διαγράμματος κάλυψης</h1>
+      <p class="gv-lede" data-i18n="cp.lede">Ρίξτε το DWG ή DXF της άδειας και πάρτε τα μεγέθη του διαγράμματος κάλυψης: κάλυψη, δόμηση, όγκο, φύτευση, αναλυτικό πίνακα επιφανειών και συντεταγμένες κορυφών, απέναντι στους όρους δόμησης.</p>
+      <p class="gv-privacy" data-i18n="cp.privacy">Τα αρχεία μένουν στον υπολογιστή σας· τίποτα δεν ανεβαίνει.</p>
+      <p class="cp-indicative" data-i18n="cp.indicative">Ενδεικτικός προέλεγχος — όχι επίσημος υπολογισμός.</p>
+      <p class="gv-cross"><a href="free-tools.html" data-i18n="cp.cross">Όλα τα δωρεάν εργαλεία →</a></p>
     </header>
 
     <div class="gv-wrap">
+      <div class="gv-print-head" aria-hidden="true">
+        <img src="aidedcam-wordmark.svg" alt="AidedCAM" width="716" height="67" />
+        <span data-i18n="cp.title">Προέλεγχος διαγράμματος κάλυψης</span><span id="cpPrintName"></span>
+      </div>
       <noscript><p class="gv-banner">Το εργαλείο χρειάζεται JavaScript. / The tool needs JavaScript.</p></noscript>
 
-      <section class="gv-bar" data-i18n-aria="dq.aria.files" aria-label="Αρχεία">
+      <section class="gv-bar cp-bar" data-i18n-aria="cp.aria.files" aria-label="Αρχείο">
         <label class="gv-btn gv-btn-primary gv-file-label">
-          <input type="file" id="dqInput" multiple accept=".dwg,.dxf" class="gv-visually-hidden" />
-          <span data-i18n="dq.open">Άνοιγμα αρχείων</span>
+          <input type="file" id="cpInput" accept=".dwg,.dxf" class="gv-visually-hidden" />
+          <span data-i18n="cp.open">Άνοιγμα αρχείου</span>
         </label>
-        <button type="button" class="gv-btn" id="dqExample" data-i18n="dq.example">Φόρτωση παραδείγματος</button>
-        <button type="button" class="gv-btn" id="dqXlsx" data-i18n="dq.xlsx" disabled>Λήψη Excel (.xlsx)</button>
-        <button type="button" class="gv-btn" id="dqClear" data-i18n="dq.clear">Καθαρισμός</button>
+        <button type="button" class="gv-btn" id="cpExample" data-i18n="cp.example">Φόρτωση παραδείγματος</button>
+        <a class="gv-link cp-template-link" id="cpTemplate" href="js/coverage/examples/layer-template.dxf" download="aidedcam-layer-template.dxf" data-i18n="cp.template">Λήψη προτύπου στρώσεων (DXF)</a>
+        <button type="button" class="gv-btn" id="cpClear" data-i18n="cp.clear" hidden>Καθαρισμός</button>
       </section>
-
-      <div class="gv-banner" id="dqBanner" role="status" hidden></div>
-      <p class="gv-drop-hint" id="dqDropHint" data-i18n="dq.drop">Σύρετε εδώ αρχεία DWG ή DXF, ή πατήστε «Άνοιγμα αρχείων».</p>
-
-      <div class="dq-tabs" id="dqTabs" role="tablist" data-i18n-aria="dq.aria.tabs" aria-label="Αρχεία του σχεδίου" hidden></div>
-
-      <section class="dq-panel" id="dqPanel" hidden>
-        <div class="dq-status" id="dqStatus"></div>
-        <div class="dq-error" id="dqError" role="alert" hidden></div>
-        <ul class="gv-check-list dq-warnings" id="dqWarnings"></ul>
-
-        <div class="dq-work" id="dqWork">
-          <div class="dq-view">
-            <div class="gv-panel-head">
-              <span><span data-i18n="dq.drawing">Σχέδιο</span> · <span id="dqFileName"></span></span>
-              <span class="gv-tools-controls">
-                <button type="button" class="gv-link" id="dqFit" data-i18n="dq.fit">Προσαρμογή</button>
-                <button type="button" class="gv-zoom" id="dqZoomOut" data-i18n-aria="dq.zoomout" aria-label="Σμίκρυνση">−</button>
-                <button type="button" class="gv-zoom" id="dqZoomIn" data-i18n-aria="dq.zoomin" aria-label="Μεγέθυνση">+</button>
-              </span>
-            </div>
-            <div class="dq-canvas-box">
-              <canvas class="dq-canvas" id="dqCanvas" role="img" data-i18n-aria="dq.aria.drawing" aria-label="Σχέδιο του επιλεγμένου αρχείου"></canvas>
-              <div class="dq-tip" id="dqTip" hidden></div>
-            </div>
-            <p class="gv-note dq-simplified" id="dqSimplified" data-i18n="dq.simplified" hidden>Απλοποιημένη προβολή: το σχέδιο είναι μεγάλο και οι καμπύλες σχεδιάζονται πιο αδρά. Οι αριθμοί δεν αλλάζουν.</p>
-          </div>
-
-          <aside class="dq-sel" id="dqSel">
-            <h2 data-i18n="dq.sel.title">Επιλογή</h2>
-            <p class="gv-note" id="dqSelHint" data-i18n="dq.sel.hint">Κάντε κλικ σε ένα στοιχείο, ή σύρετε ένα παράθυρο.</p>
-            <p class="dq-sel-count" id="dqSelCount" hidden></p>
-            <div class="gv-table-wrap">
-              <table class="gv-table dq-sel-layers" id="dqSelLayers" hidden>
-                <thead><tr><th data-i18n="dq.col.layer">Στρώση</th><th data-i18n="dq.col.len">Μήκος (m)</th><th data-i18n="dq.col.area">Εμβαδόν (m²)</th><th data-i18n="dq.col.hatchArea">Εμβαδόν διαγράμμισης (m²)</th></tr></thead>
-                <tbody></tbody>
-                <tfoot><tr><td data-i18n="dq.total">Σύνολο</td><td></td><td></td><td></td></tr></tfoot>
-              </table>
-            </div>
-            <div class="gv-table-wrap">
-              <table class="gv-table dq-sel-blocks" id="dqSelBlocks" hidden>
-                <thead><tr><th data-i18n="dq.sel.blocks">Μπλοκ στην επιλογή</th><th data-i18n="dq.col.count">Πλήθος</th></tr></thead>
-                <tbody></tbody>
-              </table>
-            </div>
-            <p class="dq-sel-actions">
-              <button type="button" class="gv-btn" id="dqCopy" data-i18n="dq.sel.copy" disabled>Αντιγραφή</button>
-              <button type="button" class="gv-link" id="dqSelClear" data-i18n="dq.sel.clear" disabled>Καθαρισμός επιλογής</button>
-            </p>
-            <p class="dq-sel-cta"><span data-i18n="dq.cta.groups">Χρειάζεστε ομάδες αντιστοιχισμένες στον προϋπολογισμό σας ή στο ERP σας; Το φτιάχνουμε.</span>
-              <a href="index.html#contact" id="dqCtaGroups" data-i18n="dq.cta.groupsLink">Μιλήστε μαζί μας</a></p>
-          </aside>
-        </div>
-
-        <div class="dq-tables">
-          <h2 data-i18n="dq.table.layers">Στρώσεις</h2>
-          <div class="gv-table-wrap">
-            <table class="gv-table dq-layers" id="dqLayers">
-              <thead>
-                <tr>
-                  <th data-i18n="dq.col.color">Χρώμα</th>
-                  <th data-i18n="dq.col.layer">Στρώση</th>
-                  <th data-i18n="dq.col.len">Μήκος (m)</th>
-                  <th data-i18n="dq.col.count">Πλήθος</th>
-                  <th data-i18n="dq.col.area">Εμβαδόν (m²)</th>
-                  <th data-i18n="dq.col.count">Πλήθος</th>
-                  <th data-i18n="dq.col.hatchArea">Εμβαδόν διαγράμμισης (m²)</th>
-                  <th data-i18n="dq.col.count">Πλήθος</th>
-                  <th data-i18n="dq.col.state">Κατάσταση</th>
-                </tr>
-              </thead>
-              <tbody></tbody>
-              <tfoot><tr id="dqLayerTotals"><td></td><td data-i18n="dq.total">Σύνολο</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr></tfoot>
-            </table>
-          </div>
-          <p class="gv-note" id="dqPartial" hidden></p>
-
-          <h2 data-i18n="dq.table.blocks">Μπλοκ</h2>
-          <div class="gv-table-wrap">
-            <table class="gv-table dq-blocks" id="dqBlocks">
-              <thead><tr><th data-i18n="dq.col.block">Μπλοκ</th><th data-i18n="dq.col.layer">Στρώση</th><th data-i18n="dq.col.count">Πλήθος</th><th data-i18n="dq.col.nested">Εμφωλευμένα</th></tr></thead>
-              <tbody></tbody>
-              <tfoot><tr id="dqBlockTotals"><td data-i18n="dq.total">Σύνολο</td><td></td><td></td><td></td></tr></tfoot>
-            </table>
-          </div>
-          <p class="gv-note" id="dqNoBlocks" data-i18n="dq.blocks.none" hidden>Κανένα μπλοκ στον χώρο μοντέλου.</p>
-
-          <div id="dqFileOnly">
-            <h2 data-i18n="dq.table.schedules">Πίνακες χαρακτηριστικών</h2>
-            <div id="dqSchedules"></div>
-            <h2 data-i18n="dq.table.notMeasured">Δεν μετρήθηκαν</h2>
-            <ul class="gv-check-list" id="dqNotMeasured"></ul>
-          </div>
-        </div>
-      </section>
-
-      <details class="gv-settings dq-settings" id="dqSettings">
-        <summary data-i18n="dq.settings.title">Ρυθμίσεις</summary>
-        <div class="gv-settings-grid">
-          <label><span data-i18n="dq.settings.units">Μονάδες για αρχεία που δεν τις δηλώνουν</span><select id="dqUnits"></select></label>
-        </div>
+      <details class="gv-settings cp-template-names" id="cpTemplateNames">
+        <summary data-i18n="cp.template.names">Τα ονόματα στρώσεων του προτύπου</summary>
+        <p class="gv-note" data-i18n="cp.template.text">Στρώσεις με αυτά τα ονόματα (χωρίς διάκριση πεζών-κεφαλαίων, -, _ ή κενών) αντιστοιχίζονται μόνες τους.</p>
+        <ul class="cp-names" id="cpNames"></ul>
       </details>
 
+      <div class="gv-banner" id="cpBanner" role="status" hidden></div>
+      <p class="gv-drop-hint" id="cpDropHint" data-i18n="cp.drop">Σύρετε εδώ ένα αρχείο DWG ή DXF, ή πατήστε «Άνοιγμα αρχείου».</p>
+      <p class="gv-note cp-busy" id="cpBusy" hidden></p>
+      <div class="dq-error" id="cpError" role="alert" hidden></div>
+
+      <div class="cp-panel" id="cpPanel" hidden>
+        <div class="dq-status cp-status" id="cpStatus"></div>
+
+        <section class="cp-step" id="cpStep1">
+          <h2 data-i18n="cp.step1">1. Στρώσεις</h2>
+          <p class="gv-note" data-i18n="cp.step1.hint">Δώστε σε κάθε στρώση τον ρόλο της. Οι στρώσεις του προτύπου συμπληρώνονται μόνες τους· οι άλλες θυμούνται την τελευταία σας επιλογή σε αυτόν τον browser.</p>
+          <p class="gv-note" id="cpAuto" hidden></p>
+          <div class="gv-table-wrap">
+            <table class="gv-table cp-map" id="cpMap">
+              <thead><tr><th data-i18n="cp.col.layer">Στρώση</th><th class="dq-num" data-i18n="cp.col.outlines">Περιγράμματα</th><th class="dq-num" data-i18n="cp.col.area">Εμβαδόν (m²)</th><th data-i18n="cp.col.role">Ρόλος</th><th data-i18n="cp.col.level">Στάθμη</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <details class="cp-other" id="cpOther"><summary id="cpOtherSummary"></summary><p class="gv-note" id="cpOtherList"></p></details>
+        </section>
+
+        <section class="cp-step" id="cpStep2">
+          <h2 data-i18n="cp.step2">2. Όροι δόμησης και ύψη</h2>
+          <p class="gv-note" data-i18n="cp.step2.hint">Όπως τους γράφει το τοπογραφικό. Αποθηκεύονται μόνο σε αυτόν τον browser.</p>
+          <div class="gv-settings-grid cp-terms" id="cpTerms">
+            <label><span data-i18n="cp.term.sd">Συντελεστής δόμησης ΣΔ</span><input type="text" inputmode="decimal" id="cpSd" data-term="sd" /><small class="cp-hint" data-i18n="cp.term.sd.hint">Με πολλά πρόσωπα, γράψτε τον σταθμισμένο ΣΔ (206 §2).</small></label>
+            <label><span data-i18n="cp.term.sk">Ποσοστό κάλυψης Σ.Κ. (%)</span><input type="text" inputmode="decimal" id="cpSk" data-term="sk" /><small class="cp-hint" data-i18n="cp.term.sk.hint">Πάνω από 60% ισχύουν ειδικές περιπτώσεις (207 §1α).</small></label>
+            <label><span data-i18n="cp.term.hmax">Μέγιστο ύψος Hmax (m)</span><input type="text" inputmode="decimal" id="cpHmax" data-term="hmax" /><small class="cp-hint" id="cpHmaxHint"></small></label>
+            <label><span data-i18n="cp.term.roofAllow">Επιτρεπόμενη στέγη (m)</span><input type="text" inputmode="decimal" id="cpRoofAllow" data-term="roofAllow" /></label>
+            <label><span data-i18n="cp.term.h">Πραγματοποιούμενο ύψος H (m)</span><input type="text" inputmode="decimal" id="cpH" data-term="h" /></label>
+            <label><span data-i18n="cp.term.roof">Ύψος στέγης (m)</span><input type="text" inputmode="decimal" id="cpRoof" data-term="roof" /></label>
+            <label><span data-i18n="cp.term.basementAbove">Υπόγειο πάνω από το οριστικό έδαφος (m)</span><input type="text" inputmode="decimal" id="cpBasementAbove" data-term="basementAbove" /></label>
+            <label><span data-i18n="cp.term.roofVolume">Όγκος στέγης (m³)</span><input type="text" inputmode="decimal" id="cpRoofVolume" data-term="roofVolume" /><small class="cp-hint" data-i18n="cp.term.roofVolume.hint">Μόνο αν η στέγη δεν είναι υποχρεωτική (208 §2).</small></label>
+            <label><span data-i18n="cp.term.entrance">Στάθμη εισόδου</span><select id="cpEntrance"></select></label>
+            <label class="cp-check"><input type="checkbox" id="cpParking" /><span data-i18n="cp.term.parking">Υπαίθριες θέσεις στάθμευσης στο οικόπεδο</span></label>
+          </div>
+          <div class="gv-settings-grid cp-terms" id="cpStoreys"></div>
+          <p class="gv-note" data-i18n="cp.term.storey.hint">Από στάθμη σε στάθμη δαπέδου· 3,00 m αν δεν γράψετε άλλο.</p>
+        </section>
+
+        <section class="cp-results" id="cpResults">
+          <div class="cp-results-head">
+            <h2 data-i18n="cp.results">3. Αποτελέσματα</h2>
+            <span class="cp-export">
+              <button type="button" class="gv-btn" id="cpXlsx" data-i18n="cp.xlsx">Λήψη Excel (.xlsx)</button>
+              <button type="button" class="gv-btn" id="cpPrint" data-i18n="cp.print">Εκτύπωση / PDF</button>
+            </span>
+          </div>
+          <p class="gv-note" data-i18n="cp.rules.asof">Κανόνες: Ν.5306/2026 (08.06.2026) και εγκύκλιος 15494/397/2026.</p>
+          <div class="dq-error" id="cpBlocked" role="alert" hidden></div>
+
+          <div id="cpFigures">
+            <div class="cp-table-head"><h3 data-i18n="cp.col.figure">Μέγεθος</h3><button type="button" class="gv-link" data-copy="summary" data-i18n="cp.copy">Αντιγραφή</button></div>
+            <div class="gv-table-wrap">
+              <table class="gv-table cp-summary" id="cpSummary">
+                <thead><tr><th data-i18n="cp.col.figure">Μέγεθος</th><th data-i18n="cp.col.permitted">Επιτρεπόμενο</th><th data-i18n="cp.col.proposed">Πραγματοποιούμενο</th><th data-i18n="cp.col.mark">Έλεγχος</th><th data-i18n="cp.col.article">Άρθρο</th></tr></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+
+            <div class="cp-view">
+              <div class="gv-panel-head">
+                <span data-i18n="cp.drawing">Σχέδιο</span>
+                <span class="gv-tools-controls">
+                  <button type="button" class="gv-link" id="cpFit" data-i18n="cp.fit">Προσαρμογή</button>
+                  <button type="button" class="gv-zoom" id="cpZoomOut" data-i18n-aria="cp.zoomout" aria-label="Σμίκρυνση">−</button>
+                  <button type="button" class="gv-zoom" id="cpZoomIn" data-i18n-aria="cp.zoomin" aria-label="Μεγέθυνση">+</button>
+                </span>
+              </div>
+              <div class="dq-canvas-box">
+                <canvas class="dq-canvas cp-canvas" id="cpCanvas" role="img" data-i18n-aria="cp.aria.drawing" aria-label="Σχέδιο με τα αντιστοιχισμένα περιγράμματα"></canvas>
+                <div class="dq-tip" id="cpTip" hidden></div>
+              </div>
+              <ul class="cp-legend" id="cpLegend" data-i18n-aria="cp.legend" aria-label="Υπόμνημα"></ul>
+            </div>
+
+            <div class="cp-table-head"><h3 data-i18n="cp.schedule">Αναλυτικός πίνακας επιφανειών</h3><button type="button" class="gv-link" data-copy="schedule" data-i18n="cp.copy">Αντιγραφή</button></div>
+            <div class="gv-table-wrap">
+              <table class="gv-table cp-schedule" id="cpSchedule">
+                <thead><tr><th data-i18n="cp.sch.col.item">Επιφάνεια</th><th class="dq-num" data-i18n="cp.sch.col.area">Εμβαδόν (m²)</th><th class="dq-num" data-i18n="cp.sch.col.excluded">Εκτός ΣΔ (m²)</th><th class="dq-num" data-i18n="cp.sch.col.counts">Εντός ΣΔ (m²)</th><th data-i18n="cp.col.note">Σημείωση</th></tr></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+            <p class="gv-note" data-i18n="cp.sch.mezzNote">Τα πατάρια μετρούν στη δόμηση από τον Ν.5197/2025· η εξαίρεση πατάρι του προτύπου του 2022 δεν ισχύει πια.</p>
+
+            <div class="cp-table-head"><h3 data-i18n="cp.coords">Συντεταγμένες κορυφών ΕΓΣΑ87</h3><button type="button" class="gv-link" data-copy="coords" data-i18n="cp.copy">Αντιγραφή</button></div>
+            <p class="gv-banner" id="cpNotEgsa" data-i18n="cp.warn.not-egsa" hidden>Οι συντεταγμένες δεν είναι σε ΕΓΣΑ87: το σχέδιο δεν είναι γεωαναφερμένο ή οι μονάδες του είναι λάθος.</p>
+            <p class="gv-note" id="cpCoordsNote" hidden></p>
+            <div class="cp-coords">
+              <div class="gv-table-wrap">
+                <table class="gv-table cp-coord" id="cpPlotCoords">
+                  <caption data-i18n="cp.coords.plot">Κορυφές οικοπέδου</caption>
+                  <thead><tr><th data-i18n="cp.coords.col.n">Α/Α</th><th class="dq-num" data-i18n="cp.coords.col.x">X</th><th class="dq-num" data-i18n="cp.coords.col.y">Y</th><th></th></tr></thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+              <div class="gv-table-wrap">
+                <table class="gv-table cp-coord" id="cpBuildingCoords">
+                  <caption data-i18n="cp.coords.building">Κορυφές κτιρίου (περίγραμμα κάλυψης)</caption>
+                  <thead><tr><th data-i18n="cp.coords.col.n">Α/Α</th><th class="dq-num" data-i18n="cp.coords.col.x">X</th><th class="dq-num" data-i18n="cp.coords.col.y">Y</th><th></th></tr></thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <h3 data-i18n="cp.warnings">Προειδοποιήσεις</h3>
+          <ul class="gv-check-list cp-warnings" id="cpWarnings"></ul>
+          <p class="cp-disclaimer" data-i18n="cp.disclaimer">Ενδεικτικός προέλεγχος — όχι επίσημος υπολογισμός. Το διάγραμμα κάλυψης το συντάσσει και το υπογράφει ο μηχανικός.</p>
+        </section>
+      </div>
+
       <section class="gv-cta">
-        <h2 data-i18n="dq.cta.title">Θέλετε τις επιμετρήσεις μέσα στη δουλειά σας;</h2>
-        <p data-i18n="dq.cta.text">Θέλετε αυτές τις επιμετρήσεις μέσα στη δική σας ροή εργασίας; Φτιάχνουμε λογισμικό γύρω από τα δικά σας πρότυπα.</p>
-        <a class="btn-primary" id="dqCta" href="index.html#contact" data-i18n="dq.cta.link">Επικοινωνήστε μαζί μας</a>
-        <div class="gv-survey" id="dqSurvey">
-          <p data-i18n="dq.survey.q">Πώς βγάζετε σήμερα επιμετρήσεις από σχέδια;</p>
-          <button type="button" class="gv-chip" data-answer="hand" data-i18n="dq.survey.hand">Με το χέρι ή σε Excel</button>
-          <button type="button" class="gv-chip" data-answer="cad" data-i18n="dq.survey.cad">Με εντολές ή LISP στο CAD</button>
-          <button type="button" class="gv-chip" data-answer="other" data-i18n="dq.survey.other">Με άλλο πρόγραμμα</button>
-          <p class="gv-thanks" id="dqThanks" data-i18n="dq.survey.thanks" hidden>Ευχαριστούμε!</p>
+        <h2 data-i18n="cp.cta.title">Το διάγραμμα κάλυψης μέσα στο CAD σας;</h2>
+        <p data-i18n="cp.cta.text">Το στήνουμε στις στρώσεις και τα πρότυπα του γραφείου σας, και γράφουμε το διάγραμμα πίσω στο CAD σας.</p>
+        <a class="btn-primary" id="cpCta" href="index.html#contact" data-i18n="cp.cta.link">Επικοινωνήστε μαζί μας</a>
+        <div class="gv-survey" id="cpSurvey">
+          <p data-i18n="cp.survey.q">Πώς βγάζετε σήμερα το διάγραμμα κάλυψης;</p>
+          <button type="button" class="gv-chip" data-answer="hand" data-i18n="cp.survey.hand">Με το χέρι ή σε Excel</button>
+          <button type="button" class="gv-chip" data-answer="software" data-i18n="cp.survey.software">Με εξειδικευμένο πρόγραμμα</button>
+          <button type="button" class="gv-chip" data-answer="other" data-i18n="cp.survey.other">Αλλιώς</button>
+          <p class="gv-thanks" id="cpThanks" data-i18n="cp.survey.thanks" hidden>Ευχαριστούμε!</p>
         </div>
       </section>
     </div>
+    <p class="cp-print-disclaimer" data-i18n="cp.disclaimer" aria-hidden="true">Ενδεικτικός προέλεγχος — όχι επίσημος υπολογισμός. Το διάγραμμα κάλυψης το συντάσσει και το υπογράφει ο μηχανικός.</p>
   </main>
 
   <footer class="gv-footer">
@@ -227,7 +248,7 @@
       <a href="legal.html" data-i18n="footer.legal">Νομικά</a>
       <a href="javascript:void(0)" onclick="openCookieSettings()" data-i18n="footer.cookie_settings">Ρυθμίσεις Cookies</a>
     </div>
-    <p class="lc-notice"><span data-i18n="dq.notice">Μηχανή γεωμετρίας: Eyeshot.</span> Portion of copyright © devDept Software S.r.l. All Rights Reserved.</p>
+    <p class="lc-notice"><span data-i18n="cp.notice">Μηχανή γεωμετρίας: Eyeshot.</span> Portion of copyright © devDept Software S.r.l. All Rights Reserved.</p>
   </footer>
 
   <!-- COOKIE CONSENT BANNER: markup identical to calculator.html lines 925-977 -->
@@ -284,11 +305,11 @@
     </div>
   </div>
 
-  <script src="js/dwg/i18n-dwg.js?v=20260930"></script>
+  <script src="js/coverage/i18n-coverage.js?v=20260930"></script>
   <script>
     var translations = {
       el: {
-        "_title": "AidedCAM - Επιμετρήσεις από DWG",
+        "_title": "AidedCAM - Προέλεγχος διαγράμματος κάλυψης",
         "cookie_text": "Αυτός ο ιστότοπος χρησιμοποιεί cookies για τη βελτιστοποίηση της λειτουργίας του και την ανάλυση επισκεψιμότητας.",
         "cookie_accept": "Αποδοχή",
         "cookie_decline": "Απόρριψη",
@@ -310,7 +331,7 @@
         "footer.cookie_settings": "Ρυθμίσεις Cookies",
       },
       en: {
-        "_title": "AidedCAM - Quantities from DWG",
+        "_title": "AidedCAM - Coverage diagram pre-check",
         "cookie_text": "This website uses cookies to optimize functionality and analyze traffic.",
         "cookie_accept": "Accept",
         "cookie_decline": "Decline",
@@ -332,7 +353,7 @@
         "footer.cookie_settings": "Cookie Settings",
       },
       it: {
-        "_title": "AidedCAM - Computi da DWG",
+        "_title": "AidedCAM - Pre-verifica del diagramma di copertura",
         "cookie_text": "Questo sito web utilizza i cookie per ottimizzare le sue funzionalità e analizzare il traffico.",
         "cookie_accept": "Accetta",
         "cookie_decline": "Rifiuta",
@@ -356,7 +377,7 @@
     };
     // The tool's strings first, then this page's own keys on top.
     ['el', 'en', 'it'].forEach(function (l) {
-      translations[l] = Object.assign({}, (window.DQ_I18N || {})[l] || {}, translations[l]);
+      translations[l] = Object.assign({}, (window.CP_I18N || {})[l] || {}, translations[l]);
     });
     window.GV_I18N = translations;
     var currentLang = 'el';
@@ -441,6 +462,6 @@
     function gaEvent(name, params) { if (window.gtag) gtag('event', name, params); }
     window.gaEvent = gaEvent;
   </script>
-  <script type="module" src="js/dwg/ui.js?v=20260930"></script>
+  <script type="module" src="js/coverage/ui.js?v=20260930"></script>
 </body>
 </html>

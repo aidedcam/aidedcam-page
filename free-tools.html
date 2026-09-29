@@ -60,7 +60,7 @@
   </script>
   <link rel="stylesheet" href="fonts.css?v=20260923" />
   <link rel="stylesheet" href="css/editorial.css?v=20260927" />
-  <link rel="stylesheet" href="css/tools.css?v=20261015" />
+  <link rel="stylesheet" href="css/tools.css?v=20260929" />
 </head>
 <body>
 
@@ -84,32 +84,47 @@
   <main class="gv">
     <header class="gv-head">
       <p class="gv-eyebrow" data-i18n="ft.eyebrow">Δωρεάν εργαλεία</p>
-      <h1 data-i18n="ft.title">Δωρεάν εργαλεία για προγραμματιστές CNC</h1>
+      <h1 data-i18n="ft.title">Δωρεάν εργαλεία για μηχανικούς και παραγωγή</h1>
       <p class="gv-lede" data-i18n="ft.lede">Ανοίγουν αμέσως στον browser, χωρίς εγκατάσταση και χωρίς εγγραφή. Τα αρχεία σας δεν φεύγουν ποτέ από τον υπολογιστή σας.</p>
     </header>
 
     <div class="gv-wrap">
-      <section class="ft-cards">
-        <a class="ft-card" href="gcode-viewer.html">
-          <h2 data-i18n="ft.lathe.title">Προβολή G-code τόρνου</h2>
-          <p data-i18n="ft.lathe.text">Τα περάσματα που κάνουν οι κύκλοι G70–G76 και G90/G92/G94, ο χρόνος κύκλου ανά εργαλείο και τα συνηθισμένα λάθη προγραμματισμού.</p>
-          <span class="ft-open" data-i18n="ft.open">Άνοιγμα →</span>
-        </a>
-        <a class="ft-card" href="milling-gcode-viewer.html">
-          <h2 data-i18n="ft.mill.title">Προβολή G-code φρέζας</h2>
-          <p data-i18n="ft.mill.text">Κάθε κίνηση σε 3D, οι κύκλοι διάτρησης, βηματικής διάτρησης και κολαούζου αναλυμένοι σε κινήσεις, ο χρόνος ανά εργαλείο και έλεγχοι προγράμματος.</p>
-          <span class="ft-open" data-i18n="ft.open">Άνοιγμα →</span>
-        </a>
-        <a class="ft-card" href="laser-dxf-checker.html">
-          <h2 data-i18n="ft.laser.title">Έλεγχος DXF για κοπή laser</h2>
-          <p data-i18n="ft.laser.text">Διορθώνει τα DXF και DWG μιας παραγγελίας (κενά, διπλές γραμμές, ανοιχτά περιγράμματα) και δίνει μήκος κοπής, διατρήσεις, βάρος, χρόνο και καθαρό DXF για το laser.</p>
-          <span class="ft-open" data-i18n="ft.open">Άνοιγμα →</span>
-        </a>
-        <a class="ft-card" href="dwg-quantities.html">
-          <h2 data-i18n="ft.dwgq.title">Επιμετρήσεις από DWG</h2>
-          <p data-i18n="ft.dwgq.text">Μήκη, εμβαδά και εμβαδά διαγράμμισης ανά στρώση, πλήθος μπλοκ και πίνακες χαρακτηριστικών (π.χ. κουφώματα) από αρχεία DWG και DXF, με το σχέδιο για επιβεβαίωση και λήψη σε Excel.</p>
-          <span class="ft-open" data-i18n="ft.open">Άνοιγμα →</span>
-        </a>
+      <section class="ft-groups">
+        <div class="ft-group is-wide">
+          <h2 class="gv-eyebrow ft-group-title" data-i18n="ft.group.cnc">Προγραμματισμός CNC</h2>
+          <div class="ft-cards">
+            <a class="ft-card" href="gcode-viewer.html">
+              <h3 data-i18n="ft.lathe.title">Προβολή G-code τόρνου</h3>
+              <p data-i18n="ft.lathe.text">Τα περάσματα που κάνουν οι κύκλοι G70–G76 και G90/G92/G94, ο χρόνος κύκλου ανά εργαλείο και τα συνηθισμένα λάθη προγραμματισμού.</p>
+              <span class="ft-open" data-i18n="ft.open">Άνοιγμα →</span>
+            </a>
+            <a class="ft-card" href="milling-gcode-viewer.html">
+              <h3 data-i18n="ft.mill.title">Προβολή G-code φρέζας</h3>
+              <p data-i18n="ft.mill.text">Κάθε κίνηση σε 3D, οι κύκλοι διάτρησης, βηματικής διάτρησης και κολαούζου αναλυμένοι σε κινήσεις, ο χρόνος ανά εργαλείο και έλεγχοι προγράμματος.</p>
+              <span class="ft-open" data-i18n="ft.open">Άνοιγμα →</span>
+            </a>
+          </div>
+        </div>
+        <div class="ft-group">
+          <h2 class="gv-eyebrow ft-group-title" data-i18n="ft.group.sheet">Λαμαρίνα και laser</h2>
+          <div class="ft-cards">
+            <a class="ft-card" href="laser-dxf-checker.html">
+              <h3 data-i18n="ft.laser.title">Έλεγχος DXF για κοπή laser</h3>
+              <p data-i18n="ft.laser.text">Διορθώνει τα DXF και DWG μιας παραγγελίας (κενά, διπλές γραμμές, ανοιχτά περιγράμματα) και δίνει μήκος κοπής, διατρήσεις, βάρος, χρόνο και καθαρό DXF για το laser.</p>
+              <span class="ft-open" data-i18n="ft.open">Άνοιγμα →</span>
+            </a>
+          </div>
+        </div>
+        <div class="ft-group">
+          <h2 class="gv-eyebrow ft-group-title" data-i18n="ft.group.eng">Γραφεία μηχανικών</h2>
+          <div class="ft-cards">
+            <a class="ft-card" href="dwg-quantities.html">
+              <h3 data-i18n="ft.dwgq.title">Επιμετρήσεις από DWG</h3>
+              <p data-i18n="ft.dwgq.text">Μήκη, εμβαδά και εμβαδά διαγράμμισης ανά στρώση, πλήθος μπλοκ και πίνακες χαρακτηριστικών (π.χ. κουφώματα) από αρχεία DWG και DXF, με το σχέδιο για επιβεβαίωση και λήψη σε Excel.</p>
+              <span class="ft-open" data-i18n="ft.open">Άνοιγμα →</span>
+            </a>
+          </div>
+        </div>
       </section>
 
       <section class="gv-cta">
@@ -209,7 +224,10 @@
         "footer.legal": "Νομικά",
         "footer.cookie_settings": "Ρυθμίσεις Cookies",
         "ft.eyebrow": "Δωρεάν εργαλεία",
-        "ft.title": "Δωρεάν εργαλεία για προγραμματιστές CNC",
+        "ft.title": "Δωρεάν εργαλεία για μηχανικούς και παραγωγή",
+        "ft.group.cnc": "Προγραμματισμός CNC",
+        "ft.group.sheet": "Λαμαρίνα και laser",
+        "ft.group.eng": "Γραφεία μηχανικών",
         "ft.lede": "Ανοίγουν αμέσως στον browser, χωρίς εγκατάσταση και χωρίς εγγραφή. Τα αρχεία σας δεν φεύγουν ποτέ από τον υπολογιστή σας.",
         "ft.lathe.title": "Προβολή G-code τόρνου",
         "ft.lathe.text": "Τα περάσματα που κάνουν οι κύκλοι G70–G76 και G90/G92/G94, ο χρόνος κύκλου ανά εργαλείο και τα συνηθισμένα λάθη προγραμματισμού.",
@@ -247,7 +265,10 @@
         "footer.legal": "Legal",
         "footer.cookie_settings": "Cookie Settings",
         "ft.eyebrow": "Free tools",
-        "ft.title": "Free tools for CNC programmers",
+        "ft.title": "Free tools for engineering and manufacturing",
+        "ft.group.cnc": "CNC programming",
+        "ft.group.sheet": "Sheet metal and laser",
+        "ft.group.eng": "Engineering offices",
         "ft.lede": "They open instantly in your browser, with no install and no sign-up. Your files never leave your computer.",
         "ft.lathe.title": "Lathe G-code viewer",
         "ft.lathe.text": "The passes that G70–G76 and G90/G92/G94 cycles really make, cycle time per tool, and common programming mistakes.",
@@ -285,7 +306,10 @@
         "footer.legal": "Note Legali",
         "footer.cookie_settings": "Impostazioni Cookie",
         "ft.eyebrow": "Strumenti gratuiti",
-        "ft.title": "Strumenti gratuiti per programmatori CNC",
+        "ft.title": "Strumenti gratuiti per l’ingegneria e la produzione",
+        "ft.group.cnc": "Programmazione CNC",
+        "ft.group.sheet": "Lamiera e laser",
+        "ft.group.eng": "Studi di ingegneria",
         "ft.lede": "Si aprono subito nel browser, senza installazione e senza registrazione. I vostri file non lasciano mai il vostro computer.",
         "ft.lathe.title": "Visualizzatore G-code per tornio",
         "ft.lathe.text": "Le passate che i cicli G70–G76 e G90/G92/G94 eseguono davvero, il tempo ciclo per utensile e gli errori di programmazione più comuni.",

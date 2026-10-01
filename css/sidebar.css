@@ -1,0 +1,118 @@
+/* ============================================================
+   Free-tools sidebar, on every page. js/sidebar.js injects the
+   <nav class="afs"> and sets data-layout:
+     strip  wide screen + mouse, and a gutter wide enough: icon tiles
+            at the left edge, each expanding into a card on hover/focus
+     panel  everything else: a floating "Tools" button that opens a list
+   Tokens come from css/editorial.css. Above the page, below the navbar
+   (1000), the back-to-top button (999) and the consent banner (9999).
+   ============================================================ */
+
+.afs { font-family: var(--font-body); }
+.afs ul { list-style: none; margin: 0; padding: 0; }
+.afs svg { display: block; width: 22px; height: 22px; flex: none; }
+.afs a { text-decoration: none; }
+.afs a:focus-visible, .afs-fab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* ---------- Strip (desktop) ---------- */
+.afs[data-layout="strip"] .afs-fab { display: none; }
+.afs[data-layout="strip"] .afs-list {
+  position: fixed; left: 8px; top: 50%; transform: translateY(-50%); z-index: 990;
+  display: flex; flex-direction: column; align-items: flex-start; gap: 4px; width: 44px;
+}
+/* The vertical eyebrow label above the tiles says what they are. */
+.afs[data-layout="strip"] .afs-label {
+  align-self: center; margin: 0 0 6px;
+  writing-mode: vertical-rl; transform: rotate(180deg);
+  font-family: var(--font-mono); font-size: 0.6rem; font-weight: 500; line-height: 1;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); white-space: nowrap;
+}
+.afs[data-layout="strip"] ul { display: flex; flex-direction: column; gap: 4px; }
+.afs[data-layout="strip"] .afs-item,
+.afs[data-layout="strip"] .afs-all {
+  position: relative; display: flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; border-radius: 2px;
+  color: var(--muted); background: rgba(244, 243, 238, 0.9); border: 1px solid var(--line);
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+/* The all-tools box: a hairline above it, a stronger border, the accent icon. */
+.afs[data-layout="strip"] .afs-all { margin-top: 9px; color: var(--accent-deep); border-color: var(--line-strong); }
+.afs[data-layout="strip"] .afs-all::before {
+  content: ''; position: absolute; left: 8px; right: 8px; top: -6px; border-top: 1px solid var(--line);
+}
+.afs[data-layout="strip"] .afs-item:hover, .afs[data-layout="strip"] .afs-item:focus-visible,
+.afs[data-layout="strip"] .afs-all:hover, .afs[data-layout="strip"] .afs-all:focus-visible {
+  color: var(--accent-deep); background: var(--panel); border-color: var(--ink); z-index: 1;
+}
+.afs[data-layout="strip"] [aria-current="page"] { color: var(--accent-deep); border-color: var(--line-strong); box-shadow: inset 2px 0 0 var(--accent); }
+
+/* The card: the tile's box continued to the right. Hidden with opacity and a clip, so its text stays the
+   link's accessible name; it takes no pointer events until shown, so it never blocks the page under it.
+   It grows out of the tile (the right inset animates), so the part next to the tile is hit from the first frame. */
+.afs[data-layout="strip"] .afs-card {
+  position: absolute; left: calc(100% - 1px); top: -1px; min-height: calc(100% + 2px); width: 272px;
+  display: flex; flex-direction: column; justify-content: center; gap: 2px;
+  padding: 0.45rem 0.85rem; background: var(--panel);
+  border: 1px solid var(--ink); border-left-color: var(--line); border-radius: 0 2px 2px 0;
+  box-shadow: var(--elev-3);
+  opacity: 0; clip-path: inset(-40px 100% -40px 0); pointer-events: none;
+  transition: opacity 0.16s ease, clip-path 0.22s var(--ease-out);
+}
+.afs[data-layout="strip"] a:hover .afs-card,
+.afs[data-layout="strip"] a:focus-visible .afs-card { opacity: 1; clip-path: inset(-40px -40px -40px 0); pointer-events: auto; }
+.afs[data-layout="strip"] .afs-all .afs-card { width: auto; flex-direction: row; align-items: center; justify-content: flex-start; white-space: nowrap; }
+
+.afs-name { display: block; font-family: var(--font-display); font-weight: 600; font-size: 0.9rem; line-height: 1.25; letter-spacing: 0; color: var(--ink); }
+.afs-line { display: block; font-size: 0.78rem; line-height: 1.4; color: var(--muted); }
+.afs-all .afs-name { display: inline; font-size: 0.8rem; letter-spacing: 0.04em; text-transform: uppercase; }
+.afs-arrow { color: var(--accent-deep); font-weight: 600; font-size: 0.85rem; padding-left: 0.2rem; }
+
+/* ---------- Floating button + panel (narrow screens, touch, no gutter) ---------- */
+.afs[data-layout="panel"] .afs-fab {
+  position: fixed; left: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 998;
+  display: inline-flex; align-items: center; gap: 0.5rem; height: 44px; padding: 0 1rem 0 0.8rem;
+  background: var(--panel); color: var(--ink); border: 1px solid var(--line-strong); border-radius: 2px;
+  box-shadow: var(--elev-2); cursor: pointer;
+  font-family: var(--font-display); font-weight: 600; font-size: 0.76rem; letter-spacing: 0.06em; text-transform: uppercase;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+/* Room below the footer, so at the end of a page the button does not sit on the footer's links. */
+.afs[data-layout="panel"]::after { content: ''; display: block; height: calc(76px + env(safe-area-inset-bottom, 0px)); }
+.afs[data-layout="panel"] .afs-fab svg { width: 20px; height: 20px; color: var(--accent-deep); }
+.afs[data-layout="panel"] .afs-fab:hover { border-color: var(--ink); }
+.afs[data-layout="panel"] .afs-fab[aria-expanded="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
+.afs[data-layout="panel"] .afs-fab[aria-expanded="true"] svg { color: #fff; }
+
+.afs[data-layout="panel"] .afs-list {
+  display: none; position: fixed; z-index: 998;
+  left: 16px; bottom: calc(16px + 44px + 8px + env(safe-area-inset-bottom, 0px));
+  width: min(360px, calc(100vw - 32px)); max-height: calc(100vh - 150px); max-height: calc(100dvh - 150px); overflow-y: auto;
+  padding: 0.85rem 0.95rem 0.95rem; background: var(--panel);
+  border: 1px solid var(--line-strong); border-radius: 2px; box-shadow: var(--elev-3);
+}
+.afs[data-layout="panel"].is-open .afs-list { display: block; }
+.afs[data-layout="panel"] .afs-label {
+  margin: 0 0 0.2rem; padding-bottom: 0.6rem; border-bottom: 1px solid var(--line);
+  font-family: var(--font-mono); font-size: 0.68rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted);
+}
+.afs[data-layout="panel"] .afs-item {
+  display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 0.75rem; align-items: center;
+  padding: 0.55rem 0.15rem; border-bottom: 1px solid var(--line); color: var(--ink);
+}
+.afs[data-layout="panel"] .afs-icon {
+  display: flex; align-items: center; justify-content: center; width: 36px; height: 36px;
+  border: 1px solid var(--line); border-radius: 2px; color: var(--muted);
+}
+.afs[data-layout="panel"] .afs-item:hover .afs-icon { color: var(--accent-deep); border-color: var(--line-strong); }
+.afs[data-layout="panel"] [aria-current="page"] .afs-icon { color: var(--accent-deep); border-color: var(--accent); }
+.afs[data-layout="panel"] [aria-current="page"] .afs-name { color: var(--accent-deep); }
+.afs[data-layout="panel"] .afs-all { display: flex; align-items: center; padding: 0.8rem 0.15rem 0.1rem; color: var(--ink); }
+.afs[data-layout="panel"] .afs-all .afs-icon { display: none; }
+.afs[data-layout="panel"] .afs-all:hover .afs-name, .afs[data-layout="panel"] .afs-all[aria-current="page"] .afs-name { color: var(--accent-deep); }
+
+@media (prefers-reduced-motion: reduce) {
+  .afs, .afs * { transition: none !important; animation: none !important; }
+}
+@media print {
+  .afs { display: none !important; }
+}

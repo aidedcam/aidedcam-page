@@ -89,6 +89,10 @@ export function dxfR12({ layers, texts }) {
   d.g(0, 'TABLE').g(2, 'LAYER').g(70, layers.length + 1);
   for (const l of [{ name: '0', color: 7 }, ...layers]) d.g(0, 'LAYER').g(2, l.name).g(70, 0).g(62, l.color || 7).g(6, 'CONTINUOUS');
   d.g(0, 'ENDTAB');
+  // STANDARD on arial.ttf, as in the IFC plans tool: without a STYLE table CAD falls back to txt, which has no Greek.
+  d.g(0, 'TABLE').g(2, 'STYLE').g(70, 1);
+  d.g(0, 'STYLE').g(2, 'STANDARD').g(70, 0).g(40, 0).g(41, 1).g(50, 0).g(71, 0).g(42, 2.5).g(3, 'arial.ttf').g(4, '');
+  d.g(0, 'ENDTAB');
   d.g(0, 'ENDSEC');
   d.g(0, 'SECTION').g(2, 'ENTITIES');
   for (const t of texts) d.g(0, 'TEXT').g(8, t.layer).g(10, t.x).g(20, t.y).g(30, 0).g(40, t.height).g(1, t.text);

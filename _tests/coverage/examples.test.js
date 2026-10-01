@@ -27,6 +27,9 @@ test('the template is R12 with its Greek legend in Windows-1253', () => {
   assert.ok(text.includes('$ACADVER\r\n  1\r\nAC1009') && text.includes('$DWGCODEPAGE\r\n  3\r\nANSI_1253'));
   assert.ok(text.includes('AC_PLOT  Οικόπεδο') && text.includes('AC_LVL_B1  Περίγραμμα στάθμης - Υπόγειο -1'), text.slice(-900));
   assert.ok(![...bytes].some(b => b === 0xc2 || b === 0xce), 'no UTF-8 lead bytes');
+  // Without a STYLE table CAD draws the legend in STANDARD = txt, which has no Greek glyphs (AutoCAD, ZWCAD, BricsCAD).
+  assert.ok(text.includes('  0\r\nTABLE\r\n  2\r\nSTYLE\r\n') && text.includes('  0\r\nSTYLE\r\n  2\r\nSTANDARD\r\n'), 'a STYLE table with STANDARD');
+  assert.ok(text.includes('  3\r\narial.ttf\r\n') && !/\r\n  3\r\ntxt(?:\.shx)?\r\n/.test(text), 'STANDARD uses arial.ttf, not txt');
 });
 
 test('the writer refuses characters Windows-1253 cannot hold, and integers written as reals', () => {

@@ -410,3 +410,28 @@
 .ip-panel .ip-h { margin-top: 1.5rem; }
 .ip-warnings { margin: 0.3rem 0 1rem; }
 .ip-v1 { margin: 1rem 0; }
+.ip-legend li { display: flex; }
+.ip-toggle { display: inline-flex; align-items: center; padding: 0.1rem 0.3rem; margin: 0 -0.3rem; border: 1px solid transparent; border-radius: 2px; background: none; color: inherit; font: inherit; cursor: pointer; }
+.ip-toggle:hover { border-color: var(--line-strong); }
+.ip-toggle[aria-pressed="false"] { color: var(--muted); text-decoration: line-through; }
+.ip-toggle[aria-pressed="false"] .ip-swatch { opacity: 0.35; }
+.ip-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.ip-legend-note { margin: 0; padding: 0 0.75rem 0.5rem; }
+
+/* ---- ifc-plans.html: the 3D tab ---- */
+.ip-tabs { display: flex; border-bottom: 1px solid var(--line); }
+.ip-tab { margin-bottom: -1px; padding: 0.55rem 1rem; border: 0; border-bottom: 2px solid transparent; background: none; color: var(--muted); font-family: var(--font-body); font-size: 0.9rem; font-weight: 500; cursor: pointer; }
+.ip-tab:hover { color: var(--ink); }
+.ip-tab[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+.ip-tab:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.ip-3d-head { flex-wrap: wrap; }
+.ip-3d-head #ip3dHead { text-transform: none; letter-spacing: 0; }   /* the unit keeps its case: "1,10 m", not "1,10 M" */
+.ip-3d-bar { padding: 0.4rem 0.75rem; border-bottom: 1px solid var(--line); color: var(--ink-soft); font-size: 0.85rem; }
+.ip-3d-check { display: inline-flex; align-items: center; gap: 0.5rem; cursor: pointer; }
+.ip-3d-box { position: relative; width: 100%; height: min(62vh, 520px); overflow: hidden; background: var(--panel); }
+@media (max-width: 720px) { .ip-3d-box { height: min(50vh, 360px); } }
+.ip-3d-canvas { display: block; cursor: crosshair; touch-action: none; }
+.ip-3d-canvas:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.ip-3d-note { position: absolute; inset: 0; z-index: 1; display: flex; align-items: center; justify-content: center; margin: 0; padding: 1rem; background: var(--panel); color: var(--muted); font-size: 0.9rem; text-align: center; }
+.ip-3d-note[hidden] { display: none; }
+@media print { .ip-tabs, #ip3dView, .ip-legend-note { display: none !important; } #ipPlanView { display: block !important; } }

@@ -41,17 +41,37 @@ test('consent, GA and the language switcher are those of the DWG quantities page
   assert.equal(strings(b), strings(a));
 });
 
-test('every new asset URL carries the deploy placeholder ?v=20261001, and the shared modules are reused unchanged', () => {
+test('every IFC floor plans module URL carries the deploy placeholder ?v=20261103; the shared modules are reused unchanged', () => {
   const page = read('../../ifc-plans.html');
-  for (const u of ['css/tools.css?v=20261001', 'js/ifcplan/i18n-ifcplan.js?v=20261001', 'js/ifcplan/ui.js?v=20261001']) assert.ok(page.includes(u), u);
-  for (const f of ['ui.js', 'worker.js', 'model.js', 'dxf.js', 'drawing.js', 'state.js']) {
+  for (const u of ['css/tools.css?v=20261103', 'js/ifcplan/i18n-ifcplan.js?v=20261103', 'js/ifcplan/ui.js?v=20261103']) assert.ok(page.includes(u), u);
+  assert.ok(!page.includes('?v=20261001'), 'the page keeps no earlier placeholder');
+  // Every relative import of every module: the tool's own carry the placeholder; the shared shell and three.js carry
+  // none (three.js is one module instance with its addons, which import it without one); the laser modules keep theirs.
+  let n = 0;
+  for (const f of readdirSync(new URL('../../js/ifcplan/', import.meta.url)).filter(x => x.endsWith('.js'))) {
     const src = read(`../../js/ifcplan/${f}`);
-    for (const m of src.matchAll(/from '(\.[^']+)'/g)) if (!m[1].includes('/gcode/shell/')) assert.ok(m[1].endsWith('?v=20261001'), `${f}: ${m[1]}`);
+    for (const m of src.matchAll(/(?:from |import\()'(\.[^']+)'/g)) {
+      n++;
+      const u = m[1];
+      if (u.includes('/gcode/shell/') || u.includes('/vendor/three/')) assert.ok(!u.includes('?v='), `${f}: ${u}`);
+      else if (u.startsWith('../laser/')) assert.ok(u.endsWith('?v=20261001'), `${f}: ${u}`);
+      else assert.ok(u.endsWith('?v=20261103'), `${f}: ${u}`);
+    }
   }
+  assert.ok(n >= 20, `${n} imports`);
   const ui = read('../../js/ifcplan/ui.js'), worker = read('../../js/ifcplan/worker.js');
-  assert.ok(ui.includes("new URL('./worker.js?v=20261001', import.meta.url)"));
+  assert.ok(ui.includes("new URL('./worker.js?v=20261103', import.meta.url)"));
   assert.ok(ui.includes("from '../laser/bridge.js?v=20261001'") && ui.includes("from '../laser/zip.js?v=20261001'"));
-  assert.ok(ui.includes('./examples/${EXAMPLE}?v=20261001'));
-  assert.ok(worker.includes("'./vendor/web-ifc/web-ifc-api.js?v=20261001'") && worker.includes('`./vendor/web-ifc/${file}?v=20261001`'));
+  assert.ok(ui.includes('./examples/${EXAMPLE}?v=20261103'));
+  assert.ok(worker.includes("'./vendor/web-ifc/web-ifc-api.js?v=20261103'") && worker.includes('`./vendor/web-ifc/${file}?v=20261103`'));
   assert.ok(!read('../../js/laser/bridge.js').includes('ifcplan') && !read('../../js/laser/zip.js').includes('ifcplan'));
+});
+
+test('three.js loads only with the 3D view: not on the page, not imported statically by the controller', () => {
+  const page = read('../../ifc-plans.html'), ui = read('../../js/ifcplan/ui.js');
+  assert.ok(!page.includes('vendor/three'), 'the page has no three.js tag');
+  assert.ok(!/from '\.\/view3d\.js/.test(ui), 'ui.js imports view3d.js only on demand');
+  for (const f of readdirSync(new URL('../../js/ifcplan/', import.meta.url)).filter(x => x.endsWith('.js') && x !== 'view3d.js')) {
+    assert.ok(!read(`../../js/ifcplan/${f}`).includes('vendor/three'), `${f} does not import three.js`);
+  }
 });

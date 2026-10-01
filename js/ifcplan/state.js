@@ -1,7 +1,7 @@
-// IFC floor plans: the controller's small decisions (spec §2, §6, §8), kept pure for the Node tests: the stored
-// settings, the typed cut height, the GA buckets and the warnings.
-import { UNITS, unencodable } from './dxf.js?v=20261001';
-import { labelLines } from './rooms.js?v=20261001';
+// IFC floor plans: the controller's small decisions (spec §2, §6, §8; 3D spec §2, §4), kept pure for the Node tests:
+// the stored settings, the typed cut height, the GA buckets, the warnings, the 3D triangle cap and the 3D tooltip.
+import { UNITS, unencodable } from './dxf.js?v=20261103';
+import { labelLines } from './rooms.js?v=20261103';
 
 export const SETTINGS_KEY = 'aidedcam-ifcp-settings';
 export const DEFAULTS = { cutM: 1.1, units: 'm', origin: false };
@@ -78,4 +78,18 @@ export function warningsOf(result, { fileName, cutM, origin }) {
   const bad = unencodable(textsOf(result, fileName));
   if (bad) out.push({ id: 'cp1253', params: { n: bad } });
   return out;
+}
+
+// The 3D view's triangle cap (3D spec §2): 2,000,000 on a desktop; 500,000 on a touch screen (a coarse primary
+// pointer) or with navigator.deviceMemory at 4 GB or less. Over it the worker builds no 3D data.
+export const TRIANGLES_DESKTOP = 2000000;
+export const TRIANGLES_SMALL = 500000;
+export const triangleCap = ({ coarse = false, memoryGB } = {}) =>
+  (coarse || (Number.isFinite(memoryGB) && memoryGB <= 4) ? TRIANGLES_SMALL : TRIANGLES_DESKTOP);
+
+// The 3D tooltip's parts (3D spec §4): the IFC type, the layer, the element's Name and its storey's name, the empty
+// ones left out. element is one of the mesh's `elements`; storeys the result's.
+export function tipParts(element, storeys) {
+  const storey = element.storey >= 0 && storeys[element.storey] ? storeys[element.storey].name : '';
+  return [element.type, element.layer, element.name, storey].filter(Boolean);
 }

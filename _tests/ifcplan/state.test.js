@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { cleanSettings, parseCut, showM, sizeBucket, storeysBucket, warningsOf, textsOf, DEFAULTS, SETTINGS_KEY } from '../../js/ifcplan/state.js';
+import { cleanSettings, parseCut, showM, sizeBucket, storeysBucket, warningsOf, textsOf, DEFAULTS, SETTINGS_KEY, triangleCap, tipParts } from '../../js/ifcplan/state.js';
 
 const result = over => ({
   file: { noStoreys: false, noGeometry: [], bbox: { x0: 120.5, y0: 80.25, x1: 130.5, y1: 88.35 }, ...over },
@@ -54,4 +54,19 @@ test('storeys at one level (within 1 mm): a warning naming each shared level', (
   const r = at([0, 0]);
   r.file.noGeometry = [{ type: 'IfcWall', count: 1 }];
   assert.deepEqual(warningsOf(r, opts).map(w => w.id), ['samelevel', 'nogeometry']);
+});
+
+test('the 3D triangle cap: 2,000,000 on a desktop, 500,000 on a touch screen or with 4 GB of memory or less', () => {
+  assert.equal(triangleCap({}), 2000000);
+  assert.equal(triangleCap({ coarse: false, memoryGB: 8 }), 2000000);
+  assert.equal(triangleCap({ coarse: true, memoryGB: 8 }), 500000);
+  assert.equal(triangleCap({ coarse: false, memoryGB: 4 }), 500000);
+  assert.equal(triangleCap({ coarse: false, memoryGB: undefined }), 2000000, 'deviceMemory unknown (Firefox, Safari)');
+});
+
+test('the 3D tooltip: type, layer, Name and storey, the empty parts left out', () => {
+  const storeys = [{ name: 'Ισόγειο' }, { name: 'Όροφος 1' }];
+  assert.deepEqual(tipParts({ type: 'IfcWall', layer: 'IFC_WALL', name: 'Basic Wall:200mm', storey: 0 }, storeys), ['IfcWall', 'IFC_WALL', 'Basic Wall:200mm', 'Ισόγειο']);
+  assert.deepEqual(tipParts({ type: 'IfcSlab', layer: 'IFC_SLAB', name: '', storey: 1 }, storeys), ['IfcSlab', 'IFC_SLAB', 'Όροφος 1']);
+  assert.deepEqual(tipParts({ type: 'IfcColumn', layer: 'IFC_COLUMN', name: 'C1', storey: -1 }, storeys), ['IfcColumn', 'IFC_COLUMN', 'C1']);
 });

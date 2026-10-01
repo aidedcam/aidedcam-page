@@ -1,10 +1,10 @@
 // IFC floor plans: an open web-ifc model read and cut into storey plans (spec §3, steps 2–6). No DOM: it runs in
 // the worker, and in the Node tests on the same web-ifc build. `api` is a web-ifc IfcAPI, `W` the web-ifc module
 // (for its type codes). Lengths come back in metres, in the IFC's world coordinates; areas in m².
-import { cutMesh } from './cut.js?v=20261001';
-import { chain, polylineSet } from './chain.js?v=20261001';
-import { layerOf, isMarkerProxy } from './layers.js?v=20261001';
-import { roomArea, outlineOf, labelPoint } from './rooms.js?v=20261001';
+import { cutMesh } from './cut.js?v=20261103';
+import { chain, polylineSet } from './chain.js?v=20261103';
+import { layerOf, isMarkerProxy } from './layers.js?v=20261103';
+import { roomArea, outlineOf, labelPoint } from './rooms.js?v=20261103';
 
 export const MAX_BYTES = 150 * 1024 * 1024;       // refused before reading (spec §7)
 export const LARGE_BYTES = 50 * 1024 * 1024;      // accepted, with a "this may take a while" note
@@ -162,6 +162,80 @@ export function prepare(api, W, id) {
   return { schema, app, units, storeys, storeyOf, spaces, up };
 }
 
+// One element's triangles, in IFC Z-up metres (web-ifc gives Y-up: IFC (x, y, z) = (X, -Z, Y)): { P (Float64 xyz),
+// ix, b (its bounding box) }. A vertex web-ifc gives as NaN or Infinity stays out of the bounding box (the cut drops
+// its segments); b.x0 > b.x1 when none is finite.
+export function gather(api, id, mesh) {
+  const gs = mesh.geometries, parts = [];
+  let nv = 0, ni = 0;
+  for (let i = 0; i < gs.size(); i++) {
+    const pg = gs.get(i);
+    const geo = api.GetGeometry(id, pg.geometryExpressID);
+    const v = api.GetVertexArray(geo.GetVertexData(), geo.GetVertexDataSize());
+    const ix = api.GetIndexArray(geo.GetIndexData(), geo.GetIndexDataSize());
+    parts.push({ v: v.slice(), ix: ix.slice(), T: pg.flatTransformation });
+    nv += v.length / 6; ni += ix.length;
+    geo.delete();
+  }
+  const P = new Float64Array(nv * 3), IX = new Uint32Array(ni);
+  let pv = 0, pi = 0;
+  const b = { x0: Infinity, y0: Infinity, z0: Infinity, x1: -Infinity, y1: -Infinity, z1: -Infinity };
+  for (const { v, ix, T } of parts) {
+    const base = pv;
+    for (let k = 0; k < v.length; k += 6) {
+      const x = v[k], y = v[k + 1], z = v[k + 2];
+      const X = T[0] * x + T[4] * y + T[8] * z + T[12], Y = T[1] * x + T[5] * y + T[9] * z + T[13], Z = T[2] * x + T[6] * y + T[10] * z + T[14];
+      const ix3 = 3 * pv++;
+      P[ix3] = X; P[ix3 + 1] = -Z; P[ix3 + 2] = Y;
+      if (!(Number.isFinite(X) && Number.isFinite(Y) && Number.isFinite(Z))) continue;
+      if (X < b.x0) b.x0 = X; if (X > b.x1) b.x1 = X;
+      if (-Z < b.y0) b.y0 = -Z; if (-Z > b.y1) b.y1 = -Z;
+      if (Y < b.z0) b.z0 = Y; if (Y > b.z1) b.z1 = Y;
+    }
+    for (let k = 0; k < ix.length; k++) IX[pi++] = base + ix[k];
+  }
+  return { P, ix: IX, b };
+}
+
+// The IFC type name of an element (IfcWall …), cached per type code.
+export function typeNamer(api, id) {
+  const names = new Map();
+  return eid => {
+    const code = api.GetLineType(id, eid);
+    let n = names.get(code);
+    if (n === undefined) { n = api.GetNameFromTypeCode(code); names.set(code, n); }
+    return n;
+  };
+}
+
+// An element's Name attribute, '' when it has none.
+export function nameOf(api, id, eid) {
+  try { return String(val(api.GetLine(id, eid).Name) || ''); } catch (e) { return ''; }
+}
+
+// Every element the plans draw, with its triangles, in one order: the products first (a type with a layer, IfcSpace
+// apart), then the rooms (StreamAllMeshes leaves IfcSpace out). Skipped: no triangles, no finite vertex, and the
+// marker proxies of spec §4. fn({ eid, type, layer, m }) with m = gather()'s. The cut and the 3D view both stream
+// through here, so they skip the same elements.
+export function forEachElement(api, W, id, typeOf, fn) {
+  api.StreamAllMeshes(id, mesh => {
+    const eid = mesh.expressID;
+    const type = typeOf(eid);
+    const layer = layerOf(type);
+    if (!layer || layer === 'IFC_SPACE') return;
+    const m = gather(api, id, mesh);
+    if (!m.ix.length || !(m.b.x0 <= m.b.x1)) return;
+    if (isMarkerProxy({ type, zSpan: m.b.z1 - m.b.z0, hasBody: m.b.z1 - m.b.z0 < 0.001 && hasBody(api, id, eid) })) return;
+    fn({ eid, type, layer, m });
+  });
+  api.StreamAllMeshesWithTypes(id, [W.IFCSPACE], mesh => {
+    const eid = mesh.expressID;
+    const m = gather(api, id, mesh);
+    if (!m.ix.length || !(m.b.x0 <= m.b.x1)) return;
+    fn({ eid, type: 'IfcSpace', layer: 'IFC_SPACE', m });
+  });
+}
+
 // The plans at one cut height: every mesh cut by every storey's plane in one pass (spec §3 step 5).
 // Returns { file, storeys } as the worker answers it (spec §3), with { transfer } the buffers to hand over.
 export function cutModel(api, W, id, prep, cutM) {
@@ -169,50 +243,10 @@ export function cutModel(api, W, id, prep, cutM) {
   const storeys = one ? [{ id: 0, name: '', levelM: 0 }] : prep.storeys;
   const planes = storeys.map(s => s.levelM + cutM);
   const plans = storeys.map(() => ({ layers: new Map(), cut: new Set(), rooms: [] }));
-  const typeNames = new Map();
-  const typeOf = eid => {
-    const code = api.GetLineType(id, eid);
-    let n = typeNames.get(code);
-    if (n === undefined) { n = api.GetNameFromTypeCode(code); typeNames.set(code, n); }
-    return n;
-  };
+  const typeOf = typeNamer(api, id);
   const meshed = new Set();
   const bbox = { x0: Infinity, y0: Infinity, z0: Infinity, x1: -Infinity, y1: -Infinity, z1: -Infinity };
   let products = 0;
-
-  // One product's triangles, in IFC Z-up metres (web-ifc gives Y-up: IFC (x, y, z) = (X, -Z, Y)). A vertex web-ifc
-  // gives as NaN or Infinity stays out of the bounding box (the cut drops its segments); b.x0 > b.x1 when none is finite.
-  const gather = mesh => {
-    const gs = mesh.geometries, parts = [];
-    let nv = 0, ni = 0;
-    for (let i = 0; i < gs.size(); i++) {
-      const pg = gs.get(i);
-      const geo = api.GetGeometry(id, pg.geometryExpressID);
-      const v = api.GetVertexArray(geo.GetVertexData(), geo.GetVertexDataSize());
-      const ix = api.GetIndexArray(geo.GetIndexData(), geo.GetIndexDataSize());
-      parts.push({ v: v.slice(), ix: ix.slice(), T: pg.flatTransformation });
-      nv += v.length / 6; ni += ix.length;
-      geo.delete();
-    }
-    const P = new Float64Array(nv * 3), IX = new Uint32Array(ni);
-    let pv = 0, pi = 0;
-    const b = { x0: Infinity, y0: Infinity, z0: Infinity, x1: -Infinity, y1: -Infinity, z1: -Infinity };
-    for (const { v, ix, T } of parts) {
-      const base = pv;
-      for (let k = 0; k < v.length; k += 6) {
-        const x = v[k], y = v[k + 1], z = v[k + 2];
-        const X = T[0] * x + T[4] * y + T[8] * z + T[12], Y = T[1] * x + T[5] * y + T[9] * z + T[13], Z = T[2] * x + T[6] * y + T[10] * z + T[14];
-        const ix3 = 3 * pv++;
-        P[ix3] = X; P[ix3 + 1] = -Z; P[ix3 + 2] = Y;
-        if (!(Number.isFinite(X) && Number.isFinite(Y) && Number.isFinite(Z))) continue;
-        if (X < b.x0) b.x0 = X; if (X > b.x1) b.x1 = X;
-        if (-Z < b.y0) b.y0 = -Z; if (-Z > b.y1) b.y1 = -Z;
-        if (Y < b.z0) b.z0 = Y; if (Y > b.z1) b.z1 = Y;
-      }
-      for (let k = 0; k < ix.length; k++) IX[pi++] = base + ix[k];
-    }
-    return { P, ix: IX, b };
-  };
   const grow = b => {
     bbox.x0 = Math.min(bbox.x0, b.x0); bbox.y0 = Math.min(bbox.y0, b.y0); bbox.z0 = Math.min(bbox.z0, b.z0);
     bbox.x1 = Math.max(bbox.x1, b.x1); bbox.y1 = Math.max(bbox.y1, b.y1); bbox.z1 = Math.max(bbox.z1, b.z1);
@@ -223,34 +257,22 @@ export function cutModel(api, W, id, prep, cutM) {
     for (const p of polylines) if (p.pts.length >= 4) set.add(p.pts, p.closed);
   };
 
-  api.StreamAllMeshes(id, mesh => {
-    const eid = mesh.expressID;
-    const type = typeOf(eid);
-    const layer = layerOf(type);
-    if (!layer || layer === 'IFC_SPACE') return;
-    const m = gather(mesh);
-    if (!m.ix.length || !(m.b.x0 <= m.b.x1)) return;
-    if (isMarkerProxy({ type, zSpan: m.b.z1 - m.b.z0, hasBody: m.b.z1 - m.b.z0 < 0.001 && hasBody(api, id, eid) })) return;
-    meshed.add(eid);
-    products++;
-    grow(m.b);
-    const segs = planes.map(() => null);
-    cutMesh(m.P, m.ix, planes, (k, x0, y0, x1, y1) => { (segs[k] || (segs[k] = [])).push(x0, y0, x1, y1); });
-    segs.forEach((s, k) => {
-      if (!s) return;
-      add(plans[k], layer, chain(s));
-      plans[k].cut.add(eid);
-    });
-  });
-
-  // Rooms: each space on its own storey's plane (spec §5). StreamAllMeshes leaves IfcSpace out.
+  // The products cut by every storey's plane; the rooms each on its own storey's plane (spec §5).
   let rooms = 0;
-  api.StreamAllMeshesWithTypes(id, [W.IFCSPACE], mesh => {
-    const eid = mesh.expressID;
-    const m = gather(mesh);
-    if (!m.ix.length || !(m.b.x0 <= m.b.x1)) return;
+  forEachElement(api, W, id, typeOf, ({ eid, layer, m }) => {
     meshed.add(eid);
     grow(m.b);
+    if (layer !== 'IFC_SPACE') {
+      products++;
+      const segs = planes.map(() => null);
+      cutMesh(m.P, m.ix, planes, (k, x0, y0, x1, y1) => { (segs[k] || (segs[k] = [])).push(x0, y0, x1, y1); });
+      segs.forEach((s, k) => {
+        if (!s) return;
+        add(plans[k], layer, chain(s));
+        plans[k].cut.add(eid);
+      });
+      return;
+    }
     let k = one ? 0 : prep.storeyOf(eid);
     if (k < 0) {
       // Not in a storey: the highest storey at or below its floor.

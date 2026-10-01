@@ -2,10 +2,11 @@
 // hue of spec §4, darkened where it would vanish on the page's light background), rooms faintly filled with their
 // labels, pan with a drag, zoom with the wheel, a pinch or the buttons, and a tooltip naming the layer under the
 // pointer. Every storey is fitted to the whole model, so switching storeys keeps them aligned. Coordinates are kept
-// relative to the model's lower-left corner, so georeferenced coordinates stay precise.
-import { LAYERS } from './layers.js?v=20261001';
-import { forEachPolyline } from './chain.js?v=20261001';
-import { labelLines } from './rooms.js?v=20261001';
+// relative to the model's lower-left corner, so georeferenced coordinates stay precise. Layers the legend hides
+// (setHidden) are neither drawn nor picked; hiding IFC_SPACE hides the room labels too.
+import { LAYERS } from './layers.js?v=20261103';
+import { forEachPolyline } from './chain.js?v=20261103';
+import { labelLines } from './rooms.js?v=20261103';
 
 export const LAYER_COLORS = {
   IFC_WALL: '#17170f', IFC_DOOR: '#0e7490', IFC_WINDOW: '#1d4ed8', IFC_COLUMN: '#b91c1c', IFC_BEAM: '#6b7280',
@@ -23,6 +24,7 @@ export function createDrawing(canvas, { onHover = () => {} } = {}) {
   let w = 1, h = 1, dpr = 1, k = 1, cx = 0, cy = 0, fitted = false, frame = 0;
   let drag = null, pinch = null, userMoved = false;
   let hover = null, hoverFrame = 0;          // the latest pointer position to pick at, one pick per frame
+  let hidden = new Set();                    // layers the legend switched off
   const touches = new Map();
 
   const toModel = (sx, sy) => ({ x: (sx - w / 2) / k + cx, y: (h / 2 - sy) / k + cy });
@@ -30,8 +32,9 @@ export function createDrawing(canvas, { onHover = () => {} } = {}) {
 
   function resize() {
     const r = canvas.getBoundingClientRect();
+    if (!r.width || !r.height) return;         // hidden (the 3D tab): keep the last bitmap and view, print shows the plan
     dpr = window.devicePixelRatio || 1;
-    w = Math.max(1, r.width); h = Math.max(1, r.height);
+    w = r.width; h = r.height;
     const W = Math.round(w * dpr), H = Math.round(h * dpr);
     if (canvas.width !== W || canvas.height !== H) { canvas.width = W; canvas.height = H; }
     if ((!fitted || !userMoved) && storey) fit(); else draw();
@@ -71,6 +74,7 @@ export function createDrawing(canvas, { onHover = () => {} } = {}) {
     ctx.setTransform(dpr * k, 0, 0, -dpr * k, dpr * (w / 2 - cx * k), dpr * (h / 2 + cy * k));
     ctx.lineJoin = 'round'; ctx.lineCap = 'round';
     for (const [name, p] of paths) {
+      if (hidden.has(name)) continue;
       if (name === 'IFC_SPACE') { ctx.globalAlpha = 0.08; ctx.fillStyle = LAYER_COLORS[name]; ctx.fill(p, 'evenodd'); }
       ctx.globalAlpha = name === 'IFC_SPACE' || name === 'IFC_SLAB' ? 0.6 : 1;
       ctx.strokeStyle = LAYER_COLORS[name];
@@ -80,7 +84,7 @@ export function createDrawing(canvas, { onHover = () => {} } = {}) {
     ctx.globalAlpha = 1;
     // Room labels at 0.20 m of the model, as in the DXF, when they are big enough to read.
     const px = Math.min(14, 0.2 * k);
-    if (px < 6) return;
+    if (px < 6 || hidden.has('IFC_SPACE')) return;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.font = `500 ${px}px Inter, system-ui, sans-serif`;
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
@@ -109,7 +113,7 @@ export function createDrawing(canvas, { onHover = () => {} } = {}) {
     let best = null, bestD = tol;
     for (const name of ORDER) {
       const set = storey.layers[name];
-      if (!set) continue;
+      if (!set || hidden.has(name)) continue;
       forEachPolyline(set, (pts, closed) => {
         const n = pts.length / 2;
         for (let i = closed ? 0 : 1; i < n; i++) {
@@ -199,7 +203,9 @@ export function createDrawing(canvas, { onHover = () => {} } = {}) {
     },
     clear() { storey = null; paths = new Map(); fitted = false; draw(); },
     fit, zoomBy(f) { zoomAt(w / 2, h / 2, f); },
-    // The layers shown, in drawing order (for the legend and the browser check).
+    // The layers the legend switched off; redrawn at once.
+    setHidden(set) { hidden = new Set(set); draw(); },
+    // The layers of this storey's plan, hidden or not, in drawing order (for the legend and the browser check).
     get layers() { return [...paths.keys()]; },
     // For the browser check: where a model point is on screen (CSS px in the canvas), and the layer under it.
     screenOf(x, y) { return { x: (x - X0 - cx) * k + w / 2, y: h / 2 - (y - Y0 - cy) * k }; },

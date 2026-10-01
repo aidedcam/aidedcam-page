@@ -1,9 +1,9 @@
 // IFC floor plans: one storey's plan as an R12 DXF (spec §5). Pure: no DOM, no web-ifc.
 // AC1009 under $DWGCODEPAGE ANSI_1253, so Greek text is written as Windows-1253 bytes; POLYLINE/VERTEX/SEQEND (no
 // LWPOLYLINE in R12) and TEXT; every layer of spec §4 in the table, whether or not this storey uses it.
-import { LAYERS } from './layers.js?v=20261001';
-import { forEachPolyline } from './chain.js?v=20261001';
-import { labelLines } from './rooms.js?v=20261001';
+import { LAYERS } from './layers.js?v=20261103';
+import { forEachPolyline } from './chain.js?v=20261103';
+import { labelLines } from './rooms.js?v=20261103';
 
 // The drawing units the visitor chooses: the factor from metres and the $INSUNITS code.
 export const UNITS = { m: { factor: 1, insunits: 6 }, cm: { factor: 100, insunits: 5 }, mm: { factor: 1000, insunits: 4 } };

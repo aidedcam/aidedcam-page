@@ -60,7 +60,7 @@
   </script>
   <link rel="stylesheet" href="fonts.css?v=20260923" />
   <link rel="stylesheet" href="css/editorial.css?v=20260927" />
-  <link rel="stylesheet" href="css/tools.css?v=20261001" />
+  <link rel="stylesheet" href="css/tools.css?v=20261103" />
   <link rel="stylesheet" href="css/sidebar.css?v=20261002" />
   <script src="js/sidebar.js?v=20261002" defer></script>
 </head>
@@ -136,19 +136,45 @@
         </div>
 
         <div class="ip-view">
-          <div class="gv-panel-head">
-            <span><span data-i18n="ip.preview">Προεπισκόπηση</span> · <span id="ipPreviewName"></span></span>
-            <span class="gv-tools-controls">
-              <button type="button" class="gv-link" id="ipFit" data-i18n="ip.fit">Προσαρμογή</button>
-              <button type="button" class="gv-zoom" id="ipZoomOut" data-i18n-aria="ip.zoomout" aria-label="Σμίκρυνση">−</button>
-              <button type="button" class="gv-zoom" id="ipZoomIn" data-i18n-aria="ip.zoomin" aria-label="Μεγέθυνση">+</button>
-            </span>
+          <div class="ip-tabs" id="ipTabs" role="tablist" data-i18n-aria="ip.aria.tabs" aria-label="Προβολή">
+            <button type="button" class="ip-tab" role="tab" id="ipTabPlan" aria-selected="true" aria-controls="ipPlanView" data-i18n="ip.tab.plan">Κάτοψη</button>
+            <button type="button" class="ip-tab" role="tab" id="ipTab3d" aria-selected="false" aria-controls="ip3dView" tabindex="-1" data-i18n="ip.tab.3d">3D</button>
           </div>
-          <div class="dq-canvas-box">
-            <canvas class="dq-canvas ip-canvas" id="ipCanvas" role="img" data-i18n-aria="ip.aria.drawing" aria-label="Κάτοψη του επιλεγμένου ορόφου"></canvas>
-            <div class="dq-tip" id="ipTip" hidden></div>
+          <div id="ipPlanView" role="tabpanel" aria-labelledby="ipTabPlan">
+            <div class="gv-panel-head">
+              <span><span data-i18n="ip.preview">Προεπισκόπηση</span> · <span id="ipPreviewName"></span></span>
+              <span class="gv-tools-controls">
+                <button type="button" class="gv-link" id="ipFit" data-i18n="ip.fit">Προσαρμογή</button>
+                <button type="button" class="gv-zoom" id="ipZoomOut" data-i18n-aria="ip.zoomout" aria-label="Σμίκρυνση">−</button>
+                <button type="button" class="gv-zoom" id="ipZoomIn" data-i18n-aria="ip.zoomin" aria-label="Μεγέθυνση">+</button>
+              </span>
+            </div>
+            <div class="dq-canvas-box">
+              <canvas class="dq-canvas ip-canvas" id="ipCanvas" role="img" data-i18n-aria="ip.aria.drawing" aria-label="Κάτοψη του επιλεγμένου ορόφου"></canvas>
+              <div class="dq-tip" id="ipTip" hidden></div>
+            </div>
+          </div>
+          <div id="ip3dView" role="tabpanel" aria-labelledby="ipTab3d" hidden>
+            <div class="gv-panel-head ip-3d-head">
+              <span id="ip3dHead">3D</span>
+              <span class="gv-tools-controls">
+                <button type="button" class="gv-link" data-preset="top" data-i18n="ip.3d.top">Κάτοψη</button>
+                <button type="button" class="gv-link" data-preset="front" data-i18n="ip.3d.front">Πρόσοψη</button>
+                <button type="button" class="gv-link" data-preset="side" data-i18n="ip.3d.side">Πλάγια</button>
+                <button type="button" class="gv-link" data-preset="iso" data-i18n="ip.3d.iso">Αξονομετρικό</button>
+                <button type="button" class="gv-link" id="ip3dFit" data-i18n="ip.fit">Προσαρμογή</button>
+              </span>
+            </div>
+            <div class="ip-3d-bar">
+              <label class="ip-3d-check"><input type="checkbox" id="ip3dCut" checked /><span data-i18n="ip.3d.cut">Τομή στο ύψος της κάτοψης</span></label>
+            </div>
+            <div class="ip-3d-box" id="ip3dBox">
+              <p class="ip-3d-note" id="ip3dNote" role="status" hidden></p>
+              <div class="dq-tip" id="ip3dTip" hidden></div>
+            </div>
           </div>
           <ul class="ip-legend" id="ipLegend" data-i18n-aria="ip.legend" aria-label="Υπόμνημα"></ul>
+          <p class="gv-note ip-legend-note" data-i18n="ip.legend.note">Η απόκρυψη στρώσης αλλάζει μόνο την προεπισκόπηση· το DXF κρατά όλες τις στρώσεις.</p>
         </div>
 
         <h2 class="ip-h" data-i18n="ip.warnings">Προειδοποιήσεις</h2>
@@ -236,7 +262,7 @@
     </div>
   </div>
 
-  <script src="js/ifcplan/i18n-ifcplan.js?v=20261001"></script>
+  <script src="js/ifcplan/i18n-ifcplan.js?v=20261103"></script>
   <script>
     var translations = {
       el: {
@@ -393,6 +419,6 @@
     function gaEvent(name, params) { if (window.gtag) gtag('event', name, params); }
     window.gaEvent = gaEvent;
   </script>
-  <script type="module" src="js/ifcplan/ui.js?v=20261001"></script>
+  <script type="module" src="js/ifcplan/ui.js?v=20261103"></script>
 </body>
 </html>

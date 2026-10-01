@@ -64,7 +64,7 @@ async (page) => {
   check('the example: two storeys, levels, elements cut, rooms', JSON.stringify(await rows()) === JSON.stringify([['Ισόγειο', '0.00', '9', '0', '2', 'DXF'], ['Όροφος 1', '3.00', '7', '0', '1', 'DXF']]), await rows());
   const status = await page.$eval('#ipStatus', e => e.innerText.replace(/\s+/g, ' '));
   check('the summary line', status === 'example-house.ifc IFC4 AidedCAM example generator 2 storeys 19 elements 3 rooms DXF in m', status);
-  check('web-ifc loaded with the example, from this site', requests.some(u => u.endsWith('web-ifc.wasm?v=20261103')), requests.filter(u => /web-ifc/.test(u)));
+  check('web-ifc loaded with the example, from this site', requests.some(u => u.endsWith('web-ifc.wasm?v=20261003')), requests.filter(u => /web-ifc/.test(u)));
   const legend = await page.$eval('#ipLegend', e => e.innerText.split('\n').join(' '));
   check('the preview and its legend', legend === 'IFC_WALL IFC_DOOR IFC_WINDOW IFC_COLUMN IFC_STAIR IFC_SPACE', legend);
   check('no warnings on the example', (await page.$eval('#ipWarnings', e => e.innerText.trim())) === 'No warnings.', await page.$eval('#ipWarnings', e => e.innerText));
@@ -186,7 +186,7 @@ async (page) => {
   await page.click('#ipTab3d');
   await shown3d();
   const t3d = (await timings()).view3d;
-  check(`the example in 3D: tab click to view under 1 s, three.js included (${t3d} ms)`, t3d < 1000 && requests.some(u => u.endsWith('/js/vendor/three/three.module.js')) && requests.some(u => u.endsWith('view3d.js?v=20261103')), t3d);
+  check(`the example in 3D: tab click to view under 1 s, three.js included (${t3d} ms)`, t3d < 1000 && requests.some(u => u.endsWith('/js/vendor/three/three.module.js')) && requests.some(u => u.endsWith('view3d.js?v=20261003')), t3d);
   const head = await page.$eval('#ip3dHead', e => e.textContent);
   const legend3d = await page.$eval('#ipLegend', e => e.innerText.split('\n').join(' '));
   check('the 3D heading, and the model\'s layers in the legend', head === '3D · Ισόγειο · cut at 1.10 m' && legend3d === 'IFC_WALL IFC_DOOR IFC_WINDOW IFC_COLUMN IFC_SLAB IFC_STAIR IFC_RAILING IFC_SPACE', [head, legend3d]);

@@ -8,11 +8,11 @@ import { lsGet, lsSet } from '../gcode/shell/settings-store.js';
 import { renderBanner } from '../gcode/shell/banner.js';
 import { createEngine } from '../laser/bridge.js?v=20261001';
 import { zipStore, uniqueNames } from '../laser/zip.js?v=20261001';
-import { storeyDxf, originShift, UNITS } from './dxf.js?v=20261103';
-import { storeyFileNames, zipName, stem } from './names.js?v=20261103';
-import { MAX_BYTES, LARGE_BYTES } from './model.js?v=20261103';
-import { cleanSettings, parseCut, showM, sizeBucket, storeysBucket, warningsOf, SETTINGS_KEY, triangleCap, tipParts } from './state.js?v=20261103';
-import { createDrawing, LAYER_COLORS, LEGEND_ORDER } from './drawing.js?v=20261103';
+import { storeyDxf, originShift, UNITS } from './dxf.js?v=20261003';
+import { storeyFileNames, zipName, stem } from './names.js?v=20261003';
+import { MAX_BYTES, LARGE_BYTES } from './model.js?v=20261003';
+import { cleanSettings, parseCut, showM, sizeBucket, storeysBucket, warningsOf, SETTINGS_KEY, triangleCap, tipParts } from './state.js?v=20261003';
+import { createDrawing, LAYER_COLORS, LEGEND_ORDER } from './drawing.js?v=20261003';
 
 const $ = id => document.getElementById(id);
 const SURVEY_KEY = 'aidedcam-ifcp-survey';
@@ -49,7 +49,7 @@ function busy(b) { state.busy = b; $('ipBusy').hidden = !b; $('ipBusy').textCont
 // ---- the engine: web-ifc in its worker, loaded with the first file ----
 const supported = typeof WebAssembly === 'object' && typeof Worker === 'function';
 const engine = supported ? createEngine({
-  makeWorker: () => new Worker(new URL('./worker.js?v=20261103', import.meta.url), { type: 'module' }),
+  makeWorker: () => new Worker(new URL('./worker.js?v=20261003', import.meta.url), { type: 'module' }),
   timeoutMs: TIMEOUT_MS,
 }) : null;
 if (!supported) showBanner({ key: 'ip.engine.nowasm' });
@@ -274,7 +274,7 @@ async function open3d() {
   const three = f.three = { status: 'loading', mesh: null, ga: false };
   render3d();
   let mod;
-  try { mod = await (view3dModule || (view3dModule = import(`./view3d.js?v=20261103${view3dTries ? `#retry${view3dTries}` : ''}`))); }
+  try { mod = await (view3dModule || (view3dModule = import(`./view3d.js?v=20261003${view3dTries ? `#retry${view3dTries}` : ''}`))); }
   catch (e) {
     view3dModule = null; view3dTries++;  // the next 3D tab open retries, for this file too
     if (state.file === f && f.three === three) { done3d(f, 'failed'); f.three = null; }
@@ -468,7 +468,7 @@ $('ipExample').addEventListener('click', async () => {
   const my = ++latest;
   let bytes;
   try {
-    const r = await fetch(new URL(`./examples/${EXAMPLE}?v=20261103`, import.meta.url));
+    const r = await fetch(new URL(`./examples/${EXAMPLE}?v=20261003`, import.meta.url));
     if (!r.ok) throw new Error(String(r.status));
     bytes = await r.arrayBuffer();
   } catch (e) { if (my === latest) showBanner({ key: 'ip.example.failed' }); return; }

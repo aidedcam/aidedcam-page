@@ -5,9 +5,9 @@
 // 3D view (3D spec §3.1), or "large" over settings.maxTriangles. The model stays open until the next file.
 // Single-threaded web-ifc, so a static host needs no cross-origin isolation.
 // createSession is the whole logic, without the worker's globals, so the Node tests drive it with the same web-ifc.
-import * as WebIFC from './vendor/web-ifc/web-ifc-api.js?v=20261103';
-import { sniff, prepare, cutModel, forEachElement, typeNamer, nameOf, MAX_BYTES } from './model.js?v=20261103';
-import { createPacker } from './mesh3d.js?v=20261103';
+import * as WebIFC from './vendor/web-ifc/web-ifc-api.js?v=20261003';
+import { sniff, prepare, cutModel, forEachElement, typeNamer, nameOf, MAX_BYTES } from './model.js?v=20261003';
+import { createPacker } from './mesh3d.js?v=20261003';
 
 export const DEFAULT_CUT_M = 1.1;
 
@@ -66,7 +66,7 @@ export function createSession(loadApi) {
 
 async function browserApi() {
   const api = new WebIFC.IfcAPI();
-  await api.Init(file => new URL(`./vendor/web-ifc/${file}?v=20261103`, import.meta.url).href, true);
+  await api.Init(file => new URL(`./vendor/web-ifc/${file}?v=20261003`, import.meta.url).href, true);
   api.SetLogLevel(WebIFC.LogLevel.LOG_LEVEL_OFF);
   return { api, W: WebIFC };
 }

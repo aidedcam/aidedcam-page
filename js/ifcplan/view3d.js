@@ -8,9 +8,9 @@ import { OrbitControls } from '../vendor/three/addons/OrbitControls.js';
 import { LineSegments2 } from '../vendor/three/addons/LineSegments2.js';
 import { LineSegmentsGeometry } from '../vendor/three/addons/LineSegmentsGeometry.js';
 import { LineMaterial } from '../vendor/three/addons/LineMaterial.js';
-import { style3d } from './palette3d.js?v=20261103';
-import { forEachPolyline } from './chain.js?v=20261103';
-import { LAYER_COLORS } from './drawing.js?v=20261103';
+import { style3d } from './palette3d.js?v=20261003';
+import { forEachPolyline } from './chain.js?v=20261003';
+import { LAYER_COLORS } from './drawing.js?v=20261003';
 
 // Camera directions (from the target towards the camera), Z up.
 export const PRESETS = { top: [0, -1e-4, 1], front: [0, -1, 0], side: [1, 0, 0], iso: [1, -1, 0.8] };

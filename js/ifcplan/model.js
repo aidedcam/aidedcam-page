@@ -1,10 +1,10 @@
 // IFC floor plans: an open web-ifc model read and cut into storey plans (spec §3, steps 2–6). No DOM: it runs in
 // the worker, and in the Node tests on the same web-ifc build. `api` is a web-ifc IfcAPI, `W` the web-ifc module
 // (for its type codes). Lengths come back in metres, in the IFC's world coordinates; areas in m².
-import { cutMesh } from './cut.js?v=20261103';
-import { chain, polylineSet } from './chain.js?v=20261103';
-import { layerOf, isMarkerProxy } from './layers.js?v=20261103';
-import { roomArea, outlineOf, labelPoint } from './rooms.js?v=20261103';
+import { cutMesh } from './cut.js?v=20261003';
+import { chain, polylineSet } from './chain.js?v=20261003';
+import { layerOf, isMarkerProxy } from './layers.js?v=20261003';
+import { roomArea, outlineOf, labelPoint } from './rooms.js?v=20261003';
 
 export const MAX_BYTES = 150 * 1024 * 1024;       // refused before reading (spec §7)
 export const LARGE_BYTES = 50 * 1024 * 1024;      // accepted, with a "this may take a while" note

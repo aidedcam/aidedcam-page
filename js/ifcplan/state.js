@@ -1,7 +1,7 @@
 // IFC floor plans: the controller's small decisions (spec §2, §6, §8; 3D spec §2, §4), kept pure for the Node tests:
 // the stored settings, the typed cut height, the GA buckets, the warnings, the 3D triangle cap and the 3D tooltip.
-import { UNITS, unencodable } from './dxf.js?v=20261103';
-import { labelLines } from './rooms.js?v=20261103';
+import { UNITS, unencodable } from './dxf.js?v=20261003';
+import { labelLines } from './rooms.js?v=20261003';
 
 export const SETTINGS_KEY = 'aidedcam-ifcp-settings';
 export const DEFAULTS = { cutM: 1.1, units: 'm', origin: false };

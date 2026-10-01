@@ -28,7 +28,7 @@ test('the 3D toolbar: Top, Front, Side, Iso, Fit and the cut checkbox (on); the 
 
 test('the controller: view3d.js on demand, the cap and the stale answer, the three GA events', () => {
   const ui = read('../../js/ifcplan/ui.js');
-  assert.ok(ui.includes('import(`./view3d.js?v=20261103${view3dTries ?'), 'loaded with the first 3D tab, the query unchanged; a retry adds only a fragment');
+  assert.ok(ui.includes('import(`./view3d.js?v=20261003${view3dTries ?'), 'loaded with the first 3D tab, the query unchanged; a retry adds only a fragment');
   assert.ok(ui.includes("engine.process('mesh3d', new ArrayBuffer(0), { mesh3d: true, maxTriangles: cap })"));
   assert.ok(ui.includes("ga('ifcp_view3d', { result:") && ui.includes("ga('ifcp_3d_cut', { on: state.cut3d })") && ui.includes("ga('ifcp_layer_toggle', { layer: n })"));
   assert.ok(!/ga\('ifcp_layer_toggle'[^)]*name/.test(ui), 'a layer name, never a figure or a file name');

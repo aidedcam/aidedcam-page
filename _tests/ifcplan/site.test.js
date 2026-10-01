@@ -41,9 +41,9 @@ test('consent, GA and the language switcher are those of the DWG quantities page
   assert.equal(strings(b), strings(a));
 });
 
-test('every IFC floor plans module URL carries the deploy placeholder ?v=20261103; the shared modules are reused unchanged', () => {
+test('every IFC floor plans module URL carries the deploy placeholder ?v=20261003; the shared modules are reused unchanged', () => {
   const page = read('../../ifc-plans.html');
-  for (const u of ['css/tools.css?v=20261103', 'js/ifcplan/i18n-ifcplan.js?v=20261103', 'js/ifcplan/ui.js?v=20261103']) assert.ok(page.includes(u), u);
+  for (const u of ['css/tools.css?v=20261003', 'js/ifcplan/i18n-ifcplan.js?v=20261003', 'js/ifcplan/ui.js?v=20261003']) assert.ok(page.includes(u), u);
   assert.ok(!page.includes('?v=20261001'), 'the page keeps no earlier placeholder');
   // Every relative import of every module: the tool's own carry the placeholder; the shared shell and three.js carry
   // none (three.js is one module instance with its addons, which import it without one); the laser modules keep theirs.
@@ -55,15 +55,15 @@ test('every IFC floor plans module URL carries the deploy placeholder ?v=2026110
       const u = m[1];
       if (u.includes('/gcode/shell/') || u.includes('/vendor/three/')) assert.ok(!u.includes('?v='), `${f}: ${u}`);
       else if (u.startsWith('../laser/')) assert.ok(u.endsWith('?v=20261001'), `${f}: ${u}`);
-      else assert.ok(u.endsWith('?v=20261103'), `${f}: ${u}`);
+      else assert.ok(u.endsWith('?v=20261003'), `${f}: ${u}`);
     }
   }
   assert.ok(n >= 20, `${n} imports`);
   const ui = read('../../js/ifcplan/ui.js'), worker = read('../../js/ifcplan/worker.js');
-  assert.ok(ui.includes("new URL('./worker.js?v=20261103', import.meta.url)"));
+  assert.ok(ui.includes("new URL('./worker.js?v=20261003', import.meta.url)"));
   assert.ok(ui.includes("from '../laser/bridge.js?v=20261001'") && ui.includes("from '../laser/zip.js?v=20261001'"));
-  assert.ok(ui.includes('./examples/${EXAMPLE}?v=20261103'));
-  assert.ok(worker.includes("'./vendor/web-ifc/web-ifc-api.js?v=20261103'") && worker.includes('`./vendor/web-ifc/${file}?v=20261103`'));
+  assert.ok(ui.includes('./examples/${EXAMPLE}?v=20261003'));
+  assert.ok(worker.includes("'./vendor/web-ifc/web-ifc-api.js?v=20261003'") && worker.includes('`./vendor/web-ifc/${file}?v=20261003`'));
   assert.ok(!read('../../js/laser/bridge.js').includes('ifcplan') && !read('../../js/laser/zip.js').includes('ifcplan'));
 });
 

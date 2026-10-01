@@ -4,9 +4,9 @@
 // pointer. Every storey is fitted to the whole model, so switching storeys keeps them aligned. Coordinates are kept
 // relative to the model's lower-left corner, so georeferenced coordinates stay precise. Layers the legend hides
 // (setHidden) are neither drawn nor picked; hiding IFC_SPACE hides the room labels too.
-import { LAYERS } from './layers.js?v=20261103';
-import { forEachPolyline } from './chain.js?v=20261103';
-import { labelLines } from './rooms.js?v=20261103';
+import { LAYERS } from './layers.js?v=20261003';
+import { forEachPolyline } from './chain.js?v=20261003';
+import { labelLines } from './rooms.js?v=20261003';
 
 export const LAYER_COLORS = {
   IFC_WALL: '#17170f', IFC_DOOR: '#0e7490', IFC_WINDOW: '#1d4ed8', IFC_COLUMN: '#b91c1c', IFC_BEAM: '#6b7280',

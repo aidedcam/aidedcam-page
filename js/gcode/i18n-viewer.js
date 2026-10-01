@@ -3,7 +3,7 @@
 window.GV_VIEWER_I18N = {
   el: {
     "gv.back": "Αρχική",
-    "gv.eyebrow": "Δωρεάν εργαλείο",
+    "gv.eyebrow": "Εργαλείο",
     "gv.privacy": "Το πρόγραμμά σας δεν φεύγει ποτέ από τον υπολογιστή σας.",
     "gv.noscript": "Το εργαλείο χρειάζεται JavaScript.",
     "gv.open": "Άνοιγμα αρχείου",
@@ -133,7 +133,7 @@ window.GV_VIEWER_I18N = {
   },
   en: {
     "gv.back": "Home",
-    "gv.eyebrow": "Free tool",
+    "gv.eyebrow": "Tool",
     "gv.privacy": "Your program never leaves your computer.",
     "gv.noscript": "This tool needs JavaScript.",
     "gv.open": "Open file",
@@ -263,7 +263,7 @@ window.GV_VIEWER_I18N = {
   },
   it: {
     "gv.back": "Home",
-    "gv.eyebrow": "Strumento gratuito",
+    "gv.eyebrow": "Strumento",
     "gv.privacy": "Il vostro programma non lascia mai il vostro computer.",
     "gv.noscript": "Questo strumento richiede JavaScript.",
     "gv.open": "Apri file",

@@ -20,9 +20,9 @@
   // Names are the cards' titles; each line is the card's text cut to one line.
   const COPY = {
     el: {
-      label: 'Δωρεάν εργαλεία',
+      label: 'Εργαλεία',
       button: 'Εργαλεία',
-      all: 'Όλα τα δωρεάν εργαλεία',
+      all: 'Όλα τα εργαλεία',
       tools: {
         lathe: { name: 'Προβολή G-code τόρνου', line: 'Τα περάσματα των κύκλων, ο χρόνος κύκλου και τα λάθη προγραμματισμού.' },
         mill: { name: 'Προβολή G-code φρέζας', line: 'Κάθε κίνηση σε 3D, οι κύκλοι διάτρησης και ο χρόνος ανά εργαλείο.' },
@@ -33,9 +33,9 @@
       },
     },
     en: {
-      label: 'Free tools',
+      label: 'Tools',
       button: 'Tools',
-      all: 'All free tools',
+      all: 'All tools',
       tools: {
         lathe: { name: 'Lathe G-code viewer', line: 'The passes of the cycles, cycle time per tool and common mistakes.' },
         mill: { name: 'Milling G-code viewer', line: 'Every move in 3D, drilling cycles expanded, time per tool.' },
@@ -46,9 +46,9 @@
       },
     },
     it: {
-      label: 'Strumenti gratuiti',
+      label: 'Strumenti',
       button: 'Strumenti',
-      all: 'Tutti gli strumenti gratuiti',
+      all: 'Tutti gli strumenti',
       tools: {
         lathe: { name: 'Visualizzatore G-code per tornio', line: 'Le passate dei cicli, il tempo ciclo e gli errori più comuni.' },
         mill: { name: 'Visualizzatore G-code per fresa', line: 'Ogni movimento in 3D, i cicli di foratura, il tempo per utensile.' },

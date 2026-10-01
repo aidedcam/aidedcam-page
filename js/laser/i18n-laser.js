@@ -2,9 +2,9 @@
 // which the shared shell's t() reads. Placeholders are {name}; every language has the same keys and placeholders.
 window.LC_I18N = {
   el: {
-    "lc.eyebrow": "Δωρεάν εργαλείο",
+    "lc.eyebrow": "Εργαλείο",
     "lc.privacy": "Τα αρχεία σας δεν φεύγουν ποτέ από τον υπολογιστή σας.",
-    "lc.cross": "Όλα τα δωρεάν εργαλεία →",
+    "lc.cross": "Όλα τα εργαλεία →",
     "lc.open": "Άνοιγμα αρχείων",
     "lc.example": "Φόρτωση παραδείγματος",
     "lc.drop": "Σύρετε εδώ αρχεία DXF ή DWG, ή πατήστε «Άνοιγμα αρχείων».",
@@ -116,9 +116,9 @@ window.LC_I18N = {
     "lc.aria.table": "Αρχεία της παραγγελίας"
   },
   en: {
-    "lc.eyebrow": "Free tool",
+    "lc.eyebrow": "Tool",
     "lc.privacy": "Your files never leave your computer.",
-    "lc.cross": "All free tools →",
+    "lc.cross": "All tools →",
     "lc.open": "Open files",
     "lc.example": "Load example order",
     "lc.drop": "Drop DXF or DWG files here, or press “Open files”.",
@@ -230,9 +230,9 @@ window.LC_I18N = {
     "lc.aria.table": "Files in the order"
   },
   it: {
-    "lc.eyebrow": "Strumento gratuito",
+    "lc.eyebrow": "Strumento",
     "lc.privacy": "I vostri file non lasciano mai il vostro computer.",
-    "lc.cross": "Tutti gli strumenti gratuiti →",
+    "lc.cross": "Tutti gli strumenti →",
     "lc.open": "Apri file",
     "lc.example": "Carica ordine di esempio",
     "lc.drop": "Trascinate qui file DXF o DWG, oppure premete «Apri file».",

@@ -150,7 +150,7 @@ async (page) => {
   }
 
   // 3. Language: the cards follow <html lang>, on the index (languageChanged) and on a tool page (gv:lang).
-  for (const [name, btn, want, label] of [['index', 'it', 'Controllo DXF per taglio laser', 'Strumenti gratuiti'], ['ifc-plans', 'en', 'Laser DXF check', 'Free tools']]) {
+  for (const [name, btn, want, label] of [['index', 'it', 'Controllo DXF per taglio laser', 'Strumenti'], ['ifc-plans', 'en', 'Laser DXF check', 'Tools']]) {
     await open(page, name);
     await page.click(`.lang-btn[data-lang="${btn}"] >> visible=true`);
     await page.waitForTimeout(100);

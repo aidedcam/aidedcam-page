@@ -4,12 +4,12 @@
 // them: they are the terms of a Greek permit.
 window.CP_I18N = {
   el: {
-    "cp.eyebrow": "Δωρεάν εργαλείο",
+    "cp.eyebrow": "Εργαλείο",
     "cp.title": "Προέλεγχος διαγράμματος κάλυψης",
     "cp.lede": "Ρίξτε το DWG ή DXF της άδειας και πάρτε τα μεγέθη του διαγράμματος κάλυψης: κάλυψη, δόμηση, όγκο, φύτευση, αναλυτικό πίνακα επιφανειών και συντεταγμένες κορυφών, απέναντι στους όρους δόμησης.",
     "cp.privacy": "Τα αρχεία μένουν στον υπολογιστή σας· τίποτα δεν ανεβαίνει.",
     "cp.indicative": "Ενδεικτικός προέλεγχος — όχι επίσημος υπολογισμός.",
-    "cp.cross": "Όλα τα δωρεάν εργαλεία →",
+    "cp.cross": "Όλα τα εργαλεία →",
     "cp.open": "Άνοιγμα αρχείου",
     "cp.example": "Φόρτωση παραδείγματος",
     "cp.template": "Λήψη προτύπου στρώσεων (DXF)",
@@ -250,12 +250,12 @@ window.CP_I18N = {
     "cp.back": "Αρχική"
   },
   en: {
-    "cp.eyebrow": "Free tool",
+    "cp.eyebrow": "Tool",
     "cp.title": "Coverage diagram pre-check",
     "cp.lede": "Drop the DWG or DXF of a Greek building permit and get the figures of its coverage diagram (διάγραμμα κάλυψης): coverage, built floor area, volume, planting, the area schedule and the vertex coordinates, against the zone's terms.",
     "cp.privacy": "Your files stay on your computer; nothing is uploaded.",
     "cp.indicative": "Indicative pre-check — not an official calculation.",
-    "cp.cross": "All free tools →",
+    "cp.cross": "All tools →",
     "cp.open": "Open file",
     "cp.example": "Load example",
     "cp.template": "Download the layer template (DXF)",
@@ -496,12 +496,12 @@ window.CP_I18N = {
     "cp.back": "Home"
   },
   it: {
-    "cp.eyebrow": "Strumento gratuito",
+    "cp.eyebrow": "Strumento",
     "cp.title": "Pre-verifica del diagramma di copertura",
     "cp.lede": "Trascinate il DWG o DXF di un permesso di costruire greco e ottenete le grandezze del suo diagramma di copertura (διάγραμμα κάλυψης): copertura, superficie edificata, volume, verde, il prospetto delle superfici e le coordinate dei vertici, a confronto con i parametri della zona.",
     "cp.privacy": "I vostri file restano sul vostro computer; nulla viene caricato.",
     "cp.indicative": "Pre-verifica indicativa — non è un calcolo ufficiale.",
-    "cp.cross": "Tutti gli strumenti gratuiti →",
+    "cp.cross": "Tutti gli strumenti →",
     "cp.open": "Apri file",
     "cp.example": "Carica esempio",
     "cp.template": "Scarica il modello dei layer (DXF)",

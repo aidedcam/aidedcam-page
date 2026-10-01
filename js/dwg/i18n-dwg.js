@@ -2,11 +2,11 @@
 // which the shared shell's t() reads. Placeholders are {name}; every language has the same keys and placeholders.
 window.DQ_I18N = {
   el: {
-    "dq.eyebrow": "Δωρεάν εργαλείο",
+    "dq.eyebrow": "Εργαλείο",
     "dq.title": "Επιμετρήσεις από DWG",
     "dq.lede": "Ρίξτε σχέδια DWG ή DXF και πάρτε μήκη, εμβαδά και πλήθη μπλοκ ανά στρώση, μαζί με τους πίνακες χαρακτηριστικών, σε Excel.",
     "dq.privacy": "Τα αρχεία μένουν στον υπολογιστή σας· τίποτα δεν ανεβαίνει.",
-    "dq.cross": "Όλα τα δωρεάν εργαλεία →",
+    "dq.cross": "Όλα τα εργαλεία →",
     "dq.open": "Άνοιγμα αρχείων",
     "dq.example": "Φόρτωση παραδείγματος",
     "dq.drop": "Σύρετε εδώ αρχεία DWG ή DXF, ή πατήστε «Άνοιγμα αρχείων».",
@@ -137,11 +137,11 @@ window.DQ_I18N = {
     "dq.tab.close": "Κλείσιμο"
   },
   en: {
-    "dq.eyebrow": "Free tool",
+    "dq.eyebrow": "Tool",
     "dq.title": "Quantities from DWG",
     "dq.lede": "Drop DWG or DXF drawings and get lengths, areas and block counts per layer, with the attribute schedules, in Excel.",
     "dq.privacy": "Files stay on your computer; nothing is uploaded.",
-    "dq.cross": "All free tools →",
+    "dq.cross": "All tools →",
     "dq.open": "Open files",
     "dq.example": "Load example",
     "dq.drop": "Drop DWG or DXF files here, or press “Open files”.",
@@ -272,11 +272,11 @@ window.DQ_I18N = {
     "dq.tab.close": "Close"
   },
   it: {
-    "dq.eyebrow": "Strumento gratuito",
+    "dq.eyebrow": "Strumento",
     "dq.title": "Computi da DWG",
     "dq.lede": "Trascinate disegni DWG o DXF e ottenete lunghezze, aree e conteggi dei blocchi per layer, con le tabelle degli attributi, in Excel.",
     "dq.privacy": "I file restano sul vostro computer; non viene caricato nulla.",
-    "dq.cross": "Tutti gli strumenti gratuiti →",
+    "dq.cross": "Tutti gli strumenti →",
     "dq.open": "Apri file",
     "dq.example": "Carica esempio",
     "dq.drop": "Trascinate qui file DWG o DXF, oppure premete «Apri file».",

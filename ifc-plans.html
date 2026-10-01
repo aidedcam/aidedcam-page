@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AidedCAM - Δωρεάν εργαλεία</title>
-  <meta name="description" content="Δωρεάν εργαλεία για μηχανικούς και προγραμματιστές CNC: προβολή G-code τόρνου και φρέζας με χρόνο κύκλου, έλεγχος DXF για κοπή laser και επιμετρήσεις από DWG. Στον browser, χωρίς εγγραφή." />
+  <title>AidedCAM - Κατόψεις DXF από IFC</title>
+  <meta name="description" content="Δωρεάν κατόψεις DXF από μοντέλα IFC: μία κάτοψη R12 ανά όροφο, κάθε τύπος στοιχείου σε δική του στρώση, οι χώροι με όνομα και εμβαδόν. Στον browser, χωρίς ανέβασμα, χωρίς εγγραφή." />
   <meta name="robots" content="index, follow" />
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <meta name="theme-color" content="#f4f3ee" />
-  <link rel="canonical" href="https://www.aidedcam.com/free-tools.html" />
-  <meta property="og:title" content="AidedCAM - Δωρεάν εργαλεία" />
-  <meta property="og:description" content="Ανοίγουν αμέσως στον browser, χωρίς εγκατάσταση και χωρίς εγγραφή." />
+  <link rel="canonical" href="https://www.aidedcam.com/ifc-plans.html" />
+  <meta property="og:title" content="AidedCAM - Κατόψεις DXF από IFC" />
+  <meta property="og:description" content="Ρίξτε ένα IFC και πάρτε μία κάτοψη DXF ανά όροφο, με στρώσεις ανά τύπο στοιχείου και τους χώρους με όνομα και εμβαδόν." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://www.aidedcam.com/free-tools.html" />
+  <meta property="og:url" content="https://www.aidedcam.com/ifc-plans.html" />
   <meta property="og:image" content="https://www.aidedcam.com/og-image.png" />
   <meta property="og:site_name" content="AidedCAM" />
   <meta property="og:locale" content="el_GR" />
@@ -60,12 +60,7 @@
   </script>
   <link rel="stylesheet" href="fonts.css?v=20260923" />
   <link rel="stylesheet" href="css/editorial.css?v=20260927" />
-  <link rel="stylesheet" href="css/tools.css?v=20260929" />
-  <style>
-    /* This page only: a group with one card beside a group with two keeps its card at its own height
-       instead of stretching it to the taller group (the shared .ft-cards grid stretches its row). */
-    .ft-groups .ft-cards { align-content: start; }
-  </style>
+  <link rel="stylesheet" href="css/tools.css?v=20261001" />
 </head>
 <body>
 
@@ -76,7 +71,7 @@
         <img class="wordmark" src="aidedcam-wordmark.svg" alt="" width="716" height="67" />
       </a>
       <div class="nav-right">
-        <a href="index.html" class="nav-back" data-i18n="gv.back">Αρχική</a>
+        <a href="index.html" class="nav-back" data-i18n="ip.back">Αρχική</a>
         <div class="lang-switcher">
           <button class="lang-btn active" data-lang="el">EL</button>
           <button class="lang-btn" data-lang="en">EN</button>
@@ -86,66 +81,91 @@
     </div>
   </nav>
 
-  <main class="gv">
+  <main class="gv ip">
     <header class="gv-head">
-      <p class="gv-eyebrow" data-i18n="ft.eyebrow">Δωρεάν εργαλεία</p>
-      <h1 data-i18n="ft.title">Δωρεάν εργαλεία για μηχανικούς και παραγωγή</h1>
-      <p class="gv-lede" data-i18n="ft.lede">Ανοίγουν αμέσως στον browser, χωρίς εγκατάσταση και χωρίς εγγραφή. Τα αρχεία σας δεν φεύγουν ποτέ από τον υπολογιστή σας.</p>
+      <p class="gv-eyebrow" data-i18n="ip.eyebrow">Δωρεάν εργαλείο</p>
+      <h1 data-i18n="ip.title">Κατόψεις DXF από IFC</h1>
+      <p class="gv-lede" data-i18n="ip.lede">Ρίξτε ένα μοντέλο IFC και πάρτε μία κάτοψη R12 DXF ανά όροφο, κομμένη στο ύψος που ορίζετε: κάθε τύπος στοιχείου στη δική του στρώση, κάθε χώρος με το όνομα και το εμβαδόν του.</p>
+      <p class="gv-privacy" data-i18n="ip.privacy">Το αρχείο μένει στον υπολογιστή σας· τίποτα δεν ανεβαίνει.</p>
+      <p class="ip-indicative" data-i18n="ip.indicative">Κατόψεις κομμένες από τη γεωμετρία του μοντέλου. Ελέγξτε τες απέναντι στα σχέδια του αρχιτέκτονα.</p>
+      <p class="gv-cross"><a href="free-tools.html" data-i18n="ip.cross">Όλα τα δωρεάν εργαλεία →</a></p>
     </header>
 
     <div class="gv-wrap">
-      <section class="ft-groups">
-        <div class="ft-group is-wide">
-          <h2 class="gv-eyebrow ft-group-title" data-i18n="ft.group.cnc">Προγραμματισμός CNC</h2>
-          <div class="ft-cards">
-            <a class="ft-card" href="gcode-viewer.html">
-              <h3 data-i18n="ft.lathe.title">Προβολή G-code τόρνου</h3>
-              <p data-i18n="ft.lathe.text">Τα περάσματα που κάνουν οι κύκλοι G70–G76 και G90/G92/G94, ο χρόνος κύκλου ανά εργαλείο και τα συνηθισμένα λάθη προγραμματισμού.</p>
-              <span class="ft-open" data-i18n="ft.open">Άνοιγμα →</span>
-            </a>
-            <a class="ft-card" href="milling-gcode-viewer.html">
-              <h3 data-i18n="ft.mill.title">Προβολή G-code φρέζας</h3>
-              <p data-i18n="ft.mill.text">Κάθε κίνηση σε 3D, οι κύκλοι διάτρησης, βηματικής διάτρησης και κολαούζου αναλυμένοι σε κινήσεις, ο χρόνος ανά εργαλείο και έλεγχοι προγράμματος.</p>
-              <span class="ft-open" data-i18n="ft.open">Άνοιγμα →</span>
-            </a>
-          </div>
-        </div>
-        <div class="ft-group">
-          <h2 class="gv-eyebrow ft-group-title" data-i18n="ft.group.sheet">Λαμαρίνα και laser</h2>
-          <div class="ft-cards">
-            <a class="ft-card" href="laser-dxf-checker.html">
-              <h3 data-i18n="ft.laser.title">Έλεγχος DXF για κοπή laser</h3>
-              <p data-i18n="ft.laser.text">Διορθώνει τα DXF και DWG μιας παραγγελίας (κενά, διπλές γραμμές, ανοιχτά περιγράμματα) και δίνει μήκος κοπής, διατρήσεις, βάρος, χρόνο και καθαρό DXF για το laser.</p>
-              <span class="ft-open" data-i18n="ft.open">Άνοιγμα →</span>
-            </a>
-          </div>
-        </div>
-        <div class="ft-group">
-          <h2 class="gv-eyebrow ft-group-title" data-i18n="ft.group.eng">Γραφεία μηχανικών</h2>
-          <div class="ft-cards">
-            <a class="ft-card" href="dwg-quantities.html">
-              <h3 data-i18n="ft.dwgq.title">Επιμετρήσεις από DWG</h3>
-              <p data-i18n="ft.dwgq.text">Μήκη, εμβαδά και εμβαδά διαγράμμισης ανά στρώση, πλήθος μπλοκ και πίνακες χαρακτηριστικών (π.χ. κουφώματα) από αρχεία DWG και DXF, με το σχέδιο για επιβεβαίωση και λήψη σε Excel.</p>
-              <span class="ft-open" data-i18n="ft.open">Άνοιγμα →</span>
-            </a>
-            <a class="ft-card" href="coverage-precheck.html">
-              <h3 data-i18n="ft.coverage.title">Προέλεγχος διαγράμματος κάλυψης</h3>
-              <p data-i18n="ft.coverage.text">Κάλυψη, δόμηση, όγκος, φύτευση και συντεταγμένες ΕΓΣΑ87 από το DWG ή DXF της άδειας, απέναντι στους όρους δόμησης και με το άρθρο του Κώδικα σε κάθε μέγεθος. Ενδεικτικός προέλεγχος.</p>
-              <span class="ft-open" data-i18n="ft.open">Άνοιγμα →</span>
-            </a>
-            <a class="ft-card" href="ifc-plans.html">
-              <h3 data-i18n="ft.ifcplans.title">Κατόψεις DXF από IFC</h3>
-              <p data-i18n="ft.ifcplans.text">Μία κάτοψη R12 DXF ανά όροφο από το IFC του αρχιτέκτονα, κομμένη στο ύψος που ορίζετε: κάθε τύπος στοιχείου σε δική του στρώση, οι χώροι με όνομα και εμβαδόν, έτοιμες για XREF. Στον browser, χωρίς ανέβασμα.</p>
-              <span class="ft-open" data-i18n="ft.open">Άνοιγμα →</span>
-            </a>
-          </div>
-        </div>
+      <noscript><p class="gv-banner">Το εργαλείο χρειάζεται JavaScript. / The tool needs JavaScript.</p></noscript>
+
+      <section class="gv-bar ip-bar" data-i18n-aria="ip.aria.files" aria-label="Αρχείο">
+        <label class="gv-btn gv-btn-primary gv-file-label">
+          <input type="file" id="ipInput" accept=".ifc" class="gv-visually-hidden" />
+          <span data-i18n="ip.open">Άνοιγμα αρχείου</span>
+        </label>
+        <button type="button" class="gv-btn" id="ipExample" data-i18n="ip.example">Φόρτωση παραδείγματος</button>
+        <button type="button" class="gv-btn" id="ipClear" data-i18n="ip.clear" hidden>Καθαρισμός</button>
       </section>
 
+      <section class="ip-settings" id="ipSettings">
+        <h2 data-i18n="ip.settings">Ρυθμίσεις</h2>
+        <div class="gv-settings-grid">
+          <label><span data-i18n="ip.set.cut">Ύψος τομής πάνω από τη στάθμη κάθε ορόφου (m)</span><input type="text" inputmode="decimal" id="ipCut" value="1,10" /></label>
+          <label><span data-i18n="ip.set.units">Μονάδες των DXF</span><select id="ipUnits"></select></label>
+          <label class="ip-check"><input type="checkbox" id="ipOrigin" /><span data-i18n="ip.set.origin">Μετακίνηση στην αρχή των αξόνων</span></label>
+        </div>
+        <p class="gv-note" data-i18n="ip.set.hint">Οι ρυθμίσεις μένουν σε αυτόν τον browser. Οι μονάδες και η μετακίνηση αλλάζουν μόνο τα DXF· η μετατόπιση γράφεται σε σχόλιο μέσα σε κάθε αρχείο.</p>
+      </section>
+
+      <div class="gv-banner" id="ipBanner" role="status" hidden></div>
+      <p class="gv-drop-hint" id="ipDropHint" data-i18n="ip.drop">Σύρετε εδώ ένα αρχείο IFC, ή πατήστε «Άνοιγμα αρχείου».</p>
+      <p class="gv-note ip-busy" id="ipBusy" role="status" hidden></p>
+      <div class="dq-error" id="ipError" role="alert" hidden></div>
+
+      <section class="ip-panel" id="ipPanel" hidden>
+        <div class="dq-status ip-status" id="ipStatus"></div>
+        <p class="gv-note" id="ipRecutTime" hidden></p>
+
+        <div class="ip-table-head">
+          <h2 data-i18n="ip.storeys">Όροφοι</h2>
+          <button type="button" class="gv-btn" id="ipZip" data-i18n="ip.zip">Λήψη όλων (ZIP)</button>
+        </div>
+        <div class="gv-table-wrap">
+          <table class="gv-table ip-storeys" id="ipStoreys">
+            <thead><tr><th data-i18n="ip.col.storey">Όροφος</th><th class="dq-num" data-i18n="ip.col.level">Στάθμη (m)</th><th class="dq-num" data-i18n="ip.col.cut">Στοιχεία στην τομή</th><th class="dq-num" data-i18n="ip.col.nogeo">⚠ Χωρίς γεωμετρία</th><th class="dq-num" data-i18n="ip.col.rooms">Χώροι</th><th data-i18n="ip.col.dxf">DXF</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <div class="ip-view">
+          <div class="gv-panel-head">
+            <span><span data-i18n="ip.preview">Προεπισκόπηση</span> · <span id="ipPreviewName"></span></span>
+            <span class="gv-tools-controls">
+              <button type="button" class="gv-link" id="ipFit" data-i18n="ip.fit">Προσαρμογή</button>
+              <button type="button" class="gv-zoom" id="ipZoomOut" data-i18n-aria="ip.zoomout" aria-label="Σμίκρυνση">−</button>
+              <button type="button" class="gv-zoom" id="ipZoomIn" data-i18n-aria="ip.zoomin" aria-label="Μεγέθυνση">+</button>
+            </span>
+          </div>
+          <div class="dq-canvas-box">
+            <canvas class="dq-canvas ip-canvas" id="ipCanvas" role="img" data-i18n-aria="ip.aria.drawing" aria-label="Κάτοψη του επιλεγμένου ορόφου"></canvas>
+            <div class="dq-tip" id="ipTip" hidden></div>
+          </div>
+          <ul class="ip-legend" id="ipLegend" data-i18n-aria="ip.legend" aria-label="Υπόμνημα"></ul>
+        </div>
+
+        <h2 class="ip-h" data-i18n="ip.warnings">Προειδοποιήσεις</h2>
+        <ul class="gv-check-list ip-warnings" id="ipWarnings"></ul>
+      </section>
+
+      <p class="gv-note ip-v1" data-i18n="ip.v1">Δεν σχεδιάζονται σε αυτή την έκδοση: φορές ανοιγμάτων θυρών, σκαλοπάτια κάτω από την τομή, κρυμμένες γραμμές, διαστάσεις.</p>
+
       <section class="gv-cta">
-        <h2 data-i18n="gv.cta.title">Χρειάζεστε εργαλεία φτιαγμένα για τη δική σας δουλειά;</h2>
-        <p data-i18n="gv.cta.text">Φτιάχνουμε λογισμικό στα μέτρα σας για μηχανικούς και παραγωγή: αυτοματισμούς CAD, CAM και BIM, post-processor και εργαλεία σαν αυτά.</p>
-        <a class="btn-primary" id="gvCta" href="index.html#contact" data-i18n="gv.cta.button">Μιλήστε μαζί μας</a>
+        <h2 data-i18n="ip.cta.title">Κατόψεις στα πρότυπα του γραφείου σας;</h2>
+        <p data-i18n="ip.cta.text">Τις στήνουμε στις δικές σας στρώσεις και τα δικά σας μπλοκ, με φορές ανοιγμάτων, διαστάσεις και μαζική μετατροπή μέσα στο CAD σας.</p>
+        <a class="btn-primary" id="ipCta" href="index.html#contact" data-i18n="ip.cta.link">Επικοινωνήστε μαζί μας</a>
+        <div class="gv-survey" id="ipSurvey">
+          <p data-i18n="ip.survey.q">Πώς παίρνετε σήμερα κατόψεις από ένα IFC;</p>
+          <button type="button" class="gv-chip" data-answer="addon" data-i18n="ip.survey.addon">Με πρόσθετο στο CAD μου</button>
+          <button type="button" class="gv-chip" data-answer="ask" data-i18n="ip.survey.ask">Ζητάω DWG από τον αρχιτέκτονα</button>
+          <button type="button" class="gv-chip" data-answer="other" data-i18n="ip.survey.other">Αλλιώς</button>
+          <p class="gv-thanks" id="ipThanks" data-i18n="ip.survey.thanks" hidden>Ευχαριστούμε!</p>
+        </div>
       </section>
     </div>
   </main>
@@ -157,6 +177,7 @@
       <a href="legal.html" data-i18n="footer.legal">Νομικά</a>
       <a href="javascript:void(0)" onclick="openCookieSettings()" data-i18n="footer.cookie_settings">Ρυθμίσεις Cookies</a>
     </div>
+    <p class="lc-notice"><span data-i18n="ip.notice">Ανάγνωση IFC: web-ifc (ThatOpen Company), MPL-2.0,</span> <a href="https://github.com/ThatOpen/engine_web-ifc" rel="noopener" data-i18n="ip.notice.link">ο κώδικας στο GitHub</a></p>
   </footer>
 
   <!-- COOKIE CONSENT BANNER: markup identical to calculator.html lines 925-977 -->
@@ -213,12 +234,11 @@
     </div>
   </div>
 
+  <script src="js/ifcplan/i18n-ifcplan.js?v=20261001"></script>
   <script>
     var translations = {
       el: {
-        "gv.back": "Αρχική",
-        "_title": "AidedCAM - Δωρεάν εργαλεία",
-        "gv.cta.button": "Μιλήστε μαζί μας",
+        "_title": "AidedCAM - Κατόψεις DXF από IFC",
         "cookie_text": "Αυτός ο ιστότοπος χρησιμοποιεί cookies για τη βελτιστοποίηση της λειτουργίας του και την ανάλυση επισκεψιμότητας.",
         "cookie_accept": "Αποδοχή",
         "cookie_decline": "Απόρριψη",
@@ -238,32 +258,9 @@
         "footer.privacy": "Απόρρητο",
         "footer.legal": "Νομικά",
         "footer.cookie_settings": "Ρυθμίσεις Cookies",
-        "ft.eyebrow": "Δωρεάν εργαλεία",
-        "ft.title": "Δωρεάν εργαλεία για μηχανικούς και παραγωγή",
-        "ft.group.cnc": "Προγραμματισμός CNC",
-        "ft.group.sheet": "Λαμαρίνα και laser",
-        "ft.group.eng": "Γραφεία μηχανικών",
-        "ft.lede": "Ανοίγουν αμέσως στον browser, χωρίς εγκατάσταση και χωρίς εγγραφή. Τα αρχεία σας δεν φεύγουν ποτέ από τον υπολογιστή σας.",
-        "ft.lathe.title": "Προβολή G-code τόρνου",
-        "ft.lathe.text": "Τα περάσματα που κάνουν οι κύκλοι G70–G76 και G90/G92/G94, ο χρόνος κύκλου ανά εργαλείο και τα συνηθισμένα λάθη προγραμματισμού.",
-        "ft.mill.title": "Προβολή G-code φρέζας",
-        "ft.mill.text": "Κάθε κίνηση σε 3D, οι κύκλοι διάτρησης, βηματικής διάτρησης και κολαούζου αναλυμένοι σε κινήσεις, ο χρόνος ανά εργαλείο και έλεγχοι προγράμματος.",
-        "ft.laser.title": "Έλεγχος DXF για κοπή laser",
-        "ft.laser.text": "Διορθώνει τα DXF και DWG μιας παραγγελίας (κενά, διπλές γραμμές, ανοιχτά περιγράμματα) και δίνει μήκος κοπής, διατρήσεις, βάρος, χρόνο και καθαρό DXF για το laser.",
-        "ft.dwgq.title": "Επιμετρήσεις από DWG",
-        "ft.dwgq.text": "Μήκη, εμβαδά και εμβαδά διαγράμμισης ανά στρώση, πλήθος μπλοκ και πίνακες χαρακτηριστικών (π.χ. κουφώματα) από αρχεία DWG και DXF, με το σχέδιο για επιβεβαίωση και λήψη σε Excel.",
-        "ft.coverage.title": "Προέλεγχος διαγράμματος κάλυψης",
-        "ft.coverage.text": "Κάλυψη, δόμηση, όγκος, φύτευση και συντεταγμένες ΕΓΣΑ87 από το DWG ή DXF της άδειας, απέναντι στους όρους δόμησης και με το άρθρο του Κώδικα σε κάθε μέγεθος. Ενδεικτικός προέλεγχος.",
-        "ft.ifcplans.title": "Κατόψεις DXF από IFC",
-        "ft.ifcplans.text": "Μία κάτοψη R12 DXF ανά όροφο από το IFC του αρχιτέκτονα, κομμένη στο ύψος που ορίζετε: κάθε τύπος στοιχείου σε δική του στρώση, οι χώροι με όνομα και εμβαδόν, έτοιμες για XREF. Στον browser, χωρίς ανέβασμα.",
-        "ft.open": "Άνοιγμα →",
-        "gv.cta.title": "Χρειάζεστε εργαλεία φτιαγμένα για τη δική σας δουλειά;",
-        "gv.cta.text": "Φτιάχνουμε λογισμικό στα μέτρα σας για μηχανικούς και παραγωγή: αυτοματισμούς CAD, CAM και BIM, post-processor και εργαλεία σαν αυτά.",
       },
       en: {
-        "gv.back": "Home",
-        "_title": "AidedCAM - Free tools",
-        "gv.cta.button": "Talk to us",
+        "_title": "AidedCAM - DXF floor plans from IFC",
         "cookie_text": "This website uses cookies to optimize functionality and analyze traffic.",
         "cookie_accept": "Accept",
         "cookie_decline": "Decline",
@@ -283,32 +280,9 @@
         "footer.privacy": "Privacy",
         "footer.legal": "Legal",
         "footer.cookie_settings": "Cookie Settings",
-        "ft.eyebrow": "Free tools",
-        "ft.title": "Free tools for engineering and manufacturing",
-        "ft.group.cnc": "CNC programming",
-        "ft.group.sheet": "Sheet metal and laser",
-        "ft.group.eng": "Engineering offices",
-        "ft.lede": "They open instantly in your browser, with no install and no sign-up. Your files never leave your computer.",
-        "ft.lathe.title": "Lathe G-code viewer",
-        "ft.lathe.text": "The passes that G70–G76 and G90/G92/G94 cycles really make, cycle time per tool, and common programming mistakes.",
-        "ft.mill.title": "Milling G-code viewer",
-        "ft.mill.text": "Every move in 3D, drilling, peck and tapping cycles expanded into their moves, time per tool, and program checks.",
-        "ft.laser.title": "Laser DXF check",
-        "ft.laser.text": "Repairs the DXF and DWG files of an order (gaps, doubled lines, open contours) and gives cut length, pierces, weight, time and a clean DXF for the laser.",
-        "ft.dwgq.title": "Quantities from DWG",
-        "ft.dwgq.text": "Lengths, areas and hatch areas per layer, block counts and attribute schedules (doors, windows) from DWG and DXF files, with the drawing to check them and an Excel download.",
-        "ft.coverage.title": "Coverage diagram pre-check",
-        "ft.coverage.text": "Coverage, built floor area (δόμηση), volume, planting and ΕΓΣΑ87 coordinates from a Greek permit's DWG or DXF, against the zone's terms, with the Code article for every figure. An indicative pre-check.",
-        "ft.ifcplans.title": "DXF floor plans from IFC",
-        "ft.ifcplans.text": "One R12 DXF floor plan per storey from the architect's IFC, cut at the height you choose: every element type on its own layer, rooms with their name and area, ready to XREF. In the browser, nothing uploaded.",
-        "ft.open": "Open →",
-        "gv.cta.title": "Need tools built around your own work?",
-        "gv.cta.text": "We build tailor-made software for engineering and manufacturing: CAD, CAM and BIM automation, post-processors and tools like these.",
       },
       it: {
-        "gv.back": "Home",
-        "_title": "AidedCAM - Strumenti gratuiti",
-        "gv.cta.button": "Parlate con noi",
+        "_title": "AidedCAM - Piante DXF da IFC",
         "cookie_text": "Questo sito web utilizza i cookie per ottimizzare le sue funzionalità e analizzare il traffico.",
         "cookie_accept": "Accetta",
         "cookie_decline": "Rifiuta",
@@ -328,29 +302,12 @@
         "footer.privacy": "Privacy",
         "footer.legal": "Note Legali",
         "footer.cookie_settings": "Impostazioni Cookie",
-        "ft.eyebrow": "Strumenti gratuiti",
-        "ft.title": "Strumenti gratuiti per l’ingegneria e la produzione",
-        "ft.group.cnc": "Programmazione CNC",
-        "ft.group.sheet": "Lamiera e laser",
-        "ft.group.eng": "Studi di ingegneria",
-        "ft.lede": "Si aprono subito nel browser, senza installazione e senza registrazione. I vostri file non lasciano mai il vostro computer.",
-        "ft.lathe.title": "Visualizzatore G-code per tornio",
-        "ft.lathe.text": "Le passate che i cicli G70–G76 e G90/G92/G94 eseguono davvero, il tempo ciclo per utensile e gli errori di programmazione più comuni.",
-        "ft.mill.title": "Visualizzatore G-code per fresa",
-        "ft.mill.text": "Ogni movimento in 3D, i cicli di foratura, foratura a tratti e maschiatura scomposti in movimenti, il tempo per utensile e i controlli del programma.",
-        "ft.laser.title": "Controllo DXF per taglio laser",
-        "ft.laser.text": "Corregge i file DXF e DWG di un ordine (interruzioni, linee doppie, contorni aperti) e fornisce lunghezza di taglio, sfondamenti, peso, tempo e un DXF pulito per il laser.",
-        "ft.dwgq.title": "Computi da DWG",
-        "ft.dwgq.text": "Lunghezze, aree e aree dei tratteggi per layer, conteggio dei blocchi e tabelle degli attributi (porte, finestre) da file DWG e DXF, con il disegno per verificarle e il download in Excel.",
-        "ft.coverage.title": "Pre-verifica del diagramma di copertura",
-        "ft.coverage.text": "Copertura, superficie edificata (δόμηση), volume, verde e coordinate ΕΓΣΑ87 dal DWG o DXF di un permesso greco, a confronto con i parametri della zona, con l’articolo del Codice per ogni grandezza. Una pre-verifica indicativa.",
-        "ft.ifcplans.title": "Piante DXF da IFC",
-        "ft.ifcplans.text": "Una pianta DXF R12 per piano dall’IFC dell’architetto, tagliata all’altezza che scegliete: ogni tipo di elemento sul proprio layer, i locali con nome e superficie, pronte come XREF. Nel browser, senza caricare nulla.",
-        "ft.open": "Apri →",
-        "gv.cta.title": "Vi servono strumenti costruiti sul vostro lavoro?",
-        "gv.cta.text": "Realizziamo software su misura per l’ingegneria e la produzione: automazioni CAD, CAM e BIM, post-processor e strumenti come questi.",
       },
     };
+    // The tool's strings first, then this page's own keys on top.
+    ['el', 'en', 'it'].forEach(function (l) {
+      translations[l] = Object.assign({}, (window.IP_I18N || {})[l] || {}, translations[l]);
+    });
     window.GV_I18N = translations;
     var currentLang = 'el';
 
@@ -434,5 +391,6 @@
     function gaEvent(name, params) { if (window.gtag) gtag('event', name, params); }
     window.gaEvent = gaEvent;
   </script>
+  <script type="module" src="js/ifcplan/ui.js?v=20261001"></script>
 </body>
 </html>

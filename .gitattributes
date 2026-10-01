@@ -4,3 +4,7 @@
 # The published WebAssembly engine is build output: served exactly as published, never diffed.
 js/laser/engine/** binary
 js/dwg/engine/** binary
+# The vendored IFC reader is served exactly as published on npm (its hashes are tested), and IFC files are kept
+# byte-exact (the example generator compares its output with the committed file).
+js/ifcplan/vendor/** binary
+*.ifc binary

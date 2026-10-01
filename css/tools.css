@@ -386,3 +386,27 @@
   .cp-print-disclaimer { display: block !important; position: fixed; bottom: 0; left: 0; right: 0; margin: 0; padding: 2mm 0; background: #fff; border-top: 1px solid #ccc; font-size: 9px; color: #555; text-align: center; }
   .cp .gv-wrap { padding-bottom: 12mm; }
 }
+
+/* ---- ifc-plans.html: DXF floor plans from IFC (spec §6) ---- */
+.ip-indicative { display: inline-block; margin: 0.6rem 0 0; padding: 0.2rem 0.7rem; border: 1px solid var(--gv-rapid); border-radius: 999px; color: var(--ink-soft); font-size: 0.82rem; }
+.ip-settings { padding: 0.25rem 0 0.5rem; }   /* editorial.css pads every <section> */
+.ip-settings h2, .ip-panel h2 { margin: 0.5rem 0 0; font-family: var(--font-mono); font-weight: 400; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.ip-settings input[aria-invalid="true"] { border-color: var(--gv-hi); }
+.ip-settings .ip-check { flex-direction: row; align-items: center; gap: 0.5rem; align-self: end; padding-bottom: 0.45rem; color: var(--ink-soft); font-size: 0.85rem; }
+.ip-busy { font-style: italic; }
+.ip-panel { padding: 0; }
+.ip-status .ip-file { font-weight: 600; color: var(--ink); }
+.ip-table-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.5rem; margin: 1rem 0 0.5rem; }
+.ip-storeys tbody tr { cursor: pointer; }
+.ip-storeys tbody tr:hover td, .ip-storeys tbody tr.is-sel td { background: var(--accent-soft); }
+.ip-storeys tbody tr.is-sel td:first-child { font-weight: 600; }
+.ip-storeys tbody tr:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.ip-storeys .ip-empty { color: var(--muted); font-style: italic; }
+.ip-storeys .ip-warn { color: var(--gv-rapid); font-weight: 600; }
+.ip-storeys .gv-btn { padding: 0.25rem 0.6rem; font-size: 0.8rem; }
+.ip-view { margin: 1.25rem 0 0.5rem; border: 1px solid var(--line); background: var(--panel); min-width: 0; }
+.ip-legend { display: flex; flex-wrap: wrap; gap: 0.3rem 1rem; list-style: none; margin: 0; padding: 0.45rem 0.75rem; border-top: 1px solid var(--line); font-size: 0.8rem; color: var(--ink-soft); }
+.ip-swatch { display: inline-block; width: 18px; height: 0; margin-right: 0.4rem; border-top: 2px solid; vertical-align: middle; }
+.ip-panel .ip-h { margin-top: 1.5rem; }
+.ip-warnings { margin: 0.3rem 0 1rem; }
+.ip-v1 { margin: 1rem 0; }

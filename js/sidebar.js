@@ -110,7 +110,7 @@
   function render() {
     const c = COPY[pick()];
     nav.setAttribute('aria-label', c.label);
-    nav.querySelector('.afs-label').textContent = c.label;
+    nav.querySelector('.afs-label').textContent = c.button;
     nav.querySelector('.afs-fab-text').textContent = c.button;
     for (const t of TOOLS) {
       const a = nav.querySelector(`[data-tool="${t.id}"]`);
@@ -124,7 +124,7 @@
 
   // ---- Layout: the strip only where it fits, else the floating button ----
   const desktop = window.matchMedia('(min-width: 1200px) and (hover: hover) and (pointer: fine)');
-  const CLEAR = 6;                                          // px between the strip and the page's content
+  const CLEAR = 5;                                          // px between the strip and the page's content
   // Where the page's content starts: the content box of its layout wrappers (index-style pages and tool pages).
   function contentLeft() {
     let left = Infinity;

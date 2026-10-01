@@ -102,9 +102,11 @@ async (page) => {
   }
   const strips = w => PAGES.filter(n => layouts[w][n] === 'strip');
   check('at 1440 px every page shows the strip', strips(1440).length === PAGES.length, layouts[1440]);
-  check('at 1200 and 1280 px the pages with the 5vw container show the strip, the tool pages (3vw gutter) the button',
-    ['index', 'what-you-gain', 'calculator', 'legal', 'privacy'].every(n => layouts[1200][n] === 'strip' && layouts[1280][n] === 'strip') &&
-    Object.keys(TOOL_PAGE).every(n => layouts[1200][n] === 'panel' && layouts[1280][n] === 'panel'), { 1200: layouts[1200], 1280: layouts[1280] });
+  // The label beside the tiles moves the strip right: the 5vw pages get it from 1280 px, the tool pages (3vw gutter) from 1366.
+  check('at 1280 px the pages with the 5vw container show the strip; at 1200 and 1280 px the tool pages show the button; at 1366 px every page the strip',
+    ['index', 'what-you-gain', 'calculator', 'legal', 'privacy'].every(n => layouts[1280][n] === 'strip') &&
+    Object.keys(TOOL_PAGE).every(n => layouts[1200][n] === 'panel' && layouts[1280][n] === 'panel') &&
+    strips(1366).length === PAGES.length, { 1200: layouts[1200], 1280: layouts[1280], 1366: layouts[1366] });
 
   // 2. At 1440 px: six items and the all-tools box, hover expands a card without moving the page, current page marked.
   await page.setViewportSize({ width: 1440, height: 900 });

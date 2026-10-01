@@ -17,22 +17,22 @@
 /* ---------- Strip (desktop) ---------- */
 .afs[data-layout="strip"] .afs-fab { display: none; }
 .afs[data-layout="strip"] .afs-list {
-  position: fixed; left: 14px; top: 50%; transform: translateY(-50%); z-index: 990;
-  display: flex; flex-direction: column; align-items: flex-start; gap: 4px; width: 44px;
+  position: fixed; left: 18px; top: 50%; transform: translateY(-50%); z-index: 990;
+  display: flex; flex-direction: column; align-items: flex-start; gap: 4px; width: 40px;
 }
 /* The vertical label runs beside the tiles, on their left, centred on the column. */
 .afs[data-layout="strip"] .afs-label {
   position: absolute; right: calc(100% + 3px); top: 50%; margin: 0;
   writing-mode: vertical-rl; transform: translateY(-50%) rotate(180deg);
-  font-family: var(--font-mono); font-size: 0.56rem; font-weight: 500; line-height: 1;
-  letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); white-space: nowrap;
+  font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600; line-height: 1;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink); white-space: nowrap;
 }
 .afs[data-layout="strip"] ul { display: flex; flex-direction: column; gap: 4px; }
 .afs[data-layout="strip"] .afs-item,
 .afs[data-layout="strip"] .afs-all {
   position: relative; display: flex; align-items: center; justify-content: center;
-  width: 44px; height: 44px; border-radius: 2px;
-  color: var(--muted); background: rgba(244, 243, 238, 0.9); border: 1px solid var(--line);
+  width: 40px; height: 40px; border-radius: 2px;
+  color: var(--accent-deep); background: rgba(244, 243, 238, 0.9); border: 1px solid var(--line);
   transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
 }
 /* The all-tools box: a hairline above it, a stronger border, the accent icon. */
@@ -44,7 +44,9 @@
 .afs[data-layout="strip"] .afs-all:hover, .afs[data-layout="strip"] .afs-all:focus-visible {
   color: var(--accent-deep); background: var(--panel); border-color: var(--ink); z-index: 1;
 }
-.afs[data-layout="strip"] [aria-current="page"] { color: var(--accent-deep); border-color: var(--line-strong); box-shadow: inset 2px 0 0 var(--accent); }
+/* The current page's tool: a solid green tile with a white icon, also under the pointer. */
+.afs[data-layout="strip"] .afs-item[aria-current="page"],
+.afs[data-layout="strip"] .afs-all[aria-current="page"] { color: #fff; background: var(--accent-deep); border-color: var(--accent-deep); }
 
 /* The card: the tile's box continued to the right. Hidden with opacity and a clip, so its text stays the
    link's accessible name; it takes no pointer events until shown, so it never blocks the page under it.
@@ -101,10 +103,10 @@
 }
 .afs[data-layout="panel"] .afs-icon {
   display: flex; align-items: center; justify-content: center; width: 36px; height: 36px;
-  border: 1px solid var(--line); border-radius: 2px; color: var(--muted);
+  border: 1px solid var(--line); border-radius: 2px; color: var(--accent-deep);
 }
 .afs[data-layout="panel"] .afs-item:hover .afs-icon { color: var(--accent-deep); border-color: var(--line-strong); }
-.afs[data-layout="panel"] [aria-current="page"] .afs-icon { color: var(--accent-deep); border-color: var(--accent); }
+.afs[data-layout="panel"] [aria-current="page"] .afs-icon { color: #fff; background: var(--accent-deep); border-color: var(--accent-deep); }
 .afs[data-layout="panel"] [aria-current="page"] .afs-name { color: var(--accent-deep); }
 .afs[data-layout="panel"] .afs-all { display: flex; align-items: center; padding: 0.8rem 0.15rem 0.1rem; color: var(--ink); }
 .afs[data-layout="panel"] .afs-all .afs-icon { display: none; }

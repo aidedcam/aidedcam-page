@@ -6,7 +6,7 @@ const read = p => readFileSync(new URL(p, import.meta.url), 'utf8');
 
 test('the tools index, the sitemap and llms.txt list the DWG quantities tool', () => {
   const ft = read('../../free-tools.html');
-  assert.ok(ft.includes('<a class="ft-card" href="dwg-quantities.html">'));
+  assert.ok(ft.includes('<a class="ft-row" href="dwg-quantities.html">'));
   assert.equal(ft.split('"ft.dwgq.text":').length - 1, 3, 'one card text per language');
   assert.ok(read('../../sitemap.xml').includes('<loc>https://www.aidedcam.com/dwg-quantities.html</loc>'));
   assert.ok(read('../../llms.txt').includes('- DWG quantities (https://www.aidedcam.com/dwg-quantities.html)'));

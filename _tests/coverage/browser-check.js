@@ -183,17 +183,34 @@ async (page) => {
   check('the layer template is served', tpl.ok && tpl.size > 1000 && tpl.name === 'aidedcam-layer-template.dxf', tpl);
   const tEnd = await timings();
 
-  // 15. The tools index: the new card in Engineering offices, and the single laser card beside the two engineering
-  // cards keeps its own height (page-scoped rule in free-tools.html), at desktop width and at 375 px.
+  // 15. The tools index: the coverage row listed among seven equally wide rows, at desktop width and at 375 px.
   for (const width of [1280, 375]) {
     await page.setViewportSize({ width, height: 900 });
     await page.goto(BASE + 'free-tools.html?lang=en');
-    const cards = await page.evaluate(() => Object.fromEntries([...document.querySelectorAll('.ft-card')].map(a => [a.getAttribute('href'), Math.round(a.getBoundingClientRect().height)])));
+    const cards = await page.evaluate(() => Object.fromEntries([...document.querySelectorAll('.ft-row')].map(a => [a.getAttribute('href'), Math.round(a.getBoundingClientRect().width)])));
     const scroll = await page.evaluate(() => [document.documentElement.scrollWidth, document.documentElement.clientWidth]);
-    const laser = cards['laser-dxf-checker.html'], dwg = cards['dwg-quantities.html'];
-    check(`index at ${width} px: the coverage card is listed, the laser card is not stretched, no horizontal scroll`, 'coverage-precheck.html' in cards && laser <= Math.max(dwg, cards['coverage-precheck.html']) + 40 && scroll[0] === scroll[1], { cards, scroll });
+    const widths = Object.values(cards);
+    check(`index at ${width} px: the coverage row is listed, all seven rows are equally wide, no horizontal scroll`, 'coverage-precheck.html' in cards && widths.length === 7 && widths.every(w => w === widths[0]) && scroll[0] === scroll[1], { cards, scroll });
     if (process.env && process.env.SHOT) await page.screenshot({ path: `${process.env.SHOT}/ft-${width}.png`, fullPage: true });
   }
+
+  // 15b. The tools index: a hovered row darkens its border to --ink, a keyboard-focused row shows an outline, the CTA lines up with the list.
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.emulateMedia({ reducedMotion: 'reduce' });                 // no border transition to wait for
+  await page.goto(BASE + 'free-tools.html?lang=en');
+  const ink = await page.evaluate(() => { const d = document.createElement('i'); d.style.color = 'var(--ink)'; document.body.appendChild(d); const c = getComputedStyle(d).color; d.remove(); return c; });
+  await page.hover('.ft-row:nth-child(2)');
+  const hoverBorder = await page.evaluate(() => getComputedStyle(document.querySelector('.ft-row:nth-child(2)')).borderTopColor);
+  check('index: a hovered row has the --ink border', hoverBorder === ink, { hoverBorder, ink });
+  await page.mouse.move(0, 0);
+  await page.evaluate(() => document.activeElement && document.activeElement.blur());
+  await page.focus('.ft-row:nth-child(1)');                              // focus() after a key press: :focus-visible applies
+  await page.keyboard.press('Tab');
+  const focused = await page.evaluate(() => { const a = document.activeElement; const o = getComputedStyle(a); return { cls: a.className, href: a.getAttribute('href'), style: o.outlineStyle, width: parseFloat(o.outlineWidth) }; });
+  check('index: a keyboard-focused row shows an outline', focused.cls === 'ft-row' && focused.style !== 'none' && focused.width >= 2, focused);
+  const align = await page.evaluate(() => { const l = document.querySelector('.ft-list').getBoundingClientRect(), c = document.querySelector('.gv-cta').getBoundingClientRect(); return [Math.round(l.left), Math.round(l.right), Math.round(c.left), Math.round(c.right)]; });
+  check('index: the CTA has the same left and right edges as the list', align[0] === align[2] && align[1] === align[3], align);
+  await page.emulateMedia({ reducedMotion: null });
 
   // 16. Nothing external, no console errors.
   check('no external requests', external.length === 0, external);

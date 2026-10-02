@@ -329,7 +329,7 @@ async (page) => {
   for (const width of [1280, 375]) {
     await page.setViewportSize({ width, height: 900 });
     await page.goto(BASE + 'free-tools.html?lang=en');
-    const card = await page.evaluate(() => { const a = document.querySelector('.ft-card[href="steel-takeoff.html"]'); return a && a.closest('.ft-group').querySelector('.ft-group-title').innerText; });
+    const card = await page.evaluate(() => { const a = document.querySelector('.ft-row[href="steel-takeoff.html"]'); return a && a.querySelector('.ft-cat').innerText; });
     const scroll = await page.evaluate(() => [document.documentElement.scrollWidth, document.documentElement.clientWidth]);
     check(`index at ${width} px: the card in Steel and building products, no sideways scroll`, /steel and building products/i.test(card || '') && scroll[0] === scroll[1], { card, scroll });
   }

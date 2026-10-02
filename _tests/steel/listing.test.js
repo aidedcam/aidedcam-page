@@ -7,10 +7,10 @@ const between = (s, from, to) => s.slice(s.indexOf(from), s.indexOf(to, s.indexO
 
 test('the tools index lists the steel take-off in its own group, Steel and building products', () => {
   const ft = read('../../free-tools.html');
-  assert.ok(ft.includes('<a class="ft-card" href="steel-takeoff.html">'));
-  const steel = between(ft, 'data-i18n="ft.group.steel"', '</section>');
-  assert.ok(steel.includes('href="steel-takeoff.html"'), 'in the Steel and building products group');
-  assert.equal((steel.match(/class="ft-card"/g) || []).length, 1, 'one card so far');
+  assert.ok(ft.includes('<a class="ft-row" href="steel-takeoff.html">'));
+  const steel = between(ft, '<a class="ft-row" href="steel-takeoff.html">', '</a>');
+  assert.ok(steel.includes('data-i18n="ft.group.steel"'), 'its row is labelled Steel and building products');
+  assert.equal((ft.match(/href="steel-takeoff\.html"/g) || []).length, 1, 'one row for it');
   for (const k of ['ft.group.steel', 'ft.steel.title', 'ft.steel.text']) assert.equal(ft.split(`"${k}":`).length - 1, 3, k);
   const strings = [...ft.matchAll(/"ft\.(?:group\.steel|steel\.title|steel\.text)": "([^"]*)"/g)].map(m => m[1]);
   assert.ok(strings.every(s => !/δωρεάν|\bfree\b|gratuit/i.test(s)), 'no "free" in the visible text');

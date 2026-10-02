@@ -82,7 +82,7 @@ test('the example order is committed and the controller loads it', () => {
 
 test('the tools index, the sitemap and llms.txt list the laser check', () => {
   const ft = read('../../free-tools.html');
-  assert.ok(ft.includes('<a class="ft-card" href="laser-dxf-checker.html">'));
+  assert.ok(ft.includes('<a class="ft-row" href="laser-dxf-checker.html">'));
   assert.equal(ft.split('"ft.laser.text":').length - 1, 3, 'one card text per language');
   assert.ok(read('../../sitemap.xml').includes('<loc>https://www.aidedcam.com/laser-dxf-checker.html</loc>'));
   assert.ok(read('../../llms.txt').includes('- Laser DXF check (https://www.aidedcam.com/laser-dxf-checker.html)'));

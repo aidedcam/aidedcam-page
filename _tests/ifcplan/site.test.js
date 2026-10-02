@@ -6,9 +6,9 @@ const read = p => readFileSync(new URL(p, import.meta.url), 'utf8').replace(/\r\
 
 test('the tools index, the sitemap and llms.txt list the IFC floor plans', () => {
   const ft = read('../../free-tools.html');
-  assert.ok(ft.includes('<a class="ft-card" href="ifc-plans.html">'));
-  const eng = ft.slice(ft.indexOf('data-i18n="ft.group.eng"'), ft.indexOf('</section>', ft.indexOf('data-i18n="ft.group.eng"')));
-  assert.ok(eng.includes('href="ifc-plans.html"'), 'in the Engineering offices group');
+  assert.ok(ft.includes('<a class="ft-row" href="ifc-plans.html">'));
+  const rowHtml = ft.slice(ft.indexOf('<a class="ft-row" href="ifc-plans.html">'), ft.indexOf('</a>', ft.indexOf('<a class="ft-row" href="ifc-plans.html">')));
+  assert.ok(rowHtml.includes('data-i18n="ft.group.eng"'), 'its row is labelled Engineering offices');
   assert.equal(ft.split('"ft.ifcplans.title":').length - 1, 3, 'one card title per language');
   assert.equal(ft.split('"ft.ifcplans.text":').length - 1, 3, 'one card text per language');
   const sm = read('../../sitemap.xml');

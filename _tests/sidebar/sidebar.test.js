@@ -31,10 +31,10 @@ test('every page loads the stylesheet and the deferred script once, in <head>, w
   }
 });
 
-test('the seven tools and their URLs are the cards of free-tools.html, in order', () => {
+test('the seven tools and their URLs are the rows of free-tools.html, in order', () => {
   const { TOOLS } = loadSidebar();
   const ft = read('../../free-tools.html');
-  const cards = [...ft.matchAll(/<a class="ft-card" href="([^"]+)">\s*<h3 data-i18n="ft\.([a-z]+)\.title">/g)].map(m => ({ id: m[2], href: m[1] }));
+  const cards = [...ft.matchAll(/<a class="ft-row" href="([^"]+)">[\s\S]*?<h2 class="ft-name" data-i18n="ft\.([a-z]+)\.title">/g)].map(m => ({ id: m[2], href: m[1] }));
   assert.equal(cards.length, 7);
   assert.deepEqual(TOOLS.map(t => ({ id: t.id, href: t.href })), cards);
 });

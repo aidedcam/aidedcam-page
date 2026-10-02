@@ -6,12 +6,12 @@ const read = p => readFileSync(new URL(p, import.meta.url), 'utf8').replace(/\r\
 
 test('the tools index, the sitemap and llms.txt list the coverage pre-check', () => {
   const ft = read('../../free-tools.html');
-  assert.ok(ft.includes('<a class="ft-card" href="coverage-precheck.html">'));
-  const eng = ft.slice(ft.indexOf('data-i18n="ft.group.eng"'), ft.indexOf('</section>', ft.indexOf('data-i18n="ft.group.eng"')));
-  assert.ok(eng.includes('href="coverage-precheck.html"'), 'in the Engineering offices group');
+  assert.ok(ft.includes('<a class="ft-row" href="coverage-precheck.html">'));
+  const rowHtml = ft.slice(ft.indexOf('<a class="ft-row" href="coverage-precheck.html">'), ft.indexOf('</a>', ft.indexOf('<a class="ft-row" href="coverage-precheck.html">')));
+  assert.ok(rowHtml.includes('data-i18n="ft.group.eng"'), 'its row is labelled Engineering offices');
   assert.equal(ft.split('"ft.coverage.title":').length - 1, 3, 'one card title per language');
   assert.equal(ft.split('"ft.coverage.text":').length - 1, 3, 'one card text per language');
-  assert.ok(/<style>[\s\S]*\.ft-groups \.ft-cards \{ align-content: start; \}[\s\S]*<\/style>/.test(ft), 'the page-scoped rule that keeps a single card at its own height');
+  assert.ok(!ft.includes('<style>'), 'no page-only grid rule: the page is one list of full-width rows');
   assert.ok(!read('../../css/tools.css').includes('align-content: start'), 'not in the shared stylesheet');
   assert.ok(read('../../sitemap.xml').includes('<loc>https://www.aidedcam.com/coverage-precheck.html</loc>'));
   assert.ok(read('../../llms.txt').includes('- Coverage diagram pre-check (https://www.aidedcam.com/coverage-precheck.html)'));

@@ -196,23 +196,27 @@
   .gv-print-shot { display: block !important; width: 100%; max-height: 110mm; object-fit: contain; }
 }
 
-/* ---- free-tools.html: one card per tool ---- */
-/* Tools grouped by who they are for: the wide group spans both columns, single-card groups share a row. */
-.ft-groups { display: grid; grid-template-columns: 1fr; gap: 2rem 1.25rem; padding: 2rem 0 1rem; }
-.ft-group { display: flex; flex-direction: column; min-width: 0; }
-.ft-group-title { margin: 0 0 0.75rem; font-weight: 400; }
-.ft-cards { display: grid; grid-template-columns: 1fr; gap: 1.25rem; flex: 1; }
-@media (min-width: 720px) {
-  .ft-groups { grid-template-columns: 1fr 1fr; }
-  .ft-group.is-wide { grid-column: 1 / -1; }
-  .ft-group.is-wide .ft-cards { grid-template-columns: 1fr 1fr; }
+/* ---- free-tools.html: one list, one full-width row per tool ---- */
+/* The whole row is the link: icon box, category + name + description, then the open text. */
+.ft-list { display: flex; flex-direction: column; gap: 0.75rem; max-width: 800px; margin: 0 auto; padding: 2rem 0 1rem; }
+.ft-row { display: flex; align-items: center; gap: 1.25rem; padding: 1.1rem 1.25rem; background: var(--panel); border: 1px solid var(--line); color: var(--ink); text-decoration: none; transition: border-color 0.2s ease; }
+.ft-row:hover { border-color: var(--ink); }
+.ft-row:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.ft-icon { flex: none; display: grid; place-items: center; width: 64px; height: 64px; background: var(--panel); border: 1px solid var(--line); color: var(--accent-deep); }
+.ft-icon svg { width: 34px; height: 34px; }
+.ft-text { flex: 1; min-width: 0; }
+.ft-cat { margin: 0 0 0.3rem; }
+.ft-name { margin: 0 0 0.35rem; font-family: var(--font-display); font-weight: 600; font-size: 1.25rem; line-height: 1.25; letter-spacing: -0.01em; }
+.ft-desc { margin: 0; color: var(--ink-soft); font-size: 0.95rem; line-height: 1.55; }
+.ft-open { flex: none; color: var(--accent-deep); font-weight: 500; white-space: nowrap; }
+.ft-list ~ .gv-cta { max-width: 800px; margin-left: auto; margin-right: auto; }   /* the call to action lines up with the list */
+@media print { .ft-row { break-inside: avoid; } }
+@media (max-width: 600px) {
+  .ft-row { display: grid; grid-template-columns: 48px minmax(0, 1fr); column-gap: 0.9rem; row-gap: 0.6rem; align-items: start; padding: 1rem; }
+  .ft-icon { width: 48px; height: 48px; }
+  .ft-icon svg { width: 28px; height: 28px; }
+  .ft-open { grid-column: 2; justify-self: start; }
 }
-.ft-card { display: block; padding: 1.5rem; background: var(--panel); border: 1px solid var(--line); color: var(--ink); text-decoration: none; transition: border-color 0.2s ease; }
-.ft-card:hover { border-color: var(--accent); }
-.ft-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.ft-card h2, .ft-card h3 { margin: 0 0 0.5rem; font-family: var(--font-display); font-weight: 300; font-size: 1.5rem; }
-.ft-card p { margin: 0 0 1rem; color: var(--ink-soft); }
-.ft-open { color: var(--accent-deep); font-weight: 500; }
 
 /* ---- laser-dxf-checker.html: the laser DXF check (spec §10) ---- */
 :root { --lc-mark: #1d4ed8; --lc-branch: #7c3aed; }

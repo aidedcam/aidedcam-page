@@ -1,7 +1,7 @@
 // Steel take-off: the page's pure helpers (spec §6, §7, §8): the settings as stored, numbers as typed, which files
 // a dropped set holds, and the GA bucket. No DOM.
-import { BATH_DEFAULT } from './bath.js?v=20261104';
-import { parseRate, GRADES } from './quote.js?v=20261104';
+import { BATH_DEFAULT } from './bath.js?v=20261005';
+import { parseRate, GRADES } from './quote.js?v=20261005';
 
 export const SETTINGS_KEY = 'aidedcam-steel-settings';
 export const NC1_MAX = 2000;                                   // spec §7: the first 2,000 NC1 files are read

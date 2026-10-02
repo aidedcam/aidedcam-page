@@ -19,6 +19,6 @@ test('the tools index lists the steel take-off in its own group, Steel and build
 
 test('the sitemap and llms.txt list it', () => {
   const sm = read('../../sitemap.xml');
-  assert.ok(sm.includes('<loc>https://www.aidedcam.com/steel-takeoff.html</loc>\n    <lastmod>2026-10-01</lastmod>'), 'with the lastmod placeholder');
+  assert.ok(sm.includes('<loc>https://www.aidedcam.com/steel-takeoff.html</loc>\n    <lastmod>2026-10-02</lastmod>'), 'with the lastmod placeholder');
   assert.ok(read('../../llms.txt').includes('- Steel take-off and galvanizing quote (https://www.aidedcam.com/steel-takeoff.html)'));
 });

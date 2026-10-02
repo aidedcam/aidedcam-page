@@ -1,7 +1,7 @@
 // Steel take-off: one NC1 piece's nominal kg and m², its geometry check figure and its box (spec §4, §5, §7). The
 // quoted figures are always the nominal ones; the check is ⚠ above a 5 % difference. Pure.
-import { section, plateDims } from './section.js?v=20261104';
-import { plateFigures, holeArea, DENSITY } from './plate.js?v=20261104';
+import { section, plateDims } from './section.js?v=20261005';
+import { plateFigures, holeArea, DENSITY } from './plate.js?v=20261005';
 
 export const CHECK_LIMIT = 0.05;
 const KG_PER_MM3 = DENSITY * 1e-9;

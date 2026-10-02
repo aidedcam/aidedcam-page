@@ -4,8 +4,8 @@
 // all in mm. A profile is its faces (web, flanges, legs, walls) each as a slab with that face's outline (its AK
 // contour, else a rectangle whose ends follow the header's cut angles), its IK contours and its BO holes; a plate is
 // one slab; a tube, a bar or a special profile is its section extruded along the length.
-import { ringPolygon } from './plate.js?v=20261104';
-import { plateDims } from './section.js?v=20261104';
+import { ringPolygon } from './plate.js?v=20261005';
+import { plateDims } from './section.js?v=20261005';
 
 const X = [1, 0, 0], Y = [0, 1, 0], Z = [0, 0, 1], NY = [0, -1, 0];
 const STEP = Math.PI / 12;

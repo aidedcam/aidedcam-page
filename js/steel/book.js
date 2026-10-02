@@ -1,7 +1,7 @@
 // Steel take-off: the Excel file (spec §6.8): four sheets in the visitor's language, pieces, groups, costs and
 // settings, for the DWG quantities tool's writer (js/dwg/xlsx.js, reused unchanged). Figures are the sheet's own
 // rounding (kg 1 decimal, m² 2, € 2) stored as numbers; t(key, params) is the page's translation. Pure.
-import { kg1, m2, cents } from './quote.js?v=20261104';
+import { kg1, m2, cents } from './quote.js?v=20261005';
 
 const num = v => (Number.isFinite(v) ? { v, fmt: 'num' } : '');
 const int = v => (Number.isFinite(v) ? { v, fmt: 'int' } : '');

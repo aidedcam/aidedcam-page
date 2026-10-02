@@ -4,9 +4,9 @@
 // IfcExtrudedAreaSolid (also under a boolean clipping or a mapped item) is priced from its profile's parameters; any
 // other member from its mesh ("from geometry"). Lengths in mm on the rows; meshes in metres, Z up.
 import { unitsOf, gather } from '../ifcplan/model.js?v=20261003';
-import { section } from './section.js?v=20261104';
-import { ringArea, ringLength, ringPolygon, polygonBox, DENSITY } from './plate.js?v=20261104';
-import { gradeOf, differs } from './piece.js?v=20261104';
+import { section } from './section.js?v=20261005';
+import { ringArea, ringLength, ringPolygon, polygonBox, DENSITY } from './plate.js?v=20261005';
+import { gradeOf, differs } from './piece.js?v=20261005';
 
 export const MEMBER_TYPES = ['IFCBEAM', 'IFCBEAMSTANDARDCASE', 'IFCCOLUMN', 'IFCCOLUMNSTANDARDCASE', 'IFCMEMBER', 'IFCMEMBERSTANDARDCASE', 'IFCPLATE', 'IFCPLATESTANDARDCASE'];
 const KG_PER_MM3 = DENSITY * 1e-9;

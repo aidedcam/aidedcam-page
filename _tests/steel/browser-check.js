@@ -160,7 +160,7 @@ async (page) => {
   // 6. A piece in 3D: three.js only now; the time from the click to the first frame.
   const three = requests.filter(u => /three\.module\.js/.test(u));
   const t3 = (await timings()).view3d;
-  check('a piece click shows it in 3D under 300 ms, three.js loaded only then (spec §9)', t3 < 300 && three.length === 1 && three[0] === BASE + 'js/vendor/three/three.module.js' && requests.some(u => u.endsWith('js/steel/view3d.js?v=20261104')), { t3, three });
+  check('a piece click shows it in 3D under 300 ms, three.js loaded only then (spec §9)', t3 < 300 && three.length === 1 && three[0] === BASE + 'js/vendor/three/three.module.js' && requests.some(u => u.endsWith('js/steel/view3d.js?v=20261005')), { t3, three });
   const ink = await page.evaluate(() => [window.__steel.view3d.shown, window.__steel.view3d.meshes, window.__steel.view3d.ink()]);
   check('the IPE300 rafter drawn: web and two flanges', ink[0] === 'piece' && ink[1] === 3 && ink[2] > 2000, ink);
   check('the heading names the piece', (await page.innerText('#st3dHead')) === 'R1 · IPE300');

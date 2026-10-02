@@ -6,7 +6,7 @@
 // cross-origin isolation. createSession is the whole logic without the worker's globals, for the Node tests.
 import * as WebIFC from '../ifcplan/vendor/web-ifc/web-ifc-api.js?v=20261003';
 import { sniff, MAX_BYTES } from '../ifcplan/model.js?v=20261003';
-import { readSteel, checkSteel, packMeshes } from './ifcread.js?v=20261104';
+import { readSteel, checkSteel, packMeshes } from './ifcread.js?v=20261005';
 
 const supported = (W, schema) => (W.SchemaNames || []).some(names => Array.isArray(names) && names.includes(schema));
 

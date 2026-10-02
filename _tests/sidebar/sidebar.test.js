@@ -4,7 +4,7 @@ import { readFileSync, readdirSync } from 'node:fs';
 import vm from 'node:vm';
 
 const read = p => readFileSync(new URL(p, import.meta.url), 'utf8').replace(/\r\n/g, '\n');   // a Windows checkout has CRLF
-const V = '20261104';                                                                           // deploy day swaps it
+const V = '20261005';                                                                           // deploy day swaps it
 const PAGES = ['index', 'what-you-gain', 'calculator', 'free-tools', 'gcode-viewer', 'milling-gcode-viewer', 'laser-dxf-checker',
   'dwg-quantities', 'coverage-precheck', 'ifc-plans', 'steel-takeoff', 'legal', 'privacy'].map(p => `${p}.html`);
 const LANGS = ['el', 'en', 'it'];

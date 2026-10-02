@@ -2,7 +2,7 @@
 // this groups them by profile and grade, totals them, marks the bath fit, and prices the cost lines from the rates the
 // visitor types. Figures: kg to 1 decimal, m² to 2, money to the cent; each cost line is its shown quantity times its
 // rate, so the sheet adds up. Pure.
-import { bathFit } from './bath.js?v=20261104';
+import { bathFit } from './bath.js?v=20261005';
 
 export const VAT_RATE = 0.24;
 export const GRADES = ['S235', 'S275', 'S355', 'other'];

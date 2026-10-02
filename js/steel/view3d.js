@@ -5,7 +5,7 @@
 // createView3d are Node-tested. Loaded by the page only when a piece is first shown.
 import * as THREE from '../vendor/three/three.module.js';
 import { OrbitControls } from '../vendor/three/addons/OrbitControls.js';
-import { slabsBox } from './shape3d.js?v=20261104';
+import { slabsBox } from './shape3d.js?v=20261005';
 
 export const PRESETS = { top: [0, -1e-4, 1], front: [0, -1, 0], side: [1, 0, 0], iso: [1, -1, 0.8] };
 export const GRADE_COLORS = { S235: '#8fa6bf', S275: '#86b39a', S355: '#c9a46a', S450: '#b88fb0', other: '#a9a49b' };

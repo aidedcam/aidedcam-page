@@ -7,13 +7,13 @@ import { lsGet, lsSet } from '../gcode/shell/settings-store.js';
 import { renderBanner } from '../gcode/shell/banner.js';
 import { createEngine } from '../laser/bridge.js?v=20261001';
 import { writeXlsx } from '../dwg/xlsx.js?v=20260930';
-import { parseNc1 } from './nc1.js?v=20261104';
-import { nc1Piece } from './piece.js?v=20261104';
-import { takeoff, costs, sortTakeoff, kg1, m2 } from './quote.js?v=20261104';
-import { readZip } from './unzip.js?v=20261104';
-import { workbook, xlsxName, rowNotes } from './book.js?v=20261104';
-import { pieceSlabs } from './shape3d.js?v=20261104';
-import { cleanSettings, sortSet, kindOf, isMacClutter, skippedView, piecesBucket, parsePositive, parseRateInput, SETTINGS_KEY, NC1_MAX, IFC_MAX_BYTES, RATE_KEYS } from './state.js?v=20261104';
+import { parseNc1 } from './nc1.js?v=20261005';
+import { nc1Piece } from './piece.js?v=20261005';
+import { takeoff, costs, sortTakeoff, kg1, m2 } from './quote.js?v=20261005';
+import { readZip } from './unzip.js?v=20261005';
+import { workbook, xlsxName, rowNotes } from './book.js?v=20261005';
+import { pieceSlabs } from './shape3d.js?v=20261005';
+import { cleanSettings, sortSet, kindOf, isMacClutter, skippedView, piecesBucket, parsePositive, parseRateInput, SETTINGS_KEY, NC1_MAX, IFC_MAX_BYTES, RATE_KEYS } from './state.js?v=20261005';
 
 const $ = id => document.getElementById(id);
 const SURVEY_KEY = 'aidedcam-steel-survey';
@@ -49,7 +49,7 @@ const eur = v => `${fmtNum(v, 2)} €`;
 // ---- the engine: web-ifc in its worker, loaded with the first IFC ----
 const supported = typeof WebAssembly === 'object' && typeof Worker === 'function';
 const engine = supported ? createEngine({
-  makeWorker: () => new Worker(new URL('./worker.js?v=20261104', import.meta.url), { type: 'module' }),
+  makeWorker: () => new Worker(new URL('./worker.js?v=20261005', import.meta.url), { type: 'module' }),
   timeoutMs: TIMEOUT_MS,
 }) : null;
 
@@ -334,7 +334,7 @@ async function open3d(row) {
   $('st3dHead').textContent = `${row.mark || '–'} · ${row.profile}`;
   note3d('st.3d.loading');
   let mod;
-  try { mod = await (view3dModule || (view3dModule = import(`./view3d.js?v=20261104${view3dTries ? `#retry${view3dTries}` : ''}`))); }
+  try { mod = await (view3dModule || (view3dModule = import(`./view3d.js?v=20261005${view3dTries ? `#retry${view3dTries}` : ''}`))); }
   catch (e) { view3dModule = null; view3dTries++; if (state.selected === row) note3d('st.3d.failed'); return; }
   if (state.selected !== row || state.set !== s) return;
   if (!view3d) {
@@ -468,7 +468,7 @@ async function example(kind) {
   const t0 = performance.now();
   const my = ++latest;
   const get = async path => {
-    const r = await fetch(new URL(`./examples/${path}?v=20261104`, import.meta.url));
+    const r = await fetch(new URL(`./examples/${path}?v=20261005`, import.meta.url));
     if (!r.ok) throw new Error(String(r.status));
     return new Uint8Array(await r.arrayBuffer());
   };

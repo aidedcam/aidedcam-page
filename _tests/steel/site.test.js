@@ -27,9 +27,9 @@ test('consent, GA and the language switcher are those of the IFC floor plans pag
   assert.equal(strings(b), strings(a));
 });
 
-test('every steel module URL carries the deploy placeholder ?v=20261104; shared modules keep their own', () => {
+test('every steel module URL carries the deploy placeholder ?v=20261005; shared modules keep their own', () => {
   const page = read('../../steel-takeoff.html');
-  for (const u of ['css/tools.css?v=20261104', 'js/steel/i18n-steel.js?v=20261104', 'js/steel/ui.js?v=20261104', 'css/sidebar.css?v=20261104', 'js/sidebar.js?v=20261104']) assert.ok(page.includes(u), u);
+  for (const u of ['css/tools.css?v=20261005', 'js/steel/i18n-steel.js?v=20261005', 'js/steel/ui.js?v=20261005', 'css/sidebar.css?v=20261005', 'js/sidebar.js?v=20261005']) assert.ok(page.includes(u), u);
   const SHARED = { '../laser/bridge.js': '20261001', '../dwg/xlsx.js': '20260930', '../ifcplan/model.js': '20261003', '../ifcplan/vendor/web-ifc/web-ifc-api.js': '20261003' };
   let n = 0;
   for (const f of readdirSync(new URL('../../js/steel/', import.meta.url)).filter(x => x.endsWith('.js'))) {
@@ -39,14 +39,14 @@ test('every steel module URL carries the deploy placeholder ?v=20261104; shared 
       const u = m[1], base = u.replace(/\?.*$/, '');
       if (u.includes('/gcode/shell/') || u.includes('/vendor/three/')) assert.ok(!u.includes('?v='), `${f}: ${u}`);
       else if (SHARED[base]) assert.ok(u.endsWith(`?v=${SHARED[base]}`), `${f}: ${u}`);
-      else assert.ok(u.startsWith('./') && u.endsWith('?v=20261104'), `${f}: ${u}`);
+      else assert.ok(u.startsWith('./') && u.endsWith('?v=20261005'), `${f}: ${u}`);
     }
   }
   assert.ok(n >= 30, `${n} imports`);
   const ui = read('../../js/steel/ui.js'), worker = read('../../js/steel/worker.js');
-  assert.ok(ui.includes("new URL('./worker.js?v=20261104', import.meta.url)"));
-  assert.ok(ui.includes('./examples/${path}?v=20261104'));
-  assert.ok(ui.includes('import(`./view3d.js?v=20261104'));
+  assert.ok(ui.includes("new URL('./worker.js?v=20261005', import.meta.url)"));
+  assert.ok(ui.includes('./examples/${path}?v=20261005'));
+  assert.ok(ui.includes('import(`./view3d.js?v=20261005'));
   assert.ok(worker.includes('`../ifcplan/vendor/web-ifc/${file}?v=20261003`'), 'the same web-ifc URLs as the IFC floor plans tool');
 });
 

@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <!--
-  Share-card (og:image / twitter:image) template for the free tools: og/<tool>.png, 1200 x 630.
+  Share-card (og:image / twitter:image) template: og/<tool>.png for the free tools and og/home.png
+  (?tool=home) for index.html, what-you-gain.html and calculator.html, 1200 x 630.
 
   Rebuild: serve the site root (python -m http.server 8765), open
   http://127.0.0.1:8765/_src/og/card.html?tool=<tool> in a 1200 x 630 viewport at deviceScaleFactor 1,
   wait for document.fonts.ready and screenshot the viewport to og/<tool>.png.
 
   shots/<tool>.png is the tool's own view with its example loaded (Greek UI), captured at 2x from the
-  live page and trimmed to the drawing. Retake it when a tool's view changes visibly.
+  live page and trimmed to the drawing. Retake it when a tool's view changes visibly. The home card uses
+  video/hero-poster.webp (the hero video's first frame) and the hero title; re-render it when either changes.
   _src/ is not published (Jekyll skips _ folders).
 -->
 <html lang="el">
@@ -43,15 +45,21 @@
     .eyebrow::before { content: ''; width: 9px; height: 9px; border-radius: 50%; background: var(--accent); }
     h1 { font-family: var(--font-display); font-weight: 300; font-size: 58px; line-height: 1.06; letter-spacing: -0.01em; margin-bottom: 22px; }
     h1.long { font-size: 50px; }
+    h1 .highlight { font-weight: 600; }
+    h1.home { font-size: 46px; line-height: 1.1; }
     p { font-size: 22px; line-height: 1.4; color: var(--ink-soft); }
 
     .view { position: absolute; left: 636px; top: 160px; width: 492px; height: 340px; background: var(--panel); border: 1px solid var(--line); padding: 18px; display: grid; gap: 14px; }
     .view img { width: 100%; height: 100%; object-fit: contain; min-height: 0; }
     .view.grid { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; padding: 14px; }
     .view.grid img { border: 1px solid var(--line); padding: 8px; }
+    .view.photo { padding: 0; overflow: hidden; }
+    .view.photo img { object-fit: cover; object-position: 55% 50%; }
 
     .foot { position: absolute; top: 562px; font-size: 15px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
     .foot.l { left: 72px; } .foot.r { right: 72px; }
+    .foot.badge { top: 552px; height: 38px; }
+    .foot.badge img { height: 100%; width: auto; display: block; }
   </style>
 </head>
 <body>
@@ -68,7 +76,7 @@
   <div class="view" id="view"></div>
   <div class="rule bottom"></div>
   <div class="foot l">www.aidedcam.com</div>
-  <div class="foot r">Στον browser · Χωρίς εγγραφή</div>
+  <div class="foot r" id="footR">Στον browser · Χωρίς εγγραφή</div>
   <script>
     var CARDS = {
       'gcode-viewer': ['Προβολή G-code τόρνου', 'Τα περάσματα των κύκλων G71–G76 και ο χρόνος κύκλου ανά εργαλείο.'],
@@ -82,19 +90,34 @@
     };
     var GRID = ['gcode-viewer', 'ifc-plans', 'laser-dxf-checker', 'dwg-quantities'];
     var tool = new URLSearchParams(location.search).get('tool') || 'gcode-viewer';
-    var c = CARDS[tool];
-    document.getElementById('eyebrow').textContent = tool === 'free-tools' ? 'Δωρεάν εργαλεία' : 'Δωρεάν εργαλείο';
-    var h1 = document.getElementById('title');
-    h1.textContent = c[0];
-    if (c[0].length > 32) h1.classList.add('long');
-    document.getElementById('sub').textContent = c[1];
-    var view = document.getElementById('view');
-    (tool === 'free-tools' ? GRID : [tool]).forEach(function (t) {
-      var img = document.createElement('img');
-      img.src = 'shots/' + t + '.png'; img.alt = '';
-      view.appendChild(img);
-    });
-    if (tool === 'free-tools') view.classList.add('grid');
+    if (tool === 'home') {
+      // The homepage card: the hero title as on the page (its highlight in 600), the hero video's first frame.
+      document.getElementById('eyebrow').textContent = 'CAD · CAM · BIM · Αυτοματισμός';
+      var hh = document.getElementById('title');
+      hh.innerHTML = 'Λογισμικό <span class="highlight">στα μέτρα σας</span>.<br>Φτιαγμένο για μία εταιρεία:<br>τη δική σας.';
+      hh.classList.add('home');
+      document.getElementById('sub').textContent = 'Μέσα στα προγράμματα που ήδη χρησιμοποιείτε, ή ως δική σας εφαρμογή.';
+      var v = document.getElementById('view');
+      v.classList.add('photo');
+      v.innerHTML = '<img src="../../video/hero-poster.webp" alt="" />';
+      var fr = document.getElementById('footR');
+      fr.classList.add('badge');
+      fr.innerHTML = '<img src="../../autodesk-authorized-developer-black.png" alt="Autodesk Authorized Developer" />';
+    } else {
+      var c = CARDS[tool];
+      document.getElementById('eyebrow').textContent = tool === 'free-tools' ? 'Δωρεάν εργαλεία' : 'Δωρεάν εργαλείο';
+      var h1 = document.getElementById('title');
+      h1.textContent = c[0];
+      if (c[0].length > 32) h1.classList.add('long');
+      document.getElementById('sub').textContent = c[1];
+      var view = document.getElementById('view');
+      (tool === 'free-tools' ? GRID : [tool]).forEach(function (t) {
+        var img = document.createElement('img');
+        img.src = 'shots/' + t + '.png'; img.alt = '';
+        view.appendChild(img);
+      });
+      if (tool === 'free-tools') view.classList.add('grid');
+    }
   </script>
 </body>
 </html>

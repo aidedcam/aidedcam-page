@@ -8,3 +8,6 @@ js/dwg/engine/** binary
 # byte-exact (the example generator compares its output with the committed file).
 js/ifcplan/vendor/** binary
 *.ifc binary
+# The steel take-off's example (NC1 files with CRLF, as Tekla writes them, and its file list) stays byte-exact: the
+# generator compares its output with the committed files.
+js/steel/examples/** binary

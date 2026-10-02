@@ -14,6 +14,7 @@
     { id: 'dwgq', href: 'dwg-quantities.html' },
     { id: 'coverage', href: 'coverage-precheck.html' },
     { id: 'ifcplans', href: 'ifc-plans.html' },
+    { id: 'steel', href: 'steel-takeoff.html' },
   ];
   const ALL_HREF = 'free-tools.html';
 
@@ -30,6 +31,7 @@
         dwgq: { name: 'Επιμετρήσεις από DWG', line: 'Μήκη, εμβαδά και μπλοκ ανά στρώση, με λήψη σε Excel.' },
         coverage: { name: 'Προέλεγχος διαγράμματος κάλυψης', line: 'Κάλυψη, δόμηση και όγκος από το DWG, απέναντι στους όρους δόμησης.' },
         ifcplans: { name: 'Κατόψεις DXF από IFC', line: 'Μία κάτοψη R12 DXF ανά όροφο από το IFC του αρχιτέκτονα.' },
+        steel: { name: 'Προμέτρηση χάλυβα και προσφορά γαλβανίσματος', line: 'Κιλά, m² και κόστος γαλβανίσματος από αρχεία NC1 ή ένα IFC.' },
       },
     },
     en: {
@@ -43,6 +45,7 @@
         dwgq: { name: 'Quantities from DWG', line: 'Lengths, areas and blocks per layer, with an Excel download.' },
         coverage: { name: 'Coverage diagram pre-check', line: 'Coverage, built area and volume, checked against the zone’s terms.' },
         ifcplans: { name: 'DXF floor plans from IFC', line: 'One R12 DXF floor plan per storey from the architect’s IFC.' },
+        steel: { name: 'Steel take-off and galvanizing quote', line: 'Kg, m² and galvanizing cost from NC1 files or one IFC.' },
       },
     },
     it: {
@@ -56,6 +59,7 @@
         dwgq: { name: 'Computi da DWG', line: 'Lunghezze, aree e blocchi per layer, con il download in Excel.' },
         coverage: { name: 'Pre-verifica del diagramma di copertura', line: 'Copertura, superficie e volume a confronto con i parametri di zona.' },
         ifcplans: { name: 'Piante DXF da IFC', line: 'Una pianta DXF R12 per piano dall’IFC dell’architetto.' },
+        steel: { name: 'Distinta acciaio e preventivo di zincatura', line: 'Kg, m² e costo di zincatura da file NC1 o da un IFC.' },
       },
     },
   };
@@ -74,6 +78,8 @@
     coverage: '<path d="M3.5 7l8-4 9 4.5-2 13h-13z" stroke-dasharray="2 1.8"/><path d="M8.5 9.5h6.5v6.5H8.5z"/><path d="M8.5 13l3.5-3.5M11 16l4-4"/>',
     // A floor plan: outer walls, two partitions and a door swing.
     ifcplans: '<path d="M3 3h18v18H3z"/><path d="M3 12h5M13 12h8M12 12v9"/><path d="M8 12V8"/><path d="M8 8a4 4 0 0 1 4 4"/>',
+    // An I-beam's end over a galvanizing bath, the zinc level dashed.
+    steel: '<path d="M6 3h12M6 11h12M12 3v8"/><path d="M3 14h18v7H3z"/><path d="M3 16.5h18" stroke-dasharray="1.6 1.6"/>',
     all: '<path d="M4 4h6.5v6.5H4zM13.5 4H20v6.5h-6.5zM4 13.5h6.5V20H4zM13.5 13.5H20V20h-6.5z"/>',
     // An open-end wrench.
     wrench: '<path d="M14.5 3.6a4.8 4.8 0 0 0-4.3 6.6l-6.4 6.4a1.9 1.9 0 0 0 2.7 2.7l6.4-6.4a4.8 4.8 0 0 0 6.6-4.3l-2.8 1.9-2.6-.9-.6-2.7z"/>',

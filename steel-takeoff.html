@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AidedCAM - Προμέτρηση χάλυβα και προσφορά γαλβανίσματος</title>
+  <meta name="description" content="Δωρεάν προμέτρηση χάλυβα από αρχεία NC1 (DSTV) ή IFC: κιλά και m² ανά τεμάχιο και διατομή, έλεγχος λουτρού γαλβανίσματος, κόστος από τις δικές σας τιμές, Excel και εκτύπωση. Στον browser, χωρίς ανέβασμα, χωρίς εγγραφή." />
+  <meta name="robots" content="index, follow" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+  <meta name="theme-color" content="#f4f3ee" />
+  <link rel="canonical" href="https://www.aidedcam.com/steel-takeoff.html" />
+  <meta property="og:title" content="AidedCAM - Προμέτρηση χάλυβα και προσφορά γαλβανίσματος" />
+  <meta property="og:description" content="Ρίξτε τα NC1 ή το IFC ενός έργου και πάρτε κιλά και m² ανά τεμάχιο, έλεγχο λουτρού και κόστος γαλβανίσματος, σε Excel ή εκτύπωση." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.aidedcam.com/steel-takeoff.html" />
+  <meta property="og:image" content="https://www.aidedcam.com/og-image.png" />
+  <meta property="og:site_name" content="AidedCAM" />
+  <meta property="og:locale" content="el_GR" />
+  <meta property="og:locale:alternate" content="en_US" />
+  <meta property="og:locale:alternate" content="it_IT" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <!-- Google Analytics - loaded only after cookie consent (copied from calculator.html) -->
+  <script>
+    function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+    function lsSet(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+    function loadGA() {
+      window['ga-disable-G-81935T6DNE'] = false;
+      if (document.getElementById('ga-script')) {
+        if (window.gtag) gtag('consent', 'update', { analytics_storage: 'granted' });
+        return;
+      }
+      var s = document.createElement('script');
+      s.id = 'ga-script'; s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-81935T6DNE';
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', 'G-81935T6DNE');
+      var userLang = lsGet('aidedcam-lang') || document.documentElement.lang || 'el';
+      gtag('set', 'user_properties', { preferred_language: userLang });
+    }
+    function revokeGA() {
+      window['ga-disable-G-81935T6DNE'] = true;
+      if (window.gtag) gtag('consent', 'update', { analytics_storage: 'denied' });
+      var root = location.hostname.replace(/^www\./, '');
+      document.cookie.split(';').forEach(function (c) {
+        var n = c.split('=')[0].trim();
+        if (n === '_ga' || n.indexOf('_ga_') === 0) {
+          ['', location.hostname, '.' + root].forEach(function (d) {
+            document.cookie = n + '=; Max-Age=0; path=/' + (d ? '; domain=' + d : '');
+          });
+        }
+      });
+    }
+    if (lsGet('privacy-pref') === 'accepted') { loadGA(); }
+  </script>
+  <link rel="stylesheet" href="fonts.css?v=20260923" />
+  <link rel="stylesheet" href="css/editorial.css?v=20260927" />
+  <link rel="stylesheet" href="css/tools.css?v=20261104" />
+  <link rel="stylesheet" href="css/sidebar.css?v=20261104" />
+  <script src="js/sidebar.js?v=20261104" defer></script>
+</head>
+<body>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="aided-cam-mark.png" alt="AidedCAM" width="30" height="34" />
+        <img class="wordmark" src="aidedcam-wordmark.svg" alt="" width="716" height="67" />
+      </a>
+      <div class="nav-right">
+        <a href="index.html" class="nav-back" data-i18n="st.back">Αρχική</a>
+        <div class="lang-switcher">
+          <button class="lang-btn active" data-lang="el">EL</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+          <button class="lang-btn" data-lang="it">IT</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="gv st">
+    <header class="gv-head">
+      <p class="gv-eyebrow" data-i18n="st.eyebrow">Εργαλείο</p>
+      <h1 data-i18n="st.title">Προμέτρηση χάλυβα και προσφορά γαλβανίσματος</h1>
+      <p class="gv-lede" data-i18n="st.lede">Ρίξτε τα αρχεία NC1 (DSTV) ενός έργου, έναν φάκελο ή ένα ZIP, ή ένα IFC, και πάρτε κιλά και m² ανά τεμάχιο και ανά διατομή, έλεγχο για το λουτρό γαλβανίσματος και το κόστος από τις δικές σας τιμές, σε Excel ή σε εκτύπωση.</p>
+      <p class="gv-privacy" data-i18n="st.privacy">Τα αρχεία μένουν στον υπολογιστή σας· τίποτα δεν ανεβαίνει.</p>
+      <p class="ip-indicative st-indicative" data-i18n="st.indicative">Τα μεγέθη βγαίνουν από τις ονομαστικές τιμές των αρχείων. Ελέγξτε τα με τα κατασκευαστικά σχέδια.</p>
+      <p class="gv-cross"><a href="free-tools.html" data-i18n="st.cross">Όλα τα εργαλεία →</a></p>
+    </header>
+
+    <div class="gv-wrap">
+      <noscript><p class="gv-banner">Το εργαλείο χρειάζεται JavaScript. / The tool needs JavaScript.</p></noscript>
+
+      <section class="gv-bar st-bar" data-i18n-aria="st.aria.files" aria-label="Αρχεία">
+        <label class="gv-btn gv-btn-primary gv-file-label">
+          <input type="file" id="stFiles" multiple accept=".nc1,.nc,.NC1,.NC,.zip,.ifc" class="gv-visually-hidden" />
+          <span data-i18n="st.open">Άνοιγμα αρχείων</span>
+        </label>
+        <label class="gv-btn gv-file-label">
+          <input type="file" id="stFolder" webkitdirectory multiple class="gv-visually-hidden" />
+          <span data-i18n="st.folder">Άνοιγμα φακέλου</span>
+        </label>
+        <button type="button" class="gv-btn" id="stExample" data-i18n="st.example">Φόρτωση παραδείγματος</button>
+        <button type="button" class="gv-link" id="stExampleIfc" data-i18n="st.example.ifc">Το ίδιο σε IFC</button>
+        <button type="button" class="gv-btn" id="stClear" data-i18n="st.clear" hidden>Καθαρισμός</button>
+      </section>
+
+      <div class="gv-banner" id="stBanner" role="status" hidden></div>
+      <p class="gv-drop-hint" id="stDropHint" data-i18n="st.drop">Σύρετε εδώ αρχεία NC1, έναν φάκελο, ένα ZIP ή ένα IFC, ή πατήστε «Άνοιγμα αρχείων».</p>
+      <p class="gv-note st-busy" id="stBusy" role="status" hidden></p>
+      <div class="dq-error" id="stError" role="alert" hidden></div>
+      <details class="st-skipped" id="stSkipped" hidden>
+        <summary id="stSkippedHead"></summary>
+        <ul id="stSkippedList"></ul>
+      </details>
+
+      <section class="st-panel" id="stPanel" hidden>
+        <div class="gv-print-head"><img src="aidedcam-wordmark.svg" alt="AidedCAM" width="716" height="67" /><span data-i18n="st.title">Προμέτρηση χάλυβα και προσφορά γαλβανίσματος</span></div>
+        <h2 class="st-h" data-i18n="st.summary">Σύνοψη</h2>
+        <dl class="st-summary" id="stSummary"></dl>
+        <p class="gv-note" id="stCapped" hidden></p>
+
+        <section class="st-settings" id="stSettings">
+          <h2 class="st-h" data-i18n="st.settings">Ρυθμίσεις</h2>
+          <fieldset class="st-fields">
+            <legend data-i18n="st.set.bath">Λουτρό γαλβανίσματος</legend>
+            <div class="gv-settings-grid">
+              <label><span data-i18n="st.set.bath.length">Μήκος λουτρού (m)</span><input type="text" inputmode="decimal" id="stBath_length" /></label>
+              <label><span data-i18n="st.set.bath.width">Πλάτος λουτρού (m)</span><input type="text" inputmode="decimal" id="stBath_width" /></label>
+              <label><span data-i18n="st.set.bath.depth">Βάθος λουτρού (m)</span><input type="text" inputmode="decimal" id="stBath_depth" /></label>
+            </div>
+          </fieldset>
+          <fieldset class="st-fields">
+            <legend data-i18n="st.set.rates">Τιμές</legend>
+            <div class="gv-settings-grid">
+              <label><span data-i18n="st.set.galv">Γαλβάνισμα (€/kg)</span><input type="text" inputmode="decimal" id="stRate_galv" /></label>
+              <label><span data-i18n="st.set.zinc">Επιβάρυνση ψευδαργύρου (€/kg)</span><input type="text" inputmode="decimal" id="stRate_zinc" /></label>
+              <label><span data-i18n="st.set.paint">Βαφή (€/m²)</span><input type="text" inputmode="decimal" id="stRate_paint" /></label>
+              <label><span data-i18n="st.set.steel">Υλικό χάλυβα (€/kg)</span><input type="text" inputmode="decimal" id="stRate_steel" /></label>
+              <label><span data-i18n="st.set.minimum">Ελάχιστη χρέωση (€)</span><input type="text" inputmode="decimal" id="stRate_minimum" /></label>
+            </div>
+            <label class="st-check"><input type="checkbox" id="stPerGrade" /><span data-i18n="st.set.pergrade">Τιμή υλικού ανά ποιότητα χάλυβα</span></label>
+            <div class="gv-settings-grid" id="stGrades" hidden>
+              <label><span data-i18n="st.set.steel.S235">S235 (€/kg)</span><input type="text" inputmode="decimal" id="stGrade_S235" /></label>
+              <label><span data-i18n="st.set.steel.S275">S275 (€/kg)</span><input type="text" inputmode="decimal" id="stGrade_S275" /></label>
+              <label><span data-i18n="st.set.steel.S355">S355 (€/kg)</span><input type="text" inputmode="decimal" id="stGrade_S355" /></label>
+              <label><span data-i18n="st.set.steel.other">Άλλη ποιότητα (€/kg)</span><input type="text" inputmode="decimal" id="stGrade_other" /></label>
+            </div>
+            <label class="st-check"><input type="checkbox" id="stVat" /><span data-i18n="st.set.vat">ΦΠΑ 24%</span></label>
+          </fieldset>
+          <p class="gv-note" data-i18n="st.set.hint">Οι ρυθμίσεις μένουν σε αυτόν τον browser. Ένα κενό πεδίο τιμής αφήνει τη γραμμή του εκτός.</p>
+        </section>
+
+        <div class="st-table-head">
+          <h2 class="st-h" data-i18n="st.table">Ανά διατομή και ποιότητα</h2>
+          <label class="st-sort"><span data-i18n="st.sort">Ταξινόμηση</span>
+            <select id="stSort">
+              <option value="kg" data-i18n="st.sort.kg">κατά βάρος</option>
+              <option value="length" data-i18n="st.sort.length">κατά μήκος</option>
+              <option value="mark" data-i18n="st.sort.mark">κατά θέση</option>
+            </select>
+          </label>
+        </div>
+        <p class="gv-note st-table-hint" data-i18n="st.table.hint">Ανοίξτε μια διατομή για τα τεμάχιά της· ένα κλικ σε τεμάχιο το δείχνει σε 3D.</p>
+        <div class="gv-table-wrap">
+          <table class="gv-table st-table" id="stTable">
+            <thead><tr><th data-i18n="st.th.profile">Διατομή · θέση</th><th data-i18n="st.th.grade">Ποιότητα · σχέδιο</th><th class="dq-num" data-i18n="st.th.length">Μήκος</th><th class="dq-num" data-i18n="st.th.qty">Τεμ.</th><th class="dq-num" data-i18n="st.th.kg">kg</th><th class="dq-num" data-i18n="st.th.m2">m²</th><th data-i18n="st.th.check">Έλεγχος</th><th data-i18n="st.th.bath">Λουτρό</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <section class="st-view" id="stView" data-i18n-aria="st.view" aria-label="Προβολή 3D" hidden>
+          <div class="gv-panel-head">
+            <span id="st3dHead"></span>
+            <span class="gv-tools-controls">
+              <button type="button" class="gv-link" data-preset="top" data-i18n="st.3d.top">Κάτοψη</button>
+              <button type="button" class="gv-link" data-preset="front" data-i18n="st.3d.front">Πρόσοψη</button>
+              <button type="button" class="gv-link" data-preset="side" data-i18n="st.3d.side">Πλάγια</button>
+              <button type="button" class="gv-link" data-preset="iso" data-i18n="st.3d.iso">Αξονομετρικό</button>
+              <button type="button" class="gv-link" id="st3dFit" data-i18n="st.fit">Προσαρμογή</button>
+              <button type="button" class="gv-link" id="st3dModel" aria-pressed="false" data-i18n="st.3d.model" hidden>Όλο το μοντέλο</button>
+            </span>
+          </div>
+          <div class="st-3d-box" id="st3dBox">
+            <p class="ip-3d-note" id="st3dNote" role="status" hidden></p>
+          </div>
+        </section>
+
+        <h2 class="st-h" data-i18n="st.costs">Κόστος</h2>
+        <div class="gv-table-wrap">
+          <table class="gv-table st-costs" id="stCosts">
+            <thead><tr><th data-i18n="st.cth.line">Γραμμή</th><th class="dq-num" data-i18n="st.cth.qty">Ποσότητα</th><th class="dq-num" data-i18n="st.cth.rate">Τιμή</th><th class="dq-num" data-i18n="st.cth.amount">Ποσό</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <p class="gv-note st-warn st-unpriced-note" id="stUnpriced" role="status" hidden></p>
+        <p class="gv-note st-bath-note" data-i18n="st.bath.note">Ο έλεγχος του λουτρού είναι ενδεικτικός· την τελική απόφαση την παίρνει ο γαλβανιστής.</p>
+        <p class="gv-note st-print-note" data-i18n="st.indicative">Τα μεγέθη βγαίνουν από τις ονομαστικές τιμές των αρχείων. Ελέγξτε τα με τα κατασκευαστικά σχέδια.</p>
+        <div class="st-outputs">
+          <button type="button" class="gv-btn gv-btn-primary" id="stXlsx" data-i18n="st.xlsx">Λήψη Excel</button>
+          <button type="button" class="gv-btn" id="stPrint" data-i18n="st.print">Εκτύπωση / PDF</button>
+        </div>
+      </section>
+
+      <p class="gv-note st-v1" data-i18n="st.v1">Δεν περιλαμβάνονται σε αυτή την έκδοση: βίδες και συγκολλήσεις, κοπή και nesting, τιμές ανά κατηγορία γαλβανίσματος, μεταφορά.</p>
+
+      <section class="gv-cta">
+        <h2 data-i18n="st.cta.title">Προσφορές γαλβανίσματος και βαφής από τα δικά σας αρχεία;</h2>
+        <p data-i18n="st.cta.text">Το στήνουμε πάνω στον τιμοκατάλογο και τα πρότυπα προσφορών της επιχείρησής σας, με σύνδεση στο ERP και μαζική επεξεργασία έργων.</p>
+        <a class="btn-primary" id="stCta" href="index.html#contact" data-i18n="st.cta.link">Επικοινωνήστε μαζί μας</a>
+        <div class="gv-survey" id="stSurvey">
+          <p data-i18n="st.survey.q">Πώς βγάζετε σήμερα τα κιλά για μια προσφορά;</p>
+          <button type="button" class="gv-chip" data-answer="tekla" data-i18n="st.survey.tekla">Από τη λίστα του Tekla</button>
+          <button type="button" class="gv-chip" data-answer="hand" data-i18n="st.survey.hand">Με το χέρι από τα σχέδια</button>
+          <button type="button" class="gv-chip" data-answer="other" data-i18n="st.survey.other">Αλλιώς</button>
+          <p class="gv-thanks" id="stThanks" data-i18n="st.survey.thanks" hidden>Ευχαριστούμε!</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="gv-footer">
+    <img src="aidedcam-wordmark.svg" alt="AidedCAM" width="716" height="67" loading="lazy" />
+    <div class="gv-footer-legal">
+      <a href="privacy.html" data-i18n="footer.privacy">Απόρρητο</a>
+      <a href="legal.html" data-i18n="footer.legal">Νομικά</a>
+      <a href="javascript:void(0)" onclick="openCookieSettings()" data-i18n="footer.cookie_settings">Ρυθμίσεις Cookies</a>
+    </div>
+    <p class="lc-notice"><span data-i18n="st.notice">Ανάγνωση IFC: web-ifc (ThatOpen Company), MPL-2.0,</span> <a href="https://github.com/ThatOpen/engine_web-ifc" rel="noopener" data-i18n="st.notice.link">ο κώδικας στο GitHub</a></p>
+  </footer>
+
+  <!-- COOKIE CONSENT BANNER: markup identical to calculator.html lines 925-977 -->
+  <div class="consent-banner" id="privacyOverlay">
+    <div class="consent-inner">
+      <p>
+        <span data-i18n="cookie_text">Αυτός ο ιστότοπος χρησιμοποιεί cookies για τη βελτιστοποίηση της λειτουργίας του και την ανάλυση επισκεψιμότητας.</span>
+        <a href="privacy.html" class="consent-privacy-link" data-i18n="cookie_privacy_link">Πολιτική Απορρήτου</a>
+      </p>
+      <div class="consent-actions">
+        <button class="consent-btn consent-btn-accept" id="privacyAccept" data-i18n="cookie_accept">Αποδοχή</button>
+        <button class="consent-btn consent-btn-manage" id="privacyManage" data-i18n="cookie_manage">Διαχείριση προτιμήσεων</button>
+        <button class="consent-btn consent-btn-decline" id="privacyDecline" data-i18n="cookie_decline">Απόρριψη</button>
+      </div>
+    </div>
+    <div class="consent-prefs" id="consentPrefs">
+      <div class="consent-prefs-inner">
+        <p class="consent-prefs-desc" data-i18n="cookie_prefs_desc">Επιλέξτε ποιες κατηγορίες cookies επιθυμείτε να ενεργοποιήσετε. Τα απαραίτητα cookies είναι πάντα ενεργά για τη σωστή λειτουργία του ιστότοπου.</p>
+        <div class="consent-categories">
+          <div class="consent-cat">
+            <input type="checkbox" checked disabled id="cookieNecessary">
+            <label for="cookieNecessary">
+              <span class="consent-cat-name" data-i18n="cookie_cat_necessary">Απαραίτητα</span>
+              <span class="consent-cat-desc" data-i18n="cookie_cat_necessary_desc">Βασική λειτουργία ιστότοπου</span>
+            </label>
+          </div>
+          <div class="consent-cat">
+            <input type="checkbox" checked disabled id="cookieFunctional">
+            <label for="cookieFunctional">
+              <span class="consent-cat-name" data-i18n="cookie_cat_functional">Λειτουργικά</span>
+              <span class="consent-cat-desc" data-i18n="cookie_cat_functional_desc">Αποθήκευση προτιμήσεων γλώσσας</span>
+            </label>
+          </div>
+          <div class="consent-cat">
+            <input type="checkbox" id="cookieAnalytics">
+            <label for="cookieAnalytics">
+              <span class="consent-cat-name" data-i18n="cookie_cat_analytics">Ανάλυση επισκεψιμότητας</span>
+              <span class="consent-cat-desc" data-i18n="cookie_cat_analytics_desc">Google Analytics, ανώνυμα στατιστικά</span>
+            </label>
+          </div>
+          <div class="consent-cat">
+            <input type="checkbox" disabled id="cookieMarketing">
+            <label for="cookieMarketing">
+              <span class="consent-cat-name" data-i18n="cookie_cat_marketing">Διαφημιστικά</span>
+              <span class="consent-cat-desc" data-i18n="cookie_cat_marketing_desc">Δεν χρησιμοποιούνται αυτήν τη στιγμή</span>
+            </label>
+          </div>
+        </div>
+        <div class="consent-prefs-actions">
+          <button class="consent-btn consent-btn-accept" id="privacySavePrefs" data-i18n="cookie_save">Αποθήκευση προτιμήσεων</button>
+          <button class="consent-btn consent-btn-decline" id="privacyBack" data-i18n="cookie_back">Πίσω</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/steel/i18n-steel.js?v=20261104"></script>
+  <script>
+    var translations = {
+      el: {
+        "_title": "AidedCAM - Προμέτρηση χάλυβα και προσφορά γαλβανίσματος",
+        "cookie_text": "Αυτός ο ιστότοπος χρησιμοποιεί cookies για τη βελτιστοποίηση της λειτουργίας του και την ανάλυση επισκεψιμότητας.",
+        "cookie_accept": "Αποδοχή",
+        "cookie_decline": "Απόρριψη",
+        "cookie_manage": "Διαχείριση προτιμήσεων",
+        "cookie_privacy_link": "Πολιτική Απορρήτου",
+        "cookie_prefs_desc": "Επιλέξτε ποιες κατηγορίες cookies επιθυμείτε να ενεργοποιήσετε. Τα απαραίτητα cookies είναι πάντα ενεργά για τη σωστή λειτουργία του ιστότοπου.",
+        "cookie_cat_necessary": "Απαραίτητα",
+        "cookie_cat_necessary_desc": "Βασική λειτουργία ιστότοπου",
+        "cookie_cat_functional": "Λειτουργικά",
+        "cookie_cat_functional_desc": "Αποθήκευση προτιμήσεων γλώσσας",
+        "cookie_cat_analytics": "Ανάλυση επισκεψιμότητας",
+        "cookie_cat_analytics_desc": "Google Analytics, ανώνυμα στατιστικά",
+        "cookie_cat_marketing": "Διαφημιστικά",
+        "cookie_cat_marketing_desc": "Δεν χρησιμοποιούνται αυτήν τη στιγμή",
+        "cookie_back": "Πίσω",
+        "cookie_save": "Αποθήκευση προτιμήσεων",
+        "footer.privacy": "Απόρρητο",
+        "footer.legal": "Νομικά",
+        "footer.cookie_settings": "Ρυθμίσεις Cookies",
+      },
+      en: {
+        "_title": "AidedCAM - Steel take-off and galvanizing quote",
+        "cookie_text": "This website uses cookies to optimize functionality and analyze traffic.",
+        "cookie_accept": "Accept",
+        "cookie_decline": "Decline",
+        "cookie_manage": "Manage preferences",
+        "cookie_privacy_link": "Privacy Policy",
+        "cookie_prefs_desc": "Choose which categories of cookies you wish to enable. Essential cookies are always active for the proper functioning of the website.",
+        "cookie_cat_necessary": "Essential",
+        "cookie_cat_necessary_desc": "Basic website functionality",
+        "cookie_cat_functional": "Functional",
+        "cookie_cat_functional_desc": "Language preference storage",
+        "cookie_cat_analytics": "Analytics",
+        "cookie_cat_analytics_desc": "Google Analytics, anonymous statistics",
+        "cookie_cat_marketing": "Marketing",
+        "cookie_cat_marketing_desc": "Not currently used",
+        "cookie_back": "Back",
+        "cookie_save": "Save preferences",
+        "footer.privacy": "Privacy",
+        "footer.legal": "Legal",
+        "footer.cookie_settings": "Cookie Settings",
+      },
+      it: {
+        "_title": "AidedCAM - Distinta acciaio e preventivo di zincatura",
+        "cookie_text": "Questo sito web utilizza i cookie per ottimizzare le sue funzionalità e analizzare il traffico.",
+        "cookie_accept": "Accetta",
+        "cookie_decline": "Rifiuta",
+        "cookie_manage": "Gestisci preferenze",
+        "cookie_privacy_link": "Informativa Privacy",
+        "cookie_prefs_desc": "Scegliete quali categorie di cookie desiderate attivare. I cookie essenziali sono sempre attivi per il corretto funzionamento del sito.",
+        "cookie_cat_necessary": "Essenziali",
+        "cookie_cat_necessary_desc": "Funzionalità di base del sito web",
+        "cookie_cat_functional": "Funzionali",
+        "cookie_cat_functional_desc": "Memorizzazione preferenza lingua",
+        "cookie_cat_analytics": "Analitici",
+        "cookie_cat_analytics_desc": "Google Analytics, statistiche anonime",
+        "cookie_cat_marketing": "Marketing",
+        "cookie_cat_marketing_desc": "Attualmente non utilizzati",
+        "cookie_back": "Indietro",
+        "cookie_save": "Salva preferenze",
+        "footer.privacy": "Privacy",
+        "footer.legal": "Note Legali",
+        "footer.cookie_settings": "Impostazioni Cookie",
+      },
+    };
+    // The tool's strings first, then this page's own keys on top.
+    ['el', 'en', 'it'].forEach(function (l) {
+      translations[l] = Object.assign({}, (window.ST_I18N || {})[l] || {}, translations[l]);
+    });
+    window.GV_I18N = translations;
+    var currentLang = 'el';
+
+    function setLanguage(lang) {
+      var t = translations[lang];
+      if (!t) return;
+      currentLang = lang;
+      document.querySelectorAll('[data-i18n]').forEach(function (el) {
+        var key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined) el.textContent = t[key];
+      });
+      document.querySelectorAll('[data-i18n-aria]').forEach(function (el) {
+        var key = el.getAttribute('data-i18n-aria');
+        if (t[key] !== undefined) el.setAttribute('aria-label', t[key]);
+      });
+      document.title = t['_title'] || document.title;
+      document.documentElement.lang = lang;
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+      });
+      lsSet('aidedcam-lang', lang);
+      document.dispatchEvent(new CustomEvent('gv:lang', { detail: lang }));
+    }
+
+    try {
+      var urlLangParam = new URLSearchParams(window.location.search).get('lang');
+      var urlLang = (urlLangParam && translations[urlLangParam]) ? urlLangParam : null;
+      var savedLang = lsGet('aidedcam-lang');
+      if (savedLang && !translations[savedLang]) savedLang = null;
+      var browserLangCode = navigator.language ? navigator.language.substring(0, 2) : 'el';
+      var browserLang = browserLangCode === 'el' ? 'el' : browserLangCode === 'it' ? 'it' : 'en';
+      currentLang = urlLang || savedLang || browserLang;
+      if (currentLang !== 'el') setLanguage(currentLang);
+    } catch (e) { console.error('i18n init:', e); }
+
+    document.querySelectorAll('.lang-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () { setLanguage(btn.getAttribute('data-lang')); });
+    });
+
+    // ===== COOKIE CONSENT (copied from calculator.html) =====
+    (function () {
+      var overlay = document.getElementById('privacyOverlay');
+      var prefsPanel = document.getElementById('consentPrefs');
+      var analyticsCheckbox = document.getElementById('cookieAnalytics');
+      function showBanner() { overlay.classList.add('visible'); prefsPanel.classList.remove('visible'); }
+      function hideBanner() { overlay.classList.remove('visible'); prefsPanel.classList.remove('visible'); }
+      function loadPrefs() {
+        try {
+          var prefs = JSON.parse(lsGet('cookie-prefs') || '{}');
+          analyticsCheckbox.checked = !!(prefs && prefs.analytics);
+        } catch (e) { analyticsCheckbox.checked = false; }
+      }
+      if (!lsGet('privacy-pref')) { showBanner(); }
+      document.getElementById('privacyAccept').addEventListener('click', function () {
+        lsSet('privacy-pref', 'accepted');
+        lsSet('cookie-prefs', JSON.stringify({ analytics: true }));
+        hideBanner(); loadGA(); gaEvent('accepted_cookie_consent', {});
+      });
+      document.getElementById('privacyDecline').addEventListener('click', function () {
+        lsSet('privacy-pref', 'declined');
+        lsSet('cookie-prefs', JSON.stringify({ analytics: false }));
+        hideBanner(); revokeGA();
+      });
+      document.getElementById('privacyManage').addEventListener('click', function () {
+        loadPrefs(); prefsPanel.classList.toggle('visible');
+      });
+      document.getElementById('privacyBack').addEventListener('click', function () {
+        prefsPanel.classList.remove('visible');
+      });
+      document.getElementById('privacySavePrefs').addEventListener('click', function () {
+        var prefs = { analytics: analyticsCheckbox.checked };
+        lsSet('cookie-prefs', JSON.stringify(prefs));
+        lsSet('privacy-pref', prefs.analytics ? 'accepted' : 'declined');
+        hideBanner();
+        if (prefs.analytics) { loadGA(); gaEvent('accepted_cookie_consent', {}); } else { revokeGA(); }
+      });
+      window.openCookieSettings = function () { loadPrefs(); showBanner(); prefsPanel.classList.add('visible'); };
+    })();
+
+    // ===== GA HELPER: events only exist when the visitor accepted analytics =====
+    function gaEvent(name, params) { if (window.gtag) gtag('event', name, params); }
+    window.gaEvent = gaEvent;
+  </script>
+  <script type="module" src="js/steel/ui.js?v=20261104"></script>
+</body>
+</html>

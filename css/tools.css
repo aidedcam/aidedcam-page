@@ -387,6 +387,75 @@
   .cp .gv-wrap { padding-bottom: 12mm; }
 }
 
+/* ---- steel-takeoff.html: steel take-off and galvanizing quote (spec §6) ---- */
+.st-panel { padding: 0; }   /* editorial.css pads every <section> */
+.st-busy { font-style: italic; }
+.st-h { margin: 1.5rem 0 0.5rem; font-family: var(--font-mono); font-weight: 400; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.st-summary { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); margin: 0; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+.st-fig { margin: 0; padding: 0.6rem 0.8rem; background: var(--panel); min-width: 0; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.st-fig dt { font-size: 0.75rem; color: var(--muted); }
+.st-fig dd { margin: 0.15rem 0 0; font-size: 0.95rem; color: var(--ink); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.st-fig.st-big dd { font-family: var(--font-display); font-size: 1.35rem; font-weight: 400; }
+.st-fig.st-warn dd { color: var(--gv-rapid); }
+.st-fig.st-bad dd { color: var(--gv-hi); }
+.st-skipped { margin: 0.6rem 0 0; font-size: 0.85rem; color: var(--ink-soft); }
+.st-skipped summary { cursor: pointer; color: var(--muted); }
+.st-skipped ul { margin: 0.4rem 0 0; padding-left: 1.2rem; max-height: 12rem; overflow: auto; overflow-wrap: anywhere; }
+.st-settings { padding: 0; }
+.st-fields { margin: 0.4rem 0; padding: 0.2rem 0.9rem 0.6rem; border: 1px solid var(--line); background: var(--panel); min-width: 0; }
+.st-fields legend { padding: 0 0.3rem; font-size: 0.8rem; color: var(--ink-soft); }
+.st-fields input[aria-invalid="true"] { border-color: var(--gv-hi); }
+.st-check { display: inline-flex; align-items: center; gap: 0.5rem; margin: 0.2rem 1.5rem 0.2rem 0; font-size: 0.85rem; color: var(--ink-soft); cursor: pointer; }
+.st-table-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.5rem; }
+.st-sort { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: var(--muted); }
+.st-sort select { font: inherit; padding: 0.3rem 0.4rem; border: 1px solid var(--line-strong); background: var(--panel); color: var(--ink); border-radius: 2px; }
+.st-table-hint { margin: 0 0 0.5rem; }
+.st-group th, .st-group td { background: var(--paper-2); }
+.st-group th { text-align: left; }
+.st-expand { padding: 0; border: 0; background: none; color: var(--ink); font: inherit; font-weight: 600; cursor: pointer; }
+.st-expand:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.st-piece { cursor: pointer; }
+.st-piece td:first-child { padding-left: 1.6rem; }
+.st-piece:hover td, .st-piece.is-sel td { background: var(--accent-soft); }
+.st-piece:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.st-piece.is-out td { color: var(--muted); }
+.st-sub { color: var(--muted); }
+.st-mark { text-align: center !important; }
+.st-warn { color: var(--gv-rapid); font-weight: 600; }
+.st-bad { color: var(--gv-hi); font-weight: 600; }
+.st-note { color: var(--gv-rapid); }
+.st-view { margin: 1.25rem 0 0.5rem; padding: 0; border: 1px solid var(--line); background: var(--panel); min-width: 0; }
+.st-view .gv-panel-head { flex-wrap: wrap; }
+.st-view #st3dHead { text-transform: none; letter-spacing: 0; }   /* a mark keeps its case */
+.st-3d-box { position: relative; width: 100%; height: min(56vh, 460px); overflow: hidden; background: var(--panel); }
+@media (max-width: 720px) { .st-3d-box { height: min(50vh, 340px); } }
+.st-3d-canvas { display: block; cursor: grab; touch-action: none; }
+.st-3d-canvas:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+#st3dModel[aria-pressed="true"] { text-decoration: underline; }
+.st-costs th { text-align: left; }
+.st-costs tbody th { font-weight: 400; color: var(--ink); font-size: 0.88rem; }
+.st-costs .st-sum th, .st-costs .st-sum td { border-top: 1px solid var(--line-strong); }
+.st-costs .st-total th, .st-costs .st-total td { font-weight: 700; border-top: 2px solid var(--ink); }
+.st-costs .st-min th { color: var(--gv-rapid); }
+.st-costs .st-unpriced th, .st-costs .st-unpriced td { color: var(--gv-rapid); }
+.st-unpriced-note[hidden] { display: none; }
+@media (max-width: 480px) {
+  /* 375 px: the labels wrap, so the amount column stays inside the box */
+  .st-costs th, .st-costs td { padding-inline: 0.3rem; font-size: 0.82rem; }
+  .st-costs tbody th { white-space: normal; min-width: 7rem; }
+}
+.st-cost-none td { color: var(--muted); font-style: italic; white-space: normal; }
+.st-outputs { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0 0.5rem; }
+.st-print-note { display: none; }
+.st-v1 { margin: 1rem 0; }
+@media print {
+  .st-settings, .st-sort, .st-table-hint, .st-view, .st-outputs, .st-piece, .st-skipped, .st-v1, #stDropHint, #stBusy { display: none !important; }
+  .st-print-note { display: block !important; }
+  .st-summary { grid-template-columns: repeat(3, 1fr); }
+  .st-group th, .st-group td { background: none; }
+  .st-table, .st-costs { break-inside: avoid; }
+}
+
 /* ---- ifc-plans.html: DXF floor plans from IFC (spec §6) ---- */
 .ip-indicative { display: inline-block; margin: 0.6rem 0 0; padding: 0.2rem 0.7rem; border: 1px solid var(--gv-rapid); border-radius: 999px; color: var(--ink-soft); font-size: 0.82rem; }
 .ip-settings { padding: 0.25rem 0 0.5rem; }   /* editorial.css pads every <section> */

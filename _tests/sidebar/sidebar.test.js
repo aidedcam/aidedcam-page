@@ -4,9 +4,9 @@ import { readFileSync, readdirSync } from 'node:fs';
 import vm from 'node:vm';
 
 const read = p => readFileSync(new URL(p, import.meta.url), 'utf8').replace(/\r\n/g, '\n');   // a Windows checkout has CRLF
-const V = '20261002';                                                                           // deploy day swaps it
+const V = '20261104';                                                                           // deploy day swaps it
 const PAGES = ['index', 'what-you-gain', 'calculator', 'free-tools', 'gcode-viewer', 'milling-gcode-viewer', 'laser-dxf-checker',
-  'dwg-quantities', 'coverage-precheck', 'ifc-plans', 'legal', 'privacy'].map(p => `${p}.html`);
+  'dwg-quantities', 'coverage-precheck', 'ifc-plans', 'steel-takeoff', 'legal', 'privacy'].map(p => `${p}.html`);
 const LANGS = ['el', 'en', 'it'];
 
 // The script runs in the browser; in Node it hands its data to `module.exports` and touches no DOM.
@@ -31,11 +31,11 @@ test('every page loads the stylesheet and the deferred script once, in <head>, w
   }
 });
 
-test('the six tools and their URLs are the cards of free-tools.html, in order', () => {
+test('the seven tools and their URLs are the cards of free-tools.html, in order', () => {
   const { TOOLS } = loadSidebar();
   const ft = read('../../free-tools.html');
   const cards = [...ft.matchAll(/<a class="ft-card" href="([^"]+)">\s*<h3 data-i18n="ft\.([a-z]+)\.title">/g)].map(m => ({ id: m[2], href: m[1] }));
-  assert.equal(cards.length, 6);
+  assert.equal(cards.length, 7);
   assert.deepEqual(TOOLS.map(t => ({ id: t.id, href: t.href })), cards);
 });
 

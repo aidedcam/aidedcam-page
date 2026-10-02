@@ -7,8 +7,8 @@ async (page) => {
   const BASE = 'http://127.0.0.1:8811/';
   const SHOT = typeof process !== 'undefined' && process.env && process.env.SHOT;
   const PAGES = ['index', 'what-you-gain', 'calculator', 'free-tools', 'gcode-viewer', 'milling-gcode-viewer', 'laser-dxf-checker',
-    'dwg-quantities', 'coverage-precheck', 'ifc-plans', 'legal', 'privacy'];
-  const TOOL_PAGE = { 'gcode-viewer': 'lathe', 'milling-gcode-viewer': 'mill', 'laser-dxf-checker': 'laser', 'dwg-quantities': 'dwgq', 'coverage-precheck': 'coverage', 'ifc-plans': 'ifcplans', 'free-tools': 'all' };
+    'dwg-quantities', 'coverage-precheck', 'ifc-plans', 'steel-takeoff', 'legal', 'privacy'];
+  const TOOL_PAGE = { 'gcode-viewer': 'lathe', 'milling-gcode-viewer': 'mill', 'laser-dxf-checker': 'laser', 'dwg-quantities': 'dwgq', 'coverage-precheck': 'coverage', 'ifc-plans': 'ifcplans', 'steel-takeoff': 'steel', 'free-tools': 'all' };
   const checks = [];
   const check = (name, ok, got) => checks.push({ name, ok: !!ok, got });
   const errors = [], external = [];
@@ -91,7 +91,7 @@ async (page) => {
       const s = await state(page), first = await leftmost(page);
       seen[name] = s.layout;
       if (s.layout === 'strip') {
-        if (!(s.items === 6 && s.all && !s.fabShown)) bad.push({ name, s });
+        if (!(s.items === 7 && s.all && !s.fabShown)) bad.push({ name, s });
         if (first.length && first[0][0] < s.strip.right) bad.push({ name, stripRight: s.strip.right, first });
         if (s.strip.top < 80 || s.strip.bottom > 900 - 80) bad.push({ name, strip: s.strip });
       } else if (!(s.fabShown && !s.listShown)) bad.push({ name, s });
@@ -108,11 +108,11 @@ async (page) => {
     Object.keys(TOOL_PAGE).every(n => layouts[1200][n] === 'panel' && layouts[1280][n] === 'panel') &&
     strips(1366).length === PAGES.length, { 1200: layouts[1200], 1280: layouts[1280], 1366: layouts[1366] });
 
-  // 2. At 1440 px: six items and the all-tools box, hover expands a card without moving the page, current page marked.
+  // 2. At 1440 px: seven items and the all-tools box, hover expands a card without moving the page, current page marked.
   await page.setViewportSize({ width: 1440, height: 900 });
   await open(page, 'index');
   let s = await state(page);
-  check('1440 index: strip with six items and the all-tools box, nothing current', s.layout === 'strip' && s.items === 6 && s.all && s.current.length === 0, s);
+  check('1440 index: strip with seven items and the all-tools box, nothing current', s.layout === 'strip' && s.items === 7 && s.all && s.current.length === 0, s);
   const card = id => page.evaluate(id => {
     const a = document.querySelector(`nav.afs [data-tool="${id}"]`), c = a.querySelector('.afs-card'), r = c.getBoundingClientRect(), cs = getComputedStyle(c);
     return { opacity: +cs.opacity, pe: cs.pointerEvents, width: Math.round(r.width), left: Math.round(r.left), text: c.innerText.replace(/\s+/g, ' ').trim(), name: a.innerText.replace(/\s+/g, ' ').trim() };
@@ -222,14 +222,14 @@ async (page) => {
   await page.click('nav.afs .afs-fab');
   s = await state(page);
   const inView = await page.evaluate(() => { const r = document.querySelector('nav.afs .afs-list').getBoundingClientRect(); return r.left >= 0 && r.right <= innerWidth && r.top >= 0 && r.bottom <= innerHeight; });
-  check('375: a tap opens the panel with six tools and the all-tools link, inside the screen', s.expanded === 'true' && s.listShown && s.items === 6 && s.all && inView && s.current[0] === 'lathe' && noScroll(s), { s, inView });
+  check('375: a tap opens the panel with seven tools and the all-tools link, inside the screen', s.expanded === 'true' && s.listShown && s.items === 7 && s.all && inView && s.current[0] === 'lathe' && noScroll(s), { s, inView });
   if (SHOT) await page.screenshot({ path: `${SHOT}/sb-375-panel-open.png` });
   await page.keyboard.press('Escape');
   s = await state(page);
   const focused = await page.evaluate(() => document.activeElement && document.activeElement.className);
   check('375: Esc closes it and gives the focus back to the button', s.expanded === 'false' && !s.listShown && focused === 'afs-fab', { s, focused });
   await page.click('nav.afs .afs-fab');
-  await page.mouse.click(300, 150);
+  await page.mouse.click(300, 95);                                             // above the panel (seven tools reach y 110)
   s = await state(page);
   check('375: a tap outside closes it', s.expanded === 'false' && !s.listShown, s);
   await page.click('nav.afs .afs-fab');
@@ -240,7 +240,7 @@ async (page) => {
   await page.focus('nav.afs .afs-fab');
   await page.keyboard.press('Enter');
   const openedByKey = (await state(page)).expanded;
-  for (let i = 0; i < 8; i++) await page.keyboard.press('Tab');
+  for (let i = 0; i < 9; i++) await page.keyboard.press('Tab');               // seven tools and the all-tools link
   await page.waitForTimeout(100);
   s = await state(page);
   const out = await page.evaluate(() => !document.querySelector('nav.afs').contains(document.activeElement));

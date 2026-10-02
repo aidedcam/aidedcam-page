@@ -80,3 +80,13 @@ export function sortSet(files) {
 export function piecesBucket(n) {
   return n <= 10 ? '1-10' : n <= 100 ? '11-100' : n <= 1000 ? '101-1000' : 'over-1000';
 }
+
+// The 3D toggle button: { hidden, key, pressed }. IFC sets only. In the whole-model view it offers "this piece only"
+// and exists only once a piece is picked; in the single-piece view it offers the whole model. `selected`: truthy
+// when a piece is picked.
+export function modelToggle(v) {
+  if (!v || v.kind !== 'ifc') return { hidden: true, key: 'st.3d.model', pressed: false };
+  return v.whole
+    ? { hidden: !v.selected, key: 'st.3d.piece', pressed: true }
+    : { hidden: !v.selected, key: 'st.3d.model', pressed: false };
+}

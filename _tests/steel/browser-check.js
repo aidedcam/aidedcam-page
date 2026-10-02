@@ -71,6 +71,7 @@ async (page) => {
   await shown();
   const t1 = await timings();
   check('the example: from the click to the table under 1 s (spec §9)', t1.example < 1000, t1);
+  check('an NC1 set shows no 3D panel until a click', await page.isHidden('#stView'));
   check('no worker, web-ifc or three.js for an NC1 set', !requests.some(u => /worker\.js|web-ifc|three/.test(u)), requests.filter(u => /steel|vendor/.test(u)));
   check('the page itself loaded no engine', !before.some(u => /web-ifc|three|worker/.test(u)), before.filter(u => /vendor/.test(u)));
 
@@ -183,15 +184,41 @@ async (page) => {
   s = await summary();
   check('the IFC example: 16 members, 4 assemblies, 16 pieces, 1,069.2 kg (NC1: 1,069.0), 29.88 m²', s.IFC === 'portal.ifc · IFC4' && s.Members === '16 members, 4 assemblies' && s.Pieces === '16 pieces in 6 marks' && s['Total weight'] === '1,069.2 kg' && s['Total surface'] === '29.88 m²', s);
   check('the IFC example loads under 3 s (web-ifc included) and its check pass ends with no ⚠', tIfc < 3000 && s['⚠ Geometry check'] === '0 marks', { tIfc, check: (await timings()).check });
+  // The whole model is open as soon as the IFC has loaded: no click, nothing highlighted, the toggle not offered yet.
+  await page.waitForFunction(() => window.__steel.view3d && window.__steel.view3d.shown === 'model' && !document.querySelector('#stView').hidden && document.querySelector('#st3dNote').hidden, null, { timeout: 30000 });
+  let v = await page.evaluate(() => ({ head: document.querySelector('#st3dHead').innerText, sel: document.querySelectorAll('tr.st-piece.is-sel').length, toggle: document.querySelector('#st3dModel').hidden, meshes: window.__steel.view3d.meshes, ink: window.__steel.view3d.ink() }));
+  check('an IFC shows its whole model in 3D before any click: heading "Whole model", nothing highlighted, no toggle', v.head === 'Whole model' && v.sel === 0 && v.toggle === true && v.ink > 2000, v);
+  const wholeMeshes = v.meshes;
+  check('right after the auto-open: exactly two meshes (two grades, no highlight)', wholeMeshes === 2, wholeMeshes);
+  await page.emulateMedia({ media: 'print' });
+  const prOpen = await page.evaluate(() => getComputedStyle(document.querySelector('#stView')).display);
+  await page.emulateMedia({ media: 'screen' });
+  check('print with the whole model open: the 3D view is hidden', prOpen === 'none', prOpen);
   await page.click('[data-toggle="HEA200|S355"]');
   await page.click('tr.st-piece');
-  await view();
-  let v = await page.evaluate(() => [window.__steel.view3d.shown, window.__steel.view3d.ink(), document.querySelector('#st3dModel').hidden]);
-  check('an IFC piece in 3D from its mesh; the whole-model button offered', v[0] === 'member' && v[1] > 2000 && v[2] === false, v);
+  await page.waitForFunction(() => /·/.test(document.querySelector('#st3dHead').innerText));
+  v = await page.evaluate(() => ({ shown: window.__steel.view3d.shown, meshes: window.__steel.view3d.meshes, head: document.querySelector('#st3dHead').innerText, label: document.querySelector('#st3dModel').innerText.trim(), hidden: document.querySelector('#st3dModel').hidden, pressed: document.querySelector('#st3dModel').getAttribute('aria-pressed') }));
+  check('a piece click keeps the whole model, highlights the piece, names it, and offers "This piece only"', v.shown === 'model' && v.meshes === wholeMeshes + 1 && /^\S+ · HEA200$/.test(v.head) && v.label === 'This piece only' && v.hidden === false && v.pressed === 'true', { v, wholeMeshes });
+  await page.click('#st3dModel');
+  await page.waitForFunction(() => window.__steel.view3d.shown === 'member');
+  v = await page.evaluate(() => [window.__steel.view3d.ink(), document.querySelector('#st3dModel').innerText.trim(), document.querySelector('#st3dModel').getAttribute('aria-pressed')]);
+  check('"This piece only" shows the piece alone; the button reads "Whole model", aria-pressed false', v[0] > 2000 && v[1] === 'Whole model' && v[2] === 'false', v);
   await page.click('#st3dModel');
   await page.waitForFunction(() => window.__steel.view3d.shown === 'model');
-  v = await page.evaluate(() => [window.__steel.view3d.meshes, document.querySelector('#st3dModel').getAttribute('aria-pressed')]);
-  check('whole model: every member by grade, the piece highlighted', v[0] === 3 && v[1] === 'true', v);
+  v = await page.evaluate(() => [window.__steel.view3d.meshes, document.querySelector('#st3dModel').innerText.trim(), document.querySelector('#st3dModel').getAttribute('aria-pressed')]);
+  check('"Whole model" switches back: every member by grade, the piece highlighted, "This piece only", aria-pressed true', v[0] === wholeMeshes + 1 && v[1] === 'This piece only' && v[2] === 'true', v);
+  const gaIfc = await page.evaluate(() => window.__ga.map(a => a[1]).filter(n => n === 'steel_view3d').length);
+  check('GA: steel_view3d once per set (the NC1 piece, then the IFC auto-open)', gaIfc === 2, gaIfc);
+
+  // The late model: a new file or Clear right after the IFC's auto-open began must drop the old model.
+  for (const how of ['Clear', 'NC1 example']) {
+    await page.click('#stExampleIfc');
+    await page.waitForFunction(() => !document.querySelector('#stView').hidden && !document.querySelector('#stPanel').hidden, null, { timeout: 30000 });
+    await page.click(how === 'Clear' ? '#stClear' : '#stExample');
+    await page.waitForTimeout(3000);
+    const late = await page.evaluate(() => ({ hidden: document.querySelector('#stView').hidden, shown: window.__steel.view3d ? window.__steel.view3d.shown : null, meshes: window.__steel.view3d ? window.__steel.view3d.meshes : 0 }));
+    check(`${how} right after an IFC's auto-open: no old model comes back`, late.shown !== 'model' && late.meshes === 0 && (how === 'Clear' ? late.hidden : true), late);
+  }
 
   // 8. The errors of spec §7, each one line in the visitor's language.
   const c1 = await page.evaluate(async () => (await fetch('js/steel/examples/portal/C1.nc1')).text());
@@ -249,6 +276,29 @@ async (page) => {
   check('no WebGL2: "3D is not available in this browser.", the table still there', (await p2.innerText('#st3dNote')) === '3D is not available in this browser.' && (await p2.$$('tr.st-group')).length === 6, await p2.innerText('#st3dNote'));
   await ctx2.close();
 
+  // 9b. Over the cap: the worker answers "too large" (stubbed in the page); the note shows, the table and quote stay.
+  const ctx3 = await page.context().browser().newContext();
+  const p3 = await ctx3.newPage();
+  watch(p3);
+  await p3.addInitScript(() => {
+    const W = window.Worker;
+    window.Worker = function (...a) {
+      const w = new W(...a), post = w.postMessage.bind(w);
+      w.postMessage = (m, t) => {
+        if (m && m.settings && m.settings.mesh) { setTimeout(() => w.onmessage && w.onmessage({ data: { type: 'result', id: m.id, name: m.name, mesh: null, triangles: 9e6, reason: 'large' } }), 0); return; }
+        return post(m, t);
+      };
+      return w;
+    };
+  });
+  await p3.goto(BASE + 'steel-takeoff.html?lang=en');
+  await p3.evaluate(() => localStorage.setItem('privacy-pref', 'declined'));
+  await p3.click('#stExampleIfc');
+  await p3.waitForFunction(() => !document.querySelector('#stView').hidden && !document.querySelector('#st3dNote').hidden && !/Preparing/.test(document.querySelector('#st3dNote').innerText), null, { timeout: 30000 });
+  const big = await p3.evaluate(() => ({ note: document.querySelector('#st3dNote').innerText, groups: document.querySelectorAll('tr.st-group').length, kg: document.querySelector('#stSummary').innerText.includes('1,069.2 kg'), total: document.querySelectorAll('#stCosts tbody tr').length }));
+  check('over the cap: the note says the model is too large; the table, summary and quote are filled', big.note === 'This model is too large for the 3D view in this browser.' && big.groups === 6 && big.kg && big.total > 3, big);
+  await ctx3.close();
+
   // 10. Greek: the figures in Greek format; 375 px: no sideways scroll, the table scrolls in its box.
   await page.click('.lang-btn[data-lang="el"]');
   await page.evaluate(() => { delete window.__steel.timings.example; });
@@ -260,6 +310,8 @@ async (page) => {
   await page.click('.st-expand');
   await page.click('tr.st-piece');
   await view();
+  // The view built at 1280 px is resized by its ResizeObserver, a frame or two after the viewport change.
+  await page.waitForFunction(() => Math.round(window.__steel.view3d.canvas.getBoundingClientRect().width) === Math.round(document.querySelector('#st3dBox').getBoundingClientRect().width), null, { timeout: 5000 }).catch(() => {});
   const phone = await page.evaluate(() => {
     const wrap = document.querySelector('#stTable').closest('.gv-table-wrap');
     return { scroll: [document.documentElement.scrollWidth, document.documentElement.clientWidth], table: [wrap.scrollWidth > wrap.clientWidth, getComputedStyle(wrap).overflowX], canvas: Math.round(window.__steel.view3d.canvas.getBoundingClientRect().width), box: Math.round(document.querySelector('#st3dBox').getBoundingClientRect().width) };

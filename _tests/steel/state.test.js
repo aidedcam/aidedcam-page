@@ -64,3 +64,12 @@ test('the skipped-list view model: hidden when null or empty, items with reason 
   assert.deepEqual(skippedView({ skipped: [{ name: 'a.nc1', reason: 'read' }, { name: 'b.nc1', reason: 'nonc1', line: 42 }] }),
     { hidden: false, items: [{ name: 'a.nc1', reasonKey: 'st.skip.read', line: undefined }, { name: 'b.nc1', reasonKey: 'st.skip.nonc1', line: 42 }] });
 });
+
+test('the 3D toggle: IFC only, "this piece only" in the whole-model view (when a piece is picked), "whole model" in the single-piece view', async () => {
+  const { modelToggle } = await import('../../js/steel/state.js');
+  assert.deepEqual(modelToggle({ kind: 'nc1', whole: false, selected: true }), { hidden: true, key: 'st.3d.model', pressed: false });
+  assert.deepEqual(modelToggle({ kind: 'ifc', whole: true, selected: false }), { hidden: true, key: 'st.3d.piece', pressed: true });
+  assert.deepEqual(modelToggle({ kind: 'ifc', whole: true, selected: true }), { hidden: false, key: 'st.3d.piece', pressed: true });
+  assert.deepEqual(modelToggle({ kind: 'ifc', whole: false, selected: true }), { hidden: false, key: 'st.3d.model', pressed: false });
+  assert.deepEqual(modelToggle(null), { hidden: true, key: 'st.3d.model', pressed: false });
+});

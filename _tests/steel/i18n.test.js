@@ -21,7 +21,7 @@ const COMPUTED = [
   ...['noweight', 'noarea', 'nolength', 'noqty', 'geometry', 'notsteel', 'check'].map(k => `st.warn.${k}`),
   ...['header', 'section', 'contour', 'profile', 'geometry'].map(k => `st.from.${k}`),
   ...['fits', 'double', 'no'].map(k => `st.bath.${k}`),
-  ...['top', 'front', 'side', 'iso', 'loading', 'failed', 'nogl', 'noshape', 'stale', 'large'].map(k => `st.3d.${k}`),
+  ...['top', 'front', 'side', 'iso', 'loading', 'failed', 'nogl', 'noshape', 'stale', 'large', 'piece', 'model'].map(k => `st.3d.${k}`),
   ...RATE_KEYS.map(k => `st.set.${k}`), ...GRADES.map(g => `st.set.steel.${g}`),
   ...['kg', 'length', 'mark'].map(k => `st.sort.${k}`),
 ];
@@ -56,6 +56,13 @@ test('every literal st.* key the modules use exists', () => {
   assert.ok(used >= 40, `${used} keys found`);
 });
 
+test('the 3D toggle strings, in the three languages', () => {
+  const s = toolStrings();
+  assert.equal(s.el['st.3d.piece'], 'Μόνο αυτό');
+  assert.equal(s.en['st.3d.piece'], 'This piece only');
+  assert.equal(s.it['st.3d.piece'], 'Solo questo pezzo');
+});
+
 test('the Italian uses the typographic apostrophe and the formal voi; no "free" in visible text', () => {
   const s = toolStrings();
   for (const [k, v] of Object.entries(s.it)) {
@@ -71,7 +78,7 @@ test('the wording of spec §6 and §7 in English', () => {
   assert.equal(en['st.eyebrow'], 'Tool');
   assert.equal(en['st.privacy'], 'Your files stay on your computer; nothing is uploaded.');
   assert.equal(en['st.indicative'], "Figures from the files' nominal values. Check against the shop drawings.");
-  assert.deepEqual(['st.open', 'st.folder', 'st.example', 'st.xlsx', 'st.print', 'st.skip.notnc1'].map(k => en[k]), ['Open files', 'Open folder', 'Load example', 'Download Excel', 'Print / PDF', 'not an NC1 file']);
+  assert.deepEqual(['st.open', 'st.folder', 'st.example', 'st.xlsx', 'st.print', 'st.skip.notnc1'].map(k => en[k]), ['Open files', 'Open folder', 'Load NC1 example', 'Download Excel', 'Print / PDF', 'not an NC1 file']);
   assert.ok(en['st.err.nosteel'].startsWith('No steel members found'));
   assert.equal(toolStrings().el['st.eyebrow'], 'Εργαλείο');
   assert.equal(toolStrings().it['st.eyebrow'], 'Strumento');

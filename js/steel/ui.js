@@ -13,7 +13,7 @@ import { takeoff, costs, sortTakeoff, kg1, m2 } from './quote.js?v=20261005';
 import { readZip } from './unzip.js?v=20261005';
 import { workbook, xlsxName, rowNotes } from './book.js?v=20261005';
 import { pieceSlabs } from './shape3d.js?v=20261005';
-import { cleanSettings, sortSet, kindOf, isMacClutter, skippedView, piecesBucket, parsePositive, parseRateInput, SETTINGS_KEY, NC1_MAX, IFC_MAX_BYTES, RATE_KEYS } from './state.js?v=20261005';
+import { cleanSettings, sortSet, modelToggle, kindOf, isMacClutter, skippedView, piecesBucket, parsePositive, parseRateInput, SETTINGS_KEY, NC1_MAX, IFC_MAX_BYTES, RATE_KEYS } from './state.js?v=20261005';
 
 const $ = id => document.getElementById(id);
 const SURVEY_KEY = 'aidedcam-steel-survey';
@@ -30,6 +30,7 @@ const state = {
   banner: null,
   busy: null,
 };
+let open3dSeq = 0;       // a newer 3D request drops an older one's late answer
 let latest = 0;          // the newest set; a slower, earlier read must not replace it
 let view3d = null, view3dModule = null, view3dTries = 0;
 // Read by the browser check: the times (ms) of the example, a file set, the IFC check and the 3D view; the view.
@@ -62,6 +63,7 @@ const baseName = n => String(n).replace(/^.*[\\/]/, '');
 
 function newSet(set) {
   state.set = set; state.error = null; state.open = new Set(); state.selected = null; state.whole = false;
+  open3dSeq++;
   if (view3d) view3d.clear();
   $('stView').hidden = true;
 }
@@ -138,6 +140,7 @@ async function loadIfc(file, source, skipped, my, t0) {
   mark(source === 'example' ? 'example' : 'file', t0);
   if (source === 'example') ga('steel_example', {});
   else ga('steel_loaded', { kind: 'ifc', pieces: piecesBucket(m.rows.reduce((a, r) => a + r.qty, 0)) });
+  if (set.rows.length) { state.whole = true; open3d(); }       // an IFC opens on its whole model, nothing highlighted
   // The second pass: the members priced from their profiles get their geometry check.
   const t1 = performance.now();
   const c = await engine.process('check', new ArrayBuffer(0), { check: true });
@@ -322,21 +325,31 @@ function renderCosts(cost) {
 async function select(row) {
   state.selected = row;
   if (model) renderTable(model.take);
-  await open3d(row);
+  await open3d();
 }
 
-async function open3d(row) {
-  const s = state.set;
+const head3d = () => (state.selected ? `${state.selected.mark || '–'} · ${state.selected.profile}` : t('st.3d.model'));
+function renderToggle() {
+  const b = $('st3dModel'), v = modelToggle({ kind: state.set && state.set.kind, whole: state.whole, selected: !!state.selected });
+  b.hidden = v.hidden;
+  b.dataset.i18n = v.key;
+  b.textContent = t(v.key);
+  b.setAttribute('aria-pressed', String(v.pressed));
+}
+
+// Shows state.selected in 3D (an NC1 piece, an IFC piece alone) or, for an IFC in its whole-model view, the whole
+// model with state.selected highlighted, if any.
+async function open3d() {
+  const s = state.set, row = state.selected, seq = ++open3dSeq;
   const t0 = performance.now();
   $('stView').hidden = false;
-  $('st3dModel').hidden = s.kind !== 'ifc';
-  $('st3dModel').setAttribute('aria-pressed', String(state.whole));
-  $('st3dHead').textContent = `${row.mark || '–'} · ${row.profile}`;
+  renderToggle();
+  $('st3dHead').textContent = head3d();
   note3d('st.3d.loading');
   let mod;
   try { mod = await (view3dModule || (view3dModule = import(`./view3d.js?v=20261005${view3dTries ? `#retry${view3dTries}` : ''}`))); }
-  catch (e) { view3dModule = null; view3dTries++; if (state.selected === row) note3d('st.3d.failed'); return; }
-  if (state.selected !== row || state.set !== s) return;
+  catch (e) { view3dModule = null; view3dTries++; if (seq === open3dSeq) note3d('st.3d.failed'); return; }
+  if (seq !== open3dSeq || state.set !== s) return;
   if (!view3d) {
     if (!mod.hasWebGL2()) { note3d('st.3d.nogl'); view3dGa(s, 'nogl'); return; }
     try { view3d = mod.createView3d($('st3dBox'), { onLost: lost3d }); renderView3dLabel(); window.__steel.view3d = view3d; }
@@ -348,8 +361,11 @@ async function open3d(row) {
     view3d.showPiece(slabs);
   } else {
     if (!s.ifc.mesh) {
-      const m = await engine.process('mesh', new ArrayBuffer(0), { mesh: true, maxTriangles: MAX_TRIANGLES });
-      if (state.set !== s) return;
+      // One request serves the auto-open and any click made while it runs; a failed one is asked again next time.
+      const asked = s.ifc.meshAsk || (s.ifc.meshAsk = engine.process('mesh', new ArrayBuffer(0), { mesh: true, maxTriangles: MAX_TRIANGLES }));
+      const m = await asked;
+      if (s.ifc.meshAsk === asked && !(m.type === 'result' && m.mesh)) s.ifc.meshAsk = null;
+      if (seq !== open3dSeq || state.set !== s) return;
       if (m.type !== 'result') { note3d(m.reason === 'stale' ? 'st.3d.stale' : 'st.3d.failed'); return; }
       if (!m.mesh) { note3d('st.3d.large'); return; }
       s.ifc.mesh = m.mesh;
@@ -357,8 +373,7 @@ async function open3d(row) {
       for (const r of s.rows) for (const e of r.eids) grades.set(e, r.grade);
       s.ifc.gradeOf = e => grades.get(e);
     }
-    if (state.selected !== row) return;
-    view3d.showModel(s.ifc.mesh, s.ifc.gradeOf, new Set(row.eids), { only: !state.whole, focus: true });
+    view3d.showModel(s.ifc.mesh, s.ifc.gradeOf, new Set(row ? row.eids : []), { only: !state.whole, focus: true });
   }
   note3d(null);
   view3dGa(s, 'shown');
@@ -377,8 +392,9 @@ $('stView').addEventListener('click', e => {
 });
 $('st3dFit').addEventListener('click', () => { if (view3d) view3d.fit(); });
 $('st3dModel').addEventListener('click', () => {
+  if (!state.selected) return;
   state.whole = !state.whole;
-  if (state.selected) open3d(state.selected);
+  open3d();
 });
 
 // ---- settings: remembered in this browser ----
@@ -507,7 +523,7 @@ document.addEventListener('gv:lang', () => {
   renderSettings();
   renderView3dLabel();
   render();
-  if (state.selected) $('st3dHead').textContent = `${state.selected.mark || '–'} · ${state.selected.profile}`;
+  if (state.set && !$('stView').hidden) { $('st3dHead').textContent = head3d(); renderToggle(); }
   if ($('st3dNote').dataset.key) note3d($('st3dNote').dataset.key);
 });
 

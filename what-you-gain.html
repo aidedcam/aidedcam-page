@@ -15,6 +15,8 @@
   <meta property="og:image:height" content="630" />
   <meta property="og:site_name" content="AidedCAM" />
   <meta property="og:locale" content="el_GR" />
+  <meta property="og:locale:alternate" content="en_US" />
+  <meta property="og:locale:alternate" content="it_IT" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="AidedCAM - Τι Κερδίζετε" />
   <meta name="twitter:description" content="Δείτε τι κερδίζετε με μία συνεργασία AidedCAM. Εξοικονόμηση 1.700+ ωρών/χειριστή, εξασφαλισμένη ποιότητα, λογισμικό φτιαγμένο για εσάς." />
@@ -23,7 +25,14 @@
   <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <meta name="theme-color" content="#f4f3ee" />
-  <link rel="canonical" href="https://www.aidedcam.com/what-you-gain.html" />
+  <link rel="alternate" hreflang="el" href="https://www.aidedcam.com/what-you-gain.html" />
+  <link rel="alternate" hreflang="en" href="https://www.aidedcam.com/what-you-gain.html?lang=en" />
+  <link rel="alternate" hreflang="it" href="https://www.aidedcam.com/what-you-gain.html?lang=it" />
+  <link rel="alternate" hreflang="x-default" href="https://www.aidedcam.com/what-you-gain.html" />
+  <!-- Canonical per language: ?lang=en and ?lang=it are their own pages, any other query string folds into
+       the plain URL. Set from script rather than in the HTML so a ?lang= page never declares a canonical
+       that points away from it. -->
+  <script>(function () { var m = /[?&]lang=(en|it)(&|$)/.exec(location.search), l = document.createElement('link'); l.rel = 'canonical'; l.href = 'https://www.aidedcam.com/what-you-gain.html' + (m ? '?lang=' + m[1] : ''); document.head.appendChild(l); })();</script>
   <link rel="preload" as="image" href="aided-cam-mark.png" />
   <!-- Google Analytics - loaded only after cookie consent -->
   <script>
@@ -42,10 +51,12 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       window.gtag = gtag;
+      // Only analytics was consented to; without a default Google treats the ad signals as granted.
+      gtag('consent', 'default', { analytics_storage: 'granted', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
       gtag('js', new Date());
-      gtag('config', 'G-81935T6DNE');
       var userLang = lsGet('aidedcam-lang') || document.documentElement.lang || 'el';
       gtag('set', 'user_properties', { preferred_language: userLang });
+      gtag('config', 'G-81935T6DNE');
     }
     function revokeGA() {
       window['ga-disable-G-81935T6DNE'] = true;
@@ -1172,7 +1183,8 @@
         'footer.privacy': 'Απόρρητο',
         'footer.legal': 'Νομικά',
         'footer.cookie_settings': 'Ρυθμίσεις Cookies',
-        '_title': 'AidedCAM - Τι Κερδίζετε'
+        '_title': 'AidedCAM - Τι Κερδίζετε',
+        '_description': 'Δείτε τι κερδίζετε με μία συνεργασία AidedCAM. Εξοικονόμηση 1.700+ ωρών/χειριστή, εξασφαλισμένη ποιότητα, λογισμικό φτιαγμένο για εσάς.'
       },
       en: {
         'roi.back': 'Home',
@@ -1270,7 +1282,8 @@
         'footer.privacy': 'Privacy',
         'footer.legal': 'Legal',
         'footer.cookie_settings': 'Cookie Settings',
-        '_title': 'AidedCAM - What You Gain'
+        '_title': 'AidedCAM - What You Gain',
+        '_description': 'See what you gain by working with AidedCAM: 1,700+ hours saved per operator, assured quality, software made for you.'
       },
       it: {
         'roi.back': 'Home',
@@ -1368,7 +1381,8 @@
         'footer.privacy': 'Privacy',
         'footer.legal': 'Note Legali',
         'footer.cookie_settings': 'Impostazioni Cookie',
-        '_title': 'AidedCAM - Cosa Guadagnate'
+        '_title': 'AidedCAM - Cosa Guadagnate',
+        '_description': 'Scoprite cosa guadagnate lavorando con AidedCAM: oltre 1.700 ore risparmiate per operatore, qualità garantita, software fatto per voi.'
       }
     };
 
@@ -1408,6 +1422,8 @@
       });
 
       document.title = t['_title'] || document.title;
+      var desc = document.querySelector('meta[name="description"]');
+      if (desc && t['_description']) desc.setAttribute('content', t['_description']);
       document.documentElement.lang = lang;
 
       document.querySelectorAll('.lang-btn').forEach(function(btn) {
@@ -1423,7 +1439,10 @@
     var urlLangParam = new URLSearchParams(window.location.search).get('lang');
     var urlLang = (urlLangParam && translations[urlLangParam]) ? urlLangParam : null;
     var savedLang = lsGet('aidedcam-lang');
-    var browserLangCode = navigator.language ? navigator.language.substring(0, 2) : 'el';
+    // Crawlers render with an English browser: they get the Greek default, so the plain URL is indexed
+    // in Greek and English/Italian are found through the ?lang= alternates.
+    var browserLangCode = navigator.language && !/bot|crawl|spider|slurp|mediapartners|Google-InspectionTool/i.test(navigator.userAgent)
+      ? navigator.language.substring(0, 2) : 'el';
     var browserLang = browserLangCode === 'el' ? 'el' : browserLangCode === 'it' ? 'it' : 'en';
     var currentLang = urlLang || savedLang || browserLang;
     if (currentLang !== 'el') setLanguage(currentLang);

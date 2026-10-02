@@ -10,17 +10,55 @@
   <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <meta name="theme-color" content="#f4f3ee" />
-  <link rel="canonical" href="https://www.aidedcam.com/dwg-quantities.html" />
+  <link rel="alternate" hreflang="el" href="https://www.aidedcam.com/dwg-quantities.html" />
+  <link rel="alternate" hreflang="en" href="https://www.aidedcam.com/dwg-quantities.html?lang=en" />
+  <link rel="alternate" hreflang="it" href="https://www.aidedcam.com/dwg-quantities.html?lang=it" />
+  <link rel="alternate" hreflang="x-default" href="https://www.aidedcam.com/dwg-quantities.html" />
+  <!-- Canonical per language: ?lang=en and ?lang=it are their own pages, any other query string folds into
+       the plain URL. Set from script rather than in the HTML so a ?lang= page never declares a canonical
+       that points away from it. -->
+  <script>(function () { var m = /[?&]lang=(en|it)(&|$)/.exec(location.search), l = document.createElement('link'); l.rel = 'canonical'; l.href = 'https://www.aidedcam.com/dwg-quantities.html' + (m ? '?lang=' + m[1] : ''); document.head.appendChild(l); })();</script>
   <meta property="og:title" content="AidedCAM - Επιμετρήσεις από DWG" />
   <meta property="og:description" content="Ρίξτε σχέδια DWG ή DXF και πάρτε μήκη, εμβαδά και πλήθη μπλοκ ανά στρώση, σε Excel." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.aidedcam.com/dwg-quantities.html" />
-  <meta property="og:image" content="https://www.aidedcam.com/og-image.png" />
+  <meta property="og:image" content="https://www.aidedcam.com/og/dwg-quantities.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="AidedCAM - Επιμετρήσεις από DWG" />
   <meta property="og:site_name" content="AidedCAM" />
   <meta property="og:locale" content="el_GR" />
   <meta property="og:locale:alternate" content="en_US" />
   <meta property="og:locale:alternate" content="it_IT" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AidedCAM - Επιμετρήσεις από DWG" />
+  <meta name="twitter:description" content="Ρίξτε σχέδια DWG ή DXF και πάρτε μήκη, εμβαδά και πλήθη μπλοκ ανά στρώση, σε Excel." />
+  <meta name="twitter:image" content="https://www.aidedcam.com/og/dwg-quantities.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Quantities from DWG",
+    "url": "https://www.aidedcam.com/dwg-quantities.html",
+    "description": "Free quantities from DWG and DXF drawings: lengths, areas, hatches and block counts per layer, attribute schedules, to Excel. No installation, no sign-up.",
+    "applicationCategory": "DesignApplication",
+    "operatingSystem": "Any (runs in a web browser)",
+    "browserRequirements": "Requires JavaScript and WebAssembly",
+    "inLanguage": ["el", "en", "it"],
+    "isAccessibleForFree": true,
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    },
+    "image": "https://www.aidedcam.com/og/dwg-quantities.png",
+    "publisher": {
+      "@type": "Organization",
+      "name": "AidedCAM",
+      "url": "https://www.aidedcam.com"
+    }
+  }
+  </script>
   <!-- Google Analytics - loaded only after cookie consent (copied from calculator.html) -->
   <script>
     function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
@@ -38,10 +76,12 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       window.gtag = gtag;
+      // Only analytics was consented to; without a default Google treats the ad signals as granted.
+      gtag('consent', 'default', { analytics_storage: 'granted', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
       gtag('js', new Date());
-      gtag('config', 'G-81935T6DNE');
       var userLang = lsGet('aidedcam-lang') || document.documentElement.lang || 'el';
       gtag('set', 'user_properties', { preferred_language: userLang });
+      gtag('config', 'G-81935T6DNE');
     }
     function revokeGA() {
       window['ga-disable-G-81935T6DNE'] = true;
@@ -291,6 +331,7 @@
     var translations = {
       el: {
         "_title": "AidedCAM - Επιμετρήσεις από DWG",
+        "_description": "Δωρεάν επιμετρήσεις από σχέδια DWG και DXF: μήκη, εμβαδά, διαγραμμίσεις και πλήθη μπλοκ ανά στρώση, πίνακες χαρακτηριστικών, σε Excel. Χωρίς εγκατάσταση, χωρίς εγγραφή.",
         "cookie_text": "Αυτός ο ιστότοπος χρησιμοποιεί cookies για τη βελτιστοποίηση της λειτουργίας του και την ανάλυση επισκεψιμότητας.",
         "cookie_accept": "Αποδοχή",
         "cookie_decline": "Απόρριψη",
@@ -313,6 +354,7 @@
       },
       en: {
         "_title": "AidedCAM - Quantities from DWG",
+        "_description": "Free quantities from DWG and DXF drawings: lengths, areas, hatches and block counts per layer, attribute schedules, to Excel. No installation, no sign-up.",
         "cookie_text": "This website uses cookies to optimize functionality and analyze traffic.",
         "cookie_accept": "Accept",
         "cookie_decline": "Decline",
@@ -335,6 +377,7 @@
       },
       it: {
         "_title": "AidedCAM - Computi da DWG",
+        "_description": "Computi gratuiti da disegni DWG e DXF: lunghezze, aree, tratteggi e conteggi di blocchi per layer, tabelle degli attributi, in Excel. Senza installazione, senza registrazione.",
         "cookie_text": "Questo sito web utilizza i cookie per ottimizzare le sue funzionalità e analizzare il traffico.",
         "cookie_accept": "Accetta",
         "cookie_decline": "Rifiuta",
@@ -376,6 +419,8 @@
         if (t[key] !== undefined) el.setAttribute('aria-label', t[key]);
       });
       document.title = t['_title'] || document.title;
+      var desc = document.querySelector('meta[name="description"]');
+      if (desc && t['_description']) desc.setAttribute('content', t['_description']);
       document.documentElement.lang = lang;
       document.querySelectorAll('.lang-btn').forEach(function (btn) {
         btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
@@ -389,7 +434,10 @@
       var urlLang = (urlLangParam && translations[urlLangParam]) ? urlLangParam : null;
       var savedLang = lsGet('aidedcam-lang');
       if (savedLang && !translations[savedLang]) savedLang = null;
-      var browserLangCode = navigator.language ? navigator.language.substring(0, 2) : 'el';
+      // Crawlers render with an English browser: they get the Greek default, so the plain URL is indexed
+      // in Greek and English/Italian are found through the ?lang= alternates.
+      var browserLangCode = navigator.language && !/bot|crawl|spider|slurp|mediapartners|Google-InspectionTool/i.test(navigator.userAgent)
+        ? navigator.language.substring(0, 2) : 'el';
       var browserLang = browserLangCode === 'el' ? 'el' : browserLangCode === 'it' ? 'it' : 'en';
       currentLang = urlLang || savedLang || browserLang;
       if (currentLang !== 'el') setLanguage(currentLang);
@@ -442,6 +490,47 @@
     // ===== GA HELPER: events only exist when the visitor accepted analytics =====
     function gaEvent(name, params) { if (window.gtag) gtag('event', name, params); }
     window.gaEvent = gaEvent;
+    // ===== WEB VITALS + JS ERRORS (same events as index.html; gaEvent no-ops until consent) =====
+    (function () {
+      try {
+        new PerformanceObserver(function (list) {
+          var entries = list.getEntries();
+          gaEvent('performance_largest_contentful_paint', { value: Math.round(entries[entries.length - 1].startTime), metric: 'LCP' });
+        }).observe({ type: 'largest-contentful-paint', buffered: true });
+      } catch (e) {}
+      try {
+        var clsValue = 0;
+        new PerformanceObserver(function (list) {
+          list.getEntries().forEach(function (entry) { if (!entry.hadRecentInput) clsValue += entry.value; });
+        }).observe({ type: 'layout-shift', buffered: true });
+        document.addEventListener('visibilitychange', function () {
+          if (document.visibilityState === 'hidden') gaEvent('performance_cumulative_layout_shift', { value: Math.round(clsValue * 1000), metric: 'CLS' });
+        });
+      } catch (e) {}
+      try {
+        var inpValue = 0;
+        new PerformanceObserver(function (list) {
+          list.getEntries().forEach(function (entry) { if (entry.duration > inpValue) inpValue = entry.duration; });
+        }).observe({ type: 'event', buffered: true });
+        document.addEventListener('visibilitychange', function () {
+          if (document.visibilityState === 'hidden' && inpValue > 0) gaEvent('performance_interaction_to_next_paint', { value: Math.round(inpValue), metric: 'INP' });
+        });
+      } catch (e) {}
+      try {
+        var nav = performance.getEntriesByType('navigation')[0];
+        if (nav) gaEvent('performance_time_to_first_byte', { value: Math.round(nav.responseStart), metric: 'TTFB' });
+      } catch (e) {}
+    })();
+    // An engine error can quote a dropped file's name, which may be a client's: file names are cut out before sending.
+    function scrubError(s) {
+      return String(s || '').replace(/[^\s'"«»()]*\.(dwg|dxf|ifc|nc1|nc|zip|xlsx|xls|csv|txt|tap|cnc|gcode|ngc|mpf|eia|ptp)\b/gi, '[file]').substring(0, 100);
+    }
+    window.addEventListener('error', function (e) {
+      gaEvent('javascript_runtime_error', { message: scrubError(e.message), source: (e.filename || '').substring(0, 100), line: e.lineno || 0 });
+    });
+    window.addEventListener('unhandledrejection', function (e) {
+      gaEvent('javascript_unhandled_promise_error', { message: scrubError(e.reason && e.reason.message || e.reason) });
+    });
   </script>
   <script type="module" src="js/dwg/ui.js?v=20260930"></script>
 </body>

@@ -10,17 +10,55 @@
   <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <meta name="theme-color" content="#f4f3ee" />
-  <link rel="canonical" href="https://www.aidedcam.com/laser-dxf-checker.html" />
+  <link rel="alternate" hreflang="el" href="https://www.aidedcam.com/laser-dxf-checker.html" />
+  <link rel="alternate" hreflang="en" href="https://www.aidedcam.com/laser-dxf-checker.html?lang=en" />
+  <link rel="alternate" hreflang="it" href="https://www.aidedcam.com/laser-dxf-checker.html?lang=it" />
+  <link rel="alternate" hreflang="x-default" href="https://www.aidedcam.com/laser-dxf-checker.html" />
+  <!-- Canonical per language: ?lang=en and ?lang=it are their own pages, any other query string folds into
+       the plain URL. Set from script rather than in the HTML so a ?lang= page never declares a canonical
+       that points away from it. -->
+  <script>(function () { var m = /[?&]lang=(en|it)(&|$)/.exec(location.search), l = document.createElement('link'); l.rel = 'canonical'; l.href = 'https://www.aidedcam.com/laser-dxf-checker.html' + (m ? '?lang=' + m[1] : ''); document.head.appendChild(l); })();</script>
   <meta property="og:title" content="AidedCAM - Έλεγχος DXF για κοπή laser" />
   <meta property="og:description" content="Ρίξτε μια παραγγελία DXF ή DWG: διορθώνει τα αρχεία και δίνει μήκος κοπής, διατρήσεις, βάρος και χρόνο για κάθε τεμάχιο." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.aidedcam.com/laser-dxf-checker.html" />
-  <meta property="og:image" content="https://www.aidedcam.com/og-image.png" />
+  <meta property="og:image" content="https://www.aidedcam.com/og/laser-dxf-checker.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="AidedCAM - Έλεγχος DXF για κοπή laser" />
   <meta property="og:site_name" content="AidedCAM" />
   <meta property="og:locale" content="el_GR" />
   <meta property="og:locale:alternate" content="en_US" />
   <meta property="og:locale:alternate" content="it_IT" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AidedCAM - Έλεγχος DXF για κοπή laser" />
+  <meta name="twitter:description" content="Ρίξτε μια παραγγελία DXF ή DWG: διορθώνει τα αρχεία και δίνει μήκος κοπής, διατρήσεις, βάρος και χρόνο για κάθε τεμάχιο." />
+  <meta name="twitter:image" content="https://www.aidedcam.com/og/laser-dxf-checker.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Laser DXF check",
+    "url": "https://www.aidedcam.com/laser-dxf-checker.html",
+    "description": "Free check and repair of DXF and DWG files for laser cutting: closes gaps, removes doubled lines and gives cut length, pierces, weight and time. No installation, no sign-up.",
+    "applicationCategory": "DesignApplication",
+    "operatingSystem": "Any (runs in a web browser)",
+    "browserRequirements": "Requires JavaScript and WebAssembly",
+    "inLanguage": ["el", "en", "it"],
+    "isAccessibleForFree": true,
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    },
+    "image": "https://www.aidedcam.com/og/laser-dxf-checker.png",
+    "publisher": {
+      "@type": "Organization",
+      "name": "AidedCAM",
+      "url": "https://www.aidedcam.com"
+    }
+  }
+  </script>
   <!-- Google Analytics - loaded only after cookie consent (copied from calculator.html) -->
   <script>
     function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
@@ -38,10 +76,12 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       window.gtag = gtag;
+      // Only analytics was consented to; without a default Google treats the ad signals as granted.
+      gtag('consent', 'default', { analytics_storage: 'granted', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
       gtag('js', new Date());
-      gtag('config', 'G-81935T6DNE');
       var userLang = lsGet('aidedcam-lang') || document.documentElement.lang || 'el';
       gtag('set', 'user_properties', { preferred_language: userLang });
+      gtag('config', 'G-81935T6DNE');
     }
     function revokeGA() {
       window['ga-disable-G-81935T6DNE'] = true;
@@ -295,6 +335,7 @@
     var translations = {
       el: {
         "_title": "AidedCAM - Έλεγχος DXF για κοπή laser",
+        "_description": "Δωρεάν έλεγχος και διόρθωση αρχείων DXF και DWG για κοπή laser: κλείνει κενά, σβήνει διπλές γραμμές και δίνει μήκος κοπής, διατρήσεις, βάρος και χρόνο. Χωρίς εγκατάσταση, χωρίς εγγραφή.",
         "lc.back": "Αρχική",
         "lc.title": "Έλεγχος DXF για κοπή laser",
         "lc.lede": "Ρίξτε μια παραγγελία DXF ή DWG: διορθώνει τα αρχεία και δίνει μήκος κοπής, διατρήσεις, βάρος και χρόνο για κάθε τεμάχιο.",
@@ -328,6 +369,7 @@
       },
       en: {
         "_title": "AidedCAM - Laser DXF check",
+        "_description": "Free check and repair of DXF and DWG files for laser cutting: closes gaps, removes doubled lines and gives cut length, pierces, weight and time. No installation, no sign-up.",
         "lc.back": "Home",
         "lc.title": "Laser DXF check",
         "lc.lede": "Drop a DXF or DWG order: it repairs the files and gives cut length, pierces, weight and time for every part.",
@@ -361,6 +403,7 @@
       },
       it: {
         "_title": "AidedCAM - Controllo DXF per taglio laser",
+        "_description": "Controllo e correzione gratuiti di file DXF e DWG per il taglio laser: chiude le aperture, elimina le linee doppie e dà lunghezza di taglio, sfondamenti, peso e tempo. Senza installazione, senza registrazione.",
         "lc.back": "Home",
         "lc.title": "Controllo DXF per taglio laser",
         "lc.lede": "Trascinate un ordine DXF o DWG: corregge i file e fornisce lunghezza di taglio, sfondamenti, peso e tempo per ogni pezzo.",
@@ -413,6 +456,8 @@
         if (t[key] !== undefined) el.setAttribute('aria-label', t[key]);
       });
       document.title = t['_title'] || document.title;
+      var desc = document.querySelector('meta[name="description"]');
+      if (desc && t['_description']) desc.setAttribute('content', t['_description']);
       document.documentElement.lang = lang;
       document.querySelectorAll('.lang-btn').forEach(function (btn) {
         btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
@@ -426,7 +471,10 @@
       var urlLang = (urlLangParam && translations[urlLangParam]) ? urlLangParam : null;
       var savedLang = lsGet('aidedcam-lang');
       if (savedLang && !translations[savedLang]) savedLang = null;
-      var browserLangCode = navigator.language ? navigator.language.substring(0, 2) : 'el';
+      // Crawlers render with an English browser: they get the Greek default, so the plain URL is indexed
+      // in Greek and English/Italian are found through the ?lang= alternates.
+      var browserLangCode = navigator.language && !/bot|crawl|spider|slurp|mediapartners|Google-InspectionTool/i.test(navigator.userAgent)
+        ? navigator.language.substring(0, 2) : 'el';
       var browserLang = browserLangCode === 'el' ? 'el' : browserLangCode === 'it' ? 'it' : 'en';
       currentLang = urlLang || savedLang || browserLang;
       if (currentLang !== 'el') setLanguage(currentLang);
@@ -479,6 +527,47 @@
     // ===== GA HELPER: events only exist when the visitor accepted analytics =====
     function gaEvent(name, params) { if (window.gtag) gtag('event', name, params); }
     window.gaEvent = gaEvent;
+    // ===== WEB VITALS + JS ERRORS (same events as index.html; gaEvent no-ops until consent) =====
+    (function () {
+      try {
+        new PerformanceObserver(function (list) {
+          var entries = list.getEntries();
+          gaEvent('performance_largest_contentful_paint', { value: Math.round(entries[entries.length - 1].startTime), metric: 'LCP' });
+        }).observe({ type: 'largest-contentful-paint', buffered: true });
+      } catch (e) {}
+      try {
+        var clsValue = 0;
+        new PerformanceObserver(function (list) {
+          list.getEntries().forEach(function (entry) { if (!entry.hadRecentInput) clsValue += entry.value; });
+        }).observe({ type: 'layout-shift', buffered: true });
+        document.addEventListener('visibilitychange', function () {
+          if (document.visibilityState === 'hidden') gaEvent('performance_cumulative_layout_shift', { value: Math.round(clsValue * 1000), metric: 'CLS' });
+        });
+      } catch (e) {}
+      try {
+        var inpValue = 0;
+        new PerformanceObserver(function (list) {
+          list.getEntries().forEach(function (entry) { if (entry.duration > inpValue) inpValue = entry.duration; });
+        }).observe({ type: 'event', buffered: true });
+        document.addEventListener('visibilitychange', function () {
+          if (document.visibilityState === 'hidden' && inpValue > 0) gaEvent('performance_interaction_to_next_paint', { value: Math.round(inpValue), metric: 'INP' });
+        });
+      } catch (e) {}
+      try {
+        var nav = performance.getEntriesByType('navigation')[0];
+        if (nav) gaEvent('performance_time_to_first_byte', { value: Math.round(nav.responseStart), metric: 'TTFB' });
+      } catch (e) {}
+    })();
+    // An engine error can quote a dropped file's name, which may be a client's: file names are cut out before sending.
+    function scrubError(s) {
+      return String(s || '').replace(/[^\s'"«»()]*\.(dwg|dxf|ifc|nc1|nc|zip|xlsx|xls|csv|txt|tap|cnc|gcode|ngc|mpf|eia|ptp)\b/gi, '[file]').substring(0, 100);
+    }
+    window.addEventListener('error', function (e) {
+      gaEvent('javascript_runtime_error', { message: scrubError(e.message), source: (e.filename || '').substring(0, 100), line: e.lineno || 0 });
+    });
+    window.addEventListener('unhandledrejection', function (e) {
+      gaEvent('javascript_unhandled_promise_error', { message: scrubError(e.reason && e.reason.message || e.reason) });
+    });
   </script>
   <script type="module" src="js/laser/ui.js?v=20261015"></script>
 </body>

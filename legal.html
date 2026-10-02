@@ -25,11 +25,13 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       window.gtag = gtag;
+      // Only analytics was consented to; without a default Google treats the ad signals as granted.
+      gtag('consent', 'default', { analytics_storage: 'granted', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
       gtag('js', new Date());
-      gtag('config', 'G-81935T6DNE');
       var userLang = document.documentElement.lang || 'el';
       try { userLang = localStorage.getItem('aidedcam-lang') || userLang; } catch (e) {}
       gtag('set', 'user_properties', { preferred_language: userLang });
+      gtag('config', 'G-81935T6DNE');
     }
     function revokeGA() {
       window['ga-disable-G-81935T6DNE'] = true;
@@ -783,7 +785,10 @@
     var urlLang = (urlLangParam && translations[urlLangParam]) ? urlLangParam : null;
     var savedLang = lsGet('aidedcam-lang');
     if (!translations[savedLang]) savedLang = null;
-    var browserLangCode = navigator.language ? navigator.language.substring(0, 2) : 'el';
+    // Crawlers render with an English browser: they get the Greek default, so the plain URL is indexed
+    // in Greek and English/Italian are found through the ?lang= alternates.
+    var browserLangCode = navigator.language && !/bot|crawl|spider|slurp|mediapartners|Google-InspectionTool/i.test(navigator.userAgent)
+      ? navigator.language.substring(0, 2) : 'el';
     var browserLang = browserLangCode === 'el' ? 'el' : browserLangCode === 'it' ? 'it' : 'en';
     var initialLang = urlLang || savedLang || browserLang;
     if (initialLang !== 'el') {

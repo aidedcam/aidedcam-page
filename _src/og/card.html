@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<!--
+  Share-card (og:image / twitter:image) template for the free tools: og/<tool>.png, 1200 x 630.
+
+  Rebuild: serve the site root (python -m http.server 8765), open
+  http://127.0.0.1:8765/_src/og/card.html?tool=<tool> in a 1200 x 630 viewport at deviceScaleFactor 1,
+  wait for document.fonts.ready and screenshot the viewport to og/<tool>.png.
+
+  shots/<tool>.png is the tool's own view with its example loaded (Greek UI), captured at 2x from the
+  live page and trimmed to the drawing. Retake it when a tool's view changes visibly.
+  _src/ is not published (Jekyll skips _ folders).
+-->
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <title>Share card</title>
+  <link rel="stylesheet" href="../../fonts.css" />
+  <style>
+    :root {
+      --paper: #f4f3ee; --panel: #ffffff; --ink: #17170f; --ink-soft: #36352c; --muted: #6b6a60;
+      --line: #dcdacf; --accent: #0d7a3e;
+      --font-display: 'Barlow', sans-serif; --font-body: 'Inter', sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 1200px; height: 630px; overflow: hidden; }
+    body {
+      position: relative; background: var(--paper); color: var(--ink); font-family: var(--font-body);
+      background-image:
+        linear-gradient(to right, rgba(194, 191, 177, 0.18) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(194, 191, 177, 0.18) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .rule { position: absolute; left: 0; right: 0; height: 1px; background: var(--line); }
+    .rule.top { top: 120px; } .rule.bottom { top: 530px; }
+
+    /* Lockup proportions as .nav-logo in css/editorial.css */
+    .lockup { --mark-h: 52px; position: absolute; left: 72px; top: 34px; display: flex; align-items: center; gap: calc(var(--mark-h) * 0.1629); }
+    .lockup img { height: var(--mark-h); width: auto; }
+    .lockup img.wordmark { height: calc(var(--mark-h) * 0.307); }
+
+    .text { position: absolute; left: 72px; top: 160px; width: 520px; height: 350px; display: flex; flex-direction: column; justify-content: center; }
+    .eyebrow { display: flex; align-items: center; gap: 12px; font-size: 15px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 22px; }
+    .eyebrow::before { content: ''; width: 9px; height: 9px; border-radius: 50%; background: var(--accent); }
+    h1 { font-family: var(--font-display); font-weight: 300; font-size: 58px; line-height: 1.06; letter-spacing: -0.01em; margin-bottom: 22px; }
+    h1.long { font-size: 50px; }
+    p { font-size: 22px; line-height: 1.4; color: var(--ink-soft); }
+
+    .view { position: absolute; left: 636px; top: 160px; width: 492px; height: 340px; background: var(--panel); border: 1px solid var(--line); padding: 18px; display: grid; gap: 14px; }
+    .view img { width: 100%; height: 100%; object-fit: contain; min-height: 0; }
+    .view.grid { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; padding: 14px; }
+    .view.grid img { border: 1px solid var(--line); padding: 8px; }
+
+    .foot { position: absolute; top: 562px; font-size: 15px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+    .foot.l { left: 72px; } .foot.r { right: 72px; }
+  </style>
+</head>
+<body>
+  <div class="rule top"></div>
+  <div class="lockup">
+    <img src="../../aided-cam-mark.png" alt="AidedCAM" width="512" height="512" />
+    <img class="wordmark" src="../../aidedcam-wordmark.svg" alt="" width="100" height="14" />
+  </div>
+  <div class="text">
+    <div class="eyebrow" id="eyebrow"></div>
+    <h1 id="title"></h1>
+    <p id="sub"></p>
+  </div>
+  <div class="view" id="view"></div>
+  <div class="rule bottom"></div>
+  <div class="foot l">www.aidedcam.com</div>
+  <div class="foot r">Στον browser · Χωρίς εγγραφή</div>
+  <script>
+    var CARDS = {
+      'gcode-viewer': ['Προβολή G-code τόρνου', 'Τα περάσματα των κύκλων G71–G76 και ο χρόνος κύκλου ανά εργαλείο.'],
+      'milling-gcode-viewer': ['Προβολή G-code φρέζας', 'Κάθε κίνηση σε 3D, οι κύκλοι διάτρησης και ο χρόνος ανά εργαλείο.'],
+      'laser-dxf-checker': ['Έλεγχος DXF για κοπή laser', 'Διορθώνει τα αρχεία και δίνει μήκος κοπής, διατρήσεις, βάρος και χρόνο.'],
+      'dwg-quantities': ['Επιμετρήσεις από DWG', 'Μήκη, εμβαδά και πλήθη μπλοκ ανά στρώση, σε Excel.'],
+      'coverage-precheck': ['Προέλεγχος διαγράμματος κάλυψης', 'Κάλυψη, δόμηση, όγκος και φύτευση απέναντι στους όρους δόμησης.'],
+      'ifc-plans': ['Κατόψεις DXF από IFC', 'Μία κάτοψη ανά όροφο, κάθε τύπος στοιχείου σε δική του στρώση.'],
+      'steel-takeoff': ['Προμέτρηση χάλυβα και προσφορά γαλβανίσματος', 'Κιλά και m² ανά τεμάχιο, έλεγχος λουτρού και κόστος, από NC1 ή IFC.'],
+      'free-tools': ['Εργαλεία για μηχανικούς και παραγωγή','G-code, DXF, DWG, IFC και NC1: ανοίγουν αμέσως, τίποτα δεν ανεβαίνει.']
+    };
+    var GRID = ['gcode-viewer', 'ifc-plans', 'laser-dxf-checker', 'dwg-quantities'];
+    var tool = new URLSearchParams(location.search).get('tool') || 'gcode-viewer';
+    var c = CARDS[tool];
+    document.getElementById('eyebrow').textContent = tool === 'free-tools' ? 'Δωρεάν εργαλεία' : 'Δωρεάν εργαλείο';
+    var h1 = document.getElementById('title');
+    h1.textContent = c[0];
+    if (c[0].length > 32) h1.classList.add('long');
+    document.getElementById('sub').textContent = c[1];
+    var view = document.getElementById('view');
+    (tool === 'free-tools' ? GRID : [tool]).forEach(function (t) {
+      var img = document.createElement('img');
+      img.src = 'shots/' + t + '.png'; img.alt = '';
+      view.appendChild(img);
+    });
+    if (tool === 'free-tools') view.classList.add('grid');
+  </script>
+</body>
+</html>

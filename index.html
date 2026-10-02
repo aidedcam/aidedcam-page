@@ -11,7 +11,7 @@
   <meta property="og:title" content="AidedCAM - Λογισμικό στα μέτρα της εταιρείας σας, με αυτοματισμό εκεί που χάνεται χρόνος" />
   <meta property="og:description" content="Λογισμικό φτιαγμένο για μία εταιρεία: τη δική σας. Αυτοματισμός εργασιών, από το Excel σε ζωντανή εικόνα, ειδικές λύσεις CAD/CAM/BIM." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://www.aidedcam.com" />
+  <meta property="og:url" content="https://www.aidedcam.com/" />
   <meta property="og:image" content="https://www.aidedcam.com/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -22,10 +22,17 @@
   <meta property="og:locale:alternate" content="it_IT" />
   <!-- Twitter / X Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="AidedCAM - Software made to fit your company, automation where the time goes" />
-  <meta name="twitter:description" content="Software built for one company: yours. Task automation, from Excel to a live picture, special CAD/CAM/BIM solutions. Autodesk Authorized Developer." />
+  <meta name="twitter:title" content="AidedCAM - Λογισμικό στα μέτρα της εταιρείας σας, με αυτοματισμό εκεί που χάνεται χρόνος" />
+  <meta name="twitter:description" content="Λογισμικό φτιαγμένο για μία εταιρεία: τη δική σας. Αυτοματισμός εργασιών, από το Excel σε ζωντανή εικόνα, ειδικές λύσεις CAD/CAM/BIM." />
   <meta name="twitter:image" content="https://www.aidedcam.com/og-image.png" />
-  <link rel="canonical" href="https://www.aidedcam.com/" />
+  <link rel="alternate" hreflang="el" href="https://www.aidedcam.com/" />
+  <link rel="alternate" hreflang="en" href="https://www.aidedcam.com/?lang=en" />
+  <link rel="alternate" hreflang="it" href="https://www.aidedcam.com/?lang=it" />
+  <link rel="alternate" hreflang="x-default" href="https://www.aidedcam.com/" />
+  <!-- Canonical per language: ?lang=en and ?lang=it are their own pages, any other query string folds into
+       the plain URL. Set from script rather than in the HTML so a ?lang= page never declares a canonical
+       that points away from it. -->
+  <script>(function () { var m = /[?&]lang=(en|it)(&|$)/.exec(location.search), l = document.createElement('link'); l.rel = 'canonical'; l.href = 'https://www.aidedcam.com/' + (m ? '?lang=' + m[1] : ''); document.head.appendChild(l); })();</script>
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
@@ -145,47 +152,6 @@
     }
   }
   </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    "name": "How AidedCAM builds your tailor-made software",
-    "description": "The 5-step process AidedCAM follows to build software for one company: from workflow analysis to installation and training, with automation where time is lost.",
-    "totalTime": "P30D",
-    "step": [
-      {
-        "@type": "HowToStep",
-        "position": 1,
-        "name": "Workflow Analysis",
-        "text": "We map every step of your production process from start to finish."
-      },
-      {
-        "@type": "HowToStep",
-        "position": 2,
-        "name": "Solution Design",
-        "text": "We decide together what the solution must do and where automation pays off."
-      },
-      {
-        "@type": "HowToStep",
-        "position": 3,
-        "name": "Tool Development",
-        "text": "We build the software designed exactly to suit your workflow."
-      },
-      {
-        "@type": "HowToStep",
-        "position": 4,
-        "name": "Integration and Testing",
-        "text": "We install the software and adjust it appropriately."
-      },
-      {
-        "@type": "HowToStep",
-        "position": 5,
-        "name": "Training and Support",
-        "text": "Our team provides all the information and support you need."
-      }
-    ]
-  }
-  </script>
   <!-- Preload critical assets -->
   <link rel="preload" as="image" href="aided-cam-mark.png" />
   <!-- The hero video's poster, only where the video box is shown (see HERO VIDEO) -->
@@ -207,13 +173,15 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       window.gtag = gtag;
+      // Only analytics was consented to; without a default Google treats the ad signals as granted.
+      gtag('consent', 'default', { analytics_storage: 'granted', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
       gtag('js', new Date());
-      gtag('config', 'G-81935T6DNE');
       // Set user language as a user property for segmentation
       var storedLang = null;
       try { storedLang = localStorage.getItem('aidedcam-lang'); } catch (e) {}
       var userLang = storedLang || document.documentElement.lang || 'el';
       gtag('set', 'user_properties', { preferred_language: userLang });
+      gtag('config', 'G-81935T6DNE');
     }
     // Consent withdrawn: stop GA for the rest of this session and drop its cookies.
     function revokeGA() {
@@ -2136,7 +2104,8 @@
         'a11y.video_pause': 'Παύση του βίντεο',
         'a11y.video_play': 'Αναπαραγωγή του βίντεο',
         // Page title
-        '_title': 'AidedCAM - Λογισμικό στα μέτρα της εταιρείας σας, με αυτοματισμό εκεί που χάνεται χρόνος'
+        '_title': 'AidedCAM - Λογισμικό στα μέτρα της εταιρείας σας, με αυτοματισμό εκεί που χάνεται χρόνος',
+        '_description': 'Λογισμικό φτιαγμένο για μία εταιρεία: τη δική σας. Μέσα στο CAD/CAM/BIM που ήδη έχετε ή ως δική σας εφαρμογή. Αυτοματισμός εργασιών, από το Excel σε ζωντανή εικόνα, ειδικές λύσεις CAD/CAM/BIM. Autodesk Authorized Developer. Αθήνα & Θεσσαλονίκη.'
       },
       en: {
         // Nav
@@ -2334,7 +2303,8 @@
         'a11y.video_pause': 'Pause the video',
         'a11y.video_play': 'Play the video',
         // Page title
-        '_title': 'AidedCAM - Software made to fit your company, automation where the time goes'
+        '_title': 'AidedCAM - Software made to fit your company, automation where the time goes',
+        '_description': 'Software built for one company: yours. Inside the CAD/CAM/BIM you already use, or as an application of your own. Task automation, from Excel to a live picture, special CAD/CAM/BIM solutions. Autodesk Authorized Developer. Athens & Thessaloniki.'
       },
       it: {
         // Nav
@@ -2532,7 +2502,8 @@
         'a11y.video_pause': 'Metti in pausa il video',
         'a11y.video_play': 'Riproduci il video',
         // Page title
-        '_title': 'AidedCAM - Software su misura per la vostra azienda, automazione dove si perde tempo'
+        '_title': 'AidedCAM - Software su misura per la vostra azienda, automazione dove si perde tempo',
+        '_description': 'Software costruito per un\'azienda: la vostra. Dentro il CAD/CAM/BIM che usate già o come applicazione vostra. Automazione delle attività, da Excel a un quadro dal vivo, soluzioni CAD/CAM/BIM speciali. Autodesk Authorized Developer. Atene e Salonicco.'
       }
     };
 
@@ -2572,6 +2543,8 @@
 
       // Update page title and lang attribute
       document.title = t['_title'];
+      const desc = document.querySelector('meta[name="description"]');
+      if (desc && t['_description']) desc.setAttribute('content', t['_description']);
       document.documentElement.lang = lang;
 
       // Update switcher buttons
@@ -2591,7 +2564,10 @@
     const urlLang = (urlLangParam && translations[urlLangParam]) ? urlLangParam : null;
     const storedLang = lsGet('aidedcam-lang');
     const savedLang = (storedLang && translations[storedLang]) ? storedLang : null;
-    const browserLangCode = navigator.language ? navigator.language.substring(0, 2) : 'el';
+    // Crawlers render with an English browser: they get the Greek default, so the plain URL is indexed
+    // in Greek and English/Italian are found through the ?lang= alternates.
+    const browserLangCode = navigator.language && !/bot|crawl|spider|slurp|mediapartners|Google-InspectionTool/i.test(navigator.userAgent)
+      ? navigator.language.substring(0, 2) : 'el';
     const browserLang = browserLangCode === 'el' ? 'el' : browserLangCode === 'it' ? 'it' : 'en';
     const initialLang = urlLang || savedLang || browserLang;
     if (initialLang !== 'el') {

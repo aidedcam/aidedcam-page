@@ -1,0 +1,5 @@
+# GitHub Pages builds this static site with Jekyll. Folders starting with _ or . are skipped already;
+# these are working files that must not be published either (plans/ is the improve-animations skill's
+# working folder, so it keeps its name).
+exclude:
+  - plans

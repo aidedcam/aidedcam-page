@@ -188,6 +188,8 @@
   </script>
   <!-- Preload critical assets -->
   <link rel="preload" as="image" href="aided-cam-mark.png" />
+  <!-- The hero video's poster, only where the video box is shown (see HERO VIDEO) -->
+  <link rel="preload" as="image" href="video/hero-poster.webp" type="image/webp" media="(min-width: 1141px)" fetchpriority="high" />
   <!-- Google Analytics - loaded only after cookie consent -->
   <script>
     function loadGA() {
@@ -420,6 +422,10 @@
          Measured with Barlow Light + Roboto Greek (fonts.css): the Greek title
          takes a third line from 55px, so the cap is 3.25rem (52px), ~5% headroom
          for rendering differences between platforms. en fits to 70px, it to 58px.
+         From 1141px the title sits in the 600px column beside the hero video and
+         a second break, <br class="hero-br">, puts the payoff on a third line;
+         below that the break is display:none. The longest of those lines is the
+         Greek "Φτιαγμένο για μία εταιρεία:" at 558px (it 555, en 466).
          Re-check this if the hero copy or the display font changes. */
       font-size: clamp(2.1rem, 4.6vw, 3.25rem);
       font-weight: 300;
@@ -453,6 +459,103 @@
     }
 
     /* Button styles now live in css/editorial.css */
+
+    /* ===== HERO VIDEO =====
+       Wide screens only: the text moves to a left column and a loop of a lathe
+       CAM we built plays in the right half, out to the window edge, fading into
+       the paper on its left, top and bottom (the CloudNC hero, on paper).
+
+       video/hero.mp4 is four shots of the app's 3D viewport, cut from a screen
+       recording: no ribbon, panels or title bar, so no file or program names.
+       1280x944 H.264, no audio track, 11.4 s, 0.72 MB. The last shot
+       crossfades into the first frame, so the loop has no seam, and
+       video/hero-poster.webp (29 KB) is that same first frame.
+       _src/hero-video/build.sh rebuilds both from the recording.
+
+       Below 1141px the box is display:none and fetches nothing: the video is
+       preload="none" and only the script starts it, and the poster is a
+       background set inside this media query rather than the poster attribute,
+       which browsers fetch even for a hidden video. The script (HERO VIDEO)
+       plays it only while it is on screen, never on its own under reduced
+       motion or Save-Data, and a pause from the button holds until the
+       visitor presses it again. */
+    .hero-main { position: relative; width: 100%; }
+    .hero-media, .hero-video-toggle, .hero-br { display: none; }
+
+    @media (min-width: 1141px) {
+      /* Full width, so the video's right edge is exactly the window's (100vw
+         would overshoot it by half a scrollbar). The padding puts the text in
+         the .container column (1320px max, same gutter), level with the nav logo. */
+      .hero-main {
+        --hero-gutter: clamp(1.25rem, 5vw, 4rem);
+        --hero-inset: max(var(--hero-gutter), calc((100% - 1320px) / 2 + var(--hero-gutter)));
+        padding: 0 var(--hero-inset);
+      }
+      .hero-content { max-width: 600px; margin: 0; padding: 0; text-align: left; }
+      .hero-br { display: inline; }  /* three title lines in the column: see .hero h1 */
+      .wordmark-drum, .hero-ctas, .hero-proof { justify-content: flex-start; }
+      .hero .subtitle, .hero-proof { margin-left: 0; margin-right: 0; }
+
+      .hero-media {
+        display: block;
+        position: absolute;
+        z-index: 1;
+        /* From the hero's top edge (the navbar is sticky, so that is right under
+           it) down to the integrations bar's rule: the hero's top padding and
+           the bar's top margin, undone. Across, from under the end of the text
+           out to the window's right edge. */
+        top: calc(-1 * clamp(5rem, 12vh, 9rem));
+        bottom: calc(-1 * clamp(2.5rem, 6vh, 4rem));
+        /* 90px short of the text column's end, so the text stays on the solid
+           paper part of the left fade */
+        left: calc(var(--hero-inset) + 510px);
+        right: 0;
+        background: url(video/hero-poster.webp) 62% 50% / cover no-repeat;
+      }
+      .hero-video {
+        position: absolute; inset: 0;
+        width: 100%; height: 100%;
+        object-fit: cover;
+        object-position: 62% 50%;  /* = the poster's background-position, so the two line up exactly */
+      }
+      /* The fades: paper laid over the edges. The hero is flat --paper, so this
+         reads exactly like a mask and needs no mask compositing. The stops are
+         eased, so no band shows where a fade ends. */
+      .hero-media::after {
+        content: '';
+        position: absolute; inset: 0;
+        background:
+          linear-gradient(to right, #f4f3ee 0%, #f4f3ee 9%, rgba(244, 243, 238, 0.9) 16%, rgba(244, 243, 238, 0.7) 24%,
+            rgba(244, 243, 238, 0.45) 32%, rgba(244, 243, 238, 0.22) 40%, rgba(244, 243, 238, 0.07) 48%, rgba(244, 243, 238, 0) 56%),
+          linear-gradient(to bottom, #f4f3ee 0%, rgba(244, 243, 238, 0.6) 7%, rgba(244, 243, 238, 0.2) 15%, rgba(244, 243, 238, 0) 22%),
+          linear-gradient(to top, #f4f3ee 0%, rgba(244, 243, 238, 0.6) 8%, rgba(244, 243, 238, 0.2) 17%, rgba(244, 243, 238, 0) 26%);
+      }
+
+      /* In the video's bottom-right corner, 1rem in from both edges. It cannot
+         sit inside .hero-media, which is aria-hidden, so it repeats that box's
+         bottom edge (the integrations bar's rule) and right edge (the window's).
+         The fixed back-to-top button only shows past 500px of scroll, by which
+         point this corner is far above it. */
+      .hero-video-toggle {
+        display: flex; align-items: center; justify-content: center;
+        position: absolute; z-index: 3;
+        right: 1rem;
+        bottom: calc(1rem - clamp(2.5rem, 6vh, 4rem));
+        width: 34px; height: 34px; padding: 0;
+        color: var(--ink);
+        background: rgba(244, 243, 238, 0.85);
+        border: 1px solid var(--line-strong);
+        border-radius: 2px;
+        cursor: pointer;
+        transition: border-color 0.2s ease, background 0.2s ease;
+      }
+      .hero-video-toggle[hidden] { display: none; }
+      .hero-video-toggle:hover { border-color: var(--ink); background: var(--panel); }
+      .hero-video-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+      .hero-video-toggle svg { width: 12px; height: 12px; }
+      .hero-video-toggle .hv-play, .hero-video-toggle.is-paused .hv-pause { display: none; }
+      .hero-video-toggle.is-paused .hv-play { display: block; }
+    }
 
     /* Integration logos bar */
     .integrations-bar {
@@ -1146,33 +1249,45 @@
 
   <!-- HERO -->
   <section class="hero" data-ga-location="hero">
-    <div class="hero-content">
-      <!-- role="img" with aria-hidden children, so assistive tech announces one
-           wordmark instead of five loose acronyms. The words are product names
-           and are identical in el/en/it, so they carry no data-i18n. -->
-      <div class="wordmark-drum" id="wordmarkDrum" role="img" aria-label="AidedCAM — CAD, CAM, CNC, BIM">
-        <!-- Logo glyphs, defined once: see HERO WORDMARK DRUM in the <style> above -->
-        <svg class="wd-defs" aria-hidden="true" focusable="false"><defs><path id="wgA" d="M64.18 40.69L50.03 14.55L36.07 40.69L64.18 40.69M36.86 0.49L63.59 0.49L99.47 66.05L77.65 66.05L71.16 54.35L28.9 54.35L22.61 66.05L0 66.05L36.86 0.49Z"/><path id="wgI" d="M0 0.49H19.95V66.05H0ZZ"/><path id="wgD" d="M53.37 50.42C58.78 50.42 59.17 50.42 61.53 49.64C66.35 48.16 67.62 44.72 67.62 33.42C67.62 19.66 65.26 16.81 53.76 16.81L19.95 16.81L19.95 50.42L53.37 50.42M0 0.49L56.61 0.49C70.47 0.49 76.96 2.06 81.48 6.58C85.12 10.12 86.59 14.25 87.28 22.61C87.48 25.65 87.67 30.17 87.67 33.32C87.67 39.22 87.28 46 86.69 49.73C85.61 57.6 80.11 63.69 72.93 65.07C69.2 65.85 66.25 66.05 59.27 66.05L0 66.05L0 0.49Z"/><path id="wgE" d="M72.64 0.49L72.64 15.33L19.66 15.33L19.66 26.64L69.59 26.64L69.59 39.61L19.66 39.61L19.66 51.21L73.32 51.21L73.32 66.05L0 66.05L0 0.49L72.64 0.49Z"/><path id="wgC" d="M83.45 41.38C83.35 50.91 83.05 54.16 81.68 57.1C79.12 62.71 73.82 65.36 63.59 66.05C59.56 66.44 51.7 66.54 38.63 66.54C19.76 66.54 13.66 65.66 8.35 62.22C1.87 58.09 0 51.21 0 31.75C0 14.45 1.97 8.26 8.85 4.33C14.74 0.89 21.03 0 39.41 0C63.89 0 69.2 0.49 74.8 3.24C80.11 5.9 82.56 11.7 82.56 21.33L82.56 23.49L63.49 23.49C63.1 16.32 61.63 15.73 44.33 15.73C28.01 15.73 25.06 16.12 22.61 18.28C20.25 20.44 19.76 23.1 19.76 33.71C19.76 49.44 21.23 50.62 40.4 50.62C55.24 50.62 57.4 50.52 60.15 49.34C63 48.16 64.09 46.1 64.09 41.38L83.45 41.38Z"/><path id="wgM" d="M0 0.49L31.65 0.49L55.53 44.03L79.32 0.49L110.77 0.49L110.77 66.05L91.31 66.05L92.29 15.43L63.2 66.05L47.28 66.05L18.67 15.43L19.27 66.05L0 66.05L0 0.49Z"/><path id="wgN" d="M0 0.49L31.65 0.49L68.5 51.13L68.5 0.49L88 0.49L88 66.05L56.35 66.05L19.5 15.41L19.5 66.05L0 66.05Z"/><path id="wgB" d="M0 0.49L56.61 0.49C70.47 0.49 76.96 2.06 81.48 6.58C85.12 10.12 86.59 14.25 87.28 22.61C87.48 25.65 87.67 30.17 87.67 33.32C87.67 39.22 87.28 46 86.69 49.73C85.61 57.6 80.11 63.69 72.93 65.07C69.2 65.85 66.25 66.05 59.27 66.05L0 66.05L0 0.49ZM58.84 26.64C61.97 26.64 64.5 24.11 64.5 20.98C64.5 17.86 61.97 15.33 58.84 15.33L19.95 15.33L19.95 26.64ZM61.82 51.21C65.02 51.21 67.62 48.61 67.62 45.41C67.62 42.21 65.02 39.61 61.82 39.61L19.95 39.61L19.95 51.21Z"/></defs></svg>
-        <img class="wd-icon" src="aided-cam-mark.png" alt="" aria-hidden="true" width="79" height="89" />
-        <svg class="wd-stem" style="--w:405.12" viewBox="0 0 405.12 66.54" fill="currentColor" aria-hidden="true" focusable="false"><use href="#wgA"/><use href="#wgI" x="103.69"/><use href="#wgD" x="135.83"/><use href="#wgE" x="234.31"/><use href="#wgD" x="317.45"/></svg>
-        <span class="wd-window" aria-hidden="true">
-          <span class="wd-projection">
-            <span class="wd-drum">
-              <span class="wd-face"><svg style="--w:300.95" viewBox="0 0 300.95 66.54" fill="currentColor" focusable="false"><use href="#wgC"/><use href="#wgA" x="86.49"/><use href="#wgM" x="190.18"/></svg></span>
-              <span class="wd-face"><svg style="--w:277.85" viewBox="0 0 277.85 66.54" fill="currentColor" focusable="false"><use href="#wgC"/><use href="#wgA" x="86.49"/><use href="#wgD" x="190.18"/></svg></span>
-              <span class="wd-face"><svg style="--w:275.24" viewBox="0 0 275.24 66.54" fill="currentColor" focusable="false"><use href="#wgC"/><use href="#wgN" x="92.98"/><use href="#wgC" x="191.79"/></svg></span>
-              <span class="wd-face"><svg style="--w:241.39" viewBox="0 0 241.39 66.54" fill="currentColor" focusable="false"><use href="#wgB"/><use href="#wgI" x="98.48"/><use href="#wgM" x="130.62"/></svg></span>
+    <div class="hero-main">
+      <!-- Decorative loop of a lathe CAM we built: see HERO VIDEO in the <style> above -->
+      <div class="hero-media" aria-hidden="true">
+        <video class="hero-video" id="heroVideo" muted loop playsinline preload="none" disablepictureinpicture disableremoteplayback width="1280" height="944">
+          <source src="video/hero.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <div class="hero-content">
+        <!-- role="img" with aria-hidden children, so assistive tech announces one
+             wordmark instead of five loose acronyms. The words are product names
+             and are identical in el/en/it, so they carry no data-i18n. -->
+        <div class="wordmark-drum" id="wordmarkDrum" role="img" aria-label="AidedCAM — CAD, CAM, CNC, BIM">
+          <!-- Logo glyphs, defined once: see HERO WORDMARK DRUM in the <style> above -->
+          <svg class="wd-defs" aria-hidden="true" focusable="false"><defs><path id="wgA" d="M64.18 40.69L50.03 14.55L36.07 40.69L64.18 40.69M36.86 0.49L63.59 0.49L99.47 66.05L77.65 66.05L71.16 54.35L28.9 54.35L22.61 66.05L0 66.05L36.86 0.49Z"/><path id="wgI" d="M0 0.49H19.95V66.05H0ZZ"/><path id="wgD" d="M53.37 50.42C58.78 50.42 59.17 50.42 61.53 49.64C66.35 48.16 67.62 44.72 67.62 33.42C67.62 19.66 65.26 16.81 53.76 16.81L19.95 16.81L19.95 50.42L53.37 50.42M0 0.49L56.61 0.49C70.47 0.49 76.96 2.06 81.48 6.58C85.12 10.12 86.59 14.25 87.28 22.61C87.48 25.65 87.67 30.17 87.67 33.32C87.67 39.22 87.28 46 86.69 49.73C85.61 57.6 80.11 63.69 72.93 65.07C69.2 65.85 66.25 66.05 59.27 66.05L0 66.05L0 0.49Z"/><path id="wgE" d="M72.64 0.49L72.64 15.33L19.66 15.33L19.66 26.64L69.59 26.64L69.59 39.61L19.66 39.61L19.66 51.21L73.32 51.21L73.32 66.05L0 66.05L0 0.49L72.64 0.49Z"/><path id="wgC" d="M83.45 41.38C83.35 50.91 83.05 54.16 81.68 57.1C79.12 62.71 73.82 65.36 63.59 66.05C59.56 66.44 51.7 66.54 38.63 66.54C19.76 66.54 13.66 65.66 8.35 62.22C1.87 58.09 0 51.21 0 31.75C0 14.45 1.97 8.26 8.85 4.33C14.74 0.89 21.03 0 39.41 0C63.89 0 69.2 0.49 74.8 3.24C80.11 5.9 82.56 11.7 82.56 21.33L82.56 23.49L63.49 23.49C63.1 16.32 61.63 15.73 44.33 15.73C28.01 15.73 25.06 16.12 22.61 18.28C20.25 20.44 19.76 23.1 19.76 33.71C19.76 49.44 21.23 50.62 40.4 50.62C55.24 50.62 57.4 50.52 60.15 49.34C63 48.16 64.09 46.1 64.09 41.38L83.45 41.38Z"/><path id="wgM" d="M0 0.49L31.65 0.49L55.53 44.03L79.32 0.49L110.77 0.49L110.77 66.05L91.31 66.05L92.29 15.43L63.2 66.05L47.28 66.05L18.67 15.43L19.27 66.05L0 66.05L0 0.49Z"/><path id="wgN" d="M0 0.49L31.65 0.49L68.5 51.13L68.5 0.49L88 0.49L88 66.05L56.35 66.05L19.5 15.41L19.5 66.05L0 66.05Z"/><path id="wgB" d="M0 0.49L56.61 0.49C70.47 0.49 76.96 2.06 81.48 6.58C85.12 10.12 86.59 14.25 87.28 22.61C87.48 25.65 87.67 30.17 87.67 33.32C87.67 39.22 87.28 46 86.69 49.73C85.61 57.6 80.11 63.69 72.93 65.07C69.2 65.85 66.25 66.05 59.27 66.05L0 66.05L0 0.49ZM58.84 26.64C61.97 26.64 64.5 24.11 64.5 20.98C64.5 17.86 61.97 15.33 58.84 15.33L19.95 15.33L19.95 26.64ZM61.82 51.21C65.02 51.21 67.62 48.61 67.62 45.41C67.62 42.21 65.02 39.61 61.82 39.61L19.95 39.61L19.95 51.21Z"/></defs></svg>
+          <img class="wd-icon" src="aided-cam-mark.png" alt="" aria-hidden="true" width="79" height="89" />
+          <svg class="wd-stem" style="--w:405.12" viewBox="0 0 405.12 66.54" fill="currentColor" aria-hidden="true" focusable="false"><use href="#wgA"/><use href="#wgI" x="103.69"/><use href="#wgD" x="135.83"/><use href="#wgE" x="234.31"/><use href="#wgD" x="317.45"/></svg>
+          <span class="wd-window" aria-hidden="true">
+            <span class="wd-projection">
+              <span class="wd-drum">
+                <span class="wd-face"><svg style="--w:300.95" viewBox="0 0 300.95 66.54" fill="currentColor" focusable="false"><use href="#wgC"/><use href="#wgA" x="86.49"/><use href="#wgM" x="190.18"/></svg></span>
+                <span class="wd-face"><svg style="--w:277.85" viewBox="0 0 277.85 66.54" fill="currentColor" focusable="false"><use href="#wgC"/><use href="#wgA" x="86.49"/><use href="#wgD" x="190.18"/></svg></span>
+                <span class="wd-face"><svg style="--w:275.24" viewBox="0 0 275.24 66.54" fill="currentColor" focusable="false"><use href="#wgC"/><use href="#wgN" x="92.98"/><use href="#wgC" x="191.79"/></svg></span>
+                <span class="wd-face"><svg style="--w:241.39" viewBox="0 0 241.39 66.54" fill="currentColor" focusable="false"><use href="#wgB"/><use href="#wgI" x="98.48"/><use href="#wgM" x="130.62"/></svg></span>
+              </span>
             </span>
           </span>
-        </span>
+        </div>
+        <h1 data-i18n-html="hero.title">Λογισμικό <span class="highlight">στα μέτρα σας</span>.<br>Φτιαγμένο για μία εταιρεία:<br class="hero-br"> τη δική σας.</h1>
+        <p class="subtitle" data-i18n="hero.subtitle">Ξεκινάμε από τη δική σας ανάγκη, όχι από ένα έτοιμο προϊόν. Μέσα στα προγράμματα που ήδη χρησιμοποιείτε, ή ως δική σας εφαρμογή.</p>
+        <div class="hero-ctas">
+          <a href="#contact" class="btn-primary" data-i18n="hero.cta">Επικοινωνήστε Μαζί Μας</a>
+          <a href="#megali-eikona" class="btn-secondary" data-i18n="hero.learn_more">Μάθετε Περισσότερα</a>
+        </div>
+        <p class="hero-proof" data-i18n-html="hero.proof"><span>Έργα σε <b>5 χώρες</b></span><span><b>8</b> συστήματα CAD/CAM/BIM</span><span>Απάντηση <b>εντός 48 ωρών</b></span></p>
       </div>
-      <h1 data-i18n-html="hero.title">Λογισμικό <span class="highlight">στα μέτρα σας</span>.<br>Φτιαγμένο για μία εταιρεία: τη δική σας.</h1>
-      <p class="subtitle" data-i18n="hero.subtitle">Ξεκινάμε από τη δική σας ανάγκη, όχι από ένα έτοιμο προϊόν. Μέσα στα προγράμματα που ήδη χρησιμοποιείτε, ή ως δική σας εφαρμογή.</p>
-      <div class="hero-ctas">
-        <a href="#contact" class="btn-primary" data-i18n="hero.cta">Επικοινωνήστε Μαζί Μας</a>
-        <a href="#megali-eikona" class="btn-secondary" data-i18n="hero.learn_more">Μάθετε Περισσότερα</a>
-      </div>
-      <p class="hero-proof" data-i18n-html="hero.proof"><span>Έργα σε <b>5 χώρες</b></span><span><b>8</b> συστήματα CAD/CAM/BIM</span><span>Απάντηση <b>εντός 48 ωρών</b></span></p>
+      <button type="button" class="hero-video-toggle" id="heroVideoToggle" aria-label="Παύση του βίντεο" data-i18n-aria="a11y.video_pause" hidden>
+        <svg class="hv-pause" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2 1h3v10H2zM7 1h3v10H7z" fill="currentColor"/></svg>
+        <svg class="hv-play" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M3 1l8 5-8 5z" fill="currentColor"/></svg>
+      </button>
     </div>
     <div class="integrations-bar">
       <div class="autodesk-badge">
@@ -1836,7 +1951,7 @@
         'nav.freetools': 'Εργαλεία',
         'nav.contact': 'Επικοινωνία',
         // Hero
-        'hero.title': 'Λογισμικό <span class="highlight">στα μέτρα σας</span>.<br>Φτιαγμένο για μία εταιρεία: τη δική σας.',
+        'hero.title': 'Λογισμικό <span class="highlight">στα μέτρα σας</span>.<br>Φτιαγμένο για μία εταιρεία:<br class="hero-br"> τη δική σας.',
         'hero.subtitle': 'Ξεκινάμε από τη δική σας ανάγκη, όχι από ένα έτοιμο προϊόν. Μέσα στα προγράμματα που ήδη χρησιμοποιείτε, ή ως δική σας εφαρμογή.',
         'hero.cta': 'Επικοινωνήστε Μαζί Μας',
         'hero.learn_more': 'Μάθετε Περισσότερα',
@@ -2018,6 +2133,8 @@
         'a11y.back_to_top': 'Επιστροφή στην αρχή',
         'a11y.menu': 'Άνοιγμα/κλείσιμο μενού',
         'a11y.skip': 'Μετάβαση στο κύριο περιεχόμενο',
+        'a11y.video_pause': 'Παύση του βίντεο',
+        'a11y.video_play': 'Αναπαραγωγή του βίντεο',
         // Page title
         '_title': 'AidedCAM - Λογισμικό στα μέτρα της εταιρείας σας, με αυτοματισμό εκεί που χάνεται χρόνος'
       },
@@ -2032,7 +2149,7 @@
         'nav.freetools': 'Tools',
         'nav.contact': 'Contact',
         // Hero
-        'hero.title': 'Software <span class="highlight">made to fit</span>.<br>Built for one company: yours.',
+        'hero.title': 'Software <span class="highlight">made to fit</span>.<br>Built for one company:<br class="hero-br"> yours.',
         'hero.subtitle': 'We start from your need, not from a ready-made product. Inside the programs you already use, or as your own application.',
         'hero.cta': 'Get in Touch',
         'hero.learn_more': 'Learn More',
@@ -2214,6 +2331,8 @@
         'a11y.back_to_top': 'Back to top',
         'a11y.menu': 'Open or close the menu',
         'a11y.skip': 'Skip to main content',
+        'a11y.video_pause': 'Pause the video',
+        'a11y.video_play': 'Play the video',
         // Page title
         '_title': 'AidedCAM - Software made to fit your company, automation where the time goes'
       },
@@ -2228,7 +2347,7 @@
         'nav.freetools': 'Strumenti',
         'nav.contact': 'Contatti',
         // Hero
-        'hero.title': 'Software <span class="highlight">su misura</span>.<br>Fatto per una sola azienda: la vostra.',
+        'hero.title': 'Software <span class="highlight">su misura</span>.<br>Fatto per una sola azienda:<br class="hero-br"> la vostra.',
         'hero.subtitle': 'Partiamo dalla vostra esigenza, non da un prodotto pronto. Dentro i programmi che già usate, oppure come vostra applicazione.',
         'hero.cta': 'Contattaci',
         'hero.learn_more': 'Scopri di Più',
@@ -2410,6 +2529,8 @@
         'a11y.back_to_top': 'Torna all’inizio',
         'a11y.menu': 'Apri o chiudi il menu',
         'a11y.skip': 'Vai al contenuto principale',
+        'a11y.video_pause': 'Metti in pausa il video',
+        'a11y.video_play': 'Riproduci il video',
         // Page title
         '_title': 'AidedCAM - Software su misura per la vostra azienda, automazione dove si perde tempo'
       }
@@ -2521,6 +2642,59 @@
 
       // The letters are SVG logo outlines, so there is no webfont to wait for.
       watchDrum();
+    }
+
+    // ===== HERO VIDEO =====
+    // The loop is muted, preload="none" and has no autoplay attribute: this is
+    // the only thing that starts it. It plays only where its box is shown (wide
+    // screens; a display:none box never intersects) and only while that box is
+    // on screen, and not before the window load event, so it never competes
+    // with the page's first paint. Under reduced motion or Save-Data it starts
+    // paused: the poster stays, and the button can still play it. The button's
+    // data-i18n-aria follows the state, so setLanguage() relabels it correctly.
+    const heroVideo = document.getElementById('heroVideo');
+    const heroVideoToggle = document.getElementById('heroVideoToggle');
+    if (heroVideo && heroVideoToggle) {
+      const heroWide = window.matchMedia('(min-width: 1141px)');
+      const saveData = !!(navigator.connection && navigator.connection.saveData);
+      let heroPaused = window.matchMedia('(prefers-reduced-motion: reduce)').matches || saveData;
+      let heroOnScreen = false;
+      let pageLoaded = document.readyState === 'complete';
+      heroVideo.muted = true;
+
+      const syncHeroVideo = () => {
+        heroVideoToggle.hidden = !heroWide.matches;
+        heroVideoToggle.classList.toggle('is-paused', heroPaused);
+        const key = heroPaused ? 'a11y.video_play' : 'a11y.video_pause';
+        const t = translations[document.documentElement.lang] || translations.el;
+        heroVideoToggle.dataset.i18nAria = key;
+        heroVideoToggle.setAttribute('aria-label', t[key] || translations.el[key]);
+
+        if (heroWide.matches && heroOnScreen && pageLoaded && !heroPaused) {
+          const playing = heroVideo.play();
+          // Refused (iOS Low Power Mode, a strict autoplay policy): the poster just stays.
+          if (playing && playing.catch) playing.catch(() => {});
+        } else if (!heroVideo.paused) {
+          heroVideo.pause();
+        }
+      };
+
+      heroVideoToggle.addEventListener('click', () => {
+        heroPaused = !heroPaused;
+        syncHeroVideo();
+      });
+      new IntersectionObserver((entries) => {
+        heroOnScreen = entries[entries.length - 1].isIntersecting;
+        syncHeroVideo();
+      }).observe(heroVideo.parentElement);
+      heroWide.addEventListener('change', syncHeroVideo);
+      if (!pageLoaded) {
+        window.addEventListener('load', () => {
+          pageLoaded = true;
+          syncHeroVideo();
+        });
+      }
+      syncHeroVideo();
     }
 
     // ===== WHAT WE BUILD: the three family illustrations =====

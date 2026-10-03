@@ -429,26 +429,101 @@
     /* Button styles now live in css/editorial.css */
 
     /* ===== HERO VIDEO =====
-       Wide screens only: the text moves to a left column and a loop of a lathe
-       CAM we built plays in the right half, out to the window edge, fading into
-       the paper on its left, top and bottom (the CloudNC hero, on paper).
+       A loop of a lathe CAM we built, fading into the paper at its edges (the
+       CloudNC hero, on paper). From 1141px the text moves to a left column and
+       the video fills the right half, out to the window edge. Below that it
+       sits under the hero text, CTAs and proof line, centred, at most 880px
+       wide and uncropped (the frame's own 1280:944).
 
        video/hero.mp4 is four shots of the app's 3D viewport, cut from a screen
        recording: no ribbon, panels or title bar, so no file or program names.
        1280x944 H.264, no audio track, 11.4 s, 0.72 MB. The last shot
        crossfades into the first frame, so the loop has no seam, and
-       video/hero-poster.webp (29 KB) is that same first frame.
-       _src/hero-video/build.sh rebuilds both from the recording.
+       video/hero-poster.webp (29 KB) is that same first frame. Up to 768px
+       (phones, where the box is at most 768px wide) the script loads
+       video/hero-sm.mp4 instead (720x532, 0.28 MB) and the poster is
+       video/hero-poster-sm.webp (13 KB). _src/hero-video/build.sh rebuilds
+       all four from the recording.
 
-       Below 1141px the box is display:none and fetches nothing: the video is
-       preload="none" and only the script starts it, and the poster is a
-       background set inside this media query rather than the poster attribute,
-       which browsers fetch even for a hidden video. The script (HERO VIDEO)
-       plays it only while it is on screen, never on its own under reduced
-       motion or Save-Data, and a pause from the button holds until the
-       visitor presses it again. */
-    .hero-main { position: relative; width: 100%; }
-    .hero-media, .hero-video-toggle, .hero-br { display: none; }
+       The video is preload="none" and has no src in the markup: only the
+       script sets one, picking the file for the viewport, and starts it. The
+       poster is a CSS background rather than the poster attribute, so each
+       width fetches only its own still. The script (HERO VIDEO) plays it only
+       while it is on screen, never on its own under reduced motion or
+       Save-Data, and a pause from the button holds until the visitor presses
+       it again. */
+    .hero-main { position: relative; width: 100%; display: flex; flex-direction: column; }
+    .hero-br { display: none; }
+
+    .hero-media {
+      order: 1;  /* under the text: the markup puts it first for the wide layout */
+      position: relative;
+      z-index: 1;
+      width: min(100%, 880px);
+      aspect-ratio: 1280 / 944;
+      /* little gap: the long top fade already rises out of the paper */
+      margin: clamp(0.5rem, 2vh, 1.5rem) auto 0;
+      background: url(video/hero-poster-sm.webp) 50% 50% / cover no-repeat;
+    }
+    .hero-video {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: 50% 50%;  /* = the poster's background-position, so the two line up exactly */
+    }
+    /* The fades: paper laid over the edges. The hero is flat --paper, so this
+       reads exactly like a mask and needs no mask compositing. The stops are
+       eased, so no band shows where a fade ends. Narrow: the laptop's long
+       fade under the text, turned 90 degrees, since the text is above the
+       video here (40% from the top), and the laptop's bottom fade. On a phone
+       the box is the window's width, so like the laptop's right edge it has
+       no side fade; tablets add one (below). The overlay
+       overshoots the box by 1px: at a fractional box edge the composited video
+       snaps a pixel further out than it, which showed as a hairline. */
+    .hero-media::after {
+      content: '';
+      position: absolute; inset: -1px;
+      --hero-fade-y:
+        linear-gradient(to bottom, #f4f3ee 0%, rgba(244, 243, 238, 0.9) 6%, rgba(244, 243, 238, 0.7) 13%, rgba(244, 243, 238, 0.45) 20%,
+          rgba(244, 243, 238, 0.22) 27%, rgba(244, 243, 238, 0.07) 34%, rgba(244, 243, 238, 0) 40%),
+        linear-gradient(to top, #f4f3ee 0%, rgba(244, 243, 238, 0.6) 8%, rgba(244, 243, 238, 0.2) 17%, rgba(244, 243, 238, 0) 26%);
+      background: var(--hero-fade-y);
+    }
+
+    /* In the video's bottom-right corner. It cannot sit inside .hero-media,
+       which is aria-hidden, so it repeats that box's position: narrow, the
+       video is the last thing in .hero-main, centred at min(100%, 880px). */
+    .hero-video-toggle {
+      display: flex; align-items: center; justify-content: center;
+      position: absolute; z-index: 3;
+      right: calc((100% - min(100%, 880px)) / 2 + 0.75rem);
+      bottom: 0.75rem;
+      width: 34px; height: 34px; padding: 0;
+      color: var(--ink);
+      background: rgba(244, 243, 238, 0.85);
+      border: 1px solid var(--line-strong);
+      border-radius: 2px;
+      cursor: pointer;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+    .hero-video-toggle[hidden] { display: none; }
+    .hero-video-toggle:hover { border-color: var(--ink); background: var(--panel); }
+    .hero-video-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .hero-video-toggle svg { width: 12px; height: 12px; }
+    .hero-video-toggle .hv-play, .hero-video-toggle.is-paused .hv-pause { display: none; }
+    .hero-video-toggle.is-paused .hv-play { display: block; }
+
+    /* Tablets: the box is up to 880px, more than the small file's 720, and
+       narrower than the window, so its sides fade too */
+    @media (min-width: 769px) {
+      .hero-media { background-image: url(video/hero-poster.webp); }
+      .hero-media::after {
+        background:
+          linear-gradient(to right, #f4f3ee 0%, rgba(244, 243, 238, 0.6) 5%, rgba(244, 243, 238, 0.2) 10%, rgba(244, 243, 238, 0) 15%),
+          linear-gradient(to left, #f4f3ee 0%, rgba(244, 243, 238, 0.6) 5%, rgba(244, 243, 238, 0.2) 10%, rgba(244, 243, 238, 0) 15%),
+          var(--hero-fade-y);
+      }
+    }
 
     @media (min-width: 1141px) {
       /* Full width, so the video's right edge is exactly the window's (100vw
@@ -457,6 +532,7 @@
       .hero-main {
         --hero-gutter: clamp(1.25rem, 5vw, 4rem);
         --hero-inset: max(var(--hero-gutter), calc((100% - 1320px) / 2 + var(--hero-gutter)));
+        display: block;
         padding: 0 var(--hero-inset);
       }
       .hero-content { max-width: 600px; margin: 0; padding: 0; text-align: left; }
@@ -465,9 +541,7 @@
       .hero .subtitle, .hero-proof { margin-left: 0; margin-right: 0; }
 
       .hero-media {
-        display: block;
         position: absolute;
-        z-index: 1;
         /* From the hero's top edge (the navbar is sticky, so that is right under
            it) down to the integrations bar's rule: the hero's top padding and
            the bar's top margin, undone. Across, from under the end of the text
@@ -478,20 +552,13 @@
            paper part of the left fade */
         left: calc(var(--hero-inset) + 510px);
         right: 0;
+        width: auto;
+        aspect-ratio: auto;
+        margin: 0;
         background: url(video/hero-poster.webp) 62% 50% / cover no-repeat;
       }
-      .hero-video {
-        position: absolute; inset: 0;
-        width: 100%; height: 100%;
-        object-fit: cover;
-        object-position: 62% 50%;  /* = the poster's background-position, so the two line up exactly */
-      }
-      /* The fades: paper laid over the edges. The hero is flat --paper, so this
-         reads exactly like a mask and needs no mask compositing. The stops are
-         eased, so no band shows where a fade ends. */
+      .hero-video { object-position: 62% 50%; }
       .hero-media::after {
-        content: '';
-        position: absolute; inset: 0;
         background:
           linear-gradient(to right, #f4f3ee 0%, #f4f3ee 9%, rgba(244, 243, 238, 0.9) 16%, rgba(244, 243, 238, 0.7) 24%,
             rgba(244, 243, 238, 0.45) 32%, rgba(244, 243, 238, 0.22) 40%, rgba(244, 243, 238, 0.07) 48%, rgba(244, 243, 238, 0) 56%),
@@ -499,30 +566,13 @@
           linear-gradient(to top, #f4f3ee 0%, rgba(244, 243, 238, 0.6) 8%, rgba(244, 243, 238, 0.2) 17%, rgba(244, 243, 238, 0) 26%);
       }
 
-      /* In the video's bottom-right corner, 1rem in from both edges. It cannot
-         sit inside .hero-media, which is aria-hidden, so it repeats that box's
-         bottom edge (the integrations bar's rule) and right edge (the window's).
-         The fixed back-to-top button only shows past 500px of scroll, by which
-         point this corner is far above it. */
+      /* 1rem in from the box's bottom edge (the integrations bar's rule) and
+         right edge (the window's). The fixed back-to-top button only shows
+         past 500px of scroll, by which point this corner is far above it. */
       .hero-video-toggle {
-        display: flex; align-items: center; justify-content: center;
-        position: absolute; z-index: 3;
         right: 1rem;
         bottom: calc(1rem - clamp(2.5rem, 6vh, 4rem));
-        width: 34px; height: 34px; padding: 0;
-        color: var(--ink);
-        background: rgba(244, 243, 238, 0.85);
-        border: 1px solid var(--line-strong);
-        border-radius: 2px;
-        cursor: pointer;
-        transition: border-color 0.2s ease, background 0.2s ease;
       }
-      .hero-video-toggle[hidden] { display: none; }
-      .hero-video-toggle:hover { border-color: var(--ink); background: var(--panel); }
-      .hero-video-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-      .hero-video-toggle svg { width: 12px; height: 12px; }
-      .hero-video-toggle .hv-play, .hero-video-toggle.is-paused .hv-pause { display: none; }
-      .hero-video-toggle.is-paused .hv-play { display: block; }
     }
 
     /* Integration logos bar */
@@ -1221,7 +1271,6 @@
       <!-- Decorative loop of a lathe CAM we built: see HERO VIDEO in the <style> above -->
       <div class="hero-media" aria-hidden="true">
         <video class="hero-video" id="heroVideo" muted loop playsinline preload="none" disablepictureinpicture disableremoteplayback width="1280" height="944">
-          <source src="video/hero.mp4" type="video/mp4" />
         </video>
       </div>
       <div class="hero-content">
@@ -2621,32 +2670,36 @@
     }
 
     // ===== HERO VIDEO =====
-    // The loop is muted, preload="none" and has no autoplay attribute: this is
-    // the only thing that starts it. It plays only where its box is shown (wide
-    // screens; a display:none box never intersects) and only while that box is
-    // on screen, and not before the window load event, so it never competes
-    // with the page's first paint. Under reduced motion or Save-Data it starts
-    // paused: the poster stays, and the button can still play it. The button's
-    // data-i18n-aria follows the state, so setLanguage() relabels it correctly.
+    // The loop is muted, preload="none", has no autoplay attribute and no src
+    // in the markup: this is the only thing that loads and starts it. The file
+    // is picked for the viewport when it first plays (hero-sm.mp4 up to 768px,
+    // where the box is at most 768px wide) and kept after that. It plays only
+    // while its box is on screen, and not before the window load event, so it
+    // never competes with the page's first paint. Under reduced motion or
+    // Save-Data it starts paused: the poster stays, and the button can still
+    // play it. The button's data-i18n-aria follows the state, so setLanguage()
+    // relabels it correctly.
     const heroVideo = document.getElementById('heroVideo');
     const heroVideoToggle = document.getElementById('heroVideoToggle');
     if (heroVideo && heroVideoToggle) {
-      const heroWide = window.matchMedia('(min-width: 1141px)');
       const saveData = !!(navigator.connection && navigator.connection.saveData);
       let heroPaused = window.matchMedia('(prefers-reduced-motion: reduce)').matches || saveData;
       let heroOnScreen = false;
       let pageLoaded = document.readyState === 'complete';
       heroVideo.muted = true;
+      heroVideoToggle.hidden = false;
 
       const syncHeroVideo = () => {
-        heroVideoToggle.hidden = !heroWide.matches;
         heroVideoToggle.classList.toggle('is-paused', heroPaused);
         const key = heroPaused ? 'a11y.video_play' : 'a11y.video_pause';
         const t = translations[document.documentElement.lang] || translations.el;
         heroVideoToggle.dataset.i18nAria = key;
         heroVideoToggle.setAttribute('aria-label', t[key] || translations.el[key]);
 
-        if (heroWide.matches && heroOnScreen && pageLoaded && !heroPaused) {
+        if (heroOnScreen && pageLoaded && !heroPaused) {
+          if (!heroVideo.getAttribute('src')) {
+            heroVideo.src = window.matchMedia('(min-width: 769px)').matches ? 'video/hero.mp4' : 'video/hero-sm.mp4';
+          }
           const playing = heroVideo.play();
           // Refused (iOS Low Power Mode, a strict autoplay policy): the poster just stays.
           if (playing && playing.catch) playing.catch(() => {});
@@ -2663,7 +2716,6 @@
         heroOnScreen = entries[entries.length - 1].isIntersecting;
         syncHeroVideo();
       }).observe(heroVideo.parentElement);
-      heroWide.addEventListener('change', syncHeroVideo);
       if (!pageLoaded) {
         window.addEventListener('load', () => {
           pageLoaded = true;

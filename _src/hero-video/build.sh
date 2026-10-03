@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Rebuilds the index.html hero loop, video/hero.mp4 and video/hero-poster.webp, from the screen
+# Rebuilds the index.html hero loop, video/hero.mp4 + hero-poster.webp and the phone versions
+# hero-sm.mp4 + hero-poster-sm.webp, from the screen
 # recording of the lathe CAM ("Screen Recording 2026-10-01 201643.mp4", 2558x1528, 30 fps).
 #
 #   bash _src/hero-video/build.sh "<recording.mp4>"        from the repo root; needs ffmpeg with
@@ -62,5 +63,10 @@ ffmpeg -v error -y -i "$OUT/hero.mp4" -frames:v 1 \
   -vf "scale=in_color_matrix=bt709:in_range=tv:out_range=pc,format=rgb24" "$TMP/poster.png"
 ffmpeg -v error -y -i "$TMP/poster.png" -c:v libwebp -quality 78 -compression_level 6 -map_metadata -1 "$OUT/hero-poster.webp"
 
+# The phone versions (index.html loads them up to 768px): the same loop at 720x532, and its first frame.
+ffmpeg -v error -y -i "$OUT/hero.mp4" -an -map_metadata -1 -map_chapters -1 -vf "scale=720:-2:flags=lanczos,setsar=1"   -c:v libx264 -preset veryslow -tune animation -crf 25 -profile:v high -level:v 3.1 -pix_fmt yuv420p   -color_primaries bt709 -color_trc bt709 -colorspace bt709 -color_range tv -movflags +faststart "$OUT/hero-sm.mp4"
+ffmpeg -v error -y -i "$OUT/hero-sm.mp4" -frames:v 1   -vf "scale=in_color_matrix=bt709:in_range=tv:out_range=pc,format=rgb24" "$TMP/poster-sm.png"
+ffmpeg -v error -y -i "$TMP/poster-sm.png" -c:v libwebp -quality 78 -compression_level 6 -map_metadata -1 "$OUT/hero-poster-sm.webp"
+
 echo "frames $((l3 + 1)) ($(sec $((l3 + 1))) s)"
-ls -l "$OUT/hero.mp4" "$OUT/hero-poster.webp"
+ls -l "$OUT"/hero*

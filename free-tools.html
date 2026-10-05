@@ -252,7 +252,7 @@
   </footer>
 
   <!-- COOKIE CONSENT BANNER: markup identical to calculator.html lines 925-977 -->
-  <div class="consent-banner" id="privacyOverlay">
+  <div class="consent-banner" id="prefsOverlay">
     <div class="consent-inner">
       <p>
         <span data-i18n="cookie_text">Αυτός ο ιστότοπος χρησιμοποιεί cookies για τη βελτιστοποίηση της λειτουργίας του και την ανάλυση επισκεψιμότητας.</span>
@@ -501,7 +501,7 @@
 
     // ===== COOKIE CONSENT (copied from calculator.html) =====
     (function () {
-      var overlay = document.getElementById('privacyOverlay');
+      var overlay = document.getElementById('prefsOverlay');
       var prefsPanel = document.getElementById('consentPrefs');
       var analyticsCheckbox = document.getElementById('cookieAnalytics');
       function showBanner() { overlay.classList.add('visible'); prefsPanel.classList.remove('visible'); }

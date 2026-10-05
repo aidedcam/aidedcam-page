@@ -180,7 +180,7 @@ async (page) => {
     await page.setViewportSize({ width, height: width === 375 ? 800 : 900 });
     await open(page, 'what-you-gain', { banner: true });
     await page.evaluate(() => document.getElementById('privacyManage').click());
-    const hits = await page.evaluate(() => [...document.querySelectorAll('#privacyOverlay button')].filter(b => b.offsetParent).map(b => {
+    const hits = await page.evaluate(() => [...document.querySelectorAll('#prefsOverlay button')].filter(b => b.offsetParent).map(b => {
       const r = b.getBoundingClientRect(), el = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
       return { id: b.id, ok: b.contains(el), on: el && el.className };
     }));

@@ -201,14 +201,11 @@
   </script>
   <link rel="stylesheet" href="fonts.css?v=20260923" />
   <link rel="stylesheet" href="css/editorial.css?v=20260927" />
-  <link rel="stylesheet" href="css/methodos.css?v=20260923" />
   <link rel="stylesheet" href="css/families.css?v=20260915" />
   <noscript><style>.fade-in { opacity: 1 !important; transform: none !important; }
     /* Everything below waits for a class that only JS adds (.visible, .is-on). */
     .roi-line, .roi-teaser-content .roi-teaser-cta { opacity: 1 !important; transform: none !important; }
     .roi-hl::after, .built-path .bp-link::after { transform: none !important; }
-    .method-scene .mv-task { opacity: 1 !important; transform: none !important; }
-    .method-tabs { display: none; }
     .built-timer { display: none; }
     .built-sr { position: static; width: auto; height: auto; margin: 1.3rem 0 0; padding-top: 1.1rem; overflow: visible;
       clip: auto; clip-path: none; white-space: normal; border-top: 1px solid var(--line); font-size: 0.95rem; color: var(--muted); }</style></noscript>
@@ -732,20 +729,6 @@
     }
     .big-closer strong { color: var(--accent-deep); font-weight: 600; }
 
-    /* ===== METHOD: the five engagement steps under the animation ===== */
-    .method-steps { padding: clamp(2.5rem, 5vw, 4rem) 0 clamp(4rem, 8vw, 6rem); }
-    .method-steps-title {
-      font-family: var(--font-mono); font-size: 0.72rem; font-weight: 500; letter-spacing: 0.14em;
-      text-transform: uppercase; color: var(--accent-deep); margin-bottom: 1.4rem;
-    }
-    .method-steps-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.2rem; }
-    .mstep { padding: 1.2rem 1.3rem; background: var(--panel); border: 1px solid var(--line); border-radius: 2px; }
-    .mstep .n { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.14em; color: var(--accent-deep); margin-bottom: 0.6rem; }
-    .mstep h4 { font-size: 1rem; font-weight: 600; color: var(--ink); margin: 0 0 0.4rem; line-height: 1.25; }
-    .mstep p { font-size: 0.88rem; color: var(--muted); line-height: 1.55; margin: 0; }
-    @media (max-width: 1024px) { .method-steps-grid { grid-template-columns: repeat(3, 1fr); } .mstep:nth-child(4), .mstep:nth-child(5) { grid-column: span 1; } }
-    @media (max-width: 768px) { .method-steps-grid { grid-template-columns: 1fr; } }
-    .fade-in-delay-5 { transition-delay: 0.3s; }
 
     /* ===== BUILT FOR REAL (#lyseis) — four anonymised solutions ===== */
     .built-section .section-header.center h2 strong { display: block; }
@@ -1034,8 +1017,6 @@
       text-align: center;
     }
 
-    /* ===== ΜΕΘΟΔΟΣ — presentation styles live in css/methodos.css ===== */
-
     /* ===== WHY US ===== */
     .why-grid {
       display: grid;
@@ -1145,6 +1126,24 @@
     .contact-form.is-sent .contact-form-row, .contact-form.is-sent .contact-field, .contact-form.is-sent .contact-form-foot { display: none; }
     .contact-done { padding: 1.5rem 0; font-size: 1.1rem; color: var(--ink); }
     .contact-done strong { display: block; font-size: 1.4rem; font-weight: 600; color: var(--accent-deep); margin-bottom: 0.3rem; }
+
+    /* ===== PRICING REQUEST ===== */
+    /* No prices in the HTML: visitors leave company + email and we email
+       the pricing PDF in their language (the repo is public, so the PDFs
+       are not published). Form styles are shared with the contact form. */
+    .pricing-section { border-top: 1px solid var(--line); }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+      align-items: start;
+    }
+    .pricing-gets { padding: 2.2rem 0; }
+    .pricing-gets ul { list-style: none; margin: 0.8rem 0 0; padding: 0; display: flex; flex-direction: column; gap: 0.8rem; }
+    .pricing-gets li { position: relative; padding-left: 1.6rem; font-size: 1.05rem; line-height: 1.45; color: var(--ink); }
+    .pricing-gets li::before { content: ""; position: absolute; left: 0; top: 0.45em; width: 0.6rem; height: 0.6rem; background: var(--accent); border-radius: 1px; }
+    .pricing-form .contact-form-row { grid-template-columns: 1fr 1fr; }
     .contact-link {
       display: flex; flex-direction: column; gap: 0.2rem;
       padding: 0.9rem 1rem; margin-top: 0.75rem;
@@ -1187,7 +1186,8 @@
     @media (max-width: 768px) {
       .hero { min-height: 500px; }
 
-      .benefits-grid, .built-grid, .big-grid, .why-grid, .contact-grid { grid-template-columns: 1fr; }
+      .benefits-grid, .built-grid, .big-grid, .why-grid, .contact-grid, .pricing-grid { grid-template-columns: 1fr; }
+      .pricing-gets { padding: 0; }
 
       #giati .about-content p { font-size: 1rem; line-height: 1.75; }
 
@@ -1198,7 +1198,7 @@
       .built-shot { padding: 1rem 1.2rem 0; }
       .bs-icon { right: 1.2rem; }
       .roi-teaser-ctas { flex-direction: column; align-items: stretch; }
-      .contact-form-row { grid-template-columns: 1fr; }
+      .contact-form-row, .pricing-form .contact-form-row { grid-template-columns: 1fr; }
 
 
       .why-grid { gap: 2.5rem; }
@@ -1242,7 +1242,7 @@
         <li><a href="#ti-kanoume" class="nav-link" data-i18n="nav.whatwedo">Τι Φτιάχνουμε</a></li>
         <li><a href="#lyseis" class="nav-link" data-i18n="nav.solutions">Λύσεις</a></li>
         <li><a href="#kerdizeis" class="nav-link" data-i18n="nav.benefits">Οφέλη</a></li>
-        <li><a href="#methodos" class="nav-link" data-i18n="nav.method">Μέθοδος</a></li>
+        <li><a href="#timologisi" class="nav-link" data-i18n="nav.pricing">Τιμές</a></li>
         <li><a href="#ergaleia" class="nav-link" data-i18n="nav.tools">Ενσωματώσεις</a></li>
         <li><a href="#giati" class="nav-link" data-i18n="nav.whyus">Γιατί Εμείς</a></li>
         <li><a href="free-tools.html" class="nav-link" data-i18n="nav.freetools">Εργαλεία</a></li>
@@ -1626,118 +1626,46 @@
     </div>
   </section>
 
-  <!-- Η ΜΕΘΟΔΟΣ ΜΑΣ — interactive system ▸ workflow ▸ task diagram (tabs + auto first-pass).
-       Markup styles in css/methodos.css; tab logic + 3-language copy in js/methodos.js. -->
-  <section id="methodos" class="methodos-section">
-    <div class="methodos-intro fade-in">
-      <div class="container">
-        <div class="section-label" data-i18n="methodos.label">Μέθοδος</div>
-        <h2 data-i18n-html="methodos.title">Πριν γράψουμε κώδικα, <strong>βλέπουμε πού πάει ο χρόνος</strong>.</h2>
+  <!-- ΤΙΜΟΛΟΓΗΣΗ -->
+  <section id="timologisi" class="pricing-section">
+    <div class="container">
+      <div class="section-header fade-in">
+        <div class="section-label" data-i18n="pricing.label">Τιμολόγηση</div>
+        <h2 data-i18n-html="pricing.title">Δύο τρόποι να <strong>συνεργαστούμε</strong>.</h2>
+        <p class="section-subtitle" data-i18n="pricing.subtitle">Πληρώνετε ανά λύση, με τιμή που ορίζεται από το τι θα φτιάξουμε, ή μία σταθερή μηνιαία τιμή για όσες λύσεις χρειαστείτε. Αφήστε μας το email σας και θα σας στείλουμε τις τιμές σε PDF.</p>
       </div>
-    </div>
-    <div class="tm-root">
-      <div class="method">
-        <p class="method-thesis">
-          Κοιτάμε τη δουλειά σας <strong>από κοντά και από μακριά</strong>: ποια βήματα γίνονται με το χέρι σε κάθε παραγγελία, και τι κοστίζουν.
-          Εκεί μπαίνει ο <strong>αυτοματισμός</strong>. Εκεί φαίνεται το κέρδος.
-        </p>
-
-        <div class="method-stage">
-          <div class="method-scene" data-view="task" data-dir="out" data-corner="Πώς βλέπουμε τη δουλειά σας" role="img" aria-label="Σύστημα, ροή, εργασία, αποτέλεσμα: ζουμ εκεί που η δουλειά επαναλαμβάνεται και πίσω ξανά στο κέρδος">
-            <div class="ms-steps" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-          <div class="mv mv-system" data-view="system">
-            <div class="ms-cols">
-              <div class="ms-col"><span class="mtag">Σχεδιασμός</span><div class="ms-cells"><i></i><i></i><i></i><i></i><i></i><i class="dup"></i><i></i><i></i></div></div>
-              <div class="ms-link"><b></b></div>
-              <div class="ms-col"><span class="mtag">Προετοιμασία</span><div class="ms-cells"><i></i><i></i><i></i><i></i><i class="dup"></i><i></i><i></i><i></i></div></div>
-              <div class="ms-link"><b></b></div>
-              <div class="ms-col"><span class="mtag">Παραγωγή</span><div class="ms-cells"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
-            </div>
-            <svg class="ms-tie" aria-hidden="true"><path d=""/></svg>
-            <div class="mnote">Ίδια πληροφορία, δύο φορές</div>
-          </div>
-          <div class="mv mv-workflow" data-view="workflow">
-            <div class="mw-chain">
-              <span class="mw-item" aria-hidden="true"></span>
-              <span class="mw-brace" aria-hidden="true"><span class="mtag">3 × με το χέρι</span></span>
-              <div class="mw-cell"><b>01</b><span class="mtag">Παραλαβή</span></div>
-              <i class="mw-gap"></i>
-              <div class="mw-cell"><b>02</b><span class="mtag">Έλεγχος</span></div>
-              <i class="mw-gap"></i>
-              <div class="mw-cell rep"><b>03</b><span class="mtag">Στήσιμο</span></div>
-              <i class="mw-gap"></i>
-              <div class="mw-cell rep"><b>04</b><span class="mtag">Εκτέλεση</span></div>
-              <i class="mw-gap"></i>
-              <div class="mw-cell rep"><b>05</b><span class="mtag">Έγκριση</span></div>
-              <i class="mw-gap"></i>
-              <div class="mw-cell"><b>06</b><span class="mtag">Παράδοση</span></div>
-            </div>
-            <div class="mnote">Τρία βήματα με το χέρι, σε κάθε δουλειά</div>
-          </div>
-          <div class="mv mv-task" data-view="task">
-            <div class="mt-card">
-              <div class="mt-head"><span class="mtag">Προετοιμασία αρχείου</span><b class="mt-count">×1</b></div>
-              <ul class="mt-steps">
-                <li><span>Άνοιγμα μοντέλου</span></li>
-                <li><span>Έλεγχος μονάδων &amp; layers</span></li>
-                <li><span>Εφαρμογή προτύπων</span></li>
-                <li><span>Ονομασία &amp; αποθήκευση</span></li>
-              </ul>
-              <div class="mt-foot">Με το χέρι · ίδιος τρόπος · κάθε φορά</div>
-            </div>
-          </div>
-          <div class="mv mv-result" data-view="result">
-            <div class="mw-chain">
-              <span class="mw-item" aria-hidden="true"></span>
-              <div class="mw-cell"><b>01</b><span class="mtag">Παραλαβή</span></div>
-              <i class="mw-gap"></i>
-              <div class="mw-cell"><b>02</b><span class="mtag">Έλεγχος</span></div>
-              <i class="mw-gap"></i>
-              <div class="mw-cell auto"><svg viewBox="191.91 207.44 88.97 106.42" aria-hidden="true"><path d="M191.91 215.00 L191.91 306.30 C191.91 310.98 197.02 313.86 201.03 311.45 L276.99 265.81 C280.88 263.47 280.88 257.83 276.99 255.49 L201.03 209.85 C197.02 207.44 191.91 210.32 191.91 215.00 Z"/></svg><b>03</b><span class="mtag">Αυτόματα</span></div>
-              <i class="mw-gap"></i>
-              <div class="mw-cell"><b>04</b><span class="mtag">Παράδοση</span></div>
-            </div>
-            <div class="mr-sys">
-              <div class="ms-col"><span class="mtag">Σχεδιασμός</span><div class="ms-cells"><i></i><i></i><i></i><i></i><i></i><i class="dup"></i><i></i><i></i></div></div>
-              <div class="ms-link"><b></b></div>
-              <div class="ms-col"><span class="mtag">Προετοιμασία</span><div class="ms-cells"><i></i><i></i><i></i><i></i><i class="dup"></i><i></i><i></i><i></i></div></div>
-              <div class="ms-link"><b></b></div>
-              <div class="ms-col"><span class="mtag">Παραγωγή</span><div class="ms-cells"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
-            </div>
-            <div class="mnote">Μία ενέργεια αντί για τρία βήματα</div>
-          </div>
-          </div>
-
-          <div class="method-info">
-            <div class="method-tabs" role="tablist" aria-label="Επιλέξτε επίπεδο">
-              <button type="button" class="m-tab on" id="mTab-task" data-layer="task" role="tab" aria-selected="true" aria-controls="methodPanel">Εργασία</button>
-              <button type="button" class="m-tab" id="mTab-workflow" data-layer="workflow" role="tab" aria-selected="false" aria-controls="methodPanel">Ροή</button>
-              <button type="button" class="m-tab" id="mTab-system" data-layer="system" role="tab" aria-selected="false" aria-controls="methodPanel">Σύστημα</button>
-              <button type="button" class="m-tab" id="mTab-result" data-layer="result" role="tab" aria-selected="false" aria-controls="methodPanel">Αποτέλεσμα</button>
-            </div>
-            <div class="m-panel" id="methodPanel" role="tabpanel" aria-labelledby="mTab-task">
-            <div class="m-kicker" data-mk>01 · Από κοντά</div>
-            <h3 class="m-title" data-mt>Μία <strong>εργασία</strong></h3>
-            <p class="m-defn" data-md>Ένα μόνο βήμα, από ένα άτομο, με τον ίδιο τρόπο κάθε φορά. Κανείς δεν το προσέχει. Έτσι γίνεται η δουλειά.</p>
-            <div class="reveals">
-              <div class="reveals-label" data-mrl>Τι ψάχνουμε</div>
-              <p class="m-reveals" data-mr>Τα βήματα που γίνονται <strong>με το χέρι και επαναλαμβάνονται</strong>. Από εδώ ξεκινάμε.</p>
-            </div>
-            </div>
-          </div>
+      <div class="pricing-grid">
+        <div class="pricing-gets fade-in fade-in-delay-1">
+          <div class="contact-label" data-i18n="pricing.gets_label">Στο PDF θα βρείτε</div>
+          <ul>
+            <li data-i18n="pricing.get_1">Τις τιμές και των δύο τρόπων συνεργασίας</li>
+            <li data-i18n="pricing.get_2">Τι περιλαμβάνεται: ανάπτυξη, υποστήριξη, αλλαγές, χρήστες</li>
+            <li data-i18n="pricing.get_3">Ποιος τρόπος ταιριάζει στην εταιρεία σας</li>
+          </ul>
         </div>
-      </div>
-    </div>
-    <div class="method-steps">
-      <div class="container">
-        <p class="method-steps-title fade-in" data-i18n="method.steps_title">Πώς δουλεύουμε μαζί σας, σε πέντε βήματα</p>
-        <div class="method-steps-grid">
-        <div class="mstep fade-in fade-in-delay-1"><div class="n">01</div><h4 data-i18n="method.s1_t">Ανάλυση ροής</h4><p data-i18n="method.s1_d">Καταγράφουμε τα βήματα της δουλειάς σας, από την αρχή μέχρι το τέλος.</p></div>
-        <div class="mstep fade-in fade-in-delay-2"><div class="n">02</div><h4 data-i18n="method.s2_t">Σχεδιασμός λύσης</h4><p data-i18n="method.s2_d">Αποφασίζουμε μαζί τι πρέπει να κάνει η λύση και πού αποδίδει ο αυτοματισμός.</p></div>
-        <div class="mstep fade-in fade-in-delay-3"><div class="n">03</div><h4 data-i18n="method.s3_t">Ανάπτυξη</h4><p data-i18n="method.s3_d">Φτιάχνουμε το λογισμικό ακριβώς όπως σας εξυπηρετεί.</p></div>
-        <div class="mstep fade-in fade-in-delay-4"><div class="n">04</div><h4 data-i18n="method.s4_t">Εγκατάσταση & δοκιμές</h4><p data-i18n="method.s4_d">Το εγκαθιστούμε στους υπολογιστές σας και το δοκιμάζουμε σε πραγματικές δουλειές.</p></div>
-        <div class="mstep fade-in fade-in-delay-5"><div class="n">05</div><h4 data-i18n="method.s5_t">Εκπαίδευση & υποστήριξη</h4><p data-i18n="method.s5_d">Εκπαιδεύουμε την ομάδα σας και μένουμε δίπλα σας.</p></div>
-        </div>
+        <form class="contact-form pricing-form fade-in fade-in-delay-2" id="pricingForm" action="https://formspree.io/f/xaqllyao" method="POST" novalidate>
+          <input type="hidden" name="_source" value="index_pricing" />
+          <input type="hidden" name="subject" value="Pricing PDF request" />
+          <input type="hidden" name="language" value="el" />
+          <div class="contact-form-row">
+            <div class="contact-field">
+              <label class="contact-label" for="pfCompany" data-i18n="contact.form_company">Εταιρεία</label>
+              <input type="text" id="pfCompany" name="company" class="contact-input" required autocomplete="organization" />
+            </div>
+            <div class="contact-field">
+              <label class="contact-label" for="pfEmail">Email</label>
+              <input type="email" id="pfEmail" name="email" class="contact-input" required autocomplete="email" />
+            </div>
+          </div>
+          <div class="contact-form-foot">
+            <button type="submit" class="btn-primary contact-submit" data-i18n="pricing.form_submit">Στείλτε μου τις τιμές</button>
+            <p class="contact-privacy" data-i18n-html="contact.form_privacy">Υποβάλλοντας, αποδέχεστε την <a href="privacy.html">Πολιτική Απορρήτου</a>. Χρησιμοποιούμε τα στοιχεία μόνο για να σας απαντήσουμε.</p>
+          </div>
+          <div class="contact-done" id="pricingDone" hidden>
+            <strong data-i18n="contact.form_done_title">Το λάβαμε.</strong>
+            <span data-i18n="pricing.form_done_text">Σας στείλαμε το PDF στο email σας. Θα φτάσει σε λίγα λεπτά· αν δεν το δείτε, ελέγξτε και τα ανεπιθύμητα.</span>
+          </div>
+        </form>
       </div>
     </div>
   </section>
@@ -1805,7 +1733,7 @@
           </div>
           <div>
             <h3 data-i18n="whyus.w3_title">Συνεχίζει να μεγαλώνει</h3>
-            <p data-i18n="whyus.w3_desc">Μία συνδρομή, και κάθε μήνα το λογισμικό σας καλύπτει λίγο περισσότερη από τη δουλειά σας. Απεριόριστοι χρήστες, ενημερώσεις και υποστήριξη μέσα στην τιμή.</p>
+            <p data-i18n="whyus.w3_desc">Πληρώνετε μηνιαία, και κάθε μήνα το λογισμικό σας καλύπτει λίγο περισσότερη από τη δουλειά σας. Απεριόριστοι χρήστες, ενημερώσεις και υποστήριξη μέσα στην τιμή.</p>
           </div>
         </div>
         <div class="why-card fade-in fade-in-delay-4">
@@ -1830,7 +1758,7 @@
           <span class="roi-line"><span class="roi-hl">Χρόνος</span> που επιστρέφεται αμέσως.</span>
           <span class="roi-line"><span class="roi-hl">Ποιότητα</span> που εξασφαλίζεται πάντα.</span>
           <span class="roi-line"><span class="roi-hl">Λογισμικό</span> φτιαγμένο αποκλειστικά για εσάς.</span>
-          <span class="roi-line"><span class="roi-hl">Μία συνδρομή</span>, απεριόριστοι χρήστες.</span>
+          <span class="roi-line"><span class="roi-hl">Μηνιαία συνδρομή</span>, απεριόριστοι χρήστες.</span>
         </h2>
         <div class="roi-teaser-ctas">
           <a href="calculator.html" class="btn-primary roi-teaser-cta" data-i18n="calc.cta">Υπολογίστε με τα δικά σας νούμερα</a>
@@ -1919,7 +1847,7 @@
             <a href="#ti-kanoume" data-i18n="nav.whatwedo">Τι Φτιάχνουμε</a>
             <a href="#lyseis" data-i18n="nav.solutions">Λύσεις</a>
             <a href="#kerdizeis" data-i18n="nav.benefits">Οφέλη</a>
-            <a href="#methodos" data-i18n="nav.method">Μέθοδος</a>
+            <a href="#timologisi" data-i18n="nav.pricing">Τιμές</a>
             <a href="#ergaleia" data-i18n="nav.tools">Ενσωματώσεις</a>
             <a href="#giati" data-i18n="nav.whyus">Γιατί Εμείς</a>
             <a href="free-tools.html" data-i18n="nav.freetools">Εργαλεία</a>
@@ -1963,7 +1891,7 @@
         'nav.solutions': 'Λύσεις',
         'nav.benefits': 'Οφέλη',
         'nav.tools': 'Ενσωματώσεις',
-        'nav.method': 'Μέθοδος',
+        'nav.pricing': 'Τιμές',
         'nav.whyus': 'Γιατί Εμείς',
         'nav.freetools': 'Εργαλεία',
         'nav.contact': 'Επικοινωνία',
@@ -1972,7 +1900,7 @@
         'hero.subtitle': 'Ξεκινάμε από τη δική σας ανάγκη, όχι από ένα έτοιμο προϊόν. Μέσα στα προγράμματα που ήδη χρησιμοποιείτε, ή ως δική σας εφαρμογή.',
         'hero.cta': 'Επικοινωνήστε Μαζί Μας',
         'hero.learn_more': 'Μάθετε Περισσότερα',
-        'roi_teaser.heading': '<span class="roi-line"><span class="roi-hl">Χρόνος</span> που επιστρέφεται αμέσως.</span><span class="roi-line"><span class="roi-hl">Ποιότητα</span> που εξασφαλίζεται πάντα.</span><span class="roi-line"><span class="roi-hl">Λογισμικό</span> φτιαγμένο αποκλειστικά για εσάς.</span><span class="roi-line"><span class="roi-hl">Μία συνδρομή</span>, απεριόριστοι χρήστες.</span>',
+        'roi_teaser.heading': '<span class="roi-line"><span class="roi-hl">Χρόνος</span> που επιστρέφεται αμέσως.</span><span class="roi-line"><span class="roi-hl">Ποιότητα</span> που εξασφαλίζεται πάντα.</span><span class="roi-line"><span class="roi-hl">Λογισμικό</span> φτιαγμένο αποκλειστικά για εσάς.</span><span class="roi-line"><span class="roi-hl">Μηνιαία συνδρομή</span>, απεριόριστοι χρήστες.</span>',
         'roi_teaser.cta': 'Δείτε τι κερδίζετε',
         'hero.supported': 'Υποστηριζόμενα συστήματα',
         'hero.ask': 'Κάτι άλλο; Ρωτήστε μας',
@@ -2077,20 +2005,6 @@
         'tools.ask_cta': 'Ρωτήστε μας',
         'tools.standalone_desc': 'Διαχείριση έργων, παρακολούθηση παραγωγής, δεδομένα από το εργοστάσιο στο γραφείο. Και προγράμματα σχεδιασμού που τρέχουν μόνα τους, χωρίς άλλο CAD ή CAM εγκατεστημένο.',
         'tools.disclaimer': 'Τα εμπορικά σήματα που αναφέρονται ανήκουν στους αντίστοιχους κατόχους τους.',
-        // Method
-        'methodos.label': 'Μέθοδος',
-        'methodos.title': 'Πριν γράψουμε κώδικα, <strong>βλέπουμε πού πάει ο χρόνος</strong>.',
-        'method.steps_title': 'Πώς δουλεύουμε μαζί σας, σε πέντε βήματα',
-        'method.s1_t': 'Ανάλυση ροής',
-        'method.s1_d': 'Καταγράφουμε τα βήματα της δουλειάς σας, από την αρχή μέχρι το τέλος.',
-        'method.s2_t': 'Σχεδιασμός λύσης',
-        'method.s2_d': 'Αποφασίζουμε μαζί τι πρέπει να κάνει η λύση και πού αποδίδει ο αυτοματισμός.',
-        'method.s3_t': 'Ανάπτυξη',
-        'method.s3_d': 'Φτιάχνουμε το λογισμικό ακριβώς όπως σας εξυπηρετεί.',
-        'method.s4_t': 'Εγκατάσταση & δοκιμές',
-        'method.s4_d': 'Το εγκαθιστούμε στους υπολογιστές σας και το δοκιμάζουμε σε πραγματικές δουλειές.',
-        'method.s5_t': 'Εκπαίδευση & υποστήριξη',
-        'method.s5_d': 'Εκπαιδεύουμε την ομάδα σας και μένουμε δίπλα σας.',
         // Why Us
         'whyus.label': 'Γιατί Εμείς',
         'whyus.title': 'Γιατί <strong>AidedCAM</strong>',
@@ -2100,7 +2014,7 @@
         'whyus.w2_title': 'Διεθνής εμπειρία',
         'whyus.w2_desc': 'Δουλέψαμε με εταιρείες σε Βέλγιο, Ελβετία, Αυστρία, Γερμανία. Τώρα φέρνουμε την ίδια τεχνογνωσία στην Ελλάδα και την Ιταλία.',
         'whyus.w3_title': 'Συνεχίζει να μεγαλώνει',
-        'whyus.w3_desc': 'Μία συνδρομή, και κάθε μήνα το λογισμικό σας καλύπτει λίγο περισσότερη από τη δουλειά σας. Απεριόριστοι χρήστες, ενημερώσεις και υποστήριξη μέσα στην τιμή.',
+        'whyus.w3_desc': 'Πληρώνετε μηνιαία, και κάθε μήνα το λογισμικό σας καλύπτει λίγο περισσότερη από τη δουλειά σας. Απεριόριστοι χρήστες, ενημερώσεις και υποστήριξη μέσα στην τιμή.',
         'whyus.w4_title': 'Φτιαγμένο μόνο για εσάς',
         'whyus.w4_desc': 'Τίποτα έτοιμο από το ράφι. Κανείς άλλος δεν έχει αυτό το πρόγραμμα, γιατί κανείς άλλος δεν δουλεύει ακριβώς όπως εσείς.',
         // About
@@ -2123,6 +2037,16 @@
         'contact.form_done_title': 'Το λάβαμε.',
         'contact.form_done_text': 'Θα σας απαντήσουμε εντός 48 ωρών.',
         'contact.or_direct': 'Ή απευθείας',
+        // Pricing request (no prices in the HTML)
+        'pricing.label': 'Τιμολόγηση',
+        'pricing.title': 'Δύο τρόποι να <strong>συνεργαστούμε</strong>.',
+        'pricing.subtitle': 'Πληρώνετε ανά λύση, με τιμή που ορίζεται από το τι θα φτιάξουμε, ή μία σταθερή μηνιαία τιμή για όσες λύσεις χρειαστείτε. Αφήστε μας το email σας και θα σας στείλουμε τις τιμές σε PDF.',
+        'pricing.gets_label': 'Στο PDF θα βρείτε',
+        'pricing.get_1': 'Τις τιμές και των δύο τρόπων συνεργασίας',
+        'pricing.get_2': 'Τι περιλαμβάνεται: ανάπτυξη, υποστήριξη, αλλαγές, χρήστες',
+        'pricing.get_3': 'Ποιος τρόπος ταιριάζει στην εταιρεία σας',
+        'pricing.form_submit': 'Στείλτε μου τις τιμές',
+        'pricing.form_done_text': 'Σας στείλαμε το PDF στο email σας. Θα φτάσει σε λίγα λεπτά· αν δεν το δείτε, ελέγξτε και τα ανεπιθύμητα.',
         // Footer
         'footer.contact': 'Επικοινωνία',
         // Privacy consent
@@ -2162,7 +2086,7 @@
         'nav.solutions': 'Solutions',
         'nav.benefits': 'Benefits',
         'nav.tools': 'Integrations',
-        'nav.method': 'Method',
+        'nav.pricing': 'Pricing',
         'nav.whyus': 'Why Us',
         'nav.freetools': 'Tools',
         'nav.contact': 'Contact',
@@ -2171,7 +2095,7 @@
         'hero.subtitle': 'We start from your need, not from a ready-made product. Inside the programs you already use, or as your own application.',
         'hero.cta': 'Get in Touch',
         'hero.learn_more': 'Learn More',
-        'roi_teaser.heading': '<span class="roi-line"><span class="roi-hl">Time</span> returned immediately.</span><span class="roi-line"><span class="roi-hl">Quality</span> guaranteed always.</span><span class="roi-line"><span class="roi-hl">Software</span> built exclusively for you.</span><span class="roi-line"><span class="roi-hl">One subscription</span>, unlimited users.</span>',
+        'roi_teaser.heading': '<span class="roi-line"><span class="roi-hl">Time</span> returned immediately.</span><span class="roi-line"><span class="roi-hl">Quality</span> guaranteed always.</span><span class="roi-line"><span class="roi-hl">Software</span> built exclusively for you.</span><span class="roi-line"><span class="roi-hl">Monthly subscription</span>, unlimited users.</span>',
         'roi_teaser.cta': 'See what you gain',
         'hero.supported': 'Supported systems',
         'hero.ask': 'Something else? Ask us',
@@ -2276,20 +2200,6 @@
         'tools.ask_cta': 'Ask us',
         'tools.standalone_desc': 'Project management, production tracking, data from the shop floor to the office. And design programs that run on their own, with no other CAD or CAM installed.',
         'tools.disclaimer': 'All trademarks mentioned belong to their respective owners.',
-        // Method
-        'methodos.label': 'Method',
-        'methodos.title': 'Before we write code, <strong>we see where the time goes</strong>.',
-        'method.steps_title': 'How we work with you, in five steps',
-        'method.s1_t': 'Workflow analysis',
-        'method.s1_d': 'We map the steps of your work, from start to finish.',
-        'method.s2_t': 'Solution design',
-        'method.s2_d': 'We decide together what the solution must do and where automation pays off.',
-        'method.s3_t': 'Development',
-        'method.s3_d': 'We build the software exactly the way it serves you.',
-        'method.s4_t': 'Installation & testing',
-        'method.s4_d': 'We install it on your computers and test it on real jobs.',
-        'method.s5_t': 'Training & support',
-        'method.s5_d': 'We train your team and stay at your side.',
         // Why Us
         'whyus.label': 'Why Us',
         'whyus.title': 'Why <strong>AidedCAM</strong>',
@@ -2299,7 +2209,7 @@
         'whyus.w2_title': 'International experience',
         'whyus.w2_desc': 'We worked with companies in Belgium, Switzerland, Austria, Germany. Now we bring the same expertise to Greece and Italy.',
         'whyus.w3_title': 'It keeps growing',
-        'whyus.w3_desc': 'One subscription, and every month your software covers a little more of your work. Unlimited users, updates and support included.',
+        'whyus.w3_desc': 'You pay monthly, and every month your software covers a little more of your work. Unlimited users, updates and support included.',
         'whyus.w4_title': 'Made for you alone',
         'whyus.w4_desc': 'Nothing off the shelf. Nobody else has this program, because nobody else works exactly like you.',
         // About
@@ -2322,6 +2232,16 @@
         'contact.form_done_title': 'Got it.',
         'contact.form_done_text': 'We\'ll reply within 48 hours.',
         'contact.or_direct': 'Or directly',
+        // Pricing request (no prices in the HTML)
+        'pricing.label': 'Pricing',
+        'pricing.title': 'Two ways to <strong>work with us</strong>.',
+        'pricing.subtitle': 'Pay per solution, priced by what we build, or one flat monthly price for as many solutions as you need. Leave your email and we\'ll send you the prices as a PDF.',
+        'pricing.gets_label': 'In the PDF',
+        'pricing.get_1': 'The prices of both ways of working',
+        'pricing.get_2': 'What\'s included: development, support, changes, users',
+        'pricing.get_3': 'Which way fits your company',
+        'pricing.form_submit': 'Send me the prices',
+        'pricing.form_done_text': 'We\'ve emailed you the PDF. It will arrive in a few minutes; if you don\'t see it, check your spam folder.',
         // Footer
         'footer.contact': 'Contact',
         // Privacy consent
@@ -2361,7 +2281,7 @@
         'nav.solutions': 'Soluzioni',
         'nav.benefits': 'Vantaggi',
         'nav.tools': 'Integrazioni',
-        'nav.method': 'Metodo',
+        'nav.pricing': 'Prezzi',
         'nav.whyus': 'Perché Noi',
         'nav.freetools': 'Strumenti',
         'nav.contact': 'Contatti',
@@ -2370,7 +2290,7 @@
         'hero.subtitle': 'Partiamo dalla vostra esigenza, non da un prodotto pronto. Dentro i programmi che già usate, oppure come vostra applicazione.',
         'hero.cta': 'Contattaci',
         'hero.learn_more': 'Scopri di Più',
-        'roi_teaser.heading': '<span class="roi-line"><span class="roi-hl">Tempo</span> restituito immediatamente.</span><span class="roi-line"><span class="roi-hl">Qualit\u00e0</span> garantita sempre.</span><span class="roi-line"><span class="roi-hl">Software</span> costruito esclusivamente per voi.</span><span class="roi-line"><span class="roi-hl">Un abbonamento</span>, utenti illimitati.</span>',
+        'roi_teaser.heading': '<span class="roi-line"><span class="roi-hl">Tempo</span> restituito immediatamente.</span><span class="roi-line"><span class="roi-hl">Qualit\u00e0</span> garantita sempre.</span><span class="roi-line"><span class="roi-hl">Software</span> costruito esclusivamente per voi.</span><span class="roi-line"><span class="roi-hl">Abbonamento mensile</span>, utenti illimitati.</span>',
         'roi_teaser.cta': 'Scoprite cosa guadagnate',
         'hero.supported': 'Sistemi supportati',
         'hero.ask': 'Qualcos’altro? Chiedeteci',
@@ -2475,20 +2395,6 @@
         'tools.ask_cta': 'Chiedeteci',
         'tools.standalone_desc': 'Gestione dei progetti, monitoraggio della produzione, dati dall’officina all’ufficio. E programmi di progettazione che funzionano da soli, senza altro CAD o CAM installato.',
         'tools.disclaimer': 'Tutti i marchi menzionati appartengono ai rispettivi proprietari.',
-        // Method
-        'methodos.label': 'Metodo',
-        'methodos.title': 'Prima di scrivere codice, <strong>guardiamo dove va il tempo</strong>.',
-        'method.steps_title': 'Come lavoriamo con voi, in cinque passi',
-        'method.s1_t': 'Analisi del flusso',
-        'method.s1_d': 'Mappiamo i passaggi del vostro lavoro, dall’inizio alla fine.',
-        'method.s2_t': 'Progettazione della soluzione',
-        'method.s2_d': 'Decidiamo insieme cosa deve fare la soluzione e dove l’automazione rende.',
-        'method.s3_t': 'Sviluppo',
-        'method.s3_d': 'Costruiamo il software esattamente come serve a voi.',
-        'method.s4_t': 'Installazione e test',
-        'method.s4_d': 'Lo installiamo sui vostri computer e lo testiamo su lavori reali.',
-        'method.s5_t': 'Formazione e assistenza',
-        'method.s5_d': 'Formiamo il vostro team e restiamo al vostro fianco.',
         // Why Us
         'whyus.label': 'Perché Noi',
         'whyus.title': 'Perché <strong>AidedCAM</strong>',
@@ -2498,7 +2404,7 @@
         'whyus.w2_title': 'Esperienza internazionale',
         'whyus.w2_desc': 'Abbiamo lavorato con aziende in Belgio, Svizzera, Austria, Germania. Ora portiamo la stessa competenza in Grecia e in Italia.',
         'whyus.w3_title': 'Continua a crescere',
-        'whyus.w3_desc': 'Un abbonamento, e ogni mese il vostro software copre un po’ di più del vostro lavoro. Utenti illimitati, aggiornamenti e assistenza inclusi.',
+        'whyus.w3_desc': 'Pagate ogni mese, e ogni mese il vostro software copre un po’ di più del vostro lavoro. Utenti illimitati, aggiornamenti e assistenza inclusi.',
         'whyus.w4_title': 'Fatto solo per voi',
         'whyus.w4_desc': 'Niente di preconfezionato. Nessun altro ha questo programma, perché nessun altro lavora esattamente come voi.',
         // About
@@ -2521,6 +2427,16 @@
         'contact.form_done_title': 'Ricevuto.',
         'contact.form_done_text': 'Vi risponderemo entro 48 ore.',
         'contact.or_direct': 'Oppure direttamente',
+        // Pricing request (no prices in the HTML)
+        'pricing.label': 'Prezzi',
+        'pricing.title': 'Due modi di <strong>lavorare insieme</strong>.',
+        'pricing.subtitle': 'Pagate per soluzione, con un prezzo definito da ciò che sviluppiamo, oppure un prezzo mensile fisso per tutte le soluzioni di cui avete bisogno. Lasciateci la vostra email e vi invieremo i prezzi in PDF.',
+        'pricing.gets_label': 'Nel PDF',
+        'pricing.get_1': 'I prezzi di entrambi i modi di lavorare',
+        'pricing.get_2': 'Cosa è incluso: sviluppo, assistenza, modifiche, utenti',
+        'pricing.get_3': 'Quale modo fa per la vostra azienda',
+        'pricing.form_submit': 'Inviatemi i prezzi',
+        'pricing.form_done_text': 'Vi abbiamo inviato il PDF via email. Arriverà tra pochi minuti; se non lo vedete, controllate anche lo spam.',
         // Footer
         'footer.contact': 'Contatti',
         // Privacy consent
@@ -2864,6 +2780,39 @@
       });
     }
 
+    // ===== PRICING REQUEST =====
+    // Same pattern as the contact form. A Power Automate flow in the AidedCAM
+    // mailbox answers the Formspree notification with the PDF in the page's
+    // language, reading everything from the subject:
+    // "Pricing PDF request | EL|EN|IT | <email>". Keep that format.
+    const pricingForm = document.getElementById('pricingForm');
+    if (pricingForm) {
+      const T = (k) => (translations[document.documentElement.lang] || translations.el)[k] || '';
+      pricingForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (!pricingForm.reportValidity()) return;
+        const lang = document.documentElement.lang || 'el';
+        pricingForm.elements.language.value = lang;
+        pricingForm.elements.subject.value = 'Pricing PDF request | ' + lang.toUpperCase() + ' | ' + pricingForm.elements.email.value.trim();
+        const btn = pricingForm.querySelector('.contact-submit');
+        const fd = new FormData(pricingForm);
+        btn.disabled = true; btn.textContent = T('contact.form_sending');
+        const done = () => {
+          pricingForm.classList.add('is-sent');
+          document.getElementById('pricingDone').hidden = false;
+          gaEvent('request_pricing_document', { section: 'timologisi', language: lang });
+        };
+        fetch(pricingForm.action, { method: 'POST', body: fd, headers: { 'Accept': 'application/json' } })
+          .then((r) => { if (!r.ok) throw new Error('formspree ' + r.status); done(); })
+          .catch(() => {
+            btn.disabled = false; btn.textContent = T('pricing.form_submit');
+            const subject = encodeURIComponent('AidedCAM - pricing PDF (' + lang.toUpperCase() + ') - ' + (fd.get('company') || ''));
+            const body = encodeURIComponent((fd.get('company') || '') + ' / ' + (fd.get('email') || ''));
+            window.location.href = 'mailto:info@aidedcam.com?subject=' + subject + '&body=' + body;
+          });
+      });
+    }
+
     // ===== MOBILE MENU =====
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('.nav-menu');
@@ -3142,8 +3091,7 @@
     // none (hero, #megali-eikona, the ROI teaser, #contact) every link is
     // cleared, so the nav never keeps pointing at a section that has scrolled
     // away. The narrow rootMargin band makes section height irrelevant, so
-    // tall blocks such as #methodos (intro, animated scene and the five
-    // steps) register without needing a percentage threshold.
+    // tall blocks register without needing a percentage threshold.
     (function() {
       var navLinks = document.querySelectorAll('.nav-link');
       var linkedIds = new Set();
@@ -3307,6 +3255,5 @@
 
 
 
-  <script src="js/methodos.js?v=20260923" defer></script>
 </body>
 </html>

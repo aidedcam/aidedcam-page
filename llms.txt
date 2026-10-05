@@ -29,6 +29,11 @@
 ## What every engagement includes
 - Requirements analysis, development, testing, installation, training, bug fixes, new features and ongoing support
 
+## Ways to work with us
+- Per solution: a monthly price for each solution, set by what is built
+- Unlimited: one flat monthly price for as many solutions as needed, built one at a time in the order the company chooses
+- Both include unlimited users and the same services. Prices are sent on request: https://www.aidedcam.com/#timologisi
+
 ## Supported Software (8 CAD / CAM / BIM systems)
 - Autodesk PowerShape (CAD)
 - Autodesk PowerMill (CAM)

@@ -1465,7 +1465,7 @@
       btn.addEventListener('click', function() {
         var lang = btn.getAttribute('data-lang');
         setLanguage(lang);
-        gaEvent('switch_site_language', { language: lang });
+        gaEvent('switch_site_language', { site_language: lang });
         // Update user property so all future events are segmented by language
         if (window.gtag) gtag('set', 'user_properties', { preferred_language: lang });
       });

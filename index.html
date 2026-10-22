@@ -426,21 +426,25 @@
     /* Button styles now live in css/editorial.css */
 
     /* ===== HERO VIDEO =====
-       A loop of a lathe CAM we built, fading into the paper at its edges (the
+       A loop of three tools we built, fading into the paper at its edges (the
        CloudNC hero, on paper). From 1141px the text moves to a left column and
        the video fills the right half, out to the window edge. Below that it
        sits under the hero text, CTAs and proof line, centred, at most 880px
        wide and uncropped (the frame's own 1280:944).
 
-       video/hero.mp4 is four shots of the app's 3D viewport, cut from a screen
-       recording: no ribbon, panels or title bar, so no file or program names.
-       1280x944 H.264, no audio track, 11.4 s, 0.72 MB. The last shot
-       crossfades into the first frame, so the loop has no seam, and
-       video/hero-poster.webp (29 KB) is that same first frame. Up to 768px
-       (phones, where the box is at most 768px wide) the script loads
-       video/hero-sm.mp4 instead (720x532, 0.28 MB) and the poster is
-       video/hero-poster-sm.webp (13 KB). _src/hero-video/build.sh rebuilds
-       all four from the recording.
+       video/hero.mp4 is six shots: three of the lathe CAM's 3D viewport, the
+       PowerMill plate automation's progress dialog with the new toolpaths
+       filling the Explorer tree (x42 real time), the mold plate builder's
+       plan and 3D view while features go in, and a last lathe close-up, so
+       the loop opens and closes on the lathe part. Each subject sits in the right
+       half of the frame, which the wide layout leaves unfaded; no title bar,
+       caption or file name is in any crop. 1280x944 H.264, no audio track,
+       18.6 s, 1.14 MB. The last shot crossfades into the first frame, so the
+       loop has no seam, and video/hero-poster.webp (29 KB) is that same first
+       frame. Up to 768px (phones, where the box is at most 768px wide) the
+       script loads video/hero-sm.mp4 instead (720x532, 0.43 MB) and the
+       poster is video/hero-poster-sm.webp (13 KB). _src/hero-video/build.sh
+       rebuilds all four from the three recordings.
 
        The video is preload="none" and has no src in the markup: only the
        script sets one, picking the file for the viewport, and starts it. The
@@ -1268,7 +1272,7 @@
   <!-- HERO -->
   <section class="hero" data-ga-location="hero">
     <div class="hero-main">
-      <!-- Decorative loop of a lathe CAM we built: see HERO VIDEO in the <style> above -->
+      <!-- Decorative loop of three tools we built: see HERO VIDEO in the <style> above -->
       <div class="hero-media" aria-hidden="true">
         <video class="hero-video" id="heroVideo" muted loop playsinline preload="none" disablepictureinpicture disableremoteplayback width="1280" height="944">
         </video>

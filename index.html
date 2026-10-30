@@ -730,6 +730,14 @@
     }
     .big-with .big-label { color: var(--accent-deep); }
     .benefit-card.big-panel p { font-size: 1rem; color: var(--ink-soft); line-height: 1.65; }
+    /* Two sourced figures from FMI's 2018 study (engineering and construction
+       firms): the source line stays with them, so they are never read as
+       figures about the visitor's own sector. */
+    .big-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1.5rem; max-width: 1040px; margin: 1.5rem auto 0; }
+    .big-stat { display: flex; align-items: baseline; gap: 0.9rem; margin: 0; padding: 1.1rem 0 0.9rem; border-top: 1px solid var(--line); font-size: 1rem; line-height: 1.5; color: var(--ink-soft); }
+    .big-stat b { flex: none; font-family: var(--font-display); font-weight: 300; font-size: clamp(2.2rem, 3.5vw, 2.8rem); line-height: 1; color: var(--accent-deep); }
+    .big-source { grid-column: 1 / -1; margin: 0.2rem 0 0; font-size: 0.78rem; color: var(--faint); }
+    .big-source cite { font-style: italic; }
     .big-closer {
       text-align: center; max-width: 640px; margin: clamp(2rem, 4vw, 2.8rem) auto 0;
       font-size: clamp(1.05rem, 1.4vw, 1.25rem); line-height: 1.55; color: var(--ink-soft);
@@ -1114,7 +1122,7 @@
     @media (max-width: 768px) {
       .hero { min-height: 500px; }
 
-      .benefits-grid, .built-grid, .big-grid, .contact-grid, .pricing-grid { grid-template-columns: 1fr; }
+      .benefits-grid, .built-grid, .big-grid, .big-stats, .contact-grid, .pricing-grid { grid-template-columns: 1fr; }
       .pricing-gets { padding: 0; }
       .faq-item summary { font-size: 1.08rem; }
 
@@ -1280,6 +1288,11 @@
           <div class="big-label" data-i18n="big.with_label">Με έναν συνεργάτη λογισμικού</div>
           <p data-i18n="big.with_text">Όπως έχετε λογιστή και δικηγόρο για ό,τι προκύψει, μπορείτε να έχετε και μια ομάδα λογισμικού. Μας λέτε την ανάγκη. Φτιάχνουμε το εργαλείο που τη λύνει, στα μέτρα σας, και το κρατάμε ζωντανό καθώς η εταιρεία αλλάζει.</p>
         </div>
+      </div>
+      <div class="big-stats fade-in">
+        <p class="big-stat"><b>13%</b><span data-i18n="big.stat1">των ωρών εργασίας χάνεται ψάχνοντας στοιχεία έργων</span></p>
+        <p class="big-stat"><b>30%</b><span data-i18n="big.stat2">των εταιρειών δουλεύουν με προγράμματα που δεν συνδέονται μεταξύ τους</span></p>
+        <p class="big-source" data-i18n-html="big.stat_source">Πηγή: FMI, <cite>Big Data = Big Questions</cite>, 2018 · έρευνα σε εταιρείες μελετών και κατασκευών</p>
       </div>
       <p class="big-closer fade-in" data-i18n-html="big.closer">Δεν ψάχνετε πια εφαρμογή. <strong>Έχετε κάποιον που τη φτιάχνει.</strong></p>
     </div>
@@ -1828,6 +1841,9 @@
         'big.now_text': 'Όταν προκύπτει μια ανάγκη, μια κοστολόγηση που αργεί, ένα Excel που το ξέρει μόνο ένας, μια δουλειά που γίνεται με το χέρι, η αναζήτηση ξεκινά στο ίντερνετ: έτοιμες εφαρμογές, φτιαγμένες για όλους, που καλύπτουν το μισό και το υπόλοιπο το προσαρμόζετε εσείς.',
         'big.with_label': 'Με έναν συνεργάτη λογισμικού',
         'big.with_text': 'Όπως έχετε λογιστή και δικηγόρο για ό,τι προκύψει, μπορείτε να έχετε και μια ομάδα λογισμικού. Μας λέτε την ανάγκη. Φτιάχνουμε το εργαλείο που τη λύνει, στα μέτρα σας, και το κρατάμε ζωντανό καθώς η εταιρεία αλλάζει.',
+        'big.stat1': 'των ωρών εργασίας χάνεται ψάχνοντας στοιχεία έργων',
+        'big.stat2': 'των εταιρειών δουλεύουν με προγράμματα που δεν συνδέονται μεταξύ τους',
+        'big.stat_source': 'Πηγή: FMI, <cite>Big Data = Big Questions</cite>, 2018 · έρευνα σε εταιρείες μελετών και κατασκευών',
         'big.closer': 'Δεν ψάχνετε πια εφαρμογή. <strong>Έχετε κάποιον που τη φτιάχνει.</strong>',
         // What we build — the three families
         'fam.label': 'Τι Φτιάχνουμε',
@@ -2029,6 +2045,9 @@
         'big.now_text': 'When a need appears, an estimate that takes too long, a spreadsheet only one person understands, a job done by hand, the search starts on the internet: ready-made apps, built for everyone, that cover half of it and leave you to adapt to the rest.',
         'big.with_label': 'With a software partner',
         'big.with_text': 'Just as you have an accountant and a lawyer for whatever comes up, you can have a software team. You tell us the need. We build the tool that solves it, made to fit, and we keep it alive as the company changes.',
+        'big.stat1': 'of working hours go on looking for project data',
+        'big.stat2': 'of companies use programs that don’t connect with each other',
+        'big.stat_source': 'Source: FMI, <cite>Big Data = Big Questions</cite>, 2018 · a survey of engineering and construction firms',
         'big.closer': 'You no longer search for an app. <strong>You have someone who builds it.</strong>',
         // What we build — the three families
         'fam.label': 'What We Build',
@@ -2230,6 +2249,9 @@
         'big.now_text': 'Quando nasce un’esigenza, un preventivo che tarda, un foglio Excel che conosce solo una persona, un lavoro fatto a mano, la ricerca parte su internet: applicazioni pronte, fatte per tutti, che coprono metà del bisogno e lasciano a voi il resto.',
         'big.with_label': 'Con un partner software',
         'big.with_text': 'Come avete un commercialista e un avvocato per quello che capita, potete avere anche un team software. Ci dite l’esigenza. Costruiamo lo strumento che la risolve, su misura, e lo teniamo vivo mentre l’azienda cambia.',
+        'big.stat1': 'delle ore di lavoro si perde cercando dati di progetto',
+        'big.stat2': 'delle aziende usa programmi che non si collegano tra loro',
+        'big.stat_source': 'Fonte: FMI, <cite>Big Data = Big Questions</cite>, 2018 · indagine su società di ingegneria e costruzioni',
         'big.closer': 'Non cercate più un’applicazione. <strong>Avete chi la costruisce.</strong>',
         // What we build — the three families
         'fam.label': 'Cosa Costruiamo',

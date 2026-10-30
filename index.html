@@ -71,12 +71,16 @@
     "address": [
       {
         "@type": "PostalAddress",
+        "streetAddress": "Korinthias 7",
+        "postalCode": "11526",
         "addressLocality": "Athens",
         "addressRegion": "Attica",
         "addressCountry": "GR"
       },
       {
         "@type": "PostalAddress",
+        "streetAddress": "Rogkoti 3",
+        "postalCode": "54624",
         "addressLocality": "Thessaloniki",
         "addressRegion": "Central Macedonia",
         "addressCountry": "GR"
@@ -201,7 +205,7 @@
   </script>
   <link rel="stylesheet" href="fonts.css?v=20260923" />
   <link rel="stylesheet" href="css/editorial.css?v=20260927" />
-  <link rel="stylesheet" href="css/families.css?v=20260915" />
+  <link rel="stylesheet" href="css/families.css?v=20261030" />
   <noscript><style>.fade-in { opacity: 1 !important; transform: none !important; }
     /* Everything below waits for a class that only JS adds (.visible, .is-on). */
     .roi-line, .roi-teaser-content .roi-teaser-cta { opacity: 1 !important; transform: none !important; }
@@ -917,51 +921,6 @@
       margin: 0;
     }
 
-    /* ===== INTEGRATIONS ===== */
-    .integrations-section {
-      background: var(--paper-2);
-    }
-
-    .tools-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-    }
-
-    .tool-card {
-      padding: 2.2rem;
-      background: var(--panel);
-      border-radius: 2px;
-      border: 1px solid var(--line);
-      transition: border-color 0.3s ease, transform 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .tool-card:hover {
-      border-color: var(--line-strong);
-    }
-    @media (hover: hover) and (pointer: fine) {
-      .tool-card:hover { transform: translateY(-3px); }
-    }
-
-    .tool-card h4 {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      font-weight: 500;
-      color: var(--accent-deep);
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      margin-bottom: 1.1rem;
-    }
-
-    .tool-card p {
-      font-size: 0.95rem;
-      color: var(--muted);
-      line-height: 1.7;
-      margin: 0;
-    }
-
     /* software logo chips (replaces comma-separated name lists) */
     .tool-chips {
       display: flex;
@@ -990,79 +949,12 @@
       flex-shrink: 0;
     }
 
-    .tool-card-wide {
-      grid-column: 1 / -1;
-      background: var(--panel);
-      border: 1px solid var(--line-strong);
-    }
-    .tool-card-wide p { color: var(--ink-soft); margin-top: 0.6rem; }
-    .tool-card-wide a { color: var(--accent-deep); text-decoration: underline; text-underline-offset: 3px; font-weight: 500; transition: color 0.2s; }
-    .tool-card-wide a:hover { color: var(--ink); }
-
-    /* "Using something else?" — the list is what we've built for so far, not a limit */
-    .tool-card-ask {
-      display: flex; align-items: center; justify-content: space-between; gap: 1.5rem 2.5rem; flex-wrap: wrap;
-      background: var(--paper-2); border-color: var(--line);
-    }
-    .tool-card-ask h4 { margin: 0 0 0.35rem; }
-    .tool-card-ask p { margin: 0; max-width: 640px; }
-    .tool-card-ask .btn-secondary { flex: none; }
     .integration-logos .integration-ask {
       color: var(--accent-deep); text-decoration: none; font-weight: 600; font-size: 0.82rem; cursor: pointer;
       border-bottom: 1px solid currentColor; padding-bottom: 1px; white-space: nowrap;
       transition: color 0.2s ease;
     }
     .integration-logos .integration-ask:hover { color: var(--ink); }
-
-    .disclaimer {
-      font-size: 0.8rem;
-      color: var(--faint);
-      margin-top: 1.5rem;
-      text-align: center;
-    }
-
-    /* ===== WHY US ===== */
-    .why-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 4rem;
-    }
-
-    .why-card {
-      display: flex;
-      gap: 1.5rem;
-      align-items: flex-start;
-    }
-
-    .why-icon {
-      width: 62px;
-      height: 62px;
-      border-radius: 2px;
-      background: transparent;
-      border: 1px solid var(--line-strong);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      color: var(--accent-deep);
-      transition: border-color .3s ease;
-    }
-    .why-card:hover .why-icon { border-color: var(--accent); }
-    .why-icon svg { width: 30px; height: 30px; fill: none; stroke: var(--accent-deep); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
-
-    .why-card h3 {
-      font-size: 1.18rem;
-      font-weight: 600;
-      color: var(--ink);
-      margin-bottom: 0.5rem;
-    }
-
-    .why-card p {
-      font-size: 0.95rem;
-      color: var(--muted);
-      line-height: 1.7;
-      margin: 0;
-    }
 
     /* ===== ABOUT ===== */
     .about-content {
@@ -1082,8 +974,8 @@
        left-align so they don't read as a narrow centered island. */
     #giati .about-content {
       max-width: 960px;
+      margin: 0;
       text-align: left;
-      margin-bottom: 3rem;
     }
     #giati .about-content p {
       font-size: 1.05rem;
@@ -1132,9 +1024,10 @@
     .contact-done strong { display: block; font-size: 1.4rem; font-weight: 600; color: var(--accent-deep); margin-bottom: 0.3rem; }
 
     /* ===== PRICING REQUEST ===== */
-    /* No prices in the HTML: visitors leave company + email and we email
-       the pricing PDF in their language (the repo is public, so the PDFs
-       are not published). Form styles are shared with the contact form. */
+    /* Only the per-solution starting price is in the HTML (.pricing-from);
+       the full prices go out as a PDF in the visitor's language after they
+       leave company + email (the repo is public, so the PDFs are not
+       published). Form styles are shared with the contact form. */
     .pricing-section { border-top: 1px solid var(--line); }
     .pricing-grid {
       display: grid;
@@ -1148,6 +1041,29 @@
     .pricing-gets li { position: relative; padding-left: 1.6rem; font-size: 1.05rem; line-height: 1.45; color: var(--ink); }
     .pricing-gets li::before { content: ""; position: absolute; left: 0; top: 0.45em; width: 0.6rem; height: 0.6rem; background: var(--accent); border-radius: 1px; }
     .pricing-form .contact-form-row { grid-template-columns: 1fr 1fr; }
+    .pricing-from { display: flex; flex-direction: column; gap: 0.35rem; margin: 0 0 1.8rem; padding-bottom: 1.6rem; border-bottom: 1px solid var(--line); }
+    .pricing-from-price { font-family: var(--font-display); font-weight: 300; font-size: clamp(2.4rem, 4vw, 3.2rem); line-height: 1.05; color: var(--ink); }
+    .pricing-from-price small { font-size: 0.4em; font-weight: 400; color: var(--muted); margin-left: 0.15em; }
+    .pricing-from-note { font-size: 1rem; line-height: 1.5; color: var(--ink-soft); }
+
+    /* ===== FAQ ===== */
+    .faq-section { background: var(--bg-light); border-top: 1px solid var(--line); }
+    .faq-list { max-width: 960px; margin-top: 2.5rem; border-top: 1px solid var(--line-strong); }
+    .faq-item { border-bottom: 1px solid var(--line); }
+    .faq-item summary {
+      display: flex; justify-content: space-between; align-items: baseline; gap: 1.5rem;
+      padding: 1.2rem 0; cursor: pointer; list-style: none;
+      font-family: var(--font-display); font-size: 1.2rem; font-weight: 500; color: var(--ink);
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after { content: "+"; flex: none; font-family: var(--font-body); font-weight: 300; font-size: 1.5rem; line-height: 1; color: var(--accent); transition: transform 0.2s ease; }
+    .faq-item[open] summary::after { transform: rotate(45deg); }
+    .faq-item summary:hover { color: var(--accent-deep); }
+    .faq-item summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .faq-item p { margin: 0 0 1.3rem; max-width: 760px; font-size: 1rem; line-height: 1.7; color: var(--ink-soft); }
+    .faq-item p a { color: var(--ink); text-decoration: underline; text-underline-offset: 2px; }
+    .contact-address { display: flex; flex-direction: column; gap: 0.25rem; margin: 0.75rem 0 0; padding: 0.9rem 1rem; border: 1px dashed var(--line); border-radius: 2px; font-size: 0.95rem; line-height: 1.5; color: var(--ink); }
+    .contact-address-note { color: var(--muted); font-size: 0.88rem; }
     .contact-link {
       display: flex; flex-direction: column; gap: 0.2rem;
       padding: 0.9rem 1rem; margin-top: 0.75rem;
@@ -1183,6 +1099,14 @@
 
     /* ===== RESPONSIVE ===== */
     /* Shared nav / footer / consent responsive lives in css/editorial.css */
+    /* The index nav has one link more than the other pages (FAQ): tighten it
+       further between the hamburger breakpoint and 1300px so it clears the logo. */
+    @media (max-width: 1300px) and (min-width: 1141px) {
+      .nav-link { padding: 0.5rem 0.32rem; letter-spacing: 0.02em; }
+    }
+    @media (min-width: 1301px) {
+      .nav-link { padding: 0.5rem 0.55rem; letter-spacing: 0.07em; }
+    }
     @media (max-width: 1024px) {
       .benefits-grid { grid-template-columns: repeat(2, 1fr); }
     }
@@ -1190,8 +1114,9 @@
     @media (max-width: 768px) {
       .hero { min-height: 500px; }
 
-      .benefits-grid, .built-grid, .big-grid, .why-grid, .contact-grid, .pricing-grid { grid-template-columns: 1fr; }
+      .benefits-grid, .built-grid, .big-grid, .contact-grid, .pricing-grid { grid-template-columns: 1fr; }
       .pricing-gets { padding: 0; }
+      .faq-item summary { font-size: 1.08rem; }
 
       #giati .about-content p { font-size: 1rem; line-height: 1.75; }
 
@@ -1205,7 +1130,6 @@
       .contact-form-row, .pricing-form .contact-form-row { grid-template-columns: 1fr; }
 
 
-      .why-grid { gap: 2.5rem; }
     }
 
     @media (max-width: 480px) {
@@ -1247,8 +1171,8 @@
         <li><a href="#lyseis" class="nav-link" data-i18n="nav.solutions">Λύσεις</a></li>
         <li><a href="#kerdizeis" class="nav-link" data-i18n="nav.benefits">Οφέλη</a></li>
         <li><a href="#timologisi" class="nav-link" data-i18n="nav.pricing">Τιμές</a></li>
-        <li><a href="#ergaleia" class="nav-link" data-i18n="nav.tools">Ενσωματώσεις</a></li>
         <li><a href="#giati" class="nav-link" data-i18n="nav.whyus">Γιατί Εμείς</a></li>
+        <li><a href="#erotiseis" class="nav-link" data-i18n="nav.faq_short">Ερωτήσεις</a></li>
         <li><a href="free-tools.html" class="nav-link" data-i18n="nav.freetools">Εργαλεία</a></li>
         <li><a href="#contact" class="nav-cta" data-i18n="nav.contact">Επικοινωνία</a></li>
         <li class="nav-lang">
@@ -1298,11 +1222,10 @@
           </span>
         </div>
         <h1 data-i18n-html="hero.title">Λογισμικό <span class="highlight">στα μέτρα σας</span>.<br>Φτιαγμένο για μία εταιρεία:<br class="hero-br"> τη δική σας.</h1>
-        <p class="subtitle" data-i18n="hero.subtitle">Ξεκινάμε από τη δική σας ανάγκη, όχι από ένα έτοιμο προϊόν. Μέσα στα προγράμματα που ήδη χρησιμοποιείτε, ή ως δική σας εφαρμογή.</p>
+        <p class="subtitle" data-i18n="hero.subtitle">Φτιάχνουμε λογισμικό που κάνει τις χειροκίνητες δουλειές σας. Το συνδέουμε με το CAD/CAM/BIM σας ή φτιάχνουμε δικό σας CAD/CAM/BIM, και ό,τι άλλο χρειαστείτε.</p>
         <div class="hero-ctas">
           <a href="#contact" class="btn-primary" data-i18n="hero.cta">Επικοινωνήστε Μαζί Μας</a>
           <a href="call.html" class="btn-secondary" data-i18n="hero.book">Κλείστε μια Κλήση</a>
-          <a href="#megali-eikona" class="btn-secondary" data-i18n="hero.learn_more">Μάθετε Περισσότερα</a>
         </div>
         <p class="hero-proof" data-i18n-html="hero.proof"><span>Έργα σε <b>5 χώρες</b></span><span><b>8</b> συστήματα CAD/CAM/BIM</span><span>Απάντηση <b>εντός 48 ωρών</b></span></p>
       </div>
@@ -1369,7 +1292,7 @@
       <div class="section-header center fade-in">
         <div class="section-label" data-i18n="fam.label">Τι Φτιάχνουμε</div>
         <h2 data-i18n-html="fam.title">Μας δείχνετε τη δουλειά. <strong>Φτιάχνουμε το λογισμικό που την κάνει.</strong></h2>
-        <p class="section-subtitle" data-i18n="fam.subtitle">Το λογισμικό της αγοράς φτιάχτηκε για χιλιάδες εταιρείες. Το δικό σας φτιάχνεται για μία. Μέχρι σήμερα, αυτό έχει πάρει τρεις μορφές:</p>
+        <p class="section-subtitle" data-i18n="fam.subtitle">Μέχρι σήμερα, το λογισμικό που φτιάξαμε έχει πάρει τρεις μορφές:</p>
       </div>
       <div class="fam-grid">
         <article class="benefit-card fam-card fade-in fade-in-delay-1" data-num="01" data-fam="auto">
@@ -1393,7 +1316,6 @@
           <div class="benefit-number">01</div>
           <h3 data-i18n="fam.a_title">Αυτοματισμός εργασιών</h3>
           <p data-i18n="fam.a_desc">Μια δουλειά που σήμερα θέλει δέκα βήματα με το χέρι γίνεται ένα κουμπί: με τη σειρά, τους κανόνες και τα πρότυπα της εταιρείας σας, ίδια κάθε φορά.</p>
-          <p class="fam-eg" data-i18n="fam.a_eg">π.χ. τρύπες ψύξης και βιδών σε καλούπι, έτοιμες για τη μηχανή</p>
         </article>
         <article class="benefit-card fam-card fade-in fade-in-delay-2" data-num="02" data-fam="live">
           <div class="fam-visual" aria-hidden="true">
@@ -1423,7 +1345,6 @@
           <div class="benefit-number">02</div>
           <h3 data-i18n="fam.b_title">Διαχείριση: από το Excel σε ζωντανή εικόνα</h3>
           <p data-i18n="fam.b_desc">Κοστολογήσεις, χρονοδιαγράμματα, φόρτος, ώρες. Ό,τι σήμερα ζει σε αρχεία Excel γίνεται μία κοινή εφαρμογή που όλοι βλέπουν και ενημερώνουν, με τους ίδιους υπολογισμούς που ήδη εμπιστεύεστε.</p>
-          <p class="fam-eg" data-i18n="fam.b_eg">π.χ. κοστολόγηση και χρονοδιάγραμμα έργων σε μία κοινή βάση</p>
         </article>
         <article class="benefit-card fam-card fade-in fade-in-delay-3" data-num="03" data-fam="cad">
           <div class="fam-visual" aria-hidden="true">
@@ -1451,7 +1372,6 @@
           <div class="benefit-number">03</div>
           <h3 data-i18n="fam.c_title">Ειδικές λύσεις CAD · CAM · BIM</h3>
           <p data-i18n="fam.c_desc">Εργαλεία που κανένα έτοιμο πρόγραμμα δεν προσφέρει: μέσα στο PowerMill ή στο Revit ως νέα κουμπιά, ή ως δική σας εφαρμογή σχεδιασμού και προγραμματισμού μηχανών.</p>
-          <p class="fam-eg" data-i18n="fam.c_eg">π.χ. από το σχέδιο DXF στο πρόγραμμα του τόρνου, σε έξι βήματα</p>
         </article>
       </div>
       <p class="fam-turn fade-in" data-i18n-html="fam.turn">Δεν είναι θεωρία. <strong>Κάθε ένα από αυτά τρέχει σήμερα</strong> σε μια εταιρεία σαν τη δική σας.</p>
@@ -1465,7 +1385,7 @@
       <div class="section-header center fade-in">
         <div class="section-label" data-i18n="built.label">Λύσεις που φτιάξαμε</div>
         <h2 data-i18n-html="built.title">Φτιαγμένο για αληθινές εταιρείες. <strong>Σε χρήση κάθε μέρα.</strong></h2>
-        <p class="section-subtitle" data-i18n="built.subtitle">Τέσσερις λύσεις που παραδώσαμε. Χωρίς ονόματα, με τη δουλειά που κάνουν.</p>
+        <p class="section-subtitle" data-i18n="built.subtitle">Τέσσερις λύσεις που παραδώσαμε, και τι κάνει η καθεμία.</p>
       </div>
       <div class="built-grid">
         <article class="benefit-card built-card fade-in fade-in-delay-1" data-num="01" data-fam="cad">
@@ -1482,7 +1402,6 @@
             <ul class="built-list">
               <li data-i18n="built.s1_f1">Εισαγωγή DXF, κλείσιμο του προφίλ, 3D κομμάτι με ένα κλικ</li>
               <li data-i18n="built.s1_f2">Κύκλοι εκχόνδρισης και φινιρίσματος, G-code Fanuc για κάθε πλευρά</li>
-              <li data-i18n="built.s1_f3">Εκτίμηση χρόνου κατεργασίας και βοήθεια μέσα στην εφαρμογή</li>
             </ul>
             <div class="built-foot">
               <div class="tool-chips"><span class="tool-chip tool-chip-text" data-i18n="built.chip_own">Αυτόνομη εφαρμογή</span></div>
@@ -1510,7 +1429,6 @@
             <ul class="built-list">
               <li data-i18n="built.s2_f1">Πλάνο δρομολόγησης ανά φάση, αντί για χειρόγραφο πλάνο</li>
               <li data-i18n="built.s2_f2">Τρύπες ψύξης, βιδών και πλάκας με τη σειρά και τους κανόνες της εταιρείας</li>
-              <li data-i18n="built.s2_f3">Project ηλεκτροδίων που στήνονται μόνα τους</li>
             </ul>
             <div class="built-foot">
               <div class="tool-chips"><span class="tool-chip"><img src="icons/PowerShape.png" alt="" aria-hidden="true" width="20" height="20" loading="lazy">PowerShape</span><span class="tool-chip"><img src="icons/PowerMill.png" alt="" aria-hidden="true" width="20" height="20" loading="lazy">PowerMill</span><span class="tool-chip"><img src="icons/SiemensNX.png" alt="" aria-hidden="true" width="20" height="20" loading="lazy">Siemens NX</span></div>
@@ -1537,7 +1455,6 @@
             <p data-i18n="built.s3_desc">Κάθε επαναλαμβανόμενη δουλειά μοντελοποίησης του τμήματος έγινε ένα κουμπί μέσα στο Revit.</p>
             <ul class="built-list">
               <li data-i18n="built.s3_f1">Κοπή αεραγωγών και σωλήνων, στηρίξεις, εξαερισμός στέγης με μία εντολή</li>
-              <li data-i18n="built.s3_f2">Έλεγχος δεδομένων καλωδίων: μοντέλο έναντι Excel</li>
               <li data-i18n="built.s3_f3">Εξαγωγή φύλλων σε PDF, DWG, DWFX και IFC με ένα τρέξιμο</li>
             </ul>
             <div class="built-foot">
@@ -1565,7 +1482,6 @@
             <ul class="built-list">
               <li data-i18n="built.s4_f1">Κοστολόγηση που υπολογίζεται ζωντανά, όπως το φύλλο τους</li>
               <li data-i18n="built.s4_f2">Χρονοδιάγραμμα Gantt και φόρτος ανά άτομο σε όλα τα έργα</li>
-              <li data-i18n="built.s4_f3">Καταγραφή ωρών από όλους, χωρίς να χάνεται η αλλαγή κανενός</li>
             </ul>
             <div class="built-foot">
               <div class="tool-chips"><span class="tool-chip tool-chip-text" data-i18n="built.chip_own">Αυτόνομη εφαρμογή</span></div>
@@ -1637,10 +1553,15 @@
       <div class="section-header fade-in">
         <div class="section-label" data-i18n="pricing.label">Τιμολόγηση</div>
         <h2 data-i18n-html="pricing.title">Δύο τρόποι να <strong>συνεργαστούμε</strong>.</h2>
-        <p class="section-subtitle" data-i18n="pricing.subtitle">Πληρώνετε ανά λύση, με τιμή που ορίζεται από το τι θα φτιάξουμε, ή μία σταθερή μηνιαία τιμή για όσες λύσεις χρειαστείτε. Αφήστε μας το email σας και θα σας στείλουμε τις τιμές σε PDF.</p>
+        <p class="section-subtitle" data-i18n="pricing.subtitle">Πληρώνετε ανά λύση, ανάλογα με το τι θα φτιάξουμε, ή μία σταθερή μηνιαία τιμή για όσες λύσεις χρειαστείτε. Αφήστε μας το email σας και θα σας στείλουμε τις τιμές σε PDF.</p>
       </div>
       <div class="pricing-grid">
         <div class="pricing-gets fade-in fade-in-delay-1">
+          <p class="pricing-from">
+            <span class="contact-label" data-i18n="pricing.from_label">Ανά λύση</span>
+            <span class="pricing-from-price" data-i18n-html="pricing.from_price">από €199<small>/μήνα</small></span>
+            <span class="pricing-from-note" data-i18n="pricing.from_note">Σε κάθε συνδρομή, απεριόριστοι χρήστες στην εταιρεία σας.</span>
+          </p>
           <div class="contact-label" data-i18n="pricing.gets_label">Στο PDF θα βρείτε</div>
           <ul>
             <li data-i18n="pricing.get_1">Τις τιμές και των δύο τρόπων συνεργασίας</li>
@@ -1675,31 +1596,6 @@
     </div>
   </section>
 
-  <!-- ΕΡΓΑΛΕΙΑ -->
-  <section id="ergaleia" class="integrations-section">
-    <div class="container">
-      <div class="section-header center fade-in">
-        <div class="section-label" data-i18n="tools.label">Ενσωματώσεις</div>
-        <h2 data-i18n-html="tools.title">Μέσα στα εργαλεία που ήδη έχετε, <strong>ή μόνο του</strong>.</h2>
-        <p class="section-subtitle" data-i18n="tools.subtitle">Κρατάτε τα προγράμματα που έχετε και τον τρόπο που δουλεύετε σε αυτά. Όπου χρειάζεται, το λογισμικό σας προστίθεται μέσα τους ως νέα κουμπιά. Όπου δεν υπάρχει πρόγραμμα, φτιάχνουμε δικό σας.</p>
-      </div>
-      <div class="tools-grid">
-        <div class="tool-card tool-card-wide fade-in">
-          <h4 data-i18n="tools.standalone_title">Δική σας εφαρμογή, χωρίς CAD ή CAM.</h4>
-          <p data-i18n-html="tools.standalone_desc">Διαχείριση έργων, παρακολούθηση παραγωγής, δεδομένα από το εργοστάσιο στο γραφείο. Και προγράμματα σχεδιασμού που τρέχουν μόνα τους, χωρίς άλλο CAD ή CAM εγκατεστημένο.</p>
-        </div>
-        <div class="tool-card tool-card-wide tool-card-ask fade-in">
-          <div>
-            <h4 data-i18n="tools.ask_title">Χρησιμοποιείτε κάτι άλλο;</h4>
-            <p data-i18n="tools.ask_desc">Η λίστα δείχνει πού έχουμε ήδη δουλέψει, όχι πού σταματάμε. Αν δουλεύετε με άλλο σύστημα CAD, CAM, BIM ή CNC, πείτε μας ποιο. Τα περισσότερα έχουν API πάνω στο οποίο μπορούμε να χτίσουμε.</p>
-          </div>
-          <a href="#contact" class="btn-secondary" data-i18n="tools.ask_cta">Ρωτήστε μας</a>
-        </div>
-      </div>
-      <p class="disclaimer fade-in" data-i18n="tools.disclaimer">Τα εμπορικά σήματα που αναφέρονται ανήκουν στους αντίστοιχους κατόχους τους.</p>
-    </div>
-  </section>
-
   <!-- ΓΙΑΤΙ AIDEDCAM — merged with ΣΧΕΤΙΚΑ: identity + pillars in one section -->
   <section id="giati">
     <div class="container">
@@ -1710,48 +1606,56 @@
       </div>
 
       <div class="about-content fade-in">
-        <p data-i18n="about.p1">Μηχανικοί και προγραμματιστές με χρόνια εμπειρίας σε τμήματα σχεδιασμού και παραγωγής.</p>
+        <p data-i18n="about.p1">Η AidedCAM ιδρύθηκε το 2025, αλλά η δουλειά μας δεν ξεκίνησε τότε: είμαστε μηχανικοί και προγραμματιστές με 10 χρόνια σε τμήματα σχεδιασμού και παραγωγής, με CAD, CAM, BIM και CNC. Ξέρουμε τι σημαίνει να χάνεις ώρες σε δουλειές που θα μπορούσαν να τρέχουν μόνες τους.</p>
+        <p data-i18n="about.p2">Δουλέψαμε με εταιρείες σε Βέλγιο, Ελβετία, Αυστρία και Γερμανία, και τώρα φέρνουμε την ίδια τεχνογνωσία στην Ελλάδα και την Ιταλία.</p>
       </div>
 
-      <div class="why-grid">
-        <div class="why-card fade-in fade-in-delay-1">
-          <div class="why-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
-          </div>
-          <div>
-            <h3 data-i18n="whyus.w1_title">Ζήσαμε το πρόβλημα από μέσα</h3>
-            <p data-i18n="whyus.w1_desc">Δουλέψαμε χρόνια με CAD, CAM, BIM και CNC, και την ίδια λογική τη φέρνουμε στη διαχείριση έργων και την παρακολούθηση παραγωγής. Ξέρουμε τι σημαίνει να χάνεις ώρες σε δουλειές που θα μπορούσαν να τρέχουν μόνες τους.</p>
-          </div>
-        </div>
-        <div class="why-card fade-in fade-in-delay-2">
-          <div class="why-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.7 2.6 15.3 0 18M12 3c-2.6 2.7-2.6 15.3 0 18"/></svg>
-          </div>
-          <div>
-            <h3 data-i18n="whyus.w2_title">Διεθνής εμπειρία</h3>
-            <p data-i18n="whyus.w2_desc">Δουλέψαμε με εταιρείες σε Βέλγιο, Ελβετία, Αυστρία, Γερμανία. Τώρα φέρνουμε την ίδια τεχνογνωσία στην Ελλάδα και την Ιταλία.</p>
-          </div>
-        </div>
-        <div class="why-card fade-in fade-in-delay-3">
-          <div class="why-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
-          </div>
-          <div>
-            <h3 data-i18n="whyus.w3_title">Συνεχίζει να μεγαλώνει</h3>
-            <p data-i18n="whyus.w3_desc">Πληρώνετε μηνιαία, και κάθε μήνα το λογισμικό σας καλύπτει λίγο περισσότερη από τη δουλειά σας. Απεριόριστοι χρήστες, ενημερώσεις και υποστήριξη μέσα στην τιμή.</p>
-          </div>
-        </div>
-        <div class="why-card fade-in fade-in-delay-4">
-          <div class="why-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/></svg>
-          </div>
-          <div>
-            <h3 data-i18n="whyus.w4_title">Φτιαγμένο μόνο για εσάς</h3>
-            <p data-i18n="whyus.w4_desc">Τίποτα έτοιμο από το ράφι. Κανείς άλλος δεν έχει αυτό το πρόγραμμα, γιατί κανείς άλλος δεν δουλεύει ακριβώς όπως εσείς.</p>
-          </div>
-        </div>
-      </div>
 
+    </div>
+  </section>
+
+  <!-- ΣΥΧΝΕΣ ΕΡΩΤΗΣΕΙΣ — price, delivery, ownership, continuity, support:
+       the questions buyers asked before they would get in touch -->
+  <section id="erotiseis" class="faq-section">
+    <div class="container">
+      <div class="section-header fade-in">
+        <div class="section-label" data-i18n="faq.label">Συχνές ερωτήσεις</div>
+        <h2 data-i18n-html="faq.title">Πριν <strong>ξεκινήσουμε</strong>.</h2>
+      </div>
+      <div class="faq-list fade-in">
+        <details class="faq-item">
+          <summary data-i18n="faq.q1">Πόσο κοστίζει;</summary>
+          <p data-i18n-html="faq.a1">Ανά λύση από €199 τον μήνα, ή μία σταθερή μηνιαία τιμή για όσες λύσεις χρειαστείτε. Τις αναλυτικές τιμές <a href="#timologisi">σας τις στέλνουμε σε PDF</a>.</p>
+        </details>
+        <details class="faq-item">
+          <summary data-i18n="faq.q2">Σε πόσο καιρό θα το έχουμε;</summary>
+          <p data-i18n="faq.a2">Συνήθως μέσα σε έναν μήνα έχετε μια λύση έτοιμη και τη χρησιμοποιείτε κανονικά. Εξαρτάται από το τι χρειάζεστε, και σας το λέμε πριν ξεκινήσουμε.</p>
+        </details>
+        <details class="faq-item">
+          <summary data-i18n="faq.q3">Τι περιλαμβάνει η τιμή;</summary>
+          <p data-i18n="faq.a3">Όλα, σε μία χρέωση: την ανάπτυξη, τις βιβλιοθήκες που χρησιμοποιεί το λογισμικό, τις ενημερώσεις, τις αλλαγές και την υποστήριξη μετά την παράδοση. Δεν περιλαμβάνει λογισμικό τρίτων: τις άδειες Revit, PowerMill ή άλλων προγραμμάτων τις έχετε ήδη ή τις αγοράζετε από τον κατασκευαστή τους.</p>
+        </details>
+        <details class="faq-item">
+          <summary data-i18n="faq.q4">Σε ποιον ανήκει ο κώδικας;</summary>
+          <p data-i18n="faq.a4">Τον κώδικα τον κρατάμε και τον συντηρούμε εμείς. Γι’ αυτό η συνδρομή καλύπτει όλη τη συντήρηση και δεν χρειάζεστε δικό σας προγραμματιστή. Ό,τι παράγει το λογισμικό, σχέδια, G-code, αναφορές και δεδομένα, είναι δικό σας.</p>
+        </details>
+        <details class="faq-item">
+          <summary data-i18n="faq.q5">Τι γίνεται αν σταματήσει η συνδρομή;</summary>
+          <p data-i18n="faq.a5">Σταματά και το λογισμικό. Τα αρχεία και τα δεδομένα που έφτιαξε μένουν δικά σας. Δεν υπάρχει ελάχιστη διάρκεια συνδρομής, και αν θέλετε να αποκτήσετε μια λύση οριστικά, συζητάμε εξαγορά.</p>
+        </details>
+        <details class="faq-item">
+          <summary data-i18n="faq.q6">Πότε έχουμε υποστήριξη;</summary>
+          <p data-i18n="faq.a6">Δευτέρα με Παρασκευή, με email, τηλέφωνο ή Teams. Ερχόμαστε και στην εταιρεία σας για εγκατάσταση και εκπαίδευση, στην Ελλάδα και στην Ιταλία. Στην Ιταλία η υποστήριξη γίνεται στα αγγλικά.</p>
+        </details>
+        <details class="faq-item">
+          <summary data-i18n="faq.q7">Υπογράφετε NDA;</summary>
+          <p data-i18n="faq.a7">Ναι, αν το χρειάζεστε, πριν μας δείξετε μοντέλα ή αρχεία. Γενικά προσαρμοζόμαστε σε ό,τι χρειάζεται η εταιρεία σας.</p>
+        </details>
+        <details class="faq-item">
+          <summary data-i18n="faq.q8">Δεν έχουμε CAD ή CAM. Μας αφορά;</summary>
+          <p data-i18n="faq.a8">Ναι. Αρκετές λύσεις μας είναι αυτόνομες εφαρμογές, χωρίς CAD ή CAM.</p>
+        </details>
+      </div>
     </div>
   </section>
 
@@ -1760,10 +1664,7 @@
     <div class="container">
       <div class="roi-teaser-content fade-in">
         <h2 class="roi-teaser-heading" data-i18n-html="roi_teaser.heading">
-          <span class="roi-line"><span class="roi-hl">Χρόνος</span> που επιστρέφεται αμέσως.</span>
-          <span class="roi-line"><span class="roi-hl">Ποιότητα</span> που εξασφαλίζεται πάντα.</span>
-          <span class="roi-line"><span class="roi-hl">Λογισμικό</span> φτιαγμένο αποκλειστικά για εσάς.</span>
-          <span class="roi-line"><span class="roi-hl">Μηνιαία συνδρομή</span>, απεριόριστοι χρήστες.</span>
+          <span class="roi-line">Πόσο χρόνο <span class="roi-hl">θα γλιτώνατε</span> εσείς;</span>
         </h2>
         <div class="roi-teaser-ctas">
           <a href="calculator.html" class="btn-primary roi-teaser-cta" data-i18n="calc.cta">Υπολογίστε με τα δικά σας νούμερα</a>
@@ -1829,6 +1730,11 @@
             <span class="contact-link-label" data-i18n="contact.thessaloniki">Θεσσαλονίκη</span>
             <span class="contact-link-value">+30 6980818754</span>
           </a>
+          <p class="contact-address">
+            <span class="contact-link-label" data-i18n="contact.addresses_label">Διευθύνσεις</span>
+            <span data-i18n-html="contact.addresses">Ρογκότη 3, 546 24 Θεσσαλονίκη<br>Κορινθίας 7, 115 26 Αθήνα</span>
+            <span class="contact-address-note" data-i18n="contact.onsite">Ερχόμαστε και στην εταιρεία σας.</span>
+          </p>
           <div class="contact-trust">
             <img src="autodesk-authorized-developer-black.png" alt="Autodesk Authorized Developer partner" width="157" height="40" loading="lazy" />
           </div>
@@ -1848,7 +1754,7 @@
             <img src="aided-cam-mark.png" alt="AidedCAM" width="30" height="34" loading="lazy" />
             <img class="wordmark" src="aidedcam-wordmark.svg" alt="" width="716" height="67" loading="lazy" />
           </div>
-          <p class="footer-about-text" data-i18n="about.p1">Μηχανικοί και προγραμματιστές με χρόνια εμπειρίας σε τμήματα σχεδιασμού και παραγωγής.</p>
+          <p class="footer-about-text" data-i18n="footer.about">Μηχανικοί και προγραμματιστές με 10 χρόνια εμπειρίας σε τμήματα σχεδιασμού και παραγωγής.</p>
         </div>
         <div class="footer-col">
           <h4 data-i18n="footer.explore">Πλοήγηση</h4>
@@ -1857,8 +1763,8 @@
             <a href="#lyseis" data-i18n="nav.solutions">Λύσεις</a>
             <a href="#kerdizeis" data-i18n="nav.benefits">Οφέλη</a>
             <a href="#timologisi" data-i18n="nav.pricing">Τιμές</a>
-            <a href="#ergaleia" data-i18n="nav.tools">Ενσωματώσεις</a>
             <a href="#giati" data-i18n="nav.whyus">Γιατί Εμείς</a>
+            <a href="#erotiseis" data-i18n="nav.faq">Συχνές ερωτήσεις</a>
             <a href="free-tools.html" data-i18n="nav.freetools">Εργαλεία</a>
           </div>
         </div>
@@ -1881,7 +1787,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <div class="footer-copy">&copy; <span id="footerYear">2026</span> AidedCAM. <span data-i18n="footer.rights">Με την επιφύλαξη παντός δικαιώματος.</span></div>
+        <div class="footer-copy">&copy; <span id="footerYear">2026</span> AidedCAM. <span data-i18n="footer.rights">Με την επιφύλαξη παντός δικαιώματος.</span> <span data-i18n="tools.disclaimer">Τα εμπορικά σήματα που αναφέρονται ανήκουν στους αντίστοιχους κατόχους τους.</span></div>
         <div class="footer-bottom-links">
           <a href="privacy.html" data-i18n="footer.privacy">Απόρρητο</a>
           <a href="legal.html" data-i18n="footer.legal">Νομικά</a>
@@ -1899,18 +1805,18 @@
         'nav.whatwedo': 'Τι Φτιάχνουμε',
         'nav.solutions': 'Λύσεις',
         'nav.benefits': 'Οφέλη',
-        'nav.tools': 'Ενσωματώσεις',
         'nav.pricing': 'Τιμές',
         'nav.whyus': 'Γιατί Εμείς',
+        'nav.faq': 'Συχνές ερωτήσεις',
+        'nav.faq_short': 'Ερωτήσεις',
         'nav.freetools': 'Εργαλεία',
         'nav.contact': 'Επικοινωνία',
         // Hero
         'hero.title': 'Λογισμικό <span class="highlight">στα μέτρα σας</span>.<br>Φτιαγμένο για μία εταιρεία:<br class="hero-br"> τη δική σας.',
-        'hero.subtitle': 'Ξεκινάμε από τη δική σας ανάγκη, όχι από ένα έτοιμο προϊόν. Μέσα στα προγράμματα που ήδη χρησιμοποιείτε, ή ως δική σας εφαρμογή.',
+        'hero.subtitle': 'Φτιάχνουμε λογισμικό που κάνει τις χειροκίνητες δουλειές σας. Το συνδέουμε με το CAD/CAM/BIM σας ή φτιάχνουμε δικό σας CAD/CAM/BIM, και ό,τι άλλο χρειαστείτε.',
         'hero.cta': 'Επικοινωνήστε Μαζί Μας',
         'hero.book': 'Κλείστε μια Κλήση',
-        'hero.learn_more': 'Μάθετε Περισσότερα',
-        'roi_teaser.heading': '<span class="roi-line"><span class="roi-hl">Χρόνος</span> που επιστρέφεται αμέσως.</span><span class="roi-line"><span class="roi-hl">Ποιότητα</span> που εξασφαλίζεται πάντα.</span><span class="roi-line"><span class="roi-hl">Λογισμικό</span> φτιαγμένο αποκλειστικά για εσάς.</span><span class="roi-line"><span class="roi-hl">Μηνιαία συνδρομή</span>, απεριόριστοι χρήστες.</span>',
+        'roi_teaser.heading': '<span class="roi-line">Πόσο χρόνο <span class="roi-hl">θα γλιτώνατε</span> εσείς;</span>',
         'roi_teaser.cta': 'Δείτε τι κερδίζετε',
         'hero.supported': 'Υποστηριζόμενα συστήματα',
         'hero.ask': 'Κάτι άλλο; Ρωτήστε μας',
@@ -1926,21 +1832,18 @@
         // What we build — the three families
         'fam.label': 'Τι Φτιάχνουμε',
         'fam.title': 'Μας δείχνετε τη δουλειά. <strong>Φτιάχνουμε το λογισμικό που την κάνει.</strong>',
-        'fam.subtitle': 'Το λογισμικό της αγοράς φτιάχτηκε για χιλιάδες εταιρείες. Το δικό σας φτιάχνεται για μία. Μέχρι σήμερα, αυτό έχει πάρει τρεις μορφές:',
+        'fam.subtitle': 'Μέχρι σήμερα, το λογισμικό που φτιάξαμε έχει πάρει τρεις μορφές:',
         'fam.a_title': 'Αυτοματισμός εργασιών',
         'fam.a_desc': 'Μια δουλειά που σήμερα θέλει δέκα βήματα με το χέρι γίνεται ένα κουμπί: με τη σειρά, τους κανόνες και τα πρότυπα της εταιρείας σας, ίδια κάθε φορά.',
-        'fam.a_eg': 'π.χ. τρύπες ψύξης και βιδών σε καλούπι, έτοιμες για τη μηχανή',
         'fam.b_title': 'Διαχείριση: από το Excel σε ζωντανή εικόνα',
         'fam.b_desc': 'Κοστολογήσεις, χρονοδιαγράμματα, φόρτος, ώρες. Ό,τι σήμερα ζει σε αρχεία Excel γίνεται μία κοινή εφαρμογή που όλοι βλέπουν και ενημερώνουν, με τους ίδιους υπολογισμούς που ήδη εμπιστεύεστε.',
-        'fam.b_eg': 'π.χ. κοστολόγηση και χρονοδιάγραμμα έργων σε μία κοινή βάση',
         'fam.c_title': 'Ειδικές λύσεις CAD · CAM · BIM',
         'fam.c_desc': 'Εργαλεία που κανένα έτοιμο πρόγραμμα δεν προσφέρει: μέσα στο PowerMill ή στο Revit ως νέα κουμπιά, ή ως δική σας εφαρμογή σχεδιασμού και προγραμματισμού μηχανών.',
-        'fam.c_eg': 'π.χ. από το σχέδιο DXF στο πρόγραμμα του τόρνου, σε έξι βήματα',
         'fam.turn': 'Δεν είναι θεωρία. <strong>Κάθε ένα από αυτά τρέχει σήμερα</strong> σε μια εταιρεία σαν τη δική σας.',
         // Built for real — four anonymised solutions
         'built.label': 'Λύσεις που φτιάξαμε',
         'built.title': 'Φτιαγμένο για αληθινές εταιρείες. <strong>Σε χρήση κάθε μέρα.</strong>',
-        'built.subtitle': 'Τέσσερις λύσεις που παραδώσαμε. Χωρίς ονόματα, με τη δουλειά που κάνουν.',
+        'built.subtitle': 'Τέσσερις λύσεις που παραδώσαμε, και τι κάνει η καθεμία.',
         'built.fam_a': 'Αυτοματισμός',
         'built.fam_b': 'Διαχείριση',
         'built.fam_c': 'CAD · CAM · BIM',
@@ -1950,20 +1853,17 @@
         'built.s1_desc': 'Από το σχέδιο του κομματιού στο πρόγραμμα της μηχανής, σε έξι βήματα, χωρίς άλλο λογισμικό CAM.',
         'built.s1_f1': 'Εισαγωγή DXF, κλείσιμο του προφίλ, 3D κομμάτι με ένα κλικ',
         'built.s1_f2': 'Κύκλοι εκχόνδρισης και φινιρίσματος, G-code Fanuc για κάθε πλευρά',
-        'built.s1_f3': 'Εκτίμηση χρόνου κατεργασίας και βοήθεια μέσα στην εφαρμογή',
         'built.s1_outcome': '<b>2 μέρες → 12 λεπτά</b> σχεδιασμός και προγραμματισμός',
         'built.s2_sector': 'Κατασκευή καλουπιών',
         'built.s2_title': 'Αυτοματισμός καλουπιών μέσα σε PowerShape, PowerMill και Siemens NX',
         'built.s2_desc': 'Η εφαρμογή διαβάζει τα εξαρτήματα του καλουπιού και προγραμματίζει τις τυποποιημένες κατεργασίες με ένα κουμπί.',
         'built.s2_f1': 'Πλάνο δρομολόγησης ανά φάση, αντί για χειρόγραφο πλάνο',
         'built.s2_f2': 'Τρύπες ψύξης, βιδών και πλάκας με τη σειρά και τους κανόνες της εταιρείας',
-        'built.s2_f3': 'Project ηλεκτροδίων που στήνονται μόνα τους',
         'built.s2_outcome': '<b>4 μέρες → 26 λεπτά</b> για τον προγραμματισμό μιας πλάκας',
         'built.s3_sector': 'Βιομηχανικός εξοπλισμός, τμήμα BIM',
         'built.s3_title': 'Σαράντα εντολές Revit σε μία καρτέλα',
         'built.s3_desc': 'Κάθε επαναλαμβανόμενη δουλειά μοντελοποίησης του τμήματος έγινε ένα κουμπί μέσα στο Revit.',
         'built.s3_f1': 'Κοπή αεραγωγών και σωλήνων, στηρίξεις, εξαερισμός στέγης με μία εντολή',
-        'built.s3_f2': 'Έλεγχος δεδομένων καλωδίων: μοντέλο έναντι Excel',
         'built.s3_f3': 'Εξαγωγή φύλλων σε PDF, DWG, DWFX και IFC με ένα τρέξιμο',
         'built.s3_outcome': '<b>1 μέρα → 11 λεπτά</b> για σχέδια και πίνακες από το μοντέλο',
         'built.s4_sector': 'Γραφείο στατικών μελετών',
@@ -1971,7 +1871,6 @@
         'built.s4_desc': 'Κοστολόγηση, χρονοδιάγραμμα, φόρτος και ώρες σε μία εφαρμογή, σε κοινή βάση, με τους υπολογισμούς του γραφείου.',
         'built.s4_f1': 'Κοστολόγηση που υπολογίζεται ζωντανά, όπως το φύλλο τους',
         'built.s4_f2': 'Χρονοδιάγραμμα Gantt και φόρτος ανά άτομο σε όλα τα έργα',
-        'built.s4_f3': 'Καταγραφή ωρών από όλους, χωρίς να χάνεται η αλλαγή κανενός',
         'built.s4_outcome': '<b>Μία κοινή πηγή</b> αντί για δεκάδες αρχεία Excel',
         'built.before': 'Πριν',
         'built.after': 'Μετά',
@@ -2006,35 +1905,24 @@
         // Calculator
         'calc.cta': 'Υπολογίστε με τα δικά σας νούμερα',
         // Tools / Integrations
-        'tools.label': 'Ενσωματώσεις',
-        'tools.title': 'Μέσα στα εργαλεία που ήδη έχετε, <strong>ή μόνο του</strong>.',
-        'tools.subtitle': 'Κρατάτε τα προγράμματα που έχετε και τον τρόπο που δουλεύετε σε αυτά. Όπου χρειάζεται, το λογισμικό σας προστίθεται μέσα τους ως νέα κουμπιά. Όπου δεν υπάρχει πρόγραμμα, φτιάχνουμε δικό σας.',
-        'tools.standalone_title': 'Δική σας εφαρμογή, χωρίς CAD ή CAM.',
-        'tools.ask_title': 'Χρησιμοποιείτε κάτι άλλο;',
-        'tools.ask_desc': 'Η λίστα δείχνει πού έχουμε ήδη δουλέψει, όχι πού σταματάμε. Αν δουλεύετε με άλλο σύστημα CAD, CAM, BIM ή CNC, πείτε μας ποιο. Τα περισσότερα έχουν API πάνω στο οποίο μπορούμε να χτίσουμε.',
-        'tools.ask_cta': 'Ρωτήστε μας',
-        'tools.standalone_desc': 'Διαχείριση έργων, παρακολούθηση παραγωγής, δεδομένα από το εργοστάσιο στο γραφείο. Και προγράμματα σχεδιασμού που τρέχουν μόνα τους, χωρίς άλλο CAD ή CAM εγκατεστημένο.',
         'tools.disclaimer': 'Τα εμπορικά σήματα που αναφέρονται ανήκουν στους αντίστοιχους κατόχους τους.',
         // Why Us
         'whyus.label': 'Γιατί Εμείς',
         'whyus.title': 'Γιατί <strong>AidedCAM</strong>',
         'whyus.subtitle': 'Έχουμε κάνει τη δουλειά για την οποία φτιάχνουμε λογισμικό. Γι’ αυτό την καταλαβαίνουμε σε μέρες, όχι σε μήνες.',
-        'whyus.w1_title': 'Ζήσαμε το πρόβλημα από μέσα',
-        'whyus.w1_desc': 'Δουλέψαμε χρόνια με CAD, CAM, BIM και CNC, και την ίδια λογική τη φέρνουμε στη διαχείριση έργων και την παρακολούθηση παραγωγής. Ξέρουμε τι σημαίνει να χάνεις ώρες σε δουλειές που θα μπορούσαν να τρέχουν μόνες τους.',
-        'whyus.w2_title': 'Διεθνής εμπειρία',
-        'whyus.w2_desc': 'Δουλέψαμε με εταιρείες σε Βέλγιο, Ελβετία, Αυστρία, Γερμανία. Τώρα φέρνουμε την ίδια τεχνογνωσία στην Ελλάδα και την Ιταλία.',
-        'whyus.w3_title': 'Συνεχίζει να μεγαλώνει',
-        'whyus.w3_desc': 'Πληρώνετε μηνιαία, και κάθε μήνα το λογισμικό σας καλύπτει λίγο περισσότερη από τη δουλειά σας. Απεριόριστοι χρήστες, ενημερώσεις και υποστήριξη μέσα στην τιμή.',
-        'whyus.w4_title': 'Φτιαγμένο μόνο για εσάς',
-        'whyus.w4_desc': 'Τίποτα έτοιμο από το ράφι. Κανείς άλλος δεν έχει αυτό το πρόγραμμα, γιατί κανείς άλλος δεν δουλεύει ακριβώς όπως εσείς.',
         // About
-        'about.p1': 'Μηχανικοί και προγραμματιστές με χρόνια εμπειρίας σε τμήματα σχεδιασμού και παραγωγής.',
+        'about.p1': 'Η AidedCAM ιδρύθηκε το 2025, αλλά η δουλειά μας δεν ξεκίνησε τότε: είμαστε μηχανικοί και προγραμματιστές με 10 χρόνια σε τμήματα σχεδιασμού και παραγωγής, με CAD, CAM, BIM και CNC. Ξέρουμε τι σημαίνει να χάνεις ώρες σε δουλειές που θα μπορούσαν να τρέχουν μόνες τους.',
+        'footer.about': 'Μηχανικοί και προγραμματιστές με 10 χρόνια εμπειρίας σε τμήματα σχεδιασμού και παραγωγής.',
+        'about.p2': 'Δουλέψαμε με εταιρείες σε Βέλγιο, Ελβετία, Αυστρία και Γερμανία, και τώρα φέρνουμε την ίδια τεχνογνωσία στην Ελλάδα και την Ιταλία.',
         // Contact
         'contact.label': 'Επικοινωνία',
         'contact.title': '<strong>Έτοιμοι</strong> να ξεκινήσουμε;',
         'contact.subtitle': 'Πείτε μας τι κάνετε σήμερα με το χέρι και τι θα θέλατε να κάνει το λογισμικό σας. Θα απαντήσουμε εντός 48 ωρών με το πώς θα το φτιάχναμε.',
         'contact.athens': 'Αθήνα',
         'contact.thessaloniki': 'Θεσσαλονίκη',
+        'contact.addresses_label': 'Διευθύνσεις',
+        'contact.addresses': 'Ρογκότη 3, 546 24 Θεσσαλονίκη<br>Κορινθίας 7, 115 26 Αθήνα',
+        'contact.onsite': 'Ερχόμαστε και στην εταιρεία σας.',
         'hero.proof': '<span>Έργα σε <b>5 χώρες</b></span><span><b>8</b> συστήματα CAD/CAM/BIM</span><span>Απάντηση <b>εντός 48 ωρών</b></span>',
         'footer.explore': 'Πλοήγηση',
         'contact.form_company': 'Εταιρεία',
@@ -2052,11 +1940,32 @@
         // Pricing request (no prices in the HTML)
         'pricing.label': 'Τιμολόγηση',
         'pricing.title': 'Δύο τρόποι να <strong>συνεργαστούμε</strong>.',
-        'pricing.subtitle': 'Πληρώνετε ανά λύση, με τιμή που ορίζεται από το τι θα φτιάξουμε, ή μία σταθερή μηνιαία τιμή για όσες λύσεις χρειαστείτε. Αφήστε μας το email σας και θα σας στείλουμε τις τιμές σε PDF.',
+        'pricing.subtitle': 'Πληρώνετε ανά λύση, ανάλογα με το τι θα φτιάξουμε, ή μία σταθερή μηνιαία τιμή για όσες λύσεις χρειαστείτε. Αφήστε μας το email σας και θα σας στείλουμε τις τιμές σε PDF.',
         'pricing.gets_label': 'Στο PDF θα βρείτε',
         'pricing.get_1': 'Τις τιμές και των δύο τρόπων συνεργασίας',
         'pricing.get_2': 'Τι περιλαμβάνεται: ανάπτυξη, υποστήριξη, αλλαγές, χρήστες',
         'pricing.get_3': 'Ποιος τρόπος ταιριάζει στην εταιρεία σας',
+        'pricing.from_label': 'Ανά λύση',
+        'pricing.from_price': 'από €199<small>/μήνα</small>',
+        'pricing.from_note': 'Σε κάθε συνδρομή, απεριόριστοι χρήστες στην εταιρεία σας.',
+        'faq.label': 'Συχνές ερωτήσεις',
+        'faq.title': 'Πριν <strong>ξεκινήσουμε</strong>.',
+        'faq.q1': 'Πόσο κοστίζει;',
+        'faq.a1': 'Ανά λύση από €199 τον μήνα, ή μία σταθερή μηνιαία τιμή για όσες λύσεις χρειαστείτε. Τις αναλυτικές τιμές <a href="#timologisi">σας τις στέλνουμε σε PDF</a>.',
+        'faq.q2': 'Σε πόσο καιρό θα το έχουμε;',
+        'faq.a2': 'Συνήθως μέσα σε έναν μήνα έχετε μια λύση έτοιμη και τη χρησιμοποιείτε κανονικά. Εξαρτάται από το τι χρειάζεστε, και σας το λέμε πριν ξεκινήσουμε.',
+        'faq.q3': 'Τι περιλαμβάνει η τιμή;',
+        'faq.a3': 'Όλα, σε μία χρέωση: την ανάπτυξη, τις βιβλιοθήκες που χρησιμοποιεί το λογισμικό, τις ενημερώσεις, τις αλλαγές και την υποστήριξη μετά την παράδοση. Δεν περιλαμβάνει λογισμικό τρίτων: τις άδειες Revit, PowerMill ή άλλων προγραμμάτων τις έχετε ήδη ή τις αγοράζετε από τον κατασκευαστή τους.',
+        'faq.q4': 'Σε ποιον ανήκει ο κώδικας;',
+        'faq.a4': 'Τον κώδικα τον κρατάμε και τον συντηρούμε εμείς. Γι’ αυτό η συνδρομή καλύπτει όλη τη συντήρηση και δεν χρειάζεστε δικό σας προγραμματιστή. Ό,τι παράγει το λογισμικό, σχέδια, G-code, αναφορές και δεδομένα, είναι δικό σας.',
+        'faq.q5': 'Τι γίνεται αν σταματήσει η συνδρομή;',
+        'faq.a5': 'Σταματά και το λογισμικό. Τα αρχεία και τα δεδομένα που έφτιαξε μένουν δικά σας. Δεν υπάρχει ελάχιστη διάρκεια συνδρομής, και αν θέλετε να αποκτήσετε μια λύση οριστικά, συζητάμε εξαγορά.',
+        'faq.q6': 'Πότε έχουμε υποστήριξη;',
+        'faq.a6': 'Δευτέρα με Παρασκευή, με email, τηλέφωνο ή Teams. Ερχόμαστε και στην εταιρεία σας για εγκατάσταση και εκπαίδευση, στην Ελλάδα και στην Ιταλία. Στην Ιταλία η υποστήριξη γίνεται στα αγγλικά.',
+        'faq.q7': 'Υπογράφετε NDA;',
+        'faq.a7': 'Ναι, αν το χρειάζεστε, πριν μας δείξετε μοντέλα ή αρχεία. Γενικά προσαρμοζόμαστε σε ό,τι χρειάζεται η εταιρεία σας.',
+        'faq.q8': 'Δεν έχουμε CAD ή CAM. Μας αφορά;',
+        'faq.a8': 'Ναι. Αρκετές λύσεις μας είναι αυτόνομες εφαρμογές, χωρίς CAD ή CAM.',
         'pricing.form_submit': 'Στείλτε μου τις τιμές',
         'pricing.form_done_text': 'Σας στείλαμε το PDF στο email σας. Θα φτάσει σε λίγα λεπτά· αν δεν το δείτε, ελέγξτε και τα ανεπιθύμητα.',
         // Footer
@@ -2097,18 +2006,18 @@
         'nav.whatwedo': 'What We Build',
         'nav.solutions': 'Solutions',
         'nav.benefits': 'Benefits',
-        'nav.tools': 'Integrations',
         'nav.pricing': 'Pricing',
         'nav.whyus': 'Why Us',
+        'nav.faq': 'FAQ',
+        'nav.faq_short': 'FAQ',
         'nav.freetools': 'Tools',
         'nav.contact': 'Contact',
         // Hero
         'hero.title': 'Software <span class="highlight">made to fit</span>.<br>Built for one company:<br class="hero-br"> yours.',
-        'hero.subtitle': 'We start from your need, not from a ready-made product. Inside the programs you already use, or as your own application.',
+        'hero.subtitle': 'We build software that does your manual work. We connect it to your CAD/CAM/BIM, or build your own CAD/CAM/BIM, and whatever else you need.',
         'hero.cta': 'Get in Touch',
         'hero.book': 'Book a Call',
-        'hero.learn_more': 'Learn More',
-        'roi_teaser.heading': '<span class="roi-line"><span class="roi-hl">Time</span> returned immediately.</span><span class="roi-line"><span class="roi-hl">Quality</span> guaranteed always.</span><span class="roi-line"><span class="roi-hl">Software</span> built exclusively for you.</span><span class="roi-line"><span class="roi-hl">Monthly subscription</span>, unlimited users.</span>',
+        'roi_teaser.heading': '<span class="roi-line">How much time <span class="roi-hl">would you save</span>?</span>',
         'roi_teaser.cta': 'See what you gain',
         'hero.supported': 'Supported systems',
         'hero.ask': 'Something else? Ask us',
@@ -2124,21 +2033,18 @@
         // What we build — the three families
         'fam.label': 'What We Build',
         'fam.title': 'You show us the job. <strong>We build the software that does it.</strong>',
-        'fam.subtitle': 'Off-the-shelf software was built for thousands of companies. Yours is built for one. So far, that has taken three forms:',
+        'fam.subtitle': 'So far, the software we have built has taken three forms:',
         'fam.a_title': 'Task automation',
         'fam.a_desc': 'A job that takes ten manual steps today becomes one button: in your order, with your rules and your standards, the same every time.',
-        'fam.a_eg': 'e.g. cooling and screw holes on a mould, ready for the machine',
         'fam.b_title': 'Management: from Excel to a live picture',
         'fam.b_desc': 'Estimates, schedules, workload, hours. What lives in Excel files today becomes one shared application everyone sees and updates, with the same calculations you already trust.',
-        'fam.b_eg': 'e.g. project estimates and schedules in one shared database',
         'fam.c_title': 'Special CAD · CAM · BIM solutions',
         'fam.c_desc': 'Tools no off-the-shelf program offers: inside PowerMill or Revit as new buttons, or as your own application for design and machine programming.',
-        'fam.c_eg': 'e.g. from the DXF drawing to the lathe program, in six steps',
         'fam.turn': 'This is not theory. <strong>Each of these runs today</strong> in a company like yours.',
         // Built for real — four anonymised solutions
         'built.label': 'Built for real',
         'built.title': 'Built for real companies. <strong>In use every day.</strong>',
-        'built.subtitle': 'Four solutions we delivered. No names, just the work they do.',
+        'built.subtitle': 'Four solutions we delivered, and what each one does.',
         'built.fam_a': 'Automation',
         'built.fam_b': 'Management',
         'built.fam_c': 'CAD · CAM · BIM',
@@ -2148,20 +2054,17 @@
         'built.s1_desc': 'From the part drawing to the machine program in six steps, with no other CAM software.',
         'built.s1_f1': 'DXF import, profile closing, 3D part in one click',
         'built.s1_f2': 'Roughing and finishing cycles, Fanuc G-code for each side',
-        'built.s1_f3': 'Machining-time estimate and help built into the app',
         'built.s1_outcome': '<b>2 days → 12 min</b> of design and programming',
         'built.s2_sector': 'Mould making',
         'built.s2_title': 'Mould automation inside PowerShape, PowerMill and Siemens NX',
         'built.s2_desc': 'The app reads the mould components and programs the standard machining with one button.',
         'built.s2_f1': 'A routing plan per phase, replacing the hand-kept plan',
         'built.s2_f2': 'Cooling, screw and plate holes in the company’s own order and rules',
-        'built.s2_f3': 'Electrode projects that set themselves up',
         'built.s2_outcome': '<b>4 days → 26 min</b> to program a mould plate',
         'built.s3_sector': 'Industrial equipment, BIM department',
         'built.s3_title': 'Forty Revit commands in one ribbon tab',
         'built.s3_desc': 'Every repetitive modelling chore of the department became a button inside Revit.',
         'built.s3_f1': 'Duct and pipe splitting, supports, a roof exhaust in one command',
-        'built.s3_f2': 'Cable data check: model against Excel',
         'built.s3_f3': 'Sheet export to PDF, DWG, DWFX and IFC in one run',
         'built.s3_outcome': '<b>1 day → 11 min</b> for drawings and schedules from the model',
         'built.s4_sector': 'Structural engineering office',
@@ -2169,7 +2072,6 @@
         'built.s4_desc': 'Estimates, schedule, workload and hours in one application on a shared database, with the office’s own calculations.',
         'built.s4_f1': 'Estimates that recalculate live, like their sheet did',
         'built.s4_f2': 'Gantt schedule and per-person workload across all projects',
-        'built.s4_f3': 'Hours logged by everyone, and nobody’s change gets lost',
         'built.s4_outcome': '<b>One shared source</b> instead of dozens of Excel files',
         'built.before': 'Before',
         'built.after': 'After',
@@ -2204,35 +2106,24 @@
         // Calculator
         'calc.cta': 'Calculate with your own numbers',
         // Tools / Integrations
-        'tools.label': 'Integrations',
-        'tools.title': 'Inside the tools you already use, <strong>or on its own</strong>.',
-        'tools.subtitle': 'You keep the programs you have and the way you work in them. Where it fits, your software is added inside them as new buttons. Where there is no program, we build your own.',
-        'tools.standalone_title': 'Your own app, with no CAD or CAM.',
-        'tools.ask_title': 'Using something else?',
-        'tools.ask_desc': 'This list shows where we have already built, not where we stop. If you work in another CAD, CAM, BIM or CNC system, tell us which. Most have an API we can build on.',
-        'tools.ask_cta': 'Ask us',
-        'tools.standalone_desc': 'Project management, production tracking, data from the shop floor to the office. And design programs that run on their own, with no other CAD or CAM installed.',
         'tools.disclaimer': 'All trademarks mentioned belong to their respective owners.',
         // Why Us
         'whyus.label': 'Why Us',
         'whyus.title': 'Why <strong>AidedCAM</strong>',
         'whyus.subtitle': 'We have done the work we build software for. That is why we understand it in days, not in months.',
-        'whyus.w1_title': 'We lived the problem from the inside',
-        'whyus.w1_desc': 'We worked for years with CAD, CAM, BIM and CNC, and we bring the same thinking to project management and production tracking. We know what it means to lose hours on work that could run on its own.',
-        'whyus.w2_title': 'International experience',
-        'whyus.w2_desc': 'We worked with companies in Belgium, Switzerland, Austria, Germany. Now we bring the same expertise to Greece and Italy.',
-        'whyus.w3_title': 'It keeps growing',
-        'whyus.w3_desc': 'You pay monthly, and every month your software covers a little more of your work. Unlimited users, updates and support included.',
-        'whyus.w4_title': 'Made for you alone',
-        'whyus.w4_desc': 'Nothing off the shelf. Nobody else has this program, because nobody else works exactly like you.',
         // About
-        'about.p1': 'Engineers and developers with years of experience in design offices and on production floors.',
+        'about.p1': 'AidedCAM was founded in 2025, but our work did not start then: we are engineers and developers with 10 years in design offices and on production floors, working with CAD, CAM, BIM and CNC. We know what it means to lose hours on work that could run on its own.',
+        'footer.about': 'Engineers and developers with 10 years of experience in design offices and on production floors.',
+        'about.p2': 'We have worked with companies in Belgium, Switzerland, Austria and Germany, and now we bring the same expertise to Greece and Italy.',
         // Contact
         'contact.label': 'Contact',
         'contact.title': '<strong>Ready</strong> to get started?',
         'contact.subtitle': 'Tell us what you do by hand today and what you would want your software to do. We reply within 48 hours with how we would build it.',
         'contact.athens': 'Athens',
         'contact.thessaloniki': 'Thessaloniki',
+        'contact.addresses_label': 'Addresses',
+        'contact.addresses': 'Rogkoti 3, 546 24 Thessaloniki<br>Korinthias 7, 115 26 Athens',
+        'contact.onsite': 'We also come to your company.',
         'hero.proof': '<span>Projects in <b>5 countries</b></span><span><b>8</b> CAD/CAM/BIM systems</span><span>Reply <b>within 48 hours</b></span>',
         'footer.explore': 'Explore',
         'contact.form_company': 'Company',
@@ -2250,11 +2141,32 @@
         // Pricing request (no prices in the HTML)
         'pricing.label': 'Pricing',
         'pricing.title': 'Two ways to <strong>work with us</strong>.',
-        'pricing.subtitle': 'Pay per solution, priced by what we build, or one flat monthly price for as many solutions as you need. Leave your email and we\'ll send you the prices as a PDF.',
+        'pricing.subtitle': 'Pay per solution, depending on what we build, or one flat monthly price for as many solutions as you need. Leave your email and we\'ll send you the prices as a PDF.',
         'pricing.gets_label': 'In the PDF',
         'pricing.get_1': 'The prices of both ways of working',
         'pricing.get_2': 'What\'s included: development, support, changes, users',
         'pricing.get_3': 'Which way fits your company',
+        'pricing.from_label': 'Per solution',
+        'pricing.from_price': 'from €199<small>/month</small>',
+        'pricing.from_note': 'Every subscription includes unlimited users in your company.',
+        'faq.label': 'FAQ',
+        'faq.title': 'Before <strong>we start</strong>.',
+        'faq.q1': 'What does it cost?',
+        'faq.a1': 'Per solution from €199 a month, or one flat monthly price for as many solutions as you need. We <a href="#timologisi">send the detailed prices as a PDF</a>.',
+        'faq.q2': 'How soon will we have it?',
+        'faq.a2': 'Usually within a month you have a solution ready and in daily use. It depends on what you need, and we tell you before we start.',
+        'faq.q3': 'What does the price include?',
+        'faq.a3': 'Everything, in one fee: development, the libraries the software uses, updates, changes and support after delivery. It does not include third-party software: Revit, PowerMill or other licences you already have or buy from their vendor.',
+        'faq.q4': 'Who owns the code?',
+        'faq.a4': 'We keep the code and maintain it. That is why the subscription covers all maintenance and you don\'t need a developer of your own. Everything the software produces, drawings, G-code, reports and data, is yours.',
+        'faq.q5': 'What happens if the subscription stops?',
+        'faq.a5': 'The software stops too. The files and data it produced stay yours. There is no minimum term, and if you want to own a solution outright, we can discuss a buy-out.',
+        'faq.q6': 'When is support available?',
+        'faq.a6': 'Monday to Friday, by email, phone or Teams. We also come to your company for installation and training, in Greece and in Italy. In Italy, support is in English.',
+        'faq.q7': 'Do you sign an NDA?',
+        'faq.a7': 'Yes, if you need one, before you show us models or files. In general we adapt to what your company needs.',
+        'faq.q8': 'We don\'t use CAD or CAM. Is this for us?',
+        'faq.a8': 'Yes. Several of our solutions are standalone apps, with no CAD or CAM.',
         'pricing.form_submit': 'Send me the prices',
         'pricing.form_done_text': 'We\'ve emailed you the PDF. It will arrive in a few minutes; if you don\'t see it, check your spam folder.',
         // Footer
@@ -2295,18 +2207,18 @@
         'nav.whatwedo': 'Cosa Costruiamo',
         'nav.solutions': 'Soluzioni',
         'nav.benefits': 'Vantaggi',
-        'nav.tools': 'Integrazioni',
         'nav.pricing': 'Prezzi',
         'nav.whyus': 'Perché Noi',
+        'nav.faq': 'Domande frequenti',
+        'nav.faq_short': 'FAQ',
         'nav.freetools': 'Strumenti',
         'nav.contact': 'Contatti',
         // Hero
         'hero.title': 'Software <span class="highlight">su misura</span>.<br>Fatto per una sola azienda:<br class="hero-br"> la vostra.',
-        'hero.subtitle': 'Partiamo dalla vostra esigenza, non da un prodotto pronto. Dentro i programmi che già usate, oppure come vostra applicazione.',
+        'hero.subtitle': 'Sviluppiamo software che fa il vostro lavoro manuale. Lo colleghiamo al vostro CAD/CAM/BIM, o sviluppiamo un CAD/CAM/BIM tutto vostro, e tutto ciò che vi serve.',
         'hero.cta': 'Contattaci',
         'hero.book': 'Prenota una Chiamata',
-        'hero.learn_more': 'Scopri di Più',
-        'roi_teaser.heading': '<span class="roi-line"><span class="roi-hl">Tempo</span> restituito immediatamente.</span><span class="roi-line"><span class="roi-hl">Qualit\u00e0</span> garantita sempre.</span><span class="roi-line"><span class="roi-hl">Software</span> costruito esclusivamente per voi.</span><span class="roi-line"><span class="roi-hl">Abbonamento mensile</span>, utenti illimitati.</span>',
+        'roi_teaser.heading': '<span class="roi-line">Quanto tempo <span class="roi-hl">risparmiereste</span> voi?</span>',
         'roi_teaser.cta': 'Scoprite cosa guadagnate',
         'hero.supported': 'Sistemi supportati',
         'hero.ask': 'Qualcos’altro? Chiedeteci',
@@ -2322,21 +2234,18 @@
         // What we build — the three families
         'fam.label': 'Cosa Costruiamo',
         'fam.title': 'Ci mostrate il lavoro. <strong>Costruiamo il software che lo fa.</strong>',
-        'fam.subtitle': 'Il software standard è fatto per migliaia di aziende. Il vostro è fatto per una sola. Finora ha preso tre forme:',
+        'fam.subtitle': 'Finora, il software che abbiamo costruito ha preso tre forme:',
         'fam.a_title': 'Automazione delle attività',
         'fam.a_desc': 'Un lavoro che oggi richiede dieci passaggi a mano diventa un pulsante: nel vostro ordine, con le vostre regole e i vostri standard, uguale ogni volta.',
-        'fam.a_eg': 'es. fori di raffreddamento e viti su uno stampo, pronti per la macchina',
         'fam.b_title': 'Gestione: dall’Excel a un quadro in tempo reale',
         'fam.b_desc': 'Preventivi, pianificazioni, carichi di lavoro, ore. Ciò che oggi vive in file Excel diventa un’unica applicazione condivisa che tutti vedono e aggiornano, con gli stessi calcoli di cui già vi fidate.',
-        'fam.b_eg': 'es. preventivi e pianificazione dei progetti in un unico database condiviso',
         'fam.c_title': 'Soluzioni speciali CAD · CAM · BIM',
         'fam.c_desc': 'Strumenti che nessun programma standard offre: dentro PowerMill o Revit come nuovi pulsanti, oppure come vostra applicazione di progettazione e programmazione macchine.',
-        'fam.c_eg': 'es. dal disegno DXF al programma del tornio, in sei passaggi',
         'fam.turn': 'Non è teoria. <strong>Ognuna di queste gira oggi</strong> in un’azienda come la vostra.',
         // Built for real — four anonymised solutions
         'built.label': 'Soluzioni realizzate',
         'built.title': 'Fatto per aziende vere. <strong>In uso ogni giorno.</strong>',
-        'built.subtitle': 'Quattro soluzioni che abbiamo consegnato. Senza nomi, con il lavoro che fanno.',
+        'built.subtitle': 'Quattro soluzioni che abbiamo consegnato, e cosa fa ciascuna.',
         'built.fam_a': 'Automazione',
         'built.fam_b': 'Gestione',
         'built.fam_c': 'CAD · CAM · BIM',
@@ -2346,20 +2255,17 @@
         'built.s1_desc': 'Dal disegno del pezzo al programma macchina in sei passaggi, senza altro software CAM.',
         'built.s1_f1': 'Importazione DXF, chiusura del profilo, pezzo 3D con un clic',
         'built.s1_f2': 'Cicli di sgrossatura e finitura, G-code Fanuc per ogni lato',
-        'built.s1_f3': 'Stima del tempo di lavorazione e guida integrata',
         'built.s1_outcome': '<b>2 giorni → 12 min</b> di progettazione e programmazione',
         'built.s2_sector': 'Costruzione stampi',
         'built.s2_title': 'Automazione stampi dentro PowerShape, PowerMill e Siemens NX',
         'built.s2_desc': 'L’applicazione legge i componenti dello stampo e programma le lavorazioni standard con un pulsante.',
         'built.s2_f1': 'Piano di instradamento per fase, al posto del piano tenuto a mano',
         'built.s2_f2': 'Fori di raffreddamento, viti e piastra nell’ordine e con le regole dell’azienda',
-        'built.s2_f3': 'Progetti elettrodi che si impostano da soli',
         'built.s2_outcome': '<b>4 giorni → 26 min</b> per programmare una piastra stampo',
         'built.s3_sector': 'Attrezzature industriali, reparto BIM',
         'built.s3_title': 'Quaranta comandi Revit in un’unica scheda',
         'built.s3_desc': 'Ogni lavoro ripetitivo di modellazione del reparto è diventato un pulsante dentro Revit.',
         'built.s3_f1': 'Taglio di condotti e tubi, supporti, uno scarico a tetto con un comando',
-        'built.s3_f2': 'Controllo dati cavi: modello contro Excel',
         'built.s3_f3': 'Esportazione tavole in PDF, DWG, DWFX e IFC in un’unica esecuzione',
         'built.s3_outcome': '<b>1 giorno → 11 min</b> per tavole e abachi dal modello',
         'built.s4_sector': 'Studio di ingegneria strutturale',
@@ -2367,7 +2273,6 @@
         'built.s4_desc': 'Preventivi, pianificazione, carichi e ore in un’unica applicazione su un database condiviso, con i calcoli dello studio.',
         'built.s4_f1': 'Preventivi che si ricalcolano in tempo reale, come il loro foglio',
         'built.s4_f2': 'Pianificazione Gantt e carico per persona su tutti i progetti',
-        'built.s4_f3': 'Ore registrate da tutti, senza che nessuna modifica vada persa',
         'built.s4_outcome': '<b>Un’unica fonte condivisa</b> invece di decine di file Excel',
         'built.before': 'Prima',
         'built.after': 'Dopo',
@@ -2402,35 +2307,24 @@
         // Calculator
         'calc.cta': 'Calcolate con i vostri numeri',
         // Tools / Integrations
-        'tools.label': 'Integrazioni',
-        'tools.title': 'Dentro gli strumenti che già usate, <strong>o da solo</strong>.',
-        'tools.subtitle': 'Tenete i programmi che avete e il modo in cui ci lavorate. Dove serve, il vostro software si aggiunge al loro interno come nuovi pulsanti. Dove un programma non c’è, lo costruiamo noi per voi.',
-        'tools.standalone_title': 'Un’applicazione vostra, senza CAD né CAM.',
-        'tools.ask_title': 'Usate qualcos’altro?',
-        'tools.ask_desc': 'Questa lista mostra dove abbiamo già lavorato, non dove ci fermiamo. Se lavorate con un altro sistema CAD, CAM, BIM o CNC, diteci quale. La maggior parte ha un’API su cui possiamo costruire.',
-        'tools.ask_cta': 'Chiedeteci',
-        'tools.standalone_desc': 'Gestione dei progetti, monitoraggio della produzione, dati dall’officina all’ufficio. E programmi di progettazione che funzionano da soli, senza altro CAD o CAM installato.',
         'tools.disclaimer': 'Tutti i marchi menzionati appartengono ai rispettivi proprietari.',
         // Why Us
         'whyus.label': 'Perché Noi',
         'whyus.title': 'Perché <strong>AidedCAM</strong>',
         'whyus.subtitle': 'Abbiamo fatto il lavoro per cui costruiamo software. Per questo lo capiamo in giorni, non in mesi.',
-        'whyus.w1_title': 'Abbiamo vissuto il problema dall\'interno',
-        'whyus.w1_desc': 'Abbiamo lavorato per anni con CAD, CAM, BIM e CNC, e portiamo lo stesso approccio nella gestione dei progetti e nel monitoraggio della produzione. Sappiamo cosa significa perdere ore in lavori che potrebbero funzionare da soli.',
-        'whyus.w2_title': 'Esperienza internazionale',
-        'whyus.w2_desc': 'Abbiamo lavorato con aziende in Belgio, Svizzera, Austria, Germania. Ora portiamo la stessa competenza in Grecia e in Italia.',
-        'whyus.w3_title': 'Continua a crescere',
-        'whyus.w3_desc': 'Pagate ogni mese, e ogni mese il vostro software copre un po’ di più del vostro lavoro. Utenti illimitati, aggiornamenti e assistenza inclusi.',
-        'whyus.w4_title': 'Fatto solo per voi',
-        'whyus.w4_desc': 'Niente di preconfezionato. Nessun altro ha questo programma, perché nessun altro lavora esattamente come voi.',
         // About
-        'about.p1': 'Ingegneri e sviluppatori con anni di esperienza in uffici tecnici e reparti produttivi.',
+        'about.p1': 'AidedCAM è stata fondata nel 2025, ma il nostro lavoro non è iniziato allora: siamo ingegneri e sviluppatori con 10 anni in uffici tecnici e reparti produttivi, con CAD, CAM, BIM e CNC. Sappiamo cosa vuol dire perdere ore in lavori che potrebbero andare da soli.',
+        'footer.about': 'Ingegneri e sviluppatori con 10 anni di esperienza in uffici tecnici e reparti produttivi.',
+        'about.p2': 'Abbiamo lavorato con aziende in Belgio, Svizzera, Austria e Germania, e ora portiamo la stessa competenza in Grecia e in Italia.',
         // Contact
         'contact.label': 'Contatti',
         'contact.title': '<strong>Pronti</strong> per iniziare?',
         'contact.subtitle': 'Diteci cosa fate a mano oggi e cosa vorreste che facesse il vostro software. Vi rispondiamo entro 48 ore con come lo costruiremmo.',
         'contact.athens': 'Atene',
         'contact.thessaloniki': 'Salonicco',
+        'contact.addresses_label': 'Indirizzi',
+        'contact.addresses': 'Rogkoti 3, 546 24 Salonicco<br>Korinthias 7, 115 26 Atene',
+        'contact.onsite': 'Veniamo anche nella vostra azienda.',
         'hero.proof': '<span>Progetti in <b>5 paesi</b></span><span><b>8</b> sistemi CAD/CAM/BIM</span><span>Risposta <b>entro 48 ore</b></span>',
         'footer.explore': 'Esplora',
         'contact.form_company': 'Azienda',
@@ -2448,11 +2342,32 @@
         // Pricing request (no prices in the HTML)
         'pricing.label': 'Prezzi',
         'pricing.title': 'Due modi di <strong>lavorare insieme</strong>.',
-        'pricing.subtitle': 'Pagate per soluzione, con un prezzo definito da ciò che sviluppiamo, oppure un prezzo mensile fisso per tutte le soluzioni di cui avete bisogno. Lasciateci la vostra email e vi invieremo i prezzi in PDF.',
+        'pricing.subtitle': 'Pagate per soluzione, a seconda di ciò che sviluppiamo, oppure un prezzo mensile fisso per tutte le soluzioni di cui avete bisogno. Lasciateci la vostra email e vi invieremo i prezzi in PDF.',
         'pricing.gets_label': 'Nel PDF',
         'pricing.get_1': 'I prezzi di entrambi i modi di lavorare',
         'pricing.get_2': 'Cosa è incluso: sviluppo, assistenza, modifiche, utenti',
         'pricing.get_3': 'Quale modo fa per la vostra azienda',
+        'pricing.from_label': 'Per soluzione',
+        'pricing.from_price': 'da €199<small>/mese</small>',
+        'pricing.from_note': 'Ogni abbonamento include utenti illimitati nella vostra azienda.',
+        'faq.label': 'Domande frequenti',
+        'faq.title': 'Prima di <strong>iniziare</strong>.',
+        'faq.q1': 'Quanto costa?',
+        'faq.a1': 'Per soluzione da €199 al mese, oppure un prezzo mensile fisso per tutte le soluzioni di cui avete bisogno. I prezzi dettagliati <a href="#timologisi">ve li inviamo in PDF</a>.',
+        'faq.q2': 'In quanto tempo è pronto?',
+        'faq.a2': 'Di solito entro un mese avete una soluzione pronta e in uso. Dipende da ciò di cui avete bisogno, e ve lo diciamo prima di iniziare.',
+        'faq.q3': 'Cosa include il prezzo?',
+        'faq.a3': 'Tutto, in un unico canone: lo sviluppo, le librerie usate dal software, gli aggiornamenti, le modifiche e l’assistenza dopo la consegna. Non include software di terzi: le licenze di Revit, PowerMill o altri programmi le avete già o le acquistate dal produttore.',
+        'faq.q4': 'Di chi è il codice?',
+        'faq.a4': 'Il codice lo teniamo e lo manteniamo noi. Per questo l’abbonamento copre tutta la manutenzione e non vi serve un vostro programmatore. Tutto ciò che il software produce, disegni, G-code, report e dati, è vostro.',
+        'faq.q5': 'Cosa succede se l’abbonamento si interrompe?',
+        'faq.a5': 'Si ferma anche il software. I file e i dati che ha prodotto restano vostri. Non c’è una durata minima, e se volete una soluzione in modo definitivo, possiamo discutere un riscatto.',
+        'faq.q6': 'Quando c’è assistenza?',
+        'faq.a6': 'Dal lunedì al venerdì, via email, telefono o Teams. Veniamo anche nella vostra azienda per installazione e formazione, in Grecia e in Italia. In Italia l’assistenza è in inglese.',
+        'faq.q7': 'Firmate un NDA?',
+        'faq.a7': 'Sì, se vi serve, prima che ci mostriate modelli o file. In generale ci adattiamo a ciò di cui la vostra azienda ha bisogno.',
+        'faq.q8': 'Non usiamo CAD né CAM. Fa per noi?',
+        'faq.a8': 'Sì. Diverse nostre soluzioni sono applicazioni autonome, senza CAD né CAM.',
         'pricing.form_submit': 'Inviatemi i prezzi',
         'pricing.form_done_text': 'Vi abbiamo inviato il PDF via email. Arriverà tra pochi minuti; se non lo vedete, controllate anche lo spam.',
         // Footer

@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AidedCAM - Τι Κερδίζετε</title>
-  <meta name="description" content="Δείτε τι κερδίζετε με μία συνεργασία AidedCAM. Εξοικονόμηση 1.700+ ωρών/χειριστή, εξασφαλισμένη ποιότητα, λογισμικό φτιαγμένο για εσάς." />
+  <meta name="description" content="Δείτε τι κερδίζετε με μία συνεργασία AidedCAM: ώρες που επιστρέφουν, λιγότερα λάθη, λογισμικό φτιαγμένο για εσάς." />
   <meta name="robots" content="index, follow" />
   <meta property="og:title" content="AidedCAM - Τι Κερδίζετε" />
-  <meta property="og:description" content="Δείτε τι κερδίζετε με μία συνεργασία AidedCAM. Εξοικονόμηση 1.700+ ωρών/χειριστή, εξασφαλισμένη ποιότητα, λογισμικό φτιαγμένο για εσάς." />
+  <meta property="og:description" content="Δείτε τι κερδίζετε με μία συνεργασία AidedCAM: ώρες που επιστρέφουν, λιγότερα λάθη, λογισμικό φτιαγμένο για εσάς." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.aidedcam.com/what-you-gain.html" />
   <meta property="og:image" content="https://www.aidedcam.com/og/home.png" />
@@ -20,7 +20,7 @@
   <meta property="og:locale:alternate" content="it_IT" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="AidedCAM - Τι Κερδίζετε" />
-  <meta name="twitter:description" content="Δείτε τι κερδίζετε με μία συνεργασία AidedCAM. Εξοικονόμηση 1.700+ ωρών/χειριστή, εξασφαλισμένη ποιότητα, λογισμικό φτιαγμένο για εσάς." />
+  <meta name="twitter:description" content="Δείτε τι κερδίζετε με μία συνεργασία AidedCAM: ώρες που επιστρέφουν, λιγότερα λάθη, λογισμικό φτιαγμένο για εσάς." />
   <meta name="twitter:image" content="https://www.aidedcam.com/og/home.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
@@ -76,7 +76,7 @@
   </script>
   <link rel="stylesheet" href="fonts.css?v=20260923" />
   <link rel="stylesheet" href="css/editorial.css?v=20260927" />
-  <noscript><style>.fade-in { opacity: 1 !important; transform: none !important; } .roi-content, .roi-locked { display: block !important; opacity: 1 !important; }</style></noscript>
+  <noscript><style>.fade-in { opacity: 1 !important; transform: none !important; } .roi-content { display: block !important; opacity: 1 !important; }</style></noscript>
   <style>
     /* ===== Tokens, base, navbar, nav-logo, lang-switcher, footer, consent,
        scroll-progress, back-to-top, buttons, section base and fade-in now
@@ -109,157 +109,15 @@
     }
     .nav-back:hover::before { transform: rotate(90deg) translateY(3px); }
 
-    /* ── Submit / CTA right-arrow glyphs ── */
-    .form-submit { display: inline-flex; align-items: center; justify-content: center; gap: 0.55rem; }
-    .form-submit::after, .roi-closing .cta-btn::after {
+    /* ── CTA right-arrow glyph ── */
+    .roi-closing .cta-btn::after {
       content: ''; width: 1em; height: 1em; flex: none;
       background-color: currentColor;
       -webkit-mask: var(--ic-arrow-r) center / contain no-repeat;
               mask: var(--ic-arrow-r) center / contain no-repeat;
       transition: transform 0.25s ease;
     }
-    .form-submit:hover::after, .roi-closing .cta-btn:hover::after { transform: translateX(3px); }
-
-    /* ===== GATE SECTION ===== */
-    /* The gate no longer walls the page: the hero and the first pillar are
-       open, the form sits between pillar 1 and 2 and unlocks the rest. */
-    .gate-section {
-      display: flex; align-items: center; justify-content: center;
-      background: var(--paper-2);
-      padding: clamp(3rem, 6vw, 5rem) 2rem;
-      position: relative;
-      border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
-    }
-    .gate-section.is-unlocked { display: none; }
-    .roi-locked { display: none; }
-    .roi-locked.is-unlocked { display: block; }
-    .gate-teaser {
-      font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--accent-deep); margin: -0.6rem 0 1.2rem;
-    }
-    .form-note a { color: var(--ink); text-decoration: underline; text-underline-offset: 2px; }
-
-    .gate-card {
-      position: relative; z-index: 1;
-      max-width: 520px; width: 100%;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 2px; padding: clamp(2rem, 5vw, 3rem);
-      box-shadow: var(--elev-1);
-    }
-
-    .gate-badge {
-      display: inline-flex; align-items: center; gap: .55rem;
-      font-family: var(--font-mono); font-size: 0.72rem;
-      color: var(--muted); text-transform: uppercase;
-      letter-spacing: 0.18em; font-weight: 500; margin-bottom: 1.4rem;
-    }
-    .gate-badge::before {
-      content: ''; width: 6px; height: 6px; border-radius: 50%;
-      background: var(--accent);
-    }
-
-    .gate-title {
-      font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2rem);
-      font-weight: 300; color: var(--ink); line-height: 1.15;
-      margin-bottom: 0.8rem; letter-spacing: -0.02em;
-    }
-    .gate-title .hl,
-    .gate-title strong { color: var(--accent-deep); font-weight: 600; }
-
-    .gate-subtitle {
-      font-size: 0.98rem; color: var(--muted);
-      line-height: 1.7; margin-bottom: 2rem; font-weight: 400;
-    }
-
-    .form-group { margin-bottom: 1.2rem; }
-
-    .form-label {
-      display: block; font-family: var(--font-mono);
-      font-size: 0.68rem; font-weight: 500;
-      color: var(--muted); text-transform: uppercase;
-      letter-spacing: 0.14em; margin-bottom: 0.5rem;
-    }
-    .form-label .required { color: var(--accent); }
-
-    .form-input, .form-select {
-      width: 100%; padding: 0.7rem 0.9rem;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 2px; color: var(--ink);
-      font-family: var(--font-body); font-size: 0.92rem;
-      transition: border-color 0.2s ease;
-    }
-    .form-input::placeholder { color: var(--faint); }
-    .form-input:focus, .form-select:focus {
-      outline: none; border-color: var(--accent);
-    }
-    .form-select { cursor: pointer; appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' fill='none' stroke='%236b6a60' stroke-width='1.5'/%3E%3C/svg%3E");
-      background-repeat: no-repeat; background-position: right 1rem center;
-    }
-    .form-select option { background: var(--panel); color: var(--ink); }
-
-    .form-checkbox-group {
-      display: flex; gap: 0.6rem; margin-top: 0.3rem;
-    }
-    .form-toggle {
-      display: flex; align-items: center; gap: 0.5rem;
-      cursor: pointer;
-    }
-    .form-toggle input { display: none; }
-    .form-toggle .toggle-pill {
-      padding: 0.45rem 1.1rem; border-radius: 2px;
-      border: 1px solid var(--line);
-      font-size: 0.8rem; font-weight: 500; color: var(--muted);
-      transition: all 0.2s ease;
-      font-family: var(--font-body);
-    }
-    .form-toggle input:checked + .toggle-pill {
-      background: var(--ink); border-color: var(--ink); color: #fff;
-    }
-
-    .form-submit {
-      width: 100%; padding: 0.9rem; margin-top: 0.5rem;
-      background: var(--ink);
-      color: #fff; border: 1px solid var(--ink);
-      border-radius: 2px; font-family: var(--font-display);
-      font-weight: 600; font-size: 0.82rem; text-transform: uppercase;
-      letter-spacing: 0.04em; cursor: pointer;
-      transition: background 0.25s ease, border-color 0.25s ease;
-    }
-    .form-submit:hover {
-      background: var(--accent-deep); border-color: var(--accent-deep);
-    }
-    .form-submit:disabled {
-      opacity: 0.5; cursor: not-allowed;
-    }
-
-    .form-note {
-      text-align: center; margin-top: 1rem;
-      font-size: 0.76rem; color: var(--faint);
-    }
-
-    /* Multi-select chips for CAD/CAM */
-    .system-pills {
-      display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.3rem;
-    }
-    .system-pill {
-      padding: 0.4rem 0.9rem; border-radius: 2px;
-      border: 1px solid var(--line);
-      font-size: 0.78rem; font-weight: 500; color: var(--muted);
-      cursor: pointer; transition: all 0.2s ease;
-      font-family: var(--font-body); background: var(--panel);
-    }
-    .system-pill:hover { border-color: var(--line-strong); color: var(--ink); }
-    .system-pill.selected {
-      background: var(--panel); border-color: var(--accent);
-      color: var(--accent-deep); font-weight: 600;
-    }
-    .system-other-input {
-      margin-top: 0.5rem; display: none;
-    }
-    .system-other-input.visible { display: block; }
+    .roi-closing .cta-btn:hover::after { transform: translateX(3px); }
 
     /* ===== ROI CONTENT (hidden initially) ===== */
     .roi-content {
@@ -329,8 +187,7 @@
       border-bottom: 1px solid var(--line);
     }
     /* Explicit alternation (nth-child counted across different parents).
-       Visible sequences: hero(alt) · p1 · gate(alt) before unlock;
-       hero(alt) · p1 · p2(alt) · p3 · p4(alt) · closing after. */
+       Sequence: hero(alt) · p1 · p2(alt) · p3 · p4(alt) · closing. */
     .pillar--alt { background: var(--paper-2); }
 
     .pillar-header {
@@ -372,13 +229,6 @@
       margin-bottom: 0.5rem;
     }
     .bar-label { font-size: 1.02rem; font-weight: 600; color: var(--ink); }
-    .bar-pct {
-      font-family: var(--font-mono);
-      font-size: 0.72rem; font-weight: 500; color: var(--accent-deep);
-      border: 1px solid var(--line);
-      border-radius: 2px;
-      padding: 0.12rem 0.6rem;
-    }
 
     .bar-row {
       display: flex; gap: 0.8rem; align-items: center;
@@ -416,43 +266,6 @@
     .bar-arrow {
       color: var(--line-strong); font-size: 1.1rem; flex-shrink: 0;
     }
-
-    /* ===== SCALING CARD ===== */
-    .scaling-card {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 2px; padding: 1.6rem; margin-top: 1.5rem;
-      display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;
-      transition: border-color 0.25s ease, transform 0.25s ease;
-    }
-    .scaling-card:hover { border-color: var(--line-strong); }
-    @media (hover: hover) and (pointer: fine) {
-      .scaling-card:hover { transform: translateY(-3px); }
-    }
-
-    .scaling-text { flex: 1 1 200px; }
-    .scaling-text .label {
-      font-family: var(--font-mono);
-      font-size: 0.72rem; color: var(--muted); font-weight: 500;
-      text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 0.6rem;
-    }
-    .scaling-text .timeline {
-      font-size: 1.05rem; color: var(--muted); line-height: 2;
-    }
-    .scaling-text strong { color: var(--ink); font-weight: 600; }
-
-    .scaling-counter {
-      flex: 0 0 auto; text-align: center;
-      background: var(--paper-2); border: 1px solid var(--line);
-      border-radius: 2px;
-      padding: 1.5rem 2.2rem;
-    }
-    .scaling-counter .small { font-size: 0.82rem; color: var(--faint); margin-bottom: 0.3rem; }
-    .scaling-counter .big {
-      font-family: var(--font-mono); font-size: 3rem;
-      font-weight: 600; color: var(--accent-deep); line-height: 1;
-    }
-    .scaling-counter .unit { font-size: 0.88rem; color: var(--muted); font-weight: 500; }
 
     /* ===== QUALITY CARDS ===== */
     .quality-grid {
@@ -629,7 +442,6 @@
     /* ===== RESPONSIVE (page-specific; shared nav/footer/consent lives in css/editorial.css) ===== */
     @media (max-width: 768px) {
       .nav-back { display: none; }
-      .gate-card { padding: 2rem 1.5rem; }
       .container { padding: 0 1.5rem; }
 
       /* Hero */
@@ -653,13 +465,6 @@
       .bar-track { height: 36px; }
       .bar-value { font-size: 0.8rem; }
       .bar-fill { padding-right: 0.4rem; }
-
-      /* Scaling card */
-      .scaling-card { flex-direction: column; text-align: center; gap: 1.2rem; padding: 1.2rem; }
-      .scaling-text .label { font-size: 0.8rem; }
-      .scaling-text .timeline { font-size: 0.95rem; }
-      .scaling-counter { padding: 1rem 1.5rem; }
-      .scaling-counter .big { font-size: 2.4rem; }
 
       /* Quality */
       .quality-grid { grid-template-columns: 1fr; gap: 0.8rem; }
@@ -695,10 +500,6 @@
 
     @media (max-width: 380px) {
       .services-grid { grid-template-columns: 1fr; }
-      .gate-section { padding: 30px 0.8rem; }
-      .gate-card { padding: 1.5rem 1.2rem; }
-      .system-pills { gap: 0.3rem; }
-      .system-pill { padding: 0.3rem 0.7rem; font-size: 0.7rem; }
     }
 
     /* ===== Consent banner now lives in css/editorial.css ===== */
@@ -754,12 +555,11 @@
           <div class="pillar-num">01</div>
           <h2 class="pillar-title" data-i18n="roi.p1_title">Χρόνος που επιστρέφεται αμέσως</h2>
         </div>
-        <p class="pillar-intro fade-in" data-i18n-html="roi.p1_intro">Το νιώθετε την πρώτη εβδομάδα. Κάθε νέα λύση <strong>προστίθεται στην προηγούμενη</strong>.</p>
+        <p class="pillar-intro fade-in" data-i18n-html="roi.p1_intro">Το νιώθετε από τον πρώτο μήνα. Κάθε νέα λύση <strong>προστίθεται στην προηγούμενη</strong>.</p>
 
         <div class="bar-group fade-in">
           <div class="bar-header">
             <span class="bar-label" data-i18n="roi.process1">Προγραμματισμός πλάκας καλουπιού</span>
-            <span class="bar-pct">-99%</span>
           </div>
           <div class="bar-row">
             <div class="bar-col">
@@ -776,7 +576,6 @@
         <div class="bar-group fade-in fade-in-d1">
           <div class="bar-header">
             <span class="bar-label" data-i18n="roi.process2">Από το σχέδιο στο πρόγραμμα τόρνου</span>
-            <span class="bar-pct">-99%</span>
           </div>
           <div class="bar-row">
             <div class="bar-col">
@@ -793,7 +592,6 @@
         <div class="bar-group fade-in fade-in-d2">
           <div class="bar-header">
             <span class="bar-label" data-i18n="roi.process3">Σχέδια και πίνακες από το μοντέλο Revit</span>
-            <span class="bar-pct">-98%</span>
           </div>
           <div class="bar-row">
             <div class="bar-col">
@@ -806,99 +604,9 @@
             </div>
           </div>
         </div>
-
-        <div class="bar-group fade-in fade-in-d3">
-          <div class="bar-header">
-            <span class="bar-label" data-i18n="roi.process4">Έγγραφα για την παραγωγή</span>
-            <span class="bar-pct">-99%</span>
-          </div>
-          <div class="bar-row">
-            <div class="bar-col">
-              <div class="bar-col-label" data-i18n="roi.before">Πριν</div>
-              <div class="bar-track bar-track-before"><div class="bar-fill bar-fill-before" data-width="100"><span class="bar-value bar-value-before">120 min</span></div></div>
-            </div>
-            <div class="bar-col">
-              <div class="bar-col-label" data-i18n="roi.after">Μετά</div>
-              <div class="bar-track bar-track-after"><div class="bar-fill bar-fill-after" data-width="5"><span class="bar-value bar-value-after">3 sec</span></div></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="scaling-card fade-in fade-in-d4">
-          <div class="scaling-text">
-            <div class="label" data-i18n="roi.scaling_label">Και μεγαλώνει κάθε μήνα</div>
-            <div class="timeline" data-i18n-html="roi.scaling_timeline">
-              Μήνας 1 &rarr; <strong>2 διαδικασίες</strong><br>
-              Μήνας 6 &rarr; <strong>8 διαδικασίες</strong><br>
-              Μήνας 12 &rarr; <strong>15+ διαδικασίες</strong>
-            </div>
-          </div>
-          <div class="scaling-counter">
-            <div class="small" data-i18n="roi.annual_savings">Ετήσια εξοικονόμηση</div>
-            <div class="big" id="animCounter">0+</div>
-            <div class="unit" data-i18n="roi.hours_per_op">ώρες / άτομο</div>
-          </div>
-        </div>
       </div>
     </section>
 
-  <!-- GATE: Lead capture form -->
-  <section class="gate-section" id="gateSection">
-    <div class="gate-card">
-      <div class="gate-badge">AIDEDCAM</div>
-      <h2 class="gate-title" data-i18n-html="roi.gate_title">Δείτε τι <span class="hl">πραγματικά κερδίζετε</span></h2>
-      <p class="gate-teaser" data-i18n="roi.gate_teaser">Ακολουθούν 3 ακόμη ενότητες</p>
-      <p class="gate-subtitle" data-i18n="roi.gate_subtitle">Συμπληρώστε τα παρακάτω και δείτε τι κερδίζετε με την AidedCAM.</p>
-
-      <form id="roiForm" action="https://formspree.io/f/xaqllyao" method="POST">
-        <div class="form-group">
-          <label class="form-label" data-i18n-html="roi.label_company">Επωνυμία εταιρείας <span class="required">*</span></label>
-          <input type="text" name="company" class="form-input" required data-i18n-placeholder="roi.ph_company" placeholder="π.χ. Μεταλλοτεχνική ΑΕ" />
-        </div>
-
-        <div class="form-group">
-          <label class="form-label" data-i18n-html="roi.label_email">Email <span class="required">*</span></label>
-          <input type="email" name="email" class="form-input" required placeholder="info@company.com" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="email@domain.com" />
-        </div>
-
-        <div class="form-group">
-          <label class="form-label" data-i18n="roi.label_system">Σύστημα CAD/CAM/BIM</label>
-          <div class="system-pills" id="systemPills">
-            <button type="button" class="system-pill" data-value="PowerShape">PowerShape</button>
-            <button type="button" class="system-pill" data-value="PowerMill">PowerMill</button>
-            <button type="button" class="system-pill" data-value="Fusion360">Fusion 360</button>
-            <button type="button" class="system-pill" data-value="FeatureCAM">FeatureCAM</button>
-            <button type="button" class="system-pill" data-value="Inventor">Inventor</button>
-            <button type="button" class="system-pill" data-value="SiemensNX">Siemens NX</button>
-            <button type="button" class="system-pill" data-value="Revit">Revit</button>
-            <button type="button" class="system-pill" data-value="AutoCAD">AutoCAD</button>
-            <button type="button" class="system-pill" data-value="other" data-i18n="roi.other">Άλλο</button>
-          </div>
-          <input type="text" name="system_other" class="form-input system-other-input" id="systemOtherInput" data-i18n-placeholder="roi.ph_other" placeholder="Γράψτε το σύστημά σας..." />
-          <input type="hidden" name="systems" id="systemsHidden" />
-        </div>
-
-        <div class="form-group">
-          <label class="form-label" data-i18n="roi.label_project">Έχετε κάποιο project στο μυαλό σας;</label>
-          <div class="form-checkbox-group">
-            <label class="form-toggle">
-              <input type="radio" name="has_project" value="yes" />
-              <span class="toggle-pill" data-i18n="roi.yes">Ναι</span>
-            </label>
-            <label class="form-toggle">
-              <input type="radio" name="has_project" value="no" checked />
-              <span class="toggle-pill" data-i18n="roi.no">Όχι</span>
-            </label>
-          </div>
-        </div>
-
-        <button type="submit" class="form-submit" data-i18n="roi.submit">Δείτε τι κερδίζετε</button>
-        <p class="form-note" data-i18n-html="roi.form_note">Χωρίς δέσμευση. Υποβάλλοντας, αποδέχεστε την <a href="privacy.html">Πολιτική Απορρήτου</a>· χρησιμοποιούμε τα στοιχεία μόνο για να επικοινωνήσουμε μαζί σας.</p>
-      </form>
-    </div>
-  </section>
-
-    <div class="roi-locked" id="roiLocked">
     <!-- PILLAR 2: QUALITY -->
     <section class="pillar pillar--alt" id="pillar2">
       <div class="container">
@@ -906,7 +614,7 @@
           <div class="pillar-num">02</div>
           <h2 class="pillar-title" data-i18n="roi.p2_title">Ποιότητα που εξασφαλίζεται πάντα</h2>
         </div>
-        <p class="pillar-intro fade-in" data-i18n-html="roi.p2_intro">Το λάθος εξαρτάται από κούραση, πίεση, συγκυρίες. <strong>Η εφαρμογή δεν εξαρτάται από τίποτα.</strong></p>
+        <p class="pillar-intro fade-in" data-i18n-html="roi.p2_intro">Το λάθος εξαρτάται από κούραση, πίεση, συγκυρίες. <strong>Η εφαρμογή κάνει τα ίδια βήματα κάθε φορά.</strong></p>
 
         <div class="quality-grid">
           <div class="quality-card fade-in">
@@ -922,8 +630,8 @@
             <p data-i18n="roi.q_inform_desc">Κάθε αλλαγή, κάθε απόφαση, καταγράφεται. Ξέρετε ποιος έκανε τι, πότε, και γιατί.</p>
           </div>
           <div class="quality-card fade-in fade-in-d3">
-            <h4 data-i18n="roi.q_fix">Διορθώνει</h4>
-            <p data-i18n="roi.q_fix_desc">Αν μια τρύπα έχει λάθος διάμετρο, λείπει μια κατεργασία ή ένα σχέδιο δεν ακολουθεί το πρότυπο, το πρόγραμμα το εντοπίζει και το διορθώνει πριν φύγει η δουλειά.</p>
+            <h4 data-i18n="roi.q_fix">Επισημαίνει</h4>
+            <p data-i18n="roi.q_fix_desc">Αν μια τρύπα έχει λάθος διάμετρο, λείπει μια κατεργασία ή ένα σχέδιο δεν ακολουθεί το πρότυπο, το πρόγραμμα το εντοπίζει και σας το δείχνει πριν φύγει η δουλειά.</p>
           </div>
         </div>
 
@@ -934,7 +642,7 @@
           </div>
           <div class="comparison-side comparison-with">
             <div class="comp-label" data-i18n="roi.with">Με AidedCAM</div>
-            <div class="comp-text" data-i18n-html="roi.with_quality">Το πρόγραμμα το κάνει <strong>σωστά κάθε φορά</strong><br><strong>σε κάθε δουλειά</strong></div>
+            <div class="comp-text" data-i18n-html="roi.with_quality">Το πρόγραμμα ακολουθεί <strong>τους ίδιους κανόνες</strong><br><strong>σε κάθε δουλειά</strong></div>
           </div>
         </div>
       </div>
@@ -960,18 +668,7 @@
             <h4 data-i18n="roi.why_fast">Γιατί γρήγορα</h4>
             <div class="custom-item"><span class="bullet">&#9889;</span><span data-i18n="roi.fast1">Δουλέψαμε χρόνια σε τμήματα σχεδιασμού και παραγωγής. Ξέρουμε ήδη.</span></div>
             <div class="custom-item"><span class="bullet">&#9889;</span><span data-i18n="roi.fast2">Μιλάμε τη γλώσσα σας: σχέδια, μοντέλα, κατεργασίες, μηχανές</span></div>
-            <div class="custom-item"><span class="bullet">&#9889;</span><span data-i18n="roi.fast3">Χωρίς μήνες εξηγήσεων. Αρχίζουμε να χτίζουμε την πρώτη εβδομάδα.</span></div>
-          </div>
-        </div>
-
-        <div class="comparison fade-in fade-in-d2">
-          <div class="comparison-side comparison-without">
-            <div class="comp-label" data-i18n="roi.typical_house">Τυπικό software house</div>
-            <div class="comp-text" data-i18n-html="roi.typical_house_text">3-6 μήνες μόνο για να<br><strong>καταλάβουν τι κάνετε</strong></div>
-          </div>
-          <div class="comparison-side comparison-with">
-            <div class="comp-label">AidedCAM</div>
-            <div class="comp-text" data-i18n-html="roi.aidedcam_fast_text">Ήδη ξέρουμε. Ξεκινάμε<br><strong>από τη δεύτερη μέρα</strong></div>
+            <div class="custom-item"><span class="bullet">&#9889;</span><span data-i18n="roi.fast3">Χωρίς μήνες εξηγήσεων. Μέσα σε έναν μήνα η λύση σας είναι σε χρήση.</span></div>
           </div>
         </div>
       </div>
@@ -1006,7 +703,7 @@
           </div>
           <div class="comparison-side comparison-with">
             <div class="comp-label">AidedCAM</div>
-            <div class="comp-text" data-i18n-html="roi.aidedcam_pricing_text">Απεριόριστοι χρήστες · σταθερή μηνιαία τιμή<br><strong>0 επιπλέον κόστη</strong></div>
+            <div class="comp-text" data-i18n-html="roi.aidedcam_pricing_text">Απεριόριστοι χρήστες · σταθερή μηνιαία τιμή<br><strong>χωρίς χρέωση ανά χρήστη</strong></div>
           </div>
         </div>
       </div>
@@ -1018,7 +715,6 @@
       <a href="mailto:info@aidedcam.com" class="cta-btn" data-i18n="roi.closing_cta">Ας μιλήσουμε</a>
         <a href="calculator.html" class="cta-btn cta-btn-outline" data-i18n="roi.calc_crosslink">Υπολογίστε με τα δικά σας νούμερα</a>
     </section>
-    </div><!-- /roiLocked -->
 
     <!-- FOOTER -->
     <div class="roi-footer">
@@ -1090,52 +786,33 @@
     var translations = {
       el: {
         'roi.back': 'Αρχική',
-        'roi.gate_title': 'Δείτε τι <span class="hl">πραγματικά κερδίζετε</span>',
-        'roi.gate_subtitle': 'Συμπληρώστε τα παρακάτω και δείτε τι κερδίζετε με την AidedCAM.',
-        'roi.label_company': 'Επωνυμία εταιρείας <span class="required">*</span>',
-        'roi.ph_company': 'π.χ. Μεταλλοτεχνική ΑΕ',
-        'roi.label_email': 'Email <span class="required">*</span>',
-        'roi.label_system': 'Σύστημα CAD/CAM/BIM',
-        'roi.other': 'Άλλο',
-        'roi.ph_other': 'Γράψτε το σύστημά σας...',
-        'roi.label_project': 'Έχετε κάποιο project στο μυαλό σας;',
-        'roi.yes': 'Ναι',
-        'roi.no': 'Όχι',
-        'roi.submit': 'Δείτε τι κερδίζετε',
-        'roi.form_note': 'Χωρίς δέσμευση. Υποβάλλοντας, αποδέχεστε την <a href="privacy.html">Πολιτική Απορρήτου</a>· χρησιμοποιούμε τα στοιχεία μόνο για να επικοινωνήσουμε μαζί σας.',
-        'roi.gate_teaser': 'Ακολουθούν 3 ακόμη ενότητες',
         'roi.greeting_prefix': 'Για την',
         'roi.hero_title': '<span class="hl">Χρόνος</span> που επιστρέφεται αμέσως.<br><span class="hl">Ποιότητα</span> που εξασφαλίζεται πάντα.<br><span class="hl">Λογισμικό</span> φτιαγμένο αποκλειστικά για εσάς.<br><span class="hl">Μηνιαία συνδρομή</span>, απεριόριστοι χρήστες.',
         'roi.tagline': 'Αυτά κερδίζετε στην πράξη.',
         'roi.p1_title': 'Χρόνος που επιστρέφεται αμέσως',
-        'roi.p1_intro': 'Το νιώθετε την πρώτη εβδομάδα. Κάθε νέα λύση <strong>προστίθεται στην προηγούμενη</strong>.',
+        'roi.p1_intro': 'Το νιώθετε από τον πρώτο μήνα. Κάθε νέα λύση <strong>προστίθεται στην προηγούμενη</strong>.',
         'roi.process1': 'Προγραμματισμός πλάκας καλουπιού',
         'roi.process2': 'Από το σχέδιο στο πρόγραμμα τόρνου',
         'roi.process3': 'Σχέδια και πίνακες από το μοντέλο Revit',
-        'roi.process4': 'Έγγραφα για την παραγωγή',
         'roi.bar1_before': '4 μέρες',
         'roi.bar2_before': '2 μέρες',
         'roi.bar3_before': '1 μέρα',
         'roi.before': 'Πριν',
         'roi.after': 'Μετά',
-        'roi.scaling_label': 'Και μεγαλώνει κάθε μήνα',
-        'roi.scaling_timeline': 'Μήνας 1 \u2192 <strong>2 διαδικασίες</strong><br>Μήνας 6 \u2192 <strong>8 διαδικασίες</strong><br>Μήνας 12 \u2192 <strong>15+ διαδικασίες</strong>',
-        'roi.annual_savings': 'Ετήσια εξοικονόμηση',
-        'roi.hours_per_op': 'ώρες / άτομο',
         'roi.p2_title': 'Ποιότητα που εξασφαλίζεται πάντα',
-        'roi.p2_intro': 'Το λάθος εξαρτάται από κούραση, πίεση, συγκυρίες. <strong>Η εφαρμογή δεν εξαρτάται από τίποτα.</strong>',
+        'roi.p2_intro': 'Το λάθος εξαρτάται από κούραση, πίεση, συγκυρίες. <strong>Η εφαρμογή κάνει τα ίδια βήματα κάθε φορά.</strong>',
         'roi.q_check': 'Ελέγχει',
         'roi.q_check_desc': 'Πριν φύγει οτιδήποτε από τα χέρια σας, το πρόγραμμα ελέγχει τη γεωμετρία, τις ρυθμίσεις και τα πρότυπα με βάση τους δικούς σας κανόνες.',
         'roi.q_prompt': 'Προτρέπει',
         'roi.q_prompt_desc': 'Αν λείπει ένα βήμα ή μια ρύθμιση δεν ταιριάζει, ο χρήστης ενημερώνεται πριν προχωρήσει, όχι μετά.',
         'roi.q_inform': 'Ενημερώνει',
         'roi.q_inform_desc': 'Κάθε αλλαγή, κάθε απόφαση, καταγράφεται. Ξέρετε ποιος έκανε τι, πότε, και γιατί.',
-        'roi.q_fix': 'Διορθώνει',
-        'roi.q_fix_desc': 'Αν μια τρύπα έχει λάθος διάμετρο, λείπει μια κατεργασία ή ένα σχέδιο δεν ακολουθεί το πρότυπο, το πρόγραμμα το εντοπίζει και το διορθώνει πριν φύγει η δουλειά.',
+        'roi.q_fix': 'Επισημαίνει',
+        'roi.q_fix_desc': 'Αν μια τρύπα έχει λάθος διάμετρο, λείπει μια κατεργασία ή ένα σχέδιο δεν ακολουθεί το πρότυπο, το πρόγραμμα το εντοπίζει και σας το δείχνει πριν φύγει η δουλειά.',
         'roi.without': 'Χωρίς AidedCAM',
         'roi.with': 'Με AidedCAM',
         'roi.without_quality': 'Η ποιότητα εξαρτάται από<br><strong>το ποιος το έκανε και πότε</strong>',
-        'roi.with_quality': 'Το πρόγραμμα το κάνει <strong>σωστά κάθε φορά</strong><br><strong>σε κάθε δουλειά</strong>',
+        'roi.with_quality': 'Το πρόγραμμα ακολουθεί <strong>τους ίδιους κανόνες</strong><br><strong>σε κάθε δουλειά</strong>',
         'roi.p3_title': 'Λογισμικό φτιαγμένο αποκλειστικά για εσάς',
         'roi.p3_intro': 'Μέχρι σήμερα προσαρμοζόσασταν εσείς στο λογισμικό. Αυτή τη φορά το λογισμικό χτίζεται γύρω από το <strong>πώς δουλεύει ήδη η εταιρεία σας</strong>.',
         'roi.why_unique': 'Γιατί δεν υπάρχει αλλού',
@@ -1145,10 +822,7 @@
         'roi.why_fast': 'Γιατί γρήγορα',
         'roi.fast1': 'Δουλέψαμε χρόνια σε τμήματα σχεδιασμού και παραγωγής. Ξέρουμε ήδη.',
         'roi.fast2': 'Μιλάμε τη γλώσσα σας: σχέδια, μοντέλα, κατεργασίες, μηχανές',
-        'roi.fast3': 'Χωρίς μήνες εξηγήσεων. Αρχίζουμε να χτίζουμε την πρώτη εβδομάδα.',
-        'roi.typical_house': 'Τυπικό software house',
-        'roi.typical_house_text': '3-6 μήνες μόνο για να<br><strong>καταλάβουν τι κάνετε</strong>',
-        'roi.aidedcam_fast_text': 'Ήδη ξέρουμε. Ξεκινάμε<br><strong>από τη δεύτερη μέρα</strong>',
+        'roi.fast3': 'Χωρίς μήνες εξηγήσεων. Μέσα σε έναν μήνα η λύση σας είναι σε χρήση.',
         'roi.p4_title': 'Μηνιαία συνδρομή, απεριόριστοι χρήστες',
         'roi.includes': 'Τι περιλαμβάνει',
         'roi.svc1': 'Περνάμε τη δουλειά σας μαζί σας',
@@ -1161,7 +835,7 @@
         'roi.svc8': 'Κάποιος να πάρετε τηλέφωνο',
         'roi.typical_software': 'Τυπικό λογισμικό',
         'roi.typical_software_text': 'Άδεια ανά χρήστη + χρέωση υποστήριξης<br><strong>+ ξεχωριστές χρεώσεις για κάθε υπηρεσία</strong>',
-        'roi.aidedcam_pricing_text': 'Απεριόριστοι χρήστες · σταθερή μηνιαία τιμή<br><strong>0 επιπλέον κόστη</strong>',
+        'roi.aidedcam_pricing_text': 'Απεριόριστοι χρήστες · σταθερή μηνιαία τιμή<br><strong>χωρίς χρέωση ανά χρήστη</strong>',
         'roi.closing': 'Πόσες ώρες χάθηκαν αυτή την εβδομάδα σε δουλειά που θα μπορούσε να γίνει αυτόματα;',
         'roi.closing_cta': 'Ας μιλήσουμε',
         'roi.calc_crosslink': 'Υπολογίστε με τα δικά σας νούμερα',
@@ -1185,56 +859,37 @@
         'footer.legal': 'Νομικά',
         'footer.cookie_settings': 'Ρυθμίσεις Cookies',
         '_title': 'AidedCAM - Τι Κερδίζετε',
-        '_description': 'Δείτε τι κερδίζετε με μία συνεργασία AidedCAM. Εξοικονόμηση 1.700+ ωρών/χειριστή, εξασφαλισμένη ποιότητα, λογισμικό φτιαγμένο για εσάς.'
+        '_description': 'Δείτε τι κερδίζετε με μία συνεργασία AidedCAM: ώρες που επιστρέφουν, λιγότερα λάθη, λογισμικό φτιαγμένο για εσάς.'
       },
       en: {
         'roi.back': 'Home',
-        'roi.gate_title': 'See what you <span class="hl">actually gain</span>',
-        'roi.gate_subtitle': 'Fill in the details below and see exactly what you gain by partnering with AidedCAM.',
-        'roi.label_company': 'Company name <span class="required">*</span>',
-        'roi.ph_company': 'e.g. Precision Machining Ltd',
-        'roi.label_email': 'Email <span class="required">*</span>',
-        'roi.label_system': 'CAD/CAM/BIM system',
-        'roi.other': 'Other',
-        'roi.ph_other': 'Type your system...',
-        'roi.label_project': 'Do you have a project in mind?',
-        'roi.yes': 'Yes',
-        'roi.no': 'No',
-        'roi.submit': 'See what you gain',
-        'roi.form_note': 'No commitment. By submitting you accept our <a href="privacy.html">Privacy Policy</a>; we use your details only to get in touch with you.',
-        'roi.gate_teaser': '3 more sections follow',
         'roi.greeting_prefix': 'For',
         'roi.hero_title': '<span class="hl">Time</span> returned immediately.<br><span class="hl">Quality</span> guaranteed always.<br><span class="hl">Software</span> built exclusively for you.<br><span class="hl">Monthly subscription</span>, unlimited users.',
         'roi.tagline': 'This is what you actually gain.',
         'roi.p1_title': 'Time returned immediately',
-        'roi.p1_intro': 'You feel it the first week. Every new solution <strong>adds to the last one</strong>.',
+        'roi.p1_intro': 'You feel it from the first month. Every new solution <strong>adds to the last one</strong>.',
         'roi.process1': 'Programming a mould plate',
         'roi.process2': 'From drawing to lathe program',
         'roi.process3': 'Sheets and schedules from the Revit model',
-        'roi.process4': 'Paperwork for production',
         'roi.bar1_before': '4 days',
         'roi.bar2_before': '2 days',
         'roi.bar3_before': '1 day',
         'roi.before': 'Before',
         'roi.after': 'After',
-        'roi.scaling_label': 'And it grows every month',
-        'roi.scaling_timeline': 'Month 1 \u2192 <strong>2 processes</strong><br>Month 6 \u2192 <strong>8 processes</strong><br>Month 12 \u2192 <strong>15+ processes</strong>',
-        'roi.annual_savings': 'Annual savings',
-        'roi.hours_per_op': 'hours / person',
         'roi.p2_title': 'Quality guaranteed always',
-        'roi.p2_intro': 'Errors depend on fatigue, pressure, circumstances. <strong>The software depends on nothing.</strong>',
+        'roi.p2_intro': 'Errors depend on fatigue, pressure, circumstances. <strong>The software takes the same steps every time.</strong>',
         'roi.q_check': 'Checks',
         'roi.q_check_desc': 'Before anything leaves your hands, the program checks the geometry, the settings and the standards against your rules.',
         'roi.q_prompt': 'Prompts',
         'roi.q_prompt_desc': 'If a step is missing or a setting doesn’t match, the user is told before proceeding, not after.',
         'roi.q_inform': 'Informs',
         'roi.q_inform_desc': 'Every change, every decision, is logged. You know who did what, when, and why.',
-        'roi.q_fix': 'Corrects',
-        'roi.q_fix_desc': 'If a hole has the wrong diameter, an operation is missing or a drawing breaks your standard, the program spots it and fixes it before the job goes out.',
+        'roi.q_fix': 'Flags',
+        'roi.q_fix_desc': 'If a hole has the wrong diameter, an operation is missing or a drawing breaks your standard, the program spots it and shows you before the job goes out.',
         'roi.without': 'Without AidedCAM',
         'roi.with': 'With AidedCAM',
         'roi.without_quality': 'Quality depends on<br><strong>who did it and when</strong>',
-        'roi.with_quality': 'The program does it <strong>right every time</strong><br><strong>on every job</strong>',
+        'roi.with_quality': 'The program follows <strong>the same rules</strong><br><strong>on every job</strong>',
         'roi.p3_title': 'Software built exclusively for you',
         'roi.p3_intro': 'Until now you adapted to the software. This time the software is built around <strong>how your company already works</strong>.',
         'roi.why_unique': 'Why it doesn\'t exist elsewhere',
@@ -1244,10 +899,7 @@
         'roi.why_fast': 'Why it\'s fast',
         'roi.fast1': 'We worked for years in design offices and on production floors. We already know.',
         'roi.fast2': 'We speak your language: drawings, models, machining, machines',
-        'roi.fast3': 'No months of explaining. We start building the first week.',
-        'roi.typical_house': 'Typical software house',
-        'roi.typical_house_text': '3-6 months just to<br><strong>understand what you do</strong>',
-        'roi.aidedcam_fast_text': 'We already know. We start<br><strong>from day two</strong>',
+        'roi.fast3': 'No months of explaining. Within a month your solution is in use.',
         'roi.p4_title': 'Monthly subscription, unlimited users',
         'roi.includes': 'What\'s included',
         'roi.svc1': 'Going through your work with you',
@@ -1260,7 +912,7 @@
         'roi.svc8': 'Someone to call',
         'roi.typical_software': 'Typical software',
         'roi.typical_software_text': 'Per-user license + support fees<br><strong>+ separate charges for each service</strong>',
-        'roi.aidedcam_pricing_text': 'Unlimited users \u00b7 a flat monthly price<br><strong>0 extra costs</strong>',
+        'roi.aidedcam_pricing_text': 'Unlimited users · a flat monthly price<br><strong>no per-user fees</strong>',
         'roi.closing': 'How many hours were lost this week on work that could have been automated?',
         'roi.closing_cta': 'Let\'s talk',
         'roi.calc_crosslink': 'Calculate with your own numbers',
@@ -1284,56 +936,37 @@
         'footer.legal': 'Legal',
         'footer.cookie_settings': 'Cookie Settings',
         '_title': 'AidedCAM - What You Gain',
-        '_description': 'See what you gain by working with AidedCAM: 1,700+ hours saved per operator, assured quality, software made for you.'
+        '_description': 'See what you gain by working with AidedCAM: hours back, fewer errors, software made for you.'
       },
       it: {
         'roi.back': 'Home',
-        'roi.gate_title': 'Scoprite cosa <span class="hl">guadagnate davvero</span>',
-        'roi.gate_subtitle': 'Compilate i dati qui sotto e scoprite esattamente cosa guadagnate con una collaborazione AidedCAM.',
-        'roi.label_company': 'Nome azienda <span class="required">*</span>',
-        'roi.ph_company': 'es. Precision Machining Srl',
-        'roi.label_email': 'Email <span class="required">*</span>',
-        'roi.label_system': 'Sistema CAD/CAM/BIM',
-        'roi.other': 'Altro',
-        'roi.ph_other': 'Inserite il vostro sistema...',
-        'roi.label_project': 'Avete un progetto in mente?',
-        'roi.yes': 'S\u00ec',
-        'roi.no': 'No',
-        'roi.submit': 'Scoprite cosa guadagnate',
-        'roi.form_note': 'Nessun impegno. Inviando accettate la nostra <a href="privacy.html">Informativa sulla privacy</a>; usiamo i vostri dati solo per contattarvi.',
-        'roi.gate_teaser': 'Seguono altre 3 sezioni',
         'roi.greeting_prefix': 'Per',
         'roi.hero_title': '<span class="hl">Tempo</span> restituito immediatamente.<br><span class="hl">Qualit\u00e0</span> garantita sempre.<br><span class="hl">Software</span> costruito esclusivamente per voi.<br><span class="hl">Abbonamento mensile</span>, utenti illimitati.',
         'roi.tagline': 'Questo è ciò che guadagnate davvero.',
         'roi.p1_title': 'Tempo restituito immediatamente',
-        'roi.p1_intro': 'Lo sentite la prima settimana. Ogni nuova soluzione <strong>si somma alla precedente</strong>.',
+        'roi.p1_intro': 'Lo sentite dal primo mese. Ogni nuova soluzione <strong>si somma alla precedente</strong>.',
         'roi.process1': 'Programmazione di una piastra stampo',
         'roi.process2': 'Dal disegno al programma tornio',
         'roi.process3': 'Tavole e abachi dal modello Revit',
-        'roi.process4': 'Documenti per la produzione',
         'roi.bar1_before': '4 giorni',
         'roi.bar2_before': '2 giorni',
         'roi.bar3_before': '1 giorno',
         'roi.before': 'Prima',
         'roi.after': 'Dopo',
-        'roi.scaling_label': 'E cresce ogni mese',
-        'roi.scaling_timeline': 'Mese 1 \u2192 <strong>2 processi</strong><br>Mese 6 \u2192 <strong>8 processi</strong><br>Mese 12 \u2192 <strong>15+ processi</strong>',
-        'roi.annual_savings': 'Risparmio annuale',
-        'roi.hours_per_op': 'ore / persona',
         'roi.p2_title': 'Qualit\u00e0 garantita sempre',
-        'roi.p2_intro': 'L\'errore dipende da stanchezza, pressione, circostanze. <strong>Il software non dipende da nulla.</strong>',
+        'roi.p2_intro': 'L’errore dipende da stanchezza, pressione, circostanze. <strong>Il software fa gli stessi passaggi ogni volta.</strong>',
         'roi.q_check': 'Controlla',
         'roi.q_check_desc': 'Prima che qualcosa esca dalle vostre mani, il programma controlla geometria, impostazioni e standard secondo le vostre regole.',
         'roi.q_prompt': 'Avvisa',
         'roi.q_prompt_desc': 'Se manca un passaggio o un’impostazione non corrisponde, l’utente viene avvisato prima di procedere, non dopo.',
         'roi.q_inform': 'Informa',
         'roi.q_inform_desc': 'Ogni modifica, ogni decisione, viene registrata. Sapete chi ha fatto cosa, quando e perch\u00e9.',
-        'roi.q_fix': 'Corregge',
-        'roi.q_fix_desc': 'Se un foro ha il diametro sbagliato, manca una lavorazione o un disegno non rispetta lo standard, il programma lo individua e lo corregge prima che il lavoro esca.',
+        'roi.q_fix': 'Segnala',
+        'roi.q_fix_desc': 'Se un foro ha il diametro sbagliato, manca una lavorazione o un disegno non rispetta lo standard, il programma lo individua e ve lo mostra prima che il lavoro esca.',
         'roi.without': 'Senza AidedCAM',
         'roi.with': 'Con AidedCAM',
         'roi.without_quality': 'La qualità dipende da<br><strong>chi lo ha fatto e quando</strong>',
-        'roi.with_quality': 'Il programma lo fa <strong>bene ogni volta</strong><br><strong>su ogni lavoro</strong>',
+        'roi.with_quality': 'Il programma segue <strong>le stesse regole</strong><br><strong>su ogni lavoro</strong>',
         'roi.p3_title': 'Software costruito esclusivamente per voi',
         'roi.p3_intro': 'Finora vi adattavate voi al software. Questa volta il software si costruisce attorno a <strong>come lavora già la vostra azienda</strong>.',
         'roi.why_unique': 'Perch\u00e9 non esiste altrove',
@@ -1343,10 +976,7 @@
         'roi.why_fast': 'Perch\u00e9 \u00e8 veloce',
         'roi.fast1': 'Abbiamo lavorato per anni in uffici tecnici e in produzione. Sappiamo già.',
         'roi.fast2': 'Parliamo la vostra lingua: disegni, modelli, lavorazioni, macchine',
-        'roi.fast3': 'Niente mesi di spiegazioni. Iniziamo a costruire la prima settimana.',
-        'roi.typical_house': 'Tipica software house',
-        'roi.typical_house_text': '3-6 mesi solo per<br><strong>capire cosa fate</strong>',
-        'roi.aidedcam_fast_text': 'Sappiamo già. Iniziamo<br><strong>dal secondo giorno</strong>',
+        'roi.fast3': 'Niente mesi di spiegazioni. Entro un mese la vostra soluzione è in uso.',
         'roi.p4_title': 'Abbonamento mensile, utenti illimitati',
         'roi.includes': 'Cosa include',
         'roi.svc1': 'Ripercorriamo il vostro lavoro con voi',
@@ -1359,7 +989,7 @@
         'roi.svc8': 'Qualcuno da chiamare',
         'roi.typical_software': 'Software tipico',
         'roi.typical_software_text': 'Licenza per utente + costi di supporto<br><strong>+ addebiti separati per ogni servizio</strong>',
-        'roi.aidedcam_pricing_text': 'Utenti illimitati \u00b7 un prezzo mensile fisso<br><strong>0 costi aggiuntivi</strong>',
+        'roi.aidedcam_pricing_text': 'Utenti illimitati · un prezzo mensile fisso<br><strong>nessun costo per utente</strong>',
         'roi.closing': 'Quante ore sono state perse questa settimana in lavoro che poteva essere automatizzato?',
         'roi.closing_cta': 'Parliamone',
         'roi.calc_crosslink': 'Calcolate con i vostri numeri',
@@ -1383,26 +1013,9 @@
         'footer.legal': 'Note Legali',
         'footer.cookie_settings': 'Impostazioni Cookie',
         '_title': 'AidedCAM - Cosa Guadagnate',
-        '_description': 'Scoprite cosa guadagnate lavorando con AidedCAM: oltre 1.700 ore risparmiate per operatore, qualità garantita, software fatto per voi.'
+        '_description': 'Scoprite cosa guadagnate lavorando con AidedCAM: ore recuperate, meno errori, software fatto per voi.'
       }
     };
-
-    // Counter / bar state (declared before the init code below runs)
-    var COUNTER_TARGET = 1700;
-    var COUNTER_SUFFIX = '+';
-    var counterDone = false;    // the 1,700+ counter has reached its final value
-    var counterArmed = false;   // an observer is already waiting for it
-    var LOCALES = { el: 'el-GR', en: 'en-GB', it: 'it-IT' };
-    function reducedMotion() {
-      return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-    }
-    function formatCount(n) {
-      return n.toLocaleString(LOCALES[document.documentElement.lang] || 'el-GR') + COUNTER_SUFFIX;
-    }
-    function renderCounterFinal() {
-      var el = document.getElementById('animCounter');
-      if (el) el.textContent = formatCount(COUNTER_TARGET);
-    }
 
     // ===== I18N ENGINE =====
     function setLanguage(lang) {
@@ -1432,8 +1045,6 @@
       });
 
       lsSet('aidedcam-lang', lang);
-      // A counter that has already finished is re-formatted in the new locale.
-      if (counterDone) renderCounterFinal();
     }
 
     // Init language
@@ -1448,18 +1059,15 @@
     var currentLang = urlLang || savedLang || browserLang;
     if (currentLang !== 'el') setLanguage(currentLang);
 
-    var roiUnlocked = false;
-
-    // Hero + pillar 1 are always open; a stored lead unlocks the rest immediately.
+    // The whole page is open (the lead gate was removed on 2026-10-30); a
+    // visitor who left their company on the calculator still gets a greeting.
     var existingLead = getLeadData();
-    if (existingLead) {
-      unlockROI(existingLead.company, false);
-    } else {
-      startBarAnimations();
-      initScrollAnimations();
+    if (existingLead && existingLead.company) {
+      document.getElementById('roiCompanyName').textContent = existingLead.company;
+      document.getElementById('roiGreeting').style.display = 'inline-block';
     }
-
-    retryUnsentLead();
+    startBarAnimations();
+    initScrollAnimations();
 
     document.querySelectorAll('.lang-btn').forEach(function(btn) {
       btn.addEventListener('click', function() {
@@ -1476,42 +1084,7 @@
       document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
     });
 
-    // ===== SYSTEM PILLS (multi-select) =====
-    var selectedSystems = [];
-    document.querySelectorAll('.system-pill').forEach(function(pill) {
-      pill.addEventListener('click', function() {
-        var val = pill.getAttribute('data-value');
-        if (val === 'other') {
-          pill.classList.toggle('selected');
-          document.getElementById('systemOtherInput').classList.toggle('visible', pill.classList.contains('selected'));
-        } else {
-          pill.classList.toggle('selected');
-        }
-        // Update hidden input
-        var selected = [];
-        document.querySelectorAll('.system-pill.selected').forEach(function(p) {
-          var v = p.getAttribute('data-value');
-          if (v !== 'other') selected.push(v);
-        });
-        var otherVal = document.getElementById('systemOtherInput').value;
-        if (document.querySelector('.system-pill[data-value="other"]').classList.contains('selected') && otherVal) {
-          selected.push(otherVal);
-        }
-        document.getElementById('systemsHidden').value = selected.join(', ');
-      });
-    });
-
-    document.getElementById('systemOtherInput').addEventListener('input', function() {
-      var selected = [];
-      document.querySelectorAll('.system-pill.selected').forEach(function(p) {
-        var v = p.getAttribute('data-value');
-        if (v !== 'other') selected.push(v);
-      });
-      if (this.value) selected.push(this.value);
-      document.getElementById('systemsHidden').value = selected.join(', ');
-    });
-
-    // ===== LEAD PERSISTENCE =====
+    // ===== STORED LEAD (written by the calculator's gate) =====
     function getLeadData() {
       try {
         var data = JSON.parse(lsGet('aidedcam-lead'));
@@ -1519,115 +1092,6 @@
       } catch(e) {}
       return null;
     }
-
-    function saveLead(lead, sent) {
-      lead.sent = sent;
-      lsSet('aidedcam-lead', JSON.stringify(lead));
-    }
-
-    function buildLead(formData, source) {
-      var lead = {
-        company: formData.get('company') || '',
-        email: formData.get('email') || '',
-        systems: formData.get('systems') || '',
-        source: source,
-        timestamp: Date.now(),
-        sent: false
-      };
-      if (formData.get('system_other')) lead.system_other = formData.get('system_other');
-      // This page's "intent" field is the has_project yes/no toggle.
-      if (formData.get('has_project')) lead.has_project = formData.get('has_project');
-      return lead;
-    }
-
-    // A lead that never reached Formspree is retried once, silently, on load.
-    // Old stored leads without a `sent` field count as sent.
-    function retryUnsentLead() {
-      var lead = getLeadData();
-      if (!lead || lead.sent !== false || !window.fetch) return;
-      var fd = new FormData();
-      ['company', 'email', 'systems', 'system_other', 'has_project', 'source'].forEach(function(k) {
-        if (lead[k]) fd.append(k, lead[k]);
-      });
-      fd.append('_retry', '1');
-      fetch(document.getElementById('roiForm').action, {
-        method: 'POST',
-        body: fd,
-        headers: { 'Accept': 'application/json' }
-      }).then(function(response) {
-        if (response.ok) saveLead(lead, true);
-      }).catch(function() {});
-    }
-
-    // ===== FORM SUBMISSION =====
-    var roiForm = document.getElementById('roiForm');
-
-    roiForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      var btn = roiForm.querySelector('.form-submit');
-      btn.disabled = true;
-      btn.textContent = '...';
-
-      var formData = new FormData(roiForm);
-      // system_other only travels when the "Other" pill is actually selected
-      var otherPill = document.querySelector('.system-pill[data-value="other"]');
-      if (!otherPill || !otherPill.classList.contains('selected') || !formData.get('system_other')) {
-        formData.delete('system_other');
-      }
-      var lead = buildLead(formData, 'roi');
-      saveLead(lead, false);
-
-      // Send to Formspree. Content is revealed either way; the lead is kept
-      // with sent:false on failure and retried on the next visit.
-      fetch(roiForm.action, {
-        method: 'POST',
-        body: formData,
-        headers: { 'Accept': 'application/json' }
-      }).then(function(response) {
-        saveLead(lead, !!response.ok);
-        revealROI(lead.company);
-      }).catch(function() {
-        saveLead(lead, false);
-        revealROI(lead.company);
-      });
-
-      // GA event: no company, email or free text
-      // (`systems` in the form may contain the typed "Other" text, so send pill values only)
-      var pillValues = [];
-      document.querySelectorAll('.system-pill.selected').forEach(function(p) {
-        var v = p.getAttribute('data-value');
-        if (v !== 'other') pillValues.push(v);
-      });
-      gaEvent('what_you_gain_form_submit', {
-        systems: pillValues.join(', '),
-        system_other_selected: !!(otherPill && otherPill.classList.contains('selected')),
-        has_project: formData.get('has_project')
-      });
-    });
-
-    function unlockROI(companyName, scrollToNext) {
-      if (roiUnlocked) return;
-      roiUnlocked = true;
-      var gate = document.getElementById('gateSection');
-      var locked = document.getElementById('roiLocked');
-
-      // Personalize greeting
-      if (companyName) {
-        document.getElementById('roiCompanyName').textContent = companyName;
-        document.getElementById('roiGreeting').style.display = 'inline-block';
-      }
-
-      gate.classList.add('is-unlocked');
-      locked.classList.add('is-unlocked');
-      locked.offsetHeight; // reflow so the observers see the new layout
-      startBarAnimations();
-      initScrollAnimations();
-      if (scrollToNext) {
-        var next = document.getElementById('pillar2');
-        if (next) next.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }
-    function revealROI(companyName) { unlockROI(companyName, true); }
 
     // ===== SCROLL-TRIGGERED FADE-IN =====
     function initScrollAnimations() {
@@ -1646,8 +1110,8 @@
     }
 
     // ===== BAR ANIMATIONS =====
-    // Called on load and again on unlock: only arms bars / the counter that
-    // have not run yet, so nothing replays from 0. The bar fills are a CSS
+    // Called once on load: arms the bars, each of which fills once when it
+    // scrolls into view. The bar fills are a CSS
     // width transition (collapsed by the reduced-motion kill-switch in
     // css/editorial.css); the counter is rAF-driven and checks it itself.
     function startBarAnimations() {
@@ -1669,42 +1133,6 @@
         barObserver.observe(group);
       });
 
-      // Animated counter for 1700+
-      var counterEl = document.getElementById('animCounter');
-      if (!counterEl || counterDone || counterArmed) return;
-      if (reducedMotion()) { animateCounter(counterEl); return; } // final value, no rAF
-      counterArmed = true;
-      var counterObserver = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          if (entry.isIntersecting) {
-            counterObserver.unobserve(entry.target);
-            animateCounter(entry.target);
-          }
-        });
-      }, { threshold: 0.7 });
-      counterObserver.observe(counterEl);
-    }
-
-    function animateCounter(el) {
-      if (reducedMotion()) {
-        counterDone = true;
-        renderCounterFinal();
-        return;
-      }
-      var start = Date.now();
-      var duration = 2000;
-      function tick() {
-        var p = Math.min((Date.now() - start) / duration, 1);
-        var eased = 1 - Math.pow(1 - p, 3);
-        if (p < 1) {
-          el.textContent = formatCount(Math.round(eased * COUNTER_TARGET));
-          requestAnimationFrame(tick);
-        } else {
-          counterDone = true;
-          renderCounterFinal();
-        }
-      }
-      tick();
     }
 
     // ===== COOKIE CONSENT =====

@@ -3,6 +3,7 @@
 > Custom, tailor-made software built for one company's needs, with automation applied where time and money are lost.
 > Runs inside the CAD/CAM/BIM tools a company already uses, or as the company's own desktop application.
 > Autodesk Authorized Developer. Based in Greece (Athens, Thessaloniki).
+> Founded in 2025 by engineers and developers with 10 years in design offices and on production floors.
 > Serves companies in Greece, Italy, Belgium, Switzerland, Austria, Germany.
 
 ## What we build (so far it has taken three forms)
@@ -30,9 +31,13 @@
 - Requirements analysis, development, testing, installation, training, bug fixes, new features and ongoing support
 
 ## Ways to work with us
-- Per solution: a monthly price for each solution, set by what is built
+- Per solution: from EUR 199 a month per solution, set by what is built
 - Unlimited: one flat monthly price for as many solutions as needed, built one at a time in the order the company chooses
-- Both include unlimited users and the same services. Prices are sent on request: https://www.aidedcam.com/#timologisi
+- Both include unlimited users in the company and the same services. The full price list is sent as a PDF on request: https://www.aidedcam.com/#timologisi
+- One fee covers development, the libraries the software uses, updates, changes and after-sales support. Third-party licences (Revit, PowerMill and so on) are not included.
+- Typical delivery: a working solution in use within a month, depending on the needs
+- AidedCAM keeps and maintains the source code; the software stops when the subscription stops, and the files and data it produced stay the client's. No minimum term; a buy-out can be discussed.
+- Support Monday to Friday by email, phone or Teams; on-site installation and training in Greece and Italy (support in English in Italy). NDA on request.
 
 ## Supported Software (8 CAD / CAM / BIM systems)
 - Autodesk PowerShape (CAD)
@@ -63,5 +68,6 @@
 - Email: info@aidedcam.com
 - Athens: +30 6984680874
 - Thessaloniki: +30 6980818754
+- Addresses: Rogkoti 3, 54624 Thessaloniki; Korinthias 7, 11526 Athens (registered office)
 - Book a 1-hour call (Microsoft Teams): https://www.aidedcam.com/call
 - Website: https://www.aidedcam.com

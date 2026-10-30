@@ -810,6 +810,8 @@
             <button type="button" class="system-pill" data-value="SiemensNX">Siemens NX</button>
             <button type="button" class="system-pill" data-value="Revit">Revit</button>
             <button type="button" class="system-pill" data-value="AutoCAD">AutoCAD</button>
+            <button type="button" class="system-pill" data-value="NoCAD" data-i18n="calc.gate_nocad">Χωρίς CAD (Excel)</button>
+            <button type="button" class="system-pill" data-value="AtControl" data-i18n="calc.gate_control">Προγραμματισμός στη μηχανή</button>
             <button type="button" class="system-pill" data-value="other" data-i18n="calc.gate_other">Άλλο</button>
           </div>
           <input type="text" name="system_other" class="form-input system-other-input" id="systemOtherInput" data-i18n-placeholder="calc.gate_ph_other" placeholder="Γράψτε το σύστημά σας..." />
@@ -999,6 +1001,8 @@
         'calc.gate_email': 'Email <span class="required">*</span>',
         'calc.gate_system': 'Σύστημα CAD/CAM/BIM',
         'calc.gate_other': 'Άλλο',
+        'calc.gate_nocad': 'Χωρίς CAD (Excel)',
+        'calc.gate_control': 'Προγραμματισμός στη μηχανή',
         'calc.gate_ph_other': 'Γράψτε το σύστημά σας...',
         'calc.gate_submit': 'Συνέχεια',
         'calc.gate_note': 'Χωρίς δέσμευση. Υποβάλλοντας, αποδέχεστε την <a href="privacy.html">Πολιτική Απορρήτου</a>· χρησιμοποιούμε τα στοιχεία μόνο για να επικοινωνήσουμε μαζί σας.',
@@ -1097,6 +1101,8 @@
         'calc.gate_email': 'Email <span class="required">*</span>',
         'calc.gate_system': 'CAD/CAM/BIM system',
         'calc.gate_other': 'Other',
+        'calc.gate_nocad': 'No CAD (Excel)',
+        'calc.gate_control': 'Programming at the machine',
         'calc.gate_ph_other': 'Type your system...',
         'calc.gate_submit': 'Continue',
         'calc.gate_note': 'No commitment. By submitting you accept our <a href="privacy.html">Privacy Policy</a>; we use your details only to get in touch with you.',
@@ -1195,6 +1201,8 @@
         'calc.gate_email': 'Email <span class="required">*</span>',
         'calc.gate_system': 'Sistema CAD/CAM/BIM',
         'calc.gate_other': 'Altro',
+        'calc.gate_nocad': 'Senza CAD (Excel)',
+        'calc.gate_control': 'Programmazione a bordo macchina',
         'calc.gate_ph_other': 'Scrivi il tuo sistema...',
         'calc.gate_submit': 'Continua',
         'calc.gate_note': 'Nessun impegno. Inviando accettate la nostra <a href="privacy.html">Informativa sulla privacy</a>; usiamo i vostri dati solo per contattarvi.',
@@ -1445,7 +1453,12 @@
         revealCalculator();
       });
 
-      gaEvent('roi_calculator_form_submit', { systems: lead.systems });
+      var pillValues = [];
+      document.querySelectorAll('.system-pill.selected').forEach(function(p) {
+        var v = p.getAttribute('data-value');
+        if (v !== 'other') pillValues.push(v);
+      });
+      gaEvent('roi_calculator_form_submit', { systems: pillValues.join(', '), system_other_selected: otherOn });
     });
 
     // A lead that did not reach Formspree last time is retried once, silently.

@@ -1037,6 +1037,50 @@
        leave company + email (the repo is public, so the PDFs are not
        published). Form styles are shared with the contact form. */
     .pricing-section { border-top: 1px solid var(--line); }
+
+    /* ===== FIRST-SOLUTION OFFER CARD ===== */
+    /* A small non-modal card, shown once per session: when the visitor
+       reaches the benefits (after the built solutions), or (with cookie consent) on a returning visit once
+       they scroll past the hero. Sits above the back-to-top button and is
+       tucked away while the pricing or contact form is on screen. */
+    .offer-card {
+      position: fixed; right: 1.8rem; bottom: calc(1.8rem + 44px + 12px); z-index: 997;
+      width: min(340px, calc(100vw - 32px)); padding: 1.15rem 1.3rem 1.25rem;
+      background: var(--panel); border: 1px solid var(--line-strong); border-top: 3px solid var(--accent);
+      border-radius: 2px; box-shadow: var(--elev-3);
+      opacity: 0; transform: translateY(12px);
+      transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+    .offer-card.is-in { opacity: 1; transform: none; }
+    .offer-close {
+      position: absolute; top: 0.45rem; right: 0.45rem; width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      border: 0; background: none; color: var(--muted); cursor: pointer; border-radius: 2px;
+    }
+    .offer-close:hover { color: var(--ink); }
+    .offer-close svg { width: 16px; height: 16px; }
+    .offer-label {
+      margin: 0 2rem 0.55rem 0; font-family: var(--font-mono); font-size: 0.68rem; font-weight: 500;
+      letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent-deep);
+    }
+    .offer-price { margin: 0 0 0.6rem; font-family: var(--font-display); font-weight: 300; font-size: 3rem; line-height: 1; color: var(--ink); }
+    .offer-price small { font-size: 0.36em; font-weight: 400; color: var(--muted); margin-left: 0.2em; }
+    .offer-text { margin: 0 0 1rem; font-size: 0.95rem; line-height: 1.5; color: var(--ink-soft); }
+    .offer-actions { display: flex; align-items: center; gap: 0.6rem 1.1rem; flex-wrap: wrap; }
+    .offer-cta {
+      display: inline-flex; align-items: center; min-height: 40px; padding: 0 1rem; border-radius: 2px;
+      background: var(--ink); color: #fff; text-decoration: none;
+      font-family: var(--font-display); font-weight: 600; font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase;
+      transition: background 0.2s ease;
+    }
+    .offer-cta:hover { background: var(--accent-deep); }
+    .offer-call { font-size: 0.92rem; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+    .offer-call:hover { color: var(--accent-deep); }
+    @media (max-width: 768px) {
+      .offer-card { left: 16px; right: 16px; width: auto; bottom: calc(16px + 44px + 12px + env(safe-area-inset-bottom, 0px)); }
+    }
+    @media print { .offer-card { display: none !important; } }
+
     .pricing-grid {
       display: grid;
       grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
@@ -1162,6 +1206,20 @@
   <button type="button" class="back-to-top" id="backToTop" aria-label="Επιστροφή στην αρχή" data-i18n-aria="a11y.back_to_top">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
   </button>
+
+  <!-- FIRST-SOLUTION OFFER (shown by script, once per session) -->
+  <aside class="offer-card" id="offerCard" hidden aria-labelledby="offerLabel offerPrice">
+    <button type="button" class="offer-close" id="offerClose" aria-label="Κλείσιμο" data-i18n-aria="a11y.offer_close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg>
+    </button>
+    <div class="offer-label" id="offerLabel" data-i18n="offer.label">Για το πρώτο σας λογισμικό</div>
+    <p class="offer-price" id="offerPrice" data-i18n-html="offer.price">€199<small>/μήνα · για πάντα</small></p>
+    <p class="offer-text" data-i18n="offer.text">Λογισμικό φτιαγμένο για την εταιρεία σας, όσο κι αν θα κόστιζε κανονικά. Χωρίς να χρειαστεί προσφορά.</p>
+    <div class="offer-actions">
+      <a href="#contact" class="offer-cta" id="offerCta" data-i18n="offer.cta">Το θέλω με €199</a>
+      <a href="call.html" class="offer-call" id="offerCall" data-i18n="offer.call">ή κλείστε μια κλήση</a>
+    </div>
+  </aside>
 
   <!-- SKIP TO CONTENT -->
   <a href="#main" class="skip-to-content" data-i18n="a11y.skip">Μετάβαση στο κύριο περιεχόμενο</a>
@@ -1574,7 +1632,7 @@
           <p class="pricing-from">
             <span class="contact-label" data-i18n="pricing.from_label">Ανά λύση</span>
             <span class="pricing-from-price" data-i18n-html="pricing.from_price">από €199<small>/μήνα</small></span>
-            <span class="pricing-from-note" data-i18n="pricing.from_note">Σε κάθε συνδρομή, απεριόριστοι χρήστες στην εταιρεία σας.</span>
+            <span class="pricing-from-note" data-i18n="pricing.from_note">Σε κάθε εφαρμογή, απεριόριστοι χρήστες στην εταιρεία σας.</span>
           </p>
           <div class="contact-label" data-i18n="pricing.gets_label">Στο PDF θα βρείτε</div>
           <ul>
@@ -1966,7 +2024,7 @@
         'pricing.get_3': 'Ποιος τρόπος ταιριάζει στην εταιρεία σας',
         'pricing.from_label': 'Ανά λύση',
         'pricing.from_price': 'από €199<small>/μήνα</small>',
-        'pricing.from_note': 'Σε κάθε συνδρομή, απεριόριστοι χρήστες στην εταιρεία σας.',
+        'pricing.from_note': 'Σε κάθε εφαρμογή, απεριόριστοι χρήστες στην εταιρεία σας.',
         'faq.label': 'Συχνές ερωτήσεις',
         'faq.title': 'Πριν <strong>ξεκινήσουμε</strong>.',
         'faq.q1': 'Πόσο κοστίζει;',
@@ -2012,6 +2070,13 @@
         'footer.rights': 'Με την επιφύλαξη παντός δικαιώματος.',
         // Accessibility labels (data-i18n-aria / skip link)
         'a11y.back_to_top': 'Επιστροφή στην αρχή',
+        'a11y.offer_close': 'Κλείσιμο',
+        'offer.label': 'Για το πρώτο σας λογισμικό',
+        'offer.label_back': 'Καλώς ήρθατε ξανά: για το πρώτο σας λογισμικό',
+        'offer.price': '€199<small>/μήνα · για πάντα</small>',
+        'offer.text': 'Λογισμικό φτιαγμένο για την εταιρεία σας, όσο κι αν θα κόστιζε κανονικά. Χωρίς να χρειαστεί προσφορά.',
+        'offer.cta': 'Το θέλω με €199',
+        'offer.call': 'ή κλείστε μια κλήση',
         'a11y.menu': 'Άνοιγμα/κλείσιμο μενού',
         'a11y.skip': 'Μετάβαση στο κύριο περιεχόμενο',
         'a11y.video_pause': 'Παύση του βίντεο',
@@ -2172,7 +2237,7 @@
         'pricing.get_3': 'Which way fits your company',
         'pricing.from_label': 'Per solution',
         'pricing.from_price': 'from €199<small>/month</small>',
-        'pricing.from_note': 'Every subscription includes unlimited users in your company.',
+        'pricing.from_note': 'Every application includes unlimited users in your company.',
         'faq.label': 'FAQ',
         'faq.title': 'Before <strong>we start</strong>.',
         'faq.q1': 'What does it cost?',
@@ -2218,6 +2283,13 @@
         'footer.rights': 'All rights reserved.',
         // Accessibility labels (data-i18n-aria / skip link)
         'a11y.back_to_top': 'Back to top',
+        'a11y.offer_close': 'Close',
+        'offer.label': 'For your first software',
+        'offer.label_back': 'Welcome back: for your first software',
+        'offer.price': '€199<small>/month · forever</small>',
+        'offer.text': 'Software built for your company, whatever it would normally cost. No quote needed.',
+        'offer.cta': 'I want it for €199',
+        'offer.call': 'or book a call',
         'a11y.menu': 'Open or close the menu',
         'a11y.skip': 'Skip to main content',
         'a11y.video_pause': 'Pause the video',
@@ -2378,7 +2450,7 @@
         'pricing.get_3': 'Quale modo fa per la vostra azienda',
         'pricing.from_label': 'Per soluzione',
         'pricing.from_price': 'da €199<small>/mese</small>',
-        'pricing.from_note': 'Ogni abbonamento include utenti illimitati nella vostra azienda.',
+        'pricing.from_note': 'Ogni applicazione include utenti illimitati nella vostra azienda.',
         'faq.label': 'Domande frequenti',
         'faq.title': 'Prima di <strong>iniziare</strong>.',
         'faq.q1': 'Quanto costa?',
@@ -2424,6 +2496,13 @@
         'footer.rights': 'Tutti i diritti riservati.',
         // Accessibility labels (data-i18n-aria / skip link)
         'a11y.back_to_top': 'Torna all’inizio',
+        'a11y.offer_close': 'Chiudi',
+        'offer.label': 'Per il vostro primo software',
+        'offer.label_back': 'Bentornati: per il vostro primo software',
+        'offer.price': '€199<small>/mese · per sempre</small>',
+        'offer.text': 'Software fatto per la vostra azienda, qualunque sia il suo costo reale. Senza bisogno di preventivo.',
+        'offer.cta': 'Lo voglio a €199',
+        'offer.call': 'o prenotate una chiamata',
         'a11y.menu': 'Apri o chiudi il menu',
         'a11y.skip': 'Vai al contenuto principale',
         'a11y.video_pause': 'Metti in pausa il video',
@@ -2717,6 +2796,10 @@
     // Posts to Formspree like the gated pages. If the network fails we fall
     // back to the visitor's mail client with the message prefilled, so the
     // lead is never lost silently.
+    // Which way a lead came in, for the form events: 'offer_card' when the
+    // visitor clicked the offer card's button earlier in this session
+    // (sessionStorage aidedcam-offer-clicked), otherwise 'page'.
+    const leadSource = () => { try { return sessionStorage.getItem('aidedcam-offer-clicked') === '1' ? 'offer_card' : 'page'; } catch (e) { return 'page'; } };
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
       const T = (k) => (translations[document.documentElement.lang] || translations.el)[k] || '';
@@ -2729,7 +2812,7 @@
         const done = () => {
           contactForm.classList.add('is-sent');
           document.getElementById('contactDone').hidden = false;
-          gaEvent('submit_contact_form', { section: 'contact' });
+          gaEvent('submit_contact_form', { section: 'contact', lead_source: leadSource() });
         };
         fetch(contactForm.action, { method: 'POST', body: fd, headers: { 'Accept': 'application/json' } })
           .then((r) => { if (!r.ok) throw new Error('formspree ' + r.status); done(); })
@@ -2762,7 +2845,7 @@
         const done = () => {
           pricingForm.classList.add('is-sent');
           document.getElementById('pricingDone').hidden = false;
-          gaEvent('request_pricing_document', { section: 'timologisi', site_language: lang });
+          gaEvent('request_pricing_document', { section: 'timologisi', site_language: lang, lead_source: leadSource() });
         };
         fetch(pricingForm.action, { method: 'POST', body: fd, headers: { 'Accept': 'application/json' } })
           .then((r) => { if (!r.ok) throw new Error('formspree ' + r.status); done(); })
@@ -3076,6 +3159,110 @@
       }, { threshold: 0, rootMargin: '-45% 0px -45% 0px' });
 
       sections.forEach(function(sec) { activeObserver.observe(sec); });
+    })();
+
+    // ===== FIRST-SOLUTION OFFER CARD =====
+    // Shown once per session, never over the consent banner, and not after a
+    // form was sent. Two triggers: reaching the benefits (#kerdizeis, right
+    // after the built solutions and their results), or, for a
+    // returning visitor, scrolling past the hero. "Returning" needs the
+    // visitor's cookie consent: only then is the last-visit time stored
+    // (aidedcam-last-visit); without consent the key is removed. While the
+    // pricing or contact form is on screen the card is tucked away.
+    (function() {
+      var card = document.getElementById('offerCard');
+      if (!card || !('IntersectionObserver' in window)) return;
+      function ss(k, v) { try { if (v === undefined) return sessionStorage.getItem(k); sessionStorage.setItem(k, v); } catch (e) { return null; } }
+      function ls(k, v) { try { if (v === undefined) return localStorage.getItem(k); if (v === null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch (e) { return null; } }
+
+      var visitType = ss('aidedcam-visit-type');
+      if (ls('privacy-pref') === 'accepted') {
+        if (!visitType) {
+          var last = parseInt(ls('aidedcam-last-visit'), 10) || 0;
+          visitType = (last && Date.now() - last > 30 * 60 * 1000) ? 'returning' : 'new';
+          ss('aidedcam-visit-type', visitType);
+        }
+        ls('aidedcam-last-visit', String(Date.now()));
+      } else {
+        ls('aidedcam-last-visit', null);
+        visitType = 'new';
+      }
+      var returning = visitType === 'returning';
+
+      var state = 'idle';            // idle -> shown <-> tucked -> closed
+      var formsOnScreen = 0;
+      var banner = document.getElementById('prefsOverlay');
+
+      function done() { return ss('aidedcam-offer-seen') === '1' || ss('aidedcam-form-sent') === '1'; }
+      function setLabel() {
+        var key = returning ? 'offer.label_back' : 'offer.label';
+        var label = document.getElementById('offerLabel');
+        label.setAttribute('data-i18n', key);
+        var t = translations[document.documentElement.lang] || translations.el;
+        if (t[key]) label.textContent = t[key];
+      }
+      function reveal() {
+        card.hidden = false;
+        requestAnimationFrame(function() { requestAnimationFrame(function() { card.classList.add('is-in'); }); });
+      }
+      function conceal() {
+        card.classList.remove('is-in');
+        setTimeout(function() { if (!card.classList.contains('is-in')) card.hidden = true; }, 360);
+      }
+      function show() {
+        if (state !== 'idle' || done()) return;
+        if (banner && banner.classList.contains('visible')) {
+          new MutationObserver(function(_, mo) {
+            if (!banner.classList.contains('visible')) { mo.disconnect(); show(); }
+          }).observe(banner, { attributes: true, attributeFilter: ['class'] });
+          return;
+        }
+        state = formsOnScreen ? 'tucked' : 'shown';
+        ss('aidedcam-offer-seen', '1');
+        setLabel();
+        if (state === 'shown') reveal();
+        gaEvent('first_solution_offer_shown', { visitor_type: visitType });
+      }
+      function close() { state = 'closed'; conceal(); }
+
+      var trigger = document.getElementById(returning ? 'megali-eikona' : 'kerdizeis');
+      if (trigger && !done()) {
+        var to = new IntersectionObserver(function(entries) {
+          if (entries.some(function(e) { return e.isIntersecting; })) { to.disconnect(); show(); }
+        }, { threshold: 0, rootMargin: '0px 0px -30% 0px' });
+        to.observe(trigger);
+      }
+
+      var fo = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) { formsOnScreen += e.isIntersecting ? 1 : -1; });
+        formsOnScreen = Math.max(0, formsOnScreen);
+        if (state === 'shown' && formsOnScreen) { state = 'tucked'; conceal(); }
+        else if (state === 'tucked' && !formsOnScreen) { state = 'shown'; reveal(); }
+      }, { threshold: 0 });
+      ['contactForm', 'pricingForm'].forEach(function(id) {
+        var f = document.getElementById(id);
+        if (!f) return;
+        fo.observe(f);
+        f.addEventListener('submit', function() { ss('aidedcam-form-sent', '1'); if (state !== 'idle') close(); });
+      });
+
+      document.getElementById('offerClose').addEventListener('click', function() {
+        gaEvent('dismiss_first_solution_offer', { visitor_type: visitType });
+        close();
+      });
+      card.addEventListener('keydown', function(e) { if (e.key === 'Escape') document.getElementById('offerClose').click(); });
+      document.getElementById('offerCta').addEventListener('click', function() {
+        gaEvent('click_first_solution_offer', { action: 'contact', visitor_type: visitType });
+        ss('aidedcam-offer-clicked', '1');
+        close();
+        setTimeout(function() {
+          var m = document.getElementById('cfMessage');
+          if (m) m.focus({ preventScroll: true });
+        }, 700);
+      });
+      document.getElementById('offerCall').addEventListener('click', function() {
+        gaEvent('click_first_solution_offer', { action: 'call', visitor_type: visitType });
+      });
     })();
 
     // 3D card tilt on hover was removed for the editorial redesign.

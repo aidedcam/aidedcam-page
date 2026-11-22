@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Motion lab: the results strip, three directions</title>
+<!-- Throwaway prototype (not published: Jekyll skips _src). Three motion directions for the
+     index hero's results strip, built on the site's own tokens and fonts. Open it directly or
+     through the local server; scroll slowly. -->
+<link rel="stylesheet" href="../../fonts.css">
+<link rel="stylesheet" href="../../css/editorial.css">
+<style>
+  :root { --scale-min: 1920; }
+  body { background: var(--paper); color: var(--ink); margin: 0; }
+  .lab-wrap { max-width: 1120px; margin: 0 auto; padding: 0 clamp(1.25rem, 5vw, 3rem); }
+  .lab-head { padding: 5rem 0 3rem; border-bottom: 1px solid var(--line); }
+  .lab-head h1 { font-family: var(--font-display); font-weight: 300; font-size: clamp(2rem, 4vw, 3rem); margin: 0 0 0.8rem; }
+  .lab-head p { max-width: 46rem; color: var(--ink-soft); line-height: 1.6; margin: 0; }
+  .lab-label {
+    display: flex; align-items: baseline; gap: 1rem; padding: 4rem 0 0.6rem;
+    font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted);
+  }
+  .lab-label b { color: var(--accent-deep); font-weight: 600; }
+  .lab-desc { max-width: 44rem; color: var(--ink-soft); line-height: 1.6; margin: 0 0 1rem; }
+  .lab-replay {
+    font: 600 0.72rem var(--font-body); letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent-deep); background: none; border: 1px solid var(--line-strong); border-radius: 2px;
+    padding: 0.5rem 0.8rem; cursor: pointer;
+  }
+  .lab-replay:hover { border-color: var(--accent); }
+  .lab-gap { height: 30vh; }
+  .eyebrow {
+    font-family: var(--font-mono); font-size: 0.68rem; font-weight: 500; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--muted);
+  }
+
+  /* ================= A · SCROLL-SCRUBBED GANTT ================= */
+  /* Three Gantt bars on one shared scale (4 working days = the full track), with
+     an hour tick every 1/32 and a day tick every 1/4. Scrolling through the pinned
+     stage compresses each bar to its new duration; the readout follows the bar
+     exactly, so the number and the picture never disagree. Scroll back: it undoes. */
+  .va { position: relative; height: 320vh; }
+  .va-stage {
+    position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; justify-content: center;
+  }
+  .va-rows { display: flex; flex-direction: column; gap: clamp(1.6rem, 4vh, 2.6rem); margin-top: 2rem; }
+  .va-row { display: grid; grid-template-columns: minmax(10rem, 15rem) 1fr 11.5rem; align-items: center; gap: 1.5rem; }
+  .va-what { font-size: 0.95rem; line-height: 1.4; color: var(--ink-soft); }
+  .va-track {
+    position: relative; height: 34px;
+    /* day grid on the track itself: the scale every bar is read against */
+    background:
+      repeating-linear-gradient(to right, var(--line-strong) 0 1px, transparent 1px calc(100% / 4)),
+      var(--paper-2);
+    border-left: 1px solid var(--line-strong); border-right: 1px solid var(--line-strong);
+  }
+  .va-bar {
+    position: absolute; left: 0; top: 6px; bottom: 6px; width: var(--w);
+    transform-origin: left center; transform: scaleX(var(--s, 1));
+    background:
+      repeating-linear-gradient(to right, rgba(255,255,255,.55) 0 1px, transparent 1px calc(100% / var(--hours))),
+      color-mix(in oklab, var(--accent) calc(var(--p, 0) * 100%), #9a988c);
+    will-change: transform;
+  }
+  .va-read { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .va-read b {
+    display: block; font-family: var(--font-display); font-weight: 300; font-size: clamp(1.7rem, 2.6vw, 2.3rem); line-height: 1;
+    color: color-mix(in oklab, var(--accent-deep) calc(var(--p, 0) * 100%), var(--muted));
+  }
+  .va-read small { display: block; margin-top: 0.3rem; font-size: 0.78rem; color: var(--muted); opacity: var(--p, 0); }
+  .va-axis { display: grid; grid-template-columns: minmax(10rem, 15rem) 1fr 11.5rem; gap: 1.5rem; margin-top: 0.8rem; }
+  .va-axis div { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .va-axis span { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); }
+  .va-hint { margin-top: 2rem; font-size: 0.8rem; color: var(--faint); }
+  @media (max-width: 760px) {
+    .va-row, .va-axis { grid-template-columns: 1fr 8.5rem; }
+    .va-what { grid-column: 1 / -1; }
+    .va-axis > :first-child { display: none; }
+  }
+
+  /* ================= B · ENGINEERING DRAWING ================= */
+  /* Each result is dimensioned like a drawing: extension lines, a dimension line
+     with arrowheads and the old duration as its value; then a second dimension,
+     drafted at the true new length, takes over in green and the old one is
+     struck through. Same shared scale as A. Plays once when it comes into view. */
+  .vb-item { padding: 1.4rem 0 1.8rem; border-top: 1px solid var(--line); }
+  .vb-item:last-of-type { border-bottom: 1px solid var(--line); }
+  .vb-what { font-size: 0.95rem; color: var(--ink-soft); margin: 0 0 0.2rem; }
+  .vb-svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .vb-svg text { font-family: var(--font-display); font-variant-numeric: tabular-nums; }
+  .vb-ext, .vb-dim { fill: none; stroke: var(--ink); stroke-width: 1; }
+  .vb-ext { stroke: var(--line-strong); }
+  .vb-arrow { fill: var(--ink); }
+  .vb-old-t { font-size: 30px; font-weight: 300; fill: var(--ink); }
+  .vb-strike { stroke: var(--accent); stroke-width: 2; vector-effect: non-scaling-stroke; }
+  .vb-new .vb-dim, .vb-new .vb-ext, .vb-new .vb-leader { stroke: var(--accent); }
+  .vb-new .vb-arrow { fill: var(--accent); }
+  .vb-leader { fill: none; stroke-width: 1; }
+  .vb-new-t { font-size: 40px; font-weight: 600; fill: var(--accent-deep); }
+  .vb-new-k { font-family: var(--font-body) !important; font-size: 13px; letter-spacing: 0.14em; fill: var(--accent-deep); }
+
+  /* the drafting sequence: only when JS has armed the figure (.is-armed) */
+  .vb-item.is-armed .vb-draw { stroke-dasharray: calc(var(--len) * 1px + 2px) calc(var(--len) * 1px + 2px); stroke-dashoffset: calc(var(--len) * 1px + 2px); }
+  .vb-item.is-armed .vb-fade { opacity: 0; }
+  .vb-item.is-armed .vb-strike { transform: scaleX(0); }
+  .vb-item.is-armed.play .vb-draw { stroke-dashoffset: 0; transition: stroke-dashoffset var(--d, 0.5s) cubic-bezier(0.65, 0, 0.35, 1) var(--t, 0s); }
+  .vb-item.is-armed.play .vb-fade { opacity: 1; transition: opacity 0.35s var(--ease-out) var(--t, 0s); }
+  .vb-item.is-armed.play .vb-strike { transform: scaleX(1); transition: transform 0.45s var(--ease-out) var(--t, 0s); }
+  .vb-strike { transform-box: fill-box; transform-origin: left center; }
+  .vb-old { transition: opacity 0.5s var(--ease-out) 1.9s; }
+  .vb-item.play .vb-old { opacity: 0.38; }
+  .vb-item:not(.is-armed) .vb-old { opacity: 0.38; }
+
+  /* ================= C · BIG TYPE ================= */
+  /* The old duration fills the width in huge light type, a green rule crosses it
+     out, and the new duration rises under it, right-aligned. Plays once in view. */
+  .vc-item { padding: 2.4rem 0 2.6rem; border-top: 1px solid var(--line); }
+  .vc-item:last-of-type { border-bottom: 1px solid var(--line); }
+  .vc-mask { display: block; overflow: hidden; padding-bottom: 0.06em; }
+  .vc-word { display: block; will-change: transform; }
+  .vc-old { position: relative; display: inline-block; }
+  .vc-old .vc-word {
+    font-family: var(--font-display); font-weight: 300; line-height: 0.95; letter-spacing: -0.02em;
+    font-size: clamp(4.5rem, 15.5vw, 12.5rem); color: var(--line-strong);
+  }
+  .vc-strike {
+    position: absolute; left: 0; right: 0; top: 54%; height: clamp(3px, 0.5vw, 6px); background: var(--accent);
+    transform-origin: left center;
+  }
+  .vc-new { display: flex; justify-content: flex-end; align-items: baseline; gap: 1.2rem; margin-top: -0.4em; }
+  .vc-new .vc-word {
+    font-family: var(--font-display); font-weight: 300; line-height: 1; letter-spacing: -0.02em;
+    font-size: clamp(3rem, 8.5vw, 7rem); color: var(--accent-deep);
+  }
+  .vc-what { max-width: 22rem; text-align: right; font-size: 0.95rem; line-height: 1.45; color: var(--ink-soft); margin: 0.6rem 0 0 auto; }
+  .vc-item.is-armed .vc-old .vc-word { transform: translateY(105%); }
+  .vc-item.is-armed .vc-strike { transform: scaleX(0); }
+  .vc-item.is-armed .vc-new .vc-word { transform: translateY(105%); }
+  .vc-item.is-armed .vc-what { opacity: 0; transform: translateY(8px); }
+  .vc-item.is-armed.play .vc-old .vc-word { transform: none; transition: transform 0.8s var(--ease-out); }
+  .vc-item.is-armed.play .vc-strike { transform: scaleX(1); transition: transform 0.55s cubic-bezier(0.65, 0, 0.35, 1) 0.75s; }
+  .vc-item.is-armed.play .vc-new .vc-word { transform: none; transition: transform 0.8s var(--ease-out) 1.25s; }
+  .vc-item.is-armed.play .vc-what { opacity: 1; transform: none; transition: opacity 0.5s var(--ease-out) 1.6s, transform 0.5s var(--ease-out) 1.6s; }
+  .vc-old .vc-word { transition: color 0.5s ease 1.3s; }
+  .vc-item.play .vc-old .vc-word { color: color-mix(in oklab, var(--line-strong) 70%, var(--paper)); }
+</style>
+</head>
+<body>
+  <div class="lab-wrap">
+    <header class="lab-head">
+      <div class="eyebrow">Motion lab · τα αποτελέσματα κάτω από το hero</div>
+      <h1>Τρεις κατευθύνσεις</h1>
+      <p>Τα ίδια τρία νούμερα, τρεις τρόποι κίνησης. Κάντε scroll αργά. Το A το ελέγχει το scroll (πάει και ανάποδα), τα B και C παίζουν μία φορά όταν έρθουν στην οθόνη και έχουν κουμπί επανάληψης. Όλα σέβονται το «μειωμένη κίνηση» της συσκευής.</p>
+    </header>
+
+    <!-- ===== A ===== -->
+    <div class="lab-label"><b>A</b> Scroll-scrubbed · Gantt που συμπιέζεται</div>
+    <p class="lab-desc">Οι τρεις δουλειές σαν μπάρες χρονοδιαγράμματος, στην ίδια κλίμακα 4 εργάσιμων ημερών. Καθώς κατεβαίνετε, κάθε μπάρα συμπιέζεται στη νέα της διάρκεια και ο αριθμός ακολουθεί ακριβώς τη μπάρα. Ανεβαίνοντας, ξεσυμπιέζεται.</p>
+  </div>
+  <section class="va" id="va">
+    <div class="va-stage">
+      <div class="lab-wrap" style="width:100%;box-sizing:border-box">
+        <div class="eyebrow">Μετρημένο σε πραγματικές δουλειές</div>
+        <div class="va-rows">
+          <div class="va-row" data-from="960" data-to="12" data-from-label="2 μέρες">
+            <div class="va-what">Σχεδιασμός και προγραμματισμός στον τόρνο</div>
+            <div class="va-track"><div class="va-bar"></div></div>
+            <div class="va-read"><b>2 μέρες</b><small>από 2 μέρες</small></div>
+          </div>
+          <div class="va-row" data-from="1920" data-to="26" data-from-label="4 μέρες">
+            <div class="va-what">Προγραμματισμός μιας πλάκας καλουπιού</div>
+            <div class="va-track"><div class="va-bar"></div></div>
+            <div class="va-read"><b>4 μέρες</b><small>από 4 μέρες</small></div>
+          </div>
+          <div class="va-row" data-from="480" data-to="11" data-from-label="1 μέρα">
+            <div class="va-what">Σχέδια και πίνακες από το μοντέλο Revit</div>
+            <div class="va-track"><div class="va-bar"></div></div>
+            <div class="va-read"><b>1 μέρα</b><small>από 1 μέρα</small></div>
+          </div>
+        </div>
+        <div class="va-axis"><span></span><div><span>Ημέρα 1</span><span>Ημέρα 2</span><span>Ημέρα 3</span><span>Ημέρα 4</span></div><span></span></div>
+        <p class="va-hint">↓ συνεχίστε το scroll</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="lab-wrap">
+    <div class="lab-gap"></div>
+    <!-- ===== B ===== -->
+    <div class="lab-label"><b>B</b> Τεχνικό σχέδιο · διαστασιολόγηση</div>
+    <p class="lab-desc">Κάθε αποτέλεσμα «διαστασιολογείται» σαν σε σχέδιο: γραμμές προέκτασης, γραμμή διάστασης με βέλη και η παλιά διάρκεια ως τιμή. Μετά σχεδιάζεται στο πραγματικό του μήκος η νέα διάσταση, πράσινη, και η παλιά διαγράφεται. Η ίδια κοινή κλίμακα με το A.</p>
+    <button class="lab-replay" type="button" data-replay="vb">↻ Ξανά</button>
+    <div id="vb" style="margin-top:1.6rem">
+      <div class="vb-item" data-from="960" data-to="12" data-old="2 μέρες" data-new="12 λεπτά"><p class="vb-what">Σχεδιασμός και προγραμματισμός στον τόρνο</p></div>
+      <div class="vb-item" data-from="1920" data-to="26" data-old="4 μέρες" data-new="26 λεπτά"><p class="vb-what">Προγραμματισμός μιας πλάκας καλουπιού</p></div>
+      <div class="vb-item" data-from="480" data-to="11" data-old="1 μέρα" data-new="11 λεπτά"><p class="vb-what">Σχέδια και πίνακες από το μοντέλο Revit</p></div>
+    </div>
+
+    <div class="lab-gap"></div>
+    <!-- ===== C ===== -->
+    <div class="lab-label"><b>C</b> Μεγάλη τυπογραφία · διαγραφή</div>
+    <p class="lab-desc">Ο παλιός χρόνος γεμίζει το πλάτος σε τεράστια ανοιχτά γράμματα, μια πράσινη γραμμή τον διαγράφει και ο νέος ανεβαίνει από κάτω, δεξιά. Λίγα λόγια, πολύ μεγάλα.</p>
+    <button class="lab-replay" type="button" data-replay="vc">↻ Ξανά</button>
+    <div id="vc" style="margin-top:1.6rem">
+      <div class="vc-item">
+        <div class="vc-old"><span class="vc-mask"><span class="vc-word">2 μέρες</span></span><i class="vc-strike" aria-hidden="true"></i></div>
+        <div class="vc-new"><span class="vc-mask"><span class="vc-word">12 λεπτά</span></span></div>
+        <p class="vc-what">σχεδιασμός και προγραμματισμός στον τόρνο</p>
+      </div>
+      <div class="vc-item">
+        <div class="vc-old"><span class="vc-mask"><span class="vc-word">4 μέρες</span></span><i class="vc-strike" aria-hidden="true"></i></div>
+        <div class="vc-new"><span class="vc-mask"><span class="vc-word">26 λεπτά</span></span></div>
+        <p class="vc-what">για τον προγραμματισμό μιας πλάκας καλουπιού</p>
+      </div>
+      <div class="vc-item">
+        <div class="vc-old"><span class="vc-mask"><span class="vc-word">1 μέρα</span></span><i class="vc-strike" aria-hidden="true"></i></div>
+        <div class="vc-new"><span class="vc-mask"><span class="vc-word">11 λεπτά</span></span></div>
+        <p class="vc-what">για σχέδια και πίνακες από το μοντέλο Revit</p>
+      </div>
+    </div>
+    <div class="lab-gap"></div>
+  </div>
+
+<script>
+(function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var SCALE = 1920;                       // 4 working days of 8 h: the shared scale of A and B
+  function fmt(min) {
+    function part(v, one, many) {
+      var r = v >= 10 ? Math.round(v) : Math.round(v * 10) / 10;
+      return r.toLocaleString('el') + ' ' + (r === 1 ? one : many);
+    }
+    if (min >= 480) return part(min / 480, 'μέρα', 'μέρες');
+    if (min >= 60) return part(min / 60, 'ώρα', 'ώρες');
+    return part(Math.max(1, Math.round(min)), 'λεπτό', 'λεπτά');
+  }
+  var clamp = function (v) { return Math.max(0, Math.min(1, v)); };
+  var easeInOut = function (t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; };
+
+  /* ---------- A: scroll-scrubbed ---------- */
+  var va = document.getElementById('va');
+  var rows = [].slice.call(va.querySelectorAll('.va-row'));
+  rows.forEach(function (r) {
+    var from = +r.dataset.from;
+    r.querySelector('.va-bar').style.setProperty('--w', (from / SCALE * 100) + '%');
+    r.querySelector('.va-bar').style.setProperty('--hours', from / 60);
+  });
+  function renderA() {
+    var rect = va.getBoundingClientRect();
+    var P = reduce ? 1 : clamp(-rect.top / (rect.height - window.innerHeight));
+    rows.forEach(function (r, i) {
+      // each row runs over 55% of the pinned scroll, 15% after the previous one
+      var q = easeInOut(clamp((P - 0.05 - i * 0.15) / 0.55));
+      var from = +r.dataset.from, to = +r.dataset.to;
+      var now = from - (from - to) * q;
+      r.querySelector('.va-bar').style.setProperty('--s', Math.max(now / from, 0.004));
+      r.style.setProperty('--p', Math.pow(q, 4));
+      r.querySelector('.va-read b').textContent = fmt(now);
+    });
+  }
+  var ticking = false;
+  window.addEventListener('scroll', function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(function () { ticking = false; renderA(); }); }
+  }, { passive: true });
+  window.addEventListener('resize', renderA);
+  renderA();
+
+  /* ---------- B: engineering drawing ---------- */
+  var NS = 'http://www.w3.org/2000/svg';
+  function el(tag, attrs, parent) {
+    var e = document.createElementNS(NS, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    parent.appendChild(e); return e;
+  }
+  function line(x1, y1, x2, y2, cls, parent, t, d) {
+    var l = el('line', { x1: x1, y1: y1, x2: x2, y2: y2, 'class': cls + ' vb-draw' }, parent);
+    var len = Math.hypot(x2 - x1, y2 - y1);
+    l.style.setProperty('--len', len); l.style.setProperty('--t', t + 's'); l.style.setProperty('--d', d + 's');
+    return l;
+  }
+  function arrow(x, y, dir, parent, t) {        // dir 1 = points right, -1 = left
+    var p = el('path', { d: 'M' + x + ' ' + y + ' l' + (-12 * dir) + ' -4.5 v9 z', 'class': 'vb-arrow vb-fade' }, parent);
+    p.style.setProperty('--t', t + 's'); return p;
+  }
+  [].forEach.call(document.querySelectorAll('.vb-item'), function (item) {
+    var from = +item.dataset.from, to = +item.dataset.to;
+    var X0 = 20, W = 940, L = from / SCALE * W, l = Math.max(to / SCALE * W, 3);
+    var svg = el('svg', { viewBox: '0 0 1000 150', 'class': 'vb-svg', 'aria-label': item.dataset.old + ' → ' + item.dataset.new, role: 'img' }, item);
+    // old dimension, upper
+    var old = el('g', { 'class': 'vb-old' }, svg);
+    line(X0, 8, X0, 70, 'vb-ext', old, 0, 0.3);
+    line(X0 + L, 8, X0 + L, 70, 'vb-ext', old, 0.1, 0.3);
+    line(X0, 46, X0 + L, 46, 'vb-dim', old, 0.35, 0.6 + L / W * 0.5);
+    arrow(X0, 46, -1, old, 0.35); arrow(X0 + L, 46, 1, old, 0.35 + 0.6 + L / W * 0.5 - 0.1);
+    var tOld = el('text', { x: X0 + L / 2, y: 34, 'text-anchor': 'middle', 'class': 'vb-old-t vb-fade' }, old);
+    tOld.textContent = item.dataset.old; tOld.style.setProperty('--t', '0.7s');
+    // new dimension, lower: arrows outside the extension lines, value on a leader to the right
+    var nu = el('g', { 'class': 'vb-new' }, svg);
+    var T = 1.55;
+    line(X0 + l, 56, X0 + l, 118, 'vb-ext', nu, T, 0.3);
+    line(X0 - 26, 104, X0, 104, 'vb-dim', nu, T + 0.25, 0.2);
+    line(X0 + l, 104, X0 + l + 60, 104, 'vb-dim', nu, T + 0.25, 0.25);
+    arrow(X0, 104, 1, nu, T + 0.4); arrow(X0 + l, 104, -1, nu, T + 0.4);
+    line(X0 + l + 60, 104, X0 + l + 84, 104, 'vb-leader', nu, T + 0.5, 0.15);
+    var tNew = el('text', { x: X0 + l + 94, y: 118, 'class': 'vb-new-t vb-fade' }, nu);
+    tNew.textContent = item.dataset.new; tNew.style.setProperty('--t', (T + 0.55) + 's');
+    var k = el('text', { x: X0 + l + 96, y: 142, 'class': 'vb-new-k vb-fade' }, nu);
+    k.textContent = 'ΑΠΟ ' + item.dataset.old.toUpperCase(); k.style.setProperty('--t', (T + 0.75) + 's');
+    // strike through the old value, after the new one is drafted
+    var bb = { x: X0 + L / 2 - item.dataset.old.length * 7.5, w: item.dataset.old.length * 15 };
+    var s = el('line', { x1: bb.x - 6, y1: 24, x2: bb.x + bb.w + 6, y2: 24, 'class': 'vb-strike' }, old);
+    s.style.setProperty('--t', (T + 0.9) + 's');
+  });
+
+  /* ---------- on-view players for B and C ---------- */
+  function player(container, itemSel, stagger) {
+    var items = [].slice.call(container.querySelectorAll(itemSel));
+    if (reduce) { items.forEach(function (i) { i.classList.add('play'); }); return function () {}; }
+    items.forEach(function (i) { i.classList.add('is-armed'); });
+    var io = new IntersectionObserver(function (entries) {
+      var hits = entries.filter(function (e) { return e.isIntersecting; });
+      hits.forEach(function (e, n) {
+        io.unobserve(e.target);
+        setTimeout(function () { e.target.classList.add('play'); }, n * stagger);
+      });
+    }, { threshold: 0.55 });
+    items.forEach(function (i) { io.observe(i); });
+    return function replay() {
+      items.forEach(function (i) { i.classList.remove('play'); });
+      void container.offsetWidth;
+      items.forEach(function (i, n) { setTimeout(function () { i.classList.add('play'); }, 60 + n * stagger); });
+    };
+  }
+  var replays = { vb: player(document.getElementById('vb'), '.vb-item', 220), vc: player(document.getElementById('vc'), '.vc-item', 250) };
+  [].forEach.call(document.querySelectorAll('[data-replay]'), function (b) {
+    b.addEventListener('click', function () { replays[b.dataset.replay](); });
+  });
+})();
+</script>
+</body>
+</html>

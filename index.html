@@ -949,6 +949,10 @@
     .built-list { list-style: none; margin: 1rem 0 0; padding: 0; display: flex; flex-direction: column; gap: 0.55rem; }
     .built-list li { position: relative; padding-left: 1.2rem; font-size: 0.93rem; color: var(--ink-soft); line-height: 1.55; }
     .built-list li::before { content: "\2713"; position: absolute; left: 0; top: 0; color: var(--accent); font-weight: 700; }
+    /* cards 01 and 02 have their own story pages (lathe-cam.html, mold-cam.html; _src/case-pages/build.py) */
+    .built-more { align-self: flex-start; margin-top: 1rem; padding-bottom: 2px; font-size: 0.88rem; font-weight: 600;
+      color: var(--accent-deep); text-decoration: none; border-bottom: 1px solid currentColor; }
+    .built-more::after { content: ' \2192'; white-space: pre; }
     .built-foot { display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; flex-wrap: wrap; margin-top: 1.3rem; }
     .built-foot .tool-chips { margin-top: 0; }
     .tool-chip-text {
@@ -1680,6 +1684,7 @@
               <li data-i18n="built.s1_f1">Εισαγωγή DXF, κλείσιμο του προφίλ, 3D κομμάτι με ένα κλικ</li>
               <li data-i18n="built.s1_f2">Κύκλοι εκχόνδρισης και φινιρίσματος, G-code Fanuc για κάθε πλευρά</li>
             </ul>
+            <a class="built-more" href="lathe-cam.html" data-i18n="built.s1_more">Δείτε πώς δουλεύει</a>
             <div class="built-foot">
               <div class="tool-chips"><span class="tool-chip tool-chip-text" data-i18n="built.chip_own">Αυτόνομη εφαρμογή</span></div>
             </div>
@@ -1711,6 +1716,7 @@
               <li data-i18n="built.s2_f1">Πλάνο δρομολόγησης ανά φάση, αντί για χειρόγραφο πλάνο</li>
               <li data-i18n="built.s2_f2">Τρύπες ψύξης, βιδών και πλάκας με τη σειρά και τους κανόνες της εταιρείας</li>
             </ul>
+            <a class="built-more" href="mold-cam.html" data-i18n="built.s1_more">Δείτε πώς δουλεύει</a>
             <div class="built-foot">
               <div class="tool-chips"><span class="tool-chip"><img src="icons/PowerShape.png" alt="" aria-hidden="true" width="20" height="20" loading="lazy">PowerShape</span><span class="tool-chip"><img src="icons/PowerMill.png" alt="" aria-hidden="true" width="20" height="20" loading="lazy">PowerMill</span><span class="tool-chip"><img src="icons/SiemensNX.png" alt="" aria-hidden="true" width="20" height="20" loading="lazy">Siemens NX</span></div>
             </div>
@@ -2131,6 +2137,7 @@
         'built.s1_desc': 'Από το σχέδιο του κομματιού στο πρόγραμμα της μηχανής, σε έξι βήματα, χωρίς άλλο λογισμικό CAM.',
         'built.s1_f1': 'Εισαγωγή DXF, κλείσιμο του προφίλ, 3D κομμάτι με ένα κλικ',
         'built.s1_f2': 'Κύκλοι εκχόνδρισης και φινιρίσματος, G-code Fanuc για κάθε πλευρά',
+        'built.s1_more': 'Δείτε πώς δουλεύει',
         'built.s1_outcome': '<b>2 μέρες → 12 λεπτά</b> σχεδιασμός και προγραμματισμός',
         'built.s2_sector': 'Κατασκευή καλουπιών',
         'built.s2_title': 'Αυτοματισμός καλουπιών μέσα σε PowerShape, PowerMill και Siemens NX',
@@ -2351,6 +2358,7 @@
         'built.s1_desc': 'From the part drawing to the machine program in six steps, with no other CAM software.',
         'built.s1_f1': 'DXF import, profile closing, 3D part in one click',
         'built.s1_f2': 'Roughing and finishing cycles, Fanuc G-code for each side',
+        'built.s1_more': 'See how it works',
         'built.s1_outcome': '<b>2 days → 12 min</b> of design and programming',
         'built.s2_sector': 'Mould making',
         'built.s2_title': 'Mould automation inside PowerShape, PowerMill and Siemens NX',
@@ -2571,6 +2579,7 @@
         'built.s1_desc': 'Dal disegno del pezzo al programma macchina in sei passaggi, senza altro software CAM.',
         'built.s1_f1': 'Importazione DXF, chiusura del profilo, pezzo 3D con un clic',
         'built.s1_f2': 'Cicli di sgrossatura e finitura, G-code Fanuc per ogni lato',
+        'built.s1_more': 'Guarda come funziona',
         'built.s1_outcome': '<b>2 giorni → 12 min</b> di progettazione e programmazione',
         'built.s2_sector': 'Costruzione stampi',
         'built.s2_title': 'Automazione stampi dentro PowerShape, PowerMill e Siemens NX',

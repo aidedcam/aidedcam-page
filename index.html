@@ -2877,21 +2877,24 @@
 
     // ===== INTRO =====
     // The panel's whole sequence is CSS (see INTRO in <head>). This skips it on
-    // the first click, key, wheel or touch (the visitor wants the page), and
-    // removes the panel and the class once it has lifted.
+    // the first click, key, wheel or touch (the visitor wants the page), counts
+    // that as skip_intro (only a visitor's skip, not the panel lifting on its
+    // own), and removes the panel and the class once it has lifted.
     (function() {
       var root = document.documentElement;
       var intro = document.querySelector('.intro-panel');
       if (!intro || !root.classList.contains('intro')) { if (intro) intro.remove(); return; }
       var events = ['pointerdown', 'keydown', 'wheel', 'touchstart'];
+      function unhook() { events.forEach(function(e) { window.removeEventListener(e, skip, true); }); }
       function skip() {
         root.classList.add('intro-skip');
-        events.forEach(function(e) { window.removeEventListener(e, skip, true); });
+        unhook();
+        gaEvent('skip_intro', {});
       }
       events.forEach(function(e) { window.addEventListener(e, skip, { capture: true, passive: true }); });
       intro.addEventListener('animationend', function(e) {
         if (e.target !== intro || e.animationName !== 'introLift') return;
-        skip();
+        unhook();
         intro.remove();
         root.classList.remove('intro', 'intro-skip');
       });
@@ -3333,7 +3336,7 @@
       if (box) return box.getAttribute('data-ga-location') || box.id;
       return el.closest('.navbar') ? 'nav' : 'unknown';
     }
-    document.querySelectorAll('.btn-primary, .btn-secondary, .nav-cta, .contact-link[href="call.html"]').forEach(btn => {
+    document.querySelectorAll('.btn-primary, .btn-secondary, .nav-cta, .contact-link[href="call.html"], .built-more, .hr-link').forEach(btn => {
       btn.addEventListener('click', () => {
         gaEvent('click_call_to_action', {
           text: btn.textContent.trim().replace(/\s+/g, ' '),

@@ -287,6 +287,7 @@ def build(w, PAGE, T, STEPS, BAR, SLUG, PANELS=None):
     a = script.index('    // The whole page is open'); b = script.index('    initScrollAnimations();', a) + len('    initScrollAnimations();\n')
     script = script[:a] + '''    initScrollAnimations();
         initStory();
+        initDepth();
     ''' + script[b:]
     a = script.index('    // ===== STORED LEAD'); b = script.index('    // ===== SCROLL-TRIGGERED FADE-IN =====')
     script = script[:a] + script[b:]
@@ -296,6 +297,34 @@ def build(w, PAGE, T, STEPS, BAR, SLUG, PANELS=None):
         // at full strength and its shot shows in the window, zoomed to the part of
         // the screen the step is about (each shot's --x/--y/--z). Without JS the
         // first shot shows and every step reads normally.
+        // ===== READING DEPTH =====
+        // Each step of the story (or panel of commands) counts once, as it is first
+        // reached, and so does the closing ask: section_became_visible with
+        // section "<page>-step-N" / "<page>-end", which the local stats page reads.
+        // The first step is not counted (everyone who opens the page sees it).
+        function initDepth() {
+          if (!('IntersectionObserver' in window)) return;
+          var seen = {};
+          function mark(name) { if (seen[name]) return; seen[name] = true; gaEvent('section_became_visible', { section: name }); }
+          var parts = document.querySelectorAll('.cs-step, .cm-panel');
+          var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+              if (!e.isIntersecting) return;
+              var i = Array.prototype.indexOf.call(parts, e.target);
+              if (i > 0) mark('__SLUG__-step-' + (i + 1));
+              io.unobserve(e.target);
+            });
+          }, { rootMargin: '-45% 0px -45% 0px' });
+          parts.forEach(function (p) { io.observe(p); });
+          var out = document.querySelector('.cs-out');
+          if (out) {
+            var io2 = new IntersectionObserver(function (entries) {
+              if (entries.some(function (e) { return e.isIntersecting; })) { mark('__SLUG__-end'); io2.disconnect(); }
+            }, { threshold: 0.4 });
+            io2.observe(out);
+          }
+        }
+
         function initStory() {
           var story = document.querySelector('.cs-story');
           var steps = document.querySelectorAll('.cs-step');

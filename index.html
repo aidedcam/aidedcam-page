@@ -255,7 +255,9 @@
   <noscript><style>.fade-in { opacity: 1 !important; transform: none !important; }
     /* Everything below waits for a class that only JS adds (.visible, .is-on). */
     .roi-line, .roi-teaser-content .roi-teaser-cta { opacity: 1 !important; transform: none !important; }
-    .roi-hl::after, .built-path .bp-link::after { transform: none !important; }
+    .roi-hl::after, .built-path .bp-link::after, .built-path .bp-cube, .pr-guard i { transform: none !important; }
+    .built-path .bp-cube { opacity: 1 !important; }
+    .built-path .bp-wire, .pr-guard path, .pr-guard circle, .pr-guard rect { stroke-dashoffset: 0 !important; }
     .built-timer { display: none; }
     .built-sr { position: static; width: auto; height: auto; margin: 1.3rem 0 0; padding-top: 1.1rem; overflow: visible;
       clip: auto; clip-path: none; white-space: normal; border-top: 1px solid var(--line); font-size: 0.95rem; color: var(--muted); }</style></noscript>
@@ -993,8 +995,21 @@
       .bt-val { font-size: 0.88rem; }
       .built-timer:not(.is-static) .bt-val { min-width: 4.8rem; }
     }
-    /* the rail under the cards: one → several → connected (lights on reveal) */
-    .built-path { display: flex; align-items: center; justify-content: center; max-width: 720px; margin: clamp(2.5rem, 5vw, 3.5rem) auto 0; }
+    /* Under the cards: one → several → connected, as three small isometric drawings that build up
+       in order when the row comes into view (.visible from the fade-in observer): one module, then
+       three on their own, then the three wired to a shared database in green. Without JS (the
+       <noscript> rule) and under reduced motion it is simply the finished drawing. */
+    .built-path { display: flex; align-items: flex-end; justify-content: center; max-width: 880px; margin: clamp(2.5rem, 5vw, 3.5rem) auto 0; }
+    .bp-panel { flex: 1 1 0; min-width: 0; margin: 0; display: flex; flex-direction: column; align-items: center; gap: 0.7rem; }
+    .bp-art { width: 100%; max-width: 240px; height: auto; overflow: visible; }
+    .bp-art path, .bp-art ellipse { stroke: var(--ink-soft); stroke-width: 1; stroke-linejoin: round; }
+    .bp-cube { opacity: 0; transform: translateY(-8px);
+      transition: opacity 0.45s var(--ease-out) var(--d, 0s), transform 0.45s var(--ease-out) var(--d, 0s); }
+    .built-path.visible .bp-cube { opacity: 1; transform: none; }
+    .bp-art .bp-wire { fill: none; stroke: var(--accent); stroke-width: 1.6; stroke-linecap: round;
+      stroke-dasharray: 40; stroke-dashoffset: 40; transition: stroke-dashoffset 0.5s var(--ease-out) var(--d, 0s); }
+    .built-path.visible .bp-wire { stroke-dashoffset: 0; }
+    .built-path .bp-link { align-self: center; margin-bottom: 1.4rem; }
     .bp-step {
       flex: none; text-align: center;
       font-family: var(--font-mono); font-size: 0.62rem; font-weight: 500;
@@ -1018,10 +1033,10 @@
     .built-cta-title { margin: 0; font-family: var(--font-display); font-weight: 300; font-size: clamp(1.4rem, 2.4vw, 1.9rem); line-height: 1.25; color: var(--ink); }
     .built-cta-title strong { display: block; font-weight: 600; color: var(--accent-deep); }
     .built-cta-actions { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 0.8rem 1.2rem; margin-top: 1.5rem; }
-    .built-path.visible .bp-link:nth-child(2)::after { transition-delay: 0.12s; }
-    .built-path.visible .bp-step:nth-child(3) { transition-delay: 0.4s; }
-    .built-path.visible .bp-link:nth-child(4)::after { transition-delay: 0.52s; }
-    .built-path.visible .bp-step:nth-child(5) { transition-delay: 0.8s; }
+    .built-path.visible .bp-link:nth-child(2)::after { transition-delay: 0.3s; }
+    .built-path.visible .bp-panel:nth-child(3) .bp-step { transition-delay: 0.55s; }
+    .built-path.visible .bp-link:nth-child(4)::after { transition-delay: 0.95s; }
+    .built-path.visible .bp-panel:nth-child(5) .bp-step { transition-delay: 1.2s; }
     .built-note { text-align: center; max-width: 620px; margin: 1.2rem auto 0; font-size: 0.95rem; color: var(--muted); line-height: 1.65; }
 
     .benefit-card {
@@ -1326,6 +1341,18 @@
       align-items: start;
     }
     .pricing-gets { padding: 2.2rem 0; }
+    /* Under the pricing form: the three answers to "will we be locked in?", the facts FAQ 4-5 state.
+       Each line icon draws itself once when the row comes into view. */
+    .pr-guard { margin-top: 1.4rem; padding: 0 0.2rem; }
+    .pr-guard ul { list-style: none; margin: 0.7rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem 1.4rem; }
+    .pr-guard li { --i: 0; display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.9rem; line-height: 1.45; color: var(--ink-soft); }
+    .pr-guard i { flex: none; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center;
+      border: 1px solid var(--line-strong); border-radius: 2px; background: var(--panel); }
+    .pr-guard svg { width: 20px; height: 20px; fill: none; stroke: var(--accent-deep); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+    .pr-guard path, .pr-guard circle, .pr-guard rect { stroke-dasharray: 60; stroke-dashoffset: 60;
+      transition: stroke-dashoffset 0.9s var(--ease-out); transition-delay: calc(var(--i) * 0.2s + 0.2s); }
+    .pr-guard.visible path, .pr-guard.visible circle, .pr-guard.visible rect { stroke-dashoffset: 0; }
+    @media (max-width: 768px) { .pr-guard ul { grid-template-columns: 1fr; } }
     .pricing-gets ul { list-style: none; margin: 0.8rem 0 0; padding: 0; display: flex; flex-direction: column; gap: 0.8rem; }
     .pricing-gets li { position: relative; padding-left: 1.6rem; font-size: 1.05rem; line-height: 1.45; color: var(--ink); }
     .pricing-gets li::before { content: ""; position: absolute; left: 0; top: 0.45em; width: 0.6rem; height: 0.6rem; background: var(--accent); border-radius: 1px; }
@@ -1761,7 +1788,7 @@
         </article>
       </div>
       <div class="built-path fade-in" aria-hidden="true">
-        <span class="bp-step" data-i18n="built.path_1">Μία λύση</span><i class="bp-link"></i><span class="bp-step" data-i18n="built.path_2">Περισσότερες, ανεξάρτητες</span><i class="bp-link"></i><span class="bp-step" data-i18n="built.path_3">Συνδεδεμένες μεταξύ τους</span>
+        <figure class="bp-panel"><svg class="bp-art" viewBox="0 0 200 128" focusable="false"><g class="bp-cube" style="--d:0.0s"><path d="M72 56.2L100 72.4L100 96.4L72 80.2Z" fill="var(--paper-2)"/><path d="M100 72.4L128 56.2L128 80.2L100 96.4Z" fill="var(--line)"/><path d="M100 40L128 56.2L100 72.4L72 56.2Z" fill="var(--panel)"/></g></svg><figcaption class="bp-step" data-i18n="built.path_1">Μία λύση</figcaption></figure><i class="bp-link"></i><figure class="bp-panel"><svg class="bp-art" viewBox="0 0 200 128" focusable="false"><g class="bp-cube" style="--d:0.55s"><path d="M16 56.2L44 72.4L44 96.4L16 80.2Z" fill="var(--paper-2)"/><path d="M44 72.4L72 56.2L72 80.2L44 96.4Z" fill="var(--line)"/><path d="M44 40L72 56.2L44 72.4L16 56.2Z" fill="var(--panel)"/></g><g class="bp-cube" style="--d:0.65s"><path d="M72 56.2L100 72.4L100 96.4L72 80.2Z" fill="var(--paper-2)"/><path d="M100 72.4L128 56.2L128 80.2L100 96.4Z" fill="var(--line)"/><path d="M100 40L128 56.2L100 72.4L72 56.2Z" fill="var(--panel)"/></g><g class="bp-cube" style="--d:0.75s"><path d="M128 56.2L156 72.4L156 96.4L128 80.2Z" fill="var(--paper-2)"/><path d="M156 72.4L184 56.2L184 80.2L156 96.4Z" fill="var(--line)"/><path d="M156 40L184 56.2L156 72.4L128 56.2Z" fill="var(--panel)"/></g></svg><figcaption class="bp-step" data-i18n="built.path_2">Περισσότερες, ανεξάρτητες</figcaption></figure><i class="bp-link"></i><figure class="bp-panel"><svg class="bp-art" viewBox="0 0 200 128" focusable="false"><path class="bp-wire" style="--d:1.7s" d="M44 62.4L78 99"/><path class="bp-wire" style="--d:1.8s" d="M100 62.4V95"/><path class="bp-wire" style="--d:1.9s" d="M156 62.4L122 99"/><g class="bp-cube" style="--d:1.55s"><path d="M70 104v14a30 9 0 0 0 60 0V104" fill="var(--paper-2)"/><ellipse cx="100" cy="104" rx="30" ry="9" fill="var(--panel)"/></g><g class="bp-cube" style="--d:1.2s"><path d="M16 22.2L44 38.4L44 62.4L16 46.2Z" fill="var(--paper-2)"/><path d="M44 38.4L72 22.2L72 46.2L44 62.4Z" fill="var(--line)"/><path d="M44 6L72 22.2L44 38.4L16 22.2Z" fill="var(--accent-soft)"/></g><g class="bp-cube" style="--d:1.3s"><path d="M72 22.2L100 38.4L100 62.4L72 46.2Z" fill="var(--paper-2)"/><path d="M100 38.4L128 22.2L128 46.2L100 62.4Z" fill="var(--line)"/><path d="M100 6L128 22.2L100 38.4L72 22.2Z" fill="var(--accent-soft)"/></g><g class="bp-cube" style="--d:1.4s"><path d="M128 22.2L156 38.4L156 62.4L128 46.2Z" fill="var(--paper-2)"/><path d="M156 38.4L184 22.2L184 46.2L156 62.4Z" fill="var(--line)"/><path d="M156 6L184 22.2L156 38.4L128 22.2Z" fill="var(--accent-soft)"/></g></svg><figcaption class="bp-step" data-i18n="built.path_3">Συνδεδεμένες μεταξύ τους</figcaption></figure>
       </div>
       <p class="built-note fade-in" data-i18n="built.path_note">Ξεκινάτε από μία λύση. Προσθέτετε όσες χρειάζεστε, με τη σειρά που τις χρειάζεστε. Όταν έχει νόημα, μοιράζονται τα ίδια δεδομένα.</p>
       <div class="built-cta fade-in" id="builtCta" data-ga-location="solutions_cta">
@@ -1816,33 +1843,39 @@
             <li data-i18n="pricing.get_3">Ποιος τρόπος ταιριάζει στην εταιρεία σας</li>
           </ul>
         </div>
-        <form class="contact-form pricing-form fade-in fade-in-delay-2" id="pricingForm" action="https://formspree.io/f/xaqllyao" method="POST" novalidate>
-          <input type="hidden" name="_source" value="index_pricing" />
-          <input type="hidden" name="subject" value="Pricing PDF request" />
-          <input type="hidden" name="language" value="el" />
-          <div class="contact-form-row">
-            <div class="contact-field">
-              <label class="contact-label" for="pfCompany" data-i18n="contact.form_company">Εταιρεία</label>
-              <input type="text" id="pfCompany" name="company" class="contact-input" required autocomplete="organization" />
+        <div class="pricing-side">
+          <form class="contact-form pricing-form fade-in fade-in-delay-2" id="pricingForm" action="https://formspree.io/f/xaqllyao" method="POST" novalidate>
+            <input type="hidden" name="_source" value="index_pricing" />
+            <input type="hidden" name="subject" value="Pricing PDF request" />
+            <input type="hidden" name="language" value="el" />
+            <div class="contact-form-row">
+              <div class="contact-field">
+                <label class="contact-label" for="pfCompany" data-i18n="contact.form_company">Εταιρεία</label>
+                <input type="text" id="pfCompany" name="company" class="contact-input" required autocomplete="organization" />
+              </div>
+              <div class="contact-field">
+                <label class="contact-label" for="pfEmail">Email</label>
+                <input type="email" id="pfEmail" name="email" class="contact-input" required autocomplete="email" />
+              </div>
             </div>
-            <div class="contact-field">
-              <label class="contact-label" for="pfEmail">Email</label>
-              <input type="email" id="pfEmail" name="email" class="contact-input" required autocomplete="email" />
+            <div class="contact-form-foot">
+              <button type="submit" class="btn-primary contact-submit" data-i18n="pricing.form_submit">Στείλτε μου τις τιμές</button>
+              <p class="contact-privacy" data-i18n-html="contact.form_privacy">Υποβάλλοντας, αποδέχεστε την <a href="privacy.html">Πολιτική Απορρήτου</a>. Χρησιμοποιούμε τα στοιχεία μόνο για να σας απαντήσουμε.</p>
             </div>
+            <div class="contact-done" id="pricingDone" hidden>
+              <strong data-i18n="contact.form_done_title">Το λάβαμε.</strong>
+              <ol class="next-steps">
+                <li class="is-done" style="--i:0"><b aria-hidden="true">✓</b><span data-i18n="next.p1">Το αίτημά σας έφτασε.</span></li>
+                <li style="--i:1"><b aria-hidden="true">02</b><span data-i18n="next.p2">Το PDF με τις τιμές φτάνει στο email σας σε λίγα λεπτά. Αν δεν το δείτε, ελέγξτε και τα ανεπιθύμητα.</span></li>
+                <li style="--i:2"><b aria-hidden="true">03</b><span data-i18n-html="next.p3">Ερωτήσεις; <a href="#contact">Γράψτε μας</a> ή <a href="call.html" data-cta>κλείστε μια κλήση</a>.</span></li>
+              </ol>
+            </div>
+          </form>
+          <div class="pr-guard fade-in">
+            <div class="contact-label" data-i18n="guard.label">Χωρίς δέσμευση</div>
+            <ul><li style="--i:0"><i aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><path d="M9.5 14l2 2 4-4"/></svg></i><span data-i18n="guard.g1">Τα αρχεία και τα δεδομένα σας μένουν δικά σας</span></li><li style="--i:1"><i aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><rect x="5" y="11" width="14" height="10" rx="1.5"/><path d="M8.5 11V8a3.5 3.5 0 0 1 6.6-1.6"/><path d="M12 15v2"/></svg></i><span data-i18n="guard.g2">Χωρίς ελάχιστη διάρκεια συνδρομής</span></li><li style="--i:2"><i aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><circle cx="8" cy="16" r="3.5"/><path d="M10.5 13.5L19 5"/><path d="M16 8l2 2M14 10l1.5 1.5"/></svg></i><span data-i18n="guard.g3">Αν θέλετε τη λύση οριστικά, συζητάμε εξαγορά</span></li></ul>
           </div>
-          <div class="contact-form-foot">
-            <button type="submit" class="btn-primary contact-submit" data-i18n="pricing.form_submit">Στείλτε μου τις τιμές</button>
-            <p class="contact-privacy" data-i18n-html="contact.form_privacy">Υποβάλλοντας, αποδέχεστε την <a href="privacy.html">Πολιτική Απορρήτου</a>. Χρησιμοποιούμε τα στοιχεία μόνο για να σας απαντήσουμε.</p>
-          </div>
-          <div class="contact-done" id="pricingDone" hidden>
-            <strong data-i18n="contact.form_done_title">Το λάβαμε.</strong>
-            <ol class="next-steps">
-              <li class="is-done" style="--i:0"><b aria-hidden="true">✓</b><span data-i18n="next.p1">Το αίτημά σας έφτασε.</span></li>
-              <li style="--i:1"><b aria-hidden="true">02</b><span data-i18n="next.p2">Το PDF με τις τιμές φτάνει στο email σας σε λίγα λεπτά. Αν δεν το δείτε, ελέγξτε και τα ανεπιθύμητα.</span></li>
-              <li style="--i:2"><b aria-hidden="true">03</b><span data-i18n-html="next.p3">Ερωτήσεις; <a href="#contact">Γράψτε μας</a> ή <a href="call.html" data-cta>κλείστε μια κλήση</a>.</span></li>
-            </ol>
-          </div>
-        </form>
+        </div>
       </div>
     </div>
   </section>
@@ -2229,6 +2262,10 @@
         'faq.q8': 'Δεν έχουμε CAD ή CAM. Μας αφορά;',
         'faq.a8': 'Ναι. Αρκετές λύσεις μας είναι αυτόνομες εφαρμογές, χωρίς CAD ή CAM.',
         'pricing.form_submit': 'Στείλτε μου τις τιμές',
+        'guard.label': 'Χωρίς δέσμευση',
+        'guard.g1': 'Τα αρχεία και τα δεδομένα σας μένουν δικά σας',
+        'guard.g2': 'Χωρίς ελάχιστη διάρκεια συνδρομής',
+        'guard.g3': 'Αν θέλετε τη λύση οριστικά, συζητάμε εξαγορά',
         // Footer
         'footer.contact': 'Επικοινωνία',
         // Privacy consent
@@ -2445,6 +2482,10 @@
         'faq.q8': 'We don\'t use CAD or CAM. Is this for us?',
         'faq.a8': 'Yes. Several of our solutions are standalone apps, with no CAD or CAM.',
         'pricing.form_submit': 'Send me the prices',
+        'guard.label': 'No lock-in',
+        'guard.g1': 'Your files and data stay yours',
+        'guard.g2': 'No minimum term',
+        'guard.g3': 'Want to own a solution outright? We can discuss a buy-out',
         // Footer
         'footer.contact': 'Contact',
         // Privacy consent
@@ -2661,6 +2702,10 @@
         'faq.q8': 'Non usiamo CAD né CAM. Fa per noi?',
         'faq.a8': 'Sì. Diverse nostre soluzioni sono applicazioni autonome, senza CAD né CAM.',
         'pricing.form_submit': 'Inviatemi i prezzi',
+        'guard.label': 'Nessun vincolo',
+        'guard.g1': 'I vostri file e i vostri dati restano vostri',
+        'guard.g2': 'Nessuna durata minima',
+        'guard.g3': 'Volete una soluzione in modo definitivo? Possiamo discutere un riscatto',
         // Footer
         'footer.contact': 'Contatti',
         // Privacy consent

@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AidedCAM - Σαράντα εντολές Revit σε μία καρτέλα: από μια μέρα σε 11 λεπτά</title>
+  <meta name="description" content="Οι εντολές ενός add-in για Revit που φτιάξαμε για το τμήμα BIM εταιρείας βιομηχανικού εξοπλισμού: αεραγωγοί, καλώδια, σωληνώσεις, δεδομένα και εξαγωγή φύλλων, με ένα κουμπί η καθεμία." />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content="AidedCAM - Σαράντα εντολές Revit σε μία καρτέλα: από μια μέρα σε 11 λεπτά" />
+  <meta property="og:description" content="Οι εντολές ενός add-in για Revit που φτιάξαμε για το τμήμα BIM εταιρείας βιομηχανικού εξοπλισμού: αεραγωγοί, καλώδια, σωληνώσεις, δεδομένα και εξαγωγή φύλλων, με ένα κουμπί η καθεμία." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.aidedcam.com/revit-commands.html" />
+  <meta property="og:image" content="https://www.aidedcam.com/og/home.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="AidedCAM: Λογισμικό στα μέτρα σας. Φτιαγμένο για μία εταιρεία: τη δική σας. Autodesk Authorized Developer." />
+  <meta property="og:site_name" content="AidedCAM" />
+  <meta property="og:locale" content="el_GR" />
+  <meta property="og:locale:alternate" content="en_US" />
+  <meta property="og:locale:alternate" content="it_IT" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AidedCAM - Σαράντα εντολές Revit σε μία καρτέλα: από μια μέρα σε 11 λεπτά" />
+  <meta name="twitter:description" content="Οι εντολές ενός add-in για Revit που φτιάξαμε για το τμήμα BIM εταιρείας βιομηχανικού εξοπλισμού: αεραγωγοί, καλώδια, σωληνώσεις, δεδομένα και εξαγωγή φύλλων, με ένα κουμπί η καθεμία." />
+  <meta name="twitter:image" content="https://www.aidedcam.com/og/home.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+  <meta name="theme-color" content="#f4f3ee" />
+  <link rel="alternate" hreflang="el" href="https://www.aidedcam.com/revit-commands.html" />
+  <link rel="alternate" hreflang="en" href="https://www.aidedcam.com/revit-commands.html?lang=en" />
+  <link rel="alternate" hreflang="it" href="https://www.aidedcam.com/revit-commands.html?lang=it" />
+  <link rel="alternate" hreflang="x-default" href="https://www.aidedcam.com/revit-commands.html" />
+  <!-- Canonical per language: ?lang=en and ?lang=it are their own pages, any other query string folds into
+       the plain URL. Set from script rather than in the HTML so a ?lang= page never declares a canonical
+       that points away from it. -->
+  <script>(function () { var m = /[?&]lang=(en|it)(&|$)/.exec(location.search), l = document.createElement('link'); l.rel = 'canonical'; l.href = 'https://www.aidedcam.com/revit-commands.html' + (m ? '?lang=' + m[1] : ''); document.head.appendChild(l); })();</script>
+  <link rel="preload" as="image" href="aided-cam-mark.png" />
+  <!-- Google Analytics - loaded only after cookie consent -->
+  <script>
+    function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+    function lsSet(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+    function loadGA() {
+      window['ga-disable-G-81935T6DNE'] = false;
+      if (document.getElementById('ga-script')) {
+        if (window.gtag) gtag('consent', 'update', { analytics_storage: 'granted' });
+        return;
+      }
+      var s = document.createElement('script');
+      s.id = 'ga-script'; s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-81935T6DNE';
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      window.gtag = gtag;
+      // Only analytics was consented to; without a default Google treats the ad signals as granted.
+      gtag('consent', 'default', { analytics_storage: 'granted', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+      gtag('js', new Date());
+      var userLang = lsGet('aidedcam-lang') || document.documentElement.lang || 'el';
+      gtag('set', 'user_properties', { preferred_language: userLang });
+      gtag('config', 'G-81935T6DNE');
+    }
+    function revokeGA() {
+      window['ga-disable-G-81935T6DNE'] = true;
+      if (window.gtag) gtag('consent', 'update', { analytics_storage: 'denied' });
+      var root = location.hostname.replace(/^www\./, '');
+      document.cookie.split(';').forEach(function (c) {
+        var n = c.split('=')[0].trim();
+        if (n === '_ga' || n.indexOf('_ga_') === 0) {
+          ['', location.hostname, '.' + root].forEach(function (d) {
+            document.cookie = n + '=; Max-Age=0; path=/' + (d ? '; domain=' + d : '');
+          });
+        }
+      });
+    }
+    if (lsGet('privacy-pref') === 'accepted') { loadGA(); }
+  </script>
+  <link rel="stylesheet" href="fonts.css?v=20260923" />
+  <link rel="stylesheet" href="css/editorial.css?v=20260927" />
+  <noscript><style>.fade-in { opacity: 1 !important; transform: none !important; }</style></noscript>
+  <style>
+    /* ── nav-back: page-specific link with left-arrow glyph ── */
+    .nav-right { display: flex; align-items: center; gap: 1.2rem; }
+    .nav-back {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      color: var(--muted); text-decoration: none;
+      font-family: var(--font-mono); font-weight: 400; font-size: 0.72rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      transition: color 0.2s ease;
+    }
+    .nav-back:hover { color: var(--ink); }
+    .nav-back::before {
+      content: ''; width: 1.05em; height: 1.05em; flex: none;
+      background-color: currentColor;
+      -webkit-mask: var(--ic-arrow-d) center / contain no-repeat;
+              mask: var(--ic-arrow-d) center / contain no-repeat;
+      transform: rotate(90deg);
+      transition: transform 0.25s ease;
+    }
+    .nav-back:hover::before { transform: rotate(90deg) translateY(3px); }
+
+    /* ===== FOOTER (page-specific compact ROI footer) ===== */
+    .roi-footer {
+      padding: 2rem clamp(1.25rem, 5vw, 3rem); border-top: 1px solid var(--line);
+      background: var(--paper);
+      display: flex; justify-content: space-between; align-items: center;
+      max-width: 800px; margin: 0 auto; flex-wrap: wrap; gap: 0.5rem;
+    }
+    .roi-footer .brand img { display: block; height: 12px; width: auto; } /* logo artwork, see .nav-logo */
+    .roi-footer-legal {
+      width: 100%; display: flex; justify-content: center; gap: 1.5rem;
+      padding-top: 0.8rem;
+    }
+    .roi-footer-legal a {
+      font-size: 0.78rem; color: var(--muted); text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .roi-footer-legal a:hover { color: var(--accent-deep);
+    }
+
+
+        /* ===== CASE STORY =====
+           A scrollytelling page: the steps scroll on the left while one window on the right stays put
+           and shows the application at that step, zoomed to the part of the screen the step is about
+           (STORY script: .is-on on the step and its shot; the zoom is each shot's --x/--y/--z).
+           Without JS every step reads at full strength and the first shot shows; under reduced motion
+           the switch is instant. The images are frames of the demo recording (test part). */
+        .cs-eyebrow { font-family: var(--font-mono); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-deep); }
+        .cs-hero { padding: clamp(4.5rem, 9vw, 7rem) 0 clamp(2.5rem, 5vw, 3.5rem); border-bottom: 1px solid var(--line); }
+        .cs-hero h1 { margin: 1rem 0 0; max-width: 22ch; font-family: var(--font-display); font-weight: 300; font-size: clamp(2.2rem, 4.6vw, 3.7rem); line-height: 1.08; color: var(--ink); }
+        .cs-hero h1 strong { display: block; font-weight: 600; color: var(--accent-deep); }
+        .cs-lead { max-width: 40rem; margin: 1.4rem 0 0; font-size: 1.15rem; line-height: 1.6; color: var(--ink-soft); }
+        .cs-result { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.4rem 1.2rem; margin-top: 2rem; }
+        .cs-result s { font-family: var(--font-display); font-weight: 300; font-size: clamp(2rem, 4vw, 3rem); line-height: 1; color: var(--faint); text-decoration-color: var(--accent); text-decoration-thickness: 3px; }
+        .cs-result b { font-family: var(--font-display); font-weight: 300; font-size: clamp(2.4rem, 5vw, 3.8rem); line-height: 1; color: var(--accent-deep); }
+        .cs-result span { font-size: 0.95rem; color: var(--muted); }
+        .cs-story { padding: clamp(1rem, 3vw, 2rem) 0 clamp(3rem, 6vw, 5rem); }
+        .cs-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(2rem, 4vw, 4rem); }
+        .cs-steps { grid-column: 1; grid-row: 1; }
+        .cs-step { min-height: 78vh; display: flex; flex-direction: column; justify-content: center; padding: 2rem 0; transition: opacity 0.4s var(--ease-out); }
+        .cs-armed .cs-step:not(.is-on) { opacity: 0.32; }
+        .cs-num { font-family: var(--font-mono); font-size: 0.68rem; font-weight: 500; letter-spacing: 0.14em; color: var(--accent-deep); }
+        .cs-step h2 { margin: 0.7rem 0 0.8rem; font-family: var(--font-display); font-weight: 500; font-size: clamp(1.45rem, 2.4vw, 1.9rem); line-height: 1.2; color: var(--ink); }
+        .cs-step p { margin: 0; max-width: 32rem; font-size: 1.05rem; line-height: 1.65; color: var(--ink-soft); }
+        .cs-stage { grid-column: 2; grid-row: 1; position: sticky; top: max(84px, calc(50vh - 13rem)); align-self: start; margin-top: 26vh; }
+        .cs-frame { background: var(--panel); border: 1px solid var(--line-strong); border-radius: 3px; box-shadow: var(--elev-1); overflow: hidden; }
+        .cs-bar { display: flex; align-items: center; gap: 5px; padding: 0.55rem 0.8rem; border-bottom: 1px solid var(--line); }
+        .cs-bar i { width: 7px; height: 7px; border-radius: 50%; background: var(--line-strong); }
+        .cs-bar span { margin-left: auto; font-family: var(--font-mono); font-size: 0.56rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); }
+        .cs-view { position: relative; aspect-ratio: 2400 / 1368; overflow: hidden; background: var(--paper-2); }
+        .cs-shot { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0;
+          transform-origin: var(--x) var(--y); transform: scale(1);
+          transition: opacity 0.5s ease, transform 0.9s cubic-bezier(0.77, 0, 0.175, 1); }
+        .cs-shot.is-on { opacity: 1; transform: scale(var(--z)); }
+        .cs-note { margin: 0.7rem 0 0; font-size: 0.78rem; color: var(--faint); }
+        .cs-out { padding: clamp(3rem, 6vw, 5rem) 0; border-top: 1px solid var(--line); background: var(--paper-2); text-align: center; }
+        .cs-out h2 { margin: 0 auto; max-width: 24ch; font-family: var(--font-display); font-weight: 300; font-size: clamp(1.8rem, 3.4vw, 2.6rem); line-height: 1.15; color: var(--ink); }
+        .cs-out h2 strong { display: block; font-weight: 600; color: var(--accent-deep); }
+        .cs-out p { max-width: 36rem; margin: 1rem auto 0; font-size: 1.05rem; line-height: 1.6; color: var(--ink-soft); }
+        .cs-cta { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 0.8rem 1.2rem; margin-top: 1.8rem; }
+        .cs-all { display: inline-block; margin-top: 1.4rem; font-size: 0.85rem; font-weight: 600; color: var(--accent-deep); text-decoration: underline; text-underline-offset: 3px; }
+        @media (max-width: 900px) {
+          .cs-grid { grid-template-columns: 1fr; gap: 0; }
+          .cs-stage { grid-column: 1; grid-row: 1; top: 64px; z-index: 5; margin: 0; padding: 0.6rem 0 0.8rem; background: var(--paper); }
+          .nav-back { display: none; }  /* as on what-you-gain.html: the logo leads home */
+          .cs-steps { grid-row: 2; }
+          .cs-step { min-height: 58vh; }
+          .cs-cta { flex-direction: column; align-items: stretch; }
+        }
+    
+        /* ===== COMMANDS (card 03, no recording of Revit) =====
+           The add-in's generic commands, grouped like its ribbon panels; the panels fade in as they
+           scroll into view (the shared fade-in observer). */
+        .cm-list { padding: clamp(2.5rem, 5vw, 4rem) 0 clamp(3rem, 6vw, 5rem); }
+        .cm-intro { max-width: 46rem; margin: 0 0 2.2rem; font-size: 1.05rem; line-height: 1.65; color: var(--ink-soft); }
+        .cm-panel { margin-top: 2rem; padding: 0; border: 1px solid var(--line-strong); border-radius: 3px; background: var(--panel); }
+        .cm-panel header { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding: 0.9rem 1.2rem; border-bottom: 1px solid var(--line); background: var(--paper-2); }
+        .cm-panel h2 { margin: 0; font-family: var(--font-display); font-weight: 500; font-size: 1.2rem; color: var(--ink); }
+        .cm-tag { font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+        .cm-panel ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); }
+        .cm-item { display: flex; gap: 0.9rem; align-items: flex-start; padding: 1rem 1.2rem; border-top: 1px solid var(--line); margin-top: -1px; }
+        .cm-item img { flex: none; width: 32px; height: 32px; margin-top: 2px; }
+        .cm-item b { display: block; font-size: 0.95rem; font-weight: 600; color: var(--ink); }
+        .cm-item span { display: block; margin-top: 0.2rem; font-size: 0.9rem; line-height: 1.5; color: var(--ink-soft); }
+      </style>
+  <link rel="stylesheet" href="css/sidebar.css?v=20261005" />
+  <script src="js/sidebar.js?v=20261005" defer></script>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="aided-cam-mark.png" alt="AidedCAM" width="30" height="34" />
+        <img class="wordmark" src="aidedcam-wordmark.svg" alt="" width="716" height="67" />
+      </a>
+      <div class="nav-right">
+        <a href="index.html" class="nav-back" data-i18n="case.back">Αρχική</a>
+        <div class="lang-switcher">
+          <button class="lang-btn active" data-lang="el">EL</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+          <button class="lang-btn" data-lang="it">IT</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main" class="roi-content">
+        <section class="cs-hero">
+          <div class="container">
+            <div class="cs-eyebrow" data-i18n="case.label">Λύση που φτιάξαμε · Βιομηχανικός εξοπλισμός, τμήμα BIM</div>
+            <h1 data-i18n-html="case.title">Σαράντα εντολές Revit σε μία καρτέλα. <strong>Κάθε επαναλαμβανόμενη δουλειά, ένα κουμπί.</strong></h1>
+            <p class="cs-lead" data-i18n="case.lead">Κάθε επαναλαμβανόμενη δουλειά μοντελοποίησης του τμήματος BIM έγινε ένα κουμπί μέσα στο Revit. Τα σχέδια και οι πίνακες από το μοντέλο, που έπαιρναν μια μέρα, βγαίνουν σε 11 λεπτά.</p>
+            <p class="cs-result"><s data-i18n="case.v_before">1 μέρα</s><b data-i18n="case.v_after">11 λεπτά</b><span data-i18n="case.what">για σχέδια και πίνακες από το μοντέλο</span></p>
+          </div>
+        </section>
+
+        <section class="cm-list">
+          <div class="container">
+            <p class="cm-intro" data-i18n="case.intro">Αυτές είναι οι εντολές, ομαδοποιημένες όπως στην καρτέλα του Revit. Δείχνουμε όσες είναι γενικές· μερικές ακόμα είναι φτιαγμένες ειδικά για τα προϊόντα της εταιρείας και μένουν δικές της.</p>
+          <section class="cm-panel fade-in"><header><h2 data-i18n="cmd.p_mech">Αεραγωγοί</h2><span class="cm-tag">Mechanical · 11</span></header><ul><li class="cm-item"><img src="icons/revit/ductThroughCeiling.svg" alt="" width="32" height="32" loading="lazy" /><div><b>Duct through ceiling</b><span data-i18n="cmd.ductThroughCeiling">Τοποθετεί τα σημεία ανάρτησης όπου οι αεραγωγοί περνούν από οροφή.</span></div></li><li class="cm-item"><img src="icons/revit/ductThroughWall.svg" alt="" width="32" height="32" loading="lazy" /><div><b>Duct through wall</b><span data-i18n="cmd.ductThroughWall">Τοποθετεί τα σημεία ανάρτησης όπου οι αεραγωγοί περνούν από τοίχο.</span></div></li><li class="cm-item"><img src="icons/revit/ventilatorOnDuct.svg" alt="" width="32" height="32" loading="lazy" /><div><b>Ventilator on duct</b><span data-i18n="cmd.ventilatorOnDuct">Τοποθετεί τα σημεία ανάρτησης για ανεμιστήρες πάνω σε αεραγωγούς.</span></div></li><li class="cm-item"><img src="icons/revit/ductSplit.svg" alt="" width="32" height="32" loading="lazy" /><div><b>Duct split</b><span data-i18n="cmd.ductSplit">Κόβει στρογγυλούς και ορθογώνιους αεραγωγούς στα κομμάτια που θα κατασκευαστούν.</span></div></li><li class="cm-item"><img src="icons/revit/exhaustRun.svg" alt="" width="32" height="32" loading="lazy" /><div><b>Exhaust run</b><span data-i18n="cmd.exhaustRun">Φτιάχνει ολόκληρη κατακόρυφη απαγωγή μέσα από τη στέγη: αεραγωγό, καπέλο και θυρίδες επιθεώρησης.</span></div></li><li class="cm-item"><img src="icons/revit/exhaustOffset.svg" alt="" width="32" height="32" loading="lazy" /><div><b>Exhaust offset</b><span data-i18n="cmd.exhaustOffset">Μετατοπίζει έναν αεραγωγό πλάγια με δύο γωνίες, ώστε να συνεχίζει παράλληλα.</span></div></li><li class="cm-item"><img src="icons/revit/ahuEditor.svg" alt="" width="32" height="32" loading="lazy" /><div><b>AHU editor</b><span data-i18n="cmd.ahuEditor">Επεξεργαστής για τα τμήματα της κλιματιστικής μονάδας: φίλτρα, στοιχεία, υγραντήρας, ανεμιστήρας, με αναφορά.</span></div></li><li class="cm-item"><img src="icons/revit/insertCvdVav.svg" alt="" width="32" height="32" loading="lazy" /><div><b>Insert CVD and VAV</b><span data-i18n="cmd.insertCvdVav">Βάζει CVD και VAV στον αεραγωγό, μαζί με τους συνδέσμους τους.</span></div></li><li class="cm-item"><img src="icons/revit/takeOffMainDiameters.svg" alt="" width="32" height="32" loading="lazy" /><div><b>Take off main diameters</b><span data-i18n="cmd.takeOffMainDiameters">Γράφει τη διάμετρο του κύριου αεραγωγού σε κάθε στρογγυλή διακλάδωση.</span></div></li><li class="cm-item"><img src="icons/revit/quantities.svg" alt="" width="32" height="32" loading="lazy" /><div><b>Quantities</b><span data-i18n="cmd.quantities">Συμπληρώνει τις συνολικές ποσότητες, όταν το μοντέλο είναι πλήρες.</span></div></li><li class="cm-item"><img src="icons/revit/create3DView.svg" alt="" width="32" height="32" loading="lazy" /><div><b>Create 3D view</b><span data-i18n="cmd.create3DView">Φτιάχνει ισομετρική 3D όψη του στοιχείου που επιλέξατε.</span></div></li></ul></section>
+          <section class="cm-panel fade-in"><header><h2 data-i18n="cmd.p_elec">Καλώδια</h2><span class="cm-tag">Electrical · 6</span></header><ul><li class="cm-item"><img src="icons/revit/cableLengths.svg" alt="" width="32" height="32" loading="lazy" /><div><b>Cable lengths</b><span data-i18n="cmd.cableLengths">Μετρά την απόσταση κάθε σημαδευτή καλωδίου από τον πίνακά του.</span></div></li><li class="cm-item"><img src="icons/revit/createCableMarkers.svg" alt="" width="32" height="32" loading="lazy" /><div><b>Create cable markers</b><span data-i18n="cmd.createCableMarkers">Φτιάχνει τους σημαδευτές καλωδίων και τους συνδέει με ένα βήμα.</span></div></li><li class="cm-item"><img src="icons/revit/associateCableMarker.svg" alt="" width="32" height="32" loading="lazy" /><div><b>Associate cable marker</b><span data-i18n="cmd.associateCableMarker">Συνδέει τις παραμέτρους του σημαδευτή με τις παραμέτρους του family.</span></div></li><li class="cm-item"><img src="icons/revit/calculateLineLengths.svg" alt="" width="32" height="32" loading="lazy" /><div><b>Calculate line lengths</b><span data-i18n="cmd.calculateLineLengths">Αθροίζει το μήκος των γραμμών, ανά τύπο γραμμής.</span></div></li><li class="cm-item"><img src="icons/revit/removeConduitLines.svg" alt="" width="32" height="32" loading="lazy" /><div><b>Remove conduit lines</b><span data-i18n="cmd.removeConduitLines">Αφαιρεί όλες τις γραμμές σωληνώσεων καλωδίων από το μοντέλο.</span></div></li><li class="cm-item"><img src="icons/revit/aCableInfo.svg" alt="" width="32" height="32" loading="lazy" /><div><b>Cable info</b><span data-i18n="cmd.aCableInfo">Δείχνει τα στοιχεία των καλωδίων.</span></div></li></ul></section>
+          <section class="cm-panel fade-in"><header><h2 data-i18n="cmd.p_plumb">Σωληνώσεις</h2><span class="cm-tag">Plumbing · 5</span></header><ul><li class="cm-item"><img src="icons/revit/pprctSplitAll.svg" alt="" width="32" height="32" loading="lazy" /><div><b>PP-RCT split</b><span data-i18n="cmd.pprctSplitAll">Κόβει τους σωλήνες PP-RCT σε τυποποιημένα μήκη, λίγους ή όλους μαζί.</span></div></li><li class="cm-item"><img src="icons/revit/replaceReduction.svg" alt="" width="32" height="32" loading="lazy" /><div><b>Replace reduction</b><span data-i18n="cmd.replaceReduction">Αντικαθιστά μια μη έγκυρη συστολή σωλήνα με μια σειρά έγκυρων.</span></div></li><li class="cm-item"><img src="icons/revit/weldSaddleDiameters.svg" alt="" width="32" height="32" loading="lazy" /><div><b>Weld saddle diameters</b><span data-i18n="cmd.weldSaddleDiameters">Γράφει τη διάμετρο του κύριου σωλήνα σε κάθε σέλα συγκόλλησης PP-RCT.</span></div></li><li class="cm-item"><img src="icons/revit/flexPipeConnection.svg" alt="" width="32" height="32" loading="lazy" /><div><b>Flex pipe connection</b><span data-i18n="cmd.flexPipeConnection">Ενώνει δύο σωλήνες με εύκαμπτο σωλήνα.</span></div></li><li class="cm-item"><img src="icons/revit/copyRoutingPreferences.svg" alt="" width="32" height="32" loading="lazy" /><div><b>Copy routing preferences</b><span data-i18n="cmd.copyRoutingPreferences">Αντιγράφει τις ρυθμίσεις δρομολόγησης, τα τμήματα και τα μεγέθη σωλήνων από άλλο έργο, με αναφορά.</span></div></li></ul></section>
+          <section class="cm-panel fade-in"><header><h2 data-i18n="cmd.p_data">Δεδομένα και εξαγωγή</h2><span class="cm-tag">Data · 4</span></header><ul><li class="cm-item"><img src="icons/revit/dwfxDwgPdf.svg" alt="" width="32" height="32" loading="lazy" /><div><b>Sheet export</b><span data-i18n="cmd.DwfxDwgPdf">Εξάγει τα επιλεγμένα φύλλα σε PDF, DWG, DWFX και IFC με ένα τρέξιμο.</span></div></li><li class="cm-item"><img src="icons/revit/dataGrid.svg" alt="" width="32" height="32" loading="lazy" /><div><b>Data grid</b><span data-i18n="cmd.dataGrid">Δείχνει τις παραμέτρους πολλών families σε έναν πίνακα, για ανάγνωση και αλλαγή μαζί.</span></div></li><li class="cm-item"><img src="icons/revit/cableData.svg" alt="" width="32" height="32" loading="lazy" /><div><b>Cable data</b><span data-i18n="cmd.cableData">Συγκρίνει τα στοιχεία καλωδίων του μοντέλου με το αρχείο κανονισμού σε Excel.</span></div></li><li class="cm-item"><img src="icons/revit/checkingTools.svg" alt="" width="32" height="32" loading="lazy" /><div><b>Checking tools</b><span data-i18n="cmd.checkingTools">Όλοι οι έλεγχοι του μοντέλου σε ένα παράθυρο.</span></div></li></ul></section>
+          <section class="cm-panel fade-in"><header><h2 data-i18n="cmd.p_plan">Σχέδιο και families</h2><span class="cm-tag">Plan · 6</span></header><ul><li class="cm-item"><img src="icons/revit/renumberDuctSystem.svg" alt="" width="32" height="32" loading="lazy" /><div><b>Renumber duct system</b><span data-i18n="cmd.renumberDuctSystem">Αριθμεί ένα δίκτυο αεραγωγών με σειρά, ώστε τα κομμάτια να διαβάζονται στη σειρά στις 3D όψεις.</span></div></li><li class="cm-item"><img src="icons/revit/centerRoomsTags.svg" alt="" width="32" height="32" loading="lazy" /><div><b>Center room tags</b><span data-i18n="cmd.centerRoomsTags">Κεντράρει κάθε ετικέτα χώρου μέσα στον χώρο της.</span></div></li><li class="cm-item"><img src="icons/revit/structureSelector.svg" alt="" width="32" height="32" loading="lazy" /><div><b>Structure selector</b><span data-i18n="cmd.structureSelector">Επιλέγει μια ολόκληρη ομάδα μεταλλικών στοιχείων με μία κίνηση.</span></div></li><li class="cm-item"><img src="icons/revit/alignPointCloud.svg" alt="" width="32" height="32" loading="lazy" /><div><b>Align point cloud</b><span data-i18n="cmd.alignPointCloud">Μετακινεί, περιστρέφει και γέρνει ένα συνδεδεμένο νέφος σημείων για να ταιριάξει με το μοντέλο.</span></div></li><li class="cm-item"><img src="icons/revit/familyReadParameter.svg" alt="" width="32" height="32" loading="lazy" /><div><b>Family read parameter</b><span data-i18n="cmd.familyReadParameter">Τυπώνει τις παραμέτρους ενός family σε πίνακα, για σύγκριση δίπλα δίπλα.</span></div></li><li class="cm-item"><img src="icons/revit/familyUpgrade.svg" alt="" width="32" height="32" loading="lazy" /><div><b>Family upgrade</b><span data-i18n="cmd.familyUpgrade">Αναβαθμίζει παλιότερα families στην έκδοση Revit που τρέχετε.</span></div></li></ul></section>
+          </div>
+        </section>
+
+        <section class="cs-out">
+          <div class="container">
+            <h2 data-i18n-html="case.out_title">Το αποτέλεσμα: <strong>11 λεπτά αντί για μια μέρα.</strong></h2>
+            <p data-i18n="case.out_text">Υπάρχει κι εσάς μια δουλειά στο Revit που επαναλαμβάνετε κάθε μέρα; Πείτε μας ποια είναι. Θα απαντήσουμε εντός 48 ωρών με το πώς θα το φτιάχναμε.</p>
+            <div class="cs-cta">
+              <a href="index.html#contact" class="btn-primary" data-i18n="case.cta_contact">Περιγράψτε τη δουλειά</a>
+              <a href="call.html" class="btn-secondary" data-i18n="case.cta_call">Κλείστε μια κλήση</a>
+            </div>
+            <a href="index.html#lyseis" class="cs-all" data-i18n="case.cta_all">Όλες οι λύσεις</a>
+          </div>
+        </section>
+
+        <!-- FOOTER -->
+    <div class="roi-footer">
+      <div class="brand"><img src="aidedcam-wordmark.svg" alt="AidedCAM" width="716" height="67" loading="lazy" /></div>
+      <div class="roi-footer-legal">
+        <a href="privacy.html" data-i18n="footer.privacy">Απόρρητο</a>
+        <a href="legal.html" data-i18n="footer.legal">Νομικά</a>
+        <a href="javascript:void(0)" onclick="openCookieSettings()" data-i18n="footer.cookie_settings">Ρυθμίσεις Cookies</a>
+      </div>
+    </div>
+  </main>
+
+      <!-- COOKIE CONSENT BANNER -->
+  <div class="consent-banner" id="prefsOverlay">
+    <div class="consent-inner">
+      <p>
+        <span data-i18n="cookie_text">Αυτός ο ιστότοπος χρησιμοποιεί cookies για τη βελτιστοποίηση της λειτουργίας του και την ανάλυση επισκεψιμότητας.</span>
+        <a href="privacy.html" class="consent-privacy-link" data-i18n="cookie_privacy_link">Πολιτική Απορρήτου</a>
+      </p>
+      <div class="consent-actions">
+        <button class="consent-btn consent-btn-accept" id="privacyAccept" data-i18n="cookie_accept">Αποδοχή</button>
+        <button class="consent-btn consent-btn-manage" id="privacyManage" data-i18n="cookie_manage">Διαχείριση προτιμήσεων</button>
+        <button class="consent-btn consent-btn-decline" id="privacyDecline" data-i18n="cookie_decline">Απόρριψη</button>
+      </div>
+    </div>
+    <div class="consent-prefs" id="consentPrefs">
+      <div class="consent-prefs-inner">
+        <p class="consent-prefs-desc" data-i18n="cookie_prefs_desc">Επιλέξτε ποιες κατηγορίες cookies επιθυμείτε να ενεργοποιήσετε. Τα απαραίτητα cookies είναι πάντα ενεργά για τη σωστή λειτουργία του ιστότοπου.</p>
+        <div class="consent-categories">
+          <div class="consent-cat">
+            <input type="checkbox" checked disabled id="cookieNecessary">
+            <label for="cookieNecessary">
+              <span class="consent-cat-name" data-i18n="cookie_cat_necessary">Απαραίτητα</span>
+              <span class="consent-cat-desc" data-i18n="cookie_cat_necessary_desc">Βασική λειτουργία ιστότοπου</span>
+            </label>
+          </div>
+          <div class="consent-cat">
+            <input type="checkbox" checked disabled id="cookieFunctional">
+            <label for="cookieFunctional">
+              <span class="consent-cat-name" data-i18n="cookie_cat_functional">Λειτουργικά</span>
+              <span class="consent-cat-desc" data-i18n="cookie_cat_functional_desc">Αποθήκευση προτιμήσεων γλώσσας</span>
+            </label>
+          </div>
+          <div class="consent-cat">
+            <input type="checkbox" id="cookieAnalytics">
+            <label for="cookieAnalytics">
+              <span class="consent-cat-name" data-i18n="cookie_cat_analytics">Ανάλυση επισκεψιμότητας</span>
+              <span class="consent-cat-desc" data-i18n="cookie_cat_analytics_desc">Google Analytics, ανώνυμα στατιστικά</span>
+            </label>
+          </div>
+          <div class="consent-cat">
+            <input type="checkbox" disabled id="cookieMarketing">
+            <label for="cookieMarketing">
+              <span class="consent-cat-name" data-i18n="cookie_cat_marketing">Διαφημιστικά</span>
+              <span class="consent-cat-desc" data-i18n="cookie_cat_marketing_desc">Δεν χρησιμοποιούνται αυτήν τη στιγμή</span>
+            </label>
+          </div>
+        </div>
+        <div class="consent-prefs-actions">
+          <button class="consent-btn consent-btn-accept" id="privacySavePrefs" data-i18n="cookie_save">Αποθήκευση προτιμήσεων</button>
+          <button class="consent-btn consent-btn-decline" id="privacyBack" data-i18n="cookie_back">Πίσω</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ===== TRANSLATIONS =====
+    var translations = {
+      el: {
+        'case.back': 'Αρχική',
+        'case.label': 'Λύση που φτιάξαμε · Βιομηχανικός εξοπλισμός, τμήμα BIM',
+        'case.title': 'Σαράντα εντολές Revit σε μία καρτέλα. <strong>Κάθε επαναλαμβανόμενη δουλειά, ένα κουμπί.</strong>',
+        'case.lead': 'Κάθε επαναλαμβανόμενη δουλειά μοντελοποίησης του τμήματος BIM έγινε ένα κουμπί μέσα στο Revit. Τα σχέδια και οι πίνακες από το μοντέλο, που έπαιρναν μια μέρα, βγαίνουν σε 11 λεπτά.',
+        'case.v_before': '1 μέρα',
+        'case.v_after': '11 λεπτά',
+        'case.what': 'για σχέδια και πίνακες από το μοντέλο',
+        'case.intro': 'Αυτές είναι οι εντολές, ομαδοποιημένες όπως στην καρτέλα του Revit. Δείχνουμε όσες είναι γενικές· μερικές ακόμα είναι φτιαγμένες ειδικά για τα προϊόντα της εταιρείας και μένουν δικές της.',
+        'case.out_title': 'Το αποτέλεσμα: <strong>11 λεπτά αντί για μια μέρα.</strong>',
+        'case.out_text': 'Υπάρχει κι εσάς μια δουλειά στο Revit που επαναλαμβάνετε κάθε μέρα; Πείτε μας ποια είναι. Θα απαντήσουμε εντός 48 ωρών με το πώς θα το φτιάχναμε.',
+        'case.cta_contact': 'Περιγράψτε τη δουλειά',
+        'case.cta_call': 'Κλείστε μια κλήση',
+        'case.cta_all': 'Όλες οι λύσεις',
+        'cmd.p_mech': 'Αεραγωγοί',
+        'cmd.p_elec': 'Καλώδια',
+        'cmd.p_plumb': 'Σωληνώσεις',
+        'cmd.p_data': 'Δεδομένα και εξαγωγή',
+        'cmd.p_plan': 'Σχέδιο και families',
+        'cmd.ductThroughCeiling': 'Τοποθετεί τα σημεία ανάρτησης όπου οι αεραγωγοί περνούν από οροφή.',
+        'cmd.ductThroughWall': 'Τοποθετεί τα σημεία ανάρτησης όπου οι αεραγωγοί περνούν από τοίχο.',
+        'cmd.ventilatorOnDuct': 'Τοποθετεί τα σημεία ανάρτησης για ανεμιστήρες πάνω σε αεραγωγούς.',
+        'cmd.ductSplit': 'Κόβει στρογγυλούς και ορθογώνιους αεραγωγούς στα κομμάτια που θα κατασκευαστούν.',
+        'cmd.exhaustRun': 'Φτιάχνει ολόκληρη κατακόρυφη απαγωγή μέσα από τη στέγη: αεραγωγό, καπέλο και θυρίδες επιθεώρησης.',
+        'cmd.exhaustOffset': 'Μετατοπίζει έναν αεραγωγό πλάγια με δύο γωνίες, ώστε να συνεχίζει παράλληλα.',
+        'cmd.ahuEditor': 'Επεξεργαστής για τα τμήματα της κλιματιστικής μονάδας: φίλτρα, στοιχεία, υγραντήρας, ανεμιστήρας, με αναφορά.',
+        'cmd.insertCvdVav': 'Βάζει CVD και VAV στον αεραγωγό, μαζί με τους συνδέσμους τους.',
+        'cmd.takeOffMainDiameters': 'Γράφει τη διάμετρο του κύριου αεραγωγού σε κάθε στρογγυλή διακλάδωση.',
+        'cmd.quantities': 'Συμπληρώνει τις συνολικές ποσότητες, όταν το μοντέλο είναι πλήρες.',
+        'cmd.create3DView': 'Φτιάχνει ισομετρική 3D όψη του στοιχείου που επιλέξατε.',
+        'cmd.cableLengths': 'Μετρά την απόσταση κάθε σημαδευτή καλωδίου από τον πίνακά του.',
+        'cmd.createCableMarkers': 'Φτιάχνει τους σημαδευτές καλωδίων και τους συνδέει με ένα βήμα.',
+        'cmd.associateCableMarker': 'Συνδέει τις παραμέτρους του σημαδευτή με τις παραμέτρους του family.',
+        'cmd.calculateLineLengths': 'Αθροίζει το μήκος των γραμμών, ανά τύπο γραμμής.',
+        'cmd.removeConduitLines': 'Αφαιρεί όλες τις γραμμές σωληνώσεων καλωδίων από το μοντέλο.',
+        'cmd.aCableInfo': 'Δείχνει τα στοιχεία των καλωδίων.',
+        'cmd.pprctSplitAll': 'Κόβει τους σωλήνες PP-RCT σε τυποποιημένα μήκη, λίγους ή όλους μαζί.',
+        'cmd.replaceReduction': 'Αντικαθιστά μια μη έγκυρη συστολή σωλήνα με μια σειρά έγκυρων.',
+        'cmd.weldSaddleDiameters': 'Γράφει τη διάμετρο του κύριου σωλήνα σε κάθε σέλα συγκόλλησης PP-RCT.',
+        'cmd.flexPipeConnection': 'Ενώνει δύο σωλήνες με εύκαμπτο σωλήνα.',
+        'cmd.copyRoutingPreferences': 'Αντιγράφει τις ρυθμίσεις δρομολόγησης, τα τμήματα και τα μεγέθη σωλήνων από άλλο έργο, με αναφορά.',
+        'cmd.DwfxDwgPdf': 'Εξάγει τα επιλεγμένα φύλλα σε PDF, DWG, DWFX και IFC με ένα τρέξιμο.',
+        'cmd.dataGrid': 'Δείχνει τις παραμέτρους πολλών families σε έναν πίνακα, για ανάγνωση και αλλαγή μαζί.',
+        'cmd.cableData': 'Συγκρίνει τα στοιχεία καλωδίων του μοντέλου με το αρχείο κανονισμού σε Excel.',
+        'cmd.checkingTools': 'Όλοι οι έλεγχοι του μοντέλου σε ένα παράθυρο.',
+        'cmd.renumberDuctSystem': 'Αριθμεί ένα δίκτυο αεραγωγών με σειρά, ώστε τα κομμάτια να διαβάζονται στη σειρά στις 3D όψεις.',
+        'cmd.centerRoomsTags': 'Κεντράρει κάθε ετικέτα χώρου μέσα στον χώρο της.',
+        'cmd.structureSelector': 'Επιλέγει μια ολόκληρη ομάδα μεταλλικών στοιχείων με μία κίνηση.',
+        'cmd.alignPointCloud': 'Μετακινεί, περιστρέφει και γέρνει ένα συνδεδεμένο νέφος σημείων για να ταιριάξει με το μοντέλο.',
+        'cmd.familyReadParameter': 'Τυπώνει τις παραμέτρους ενός family σε πίνακα, για σύγκριση δίπλα δίπλα.',
+        'cmd.familyUpgrade': 'Αναβαθμίζει παλιότερα families στην έκδοση Revit που τρέχετε.',
+        'cookie_text': 'Αυτός ο ιστότοπος χρησιμοποιεί cookies για τη βελτιστοποίηση της λειτουργίας του και την ανάλυση επισκεψιμότητας.',
+        'cookie_accept': 'Αποδοχή',
+        'cookie_decline': 'Απόρριψη',
+        'cookie_manage': 'Διαχείριση προτιμήσεων',
+        'cookie_privacy_link': 'Πολιτική Απορρήτου',
+        'cookie_prefs_desc': 'Επιλέξτε ποιες κατηγορίες cookies επιθυμείτε να ενεργοποιήσετε. Τα απαραίτητα cookies είναι πάντα ενεργά για τη σωστή λειτουργία του ιστότοπου.',
+        'cookie_cat_necessary': 'Απαραίτητα',
+        'cookie_cat_necessary_desc': 'Βασική λειτουργία ιστότοπου',
+        'cookie_cat_functional': 'Λειτουργικά',
+        'cookie_cat_functional_desc': 'Αποθήκευση προτιμήσεων γλώσσας',
+        'cookie_cat_analytics': 'Ανάλυση επισκεψιμότητας',
+        'cookie_cat_analytics_desc': 'Google Analytics, ανώνυμα στατιστικά',
+        'cookie_cat_marketing': 'Διαφημιστικά',
+        'cookie_cat_marketing_desc': 'Δεν χρησιμοποιούνται αυτήν τη στιγμή',
+        'cookie_back': 'Πίσω',
+        'cookie_save': 'Αποθήκευση προτιμήσεων',
+        'footer.privacy': 'Απόρρητο',
+        'footer.legal': 'Νομικά',
+        'footer.cookie_settings': 'Ρυθμίσεις Cookies',
+        '_title': 'AidedCAM - Σαράντα εντολές Revit σε μία καρτέλα: από μια μέρα σε 11 λεπτά',
+        '_description': 'Οι εντολές ενός add-in για Revit που φτιάξαμε για το τμήμα BIM εταιρείας βιομηχανικού εξοπλισμού: αεραγωγοί, καλώδια, σωληνώσεις, δεδομένα και εξαγωγή φύλλων, με ένα κουμπί η καθεμία.'
+      },
+      en: {
+        'case.back': 'Home',
+        'case.label': 'A solution we built · Industrial equipment, BIM department',
+        'case.title': 'Forty Revit commands in one ribbon tab. <strong>Every repetitive job, one button.</strong>',
+        'case.lead': 'Every repetitive modelling job of the BIM department became a button inside Revit. Drawings and schedules from the model, which took a day, now come out in 11 minutes.',
+        'case.v_before': '1 day',
+        'case.v_after': '11 min',
+        'case.what': 'for drawings and schedules from the model',
+        'case.intro': 'These are the commands, grouped as on the Revit ribbon tab. We show the general ones; a few more are built for the company’s own products and stay theirs.',
+        'case.out_title': 'The result: <strong>11 minutes instead of a day.</strong>',
+        'case.out_text': 'Is there a job in Revit you repeat every day too? Tell us which. We reply within 48 hours with how we would build it.',
+        'case.cta_contact': 'Describe the job',
+        'case.cta_call': 'Book a call',
+        'case.cta_all': 'All solutions',
+        'cmd.p_mech': 'Ducts',
+        'cmd.p_elec': 'Cables',
+        'cmd.p_plumb': 'Piping',
+        'cmd.p_data': 'Data and export',
+        'cmd.p_plan': 'Plan and families',
+        'cmd.ductThroughCeiling': 'Places the suspension markers where ducts pass through a ceiling.',
+        'cmd.ductThroughWall': 'Places the suspension markers where ducts pass through a wall.',
+        'cmd.ventilatorOnDuct': 'Places the suspension markers for fans mounted on ducts.',
+        'cmd.ductSplit': 'Splits round and rectangular ducts into the segments that get fabricated.',
+        'cmd.exhaustRun': 'Builds a whole vertical exhaust run through the roof: duct, roof hood and inspection doors.',
+        'cmd.exhaustOffset': 'Shifts a duct sideways with two elbows, so it carries on parallel.',
+        'cmd.ahuEditor': 'An editor for the air handling unit’s sections: filters, coils, humidifier, fan, with a report.',
+        'cmd.insertCvdVav': 'Inserts a CVD and a VAV into the duct, with their connectors.',
+        'cmd.takeOffMainDiameters': 'Writes the main duct’s diameter on every round take-off.',
+        'cmd.quantities': 'Fills in the total quantities once the model is complete.',
+        'cmd.create3DView': 'Creates an isometric 3D view of the selected element.',
+        'cmd.cableLengths': 'Measures the distance from each cable marker to its switchboard.',
+        'cmd.createCableMarkers': 'Creates the cable markers and links them in one step.',
+        'cmd.associateCableMarker': 'Links a cable marker’s parameters to the family’s own.',
+        'cmd.calculateLineLengths': 'Adds up the length of lines, per line type.',
+        'cmd.removeConduitLines': 'Removes all the conduit lines from the model.',
+        'cmd.aCableInfo': 'Shows the cables’ data.',
+        'cmd.pprctSplitAll': 'Splits PP-RCT pipes into standard lengths, a few or all at once.',
+        'cmd.replaceReduction': 'Replaces an invalid pipe reduction with a series of valid ones.',
+        'cmd.weldSaddleDiameters': 'Writes the main pipe’s diameter on every PP-RCT weld saddle.',
+        'cmd.flexPipeConnection': 'Joins two pipes with a flexible pipe.',
+        'cmd.copyRoutingPreferences': 'Copies pipe routing preferences, segments and sizes from another project, with a report.',
+        'cmd.DwfxDwgPdf': 'Exports the selected sheets to PDF, DWG, DWFX and IFC in one run.',
+        'cmd.dataGrid': 'Shows many families’ parameters in one grid, to read and edit together.',
+        'cmd.cableData': 'Compares the model’s cable data with the regulation Excel file.',
+        'cmd.checkingTools': 'Every model check in one window.',
+        'cmd.renumberDuctSystem': 'Numbers a duct system in order, so its parts read in sequence in 3D views.',
+        'cmd.centerRoomsTags': 'Centres every room tag in its room.',
+        'cmd.structureSelector': 'Selects a whole group of steel members in one go.',
+        'cmd.alignPointCloud': 'Moves, rotates and tilts a linked point cloud to align it with the model.',
+        'cmd.familyReadParameter': 'Prints a family’s parameters into a grid, to compare side by side.',
+        'cmd.familyUpgrade': 'Upgrades older families to the Revit version you run.',
+        'cookie_text': 'This website uses cookies to optimize functionality and analyze traffic.',
+        'cookie_accept': 'Accept',
+        'cookie_decline': 'Decline',
+        'cookie_manage': 'Manage preferences',
+        'cookie_privacy_link': 'Privacy Policy',
+        'cookie_prefs_desc': 'Choose which categories of cookies you wish to enable. Essential cookies are always active for the proper functioning of the website.',
+        'cookie_cat_necessary': 'Essential',
+        'cookie_cat_necessary_desc': 'Basic website functionality',
+        'cookie_cat_functional': 'Functional',
+        'cookie_cat_functional_desc': 'Language preference storage',
+        'cookie_cat_analytics': 'Analytics',
+        'cookie_cat_analytics_desc': 'Google Analytics, anonymous statistics',
+        'cookie_cat_marketing': 'Marketing',
+        'cookie_cat_marketing_desc': 'Not currently used',
+        'cookie_back': 'Back',
+        'cookie_save': 'Save preferences',
+        'footer.privacy': 'Privacy',
+        'footer.legal': 'Legal',
+        'footer.cookie_settings': 'Cookie Settings',
+        '_title': 'AidedCAM - Forty Revit commands in one ribbon tab: from a day to 11 minutes',
+        '_description': 'The commands of a Revit add-in we built for an industrial equipment maker’s BIM department: ducts, cables, piping, data and sheet export, one button each.'
+      },
+      it: {
+        'case.back': 'Home',
+        'case.label': 'Una soluzione realizzata · Attrezzature industriali, reparto BIM',
+        'case.title': 'Quaranta comandi Revit in una scheda. <strong>Ogni lavoro ripetitivo, un pulsante.</strong>',
+        'case.lead': 'Ogni lavoro di modellazione ripetitivo del reparto BIM è diventato un pulsante dentro Revit. Tavole e abachi dal modello, che richiedevano un giorno, ora escono in 11 minuti.',
+        'case.v_before': '1 giorno',
+        'case.v_after': '11 min',
+        'case.what': 'per tavole e abachi dal modello',
+        'case.intro': 'Questi sono i comandi, raggruppati come nella scheda di Revit. Mostriamo quelli generali; alcuni altri sono fatti per i prodotti dell’azienda e restano suoi.',
+        'case.out_title': 'Il risultato: <strong>11 minuti invece di un giorno.</strong>',
+        'case.out_text': 'C’è anche per voi un lavoro in Revit che ripetete ogni giorno? Diteci quale. Vi rispondiamo entro 48 ore con come lo costruiremmo.',
+        'case.cta_contact': 'Descrivete il lavoro',
+        'case.cta_call': 'Prenota una chiamata',
+        'case.cta_all': 'Tutte le soluzioni',
+        'cmd.p_mech': 'Canali',
+        'cmd.p_elec': 'Cavi',
+        'cmd.p_plumb': 'Tubazioni',
+        'cmd.p_data': 'Dati ed esportazione',
+        'cmd.p_plan': 'Pianta e famiglie',
+        'cmd.ductThroughCeiling': 'Posiziona i punti di sospensione dove i canali attraversano un soffitto.',
+        'cmd.ductThroughWall': 'Posiziona i punti di sospensione dove i canali attraversano una parete.',
+        'cmd.ventilatorOnDuct': 'Posiziona i punti di sospensione per i ventilatori montati sui canali.',
+        'cmd.ductSplit': 'Divide i canali tondi e rettangolari nei tratti da costruire.',
+        'cmd.exhaustRun': 'Crea un’intera espulsione verticale attraverso il tetto: canale, cappello e portelli d’ispezione.',
+        'cmd.exhaustOffset': 'Sposta lateralmente un canale con due curve, così prosegue in parallelo.',
+        'cmd.ahuEditor': 'Un editor per le sezioni dell’unità di trattamento aria: filtri, batterie, umidificatore, ventilatore, con un report.',
+        'cmd.insertCvdVav': 'Inserisce un CVD e un VAV nel canale, con i loro raccordi.',
+        'cmd.takeOffMainDiameters': 'Scrive il diametro del canale principale su ogni stacco tondo.',
+        'cmd.quantities': 'Compila le quantità totali a modello completo.',
+        'cmd.create3DView': 'Crea una vista 3D isometrica dell’elemento selezionato.',
+        'cmd.cableLengths': 'Misura la distanza di ogni marcatore di cavo dal suo quadro.',
+        'cmd.createCableMarkers': 'Crea i marcatori dei cavi e li collega in un solo passo.',
+        'cmd.associateCableMarker': 'Collega i parametri del marcatore a quelli della famiglia.',
+        'cmd.calculateLineLengths': 'Somma la lunghezza delle linee, per tipo di linea.',
+        'cmd.removeConduitLines': 'Rimuove tutte le linee dei condotti dal modello.',
+        'cmd.aCableInfo': 'Mostra i dati dei cavi.',
+        'cmd.pprctSplitAll': 'Divide i tubi PP-RCT in lunghezze standard, alcuni o tutti insieme.',
+        'cmd.replaceReduction': 'Sostituisce una riduzione non valida con una serie di riduzioni valide.',
+        'cmd.weldSaddleDiameters': 'Scrive il diametro del tubo principale su ogni sella a saldare PP-RCT.',
+        'cmd.flexPipeConnection': 'Unisce due tubi con un tubo flessibile.',
+        'cmd.copyRoutingPreferences': 'Copia preferenze di instradamento, segmenti e dimensioni dei tubi da un altro progetto, con un report.',
+        'cmd.DwfxDwgPdf': 'Esporta le tavole selezionate in PDF, DWG, DWFX e IFC in un’unica esecuzione.',
+        'cmd.dataGrid': 'Mostra i parametri di molte famiglie in una griglia, da leggere e modificare insieme.',
+        'cmd.cableData': 'Confronta i dati dei cavi del modello con il file Excel delle norme.',
+        'cmd.checkingTools': 'Tutti i controlli del modello in una finestra.',
+        'cmd.renumberDuctSystem': 'Numera una rete di canali in ordine, così i pezzi si leggono in sequenza nelle viste 3D.',
+        'cmd.centerRoomsTags': 'Centra ogni etichetta di locale nel suo locale.',
+        'cmd.structureSelector': 'Seleziona un intero gruppo di elementi in acciaio in un colpo solo.',
+        'cmd.alignPointCloud': 'Sposta, ruota e inclina una nuvola di punti collegata per allinearla al modello.',
+        'cmd.familyReadParameter': 'Stampa i parametri di una famiglia in una griglia, per confrontarli fianco a fianco.',
+        'cmd.familyUpgrade': 'Aggiorna le famiglie più vecchie alla versione di Revit in uso.',
+        'cookie_text': 'Questo sito web utilizza i cookie per ottimizzare le sue funzionalit\u00e0 e analizzare il traffico.',
+        'cookie_accept': 'Accetta',
+        'cookie_decline': 'Rifiuta',
+        'cookie_manage': 'Gestisci preferenze',
+        'cookie_privacy_link': 'Informativa Privacy',
+        'cookie_prefs_desc': 'Scegliete quali categorie di cookie desiderate attivare. I cookie essenziali sono sempre attivi per il corretto funzionamento del sito.',
+        'cookie_cat_necessary': 'Essenziali',
+        'cookie_cat_necessary_desc': 'Funzionalit\u00e0 di base del sito web',
+        'cookie_cat_functional': 'Funzionali',
+        'cookie_cat_functional_desc': 'Memorizzazione preferenza lingua',
+        'cookie_cat_analytics': 'Analitici',
+        'cookie_cat_analytics_desc': 'Google Analytics, statistiche anonime',
+        'cookie_cat_marketing': 'Marketing',
+        'cookie_cat_marketing_desc': 'Attualmente non utilizzati',
+        'cookie_back': 'Indietro',
+        'cookie_save': 'Salva preferenze',
+        'footer.privacy': 'Privacy',
+        'footer.legal': 'Note Legali',
+        'footer.cookie_settings': 'Impostazioni Cookie',
+        '_title': 'AidedCAM - Quaranta comandi Revit in una scheda: da un giorno a 11 minuti',
+        '_description': 'I comandi di un add-in per Revit che abbiamo sviluppato per il reparto BIM di un costruttore di attrezzature industriali: canali, cavi, tubazioni, dati ed esportazione tavole, un pulsante ciascuno.'
+      }
+    };
+
+    // ===== I18N ENGINE =====
+    function setLanguage(lang) {
+      var t = translations[lang];
+      if (!t) return;
+
+      document.querySelectorAll('[data-i18n]').forEach(function(el) {
+        var key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined) el.textContent = t[key];
+      });
+      document.querySelectorAll('[data-i18n-html]').forEach(function(el) {
+        var key = el.getAttribute('data-i18n-html');
+        if (t[key] !== undefined) el.innerHTML = t[key];
+      });
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
+        var key = el.getAttribute('data-i18n-placeholder');
+        if (t[key] !== undefined) el.placeholder = t[key];
+      });
+
+      document.title = t['_title'] || document.title;
+      var desc = document.querySelector('meta[name="description"]');
+      if (desc && t['_description']) desc.setAttribute('content', t['_description']);
+      document.documentElement.lang = lang;
+
+      document.querySelectorAll('.lang-btn').forEach(function(btn) {
+        btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+      });
+
+      lsSet('aidedcam-lang', lang);
+    }
+
+    // Init language
+    var urlLangParam = new URLSearchParams(window.location.search).get('lang');
+    var urlLang = (urlLangParam && translations[urlLangParam]) ? urlLangParam : null;
+    var savedLang = lsGet('aidedcam-lang');
+    // Crawlers render with an English browser: they get the Greek default, so the plain URL is indexed
+    // in Greek and English/Italian are found through the ?lang= alternates.
+    var browserLangCode = navigator.language && !/bot|crawl|spider|slurp|mediapartners|Google-InspectionTool/i.test(navigator.userAgent)
+      ? navigator.language.substring(0, 2) : 'el';
+    var browserLang = browserLangCode === 'el' ? 'el' : browserLangCode === 'it' ? 'it' : 'en';
+    var currentLang = urlLang || savedLang || browserLang;
+    if (currentLang !== 'el') setLanguage(currentLang);
+
+    initScrollAnimations();
+        initStory();
+    
+    document.querySelectorAll('.lang-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var lang = btn.getAttribute('data-lang');
+        setLanguage(lang);
+        gaEvent('switch_site_language', { site_language: lang });
+        // Update user property so all future events are segmented by language
+        if (window.gtag) gtag('set', 'user_properties', { preferred_language: lang });
+      });
+    });
+
+    // ===== NAVBAR SCROLL =====
+    window.addEventListener('scroll', function() {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // ===== SCROLL-TRIGGERED FADE-IN =====
+    function initScrollAnimations() {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+
+      document.querySelectorAll('.roi-content .fade-in:not(.visible)').forEach(function(el) {
+        observer.observe(el);
+      });
+    }
+
+    // ===== STORY =====
+        // The step nearest the middle of the window is the active one: it reads
+        // at full strength and its shot shows in the window, zoomed to the part of
+        // the screen the step is about (each shot's --x/--y/--z). Without JS the
+        // first shot shows and every step reads normally.
+        function initStory() {
+          var story = document.querySelector('.cs-story');
+          var steps = document.querySelectorAll('.cs-step');
+          var shots = document.querySelectorAll('.cs-shot');
+          if (!story || !steps.length || !('IntersectionObserver' in window)) return;
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          story.classList.add('cs-armed');
+          function activate(i) {
+            steps.forEach(function (s, k) { s.classList.toggle('is-on', k === i); });
+            shots.forEach(function (im, k) {
+            im.classList.toggle('is-on', k === i);
+            if (im.tagName !== 'VIDEO') return;
+            if (k === i && !reduce) {
+              if (!im.getAttribute('src')) im.src = im.getAttribute('data-src');
+              var p = im.play(); if (p && p.catch) p.catch(function () {});
+            } else if (!im.paused) { im.pause(); }
+          });
+          }
+          var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) { if (e.isIntersecting) activate(+e.target.getAttribute('data-i')); });
+          }, { rootMargin: '-45% 0px -45% 0px' });
+          steps.forEach(function (s) { io.observe(s); });
+          activate(0);
+          document.querySelectorAll('.cs-cta a, .cs-all').forEach(function (a) {
+            a.addEventListener('click', function () {
+              gaEvent('click_call_to_action', { text: a.textContent.trim(), href: a.href || '', location: 'case_revit' });
+            });
+          });
+        }
+
+        // ===== COOKIE CONSENT =====
+    (function() {
+      var overlay = document.getElementById('prefsOverlay');
+      var prefsPanel = document.getElementById('consentPrefs');
+      var analyticsCheckbox = document.getElementById('cookieAnalytics');
+
+      function showBanner() { overlay.classList.add('visible'); prefsPanel.classList.remove('visible'); }
+      function hideBanner() { overlay.classList.remove('visible'); prefsPanel.classList.remove('visible'); }
+      function loadPrefs() {
+        try {
+          var prefs = JSON.parse(lsGet('cookie-prefs') || '{}');
+          analyticsCheckbox.checked = !!(prefs && prefs.analytics);
+        } catch(e) { analyticsCheckbox.checked = false; }
+      }
+
+      if (!lsGet('privacy-pref')) { showBanner(); }
+
+      document.getElementById('privacyAccept').addEventListener('click', function() {
+        lsSet('privacy-pref', 'accepted');
+        lsSet('cookie-prefs', JSON.stringify({ analytics: true }));
+        hideBanner();
+        loadGA();
+        gaEvent('accepted_cookie_consent', {});
+      });
+      document.getElementById('privacyDecline').addEventListener('click', function() {
+        lsSet('privacy-pref', 'declined');
+        lsSet('cookie-prefs', JSON.stringify({ analytics: false }));
+        hideBanner();
+        revokeGA();
+      });
+      document.getElementById('privacyManage').addEventListener('click', function() {
+        loadPrefs();
+        prefsPanel.classList.toggle('visible');
+      });
+      document.getElementById('privacyBack').addEventListener('click', function() {
+        prefsPanel.classList.remove('visible');
+      });
+      document.getElementById('privacySavePrefs').addEventListener('click', function() {
+        var prefs = { analytics: analyticsCheckbox.checked };
+        lsSet('cookie-prefs', JSON.stringify(prefs));
+        lsSet('privacy-pref', prefs.analytics ? 'accepted' : 'declined');
+        hideBanner();
+        if (prefs.analytics) {
+          loadGA();
+          gaEvent('accepted_cookie_consent', {});
+        } else {
+          revokeGA();
+        }
+      });
+      window.openCookieSettings = function() {
+        loadPrefs();
+        showBanner();
+        prefsPanel.classList.add('visible');
+      };
+    })();
+
+    // ===== GA HELPER =====
+    function gaEvent(name, params) {
+      if (window.gtag) gtag('event', name, params);
+    }
+  </script>
+
+</body>
+</html>

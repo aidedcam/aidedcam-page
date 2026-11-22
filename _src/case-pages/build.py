@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Builds the "see how it works" story pages of the #lyseis cards (lathe-cam.html, mold-cam.html)
+"""Builds the "see how it works" story pages of the #lyseis cards (lathe-cam.html, mold-cam.html,
+projects-app.html)
 from what-you-gain.html's shared parts: head (meta, canonical, hreflang, GA consent), nav, footer,
 consent banner and the i18n + consent script. Only the story, its CSS and its translations are new.
 
@@ -97,7 +98,7 @@ LATHE_STEPS = [('img/lathe-cam/step-1.webp', 40, 45, 1.35), ('img/lathe-cam/step
                ('img/lathe-cam/step-4.webp', 55, 45, 1.35), ('img/lathe-cam/step-5.webp', 40, 32, 1.6), ('img/lathe-cam/step-6.webp', 90, 32, 1.9)]
 
 
-def build(w, PAGE, T, STEPS, BAR, SLUG):
+def build(w, PAGE, T, STEPS, BAR, SLUG, PANELS=None):
     EL = T['el']
 
     head = w[:w.index('  <noscript>')]
@@ -184,17 +185,41 @@ def build(w, PAGE, T, STEPS, BAR, SLUG):
         return f'<img class="cs-shot{on}" src="{m}" alt="" width="2400" height="1368" style="{st}"{"" if i == 0 else " loading=\"lazy\""} />'
     shots_html = ''.join(shot_html(i, *st) for i, st in enumerate(STEPS))
 
-    MAIN = f'''  <main id="main" class="roi-content">
-        <section class="cs-hero">
+    if PANELS:
+        # the commands, grouped like the add-in's ribbon panels: icon, the add-in's own (English) name,
+        # one line on what it does. Names carry no data-i18n: they are the UI's names in every language.
+        rows = ''
+        for key, tag, cmds in PANELS:
+            items = ''.join(
+                f'<li class="cm-item"><img src="icons/revit/{ic[0].lower() + ic[1:]}.svg" alt="" width="32" height="32" loading="lazy" />'
+                f'<div><b>{name}</b><span data-i18n="cmd.{ic}">{EL["cmd." + ic]}</span></div></li>'
+                for ic, name in cmds)
+            rows += (f'          <section class="cm-panel fade-in"><header><h2 data-i18n="cmd.p_{key}">{EL["cmd.p_" + key]}</h2>'
+                     f'<span class="cm-tag">{tag} · {len(cmds)}</span></header><ul>{items}</ul></section>\n')
+        story = f'''        <section class="cm-list">
           <div class="container">
-            <div class="cs-eyebrow" data-i18n="case.label">{EL['case.label']}</div>
-            <h1 data-i18n-html="case.title">{EL['case.title']}</h1>
-            <p class="cs-lead" data-i18n="case.lead">{EL['case.lead']}</p>
-            <p class="cs-result"><s data-i18n="case.v_before">{EL['case.v_before']}</s><b data-i18n="case.v_after">{EL['case.v_after']}</b><span data-i18n="case.what">{EL['case.what']}</span></p>
-          </div>
+            <p class="cm-intro" data-i18n="case.intro">{EL['case.intro']}</p>
+{rows}          </div>
         </section>
-
-        <section class="cs-story">
+'''
+        CSS += '''
+        /* ===== COMMANDS (card 03, no recording of Revit) =====
+           The add-in's generic commands, grouped like its ribbon panels; the panels fade in as they
+           scroll into view (the shared fade-in observer). */
+        .cm-list { padding: clamp(2.5rem, 5vw, 4rem) 0 clamp(3rem, 6vw, 5rem); }
+        .cm-intro { max-width: 46rem; margin: 0 0 2.2rem; font-size: 1.05rem; line-height: 1.65; color: var(--ink-soft); }
+        .cm-panel { margin-top: 2rem; padding: 0; border: 1px solid var(--line-strong); border-radius: 3px; background: var(--panel); }
+        .cm-panel header { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding: 0.9rem 1.2rem; border-bottom: 1px solid var(--line); background: var(--paper-2); }
+        .cm-panel h2 { margin: 0; font-family: var(--font-display); font-weight: 500; font-size: 1.2rem; color: var(--ink); }
+        .cm-tag { font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+        .cm-panel ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); }
+        .cm-item { display: flex; gap: 0.9rem; align-items: flex-start; padding: 1rem 1.2rem; border-top: 1px solid var(--line); margin-top: -1px; }
+        .cm-item img { flex: none; width: 32px; height: 32px; margin-top: 2px; }
+        .cm-item b { display: block; font-size: 0.95rem; font-weight: 600; color: var(--ink); }
+        .cm-item span { display: block; margin-top: 0.2rem; font-size: 0.9rem; line-height: 1.5; color: var(--ink-soft); }
+    '''
+    else:
+        story = f'''        <section class="cs-story">
           <div class="container cs-grid">
             <div class="cs-steps">
     {steps_html}        </div>
@@ -207,7 +232,19 @@ def build(w, PAGE, T, STEPS, BAR, SLUG):
             </div>
           </div>
         </section>
+'''
 
+    MAIN = f'''  <main id="main" class="roi-content">
+        <section class="cs-hero">
+          <div class="container">
+            <div class="cs-eyebrow" data-i18n="case.label">{EL['case.label']}</div>
+            <h1 data-i18n-html="case.title">{EL['case.title']}</h1>
+            <p class="cs-lead" data-i18n="case.lead">{EL['case.lead']}</p>
+            <p class="cs-result"><s data-i18n="case.v_before">{EL['case.v_before']}</s><b data-i18n="case.v_after">{EL['case.v_after']}</b><span data-i18n="case.what">{EL['case.what']}</span></p>
+          </div>
+        </section>
+
+{story}
         <section class="cs-out">
           <div class="container">
             <h2 data-i18n-html="case.out_title">{EL['case.out_title']}</h2>
@@ -381,7 +418,253 @@ MOLD_STEPS = [('img/mold-cam/step-1.webp', 15, 92, 1.5), ('img/mold-cam/step-2.w
               ('img/mold-cam/step-4.webp', 50, 50, 1.15), ('img/mold-cam/step-5.webp', 35, 40, 1.45),
               ({'video': 'video/case-mold-toolpaths.mp4', 'poster': 'img/mold-cam/step-6.webp'}, 50, 50, 1.0)]
 
+PROJ_T = {
+ 'el': {
+  '_title': 'AidedCAM - Από τα αρχεία Excel σε μία κοινή εικόνα των έργων',
+  '_description': 'Πώς μια εφαρμογή που φτιάξαμε για γραφείο στατικών μελετών βάζει κοστολόγηση, χρονοδιάγραμμα, φόρτο και ώρες σε μία κοινή εφαρμογή, αντί για δεκάδες αρχεία Excel.',
+  'case.back': 'Αρχική',
+  'case.label': 'Λύση που φτιάξαμε · Γραφείο στατικών μελετών',
+  'case.title': 'Από τα αρχεία Excel σε μία κοινή εικόνα των έργων. <strong>Κοστολόγηση, χρονοδιάγραμμα και φόρτος σε μία εφαρμογή.</strong>',
+  'case.lead': 'Κοστολόγηση, χρονοδιάγραμμα, φόρτος και ώρες σε μία εφαρμογή, σε κοινή βάση, με τους υπολογισμούς του γραφείου. Όλοι βλέπουν και ενημερώνουν την ίδια εικόνα.',
+  'case.v_before': 'Δεκάδες αρχεία Excel', 'case.v_after': 'Μία κοινή πηγή', 'case.what': 'κοστολόγηση, χρονοδιάγραμμα και ώρες',
+  'case.s1_t': 'Όλα τα έργα σε μία λίστα',
+  'case.s1_d': 'Κάθε έργο σε μία γραμμή: υπεύθυνος, έναρξη, προθεσμία, ημέρες σύμβασης, συνολικές ώρες, εκτίμηση και κατάσταση.',
+  'case.s2_t': 'Οι εργασίες, με ώρες ανά ρόλο',
+  'case.s2_d': 'Κάθε εργασία του έργου έχει κατηγορία, κατάσταση, υπεύθυνο και ώρες για κάθε ρόλο: μηχανικούς, σχεδιαστές, BIM modeler.',
+  'case.s3_t': 'Η εκτίμηση υπολογίζεται ζωντανά',
+  'case.s3_d': 'Με κάθε αλλαγή, οι ώρες, το περιθώριο ασφαλείας και οι μέρες ξαναϋπολογίζονται αμέσως, όπως στο φύλλο του γραφείου. Αν η εκτίμηση δεν χωρά στην προθεσμία, η εφαρμογή λέει πόσες μέρες λείπουν.',
+  'case.s4_t': 'Ο φόρτος κάθε ανθρώπου, ανά εβδομάδα',
+  'case.s4_d': 'Οι ώρες κάθε ανθρώπου ανά εβδομάδα. Οι εβδομάδες πάνω από 40 ώρες, ή με μέρα πάνω από 8, σημειώνονται με κόκκινο.',
+  'case.s5_t': 'Το χρονοδιάγραμμα κάθε έργου',
+  'case.s5_d': 'Οι εργασίες σε διάγραμμα Gantt, με κατηγορία, κατάσταση και υπεύθυνο, σε προβολή ανά μέρα, εβδομάδα ή μήνα.',
+  'case.s6_t': 'Όλα τα έργα, μία εικόνα',
+  'case.s6_d': 'Στη μηνιαία προβολή φαίνονται όλα τα έργα μαζί. Ό,τι πριν ζούσε σε δεκάδες αρχεία Excel είναι πια μία κοινή πηγή.',
+  'case.note': 'Οι εικόνες είναι από την εφαρμογή, με δοκιμαστικά δεδομένα.',
+  'case.out_title': 'Το αποτέλεσμα: <strong>μία κοινή πηγή αντί για δεκάδες αρχεία Excel.</strong>',
+  'case.out_text': 'Έχετε κι εσείς δουλειά που ζει σε αρχεία Excel; Πείτε μας ποια είναι. Θα απαντήσουμε εντός 48 ωρών με το πώς θα το φτιάχναμε.',
+  'case.cta_contact': 'Περιγράψτε τη δουλειά', 'case.cta_call': 'Κλείστε μια κλήση', 'case.cta_all': 'Όλες οι λύσεις',
+ },
+ 'en': {
+  '_title': 'AidedCAM - From Excel files to one shared picture of the projects',
+  '_description': 'How an application we built for a structural engineering office puts estimates, schedules, workload and hours in one shared application, instead of dozens of Excel files.',
+  'case.back': 'Home',
+  'case.label': 'A solution we built · Structural engineering office',
+  'case.title': 'From Excel files to one shared picture of the projects. <strong>Estimates, schedule and workload in one application.</strong>',
+  'case.lead': 'Estimates, schedule, workload and hours in one application, on a shared database, with the office’s own calculations. Everyone sees and updates the same picture.',
+  'case.v_before': 'Dozens of Excel files', 'case.v_after': 'One shared source', 'case.what': 'estimates, schedule and hours',
+  'case.s1_t': 'Every project in one list',
+  'case.s1_d': 'Each project on one line: project manager, start, deadline, contract days, total hours, estimate and status.',
+  'case.s2_t': 'The tasks, with hours per role',
+  'case.s2_d': 'Each task of the project has a category, a status, an assignee and hours for each role: engineers, drafters, BIM modeller.',
+  'case.s3_t': 'The estimate updates live',
+  'case.s3_d': 'With every change, the hours, the contingency and the days are recalculated at once, just like the office’s spreadsheet. If the estimate does not fit the deadline, the application says how many days are missing.',
+  'case.s4_t': 'Each person’s workload, week by week',
+  'case.s4_d': 'Each person’s hours per week. Weeks over 40 hours, or with a day over 8, are marked in red.',
+  'case.s5_t': 'Each project’s schedule',
+  'case.s5_d': 'The tasks on a Gantt chart, with category, status and assignee, by day, week or month.',
+  'case.s6_t': 'All projects, one picture',
+  'case.s6_d': 'The monthly view shows every project together. What used to live in dozens of Excel files is now one shared source.',
+  'case.note': 'The images are from the application, with test data.',
+  'case.out_title': 'The result: <strong>one shared source instead of dozens of Excel files.</strong>',
+  'case.out_text': 'Does some of your work live in Excel files too? Tell us which. We reply within 48 hours with how we would build it.',
+  'case.cta_contact': 'Describe the job', 'case.cta_call': 'Book a call', 'case.cta_all': 'All solutions',
+ },
+ 'it': {
+  '_title': 'AidedCAM - Dai file Excel a un’unica visione dei progetti',
+  '_description': 'Come un’applicazione che abbiamo sviluppato per uno studio di ingegneria strutturale mette preventivi, cronoprogramma, carico di lavoro e ore in un’unica applicazione condivisa, al posto di decine di file Excel.',
+  'case.back': 'Home',
+  'case.label': 'Una soluzione realizzata · Studio di ingegneria strutturale',
+  'case.title': 'Dai file Excel a un’unica visione dei progetti. <strong>Preventivi, cronoprogramma e carico di lavoro in un’unica applicazione.</strong>',
+  'case.lead': 'Preventivi, cronoprogramma, carico di lavoro e ore in un’unica applicazione, su un database condiviso, con i calcoli dello studio. Tutti vedono e aggiornano la stessa visione.',
+  'case.v_before': 'Decine di file Excel', 'case.v_after': 'Un’unica fonte condivisa', 'case.what': 'preventivi, cronoprogramma e ore',
+  'case.s1_t': 'Tutti i progetti in un elenco',
+  'case.s1_d': 'Ogni progetto su una riga: responsabile, inizio, scadenza, giorni di contratto, ore totali, stima e stato.',
+  'case.s2_t': 'Le attività, con ore per ruolo',
+  'case.s2_d': 'Ogni attività del progetto ha categoria, stato, assegnatario e ore per ogni ruolo: ingegneri, disegnatori, BIM modeler.',
+  'case.s3_t': 'La stima si aggiorna dal vivo',
+  'case.s3_d': 'A ogni modifica, ore, margine di sicurezza e giorni si ricalcolano subito, come nel foglio dello studio. Se la stima non rientra nella scadenza, l’applicazione dice quanti giorni mancano.',
+  'case.s4_t': 'Il carico di ogni persona, settimana per settimana',
+  'case.s4_d': 'Le ore di ogni persona per settimana. Le settimane oltre 40 ore, o con un giorno oltre 8, sono segnate in rosso.',
+  'case.s5_t': 'Il cronoprogramma di ogni progetto',
+  'case.s5_d': 'Le attività su un diagramma di Gantt, con categoria, stato e assegnatario, per giorno, settimana o mese.',
+  'case.s6_t': 'Tutti i progetti, un’unica visione',
+  'case.s6_d': 'La vista mensile mostra tutti i progetti insieme. Ciò che prima viveva in decine di file Excel ora è un’unica fonte condivisa.',
+  'case.note': 'Le immagini sono dell’applicazione, con dati di prova.',
+  'case.out_title': 'Il risultato: <strong>un’unica fonte condivisa al posto di decine di file Excel.</strong>',
+  'case.out_text': 'Anche parte del vostro lavoro vive in file Excel? Diteci quale. Vi rispondiamo entro 48 ore con come lo costruiremmo.',
+  'case.cta_contact': 'Descrivete il lavoro', 'case.cta_call': 'Prenota una chiamata', 'case.cta_all': 'Tutte le soluzioni',
+ },
+}
+PROJ_STEPS = [('img/projects-app/step-1.webp', 10, 45, 1.9), ('img/projects-app/step-2.webp', 72, 28, 1.45),
+              ('img/projects-app/step-2.webp', 40, 95, 1.55), ('img/projects-app/step-4.webp', 1, 98, 2.0),
+              ('img/projects-app/step-5.webp', 58, 48, 1.8),
+              ({'video': 'video/built-projects.mp4', 'poster': 'video/built-projects.webp'}, 50, 50, 1.0)]
+
+# ---------- card 03 (Revit add-in): no recording, so a list of its commands ----------
+REVIT_PANELS = [
+ ('mech', 'Mechanical', [('ductThroughCeiling', 'Duct through ceiling'), ('ductThroughWall', 'Duct through wall'), ('ventilatorOnDuct', 'Ventilator on duct'),
+   ('ductSplit', 'Duct split'), ('exhaustRun', 'Exhaust run'), ('exhaustOffset', 'Exhaust offset'), ('ahuEditor', 'AHU editor'),
+   ('insertCvdVav', 'Insert CVD and VAV'), ('takeOffMainDiameters', 'Take off main diameters'), ('quantities', 'Quantities'), ('create3DView', 'Create 3D view')]),
+ ('elec', 'Electrical', [('cableLengths', 'Cable lengths'), ('createCableMarkers', 'Create cable markers'), ('associateCableMarker', 'Associate cable marker'),
+   ('calculateLineLengths', 'Calculate line lengths'), ('removeConduitLines', 'Remove conduit lines'), ('aCableInfo', 'Cable info')]),
+ ('plumb', 'Plumbing', [('pprctSplitAll', 'PP-RCT split'), ('replaceReduction', 'Replace reduction'), ('weldSaddleDiameters', 'Weld saddle diameters'),
+   ('flexPipeConnection', 'Flex pipe connection'), ('copyRoutingPreferences', 'Copy routing preferences')]),
+ ('data', 'Data', [('DwfxDwgPdf', 'Sheet export'), ('dataGrid', 'Data grid'), ('cableData', 'Cable data'), ('checkingTools', 'Checking tools')]),
+ ('plan', 'Plan', [('renumberDuctSystem', 'Renumber duct system'), ('centerRoomsTags', 'Center room tags'), ('structureSelector', 'Structure selector'),
+   ('alignPointCloud', 'Align point cloud'), ('familyReadParameter', 'Family read parameter'), ('familyUpgrade', 'Family upgrade')]),
+]
+CMD = {
+ 'el': {
+  'cmd.p_mech': 'Αεραγωγοί', 'cmd.p_elec': 'Καλώδια', 'cmd.p_plumb': 'Σωληνώσεις', 'cmd.p_data': 'Δεδομένα και εξαγωγή', 'cmd.p_plan': 'Σχέδιο και families',
+  'cmd.ductThroughCeiling': 'Τοποθετεί τα σημεία ανάρτησης όπου οι αεραγωγοί περνούν από οροφή.',
+  'cmd.ductThroughWall': 'Τοποθετεί τα σημεία ανάρτησης όπου οι αεραγωγοί περνούν από τοίχο.',
+  'cmd.ventilatorOnDuct': 'Τοποθετεί τα σημεία ανάρτησης για ανεμιστήρες πάνω σε αεραγωγούς.',
+  'cmd.ductSplit': 'Κόβει στρογγυλούς και ορθογώνιους αεραγωγούς στα κομμάτια που θα κατασκευαστούν.',
+  'cmd.exhaustRun': 'Φτιάχνει ολόκληρη κατακόρυφη απαγωγή μέσα από τη στέγη: αεραγωγό, καπέλο και θυρίδες επιθεώρησης.',
+  'cmd.exhaustOffset': 'Μετατοπίζει έναν αεραγωγό πλάγια με δύο γωνίες, ώστε να συνεχίζει παράλληλα.',
+  'cmd.ahuEditor': 'Επεξεργαστής για τα τμήματα της κλιματιστικής μονάδας: φίλτρα, στοιχεία, υγραντήρας, ανεμιστήρας, με αναφορά.',
+  'cmd.insertCvdVav': 'Βάζει CVD και VAV στον αεραγωγό, μαζί με τους συνδέσμους τους.',
+  'cmd.takeOffMainDiameters': 'Γράφει τη διάμετρο του κύριου αεραγωγού σε κάθε στρογγυλή διακλάδωση.',
+  'cmd.quantities': 'Συμπληρώνει τις συνολικές ποσότητες, όταν το μοντέλο είναι πλήρες.',
+  'cmd.create3DView': 'Φτιάχνει ισομετρική 3D όψη του στοιχείου που επιλέξατε.',
+  'cmd.cableLengths': 'Μετρά την απόσταση κάθε σημαδευτή καλωδίου από τον πίνακά του.',
+  'cmd.createCableMarkers': 'Φτιάχνει τους σημαδευτές καλωδίων και τους συνδέει με ένα βήμα.',
+  'cmd.associateCableMarker': 'Συνδέει τις παραμέτρους του σημαδευτή με τις παραμέτρους του family.',
+  'cmd.calculateLineLengths': 'Αθροίζει το μήκος των γραμμών, ανά τύπο γραμμής.',
+  'cmd.removeConduitLines': 'Αφαιρεί όλες τις γραμμές σωληνώσεων καλωδίων από το μοντέλο.',
+  'cmd.aCableInfo': 'Δείχνει τα στοιχεία των καλωδίων.',
+  'cmd.pprctSplitAll': 'Κόβει τους σωλήνες PP-RCT σε τυποποιημένα μήκη, λίγους ή όλους μαζί.',
+  'cmd.replaceReduction': 'Αντικαθιστά μια μη έγκυρη συστολή σωλήνα με μια σειρά έγκυρων.',
+  'cmd.weldSaddleDiameters': 'Γράφει τη διάμετρο του κύριου σωλήνα σε κάθε σέλα συγκόλλησης PP-RCT.',
+  'cmd.flexPipeConnection': 'Ενώνει δύο σωλήνες με εύκαμπτο σωλήνα.',
+  'cmd.copyRoutingPreferences': 'Αντιγράφει τις ρυθμίσεις δρομολόγησης, τα τμήματα και τα μεγέθη σωλήνων από άλλο έργο, με αναφορά.',
+  'cmd.DwfxDwgPdf': 'Εξάγει τα επιλεγμένα φύλλα σε PDF, DWG, DWFX και IFC με ένα τρέξιμο.',
+  'cmd.dataGrid': 'Δείχνει τις παραμέτρους πολλών families σε έναν πίνακα, για ανάγνωση και αλλαγή μαζί.',
+  'cmd.cableData': 'Συγκρίνει τα στοιχεία καλωδίων του μοντέλου με το αρχείο κανονισμού σε Excel.',
+  'cmd.checkingTools': 'Όλοι οι έλεγχοι του μοντέλου σε ένα παράθυρο.',
+  'cmd.renumberDuctSystem': 'Αριθμεί ένα δίκτυο αεραγωγών με σειρά, ώστε τα κομμάτια να διαβάζονται στη σειρά στις 3D όψεις.',
+  'cmd.centerRoomsTags': 'Κεντράρει κάθε ετικέτα χώρου μέσα στον χώρο της.',
+  'cmd.structureSelector': 'Επιλέγει μια ολόκληρη ομάδα μεταλλικών στοιχείων με μία κίνηση.',
+  'cmd.alignPointCloud': 'Μετακινεί, περιστρέφει και γέρνει ένα συνδεδεμένο νέφος σημείων για να ταιριάξει με το μοντέλο.',
+  'cmd.familyReadParameter': 'Τυπώνει τις παραμέτρους ενός family σε πίνακα, για σύγκριση δίπλα δίπλα.',
+  'cmd.familyUpgrade': 'Αναβαθμίζει παλιότερα families στην έκδοση Revit που τρέχετε.',
+ },
+ 'en': {
+  'cmd.p_mech': 'Ducts', 'cmd.p_elec': 'Cables', 'cmd.p_plumb': 'Piping', 'cmd.p_data': 'Data and export', 'cmd.p_plan': 'Plan and families',
+  'cmd.ductThroughCeiling': 'Places the suspension markers where ducts pass through a ceiling.',
+  'cmd.ductThroughWall': 'Places the suspension markers where ducts pass through a wall.',
+  'cmd.ventilatorOnDuct': 'Places the suspension markers for fans mounted on ducts.',
+  'cmd.ductSplit': 'Splits round and rectangular ducts into the segments that get fabricated.',
+  'cmd.exhaustRun': 'Builds a whole vertical exhaust run through the roof: duct, roof hood and inspection doors.',
+  'cmd.exhaustOffset': 'Shifts a duct sideways with two elbows, so it carries on parallel.',
+  'cmd.ahuEditor': 'An editor for the air handling unit’s sections: filters, coils, humidifier, fan, with a report.',
+  'cmd.insertCvdVav': 'Inserts a CVD and a VAV into the duct, with their connectors.',
+  'cmd.takeOffMainDiameters': 'Writes the main duct’s diameter on every round take-off.',
+  'cmd.quantities': 'Fills in the total quantities once the model is complete.',
+  'cmd.create3DView': 'Creates an isometric 3D view of the selected element.',
+  'cmd.cableLengths': 'Measures the distance from each cable marker to its switchboard.',
+  'cmd.createCableMarkers': 'Creates the cable markers and links them in one step.',
+  'cmd.associateCableMarker': 'Links a cable marker’s parameters to the family’s own.',
+  'cmd.calculateLineLengths': 'Adds up the length of lines, per line type.',
+  'cmd.removeConduitLines': 'Removes all the conduit lines from the model.',
+  'cmd.aCableInfo': 'Shows the cables’ data.',
+  'cmd.pprctSplitAll': 'Splits PP-RCT pipes into standard lengths, a few or all at once.',
+  'cmd.replaceReduction': 'Replaces an invalid pipe reduction with a series of valid ones.',
+  'cmd.weldSaddleDiameters': 'Writes the main pipe’s diameter on every PP-RCT weld saddle.',
+  'cmd.flexPipeConnection': 'Joins two pipes with a flexible pipe.',
+  'cmd.copyRoutingPreferences': 'Copies pipe routing preferences, segments and sizes from another project, with a report.',
+  'cmd.DwfxDwgPdf': 'Exports the selected sheets to PDF, DWG, DWFX and IFC in one run.',
+  'cmd.dataGrid': 'Shows many families’ parameters in one grid, to read and edit together.',
+  'cmd.cableData': 'Compares the model’s cable data with the regulation Excel file.',
+  'cmd.checkingTools': 'Every model check in one window.',
+  'cmd.renumberDuctSystem': 'Numbers a duct system in order, so its parts read in sequence in 3D views.',
+  'cmd.centerRoomsTags': 'Centres every room tag in its room.',
+  'cmd.structureSelector': 'Selects a whole group of steel members in one go.',
+  'cmd.alignPointCloud': 'Moves, rotates and tilts a linked point cloud to align it with the model.',
+  'cmd.familyReadParameter': 'Prints a family’s parameters into a grid, to compare side by side.',
+  'cmd.familyUpgrade': 'Upgrades older families to the Revit version you run.',
+ },
+ 'it': {
+  'cmd.p_mech': 'Canali', 'cmd.p_elec': 'Cavi', 'cmd.p_plumb': 'Tubazioni', 'cmd.p_data': 'Dati ed esportazione', 'cmd.p_plan': 'Pianta e famiglie',
+  'cmd.ductThroughCeiling': 'Posiziona i punti di sospensione dove i canali attraversano un soffitto.',
+  'cmd.ductThroughWall': 'Posiziona i punti di sospensione dove i canali attraversano una parete.',
+  'cmd.ventilatorOnDuct': 'Posiziona i punti di sospensione per i ventilatori montati sui canali.',
+  'cmd.ductSplit': 'Divide i canali tondi e rettangolari nei tratti da costruire.',
+  'cmd.exhaustRun': 'Crea un’intera espulsione verticale attraverso il tetto: canale, cappello e portelli d’ispezione.',
+  'cmd.exhaustOffset': 'Sposta lateralmente un canale con due curve, così prosegue in parallelo.',
+  'cmd.ahuEditor': 'Un editor per le sezioni dell’unità di trattamento aria: filtri, batterie, umidificatore, ventilatore, con un report.',
+  'cmd.insertCvdVav': 'Inserisce un CVD e un VAV nel canale, con i loro raccordi.',
+  'cmd.takeOffMainDiameters': 'Scrive il diametro del canale principale su ogni stacco tondo.',
+  'cmd.quantities': 'Compila le quantità totali a modello completo.',
+  'cmd.create3DView': 'Crea una vista 3D isometrica dell’elemento selezionato.',
+  'cmd.cableLengths': 'Misura la distanza di ogni marcatore di cavo dal suo quadro.',
+  'cmd.createCableMarkers': 'Crea i marcatori dei cavi e li collega in un solo passo.',
+  'cmd.associateCableMarker': 'Collega i parametri del marcatore a quelli della famiglia.',
+  'cmd.calculateLineLengths': 'Somma la lunghezza delle linee, per tipo di linea.',
+  'cmd.removeConduitLines': 'Rimuove tutte le linee dei condotti dal modello.',
+  'cmd.aCableInfo': 'Mostra i dati dei cavi.',
+  'cmd.pprctSplitAll': 'Divide i tubi PP-RCT in lunghezze standard, alcuni o tutti insieme.',
+  'cmd.replaceReduction': 'Sostituisce una riduzione non valida con una serie di riduzioni valide.',
+  'cmd.weldSaddleDiameters': 'Scrive il diametro del tubo principale su ogni sella a saldare PP-RCT.',
+  'cmd.flexPipeConnection': 'Unisce due tubi con un tubo flessibile.',
+  'cmd.copyRoutingPreferences': 'Copia preferenze di instradamento, segmenti e dimensioni dei tubi da un altro progetto, con un report.',
+  'cmd.DwfxDwgPdf': 'Esporta le tavole selezionate in PDF, DWG, DWFX e IFC in un’unica esecuzione.',
+  'cmd.dataGrid': 'Mostra i parametri di molte famiglie in una griglia, da leggere e modificare insieme.',
+  'cmd.cableData': 'Confronta i dati dei cavi del modello con il file Excel delle norme.',
+  'cmd.checkingTools': 'Tutti i controlli del modello in una finestra.',
+  'cmd.renumberDuctSystem': 'Numera una rete di canali in ordine, così i pezzi si leggono in sequenza nelle viste 3D.',
+  'cmd.centerRoomsTags': 'Centra ogni etichetta di locale nel suo locale.',
+  'cmd.structureSelector': 'Seleziona un intero gruppo di elementi in acciaio in un colpo solo.',
+  'cmd.alignPointCloud': 'Sposta, ruota e inclina una nuvola di punti collegata per allinearla al modello.',
+  'cmd.familyReadParameter': 'Stampa i parametri di una famiglia in una griglia, per confrontarli fianco a fianco.',
+  'cmd.familyUpgrade': 'Aggiorna le famiglie più vecchie alla versione di Revit in uso.',
+ },
+}
+REVIT_T = {
+ 'el': {
+  '_title': 'AidedCAM - Σαράντα εντολές Revit σε μία καρτέλα: από μια μέρα σε 11 λεπτά',
+  '_description': 'Οι εντολές ενός add-in για Revit που φτιάξαμε για το τμήμα BIM εταιρείας βιομηχανικού εξοπλισμού: αεραγωγοί, καλώδια, σωληνώσεις, δεδομένα και εξαγωγή φύλλων, με ένα κουμπί η καθεμία.',
+  'case.back': 'Αρχική',
+  'case.label': 'Λύση που φτιάξαμε · Βιομηχανικός εξοπλισμός, τμήμα BIM',
+  'case.title': 'Σαράντα εντολές Revit σε μία καρτέλα. <strong>Κάθε επαναλαμβανόμενη δουλειά, ένα κουμπί.</strong>',
+  'case.lead': 'Κάθε επαναλαμβανόμενη δουλειά μοντελοποίησης του τμήματος BIM έγινε ένα κουμπί μέσα στο Revit. Τα σχέδια και οι πίνακες από το μοντέλο, που έπαιρναν μια μέρα, βγαίνουν σε 11 λεπτά.',
+  'case.v_before': '1 μέρα', 'case.v_after': '11 λεπτά', 'case.what': 'για σχέδια και πίνακες από το μοντέλο',
+  'case.intro': 'Αυτές είναι οι εντολές, ομαδοποιημένες όπως στην καρτέλα του Revit. Δείχνουμε όσες είναι γενικές· μερικές ακόμα είναι φτιαγμένες ειδικά για τα προϊόντα της εταιρείας και μένουν δικές της.',
+  'case.out_title': 'Το αποτέλεσμα: <strong>11 λεπτά αντί για μια μέρα.</strong>',
+  'case.out_text': 'Υπάρχει κι εσάς μια δουλειά στο Revit που επαναλαμβάνετε κάθε μέρα; Πείτε μας ποια είναι. Θα απαντήσουμε εντός 48 ωρών με το πώς θα το φτιάχναμε.',
+  'case.cta_contact': 'Περιγράψτε τη δουλειά', 'case.cta_call': 'Κλείστε μια κλήση', 'case.cta_all': 'Όλες οι λύσεις',
+  **CMD['el']},
+ 'en': {
+  '_title': 'AidedCAM - Forty Revit commands in one ribbon tab: from a day to 11 minutes',
+  '_description': 'The commands of a Revit add-in we built for an industrial equipment maker’s BIM department: ducts, cables, piping, data and sheet export, one button each.',
+  'case.back': 'Home',
+  'case.label': 'A solution we built · Industrial equipment, BIM department',
+  'case.title': 'Forty Revit commands in one ribbon tab. <strong>Every repetitive job, one button.</strong>',
+  'case.lead': 'Every repetitive modelling job of the BIM department became a button inside Revit. Drawings and schedules from the model, which took a day, now come out in 11 minutes.',
+  'case.v_before': '1 day', 'case.v_after': '11 min', 'case.what': 'for drawings and schedules from the model',
+  'case.intro': 'These are the commands, grouped as on the Revit ribbon tab. We show the general ones; a few more are built for the company’s own products and stay theirs.',
+  'case.out_title': 'The result: <strong>11 minutes instead of a day.</strong>',
+  'case.out_text': 'Is there a job in Revit you repeat every day too? Tell us which. We reply within 48 hours with how we would build it.',
+  'case.cta_contact': 'Describe the job', 'case.cta_call': 'Book a call', 'case.cta_all': 'All solutions',
+  **CMD['en']},
+ 'it': {
+  '_title': 'AidedCAM - Quaranta comandi Revit in una scheda: da un giorno a 11 minuti',
+  '_description': 'I comandi di un add-in per Revit che abbiamo sviluppato per il reparto BIM di un costruttore di attrezzature industriali: canali, cavi, tubazioni, dati ed esportazione tavole, un pulsante ciascuno.',
+  'case.back': 'Home',
+  'case.label': 'Una soluzione realizzata · Attrezzature industriali, reparto BIM',
+  'case.title': 'Quaranta comandi Revit in una scheda. <strong>Ogni lavoro ripetitivo, un pulsante.</strong>',
+  'case.lead': 'Ogni lavoro di modellazione ripetitivo del reparto BIM è diventato un pulsante dentro Revit. Tavole e abachi dal modello, che richiedevano un giorno, ora escono in 11 minuti.',
+  'case.v_before': '1 giorno', 'case.v_after': '11 min', 'case.what': 'per tavole e abachi dal modello',
+  'case.intro': 'Questi sono i comandi, raggruppati come nella scheda di Revit. Mostriamo quelli generali; alcuni altri sono fatti per i prodotti dell’azienda e restano suoi.',
+  'case.out_title': 'Il risultato: <strong>11 minuti invece di un giorno.</strong>',
+  'case.out_text': 'C’è anche per voi un lavoro in Revit che ripetete ogni giorno? Diteci quale. Vi rispondiamo entro 48 ore con come lo costruiremmo.',
+  'case.cta_contact': 'Descrivete il lavoro', 'case.cta_call': 'Prenota una chiamata', 'case.cta_all': 'Tutte le soluzioni',
+  **CMD['it']},
+}
+
 if __name__ == '__main__':
     w = open('what-you-gain.html', encoding='utf-8').read()
     build(w, 'lathe-cam.html', LATHE_T, LATHE_STEPS, '.acam', 'lathe')
     build(w, 'mold-cam.html', MOLD_T, MOLD_STEPS, 'routing plan', 'mold')
+    build(w, 'projects-app.html', PROJ_T, PROJ_STEPS, 'shared db', 'projects')
+    build(w, 'revit-commands.html', REVIT_T, [], 'ribbon', 'revit', REVIT_PANELS)

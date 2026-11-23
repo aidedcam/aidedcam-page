@@ -4,8 +4,8 @@
 #
 #   LATHE  the lathe CAM screen recording ("Screen Recording 2026-10-01 201643.mp4", 2558x1528, 30 fps;
 #          the same file the hero loop uses)
-#   PLATE  "PowerShape Create CAM File - cut.mp4" (2508x1248, 30 fps) from the marketing project
-#          "02-11-2026 routing plan example\Raw\Records to use": a demo mold, dummy data
+#   PLATE  the EN demo video of the PowerShape + PowerMill plate automation (1920x1080, 30 fps, already
+#          at x3, captions burned in along the bottom; the unblurred one, the same file the hero uses)
 #   PROJ   the project manager's Timeline (card 04) on its demo database, Months view, scrolled down
 #          through the tasks and back (2560x1538, 30 fps): marketing "22-11-2026 website card clips\Raw#          2026-11-22 project manager timeline months demo.mp4", recorded by Work\drive-timeline-months.ps1
 #          (gdigrab of the app window, the script clicks the view buttons and scrolls)
@@ -20,9 +20,10 @@
 #   A  12 s   9 s, x4      the DXF comes in and the profile is closed (CAD tab; after the file dialog closes)
 #   B  26 s   4.2 s, x2    the stock in the chuck, orbit (before the view menu opens at 30.5 s)
 # crossfaded in that order, 0.4 s each; the loop starts on the roughing so the poster shows a toolpath.
-# Plate: the AidedCAM window with the routing plan and its "create PowerMill project" confirmation
-# (0-9 s, x2), then the plate in PowerMill (9-10.5 s, 13-14.6 s, 19-21 s), crossfaded 0.3 s; the gaps are
-# PowerMill's empty viewport while it loads. The PowerMill Explorer on the left is outside the crop.
+# Plate: the "Creating plate toolpaths" dialog from its first frame to its last (9.7 s, 74.6 s, x8), the
+# checklist ticking off over the AidedCAM window, with the PowerMill Explorer's toolpath tree laid over
+# the 3D preview on the right as an inset, so the new toolpaths appear as it runs (the hero's P shot,
+# cropped to 16:10). Above the captions; no title bar.
 # Projects: the Status / Assignee / Duration columns and the Gantt, under the view buttons (no title
 # bar, no ribbon), 3.3-16.4 s at x1.3: the whole schedule in Months, scrolled through and back.
 #
@@ -58,22 +59,7 @@ ffmpeg -v error -y -i "$TMP/C.mkv" -i "$TMP/D.mkv" -i "$TMP/A.mkv" -i "$TMP/B.mk
   "[0][1]xfade=transition=fade:duration=$X:offset=$o1[x1];[x1][2]xfade=transition=fade:duration=$X:offset=$o2[x2];\
 [x2][3]xfade=transition=fade:duration=$X:offset=$o3,format=yuv420p[out]" -map "[out]" "${ENC[@]}" "$OUT/built-lathe.mp4"
 
-PCROP="crop=1568:980:440:70,scale=960:600:flags=lanczos,setsar=1"
-pseg() { # name start duration speed
-  ffmpeg -v error -y -ss "$2" -t "$3" -i "$PLATE" -an \
-    -vf "$PCROP,setpts=PTS/$4,fps=30,format=yuv420p" -c:v libx264 -preset veryfast -crf 8 "$TMP/$1.mkv"
-}
-pseg P1 0 9 2       # the plan, the click and the confirmation
-pseg P2 9 1.5 1     # the plate opens in PowerMill
-pseg P3 13 1.6 1    # the plate, selected
-pseg P4 19 2 1      # close-up of the plate
-Y=0.3
-q1=$(awk "BEGIN{print $(dur P1)-$Y}")
-q2=$(awk "BEGIN{print $q1+$(dur P2)-$Y}")
-q3=$(awk "BEGIN{print $q2+$(dur P3)-$Y}")
-ffmpeg -v error -y -i "$TMP/P1.mkv" -i "$TMP/P2.mkv" -i "$TMP/P3.mkv" -i "$TMP/P4.mkv" -filter_complex \
-  "[0][1]xfade=transition=fade:duration=$Y:offset=$q1[y1];[y1][2]xfade=transition=fade:duration=$Y:offset=$q2[y2];\
-[y2][3]xfade=transition=fade:duration=$Y:offset=$q3,format=yuv420p[out]" -map "[out]" "${ENC[@]}" "$OUT/built-plate.mp4"
+ffmpeg -v error -y -ss 9.7 -t 74.6 -i "$PLATE" -an -filter_complex   "[0:v]split[a][b];[a]crop=1070:669:850:180,scale=960:600:flags=lanczos,setsar=1[base];[b]crop=300:610:0:290,scale=232:472:flags=lanczos,pad=234:474:1:1:color=0xb4b4b4[tree];[base][tree]overlay=712:64,setpts=PTS/8,fps=30,format=yuv420p" "${ENC[@]}" "$OUT/built-plate.mp4"
 
 ffmpeg -v error -y -ss 3.3 -t 13.1 -i "$PROJ"   -vf "crop=1550:968:990:410,scale=960:600:flags=lanczos,setsar=1,setpts=PTS/1.3,fps=30,format=yuv420p"   "${ENC[@]}" "$OUT/built-projects.mp4"
 
